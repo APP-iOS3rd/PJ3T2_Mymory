@@ -14,9 +14,8 @@ struct BackButton: View {
     var body: some View {
         Button {
             self.presentationMode.wrappedValue.dismiss()
-            
         } label: {
-            HStack{
+            HStack(spacing: 4){
                 Image(systemName: "chevron.left")
                     .aspectRatio(contentMode: .fit)
                 Text("이전")

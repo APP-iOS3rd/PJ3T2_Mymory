@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct Textarea: View {
-    @State var label = "label"
+    @State var label = "텍스트필드 라벨이에요"
     @State var text = ""
     @State var placeholder = ""
     @State var lineLimit: Int = 2
        var body: some View {
            VStack(alignment: .leading) {
                Text(label)
-                   .font(.caption2)
+                   .font(.bold14)
                TextField(placeholder, text: $text, axis: .vertical)
                   .lineLimit(lineLimit...)
+                  .padding()
                   .background(Color("secondary"))
                   .cornerRadius(8)
                   

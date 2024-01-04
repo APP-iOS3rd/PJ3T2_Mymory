@@ -14,9 +14,10 @@ struct ReportView: View {
          
         ZStack {
                 VStack{
-                    Textarea(label:"메모 제목")
-                    Textarea(label:"어떤 문제가 있나요?",placeholder: "사회/정치적으로 부적절한 메시지가 있어요.")
-                    Textarea(label:"자세히 설명해주세요")
+                    Textarea(label:"신고할 게시글")
+                    SelectBox(label: "어떤문제가 있었나요?")
+                
+                    Textarea(label:"자세히 설명해주세요", placeholder: "내용을 입력하세요.")
                     Spacer()
                 }
             }
