@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Sample: String, Identifiable, CaseIterable{
+enum ReportMessage: String, Identifiable, CaseIterable{
     case first = "사회/정치적으로 부적절한 메시지가 있어요"
     case second = "욕설/혐오발언을 사용했어요"
     case third = "기타 신고사항"
@@ -19,7 +19,7 @@ enum Sample: String, Identifiable, CaseIterable{
 
 struct SelectBox: View {
     
-    @State var selection: Sample = .first
+    @State var selection: ReportMessage = .first
     @State var label = ""
     
     var body: some View {
@@ -37,7 +37,7 @@ struct SelectBox: View {
                 
                  
                 Picker("choose a...", selection: $selection){
-                    ForEach(Sample.allCases, id:\.self) { value in
+                    ForEach(ReportMessage.allCases, id:\.self) { value in
                         Text(value.localizedName)
                              .tag(value)
                     }
