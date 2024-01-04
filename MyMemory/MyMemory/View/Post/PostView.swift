@@ -9,14 +9,15 @@ import SwiftUI
 
 struct PostView: View {
     var body: some View {
-        VStack {
-            NavigationLink {
-                ReportView()
-            } label: {
-                Text("신고하기")
+        NavigationView {
+            VStack {
+                NavigationLink {
+                    ReportView()
+                } label: {
+                    Text("신고하기")
+                }
+                
             }
-
-            
         }
     }
 }

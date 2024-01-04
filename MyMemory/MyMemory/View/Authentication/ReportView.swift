@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ReportView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     var body: some View {
-        
-        NavigationView {
-            ZStack {
+         
+        ZStack {
                 VStack{
                     Textarea(label:"메모 제목")
                     Textarea(label:"어떤 문제가 있나요?",placeholder: "사회/정치적으로 부적절한 메시지가 있어요.")
@@ -20,20 +21,18 @@ struct ReportView: View {
                 }
             }
             .navigationTitle("신고하기")
+            .navigationBarBackButtonHidden()
+            .navigationBarItems(leading: BackButton())
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("이전"){
-                        
-                    }
-                    
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("등록하기"){
+                    Button {
                         
+                    } label: {
+                        Text("등록하기")
                     }
                 }
             }
-        }
+       
      
         
     }
