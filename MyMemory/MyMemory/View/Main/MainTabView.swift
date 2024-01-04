@@ -39,7 +39,7 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "person")
                         Text("마이")
-                    }.tag(1)
+                    }.tag(2)
             }
         }
     }
