@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		DA7894052B43F61F00DC3771 /* Fonts+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */; };
+		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
+		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154D2B43EFDB000357C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154C2B43EFDB000357C7 /* ContentView.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		DA7894022B43F5BF00DC3771 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extensions.swift"; sourceTree = "<group>"; };
+		DA78940A2B44090400DC3771 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
+		DA78940C2B44094700DC3771 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		DAB315472B43EFDB000357C7 /* MyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryApp.swift; sourceTree = "<group>"; };
 		DAB3154C2B43EFDB000357C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +115,23 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		DA7894072B4408D000DC3771 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				DA7894082B4408DD00DC3771 /* MapViews */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		DA7894082B4408DD00DC3771 /* MapViews */ = {
+			isa = PBXGroup;
+			children = (
+				DA78940A2B44090400DC3771 /* MainMapView.swift */,
+				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
+			);
+			path = MapViews;
+			sourceTree = "<group>";
+		};
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +159,7 @@
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
 				DAB315812B43F517000357C7 /* Resource */,
 				DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */,
+				DA7894072B4408D000DC3771 /* Source */,
 				DAB3154C2B43EFDB000357C7 /* ContentView.swift */,
 				DAB3154E2B43EFDD000357C7 /* Assets.xcassets */,
 				DAB315502B43EFDD000357C7 /* Preview Content */,
@@ -322,7 +344,9 @@
 			files = (
 				DAB3154D2B43EFDB000357C7 /* ContentView.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
+				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA7894052B43F61F00DC3771 /* Fonts+Extensions.swift in Sources */,
+				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
