@@ -11,9 +11,12 @@ import MapKit
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private var location: CLLocation?
-    @Published var region: MKCoordinateRegion?
     @Published var annotations: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
+    @Published var clusters: [MemoCluster] = []
+    private var startingClusters: [MemoCluster] = []
+
+    @Published var selectedCluster: MemoCluster? = nil
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -35,44 +38,32 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        configuration()
         tempModel()
     }
     private func tempModel() {
-        self.annotations = [.init(coordinate: .init(latitude: 37.5665,
+        self.annotations = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.9780),
                                      title: "test1",
                                      contents: "contents2",
                                      images: [],
                                   createdAt: Date().timeIntervalSince1970),
-                            .init(coordinate: .init(latitude: 37.5665,
+                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.979),
                                                          title: "test2",
                                                          contents: "contents2",
                                                          images: [],
                                                       createdAt: Date().timeIntervalSince1970),
-                            .init(coordinate: .init(latitude: 37.5665,
+                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.980),
                                                          title: "test3",
                                                          contents: "contents2",
                                                          images: [],
                                                       createdAt: Date().timeIntervalSince1970)]
+        self.startingClusters = initialCluster()
     }
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
-    private func configuration() {
-        self.location = .init(latitude: 37.5665,
-                                longitude: 126.9780) // 서울
-        guard let lat = self.location?.coordinate.latitude,
-              let long = self.location?.coordinate.longitude else { return }
-        let initialCoordinate = CLLocationCoordinate2D(latitude: lat,
-                                                       longitude: long)
-        let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-        DispatchQueue.main.async {
-            self.region = MKCoordinateRegion(center: initialCoordinate, span: span)
-        }
-    }
     private func locationConfig() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
         self.locationManager.requestAlwaysAuthorization() // 권한 요청
@@ -111,6 +102,41 @@ extension MainMapViewModel {
     func switchUserLocation() {
         if !self.isUserTracking {
             self.isUserTracking = true
+        }
+    }
+    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) async -> [MemoCluster] {
+        var tempClusters = clusters
+        var i = 0, j = 0
+        while(i < tempClusters.count) {
+            j = i + 1
+            while(j < tempClusters.count) {
+                let distance = tempClusters[i].center.distance(to: tempClusters[j].center) * 5000000
+                if distance < threshold {
+                    if selectedCluster?.id == tempClusters[j].id {
+                        tempClusters[i].id = tempClusters[j].id
+                    }
+                    tempClusters[i].updateCenter(with: tempClusters[j])
+                    tempClusters.remove(at: j)
+                    j -= 1
+                }
+                j += 1
+            }
+            i += 1
+        }
+        return tempClusters
+    }
+    private func initialCluster() -> [MemoCluster] {
+        return self.annotations.map{.init(memo: $0)}
+    }
+    private func cluster(distance: Double) async -> [MemoCluster] {
+        let result = await calculateDistance(from: startingClusters, threshold: distance)
+        return result
+    }
+    func updateAnnotations(cameraDistance: Double){
+        Task { @MainActor in
+            do {
+                clusters = await cluster(distance: cameraDistance)
+            }
         }
     }
 }

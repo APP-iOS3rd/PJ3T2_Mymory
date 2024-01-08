@@ -11,8 +11,9 @@ struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
     var body: some View {
         ZStack {
-            MapViewRepresentable(region: $viewModel.region, annotations: $viewModel.annotations, isUserTracking: $viewModel.isUserTracking
-            ).ignoresSafeArea()
+            MapViewRepresentable()
+                .environmentObject(viewModel)
+                .ignoresSafeArea()
             
             VStack {
                 Spacer()
@@ -31,6 +32,11 @@ struct MainMapView: View {
                     .cornerRadius(10)
                     .padding()
                 }
+//                if let contents = viewModel.selectedCluster {
+//                    ScrollView(.horizontal) {
+//                        Rectangle()
+//                    }
+//                }
             }
         }
     }

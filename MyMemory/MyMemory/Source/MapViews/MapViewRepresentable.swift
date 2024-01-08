@@ -9,60 +9,68 @@ import Foundation
 import SwiftUI
 import MapKit
 struct MapViewRepresentable: UIViewRepresentable {
-    @Binding var region: MKCoordinateRegion?
-    @Binding var annotations: [MiniMemoModel]
-    @Binding var isUserTracking: Bool
+    @EnvironmentObject var viewModel: MainMapViewModel
     
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
-        if isUserTracking {
-            if let region = region {
-                mapView.setRegion(region, animated: true)
-            }
-        }
-        let annotationList = annotations.map { model in
-            let anno = MKPointAnnotation()
-            anno.coordinate = model.coordinate
-            return anno
-        }
-        mapView.showsUserLocation = isUserTracking
+
+        mapView.showsUserLocation = viewModel.isUserTracking
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        mapView.addAnnotations(annotationList)
+       
         mapView.setCameraZoomRange(.init(minCenterCoordinateDistance: 10),
                                    animated: true)
         mapView.delegate = context.coordinator
+        print(mapView.camera.centerCoordinateDistance)
+        viewModel.updateAnnotations(cameraDistance: 1000)
+        let annotationList = viewModel.clusters.map { model in
+            let anno = MKPointAnnotation()
+            anno.coordinate = model.center
+            anno.title = model.id.uuidString
+            return anno
+        }
+        mapView.addAnnotations(annotationList)
+
         return mapView
     }
     func updateUIView(_ mapView: MKMapView, context: Context) {
         // 지도 이동했을 때 userlocation 사라지게 하는 경우
         // mapView.showsUserLocation = isUserTracking
-        if isUserTracking {
+        if viewModel.isUserTracking {
             // 지도 이동했을 때 userlocation 남아있게 하는 경우
-            mapView.showsUserLocation = isUserTracking
+            mapView.showsUserLocation = viewModel.isUserTracking
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
         }
+        let annotationList = viewModel.clusters.map { model in
+            let anno = MKPointAnnotation()
+            anno.coordinate = model.center
+            anno.title = model.id.uuidString
+            return anno
+        }
+        mapView.removeAnnotations(mapView.annotations)
+        mapView.addAnnotations(annotationList)
     }
+    
     func makeCoordinator() -> MapViewCoordinator{
         MapViewCoordinator(self)
     }
+    
     class MapViewCoordinator: NSObject, MKMapViewDelegate {
         var mapViewController: MapViewRepresentable
-        private var selectedAnnotation: MKPointAnnotation?
-        
         init(_ control: MapViewRepresentable) {
             self.mapViewController = control
         }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-            self.mapViewController.isUserTracking = !(mapView.userTrackingMode == .none)
-            mapViewController.region = mapView.region
+            self.mapViewController.viewModel.isUserTracking = !(mapView.userTrackingMode == .none)
+            mapViewController.viewModel.updateAnnotations(cameraDistance: mapView.camera.centerCoordinateDistance)
         }
-        
+        func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+
+        }
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             // 현재 애너테이션의 클래스가 MKPointAnnotation인지 확인
             guard annotation is MKPointAnnotation else {
                 return nil
             }
-            
             let identifier = "CustomAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
@@ -72,39 +80,42 @@ struct MapViewRepresentable: UIViewRepresentable {
                 annotationView?.annotation = annotation
             }
             // 원하는 이미지 설정
-            if let selectedAnnotation = selectedAnnotation,
-               annotation === selectedAnnotation {
+            if let id = mapViewController.viewModel.selectedCluster?.id.uuidString,
+            let title = annotation.title{
+                annotationView?.isSelected = id == title
+            }
+            if annotationView?.isSelected == true {
                 annotationView?.image = UIImage(systemName: "car.fill")
             } else {
                 annotationView?.image = UIImage(systemName: "car")
             }
             return annotationView
         }
+        mapview
         func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
             guard let annotation = view.annotation as? MKPointAnnotation else {return}
-            let annotationList = mapViewController.annotations.map { model in
-                let anno = MKPointAnnotation()
-                anno.coordinate = model.coordinate
-                return anno
-            }
-            selectedAnnotation = annotation
-            mapView.removeAnnotations(annotationList)
-            mapView.addAnnotations(annotationList)
+            mapViewController
+                .viewModel
+                .selectedCluster
+            = mapViewController
+                .viewModel
+                .clusters
+                .first(where: {annotation.title == $0.id.uuidString})
         }
         func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-            let annotationList = mapViewController.annotations.map { model in
-                let anno = MKPointAnnotation()
-                anno.coordinate = model.coordinate
-                return anno
-            }
-            selectedAnnotation = nil
-            mapView.removeAnnotations(annotationList)
-            mapView.addAnnotations(annotationList)
+
         }
     }
 }
+
 extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
+    }
+    func squaredDistance(to : CLLocationCoordinate2D) -> Double {
+        return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
+    }
+    func distance(to: CLLocationCoordinate2D) -> Double {
+        return sqrt(squaredDistance(to: to))
     }
 }
