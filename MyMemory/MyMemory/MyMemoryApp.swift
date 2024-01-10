@@ -26,7 +26,11 @@ struct MyMemoryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if #available(iOS 17.0, *) {
+                ContentView()
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }
