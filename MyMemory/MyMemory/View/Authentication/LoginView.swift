@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 // 화면 터치 시 키보드 숨기기
 extension View {
@@ -79,19 +80,28 @@ struct LoginView: View {
                     }
                 }
                 
-                
-                Button(action: {
-                    checkLogin(isEmail: email, isPassword: password)
-                    self.isActive = true
-                }, label: {
-                    Text("로그인")
-                })
-                .padding(.top, 30)
-                .alert(isPresented: $notCorrectLogin) {
-                    Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
+                if self.email.isEmpty || self.password.isEmpty {
+                    Button("로그인") { }
+                        .padding(.top, 30)
+                        .foregroundStyle(.white)
+                        .buttonStyle(.borderedProminent)
+                        .tint(.gray)
+                        .disabled(true)
+                } else {
+                    Button(action: {
+                        checkLogin(isEmail: email, isPassword: password)
+                        self.isActive = true
+                    }, label: {
+                        Text("로그인")
+                    })
+                    .padding(.top, 30)
+                    .buttonStyle(.borderedProminent)
+                    .tint(.indigo)
+                    .alert(isPresented: $notCorrectLogin) {
+                        Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
+                    }
                 }
-                .disabled(self.email.isEmpty || self.password.isEmpty)
-                
+    
                 NavigationLink {
                     EmptyView()
                 } label: {
