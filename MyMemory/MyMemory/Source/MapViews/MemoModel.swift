@@ -16,7 +16,7 @@ struct MiniMemoModel: Identifiable {
     let createdAt: TimeInterval
 }
 
-struct MemoCluster: Equatable {
+struct MemoCluster: Equatable, Identifiable {
     static func == (lhs: MemoCluster, rhs: MemoCluster) -> Bool {
         lhs.center == rhs.center
     }
@@ -36,5 +36,14 @@ struct MemoCluster: Equatable {
         let memoLocationSum = memos.reduce(CLLocationCoordinate2D(latitude: 0, longitude: 0)){CLLocationCoordinate2D(latitude: $0.latitude + $1.coordinate.latitude, longitude: $0.longitude + $1.coordinate.longitude)}
         let count = memos.count
         center = CLLocationCoordinate2D(latitude: memoLocationSum.latitude / Double(count), longitude: memoLocationSum.longitude / Double(count))
+    }
+}
+extension TimeInterval {
+    var createdAtTimeYYMMDD: String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY.MM.dd"
+        let formattedDate = dateFormatter.string(from: date)
+        return formattedDate
     }
 }

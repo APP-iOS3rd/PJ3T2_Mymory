@@ -10,26 +10,15 @@ import SwiftUI
 import MapKit
 struct MapViewRepresentable: UIViewRepresentable {
     @EnvironmentObject var viewModel: MainMapViewModel
-    
     func makeUIView(context: Context) -> MKMapView {
         let mapView = MKMapView(frame: .zero)
 
-        mapView.showsUserLocation = viewModel.isUserTracking
+        mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.followWithHeading, animated: true)
        
         mapView.setCameraZoomRange(.init(minCenterCoordinateDistance: 10),
                                    animated: true)
         mapView.delegate = context.coordinator
-        print(mapView.camera.centerCoordinateDistance)
-        viewModel.updateAnnotations(cameraDistance: 1000)
-        let annotationList = viewModel.clusters.map { model in
-            let anno = MKPointAnnotation()
-            anno.coordinate = model.center
-            anno.title = model.id.uuidString
-            return anno
-        }
-        mapView.addAnnotations(annotationList)
-
         return mapView
     }
     func updateUIView(_ mapView: MKMapView, context: Context) {
@@ -40,14 +29,14 @@ struct MapViewRepresentable: UIViewRepresentable {
             mapView.showsUserLocation = viewModel.isUserTracking
             mapView.setUserTrackingMode(.followWithHeading, animated: true)
         }
-        let annotationList = viewModel.clusters.map { model in
-            let anno = MKPointAnnotation()
-            anno.coordinate = model.center
-            anno.title = model.id.uuidString
-            return anno
-        }
-        mapView.removeAnnotations(mapView.annotations)
-        mapView.addAnnotations(annotationList)
+            let annotationList = viewModel.clusters.map { model in
+                let anno = MKPointAnnotation()
+                anno.coordinate = model.center
+                anno.title = model.id.uuidString
+                return anno
+            }
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.addAnnotations(annotationList)
     }
     
     func makeCoordinator() -> MapViewCoordinator{
@@ -56,12 +45,16 @@ struct MapViewRepresentable: UIViewRepresentable {
     
     class MapViewCoordinator: NSObject, MKMapViewDelegate {
         var mapViewController: MapViewRepresentable
+        var dist: CLLocationDistance = 0.0
         init(_ control: MapViewRepresentable) {
             self.mapViewController = control
         }
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            if dist != mapView.camera.centerCoordinateDistance {
+                mapViewController.viewModel.updateAnnotations(cameraDistance: mapView.camera.centerCoordinateDistance)
+                dist = mapView.camera.centerCoordinateDistance
+            }
             self.mapViewController.viewModel.isUserTracking = !(mapView.userTrackingMode == .none)
-            mapViewController.viewModel.updateAnnotations(cameraDistance: mapView.camera.centerCoordinateDistance)
         }
         func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
 
@@ -89,11 +82,11 @@ struct MapViewRepresentable: UIViewRepresentable {
             } else {
                 annotationView?.image = UIImage(systemName: "car")
             }
+            
             return annotationView
         }
-        mapview
-        func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-            guard let annotation = view.annotation as? MKPointAnnotation else {return}
+        func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+            guard let annotation = annotation as? MKPointAnnotation else {return}
             mapViewController
                 .viewModel
                 .selectedCluster
@@ -101,9 +94,6 @@ struct MapViewRepresentable: UIViewRepresentable {
                 .viewModel
                 .clusters
                 .first(where: {annotation.title == $0.id.uuidString})
-        }
-        func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-
         }
     }
 }

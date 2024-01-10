@@ -8,6 +8,8 @@
 import Foundation
 import Combine
 import MapKit
+import CoreLocation
+
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private var location: CLLocation?
@@ -16,7 +18,19 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var clusters: [MemoCluster] = []
     private var startingClusters: [MemoCluster] = []
 
-    @Published var selectedCluster: MemoCluster? = nil
+    @Published var selectedCluster: MemoCluster? = nil{
+        didSet {
+            guard let cluster = selectedCluster else {
+                selectedAddress = nil
+                return
+            }
+            let latitude = cluster.center.latitude
+            let longitude = cluster.center.longitude
+            getAddressFromCoordinates(latitude: latitude, longitude: longitude)
+        }
+    }
+    @Published var selectedAddress: String? = nil
+
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -49,8 +63,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                                   createdAt: Date().timeIntervalSince1970),
                             .init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.979),
-                                                         title: "test2",
-                                                         contents: "contents2",
+                                                         title: "새로운 메모 크기 제한을 알아보기 위해서 제목 길이를 너무 길게 써 봄",
+                                                         contents: "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
                                                          images: [],
                                                       createdAt: Date().timeIntervalSince1970),
                             .init(id: UUID(), coordinate: .init(latitude: 37.5665,
@@ -95,6 +109,51 @@ extension MainMapViewModel {
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed")
+    }
+    //MARK: - 주소 얻어오는 함수
+    private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
+        let geocoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+
+        geocoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "Ko-kr")) { [weak self] (placemarks, error) in
+            if let error = error {
+                print("Reverse geocoding error: \(error.localizedDescription)")
+                self?.selectedAddress = nil
+                return
+            }
+
+            if let placemark = placemarks?.first {
+                // 주소 정보를 가져와서 원하는 형식으로 가공
+                //시
+                let city = placemark.locality ?? ""
+                let road = placemark.subLocality ?? ""
+                let subRoad = placemark.subThoroughfare ?? ""
+                var placeName = placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? ""
+                if !placeName.isEmpty {
+                    placeName.removeFirst()
+                    placeName = "(" + placeName + ") "
+                }
+                let address = "\(placeName)\(city) \(road) \(subRoad)"
+                
+                print("name : \(placemark.name ?? "")")
+                print("thoroughfare : \(placemark.thoroughfare ?? "")")
+                print("subThoroughfare : \(placemark.subThoroughfare ?? "")")
+                print("locality : \(placemark.locality ?? "")")
+                print("subLocality : \(placemark.subLocality ?? "")")
+                print("administrativeArea : \(placemark.administrativeArea ?? "")")
+                print("subAdministrativeArea : \(placemark.subAdministrativeArea ?? "")")
+                print("ISOcountryCode : \(placemark.isoCountryCode ?? "")")
+                print("country : \(placemark.country ?? "")")
+                print("inlandWater : \(placemark.inlandWater ?? "")")
+                print("ocean : \(placemark.ocean ?? "")")
+                print("areasOfInterest : \(placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? "")")
+                print("===========================")
+
+                self?.selectedAddress = address
+            } else {
+                self?.selectedAddress = nil
+            }
+        }
     }
 }
 //MARK: - view 관련 Logics
