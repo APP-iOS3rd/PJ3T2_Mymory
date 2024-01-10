@@ -13,8 +13,7 @@ struct MainMapView: View {
         ZStack {
             MapViewRepresentable()
                 .environmentObject(viewModel)
-                .ignoresSafeArea()
-            
+                .ignoresSafeArea(edges: .top)
             VStack {
                 Spacer()
                 HStack {
@@ -38,7 +37,7 @@ struct MainMapView: View {
                         .environmentObject(viewModel)
                     
                 }
-            }.ignoresSafeArea()
+            }
         }
     }
 }
