@@ -55,6 +55,7 @@ struct LoginView: View {
                     
                     TextField("", text: $email)
                         .textFieldStyle(.roundedBorder)
+                        .frame(width: 350)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)// 대문자x
                         .focused($focusedField, equals: .email)
@@ -66,6 +67,7 @@ struct LoginView: View {
                     
                     SecureField("", text: $password)
                         .textFieldStyle(.roundedBorder)
+                        .frame(width: 350)
                         .textInputAutocapitalization(.never)
                         .focused($focusedField, equals: .password)
                         .textContentType(.password)
@@ -82,11 +84,7 @@ struct LoginView: View {
                 
                 if self.email.isEmpty || self.password.isEmpty {
                     Button("로그인") { }
-                        .padding(.top, 30)
-                        .foregroundStyle(.white)
-                        .buttonStyle(.borderedProminent)
-                        .tint(.gray)
-                        .disabled(true)
+                        .buttonStyle(LoginButton())
                 } else {
                     Button(action: {
                         checkLogin(isEmail: email, isPassword: password)
@@ -94,9 +92,7 @@ struct LoginView: View {
                     }, label: {
                         Text("로그인")
                     })
-                    .padding(.top, 30)
-                    .buttonStyle(.borderedProminent)
-                    .tint(.indigo)
+                    .buttonStyle(LoginButton(backgroundColor: Color.indigo))
                     .alert(isPresented: $notCorrectLogin) {
                         Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
                     }
@@ -112,13 +108,26 @@ struct LoginView: View {
                         .padding(.top, 1)
                 }
 
-                Button(action: {
+                Button {
                     
-                }, label: {
-                    Image(systemName: "apple.logo")
-                    Text("애플로 로그인 하기")
-                })
+                } label: {
+                    HStack {
+                        Image(systemName: "apple.logo")
+                        Text("애플로 로그인 하기")
+                    }
+                }
+                .buttonStyle(SocialLoginButton())
                 .padding()
+                
+                HStack {
+                    Button(action: {
+                        
+                    }, label: {
+                        Image(systemName: "apple.logo")
+                    })
+                    .buttonStyle(SocialLoginButton2())
+                }
+                
             }//: VSTACK
             .padding()
             .navigationDestination(isPresented: $isActive) {
@@ -142,4 +151,64 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+}
+
+
+struct LoginButton: ButtonStyle {
+    var labelColor = Color.white
+    var backgroundColor = Color.gray
+
+    
+  
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+          .padding()
+      .foregroundColor(labelColor)
+      .background(
+        RoundedRectangle(cornerRadius: 5)
+            .fill(backgroundColor)
+            .frame(width: 350, height: 40)
+      ) // <-
+  }
+}
+
+
+struct SocialLoginButton: ButtonStyle {
+    var labelColor = Color.black
+    var backgroundColor = Color.white
+
+    
+  
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+          .padding()
+      .foregroundColor(labelColor)
+      .background(
+        RoundedRectangle(cornerRadius: 5)
+            .fill(backgroundColor)
+//            .shadow(color: Color("LightShadow"), radius: 2, x: -2, y: -2)
+            .shadow(color: Color("DarkShadow"), radius: 2, x: 2, y: 2)
+            .frame(width: 350, height: 40)
+      ) // <-
+  }
+}
+
+struct SocialLoginButton2: ButtonStyle {
+    var labelColor = Color.black
+    var backgroundColor = Color.white
+
+    
+  
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+          .padding()
+      .foregroundColor(labelColor)
+      .background(
+        RoundedRectangle(cornerRadius: 5)
+            .fill(backgroundColor)
+//            .shadow(color: Color("LightShadow"), radius: 2, x: -2, y: -2)
+            .shadow(color: Color("DarkShadow"), radius: 2, x: 2, y: 2)
+            .frame(width: 50, height: 50)
+      ) // <-
+  }
 }
