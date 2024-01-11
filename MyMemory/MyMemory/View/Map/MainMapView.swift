@@ -15,6 +15,28 @@ struct MainMapView: View {
                 .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {
+                HStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField("Search", text: $viewModel.searchTxt)
+                            .font(.regular16)
+                            .foregroundStyle(Color.primary.opacity(0.6))
+                            
+                        if !viewModel.searchTxt.isEmpty {
+                            Button(action: {
+                                self.viewModel.searchTxt = ""
+                            }) {
+                                Image(systemName: "xmark.circle.fill")
+                            }
+                        } else {
+                            EmptyView()
+                        }
+                    }            .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
+                        .background(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.12))
+                        .cornerRadius(10.0)
+                }
+                .padding(.horizontal)
+
                 Spacer()
                 HStack {
                     Spacer()

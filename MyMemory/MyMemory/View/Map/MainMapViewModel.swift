@@ -18,6 +18,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var clusters: [MemoCluster] = []
     private var startingClusters: [MemoCluster] = []
 
+    @Published var searchTxt: String = ""
     @Published var selectedCluster: MemoCluster? = nil{
         didSet {
             guard let cluster = selectedCluster else {
@@ -156,7 +157,7 @@ extension MainMapViewModel {
         }
     }
 }
-//MARK: - view 관련 Logics
+//MARK: - Clustering 관련 Logics
 extension MainMapViewModel {
     func switchUserLocation() {
         if !self.isUserTracking {
