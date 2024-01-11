@@ -11,7 +11,10 @@ struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
     var body: some View {
         ZStack {
-            MapViewRepresentable()
+            MapViewRepresentable(isUserTracking: $viewModel.isUserTracking,
+                                 distance: $viewModel.distance,
+                                 clusters: $viewModel.clusters,
+                                 selectedCluster: $viewModel.selectedCluster)
                 .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {

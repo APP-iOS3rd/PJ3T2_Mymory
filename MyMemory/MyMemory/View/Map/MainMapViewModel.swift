@@ -15,7 +15,13 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var location: CLLocation?
     @Published var annotations: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
-    @Published var clusters: [MemoCluster] = []
+    @Published var clusters: [MemoCluster] = [] {
+        didSet {
+            // mapview Update
+            distance = 0.0
+        }
+    }
+    var distance = 0.0
     private var startingClusters: [MemoCluster] = []
 
     @Published var searchTxt: String = ""
@@ -182,6 +188,9 @@ extension MainMapViewModel {
                 j += 1
             }
             i += 1
+        }
+        if tempClusters == clusters {
+            return clusters
         }
         return tempClusters
     }
