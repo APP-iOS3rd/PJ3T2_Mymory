@@ -44,56 +44,57 @@ struct PostView: View {
     let memoList: [String] = Array(1...10).map {"메모 \($0)"}
     
     var body: some View {
-      
-        VStack(alignment: .leading){
-            Map(position: $position){
-                UserAnnotation()
-            }
-            .overlay(content: {
-                Button(action: {
-                    //💁 MemoView 이동 로직 작성
-                }) {
-                    Image(systemName: "pencil.line")
-                        .font(.system(size: 15))
-                        .foregroundColor(.blue)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(10)
+        NavigationView {
+            VStack(alignment: .leading){
+                Map(position: $position){
+                    UserAnnotation()
                 }
-                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-        
-                .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 5))
-            })
-            .mapStyle(.standard(elevation: .realistic))
-            .mapControls {
-                MapUserLocationButton()
-                MapCompass()
-                MapScaleView()
-            }
-            .background(.white)
-            .padding(.bottom)
-            .safeAreaInset(edge: .bottom) {
-                // 💁 메모 표시될 영역
-                ScrollView(.horizontal) {
-                    // 가로(행) 3줄 설정
-                    LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(memoList, id: \.self) { item  in
-                            VStack {
-                                MemoCell()
-                                    .frame(height: UIScreen.main.bounds.size.height * 0.10)
-                                    .frame(width: UIScreen.main.bounds.size.width * 0.90)
-                                    .padding(EdgeInsets(top: 10, leading: 20, bottom: 30, trailing: 20))
+                .mapControls {
+                    MapUserLocationButton()
+                    MapCompass()
+                    MapScaleView()
+                }
+                .overlay(content: {
+                    // MemoView 이동
+                    NavigationLink {
+                        MemoView()
+                    } label: {
+                        Image(systemName: "pencil.line")
+                            .font(.system(size: 15))
+                            .foregroundColor(.blue)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(10)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 5))
+                })
+                .mapStyle(.standard(elevation: .realistic))
+                .background(.white)
+                .padding(.bottom)
+                .safeAreaInset(edge: .bottom) {
+                    // 💁 메모 표시될 영역
+                    ScrollView(.horizontal) {
+                        // 가로(행) 3줄 설정
+                        LazyHGrid(rows: layout, spacing: 20) {
+                            ForEach(memoList, id: \.self) { item  in
+                                VStack {
+                                    MemoCell()
+                                        .frame(height: UIScreen.main.bounds.size.height * 0.10)
+                                        .frame(width: UIScreen.main.bounds.size.width * 0.90)
+                                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 30, trailing: 20))
+                                }
                             }
-                        }
-                    }     //: LazyHGrid
-                }  //: ScrollView
-                .frame(height: UIScreen.main.bounds.size.height * 0.18) // 18%만
-            }
-            .background(.white)
+                        }     //: LazyHGrid
+                    }  //: ScrollView
+                    .frame(height: UIScreen.main.bounds.size.height * 0.18) // 18%만
+                }
+                .background(.white)
             
-        
-        } //:VSTACK
 
+                
+            } //:VSTACK
+        } //:NavigationView
     }
        
 }
