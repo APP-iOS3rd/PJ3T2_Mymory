@@ -37,7 +37,7 @@ struct SelectPhotos: View {
                             }
                         }
                     }
-                    
+            
                     if selectImage == true {
                         
                         
@@ -57,7 +57,11 @@ struct SelectPhotos: View {
                     Spacer()
                 }
             }
-            
+            .onAppear {
+                // 해당 뷰가 업로드 될때 권한 받기
+                checkPhotoLibraryPermission()
+            }
+
         }
         .onChange(of: selectedItems) { newValue in
             DispatchQueue.main.async {
@@ -86,6 +90,26 @@ struct SelectPhotos: View {
         }
         
     }
+     
+    private func checkPhotoLibraryPermission() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .authorized {
+            // 허가 된 경우
+            
+        } else {
+            // 권한이 거부된 경우 또는 아직 결정되지 않은 경우
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    if status == .authorized {
+                        self.selectImage = true
+                    } else {
+                        self.showPermissionAlert = true
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 
