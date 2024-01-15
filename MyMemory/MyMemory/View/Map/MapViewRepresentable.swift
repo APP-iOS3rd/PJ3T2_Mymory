@@ -8,7 +8,11 @@
 import Foundation
 import SwiftUI
 import MapKit
+<<<<<<< HEAD
 import KakaoMapsSDK
+=======
+import KakaoMapsSDK_SPM
+>>>>>>> 8a0da22 (:construction: Kakaomap 환경변수 추가)
 struct MapViewRepresentable: UIViewRepresentable {
     @Binding var isUserTracking: Bool
     @Binding var distance: Double
