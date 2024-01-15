@@ -10,6 +10,7 @@ import SwiftUI
 import MapKit
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import KakaoMapsSDK
 =======
 import KakaoMapsSDK_SPM
@@ -17,6 +18,9 @@ import KakaoMapsSDK_SPM
 =======
 import KakaoMapsSDK
 >>>>>>> ea938b9 (:construction: Kakaomap 진행중)
+=======
+import KakaoMapsSDK
+>>>>>>> db7059f (Refactoring/maps 카카오맵 연동 했습니다. (#31))
 struct MapViewRepresentable: UIViewRepresentable {
     @Binding var isUserTracking: Bool
     @Binding var distance: Double
