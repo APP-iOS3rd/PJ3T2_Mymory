@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct MainTabView: View {
     
     @Binding var selectedIndex: Int
@@ -14,7 +15,7 @@ struct MainTabView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedIndex){
-                MapView()
+                MainMapView()
                     .onTapGesture{
                         selectedIndex = 0
                     }
