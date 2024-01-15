@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 17.0, *)
 struct MainTabView: View {
     
     @Binding var selectedIndex: Int

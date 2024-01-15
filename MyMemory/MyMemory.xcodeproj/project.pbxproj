@@ -16,7 +16,12 @@
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
-		280D472C2B54F64400314B2D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280D472B2B54F64400314B2D /* LoginViewModel.swift */; };
+		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
+		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
+		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
+		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
+		6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */; };
+		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
@@ -66,7 +71,12 @@
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		280D472B2B54F64400314B2D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
+		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
+		6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
+		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
@@ -130,6 +140,7 @@
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6A7BA0442B5104DC00BEE111 /* Setting */,
 				01E6A6442B4683860061F08C /* Components */,
 				01E6A6412B4682F10061F08C /* Post */,
 				01E6A63A2B4681810061F08C /* Map */,
@@ -166,10 +177,10 @@
 		01E6A6372B4681210061F08C /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				6A7BA04C2B5105AC00BEE111 /* Mypage */,
 				013127252B46448800483E9F /* ReportView.swift */,
 				01E6A6382B46813E0061F08C /* LoginView.swift */,
-				280D472B2B54F64400314B2D /* LoginViewModel.swift */,
-				01E6A63F2B4681DC0061F08C /* MypageView.swift */,
+				28F26D3E2B551E8500CE783D /* LoginViewModel.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
 			);
 			path = Authentication;
@@ -202,6 +213,34 @@
 				014CB56F2B468DD90016DF70 /* SelectBox.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		6A7BA0442B5104DC00BEE111 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				6A7BA0492B51054600BEE111 /* SettingMenu */,
+				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
+				6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		6A7BA0492B51054600BEE111 /* SettingMenu */ = {
+			isa = PBXGroup;
+			children = (
+				6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */,
+			);
+			path = SettingMenu;
+			sourceTree = "<group>";
+		};
+		6A7BA04C2B5105AC00BEE111 /* Mypage */ = {
+			isa = PBXGroup;
+			children = (
+				01E6A63F2B4681DC0061F08C /* MypageView.swift */,
+				6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */,
+				6A7BA04F2B51060300BEE111 /* MemoList.swift */,
+			);
+			path = Mypage;
 			sourceTree = "<group>";
 		};
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
@@ -432,15 +471,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
+				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
+				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
+				6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
+				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
+				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
-				280D472C2B54F64400314B2D /* LoginViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
 				DA6F57702B4A80B2002DB94A /* MapViewRepresentable.swift in Sources */,
@@ -642,7 +686,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -688,7 +732,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
