@@ -22,7 +22,6 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
- 
                 MemoMapView()
                     .onTapGesture{
                         selectedIndex = 1
@@ -31,7 +30,6 @@ struct MainTabView: View {
                         Image(systemName: "pencil")
                         Text("메모하기")
                     }.tag(2)
-
                 MypageView()
                     .onTapGesture{
                         selectedIndex = 2
