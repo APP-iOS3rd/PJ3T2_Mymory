@@ -522,6 +522,7 @@
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
+				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 			);
