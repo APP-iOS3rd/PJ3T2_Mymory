@@ -40,7 +40,7 @@ struct MypageView: View {
                         }
                         .padding(.top, 38)
                         
-                        MemoList(memoList: memoManager.memoList)
+                        MemoList(memoList: $memoManager.memoList)
                     }
                     
                     VStack(alignment: .leading) {
@@ -61,7 +61,7 @@ struct MypageView: View {
                         }
                         .padding(.top, 24)
                         
-                        MemoList(memoList: memoManager.memoList)
+                        MemoList(memoList: $memoManager.memoList)
                     }
                 }
             }.padding(.horizontal, 16)
