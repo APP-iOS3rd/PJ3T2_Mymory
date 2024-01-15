@@ -13,6 +13,9 @@
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
 		01700A892B5506B80096E1CA /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A842B5506B80096E1CA /* MemoView.swift */; };
+		01700A8B2B5506B80096E1CA /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A862B5506B80096E1CA /* SelectPhotos.swift */; };
+		01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A872B5506B80096E1CA /* SelectTagView.swift */; };
+		01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A882B5506B80096E1CA /* FindAddressView.swift */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -90,6 +93,9 @@
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		01700A842B5506B80096E1CA /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		01700A862B5506B80096E1CA /* SelectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
+		01700A872B5506B80096E1CA /* SelectTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
+		01700A882B5506B80096E1CA /* FindAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -175,12 +181,12 @@
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6A7BA0442B5104DC00BEE111 /* Setting */,
 				01E6A6442B4683860061F08C /* Components */,
+				01E6A6372B4681210061F08C /* Authentication */,
 				01700AB22B5584EF0096E1CA /* Search */,
+				6A7BA0442B5104DC00BEE111 /* Setting */,
 				01E6A6412B4682F10061F08C /* Post */,
 				01E6A63A2B4681810061F08C /* Map */,
-				01E6A6372B4681210061F08C /* Authentication */,
 				01E6A6362B467FEC0061F08C /* Main */,
 			);
 			path = View;
@@ -209,6 +215,7 @@
 				01700A842B5506B80096E1CA /* MemoView.swift */,
 				01700A862B5506B80096E1CA /* SelectPhotos.swift */,
 				01700A872B5506B80096E1CA /* SelectTagView.swift */,
+				01700A882B5506B80096E1CA /* FindAddressView.swift */,
 			);
 			name = Memo;
 			path = MyMemory/View/Post/Memo;
@@ -582,7 +589,6 @@
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
-				01E6A63E2B4681980061F08C /* MapView.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
 				01700A892B5506B80096E1CA /* MemoView.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
@@ -600,8 +606,10 @@
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
+				01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
+				01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
@@ -610,6 +618,7 @@
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
+				01700A8B2B5506B80096E1CA /* SelectPhotos.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
