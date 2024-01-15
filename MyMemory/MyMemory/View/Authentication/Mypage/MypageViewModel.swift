@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-
 // 임시
 struct Memo: Hashable, Codable {
     var id = UUID()
@@ -34,8 +33,8 @@ struct Location: Hashable, Codable {
     var longitude: Double
 }
 
-class MemoManager: ObservableObject {
-    static let shared = MemoManager()
+class MypageViewModel: ObservableObject {
+    static let shared = MypageViewModel()
     
     @Published var memoList: [Memo] = []
     @Published var memoListInRange: [Memo] = []
