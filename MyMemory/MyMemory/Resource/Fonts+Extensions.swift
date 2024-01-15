@@ -8,42 +8,41 @@
 import Foundation
 import SwiftUI
 extension Font {
-    // Black
-    static let black20: Font = .custom(FontType.Black.rawValue, size: 20)
     // ExtraBold
     static let extraBold28: Font = .custom(FontType.ExtraBold.rawValue, size: 28)
     static let extraBold12: Font = .custom(FontType.ExtraBold.rawValue, size: 12)
     // Bold
-    static let bold12: Font = .custom(FontType.Bold.rawValue, size: 12)
-    static let bold14: Font = .custom(FontType.Bold.rawValue, size: 14)
-    static let bold16: Font = .custom(FontType.Bold.rawValue, size: 16)
-    static let bold18: Font = .custom(FontType.Bold.rawValue, size: 18)
-    static let bold20: Font = .custom(FontType.Bold.rawValue, size: 20)
-    static let bold24: Font = .custom(FontType.Bold.rawValue, size: 24)
-    static let bold28: Font = .custom(FontType.Bold.rawValue, size: 28)
     static let bold34: Font = .custom(FontType.Bold.rawValue, size: 34)
+    static let bold28: Font = .custom(FontType.Bold.rawValue, size: 28)
+    static let bold24: Font = .custom(FontType.Bold.rawValue, size: 24)
+    static let bold20: Font = .custom(FontType.Bold.rawValue, size: 20)
+    static let bold18: Font = .custom(FontType.Bold.rawValue, size: 18)
+    static let bold16: Font = .custom(FontType.Bold.rawValue, size: 16)
+    static let bold14: Font = .custom(FontType.Bold.rawValue, size: 14)
     
     // SemiBold
-    static let semibold11: Font = .custom(FontType.SemiBold.rawValue, size: 11)
-    static let semibold16: Font = .custom(FontType.SemiBold.rawValue, size: 16)
     static let semibold20: Font = .custom(FontType.SemiBold.rawValue, size: 20)
+    static let semibold16: Font = .custom(FontType.SemiBold.rawValue, size: 16)
+    static let semibold14: Font = .custom(FontType.SemiBold.rawValue, size: 14)
+    static let semibold11: Font = .custom(FontType.SemiBold.rawValue, size: 11)
     static let semibold10: Font = .custom(FontType.SemiBold.rawValue, size: 10)
     
     // Medium
-    static let medium16: Font = .custom(FontType.Medium.rawValue, size: 16)
     static let medium18: Font = .custom(FontType.Medium.rawValue, size: 18)
+    static let medium16: Font = .custom(FontType.Medium.rawValue, size: 16)
     
     // Regular
     static let regular11: Font = .custom(FontType.Regular.rawValue, size: 11)
     static let regular12: Font = .custom(FontType.Regular.rawValue, size: 12)
+    
     static let regular14: Font = .custom(FontType.Regular.rawValue, size: 14)
     static let regular16: Font = .custom(FontType.Regular.rawValue, size: 16)
     static let regular18: Font = .custom(FontType.Regular.rawValue, size: 18)
     static let regular24: Font = .custom(FontType.Regular.rawValue, size: 24)
     
     // Light
-    static let light10: Font = .custom(FontType.Light.rawValue, size: 10)
     static let light14: Font = .custom(FontType.Light.rawValue, size: 14)
+    static let light10: Font = .custom(FontType.Light.rawValue, size: 10)
     
     // Thin
     static let thin32: Font = .custom(FontType.Thin.rawValue, size: 32)
