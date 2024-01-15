@@ -98,6 +98,7 @@
 		01700AA32B5530430096E1CA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		01700AA52B5530F60096E1CA /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		01700AA82B5534C30096E1CA /* AddressData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressData.swift; sourceTree = "<group>"; };
+		01700AAA2B5535580096E1CA /* MemoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMapView.swift; sourceTree = "<group>"; };
 		01700AAD2B553BD40096E1CA /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		01700AAF2B555E9A0096E1CA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		01700AB32B5588780096E1CA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -264,6 +265,7 @@
 		01E6A6362B467FEC0061F08C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				01700AAA2B5535580096E1CA /* MemoMapView.swift */,
 				01E6A6342B467FE80061F08C /* MainTabView.swift */,
 			);
 			path = Main;
@@ -603,6 +605,7 @@
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
+				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA6F57702B4A80B2002DB94A /* MapViewRepresentable.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
