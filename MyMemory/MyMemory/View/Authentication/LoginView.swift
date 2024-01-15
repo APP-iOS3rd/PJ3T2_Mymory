@@ -28,11 +28,10 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
-
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
     
-    
+    // 확인용 임시 아이디 + 패스워드
     private var correctEmail: String = "12345@naver.com"
     private var correctPassword: String = "12345"
     
@@ -83,15 +82,21 @@ struct LoginView: View {
                 }
                 
                 if self.email.isEmpty || self.password.isEmpty {
-                    Button("로그인") { }
+                    Button { 
+                        
+                    } label: {
+                        Text("로그인")
+                            .font(.regular18)
+                    }
                         .buttonStyle(LoginButton())
                 } else {
-                    Button(action: {
+                    Button {
                         checkLogin(isEmail: email, isPassword: password)
                         self.isActive = true
-                    }, label: {
+                    } label: {
                         Text("로그인")
-                    })
+                            .font(.regular18)
+                    }
                     .buttonStyle(LoginButton(backgroundColor: Color.indigo))
                     .alert(isPresented: $notCorrectLogin) {
                         Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
@@ -99,21 +104,21 @@ struct LoginView: View {
                 }
     
                 NavigationLink {
-                    EmptyView()
+                    RegisterView()
                 } label: {
                     Text("내모리가 처음이라면 - 회원가입")
                         .underline()
                         .foregroundStyle(.gray)
-                        .font(.system(size: 17))
-                        .padding(.top, 1)
+                        .font(.regular14)
                 }
-
+                
                 Button {
                     
                 } label: {
                     HStack {
                         Image(systemName: "apple.logo")
                         Text("애플로 로그인 하기")
+                            .font(.regular18)
                     }
                 }
                 .buttonStyle(SocialLoginButton())
@@ -121,7 +126,7 @@ struct LoginView: View {
             }//: VSTACK
             .padding()
             .navigationDestination(isPresented: $isActive) {
-                EmptyView()
+                MainMapView()
             }
         }//: Navigation Stack
         .onTapGesture{
@@ -141,42 +146,4 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
-}
-
-
-struct LoginButton: ButtonStyle {
-    var labelColor = Color.white
-    var backgroundColor = Color.gray
-
-    
-  
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-          .padding()
-      .foregroundColor(labelColor)
-      .background(
-        RoundedRectangle(cornerRadius: 5)
-            .fill(backgroundColor)
-            .frame(width: 350, height: 40)
-      ) // <-
-  }
-}
-
-
-struct SocialLoginButton: ButtonStyle {
-    var labelColor = Color.white
-    var backgroundColor = Color.black
-
-    
-  
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-          .padding()
-      .foregroundColor(labelColor)
-      .background(
-        RoundedRectangle(cornerRadius: 5)
-            .fill(backgroundColor)
-            .frame(width: 350, height: 40)
-      )
-  }
 }

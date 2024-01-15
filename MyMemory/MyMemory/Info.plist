@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string></string>
-	<key>NSLocationUsageDescription</key>
-	<string></string>
-	<key>NSUserNotificationsUsageDescription</key>
-	<string></string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string></string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>항상 위치확인</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>항상 위치 확인</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용할 때만 확인</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
