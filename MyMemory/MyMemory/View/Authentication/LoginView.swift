@@ -32,8 +32,8 @@ struct LoginView: View {
     @State private var notCorrectLogin: Bool = false
     
     // 확인용 임시 아이디 + 패스워드
-    private var correctEmail: String = "12345@naver.com"
-    private var correctPassword: String = "12345"
+//    private var correctEmail: String = "12345@naver.com"
+//    private var correctPassword: String = "12345"
     
 
     
@@ -101,16 +101,16 @@ struct LoginView: View {
                         .buttonStyle(LoginButton())
                 } else {
                     Button {
-                        checkLogin(isEmail: email, isPassword: password)
+//                        checkLogin(isEmail: email, isPassword: password)
                         self.isActive = true
                     } label: {
                         Text("로그인")
                             .font(.regular18)
                     }
                     .buttonStyle(LoginButton(backgroundColor: Color.indigo))
-                    .alert(isPresented: $notCorrectLogin) {
-                        Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
-                    }
+//                    .alert(isPresented: $notCorrectLogin) {
+//                        Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
+//                    }
                 }
     
                 NavigationLink {
@@ -166,11 +166,11 @@ struct LoginView: View {
     }
     
     
-    private func checkLogin(isEmail: String, isPassword: String) {
-        if isEmail != correctEmail || isPassword != correctPassword {
-            notCorrectLogin = true
-        }
-    }
+//    private func checkLogin(isEmail: String, isPassword: String) {
+//        if isEmail != correctEmail || isPassword != correctPassword {
+//            notCorrectLogin = true
+//        }
+//    }
     
 }
 
