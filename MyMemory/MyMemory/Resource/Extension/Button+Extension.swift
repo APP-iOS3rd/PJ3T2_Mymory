@@ -50,12 +50,21 @@ struct RoundedRect: ButtonStyle {
     let backgroundColor: Color
     let titleColor: Color
     let setFont: Font
-    let paddingVertical: CGFloat = 12
-    let paddingHorzontal: CGFloat = 16
+    var paddingVertical: CGFloat = 12
+    var paddingHorzontal: CGFloat = 16
     let cornerRadius: CGFloat = 10
+    var borderColor: Color = Color(UIColor.systemGray4)
     
     static var standard: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold14)
+    }
+    
+    static var large: RoundedRect {
+        return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
+    }
+    
+    static var primary: RoundedRect {
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
     }
     
     func makeBody(configuration: Configuration) -> some View {
@@ -68,7 +77,7 @@ struct RoundedRect: ButtonStyle {
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color(UIColor.systemGray4))
+                .stroke(borderColor)
             )
     }
 }
