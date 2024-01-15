@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct MainTabView: View {
     
     //@State var selectedIndex: Int = 1
@@ -23,28 +22,7 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
-
  
-                if #available(iOS 17.0, *) {
-                    PostView()
-                        .onTapGesture{
-                            selectedIndex = 1
-                        }
-                        .tabItem {
-                            Image(systemName: "pencil")
-                            Text("작성")
-                        }.tag(1)
-                } else {
-                    EmptyView()
-                        .onTapGesture{
-                            selectedIndex = 1
-                        }
-                        .tabItem {
-                            Image(systemName: "pencil")
-                            Text("작성")
-                        }.tag(1)
-                }
-                
                 MemoMapView()
                     .onTapGesture{
                         selectedIndex = 1
