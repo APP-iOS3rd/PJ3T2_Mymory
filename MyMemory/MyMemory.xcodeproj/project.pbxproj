@@ -444,9 +444,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A7BA03D2B5104B100BEE111 /* Pretendard-ExtraLight.otf in Resources */,
+				6A7BA03F2B5104B100BEE111 /* Pretendard-Light.otf in Resources */,
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
+				6A7BA0402B5104B100BEE111 /* Pretendard-Thin.otf in Resources */,
+				6A7BA0412B5104B100BEE111 /* Pretendard-Black.otf in Resources */,
+				6A7BA03E2B5104B100BEE111 /* Pretendard-SemiBold.otf in Resources */,
+				6A7BA0422B5104B100BEE111 /* Pretendard-ExtraBold.otf in Resources */,
+				6A7BA03C2B5104B100BEE111 /* Pretendard-Bold.otf in Resources */,
+				6A7BA03B2B5104B100BEE111 /* Pretendard-Regular.otf in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
+				6A7BA0432B5104B100BEE111 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +483,7 @@
 				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
+				01E6A63E2B4681980061F08C /* MapView.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
