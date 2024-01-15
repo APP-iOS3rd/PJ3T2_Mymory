@@ -22,11 +22,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MyMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    @State var initialIdx = 0
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView(selectedIndex: $initialIdx)
         }
     }
 }
