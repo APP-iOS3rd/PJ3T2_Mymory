@@ -118,16 +118,6 @@ struct LoginView: View {
                 }
                 .buttonStyle(SocialLoginButton())
                 .padding()
-                
-                HStack {
-                    Button(action: {
-                        
-                    }, label: {
-                        Image(systemName: "apple.logo")
-                    })
-                    .buttonStyle(SocialLoginButton2())
-                }
-                
             }//: VSTACK
             .padding()
             .navigationDestination(isPresented: $isActive) {
@@ -174,8 +164,8 @@ struct LoginButton: ButtonStyle {
 
 
 struct SocialLoginButton: ButtonStyle {
-    var labelColor = Color.black
-    var backgroundColor = Color.white
+    var labelColor = Color.white
+    var backgroundColor = Color.black
 
     
   
@@ -186,29 +176,7 @@ struct SocialLoginButton: ButtonStyle {
       .background(
         RoundedRectangle(cornerRadius: 5)
             .fill(backgroundColor)
-//            .shadow(color: Color("LightShadow"), radius: 2, x: -2, y: -2)
-            .shadow(color: Color("DarkShadow"), radius: 2, x: 2, y: 2)
             .frame(width: 350, height: 40)
-      ) // <-
-  }
-}
-
-struct SocialLoginButton2: ButtonStyle {
-    var labelColor = Color.black
-    var backgroundColor = Color.white
-
-    
-  
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-          .padding()
-      .foregroundColor(labelColor)
-      .background(
-        RoundedRectangle(cornerRadius: 5)
-            .fill(backgroundColor)
-//            .shadow(color: Color("LightShadow"), radius: 2, x: -2, y: -2)
-            .shadow(color: Color("DarkShadow"), radius: 2, x: 2, y: 2)
-            .frame(width: 50, height: 50)
-      ) // <-
+      )
   }
 }
