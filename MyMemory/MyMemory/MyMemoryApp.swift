@@ -22,15 +22,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MyMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    @State var initialIdx = 0
 
     var body: some Scene {
         WindowGroup {
-            if #available(iOS 17.0, *) {
-                ContentView()
-            } else {
-                // Fallback on earlier versions
-            }
+            MainTabView(selectedIndex: $initialIdx)
         }
     }
 }
