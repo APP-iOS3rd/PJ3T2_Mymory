@@ -387,14 +387,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,7 +620,6 @@
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
-
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,7 +644,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
 				DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */,
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
@@ -665,7 +655,6 @@
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
-				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
 				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
 				6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */,
@@ -677,29 +666,20 @@
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
-				DA3C24F22B55079E00425288 /* MemoView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
-				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
-				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
-				DA3C24F72B55079E00425288 /* PostView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
-				DA3785612B561BEE007AECD9 /* ClusterSelectionView.swift in Sources */,
-				DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */,
 				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
-				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
-				649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
-				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
