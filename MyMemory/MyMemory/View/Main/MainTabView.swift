@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct MainTabView: View {
     
     @Binding var selectedIndex: Int
@@ -23,16 +22,25 @@ struct MainTabView: View {
                         Image(systemName: "magnifyingglass")
                         Text("지도")
                     }.tag(0)
-                
-                PostView()
-                    .onTapGesture{
-                        selectedIndex = 1
-                    }
-                    .tabItem {
-                        Image(systemName: "pencil")
-                        Text("작성")
-                    }.tag(1)
-                
+                if #available(iOS 17.0, *) {
+                    PostView()
+                        .onTapGesture{
+                            selectedIndex = 1
+                        }
+                        .tabItem {
+                            Image(systemName: "pencil")
+                            Text("작성")
+                        }.tag(1)
+                } else {
+                    EmptyView()
+                        .onTapGesture{
+                            selectedIndex = 1
+                        }
+                        .tabItem {
+                            Image(systemName: "pencil")
+                            Text("작성")
+                        }.tag(1)
+                }
                 MypageView()
                     .onTapGesture{
                         selectedIndex = 2
