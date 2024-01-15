@@ -60,9 +60,25 @@ struct SelectTagView: View {
             }  //:HSTACK
             
             Rectangle()
-                .frame(width: UIScreen.main.bounds.size.width * 0.90, height:40)
+                .frame(width: UIScreen.main.bounds.size.width * 0.90, height: 40)
                 .cornerRadius(10)
                 .foregroundStyle(Color.gray.opacity(0.17))
+                .overlay(
+                    HStack(spacing: 5) {
+                        // 태그 선택할때 마다 표시
+                        ForEach(selectedTags, id: \.self) { tag in
+                            Text("#\(tag)")
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 8)
+                                .background(
+                                    Capsule()
+                                        .foregroundColor(.pink)
+                                )
+                        }
+                    }
+                    .padding(5)
+                )
+
         }  //:VSTACK
         
         if isShowingView {
@@ -107,17 +123,23 @@ struct SelectTagView: View {
     }
     
     private func toggleTag(_ tag: TagType) {
-        //tag를 문자열로 변환하여 tagString 상수에 저장
+        // tag를 문자열로 변환하여 tagString 상수에 저장
         let tagString = tag.rawValue
-        
-        //selectedTags에 tagString이 이미 존재한다면, 이는 해당 태그가 이미 선택되어 있다는 의미입니다. 따라서 해당 태그를 selectedTags 배열에서 제거
-        if selectedTags.contains(tagString) {
+
+        // 이미 선택된 태그인지 확인
+        let isTagSelected = selectedTags.contains(tagString)
+
+        if isTagSelected {
+            // 이미 선택된 경우, 해당 태그를 제거
             selectedTags.removeAll { $0 == tagString }
         } else {
-            // 그렇지 않으면 추가
-            selectedTags.append(tagString)
+            // 선택되지 않은 경우, 최대 5개까지만 추가
+            if selectedTags.count < 5 {
+                selectedTags.append(tagString)
+            }
         }
     }
+
     
 }
 #Preview {
