@@ -6,52 +6,61 @@
 //
 
 import SwiftUI
+import Photos
+import PhotosUI
 
 struct RegisterView: View {
-//    @ObservedObject var viewModel: LoginViewModel = LoginViewModel()
-    @State var email : String = ""
-    @State var password : String = ""
-    @State var name : String = ""
-    @State var emailValid : Bool = true
-    @State var passwordValid : Bool = true
-    @State var rule1 : Bool = false
-    @State var rule2 : Bool = false
-    @State var rule3 : Bool = false
-    @State var rule4 : Bool = false
+    @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+    @State private var selectedImageData: Data? = nil
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack() {
                     Spacer()
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .frame(width:180, height: 180)
-                        .foregroundStyle(Color.gray)
-                        .onTapGesture {
-                            print("hello world")
+                    PhotosPicker(
+                        selection: $viewModel.selectedItem,
+                        matching: .images
+                    ){
+                        if viewModel.imageSelected == false {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .frame(width:180, height: 180)
+                                .foregroundStyle(Color.gray)
                         }
+                        else {
+                            if let selectedImageData,
+                               let uiImage = UIImage(data: selectedImageData) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipShape(Circle())
+                                    .frame(width: 180, height: 180)
+                            }
+                        }
+                        
+                    }
                     Spacer()
                     Spacer()
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
                             Text("이메일")
                                 .font(.system(size: 15))
-                            TextField("example@example.com", text: $email)
+                            TextField("example@example.com", text: $viewModel.email)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
                                             .foregroundStyle(Color.gray)
                                             .onTapGesture {
-                                                self.email = ""
+                                                viewModel.email = ""
                                             }
                                 )
                             
                             Divider()
                                 .padding(.vertical, -5)
                             HStack {
-                                Text(checkEmail(email: email) ? "사용 가능한 이메일입니다!" : "사용할수 없는 이메일입니다")
+                                Text(viewModel.checkEmail(email: viewModel.email) ? "사용 가능한 이메일입니다!" : "사용할수 없는 이메일입니다")
                                     .font(.system(size: 15))
-                                    .foregroundStyle(email == "" ? Color.white : (checkEmail(email: email) ? Color.green : Color.red))
+                                    .foregroundStyle(viewModel.email == "" ? Color.white : (viewModel.checkEmail(email: viewModel.email) ? Color.green : Color.red))
                             }
                         }
                         .padding()
@@ -59,33 +68,33 @@ struct RegisterView: View {
                         VStack(alignment: .leading) {
                             Text("비밀번호")
                                 .font(.system(size: 15))
-                            TextField("특수문자와 숫자/대문자를 포함한 8글자", text: $password)
+                            SecureField("특수문자와 숫자/대문자를 포함한 8글자", text: $viewModel.password)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
                                             .foregroundStyle(Color.gray)
                                             .onTapGesture {
-                                                password = ""
+                                                viewModel.password = ""
                                             }
                                 )
                             Divider()
                                 .padding(.vertical, -5)
-                            Text(passwordValid ? "사용 가능한 비밀번호입니다" : "특수문자,숫자,대문자를 포함한 8글자 이상으로 설정하세요!")
+                            Text(viewModel.checkPassword(password: viewModel.password) ? "사용 가능한 비밀번호입니다" : "특수문자,숫자,대문자를 포함한 8글자 이상으로 설정하세요!")
                                 .font(.system(size: 15))
-                                .foregroundStyle(password == "" ? Color.white : (passwordValid ? Color.green : Color.red))
+                                .foregroundStyle(viewModel.password == "" ? Color.white : (viewModel.checkPassword(password: viewModel.password) ? Color.green : Color.red))
                         }
                         .padding()
                         
                         VStack(alignment: .leading) {
                             Text("이름")
                                 .font(.system(size: 15))
-                            TextField("이름을 입력해주세요", text: $name)
+                            TextField("이름을 입력해주세요", text: $viewModel.name)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
                                             .foregroundStyle(Color.gray)
                                             .onTapGesture {
-                                                self.name = ""
+                                                viewModel.name = ""
                                             }
                                 )
                             Divider()
@@ -94,17 +103,13 @@ struct RegisterView: View {
                         .padding()
                         VStack(alignment: .leading) {
                                         HStack{
-                                            Image(systemName: rule1 ? "checkmark.square" : "square")
+                                            Image(systemName: viewModel.agreeAllBoxes ? "checkmark.square" : "square")
                                                 .onTapGesture {
-                                                    rule1.toggle()
-                                                    if rule1 == true {
-                                                        rule2 = true
-                                                        rule3 = true
-                                                        rule4 = true
+                                                    viewModel.agreeAllBoxes.toggle()
+                                                    if viewModel.agreeAllBoxes == true {
+                                                        viewModel.checkAllBoxes()
                                                     } else {
-                                                        rule2 = false
-                                                        rule3 = false
-                                                        rule4 = false
+                                                        viewModel.uncheckAllBoxes()
                                                     }
                                                     
                                                 }
@@ -120,9 +125,9 @@ struct RegisterView: View {
                             Spacer()
                             Spacer()
                                         HStack{
-                                            Image(systemName: rule2 ? "checkmark.square" : "square")
+                                            Image(systemName: viewModel.overFourteenBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
-                                                    rule2.toggle()
+                                                    viewModel.overFourteenBox.toggle()
                                                 }
                                             Text("만 14세 이상입니다")
                                             Text("(필수)")
@@ -132,34 +137,59 @@ struct RegisterView: View {
                             Spacer()
                             Spacer()
                                         HStack{
-                                            Image(systemName: rule3 ? "checkmark.square" : "square")
+                                            Image(systemName: viewModel.termsOfUseBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
-                                                    rule3.toggle()
+                                                    viewModel.termsOfUseBox.toggle()
                                                 }
                                             Text("이용약관")
                                             Text("(필수)")
                                                 .font(.system(size: 10))
+                                            Spacer()
+                                            Button(action: {
+                                                viewModel.showPrivacyPolicy = true
+                                            }) {
+                                                Image(systemName: "chevron.forward")
+                                                    .foregroundStyle(Color.gray)
+                                                    .font(.system(size: 15))
+                                                    .padding(.trailing, 20)
+                                            }
+                                            .sheet(isPresented: $viewModel.showPrivacyPolicy) {
+                                                RegisterViewModel.SafariView(url:URL(string: viewModel.privacyPolicyUrlString)!)
+                                            }
                                         }
                                             .font(.system(size: 13))
                             
                             Spacer()
                             Spacer()
                                         HStack{
-                                            Image(systemName: rule4 ? "checkmark.square" : "square")
+                                            Image(systemName: viewModel.privacyPolicyBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
-                                                    rule4.toggle()
+                                                    viewModel.privacyPolicyBox.toggle()
                                                 }
                                                 Text("개인정보수집 및 개인동의")
                                                 Text("(필수)")
                                                 .font(.system(size: 10))
+                                            Spacer()
+                                            Button(action: {
+                                                viewModel.showTermsOfUse = true
+                                            }) {
+                                                Image(systemName: "chevron.forward")
+                                                    .foregroundStyle(Color.gray)
+                                                    .font(.system(size: 15))
+                                                    .padding(.trailing, 20)
+                                            }
+                                            .sheet(isPresented: $viewModel.showTermsOfUse) {
+                                                RegisterViewModel.SafariView(url:URL(string: viewModel.termsOfUseUrlString)!)
+                                            }
                                         }
                                         .font(.system(size: 13))
                                     }
+                        .padding(5)
                         .overlay(
                                 Rectangle()
                                     .stroke(Color.gray)
                                     .frame(width: 360, height: 150)
-                                    .position(x: 180, y: 60)
+                                    .position(x: 180, y: 63)
                         )
 //                                )
 //                        }
@@ -170,7 +200,11 @@ struct RegisterView: View {
                     Spacer()
                     Spacer()
                     Button(action: {
-    
+                        if viewModel.checkIfCanRegister() == true {
+                            print("Register completed")
+                        } else {
+                            print("Register failed")
+                        }
                     }, label: {
                         Text("회원가입")
                     })
@@ -182,14 +216,18 @@ struct RegisterView: View {
                     .navigationBarTitle("회원가입")
             }
         }
+        .onChange(of: viewModel.selectedItem) {newItem in
+            viewModel.imageSelected = true
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    selectedImageData = data
+                }
+            }
+        }
     }
-}
-
-func checkEmail(email: String) -> Bool {
-    let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
-    return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
 }
 
 #Preview {
     RegisterView()
 }
+
