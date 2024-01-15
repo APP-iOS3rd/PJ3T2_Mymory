@@ -23,8 +23,6 @@ struct KakaoMapView: UIViewRepresentable {
         view.isMultipleTouchEnabled = true
         view.setDelegate(context.coordinator)
         view.sizeToFit()
-        view.setDelegate(context.coordinator)
-        view.sizeToFit()
         context.coordinator.createController(view)
         context.coordinator.controller?.initEngine()
         return view
