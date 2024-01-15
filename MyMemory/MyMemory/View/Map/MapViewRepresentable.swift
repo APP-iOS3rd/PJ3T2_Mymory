@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import MapKit
+import KakaoMapsSDK_SPM
 struct MapViewRepresentable: UIViewRepresentable {
     @Binding var isUserTracking: Bool
     @Binding var distance: Double
