@@ -12,7 +12,8 @@ import CoreLocation
 
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
-    private var location: CLLocation?
+    private let operation: OperationQueue = OperationQueue()
+    @Published var location: CLLocation?
     @Published var annotations: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = [] {
@@ -170,7 +171,7 @@ extension MainMapViewModel {
             self.isUserTracking = true
         }
     }
-    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) async -> [MemoCluster] {
+    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) -> [MemoCluster] {
         var tempClusters = clusters
         var i = 0, j = 0
         while(i < tempClusters.count) {
@@ -197,15 +198,14 @@ extension MainMapViewModel {
     private func initialCluster() -> [MemoCluster] {
         return self.annotations.map{.init(memo: $0)}
     }
-    private func cluster(distance: Double) async -> [MemoCluster] {
-        let result = await calculateDistance(from: startingClusters, threshold: distance)
+    private func cluster(distance: Double) -> [MemoCluster] {
+        let result = calculateDistance(from: startingClusters, threshold: distance)
         return result
     }
     func updateAnnotations(cameraDistance: Double){
-        Task { @MainActor in
-            do {
-                clusters = await cluster(distance: cameraDistance)
-            }
+        operation.cancelAllOperations()
+        operation.addOperation { [weak self] in
+            self?.clusters = self?.cluster(distance: cameraDistance) ?? []
         }
     }
 }

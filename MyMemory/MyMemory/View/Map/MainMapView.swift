@@ -13,14 +13,16 @@ struct MainMapView: View {
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
-                         isUserTracking: $viewModel.isUserTracking).onAppear(perform: {
+                         isUserTracking: $viewModel.isUserTracking,
+                         userLocation: $viewModel.location,
+                         clusters: $viewModel.clusters).onAppear(perform: {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
                     self.draw = true
                 }
                         }).onDisappear(perform: {
                             self.draw = false
                         }).frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .environmentObject(viewModel)
+                .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {
                 HStack {
