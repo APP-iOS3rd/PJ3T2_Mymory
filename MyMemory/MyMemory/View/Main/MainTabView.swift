@@ -15,7 +15,7 @@ struct MainTabView: View {
     var body: some View {
         NavigationView {
             TabView(selection: $selectedIndex){
-                MapView()
+                MainMapView()
                     .onTapGesture{
                         selectedIndex = 0
                     }
