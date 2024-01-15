@@ -22,6 +22,8 @@
 		01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FF2B43F5BF00DC3771 /* Pretendard-Regular.otf */; };
 		01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894012B43F5BF00DC3771 /* Pretendard-Thin.otf */; };
 		01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */; };
+		01700AA92B5534C30096E1CA /* AddressData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AA82B5534C30096E1CA /* AddressData.swift */; };
+		01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAD2B553BD40096E1CA /* AddressViewModel.swift */; };
 		01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAF2B555E9A0096E1CA /* Color+Extension.swift */; };
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
@@ -78,6 +80,8 @@
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
+		01700AA82B5534C30096E1CA /* AddressData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressData.swift; sourceTree = "<group>"; };
+		01700AAD2B553BD40096E1CA /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		01700AAF2B555E9A0096E1CA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		01E6A6342B467FE80061F08C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -165,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				014CB5742B46A2A00016DF70 /* Authentication */,
+				01700AA82B5534C30096E1CA /* AddressData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -185,6 +190,14 @@
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		01700AAC2B553B9F0096E1CA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		01E6A6362B467FEC0061F08C /* Main */ = {
@@ -304,6 +317,7 @@
 			children = (
 				014CB5732B46A2950016DF70 /* Model */,
 				013127232B461B0D00483E9F /* View */,
+				01700AAC2B553B9F0096E1CA /* ViewModel */,
 				DAB315812B43F517000357C7 /* Resource */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
@@ -503,6 +517,7 @@
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				01E6A63E2B4681980061F08C /* MapView.swift in Sources */,
+				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
@@ -523,6 +538,7 @@
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
+				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 			);
