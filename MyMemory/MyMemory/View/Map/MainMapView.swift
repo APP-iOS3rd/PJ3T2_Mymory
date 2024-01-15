@@ -39,7 +39,6 @@ struct MainMapView: View {
                         .cornerRadius(10.0)
                 }
                 .padding(.horizontal)
-
                 Spacer()
                 HStack {
                     Spacer()

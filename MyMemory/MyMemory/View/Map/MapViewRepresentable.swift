@@ -25,8 +25,7 @@ struct MapViewRepresentable: UIViewRepresentable {
                                    animated: true)
         mapView.delegate = context.coordinator
         return mapView
-    }
-    
+    }    
     func updateUIView(_ mapView: MKMapView, context: Context) {
         // 지도 이동했을 때 userlocation 사라지게 하는 경우
         // mapView.showsUserLocation = isUserTracking
@@ -66,8 +65,7 @@ struct MapViewRepresentable: UIViewRepresentable {
     }
     
     class MapViewCoordinator: NSObject, MKMapViewDelegate {
-        var mapViewController: MapViewRepresentable
-        
+        var mapViewController: MapViewRepresentable        
         init(_ control: MapViewRepresentable) {
             self.mapViewController = control
         }
@@ -90,12 +88,10 @@ struct MapViewRepresentable: UIViewRepresentable {
             guard annotation is MKPointAnnotation else {
                 return nil
             }
-            
             let identifier = "CustomAnnotation"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             
             if annotationView == nil {
-                //의심 1
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             } else {
                 annotationView?.annotation = annotation
@@ -104,6 +100,7 @@ struct MapViewRepresentable: UIViewRepresentable {
             if let id = mapViewController.selectedCluster?.id.uuidString,
                let title = annotation.title,
                id == title {
+
                 annotationView?.image = UIImage(systemName: "car.fill")
             } else {
                 annotationView?.image = UIImage(systemName: "car")
@@ -121,6 +118,7 @@ struct MapViewRepresentable: UIViewRepresentable {
                 mapViewController
                     .distance = 0.0
             }
+
         }
     }
 }
@@ -129,11 +127,12 @@ extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
     }
-    
+
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }
     
+
     func distance(to: CLLocationCoordinate2D) -> Double {
         return sqrt(squaredDistance(to: to))
     }
