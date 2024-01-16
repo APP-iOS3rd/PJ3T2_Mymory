@@ -48,12 +48,18 @@
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
+		6A600F882B551613004A44D0 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A600F832B551613004A44D0 /* MemoView.swift */; };
+		6A600F892B551613004A44D0 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A600F842B551613004A44D0 /* MemoCell.swift */; };
+		6A600F9A2B55201F004A44D0 /* MemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A600F992B55201F004A44D0 /* MemoListCell.swift */; };
+		6A600F9C2B552439004A44D0 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A600F9B2B552439004A44D0 /* Color+Extensions.swift */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
 		6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */; };
 		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
+		6AEF59162B56136E00A78D36 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF59152B56136E00A78D36 /* String+Extensions.swift */; };
+		6AEF59182B561EE000A78D36 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF59172B561EE000A78D36 /* SettingViewModel.swift */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
@@ -137,12 +143,18 @@
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6A600F832B551613004A44D0 /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		6A600F842B551613004A44D0 /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
+		6A600F992B55201F004A44D0 /* MemoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListCell.swift; sourceTree = "<group>"; };
+		6A600F9B2B552439004A44D0 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
 		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
 		6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		6AEF59152B56136E00A78D36 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		6AEF59172B561EE000A78D36 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
@@ -347,6 +359,7 @@
 				649427752B5525B60079481D /* Model */,
 				649128EC2B550BB00034F567 /* PostViewComponent */,
 				01700A832B5506B80096E1CA /* Memo */,
+				6A600F8D2B55161E004A44D0 /* ViewModel */,
 				01E6A6422B4683090061F08C /* PostView.swift */,
 				6494277B2B5527DA0079481D /* PostViewModel.swift */,
 			);
@@ -388,6 +401,7 @@
 			children = (
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
+				6AEF59172B561EE000A78D36 /* SettingViewModel.swift */,
 				6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */,
 			);
 			path = Setting;
@@ -406,6 +420,8 @@
 			children = (
 				01E6A63F2B4681DC0061F08C /* MypageView.swift */,
 				6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */,
+				6A7BA04F2B51060300BEE111 /* MemoList.swift */,
+				6A600F992B55201F004A44D0 /* MemoListCell.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -531,7 +547,10 @@
 			children = (
 				01700A912B550B5C0096E1CA /* Extension */,
 				DA7893FA2B43F5AE00DC3771 /* Fonts */,
+				DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */,
+				6A600F9B2B552439004A44D0 /* Color+Extensions.swift */,
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
+				6AEF59152B56136E00A78D36 /* String+Extensions.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -702,6 +721,7 @@
 				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
+				6A600F9C2B552439004A44D0 /* Color+Extensions.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
@@ -713,17 +733,19 @@
 				01700AA42B5530430096E1CA /* SearchView.swift in Sources */,
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
+				6A600F8F2B55161E004A44D0 /* PostViewModel.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
 				01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
-				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
 				01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
+				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
+				6A600F9A2B55201F004A44D0 /* MemoListCell.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA3C24F72B55079E00425288 /* PostView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
@@ -739,8 +761,11 @@
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
+				6AEF59182B561EE000A78D36 /* SettingViewModel.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
+				6AEF59162B56136E00A78D36 /* String+Extensions.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
+				6A600F892B551613004A44D0 /* MemoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
