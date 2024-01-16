@@ -15,9 +15,25 @@ struct MypageView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
-                        Circle()
-                            .frame(width: 76, height: 76)
-                            .foregroundStyle(Color(hex: "d9d9d9"))
+                        NavigationLink {
+                            ProfileEditView(
+                                profileImage: $myPageViewModel.selectedImage,
+                                selectedPhotoData: $myPageViewModel.selectedPhotoData
+                            )
+                        } label: {
+                            if let data = myPageViewModel.selectedPhotoData, let profileImage = UIImage(data: data) {
+                                Image(uiImage: profileImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .clipShape(.circle)
+                                    .frame(width: 76, height: 76)
+                            } else {
+                                Circle()
+                                    .frame(width: 76, height: 76)
+                                    .foregroundStyle(Color(hex: "d9d9d9"))
+                            }
+                        }
                         
                         Text("닉네임")
                             .font(.semibold20)

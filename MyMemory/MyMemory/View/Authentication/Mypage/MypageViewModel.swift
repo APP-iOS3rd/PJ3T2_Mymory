@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import _PhotosUI_SwiftUI
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -50,6 +51,8 @@ class MypageViewModel: ObservableObject {
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
+    @Published var selectedImage: PhotosPickerItem? = nil
+    @Published var selectedPhotoData: Data? = nil
     
     init() {
         self.memoList = [
@@ -68,6 +71,7 @@ class MypageViewModel: ObservableObject {
         let location = CLLocationCoordinate2D(latitude: memoLocation.latitude, longitude: memoLocation.longitude)
         return location.distance(to: myLocation)
     }
+    
     // MARK: MemoList 필터링 & 정렬하는 메서드입니다
     func sortMemoList(type: SortedTypeOfMemo) {
         self.selectedFilter = type
