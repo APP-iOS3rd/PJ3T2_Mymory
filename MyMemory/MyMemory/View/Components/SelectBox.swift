@@ -21,7 +21,7 @@ struct SelectBox: View {
             
             
             ZStack{
-                Color("secondary")
+                Color(UIColor.systemGray6)
                     .frame(maxWidth: .infinity)
                     .cornerRadius(12)
                 
