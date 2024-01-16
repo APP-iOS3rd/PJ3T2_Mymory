@@ -10,6 +10,9 @@ import MapKit
 struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
     @State var draw = true
+    let layout: [GridItem] = [
+        GridItem(.flexible(maximum: 80)),
+    ]
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
@@ -24,6 +27,8 @@ struct MainMapView: View {
                 .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {
+                TopBarAddress()
+                    .padding(.horizontal, 12)
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -62,11 +67,18 @@ struct MainMapView: View {
                     .padding()
                 }
                 //선택한 경우
-                if let contents = viewModel.selectedCluster {
-                    ClusterSelectionView(contents: viewModel.MemoList,selectedItemID: $viewModel.selectedMemoId)
-                        .environmentObject(viewModel)
-                    
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: layout, spacing: 20) {
+                        ForEach(viewModel.MemoList) { item  in
+                            
+                            MemoCell(isVisible: true, isDark: true)
+                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                .padding(.leading, 12)
+                                .padding(.bottom, 12)
+                        }
+                    }
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
