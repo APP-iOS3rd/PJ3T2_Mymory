@@ -12,6 +12,7 @@ extension Font {
     static let black20: Font = .custom(FontType.Black.rawValue, size: 20)
     // ExtraBold
     static let extraBold28: Font = .custom(FontType.ExtraBold.rawValue, size: 28)
+    static let extraBold12: Font = .custom(FontType.ExtraBold.rawValue, size: 12)
     // Bold
     static let bold12: Font = .custom(FontType.Bold.rawValue, size: 12)
     static let bold14: Font = .custom(FontType.Bold.rawValue, size: 14)
@@ -24,6 +25,7 @@ extension Font {
     
     // SemiBold
     static let semibold11: Font = .custom(FontType.SemiBold.rawValue, size: 11)
+    static let semibold14: Font = .custom(FontType.SemiBold.rawValue, size: 14)
     static let semibold16: Font = .custom(FontType.SemiBold.rawValue, size: 16)
     static let semibold20: Font = .custom(FontType.SemiBold.rawValue, size: 20)
     
