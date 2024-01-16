@@ -15,10 +15,9 @@ struct MainMapView: View {
             KakaoMapView(draw: $draw,
                          isUserTracking: $viewModel.isUserTracking,
                          userLocation: $viewModel.location,
-                         clusters: $viewModel.clusters).onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-                    self.draw = true
-                }
+                         clusters: $viewModel.clusters)
+                .onAppear(perform: {
+                            self.draw = true
                         }).onDisappear(perform: {
                             self.draw = false
                         }).frame(maxWidth: .infinity, maxHeight: .infinity)
