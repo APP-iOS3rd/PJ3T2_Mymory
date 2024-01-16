@@ -8,39 +8,47 @@
 import SwiftUI
 
 struct SettingView: View {
+    @StateObject var settingViewModel = SettingViewModel.shared
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView() {
                 VStack(alignment: .leading){
                     Text("일반")
-                        .font(.bold20)
+                        .font(.semibold14)
                         .padding(.top, 36)
                         .padding(.bottom, 32)
                     
                     VStack(spacing: 12) {
                         Group {
-                            SettingMenuCell(name: "로그인 정보", iconName: "lock")
+                            SettingMenuCell(name: "로그인 정보")
                             Divider()
                                 .padding(.bottom, 20)
-                            SettingMenuCell(name: "알림", iconName: "bell")
+                            SettingMenuCell(name: "알림")
                             Divider()
                         }
                     }.padding(.horizontal, 9)
                     
                     Text("앱 정보")
-                        .font(.bold20)
+                        .font(.semibold14)
                         .padding(.bottom, 32)
-                        .padding(.top, 58)
+                        .padding(.top, 19)
                     
                     VStack(spacing: 12) {
                         Group {
-                            SettingMenuCell(name: "개인정보 처리방침", iconName: "book")
+                            SettingMenuCell(name: "개인정보 처리방침")
                             Divider()
                                 .padding(.bottom, 20)
-                            SettingMenuCell(name: "오픈소스 라이센스", iconName: "person.text.rectangle")
+                            SettingMenuCell(name: "오픈소스 라이센스")
                             Divider()
                                 .padding(.bottom, 20)
-                            SettingMenuCell(name: "앱 버전")
+                            HStack(alignment: .center) {
+                                Text("앱 버전")
+                                    .font(.regular18)
+                                Spacer()
+                                Text(settingViewModel.version)
+                                    .foregroundStyle(Color(UIColor.systemGray))
+                            }.foregroundStyle(.black)
+                            
                             Divider()
                         }
                     }.padding(.horizontal, 9)
@@ -67,8 +75,19 @@ struct SettingView: View {
                         .foregroundStyle(Color(UIColor.systemGray))
                 }
             }
-        }.padding(.horizontal, 12)
-            .navigationTitle("설정")
-            .navigationBarTitleDisplayMode(.large)
+        }
+        .padding(.horizontal, 12)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton()
+                    .foregroundStyle(Color.black)
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text("내 정보")
+                    .font(.semibold16)
+            }
+        }
     }
 }
