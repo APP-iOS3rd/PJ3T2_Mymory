@@ -63,7 +63,7 @@ struct MainMapView: View {
                 }
                 //선택한 경우
                 if let contents = viewModel.selectedCluster {
-                    ClusterSelectionView(contents: contents)
+                    ClusterSelectionView(contents: viewModel.MemoList,selectedItemID: $viewModel.selectedMemoId)
                         .environmentObject(viewModel)
                     
                 }

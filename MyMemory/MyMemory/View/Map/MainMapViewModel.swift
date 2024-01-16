@@ -15,7 +15,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
     @Published var location: CLLocation?
-    @Published var annotations: [MiniMemoModel] = []
+    @Published var MemoList: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = [] {
         didSet {
@@ -27,6 +27,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var startingClusters: [MemoCluster] = []
 
     @Published var searchTxt: String = ""
+    @Published var selectedMemoId: UUID = UUID()
     @Published var selectedCluster: MemoCluster? = nil{
         didSet {
             guard let cluster = selectedCluster else {
@@ -63,7 +64,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         tempModel()
     }
     private func tempModel() {
-        self.annotations = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
+        self.MemoList = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.9780),
                                      title: "test1",
                                      contents: "contents2",
@@ -157,7 +158,7 @@ extension MainMapViewModel {
         return tempClusters
     }
     private func initialCluster() -> [MemoCluster] {
-        return self.annotations.map{.init(memo: $0)}
+        return self.MemoList.map{.init(memo: $0)}
     }
     private func cluster(distance: Double) -> [MemoCluster] {
         let result = calculateDistance(from: startingClusters, threshold: distance)
@@ -168,5 +169,19 @@ extension MainMapViewModel {
         operation.addOperation { [weak self] in
             self?.clusters = self?.cluster(distance: cameraDistance) ?? []
         }
+    }
+}
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
+    }
+
+    func squaredDistance(to : CLLocationCoordinate2D) -> Double {
+        return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
+    }
+    
+
+    func distance(to: CLLocationCoordinate2D) -> Double {
+        return sqrt(squaredDistance(to: to))
     }
 }
