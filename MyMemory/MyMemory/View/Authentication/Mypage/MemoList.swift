@@ -19,7 +19,8 @@ struct MemoList: View {
                         title: memo.title,
                         tags: memo.tags,
                         date: memo.date,
-                        address: memo.address
+                        address: memo.address,
+                        like: memo.like
                     )
                 }
                 .buttonStyle(.plain)

@@ -12,6 +12,7 @@ struct MemoListCell: View {
     @Binding var tags: [String]?
     @Binding var date: String
     @Binding var address: String
+    @Binding var like: Int
     
     var body: some View {
         HStack {
@@ -48,7 +49,7 @@ struct MemoListCell: View {
                     HStack(spacing: 2) {
                         Image(systemName: "heart.fill")
                             .font(.system(size: 11))
-                        Text("0개")
+                        Text("\(like)개")
                             .font(.regular12)
                         Text("|")
                             .font(.semibold11)
