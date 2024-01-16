@@ -1,22 +1,22 @@
 //
-//  PostView.swift
+//  MemoView.swift
 //  MyMemory
 //
-//  Created by 김소혜 on 1/4/24.
+//  Created by 정정욱 on 1/10/24.
 //
 
 import SwiftUI
 import MapKit
+import Combine
+import _PhotosUI_SwiftUI
 
-
-@available(iOS 17.0, *)
 
 // 💁 사용자 위치추적 및 권한허용 싱글톤 구현 위치 임시지정
 @MainActor class LocationsHandler: ObservableObject {
     
     static let shared = LocationsHandler()
     public let manager: CLLocationManager
-
+    
     init() {
         self.manager = CLLocationManager()
         if self.manager.authorizationStatus == .notDetermined {
@@ -35,76 +35,174 @@ struct PostView: View {
     // 카메라 위치추적 변수 사용자를 추적
     @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
     
-    // LazyHGrid GridItem
-    // 화면 그리드 형식으로 채워줌 임시변수
-    let layout: [GridItem] = [
-        GridItem(.flexible(maximum: 80)),
-    ]
     
-    let memoList: [String] = Array(1...10).map {"메모 \($0)"}
+    @StateObject var viewModel: PostViewModel = PostViewModel()
+    
+    //viewModel로 전달할 값 모음
+    @State var memoTitle: String = ""
+    @State var memoContents: String = ""
+    @State var memoAddressText: String = ""
+    @State var memoSelectedImageItems: [PhotosPickerItem] = []
+    @State private var memoSelectedTags: [String] = []
+    @State var memoShare: Bool = false
+    
+    
+    // 추후 사용자 위치 값 가져오기
+    var userCoordinate = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
+    
+    let minHeight: CGFloat = 250
+    let maxHeight: CGFloat = 400
+    let maxCharacterCount: Int = 1000
+    
+    // property
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        NavigationView {
+        ScrollView{
             VStack(alignment: .leading){
+                
+                //💁 상단 MapView
                 Map(position: $position){
                     UserAnnotation()
                 }
+                .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
+                .mapStyle(.standard(elevation: .realistic))
                 .mapControls {
                     MapUserLocationButton()
                     MapCompass()
                     MapScaleView()
                 }
-                .overlay(content: {
-                    // MemoView 이동
-                    NavigationLink {
-                        MemoView()
-                    } label: {
-                        Image(systemName: "pencil.line")
-                            .font(.system(size: 15))
-                            .foregroundColor(.blue)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(10)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 5))
-                })
-                .mapStyle(.standard(elevation: .realistic))
-                .background(.white)
+                .background(.ultraThinMaterial)
                 .padding(.bottom)
-                .safeAreaInset(edge: .bottom) {
-                    // 💁 메모 표시될 영역
-                    ScrollView(.horizontal) {
-                        // 가로(행) 3줄 설정
-                        LazyHGrid(rows: layout, spacing: 20) {
-                            ForEach(memoList, id: \.self) { item  in
-                                VStack {
-                                    MemoCell()
-                                        .frame(height: UIScreen.main.bounds.size.height * 0.10)
-                                        .frame(width: UIScreen.main.bounds.size.width * 0.90)
-                                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 30, trailing: 20))
+                .padding(.horizontal)
+                
+                //💁 사진 등록하기 View
+                Group {
+                    VStack(alignment: .leading, spacing: 10){
+                        HStack {
+                            Text("사진 등록하기")
+                                .font(.bold20)
+                            
+                            Spacer()
+                            
+                        } //:HSTACK
+                        SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
+                    }//:VSTACK
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom)
+                
+                
+                // 💁 주소찾기 View
+                Group {
+                    FindAddressView(memoAddressText: $memoAddressText)
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 25)
+                
+                // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
+                Group {
+                    VStack(alignment: .leading, spacing: 10){
+                        ZStack(alignment: .leading){
+                            Text("제목, 기록할 메모 입력")
+                                .font(.bold20)
+                                .bold()
+                            
+                          
+                            Toggle(
+                                isOn: $memoShare) {
+                                    // 토글 내부에 아무 것도 추가하지 않습니다.
+                                } //: Toggle
+                                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+                                .overlay {
+                                    Text(memoShare ? "공유 하기" : "나만 보기")
+                                        //.foregroundColor(Color(.systemGray3))
+                                        .font(.caption)
+                                        
+                                        .offset(CGSize(width:
+                                                        153.0, height: -25.0))
+                                }
+                        }// HStack
+                       
+                        
+                        TextField("제목을 입력해주세요", text: $memoTitle)
+                            .textFieldStyle(.roundedBorder)
+                        
+                        // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
+                        TextEditor(text: $memoContents)
+                            .frame(minHeight: minHeight, maxHeight: maxHeight)
+                            .cornerRadius(10)
+                            .colorMultiply(Color.gray.opacity(0.2))
+                            .foregroundColor(.black)
+                        // 최대 1000자 까지만 허용
+                            .onChange(of: memoContents) { newValue in
+                                // Limit text input to maxCharacterCount
+                                if newValue.count > maxCharacterCount {
+                                    memoContents = String(newValue.prefix(maxCharacterCount))
+                                }
+                            }// Just는 Combine 프레임워크에서 제공하는 publisher 중 하나이며, SwiftUI에서 특정 이벤트에 반응하거나 값을 수신하기 위해 사용됩니다. 1000를 넘으면 입력을 더이상 할 수 없습니다.
+                            .onReceive(Just(memoContents)) { _ in
+                                // Disable further input if the character count exceeds maxCharacterCount
+                                if memoContents.count > maxCharacterCount {
+                                    memoContents = String(memoContents.prefix(maxCharacterCount))
                                 }
                             }
-                        }     //: LazyHGrid
-                    }  //: ScrollView
-                    .frame(height: UIScreen.main.bounds.size.height * 0.18) // 18%만
+                    }
                 }
-                .background(.white)
-            
-
+                .padding(.horizontal, 20)
+                .padding(.bottom)
                 
+                // 💁 Tag 선택 View
+                Group {
+                    SelectTagView(memoSelectedTags: $memoSelectedTags)
+                }
+                .padding(.bottom)
+                
+                Button(action: {
+                    // 사용자 입력값을 뷰모델에 저장
+                    
+                    viewModel.saveMemo(userCoordinate: userCoordinate,
+                                       memoShare: memoShare,
+                                       memoTitle: memoTitle,
+                                       memoContents: memoContents,
+                                       memoAddressText: memoAddressText,
+                                       memoSelectedImageItems: memoSelectedImageItems,
+                                       memoSelectedTags: memoSelectedTags)
+                    
+                    // 임시로 로직 구현전 뒤로가기
+                    // 메인뷰 보여주기
+                }, label: {
+                    Text("작성완료")
+                        .frame(maxWidth: .infinity)
+                })
+                .buttonStyle(.borderedProminent)
+                .padding(.horizontal)
+                .disabled(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0)
+                .tint(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0 ? Color(.systemGray5) : Color.blue)
+                .padding(.bottom)
+                
+                Spacer()
             } //:VSTACK
-        } //:NavigationView
+    
+        } //: ScrollView
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action: {
+            // 뒤로 가기 동작을 구현합니다
+            // 예: PresentationMode를 사용하여 화면을 닫습니다
+            presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "chevron.left")
+                .foregroundColor(.blue)
+        })
     }
-       
+    
 }
 
 #if DEBUG
 @available(iOS 17.0, *)
-struct PostView_Previews: PreviewProvider {
+struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         PostView()
     }
 }
 #endif
-

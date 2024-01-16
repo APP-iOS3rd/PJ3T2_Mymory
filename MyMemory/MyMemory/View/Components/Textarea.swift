@@ -19,7 +19,7 @@ struct Textarea: View {
                TextField(placeholder, text: $text, axis: .vertical)
                   .lineLimit(lineLimit...)
                   .padding()
-                  .background(Color("secondary"))
+                  .background(Color(UIColor.systemGray6))
                   .cornerRadius(8)
                   
            }
