@@ -11,7 +11,8 @@ import MapKit
 import CoreLocation
 
 struct MemoMapView: View {
-    
+    @State var draw = true
+
     @ObservedObject var viewModel: MainMapViewModel = .init()
     // LazyHGrid GridItem
     // 화면 그리드 형식으로 채워줌 임시변수
@@ -25,10 +26,15 @@ struct MemoMapView: View {
     
     var body: some View {
         ZStack {
-            MapViewRepresentable(isUserTracking: $viewModel.isUserTracking,
-                                 distance: $viewModel.distance,
-                                 clusters: $viewModel.clusters,
-                                 selectedCluster: $viewModel.selectedCluster)
+            KakaoMapView(draw: $draw,
+                         isUserTracking: $viewModel.isUserTracking,
+                         userLocation: $viewModel.location,
+                         clusters: $viewModel.clusters)
+                .onAppear(perform: {
+                            self.draw = true
+                        }).onDisappear(perform: {
+                            self.draw = false
+                        }).frame(maxWidth: .infinity, maxHeight: .infinity)
                 .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             

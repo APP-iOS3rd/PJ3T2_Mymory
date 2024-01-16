@@ -37,7 +37,6 @@ struct KakaoMapView: UIViewRepresentable {
             context.coordinator.resetLocation(latitude: userLocation?.coordinate.latitude, longitude: userLocation?.coordinate.longitude)
         }
         context.coordinator.createPois(clusters: clusters)
-
         if draw {
             context.coordinator.controller?.startEngine()
             context.coordinator.controller?.startRendering()
@@ -65,7 +64,7 @@ struct KakaoMapView: UIViewRepresentable {
         var controller: KMController?
         var first: Bool
         
-        var _mapTapEventHandler: DisposableEventHandler?       
+        var _mapTapEventHandler: DisposableEventHandler?
         init(_ parent: KakaoMapView) {
             
 
@@ -142,7 +141,6 @@ struct KakaoMapView: UIViewRepresentable {
             let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .poi, orderType: .rank, zOrder: 10001)
             let _ = manager.addLabelLayer(option: layerOption)
         }
-
         // KMControllerDelegate Protocol method구현
         
         /// 엔진 생성 및 초기화 이후, 렌더링 준비가 완료되면 아래 addViews를 호출한다.
@@ -209,7 +207,7 @@ struct KakaoMapView: UIViewRepresentable {
                     tempPoi?.addBadge(badge)
                     tempPoi?.show()
                     tempPoi?.showBadge(badgeID: "\(c.id)")
-                    
+
                 }
             }
         }

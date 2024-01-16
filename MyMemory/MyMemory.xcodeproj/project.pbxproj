@@ -12,10 +12,6 @@
 		014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56D2B468A3B0016DF70 /* BackButton.swift */; };
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
-		01700A892B5506B80096E1CA /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A842B5506B80096E1CA /* MemoView.swift */; };
-		01700A8B2B5506B80096E1CA /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A862B5506B80096E1CA /* SelectPhotos.swift */; };
-		01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A872B5506B80096E1CA /* SelectTagView.swift */; };
-		01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A882B5506B80096E1CA /* FindAddressView.swift */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -42,12 +38,12 @@
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
+		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128ED2B550BD60034F567 /* FindAddressView.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
-		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
@@ -58,14 +54,6 @@
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
-		DA3785612B561BEE007AECD9 /* ClusterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3785602B561BEE007AECD9 /* ClusterSelectionView.swift */; };
-		DA3C24F12B55079E00425288 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24E92B55079E00425288 /* PostViewModel.swift */; };
-		DA3C24F22B55079E00425288 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EB2B55079E00425288 /* MemoView.swift */; };
-		DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EC2B55079E00425288 /* MemoCell.swift */; };
-		DA3C24F42B55079E00425288 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24ED2B55079E00425288 /* SelectPhotos.swift */; };
-		DA3C24F52B55079E00425288 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EE2B55079E00425288 /* SelectTagView.swift */; };
-		DA3C24F62B55079E00425288 /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EF2B55079E00425288 /* FindAddressView.swift */; };
-		DA3C24F72B55079E00425288 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24F02B55079E00425288 /* PostView.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
@@ -110,10 +98,6 @@
 		014CB56D2B468A3B0016DF70 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
-		01700A842B5506B80096E1CA /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
-		01700A862B5506B80096E1CA /* SelectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
-		01700A872B5506B80096E1CA /* SelectTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
-		01700A882B5506B80096E1CA /* FindAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -131,12 +115,12 @@
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		649128ED2B550BD60034F567 /* FindAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
-		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
 		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
@@ -147,8 +131,6 @@
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
-		DA3785602B561BEE007AECD9 /* ClusterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterSelectionView.swift; sourceTree = "<group>"; };
-		DA3C24E92B55079E00425288 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		DA3C24EB2B55079E00425288 /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
 		DA3C24EC2B55079E00425288 /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		DA3C24ED2B55079E00425288 /* SelectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
@@ -247,18 +229,6 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
-		01700A832B5506B80096E1CA /* Memo */ = {
-			isa = PBXGroup;
-			children = (
-				01700A842B5506B80096E1CA /* MemoView.swift */,
-				01700A862B5506B80096E1CA /* SelectPhotos.swift */,
-				01700A872B5506B80096E1CA /* SelectTagView.swift */,
-				01700A882B5506B80096E1CA /* FindAddressView.swift */,
-			);
-			name = Memo;
-			path = MyMemory/View/Post/Memo;
-			sourceTree = SOURCE_ROOT;
-		};
 		01700A912B550B5C0096E1CA /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +316,6 @@
 			children = (
 				649427752B5525B60079481D /* Model */,
 				649128EC2B550BB00034F567 /* PostViewComponent */,
-				01700A832B5506B80096E1CA /* Memo */,
 				01E6A6422B4683090061F08C /* PostView.swift */,
 				6494277B2B5527DA0079481D /* PostViewModel.swift */,
 			);
@@ -413,29 +382,16 @@
 		DA37855F2B561BDF007AECD9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				DA3785602B561BEE007AECD9 /* ClusterSelectionView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		DA3C24E82B55079E00425288 /* ViewModel */ = {
+		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				DA3C24E92B55079E00425288 /* PostViewModel.swift */,
+				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		DA3C24EA2B55079E00425288 /* Memo */ = {
-			isa = PBXGroup;
-			children = (
-				DA3C24EB2B55079E00425288 /* MemoView.swift */,
-				DA3C24EC2B55079E00425288 /* MemoCell.swift */,
-				DA3C24ED2B55079E00425288 /* SelectPhotos.swift */,
-				DA3C24EE2B55079E00425288 /* SelectTagView.swift */,
-				DA3C24EF2B55079E00425288 /* FindAddressView.swift */,
-			);
-			path = Memo;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
@@ -470,6 +426,7 @@
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
 				DAB315482B43EFDB000357C7 /* Products */,
+				DADFA2C22B56552D0061E28C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -534,6 +491,19 @@
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		DADFA2C22B56552D0061E28C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				DA3C24EE2B55079E00425288 /* SelectTagView.swift */,
+				DA3C24ED2B55079E00425288 /* SelectPhotos.swift */,
+				DA3C24EF2B55079E00425288 /* FindAddressView.swift */,
+				DA3C24EB2B55079E00425288 /* MemoView.swift */,
+				DA3C24F02B55079E00425288 /* PostView.swift */,
+				DA3C24EC2B55079E00425288 /* MemoCell.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -689,15 +659,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA3C24F52B55079E00425288 /* SelectTagView.swift in Sources */,
-				DA3C24F42B55079E00425288 /* SelectPhotos.swift in Sources */,
 				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
 				DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */,
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
-				01700A892B5506B80096E1CA /* MemoView.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
 				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
@@ -716,16 +683,13 @@
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
-				01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
-				01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
-				DA3C24F72B55079E00425288 /* PostView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
 				DA3785612B561BEE007AECD9 /* ClusterSelectionView.swift in Sources */,
 				DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */,
@@ -907,10 +871,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
-				DEVELOPMENT_TEAM = 9S8KMMC3YH;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemory/Info.plist;
@@ -934,6 +900,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -952,10 +919,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
-				DEVELOPMENT_TEAM = 9S8KMMC3YH;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemory/Info.plist;
@@ -979,6 +948,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
