@@ -3,7 +3,7 @@ import PhotosUI
 import Photos
 
 struct SelectPhotos: View {
-    @State var selectedItems: [PhotosPickerItem] = []
+    @Binding var memoSelectedImageItems: [PhotosPickerItem] 
     @State var imageData: [Data?] = []
     @State var selectImage: Bool = false
     @State var showPermissionAlert: Bool = false
@@ -14,7 +14,7 @@ struct SelectPhotos: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 10){
                     PhotosPicker(
-                        selection: $selectedItems,
+                        selection: $memoSelectedImageItems,
                         maxSelectionCount: 5,
                         matching: .images
                     ) {
@@ -63,12 +63,12 @@ struct SelectPhotos: View {
             }
 
         }
-        .onChange(of: selectedItems) { newValue in
+        .onChange(of: memoSelectedImageItems) { newValue in
             DispatchQueue.main.async {
                 imageData.removeAll()
                 selectedItemsCounts = 0
             }
-            for (index, item) in selectedItems.enumerated() {
+            for (index, item) in memoSelectedImageItems.enumerated() {
                 item.loadTransferable(type: Data.self) { result in
                     switch result {
                     case .success(let data):
@@ -119,6 +119,8 @@ struct SelectPhotos: View {
 
 struct SelectPhotos_Previews: PreviewProvider {
     static var previews: some View {
-        SelectPhotos()
+        let memoSelectedImageItems = Binding<[PhotosPickerItem]>.constant([])
+        return SelectPhotos(memoSelectedImageItems: memoSelectedImageItems)
     }
 }
+

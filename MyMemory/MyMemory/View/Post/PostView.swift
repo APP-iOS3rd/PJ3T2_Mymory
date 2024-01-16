@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import Combine
+import _PhotosUI_SwiftUI
 
 
 // 💁 사용자 위치추적 및 권한허용 싱글톤 구현 위치 임시지정
@@ -34,8 +35,15 @@ struct PostView: View {
     // 카메라 위치추적 변수 사용자를 추적
     @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
     
+    
+    @StateObject var viewModel: PostViewModel = PostViewModel()
     @State var memoTitle: String = ""
     @State var memoContents: String = ""
+    @State var memoAddressText: String = ""
+    @State var memoSelectedImageItems: [PhotosPickerItem] = []
+    @State private var memoSelectedTags: [String] = []
+    // 추후 사용자 위치 값 가져오기
+    var userCoordinate = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
     let minHeight: CGFloat = 250
     let maxHeight: CGFloat = 400
@@ -72,7 +80,7 @@ struct PostView: View {
                             Spacer()
                             
                         } //:HSTACK
-                        SelectPhotos()
+                        SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
                     }//:VSTACK
                 }
                 .padding(.horizontal)
@@ -81,7 +89,7 @@ struct PostView: View {
                 
                 // 💁 주소찾기 View
                 Group {
-                    FindAddressView()
+                    FindAddressView(memoAddressText: $memoAddressText)
                 }
                 .padding(.horizontal)
                 .padding(.bottom)
@@ -122,21 +130,31 @@ struct PostView: View {
                 
                 // 💁 Tag 선택 View
                 Group {
-                    SelectTagView()
+                    SelectTagView(memoSelectedTags: $memoSelectedTags)
                 }
-                .padding(.horizontal)
                 .padding(.bottom)
                 
                 Button(action: {
+                    // 사용자 입력값을 뷰모델에 저장
+
+                    viewModel.saveMemo(userCoordinate: userCoordinate,
+                                      memoTitle: memoTitle,
+                                       memoContents: memoContents,
+                                       memoAddressText: memoAddressText,
+                                       memoSelectedImageItems: memoSelectedImageItems,
+                                       memoSelectedTags: memoSelectedTags)
+
                     // 임시로 로직 구현전 뒤로가기
-                    presentationMode.wrappedValue.dismiss()
+                    // 메인뷰 보여주기
                 }, label: {
                     Text("작성완료")
                         .frame(maxWidth: .infinity)
                 })
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                
+                .disabled(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0)
+                .tint(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0 ? Color(.systemGray5) : Color.blue)
+                .padding(.bottom)
                 
                 Spacer()
             } //:VSTACK
