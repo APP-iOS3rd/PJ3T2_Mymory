@@ -78,7 +78,7 @@ struct KakaoMapView: UIViewRepresentable {
         }
         //여기서 touch event 처리
         func poiTouched(_ poi: Poi) {
-            print(poi.itemID)
+            parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
         }
          func touchesBegan(_ touches: Set<AnyHashable>) {
              if let touch = touches.first as? UITouch {

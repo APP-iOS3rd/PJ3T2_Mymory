@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import MapKit
+import KakaoMapsSDK
 import CoreLocation
 
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -37,8 +38,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             getAddressFromCoordinates(latitude: latitude, longitude: longitude)
         }
     }
-    @Published var selectedAddress: String? = nil
-
+    @Published var selectedAddress: String? = nil 
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -120,47 +120,8 @@ extension MainMapViewModel {
     }
     //MARK: - 주소 얻어오는 함수
     private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
-        let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-
-        geocoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "Ko-kr")) { [weak self] (placemarks, error) in
-            if let error = error {
-                print("Reverse geocoding error: \(error.localizedDescription)")
-                self?.selectedAddress = nil
-                return
-            }
-
-            if let placemark = placemarks?.first {
-                // 주소 정보를 가져와서 원하는 형식으로 가공
-                //시
-                let city = placemark.locality ?? ""
-                let road = placemark.subLocality ?? ""
-                let subRoad = placemark.subThoroughfare ?? ""
-                var placeName = placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? ""
-                if !placeName.isEmpty {
-                    placeName.removeFirst()
-                    placeName = "(" + placeName + ") "
-                }
-                let address = "\(placeName)\(city) \(road) \(subRoad)"
-                
-                print("name : \(placemark.name ?? "")")
-                print("thoroughfare : \(placemark.thoroughfare ?? "")")
-                print("subThoroughfare : \(placemark.subThoroughfare ?? "")")
-                print("locality : \(placemark.locality ?? "")")
-                print("subLocality : \(placemark.subLocality ?? "")")
-                print("administrativeArea : \(placemark.administrativeArea ?? "")")
-                print("subAdministrativeArea : \(placemark.subAdministrativeArea ?? "")")
-                print("ISOcountryCode : \(placemark.isoCountryCode ?? "")")
-                print("country : \(placemark.country ?? "")")
-                print("inlandWater : \(placemark.inlandWater ?? "")")
-                print("ocean : \(placemark.ocean ?? "")")
-                print("areasOfInterest : \(placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? "")")
-                print("===========================")
-
-                self?.selectedAddress = address
-            } else {
-                self?.selectedAddress = nil
-            }
+        Task{@MainActor in
+            self.selectedAddress = await GetAddress.shared.getAddressStr(location: .init(longitude: longitude, latitude: latitude))
         }
     }
 }
