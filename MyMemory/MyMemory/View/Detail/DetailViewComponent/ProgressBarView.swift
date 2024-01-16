@@ -1,5 +1,5 @@
 //
-//  ProgressBar.swift
+//  ProgressView.swift
 //  MyMemory
 //
 //  Created by 김성엽 on 1/16/24.
@@ -7,27 +7,36 @@
 
 import SwiftUI
 
-struct ProgressBar: View {
+struct ProgressBarView: View {
     @State private var progress = 0.0
+    @State private var userDistance: Int = 50
     
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Rectangle()
                 .foregroundStyle(.gray)
                 .clipShape(.rect(cornerRadius: 15))
-                .frame(height: 160)
+                .frame(height: 180)
             
             VStack(alignment: .leading) {
-                ProgressView(value: progress, total: 100)
+                ProgressView(value: Double(userDistance), total: 100)
                     .progressViewStyle(RoundedRectProgressViewStyle())
                 
-                Button(action: {
-                    progress += 10
-                }, label: {
-                    Text("Button")
-                })
+                if userDistance < 5 {
+                    Text("인증 장소에 도착했어요!")
+                        .foregroundStyle(.white)
+                } else {
+                    Text("인증 장소까지 \(userDistance)m")
+                        .foregroundStyle(.white)
+                }
+//                Button(action: {
+//                    progress += 10
+//                }, label: {
+//                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+//                })
             }
+            .padding(.top, 8)
 
         }
     }
@@ -36,11 +45,11 @@ struct ProgressBar: View {
 
 struct RoundedRectProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
-        
+    
         VStack(alignment: .leading) {
-            GIFView(type: .name("run"))
-                .frame(width: 30, height: 30)
-                .offset(x: CGFloat(configuration.fractionCompleted ?? 0) * 330)
+            GIFView(type: .name("run4"))
+                .frame(width: 70, height: 70)
+                .offset(x: CGFloat(configuration.fractionCompleted ?? 0) * 300)
             
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: 14)
@@ -58,6 +67,10 @@ struct RoundedRectProgressViewStyle: ProgressViewStyle {
 }
 
 
+
+
+
+
 #Preview {
-    ProgressBar()
+    ProgressView()
 }

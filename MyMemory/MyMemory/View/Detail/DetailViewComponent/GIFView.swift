@@ -1,5 +1,5 @@
 //
-//  GifView.swift
+//  GIFView.swift
 //  MyMemory
 //
 //  Created by 김성엽 on 1/16/24.
@@ -27,8 +27,9 @@ enum URLType {
 struct GIFView: UIViewRepresentable {
 
     private var type: URLType
-    
+
     init(type: URLType) {
+        
         self.type = type
     }
 
@@ -46,6 +47,7 @@ struct GIFView: UIViewRepresentable {
       activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
       return view
+
     }
 
     
@@ -67,18 +69,30 @@ struct GIFView: UIViewRepresentable {
       }
     }
 
-    
     private let imageView: FLAnimatedImageView = {
+
         let imageView = FLAnimatedImageView()
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        // UNCOMMENT TO ADD ROUNDING TO YOUR VIEW
+
+//      imageView.layer.cornerRadius = 24
         imageView.layer.masksToBounds = true
         return imageView
+
     }()
 
+
+
+
     private let activityIndicator: UIActivityIndicatorView = {
+
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.color = .systemBlue
         return activityIndicator
     }()
+
 }
+

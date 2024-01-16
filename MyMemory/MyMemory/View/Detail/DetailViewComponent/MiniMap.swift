@@ -10,14 +10,13 @@ import MapKit
 
 @available(iOS 17.0, *)
 struct MiniMap: View {
-    
     var body: some View {
         ZStack {
 
             Rectangle()
                     .foregroundStyle(.gray)
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(height: 250)
+                    .frame(height: 300)
                     .offset(y: -50)
             
             VStack(alignment: .leading) {
@@ -36,10 +35,12 @@ struct MiniMap: View {
                 .padding(.horizontal, 30)
                 .offset(y: 25)
                 
+                
                 Map()
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(height: 350)
+                    .frame(height: 400)
                     .offset(y: 10)
+                
                 
             }
         }//:ZSTACK
@@ -47,6 +48,10 @@ struct MiniMap: View {
     }
 }
 
-
-
-
+//#Preview {
+//    if #available(iOS 17.0, *) {
+//        MiniMap()
+//    } else {
+//        // Fallback on earlier versions
+//    }
+//}

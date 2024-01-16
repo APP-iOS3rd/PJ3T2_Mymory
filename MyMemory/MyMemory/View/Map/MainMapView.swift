@@ -10,19 +10,25 @@ import MapKit
 struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
     @State var draw = true
+    let layout: [GridItem] = [
+        GridItem(.flexible(maximum: 80)),
+    ]
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
-                         isUserTracking: $viewModel.isUserTracking).onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
-                    self.draw = true
-                }
+                         isUserTracking: $viewModel.isUserTracking,
+                         userLocation: $viewModel.location,
+                         clusters: $viewModel.clusters)
+                .onAppear(perform: {
+                            self.draw = true
                         }).onDisappear(perform: {
                             self.draw = false
                         }).frame(maxWidth: .infinity, maxHeight: .infinity)
-//                .environmentObject(viewModel)
+                .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {
+                TopBarAddress()
+                    .padding(.horizontal, 12)
                 HStack {
                     HStack {
                         Image(systemName: "magnifyingglass")
@@ -61,11 +67,18 @@ struct MainMapView: View {
                     .padding()
                 }
                 //선택한 경우
-                if let contents = viewModel.selectedCluster {
-                    ClusterSelectionView(contents: contents)
-                        .environmentObject(viewModel)
-                    
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: layout, spacing: 20) {
+                        ForEach(viewModel.MemoList) { item  in
+                            
+                            MemoCell(isVisible: true, isDark: true)
+                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                .padding(.leading, 12)
+                                .padding(.bottom, 12)
+                        }
+                    }
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -75,54 +88,3 @@ struct MainMapView: View {
     MainMapView()
 }
 
-struct ClusterSelectionView: View {
-    @EnvironmentObject var viewModel: MainMapViewModel
-    let contents: MemoCluster
-    var body: some View {
-        VStack {
-            HStack {
-                Text(viewModel.selectedAddress ?? "주소가 확인되지 않습니다.")
-                    .font(.regular12)
-                    .foregroundStyle(Color.gray)
-                    .padding([.top, .leading], 25)
-                
-                Spacer()
-            }
-            ScrollView(.horizontal) {
-                HStack{
-                    ForEach(contents.memos) { item in
-                        VStack {
-                            HStack {
-                                Text("\(item.title)")
-                                    .lineLimit(1)
-                                    .font(.bold20)
-                                Spacer()
-                                Text("\(item.createdAt.createdAtTimeYYMMDD)")
-                                    .font(.regular12)
-                                    .foregroundStyle(Color.gray)
-                            }
-                            .padding([.leading, .trailing], 14)
-                            Text(item.contents)
-                                .lineLimit(3)
-                                .font(.regular14)
-                                .frame(maxWidth: .infinity)
-                                .padding([.leading,.trailing], 14)
-                                .padding(.bottom, 20)
-                                .padding(.top, 10)
-                        
-                        }.frame(width: 300)
-                        .padding(.top, 10)
-                        .background(Color(red: 0.96, green: 0.96, blue: 0.96))
-                            .cornerRadius(15)
-                            .padding(10)
-                            
-                    }
-                }
-            }
-            .padding(.bottom, 30)
-        }
-        .frame(maxWidth: .infinity)
-        .background(Color.white)
-        .clipShape(RoundedCornersShape(radius: 20,corners: [.topLeft,.topRight]))
-    }
-}
