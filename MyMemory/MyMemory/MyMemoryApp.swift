@@ -22,7 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MyMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var initialIdx = 0
+    @State var initialIdx = 1
 
     var body: some Scene {
         WindowGroup {
@@ -34,3 +34,6 @@ struct MyMemoryApp: App {
         }
     }
 }
+ 
+
+ 

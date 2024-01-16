@@ -9,13 +9,18 @@ import SwiftUI
 import MapKit
 struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
+    @State var draw = true
     var body: some View {
         ZStack {
-            MapViewRepresentable(isUserTracking: $viewModel.isUserTracking,
-                                 distance: $viewModel.distance,
-                                 clusters: $viewModel.clusters,
-                                 selectedCluster: $viewModel.selectedCluster)
-                .environmentObject(viewModel)
+            KakaoMapView(draw: $draw,
+                         isUserTracking: $viewModel.isUserTracking).onAppear(perform: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
+                    self.draw = true
+                }
+                        }).onDisappear(perform: {
+                            self.draw = false
+                        }).frame(maxWidth: .infinity, maxHeight: .infinity)
+//                .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
             VStack {
                 HStack {

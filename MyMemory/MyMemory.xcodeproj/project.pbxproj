@@ -12,6 +12,32 @@
 		014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56D2B468A3B0016DF70 /* BackButton.swift */; };
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
+		01700A892B5506B80096E1CA /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A842B5506B80096E1CA /* MemoView.swift */; };
+		01700A8B2B5506B80096E1CA /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A862B5506B80096E1CA /* SelectPhotos.swift */; };
+		01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A872B5506B80096E1CA /* SelectTagView.swift */; };
+		01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A882B5506B80096E1CA /* FindAddressView.swift */; };
+		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
+		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
+		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
+		01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894002B43F5BF00DC3771 /* Pretendard-Bold.otf */; };
+		01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FE2B43F5BF00DC3771 /* Pretendard-ExtraBold.otf */; };
+		01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FD2B43F5BF00DC3771 /* Pretendard-ExtraLight.otf */; };
+		01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894022B43F5BF00DC3771 /* Pretendard-Light.otf */; };
+		01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */; };
+		01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FF2B43F5BF00DC3771 /* Pretendard-Regular.otf */; };
+		01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894012B43F5BF00DC3771 /* Pretendard-Thin.otf */; };
+		01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */; };
+		01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */; };
+		01700AA02B552A790096E1CA /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A9F2B552A790096E1CA /* MemoListView.swift */; };
+		01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AA12B552CC00096E1CA /* TopBarAddress.swift */; };
+		01700AA42B5530430096E1CA /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AA32B5530430096E1CA /* SearchView.swift */; };
+		01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AA52B5530F60096E1CA /* FilterButton.swift */; };
+		01700AA92B5534C30096E1CA /* AddressData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AA82B5534C30096E1CA /* AddressData.swift */; };
+		01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAA2B5535580096E1CA /* MemoMapView.swift */; };
+		01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAD2B553BD40096E1CA /* AddressViewModel.swift */; };
+		01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAF2B555E9A0096E1CA /* Color+Extension.swift */; };
+		01700AB42B5588780096E1CA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AB32B5588780096E1CA /* SearchBar.swift */; };
+		01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AB52B5592BE0096E1CA /* SearchCell.swift */; };
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
@@ -21,17 +47,28 @@
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
+		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
 		6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */; };
 		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
+		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
+		DA3C24F12B55079E00425288 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24E92B55079E00425288 /* PostViewModel.swift */; };
+		DA3C24F22B55079E00425288 /* MemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EB2B55079E00425288 /* MemoView.swift */; };
+		DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EC2B55079E00425288 /* MemoCell.swift */; };
+		DA3C24F42B55079E00425288 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24ED2B55079E00425288 /* SelectPhotos.swift */; };
+		DA3C24F52B55079E00425288 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EE2B55079E00425288 /* SelectTagView.swift */; };
+		DA3C24F62B55079E00425288 /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24EF2B55079E00425288 /* FindAddressView.swift */; };
+		DA3C24F72B55079E00425288 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24F02B55079E00425288 /* PostView.swift */; };
+		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
+		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
 		DA6F57702B4A80B2002DB94A /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6F576F2B4A80B2002DB94A /* MapViewRepresentable.swift */; };
-		DA7894052B43F61F00DC3771 /* Fonts+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */; };
+		DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
@@ -71,6 +108,23 @@
 		014CB56D2B468A3B0016DF70 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		01700A842B5506B80096E1CA /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		01700A862B5506B80096E1CA /* SelectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
+		01700A872B5506B80096E1CA /* SelectTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
+		01700A882B5506B80096E1CA /* FindAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
+		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
+		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
+		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
+		01700A9F2B552A790096E1CA /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
+		01700AA12B552CC00096E1CA /* TopBarAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarAddress.swift; sourceTree = "<group>"; };
+		01700AA32B5530430096E1CA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		01700AA52B5530F60096E1CA /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
+		01700AA82B5534C30096E1CA /* AddressData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressData.swift; sourceTree = "<group>"; };
+		01700AAA2B5535580096E1CA /* MemoMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMapView.swift; sourceTree = "<group>"; };
+		01700AAD2B553BD40096E1CA /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
+		01700AAF2B555E9A0096E1CA /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		01700AB32B5588780096E1CA /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		01700AB52B5592BE0096E1CA /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		01E6A6342B467FE80061F08C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
@@ -80,15 +134,26 @@
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
 		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
 		6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
+		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
+		DA3C24E92B55079E00425288 /* PostViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		DA3C24EB2B55079E00425288 /* MemoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoView.swift; sourceTree = "<group>"; };
+		DA3C24EC2B55079E00425288 /* MemoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
+		DA3C24ED2B55079E00425288 /* SelectPhotos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
+		DA3C24EE2B55079E00425288 /* SelectTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
+		DA3C24EF2B55079E00425288 /* FindAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
+		DA3C24F02B55079E00425288 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
+		DA3C24FC2B5511BD00425288 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 		DA6F576F2B4A80B2002DB94A /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
@@ -99,7 +164,7 @@
 		DA7894012B43F5BF00DC3771 /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		DA7894022B43F5BF00DC3771 /* Pretendard-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.otf"; sourceTree = "<group>"; };
 		DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
-		DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extensions.swift"; sourceTree = "<group>"; };
+		DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extension.swift"; sourceTree = "<group>"; };
 		DA78940A2B44090400DC3771 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
 		DA78940C2B44094700DC3771 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		DAB315472B43EFDB000357C7 /* MyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB315782B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */,
 				DAB3157C2B43F48C000357C7 /* FirebaseAuth in Frameworks */,
 				DAB3157E2B43F48C000357C7 /* FirebaseDatabase in Frameworks */,
 				DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */,
@@ -148,11 +214,12 @@
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6A7BA0442B5104DC00BEE111 /* Setting */,
 				01E6A6442B4683860061F08C /* Components */,
+				01E6A6372B4681210061F08C /* Authentication */,
+				01700AB22B5584EF0096E1CA /* Search */,
+				6A7BA0442B5104DC00BEE111 /* Setting */,
 				01E6A6412B4682F10061F08C /* Post */,
 				01E6A63A2B4681810061F08C /* Map */,
-				01E6A6372B4681210061F08C /* Authentication */,
 				01E6A6362B467FEC0061F08C /* Main */,
 			);
 			path = View;
@@ -162,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				014CB5742B46A2A00016DF70 /* Authentication */,
+				01700AA82B5534C30096E1CA /* AddressData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,9 +242,70 @@
 			path = Authentication;
 			sourceTree = "<group>";
 		};
+		01700A832B5506B80096E1CA /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				01700A842B5506B80096E1CA /* MemoView.swift */,
+				01700A862B5506B80096E1CA /* SelectPhotos.swift */,
+				01700A872B5506B80096E1CA /* SelectTagView.swift */,
+				01700A882B5506B80096E1CA /* FindAddressView.swift */,
+			);
+			name = Memo;
+			path = MyMemory/View/Post/Memo;
+			sourceTree = SOURCE_ROOT;
+		};
+		01700A912B550B5C0096E1CA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */,
+				01700A922B550B820096E1CA /* Button+Extension.swift */,
+				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		01700AA72B5530FB0096E1CA /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */,
+				01700AA52B5530F60096E1CA /* FilterButton.swift */,
+				014CB56D2B468A3B0016DF70 /* BackButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
+		01700AAC2B553B9F0096E1CA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		01700AB12B55848A0096E1CA /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				01700A8E2B5508E20096E1CA /* MemoCell.swift */,
+				6A7BA04F2B51060300BEE111 /* MemoList.swift */,
+				01700A9F2B552A790096E1CA /* MemoListView.swift */,
+			);
+			path = Memo;
+			sourceTree = "<group>";
+		};
+		01700AB22B5584EF0096E1CA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				01700AB32B5588780096E1CA /* SearchBar.swift */,
+				01700AB52B5592BE0096E1CA /* SearchCell.swift */,
+				01700AA32B5530430096E1CA /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		01E6A6362B467FEC0061F08C /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				01700AAA2B5535580096E1CA /* MemoMapView.swift */,
 				01E6A6342B467FE80061F08C /* MainTabView.swift */,
 			);
 			path = Main;
@@ -188,7 +317,9 @@
 				6A7BA04C2B5105AC00BEE111 /* Mypage */,
 				013127252B46448800483E9F /* ReportView.swift */,
 				01E6A6382B46813E0061F08C /* LoginView.swift */,
+				28F26D3E2B551E8500CE783D /* LoginViewModel.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
+				9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -197,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				DA78940A2B44090400DC3771 /* MainMapView.swift */,
+				DA3C24FC2B5511BD00425288 /* KakaoMap.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
 				DA6F576F2B4A80B2002DB94A /* MapViewRepresentable.swift */,
 				DA131A472B4AB19700743FD0 /* MemoModel.swift */,
@@ -209,6 +341,7 @@
 			children = (
 				649427752B5525B60079481D /* Model */,
 				649128EC2B550BB00034F567 /* PostViewComponent */,
+				01700A832B5506B80096E1CA /* Memo */,
 				01E6A6422B4683090061F08C /* PostView.swift */,
 				6494277B2B5527DA0079481D /* PostViewModel.swift */,
 			);
@@ -218,9 +351,11 @@
 		01E6A6442B4683860061F08C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				01700AA72B5530FB0096E1CA /* Button */,
+				01700AB12B55848A0096E1CA /* Memo */,
 				013127272B4674B600483E9F /* Textarea.swift */,
-				014CB56D2B468A3B0016DF70 /* BackButton.swift */,
 				014CB56F2B468DD90016DF70 /* SelectBox.swift */,
+				01700AA12B552CC00096E1CA /* TopBarAddress.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -266,9 +401,28 @@
 			children = (
 				01E6A63F2B4681DC0061F08C /* MypageView.swift */,
 				6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */,
-				6A7BA04F2B51060300BEE111 /* MemoList.swift */,
 			);
 			path = Mypage;
+			sourceTree = "<group>";
+		};
+		DA3C24E82B55079E00425288 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				DA3C24E92B55079E00425288 /* PostViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DA3C24EA2B55079E00425288 /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				DA3C24EB2B55079E00425288 /* MemoView.swift */,
+				DA3C24EC2B55079E00425288 /* MemoCell.swift */,
+				DA3C24ED2B55079E00425288 /* SelectPhotos.swift */,
+				DA3C24EE2B55079E00425288 /* SelectTagView.swift */,
+				DA3C24EF2B55079E00425288 /* FindAddressView.swift */,
+			);
+			path = Memo;
 			sourceTree = "<group>";
 		};
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
@@ -290,6 +444,7 @@
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
+				DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */,
 				DAB315492B43EFDB000357C7 /* MyMemory */,
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
@@ -312,9 +467,10 @@
 			children = (
 				014CB5732B46A2950016DF70 /* Model */,
 				013127232B461B0D00483E9F /* View */,
+				01700AAC2B553B9F0096E1CA /* ViewModel */,
+				DAB315812B43F517000357C7 /* Resource */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
-				DAB315812B43F517000357C7 /* Resource */,
 				DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */,
 				DAB3154E2B43EFDD000357C7 /* Assets.xcassets */,
 				DAB315502B43EFDD000357C7 /* Preview Content */,
@@ -351,8 +507,8 @@
 		DAB315812B43F517000357C7 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				01700A912B550B5C0096E1CA /* Extension */,
 				DA7893FA2B43F5AE00DC3771 /* Fonts */,
-				DA7894042B43F61F00DC3771 /* Fonts+Extensions.swift */,
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 			);
 			path = Resource;
@@ -380,6 +536,7 @@
 				DAB3157B2B43F48C000357C7 /* FirebaseAuth */,
 				DAB3157D2B43F48C000357C7 /* FirebaseDatabase */,
 				DAB3157F2B43F48C000357C7 /* FirebaseFirestore */,
+				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -455,6 +612,7 @@
 			mainGroup = DAB3153E2B43EFDB000357C7;
 			packageReferences = (
 				DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 			);
 			productRefGroup = DAB315482B43EFDB000357C7 /* Products */;
 			projectDirPath = "";
@@ -473,8 +631,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
+				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
+				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
+				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
+				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
+				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
+				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
+				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
+				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
+				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
+				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,31 +667,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3C24F52B55079E00425288 /* SelectTagView.swift in Sources */,
+				DA3C24F42B55079E00425288 /* SelectPhotos.swift in Sources */,
+				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
+				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
+				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
+				01700A892B5506B80096E1CA /* MemoView.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
+				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
+				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
+				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
+				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
 				6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */,
+				01700AB42B5588780096E1CA /* SearchBar.swift in Sources */,
+				01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */,
+				01700AA42B5530430096E1CA /* SearchView.swift in Sources */,
+				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
+				01700A8C2B5506B80096E1CA /* SelectTagView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
+				01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */,
+				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
+				DA3C24F72B55079E00425288 /* PostView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
+				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA6F57702B4A80B2002DB94A /* MapViewRepresentable.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
+				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
 				649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
-				DA7894052B43F61F00DC3771 /* Fonts+Extensions.swift in Sources */,
+				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
+				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
+				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 			);
@@ -565,6 +755,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -628,6 +819,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -684,6 +876,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -728,6 +921,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -772,6 +966,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -792,6 +987,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -812,6 +1008,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -832,6 +1029,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -892,6 +1090,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.3;
+			};
+		};
 		DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -903,6 +1109,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = KakaoMapsSDK_SPM;
+		};
 		DAB315772B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
