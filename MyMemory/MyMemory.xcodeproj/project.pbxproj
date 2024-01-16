@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
+		013383512B5669A4004D4B8A /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013383502B5669A4004D4B8A /* ViewRouter.swift */; };
+		013383532B5669E4004D4B8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013383522B5669E4004D4B8A /* SceneDelegate.swift */; };
 		014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56D2B468A3B0016DF70 /* BackButton.swift */; };
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
@@ -95,6 +97,8 @@
 /* Begin PBXFileReference section */
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
+		013383502B5669A4004D4B8A /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		013383522B5669E4004D4B8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		014CB56D2B468A3B0016DF70 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
@@ -450,7 +454,9 @@
 				DAB315812B43F517000357C7 /* Resource */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
+				013383502B5669A4004D4B8A /* ViewRouter.swift */,
 				DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */,
+				013383522B5669E4004D4B8A /* SceneDelegate.swift */,
 				DAB3154E2B43EFDD000357C7 /* Assets.xcassets */,
 				DAB315502B43EFDD000357C7 /* Preview Content */,
 			);
@@ -695,9 +701,11 @@
 				DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */,
 				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
+				013383532B5669E4004D4B8A /* SceneDelegate.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
+				013383512B5669A4004D4B8A /* ViewRouter.swift in Sources */,
 				649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */,
 				013127262B46448800483E9F /* ReportView.swift in Sources */,
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
