@@ -24,6 +24,7 @@ struct KakaoMapView: UIViewRepresentable {
         view.setDelegate(context.coordinator)
         view.sizeToFit()
         view.setDelegate(context.coordinator)
+        view.sizeToFit()
         context.coordinator.createController(view)
         context.coordinator.controller?.initEngine()
         return view
@@ -174,7 +175,6 @@ struct KakaoMapView: UIViewRepresentable {
         }
         func resetLocation(latitude: Double?, longitude: Double?) {
             if let mapView: KakaoMap = controller?.getView("mapview") as? KakaoMap {
-            
                 let cameraUpdate: CameraUpdate = CameraUpdate.make(target: MapPoint(longitude: longitude ??  127.108678, latitude: latitude ?? 37.402001), zoomLevel: 16, mapView: mapView)
                 mapView.animateCamera(cameraUpdate: cameraUpdate, options: .init())
                 let trackingManager = mapView.getTrackingManager()
@@ -208,8 +208,6 @@ struct KakaoMapView: UIViewRepresentable {
                     tempPoi?.addBadge(badge)
                     tempPoi?.show()
                     tempPoi?.showBadge(badgeID: "\(c.id)")
-
-
                 }
             }
         }
