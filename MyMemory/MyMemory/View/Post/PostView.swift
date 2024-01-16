@@ -37,11 +37,16 @@ struct PostView: View {
     
     
     @StateObject var viewModel: PostViewModel = PostViewModel()
+    
+    //viewModel로 전달할 값 모음
     @State var memoTitle: String = ""
     @State var memoContents: String = ""
     @State var memoAddressText: String = ""
     @State var memoSelectedImageItems: [PhotosPickerItem] = []
     @State private var memoSelectedTags: [String] = []
+    @State var memoShare: Bool = false
+    
+    
     // 추후 사용자 위치 값 가져오기
     var userCoordinate = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
@@ -69,6 +74,7 @@ struct PostView: View {
                 }
                 .background(.ultraThinMaterial)
                 .padding(.bottom)
+                .padding(.horizontal)
                 
                 //💁 사진 등록하기 View
                 Group {
@@ -83,7 +89,7 @@ struct PostView: View {
                         SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
                     }//:VSTACK
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
                 .padding(.bottom)
                 
                 
@@ -91,15 +97,33 @@ struct PostView: View {
                 Group {
                     FindAddressView(memoAddressText: $memoAddressText)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 25)
                 
                 // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
                 Group {
                     VStack(alignment: .leading, spacing: 10){
-                        Text("제목, 기록할 메모 입력")
-                            .font(.bold20)
-                            .bold()
+                        ZStack(alignment: .leading){
+                            Text("제목, 기록할 메모 입력")
+                                .font(.bold20)
+                                .bold()
+                            
+                          
+                            Toggle(
+                                isOn: $memoShare) {
+                                    // 토글 내부에 아무 것도 추가하지 않습니다.
+                                } //: Toggle
+                                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
+                                .overlay {
+                                    Text(memoShare ? "공유 하기" : "나만 보기")
+                                        //.foregroundColor(Color(.systemGray3))
+                                        .font(.caption)
+                                        
+                                        .offset(CGSize(width:
+                                                        153.0, height: -25.0))
+                                }
+                        }// HStack
+                       
                         
                         TextField("제목을 입력해주세요", text: $memoTitle)
                             .textFieldStyle(.roundedBorder)
@@ -125,7 +149,7 @@ struct PostView: View {
                             }
                     }
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
                 .padding(.bottom)
                 
                 // 💁 Tag 선택 View
@@ -136,14 +160,15 @@ struct PostView: View {
                 
                 Button(action: {
                     // 사용자 입력값을 뷰모델에 저장
-
+                    
                     viewModel.saveMemo(userCoordinate: userCoordinate,
-                                      memoTitle: memoTitle,
+                                       memoShare: memoShare,
+                                       memoTitle: memoTitle,
                                        memoContents: memoContents,
                                        memoAddressText: memoAddressText,
                                        memoSelectedImageItems: memoSelectedImageItems,
                                        memoSelectedTags: memoSelectedTags)
-
+                    
                     // 임시로 로직 구현전 뒤로가기
                     // 메인뷰 보여주기
                 }, label: {
@@ -158,7 +183,7 @@ struct PostView: View {
                 
                 Spacer()
             } //:VSTACK
-            
+    
         } //: ScrollView
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {

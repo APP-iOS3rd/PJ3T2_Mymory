@@ -26,7 +26,11 @@ struct MyMemoryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainTabView(selectedIndex: $initialIdx)
+            if #available(iOS 17.0, *) {
+                MainTabView(selectedIndex: $initialIdx)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }

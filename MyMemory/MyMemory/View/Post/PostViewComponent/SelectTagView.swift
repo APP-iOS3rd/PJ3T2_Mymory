@@ -55,7 +55,7 @@ struct SelectTagView: View {
             }  //:HSTACK
             
             Rectangle()
-                .frame(width: UIScreen.main.bounds.size.width * 0.90, height: 40)
+                .frame(height: 40)
                 .cornerRadius(10)
                 .foregroundStyle(Color.gray.opacity(0.17))
                 .overlay(
@@ -75,7 +75,7 @@ struct SelectTagView: View {
                 )
 
         }  //:VSTACK
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
         
         if isShowingView {
             // View that appears from bottom to top
