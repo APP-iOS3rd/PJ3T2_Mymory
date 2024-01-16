@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MemoListCell: View {
+struct MypageMemoListCell: View {
     @Binding var title: String
     @Binding var tags: [String]?
     @Binding var date: String
