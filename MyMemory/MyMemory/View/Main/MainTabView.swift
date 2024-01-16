@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+
 struct MainTabView: View {
     
+    //@State var selectedIndex: Int = 1
     @Binding var selectedIndex: Int
-    
     var body: some View {
         NavigationView {
             TabView(selection: $selectedIndex){
@@ -19,9 +20,11 @@ struct MainTabView: View {
                         selectedIndex = 0
                     }
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
+                        Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
+
+ 
                 if #available(iOS 17.0, *) {
                     PostView()
                         .onTapGesture{
@@ -41,6 +44,16 @@ struct MainTabView: View {
                             Text("작성")
                         }.tag(1)
                 }
+                
+                MemoMapView()
+                    .onTapGesture{
+                        selectedIndex = 1
+                    }
+                    .tabItem {
+                        Image(systemName: "pencil")
+                        Text("메모하기")
+                    }.tag(2)
+
                 MypageView()
                     .onTapGesture{
                         selectedIndex = 2
@@ -48,8 +61,14 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "person")
                         Text("마이")
-                    }.tag(2)
+                    }.tag(3)
             }
         }
     }
 }
+
+ 
+// 
+//#Preview {
+//    MainTabView(selectedIndex: 1)
+//}
