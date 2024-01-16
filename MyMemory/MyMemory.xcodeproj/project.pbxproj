@@ -51,6 +51,7 @@
 		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
+		9DA79BF42B5675D60064FAD8 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
@@ -128,6 +129,7 @@
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
@@ -137,7 +139,6 @@
 		DA3C24EE2B55079E00425288 /* SelectTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		DA3C24EF2B55079E00425288 /* FindAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		DA3C24F02B55079E00425288 /* PostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA3C24FC2B5511BD00425288 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
 		DA52B5DD2B560E83003F5E59 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
@@ -394,14 +395,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,7 +414,7 @@
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
-				DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */,
+				9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */,
 				DAB315492B43EFDB000357C7 /* MyMemory */,
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
@@ -629,6 +622,7 @@
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
+				9DA79BF42B5675D60064FAD8 /* APIKEYS.xcconfig in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
@@ -691,8 +685,6 @@
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
-				DA3785612B561BEE007AECD9 /* ClusterSelectionView.swift in Sources */,
-				DA3C24F32B55079E00425288 /* MemoCell.swift in Sources */,
 				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
@@ -744,7 +736,6 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -808,7 +799,6 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -865,7 +855,6 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -913,7 +902,6 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -961,7 +949,6 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -982,7 +969,6 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1003,7 +989,6 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1024,7 +1009,6 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA3C24FB2B55100800425288 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
