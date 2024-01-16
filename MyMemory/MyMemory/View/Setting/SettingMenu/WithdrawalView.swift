@@ -64,10 +64,20 @@ struct WithdrawalView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
-            .navigationTitle("회원 탈퇴")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarBackButtonHidden(true)
             .padding(.top, 100)
             .padding(.horizontal, 16)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    BackButton()
+                        .foregroundStyle(Color.black)
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("회원 탈퇴")
+                        .font(.semibold16)
+                }
+            }
         }
     }
 }

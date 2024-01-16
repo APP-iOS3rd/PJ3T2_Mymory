@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SettingMenuCell: View {
     var name: String
-    var iconName: String?
     var body: some View {
         NavigationLink {
             
@@ -18,13 +17,6 @@ struct SettingMenuCell: View {
                 Text(name)
                     .font(.regular18)
                 Spacer()
-                if let iconName {
-                    Image(systemName: iconName)
-                        .font(.system(size: 24))
-                } else {
-                    Text("1.0.0")
-                        .foregroundStyle(Color(UIColor.systemGray))
-                }
             }.foregroundStyle(.black)
         }
     }
