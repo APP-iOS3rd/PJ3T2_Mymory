@@ -8,12 +8,14 @@
 import Foundation
 import Combine
 import MapKit
+import KakaoMapsSDK
 import CoreLocation
 
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
-    private var location: CLLocation?
-    @Published var annotations: [MiniMemoModel] = []
+    private let operation: OperationQueue = OperationQueue()
+    @Published var location: CLLocation?
+    @Published var MemoList: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = [] {
         didSet {
@@ -25,6 +27,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var startingClusters: [MemoCluster] = []
 
     @Published var searchTxt: String = ""
+    @Published var selectedMemoId: UUID = UUID()
     @Published var selectedCluster: MemoCluster? = nil{
         didSet {
             guard let cluster = selectedCluster else {
@@ -36,8 +39,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             getAddressFromCoordinates(latitude: latitude, longitude: longitude)
         }
     }
-    @Published var selectedAddress: String? = nil
-
+    @Published var selectedAddress: String? = nil 
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -62,7 +64,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         tempModel()
     }
     private func tempModel() {
-        self.annotations = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
+        self.MemoList = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.9780),
                                      title: "test1",
                                      contents: "contents2",
@@ -119,47 +121,8 @@ extension MainMapViewModel {
     }
     //MARK: - 주소 얻어오는 함수
     private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
-        let geocoder = CLGeocoder()
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-
-        geocoder.reverseGeocodeLocation(location, preferredLocale: Locale(identifier: "Ko-kr")) { [weak self] (placemarks, error) in
-            if let error = error {
-                print("Reverse geocoding error: \(error.localizedDescription)")
-                self?.selectedAddress = nil
-                return
-            }
-
-            if let placemark = placemarks?.first {
-                // 주소 정보를 가져와서 원하는 형식으로 가공
-                //시
-                let city = placemark.locality ?? ""
-                let road = placemark.subLocality ?? ""
-                let subRoad = placemark.subThoroughfare ?? ""
-                var placeName = placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? ""
-                if !placeName.isEmpty {
-                    placeName.removeFirst()
-                    placeName = "(" + placeName + ") "
-                }
-                let address = "\(placeName)\(city) \(road) \(subRoad)"
-                
-                print("name : \(placemark.name ?? "")")
-                print("thoroughfare : \(placemark.thoroughfare ?? "")")
-                print("subThoroughfare : \(placemark.subThoroughfare ?? "")")
-                print("locality : \(placemark.locality ?? "")")
-                print("subLocality : \(placemark.subLocality ?? "")")
-                print("administrativeArea : \(placemark.administrativeArea ?? "")")
-                print("subAdministrativeArea : \(placemark.subAdministrativeArea ?? "")")
-                print("ISOcountryCode : \(placemark.isoCountryCode ?? "")")
-                print("country : \(placemark.country ?? "")")
-                print("inlandWater : \(placemark.inlandWater ?? "")")
-                print("ocean : \(placemark.ocean ?? "")")
-                print("areasOfInterest : \(placemark.areasOfInterest?.reduce("") { $0 + "," + $1} ?? "")")
-                print("===========================")
-
-                self?.selectedAddress = address
-            } else {
-                self?.selectedAddress = nil
-            }
+        Task{@MainActor in
+            self.selectedAddress = await GetAddress.shared.getAddressStr(location: .init(longitude: longitude, latitude: latitude))
         }
     }
 }
@@ -170,7 +133,7 @@ extension MainMapViewModel {
             self.isUserTracking = true
         }
     }
-    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) async -> [MemoCluster] {
+    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) -> [MemoCluster] {
         var tempClusters = clusters
         var i = 0, j = 0
         while(i < tempClusters.count) {
@@ -195,17 +158,30 @@ extension MainMapViewModel {
         return tempClusters
     }
     private func initialCluster() -> [MemoCluster] {
-        return self.annotations.map{.init(memo: $0)}
+        return self.MemoList.map{.init(memo: $0)}
     }
-    private func cluster(distance: Double) async -> [MemoCluster] {
-        let result = await calculateDistance(from: startingClusters, threshold: distance)
+    private func cluster(distance: Double) -> [MemoCluster] {
+        let result = calculateDistance(from: startingClusters, threshold: distance)
         return result
     }
     func updateAnnotations(cameraDistance: Double){
-        Task { @MainActor in
-            do {
-                clusters = await cluster(distance: cameraDistance)
-            }
+        operation.cancelAllOperations()
+        operation.addOperation { [weak self] in
+            self?.clusters = self?.cluster(distance: cameraDistance) ?? []
         }
+    }
+}
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
+    }
+
+    func squaredDistance(to : CLLocationCoordinate2D) -> Double {
+        return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
+    }
+    
+
+    func distance(to: CLLocationCoordinate2D) -> Double {
+        return sqrt(squaredDistance(to: to))
     }
 }
