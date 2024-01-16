@@ -173,6 +173,7 @@ struct KakaoMapView: UIViewRepresentable {
         }
         func resetLocation(latitude: Double?, longitude: Double?) {
             if let mapView: KakaoMap = controller?.getView("mapview") as? KakaoMap {
+                
                 let cameraUpdate: CameraUpdate = CameraUpdate.make(target: MapPoint(longitude: longitude ??  127.108678, latitude: latitude ?? 37.402001), zoomLevel: 16, mapView: mapView)
                 mapView.animateCamera(cameraUpdate: cameraUpdate, options: .init())
                 let trackingManager = mapView.getTrackingManager()
