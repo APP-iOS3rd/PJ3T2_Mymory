@@ -30,14 +30,9 @@ enum TagType: String, CaseIterable {
 
 struct SelectTagView: View {
     @State private var isShowingView: Bool = false
-    @State private var selectedTags: [String] = []
+    @Binding var memoSelectedTags: [String]
+    @Namespace private var customNamespace // 추가된 네임스페이스
     
-    // 화면 그리드형식으로 채워줌
-    let layout: [GridItem] = [
-        GridItem(.flexible(maximum: 80)),
-        GridItem(.flexible(maximum: 80)),
-        GridItem(.flexible(maximum: 80))
-    ]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -66,7 +61,7 @@ struct SelectTagView: View {
                 .overlay(
                     HStack(spacing: 5) {
                         // 태그 선택할때 마다 표시
-                        ForEach(selectedTags, id: \.self) { tag in
+                        ForEach(memoSelectedTags, id: \.self) { tag in
                             Text("#\(tag)")
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 8)
@@ -80,39 +75,51 @@ struct SelectTagView: View {
                 )
 
         }  //:VSTACK
+        .padding(.horizontal)
         
         if isShowingView {
             // View that appears from bottom to top
             VStack {
                 
                 Text("어떤 태그를 선택하시겠어요?")
+                /*
+                 VStack 내부의 첫번째 ForEach는 행을 생성합니다. 각 행에는 최대 5개의 태그가 있으며, 전체 태그의 수를 5로 나눈 값이 행의 수를 결정합니다. 나머지가 있다면 행 하나를 더 추가해야 하므로 (TagType.allCases.count + 2) / 5를 사용하여 올림 연산을 수행합니다.
+
+                 각 행은 HStack으로 구현됩니다.
+                 
+                 HStack 내부의 두 번째 ForEach는 각 행에 5개의 태그를 생성합니다. rowIndex * 5 + columnIndex를 통해 각 태그의 인덱스를 계산합니다.
+                 */
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(TagType.allCases, id: \.self) { tag in
-                            Button(action: {
-                                // 버튼 누르면 태그 배열의 추가
-                                withAnimation {
-                                    toggleTag(tag)
-                                }
-                            }) {
-                                //현재 반복 중인 tag의 rawValue 즉, 문자열 값입니다.
-                                Text(tag.rawValue)
-                                    .padding()
-                                    .background(
-                                        Capsule()
-                                            .foregroundColor(selectedTags.contains(tag.rawValue) ? .pink : .gray)
-                                    )
-                                    .foregroundColor(.white)
-                                /*
-                                 현재 태그가 selectedTags 배열에 포함되어 있는지 여부를 확인합니다.
-                                 만약 포함되어 있다면, 조건이 참이므로 .pink를 사용하여 배경색을 핑크로 지정합니다.
-                                 포함되어 있지 않다면, 조건이 거짓이므로 .gray를 사용하여 배경색을 그레이로 지정합니다.
-                                 */
-                            }
-                        } // ForEach
-                    }// LazyHGrid
-                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 4)// 화면의 반의 반 비율
-                }  //:SCROLL
+                    VStack(alignment: .leading, spacing: 20) {
+                        ForEach(0..<(TagType.allCases.count + 2) / 5) { rowIndex in
+                            HStack(spacing: 20) {
+                                ForEach(0..<5) { columnIndex in
+                                    let index = rowIndex * 5 + columnIndex
+                                    if index < TagType.allCases.count {
+                                        let tag = TagType.allCases[index]
+                                        Button(action: {
+                                            withAnimation {
+                                                toggleTag(tag)
+                                            }
+                                        }) {
+                                            Text(tag.rawValue)
+                                                .padding()
+                                                .background(
+                                                    Capsule()
+                                                        .foregroundColor(memoSelectedTags.contains(tag.rawValue) ? .pink : .gray)
+                                                )
+                                                .foregroundColor(.white)
+                                        }
+                                    } else {
+                                        Spacer()
+                                    }
+                                } // ForEach
+                            } // HStack
+                        }// ForEach
+                    } // VStack
+                    .padding()
+                } // ScrollView
+
                 .padding()
                 
             } //:VSTACK
@@ -127,15 +134,15 @@ struct SelectTagView: View {
         let tagString = tag.rawValue
 
         // 이미 선택된 태그인지 확인
-        let isTagSelected = selectedTags.contains(tagString)
+        let isTagSelected = memoSelectedTags.contains(tagString)
 
         if isTagSelected {
             // 이미 선택된 경우, 해당 태그를 제거
-            selectedTags.removeAll { $0 == tagString }
+            memoSelectedTags.removeAll { $0 == tagString }
         } else {
             // 선택되지 않은 경우, 최대 5개까지만 추가
-            if selectedTags.count < 5 {
-                selectedTags.append(tagString)
+            if memoSelectedTags.count < 5 {
+                memoSelectedTags.append(tagString)
             }
         }
     }
@@ -143,5 +150,5 @@ struct SelectTagView: View {
     
 }
 #Preview {
-    SelectTagView()
+    SelectTagView(memoSelectedTags: .constant(["태그1", "태그2"]))
 }
