@@ -17,8 +17,6 @@ class SettingViewModel: ObservableObject {
     
     func fetchCurrentAppVersion() -> String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-        let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as! String
-        
-        return version + "." + bundleVersion
+        return version
     }
 }
