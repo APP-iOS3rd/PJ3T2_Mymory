@@ -6,8 +6,6 @@
 //
 
 import Foundation
-
-import Foundation
 import Photos
 import PhotosUI
 import SwiftUI
