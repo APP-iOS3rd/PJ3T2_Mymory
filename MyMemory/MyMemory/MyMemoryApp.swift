@@ -22,16 +22,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MyMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var initialIdx = 1
 
+    
     var body: some Scene {
         WindowGroup {
-            if #available(iOS 17.0, *) {
-                MainTabView(selectedIndex: $initialIdx)
-            } else {
-                // Fallback on earlier versions
-            }
+            MainView(viewRouter: ViewRouter())
         }
+        
     }
 }
  
