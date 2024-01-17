@@ -12,43 +12,46 @@ import _PhotosUI_SwiftUI
 
 
 // 💁 사용자 위치추적 및 권한허용 싱글톤 구현 위치 임시지정
-@MainActor class LocationsHandler: ObservableObject {
-    
+class LocationsHandler: NSObject, CLLocationManagerDelegate {
     static let shared = LocationsHandler()
-    public let manager: CLLocationManager
+    private let locationManager = CLLocationManager()
+    var completion: ((CLLocationCoordinate2D?) -> Void)?
     
-    init() {
-        self.manager = CLLocationManager()
-        if self.manager.authorizationStatus == .notDetermined {
-            self.manager.requestWhenInUseAuthorization()
+    private override init() {
+        super.init()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func getCurrentLocation(completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+        self.completion = completion
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            completion?(location.coordinate)
         }
+        completion?(nil)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+        completion?(nil)
     }
 }
 
 
-@available(iOS 17.0, *)
+
+
 struct PostView: View {
     
-    // 사용자 위치 값 가져오기
-    @ObservedObject var locationsHandler = LocationsHandler.shared
     
-    // 카메라 위치추적 변수 사용자를 추적
-    @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
-    
+    @ObservedObject var MapviewModel: MainMapViewModel = .init()
+    @State var draw = true
     
     @StateObject var viewModel: PostViewModel = PostViewModel()
-    
-    //viewModel로 전달할 값 모음
-    @State var memoTitle: String = ""
-    @State var memoContents: String = ""
-    @State var memoAddressText: String = ""
-    @State var memoSelectedImageItems: [PhotosPickerItem] = []
-    @State private var memoSelectedTags: [String] = []
-    @State var memoShare: Bool = false
-    
-    
-    // 추후 사용자 위치 값 가져오기
-    var userCoordinate = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
     let minHeight: CGFloat = 250
     let maxHeight: CGFloat = 400
@@ -62,19 +65,20 @@ struct PostView: View {
             VStack(alignment: .leading){
                 
                 //💁 상단 MapView
-                Map(position: $position){
-                    UserAnnotation()
-                }
-                .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
-                .mapStyle(.standard(elevation: .realistic))
-                .mapControls {
-                    MapUserLocationButton()
-                    MapCompass()
-                    MapScaleView()
-                }
-                .background(.ultraThinMaterial)
-                .padding(.bottom)
-                .padding(.horizontal)
+                KakaoMapView(draw: $draw,
+                             isUserTracking: $MapviewModel.isUserTracking,
+                             userLocation: $MapviewModel.location,
+                             clusters: $MapviewModel.clusters)
+                    .onAppear(perform: {
+                                self.draw = true
+                            }).onDisappear(perform: {
+                                self.draw = false
+                            }).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .environmentObject(viewModel)
+                    .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
+                    .background(.ultraThinMaterial)
+                    .padding(.bottom)
+                    .padding(.horizontal)
                 
                 //💁 사진 등록하기 View
                 Group {
@@ -86,7 +90,8 @@ struct PostView: View {
                             Spacer()
                             
                         } //:HSTACK
-                        SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
+                        SelectPhotos(memoSelectedImageData: $viewModel.memoSelectedImageData)
+                        
                     }//:VSTACK
                 }
                 .padding(.horizontal, 20)
@@ -95,11 +100,10 @@ struct PostView: View {
                 
                 // 💁 주소찾기 View
                 Group {
-                    FindAddressView(memoAddressText: $memoAddressText)
+                    FindAddressView(memoAddressText: $viewModel.memoAddressText)
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom, 25)
-                
                 // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
                 Group {
                     VStack(alignment: .leading, spacing: 10){
@@ -108,43 +112,43 @@ struct PostView: View {
                                 .font(.bold20)
                                 .bold()
                             
-                          
+                            
                             Toggle(
-                                isOn: $memoShare) {
+                                isOn: $viewModel.memoShare) {
                                     // 토글 내부에 아무 것도 추가하지 않습니다.
                                 } //: Toggle
                                 .toggleStyle(SwitchToggleStyle(tint: Color.blue))
                                 .overlay {
-                                    Text(memoShare ? "공유 하기" : "나만 보기")
-                                        //.foregroundColor(Color(.systemGray3))
+                                    Text(viewModel.memoShare ? "공유 하기" : "나만 보기")
+                                    //.foregroundColor(Color(.systemGray3))
                                         .font(.caption)
-                                        
+                                    
                                         .offset(CGSize(width:
                                                         153.0, height: -25.0))
                                 }
                         }// HStack
-                       
                         
-                        TextField("제목을 입력해주세요", text: $memoTitle)
+                        
+                        TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
                             .textFieldStyle(.roundedBorder)
                         
                         // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
-                        TextEditor(text: $memoContents)
+                        TextEditor(text: $viewModel.memoContents)
                             .frame(minHeight: minHeight, maxHeight: maxHeight)
                             .cornerRadius(10)
                             .colorMultiply(Color.gray.opacity(0.2))
                             .foregroundColor(.black)
                         // 최대 1000자 까지만 허용
-                            .onChange(of: memoContents) { newValue in
+                            .onChange(of: viewModel.memoContents) { newValue in
                                 // Limit text input to maxCharacterCount
                                 if newValue.count > maxCharacterCount {
-                                    memoContents = String(newValue.prefix(maxCharacterCount))
+                                    viewModel.memoContents = String(newValue.prefix(maxCharacterCount))
                                 }
                             }// Just는 Combine 프레임워크에서 제공하는 publisher 중 하나이며, SwiftUI에서 특정 이벤트에 반응하거나 값을 수신하기 위해 사용됩니다. 1000를 넘으면 입력을 더이상 할 수 없습니다.
-                            .onReceive(Just(memoContents)) { _ in
+                            .onReceive(Just(viewModel.memoContents)) { _ in
                                 // Disable further input if the character count exceeds maxCharacterCount
-                                if memoContents.count > maxCharacterCount {
-                                    memoContents = String(memoContents.prefix(maxCharacterCount))
+                                if viewModel.memoContents.count > maxCharacterCount {
+                                    viewModel.memoContents = String(viewModel.memoContents.prefix(maxCharacterCount))
                                 }
                             }
                     }
@@ -154,20 +158,14 @@ struct PostView: View {
                 
                 // 💁 Tag 선택 View
                 Group {
-                    SelectTagView(memoSelectedTags: $memoSelectedTags)
+                    SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
                 }
                 .padding(.bottom)
                 
                 Button(action: {
                     // 사용자 입력값을 뷰모델에 저장
                     
-                    viewModel.saveMemo(userCoordinate: userCoordinate,
-                                       memoShare: memoShare,
-                                       memoTitle: memoTitle,
-                                       memoContents: memoContents,
-                                       memoAddressText: memoAddressText,
-                                       memoSelectedImageItems: memoSelectedImageItems,
-                                       memoSelectedTags: memoSelectedTags)
+                    viewModel.saveMemo()
                     
                     // 임시로 로직 구현전 뒤로가기
                     // 메인뷰 보여주기
@@ -177,13 +175,13 @@ struct PostView: View {
                 })
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .disabled(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0)
-                .tint(memoTitle.isEmpty || memoContents.isEmpty || userCoordinate.latitude == 0 ? Color(.systemGray5) : Color.blue)
+                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.memoAddressText.isEmpty )
+                .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.memoAddressText.isEmpty ? Color(.systemGray5) : Color.blue)
                 .padding(.bottom)
                 
                 Spacer()
             } //:VSTACK
-    
+            
         } //: ScrollView
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
@@ -195,14 +193,14 @@ struct PostView: View {
                 .foregroundColor(.blue)
         })
     }
+        
     
 }
 
-#if DEBUG
-@available(iOS 17.0, *)
+
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         PostView()
     }
 }
-#endif
+
