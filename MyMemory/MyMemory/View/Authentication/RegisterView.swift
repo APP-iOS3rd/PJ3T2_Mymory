@@ -39,8 +39,8 @@ struct RegisterView: View {
                         }
                         
                     }
-                    Spacer()
-                    Spacer()
+                    
+                    Spacer(minLength: 16)
                     VStack(alignment: .leading) {
                         VStack(alignment: .leading) {
                             Text("이메일")
@@ -122,8 +122,7 @@ struct RegisterView: View {
                                                         .foregroundStyle(Color.gray)
                                             }
                                         }
-                            Spacer()
-                            Spacer()
+                            Spacer(minLength: 16)
                                         HStack{
                                             Image(systemName: viewModel.overFourteenBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
@@ -134,8 +133,7 @@ struct RegisterView: View {
                                                 .font(.system(size: 10))
                                         }
                                             .font(.system(size: 13))
-                            Spacer()
-                            Spacer()
+                            Spacer(minLength: 16)
                                         HStack{
                                             Image(systemName: viewModel.termsOfUseBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
@@ -158,9 +156,7 @@ struct RegisterView: View {
                                             }
                                         }
                                             .font(.system(size: 13))
-                            
-                            Spacer()
-                            Spacer()
+                            Spacer(minLength: 16)
                                         HStack{
                                             Image(systemName: viewModel.privacyPolicyBox ? "checkmark.square" : "square")
                                                 .onTapGesture {
@@ -195,10 +191,7 @@ struct RegisterView: View {
 //                        }
                         .padding()
                     }
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
+                    Spacer(minLength: 32)
                     Button(action: {
                         if viewModel.checkIfCanRegister() == true {
                             print("Register completed")
