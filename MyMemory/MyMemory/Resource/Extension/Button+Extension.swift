@@ -11,7 +11,7 @@ import SwiftUI
 
 // Pill(알약형태)
 // 다음과 같이 사용해주세요. .buttonStyle(Pill.standard)
-struct Pill: ButtonStyle {
+struct Pill: PrimitiveButtonStyle {
     let backgroundColor: Color
     let titleColor: Color
     let setFont: Font

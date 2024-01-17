@@ -9,9 +9,9 @@ import SwiftUI
 
 struct MemoListView: View {
     
-    @State var sortDistance: Bool = true
+    @Binding var sortDistance: Bool
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject var viewModel: MainMapViewModel
     var body: some View {
         ZStack {
             
@@ -46,17 +46,15 @@ struct MemoListView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     
                     VStack(spacing: 12) {
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
+                        ForEach(viewModel.MemoList) { item in
+                            
+                            MemoCell(
+                                isVisible: true,
+                                isDark: false,
+                                location: viewModel.location,
+                                item: item)
+                        }
+                       
                     }
                     
                 }
@@ -85,5 +83,5 @@ struct MemoListView: View {
 }
 
 #Preview {
-    MemoListView()
+    MemoListView(sortDistance: .constant(true))
 }

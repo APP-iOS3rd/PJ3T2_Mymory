@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MemoCell: View {
 
     @State var isVisible: Bool = true
     @State var isDark: Bool = false
+    @State var location: CLLocation? = nil
     
+    var item: MiniMemoModel
     var body: some View {
         HStack(spacing: 16) {
             
@@ -29,14 +32,21 @@ struct MemoCell: View {
                 
                 // Tag는 세 개까지 표시
                 HStack {
-                    Text("#핫플레이스")
-                    Text("#맛집")
-                    Text("#종합쇼핑몰")
+                    if item.tag.count > 3 {
+                        ForEach(item.tag[0..<3], id: \.self) { str in
+                        Text("#\(str)")
+                        }
+                    } else {
+                        ForEach(item.tag, id: \.self) { str in
+                        Text("#\(str)")
+                        }
+                    }
                 }
                 .foregroundColor(.gray)
                 .font(.regular14)
                 
-                Text(isVisible ? "메모제목" : "거리가 멀어서 볼 수 없어요.")
+                Text(isVisible ? item.title : "거리가 멀어서 볼 수 없어요.")
+                    .lineLimit(1)
                     .font(.black20)
                     .foregroundStyle(isDark ? .white : .black)
                 
@@ -56,10 +66,10 @@ struct MemoCell: View {
                 HStack(alignment:  .center) {
                     HStack {
                         Image(systemName: "heart.fill")
-                        Text("0개")
+                        Text("\(item.likeCount)개")
                         Text("|")
                         Image(systemName: "location.fill")
-                        Text("0m")
+                        Text("\(item.distanceFromNow(location: location))m")
                     }
                     .foregroundColor(.gray)
                     .font(.regular12)
@@ -97,10 +107,10 @@ struct MemoCell: View {
  
 #Preview {
     VStack {
-        MemoCell(isVisible: true, isDark: true)
-        MemoCell(isVisible: true, isDark: false)
-        MemoCell(isVisible: false, isDark: true)
-        MemoCell(isVisible: false, isDark: false)
+//        MemoCell(isVisible: true, isDark: true)
+//        MemoCell(isVisible: true, isDark: false)
+//        MemoCell(isVisible: false, isDark: true)
+//        MemoCell(isVisible: false, isDark: false)
     }
     
 }

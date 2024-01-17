@@ -19,7 +19,6 @@ struct KakaoMapView: UIViewRepresentable {
     func makeUIView(context: Self.Context) -> KMViewContainer {
         let view: KMViewContainer = KMViewContainer()
         view.isUserInteractionEnabled = true
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(context.coordinator.test)))
         view.isMultipleTouchEnabled = true
         view.setDelegate(context.coordinator)
         view.sizeToFit()
@@ -63,18 +62,40 @@ struct KakaoMapView: UIViewRepresentable {
         var parent: KakaoMapView
         var controller: KMController?
         var first: Bool
-        
-        var _mapTapEventHandler: DisposableEventHandler?
         init(_ parent: KakaoMapView) {
-            
-
             first = true
             self.parent = parent
         }
-        @objc func test() {
-            print("touch")
+        
+        /// 엔진 생성 및 초기화 이후, 렌더링 준비가 완료되면 아래 addViews를 호출한다.
+        /// 원하는 뷰를 생성한다.
+        func addViews() {
+            let defaultPosition: MapPoint
+            if let curent = parent.userLocation {
+                defaultPosition  = MapPoint(longitude: curent.coordinate.longitude, latitude: curent.coordinate.latitude)
+            } else {
+                defaultPosition = MapPoint(longitude: 127.108678, latitude: 37.402001)
+            }
+            let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition, enabled: true)
+            if controller?.addView(mapviewInfo) == Result.OK {
+                let map = controller?.getView("mapview") as! KakaoMap
+                map.poiClickable = true
+                map.eventDelegate = self
+                map.setGestureEnable(type: .doubleTapZoomIn, enable: true)
+                createLabelLayer()
+
+            }
         }
-        //여기서 touch event 처리
+        // KMController 객체 생성 및 event delegate 지정
+        func createController(_ view: KMViewContainer) {
+            
+            controller = KMController(viewContainer: view)
+            
+            controller?.delegate = self
+        }
+        
+        
+        //MARK: - POI Touch Event Flow
         func poiTouched(_ poi: Poi) {
             parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
         }
@@ -127,13 +148,8 @@ struct KakaoMapView: UIViewRepresentable {
             {return nil}
            return map.getPosition(point)
         }
-        // KMController 객체 생성 및 event delegate 지정
-        func createController(_ view: KMViewContainer) {
-            
-            controller = KMController(viewContainer: view)
-            
-            controller?.delegate = self
-        }
+
+        //MARK: - POI생성 및 관리 flow
         func createLabelLayer() {
             let view = controller?.getView("mapview") as! KakaoMap
             let manager = view.getLabelManager()
@@ -141,49 +157,8 @@ struct KakaoMapView: UIViewRepresentable {
             let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .poi, orderType: .rank, zOrder: 10001)
             let _ = manager.addLabelLayer(option: layerOption)
         }
-        // KMControllerDelegate Protocol method구현
-        
-        /// 엔진 생성 및 초기화 이후, 렌더링 준비가 완료되면 아래 addViews를 호출한다.
-        /// 원하는 뷰를 생성한다.
-        func addViews() {
-            let defaultPosition: MapPoint = MapPoint(longitude: 127.108678, latitude: 37.402001)
-            let mapviewInfo: MapviewInfo = MapviewInfo(viewName: "mapview", viewInfoName: "map", defaultPosition: defaultPosition, enabled: true)
-            if controller?.addView(mapviewInfo) == Result.OK {
-                let map = controller?.getView("mapview") as! KakaoMap
-                map.poiClickable = true
-                map.eventDelegate = self
-                map.setGestureEnable(type: .doubleTapZoomIn, enable: true)
-                map.setCompassPosition(origin: GuiAlignment(vAlign: .bottom, hAlign: .left), position: CGPoint(x: 10.0, y: 10.0))
-                map.showCompass()  //나침반을 표시한다.
-                createLabelLayer()
-
-                _mapTapEventHandler = map.addMapTappedEventHandler(target: self, handler: KakaoMapCoordinator.mapDidTapped)
-            }
-        }
-        func mapDidTapped(_ param: ViewInteractionEventParam) {
-            let mapView = param.view as! KakaoMap
-            let position = mapView.getPosition(param.point)
-            
-            print("Tapped: \(position.wgsCoord.latitude), \(position.wgsCoord.latitude)")
-            
-            _mapTapEventHandler?.dispose()
-        }
-        func compassDidTapped(kakaoMap: KakaoMap) {
-            print("나침반")
-        }
-        func resetLocation(latitude: Double?, longitude: Double?) {
-            if let mapView: KakaoMap = controller?.getView("mapview") as? KakaoMap {
-                
-                let cameraUpdate: CameraUpdate = CameraUpdate.make(target: MapPoint(longitude: longitude ??  127.108678, latitude: latitude ?? 37.402001), zoomLevel: 16, mapView: mapView)
-                mapView.animateCamera(cameraUpdate: cameraUpdate, options: .init())
-                let trackingManager = mapView.getTrackingManager()
-                if trackingManager.isTracking {
-                    
-                }
-            }
-        }
-        
         func createPois(clusters: [MemoCluster]) {
+
             if let view = controller?.getView("mapview") as? KakaoMap {
                 let manager = view.getLabelManager()
                 let layer = manager.getLabelLayer(layerID: "PoiLayer")
@@ -203,11 +178,22 @@ struct KakaoMapView: UIViewRepresentable {
                     tempPoi?.clickable = true
                     
                     
-                    let _ = tempPoi?.addPoiTappedEventHandler(target: self, handler: KakaoMapCoordinator.poiTappedHandler)
                     tempPoi?.addBadge(badge)
                     tempPoi?.show()
                     tempPoi?.showBadge(badgeID: "\(c.id)")
 
+                }
+            }
+        }
+        //MARK: - Delegation함수
+        func resetLocation(latitude: Double?, longitude: Double?) {
+            if let mapView: KakaoMap = controller?.getView("mapview") as? KakaoMap {
+                
+                let cameraUpdate: CameraUpdate = CameraUpdate.make(target: MapPoint(longitude: longitude ??  127.108678, latitude: latitude ?? 37.402001), zoomLevel: 16, mapView: mapView)
+                mapView.animateCamera(cameraUpdate: cameraUpdate, options: .init())
+                let trackingManager = mapView.getTrackingManager()
+                if trackingManager.isTracking {
+                    
                 }
             }
         }
@@ -232,15 +218,6 @@ struct KakaoMapView: UIViewRepresentable {
                 return
             }
         }
-        func poiTappedHandler(_ param: PoiInteractionEventParam) {
-            param.poiItem.hide()
-        }
-        func poiDidTapped(kakaoMap: KakaoMap, layerID: String, poiID: String, position: MapPoint) {
-            print("터치")
-        }
-        func terrainDidTapped(kakaoMap: KakaoMap, position: MapPoint) {
-            print("ff")
-        }
         func cameraWillMove(kakaoMap: KakaoMap, by: MoveBy) {
             switch by {
             case .doubleTapZoomIn, .rotateZoom, .twoFingerTapZoomOut, .zoom, .oneFingerZoom:
@@ -257,13 +234,9 @@ struct KakaoMapView: UIViewRepresentable {
 
                 } else {
                     trackingManager.stopTracking()
-//                    parent.isUserTracking = true
                 }
                 print("화면 위치 변경")
             }
-        }
-        func kakaoMapDidTapped(kakaoMap: KakaoMap, point: CGPoint) {
-            print("호출")
         }
     }
 }

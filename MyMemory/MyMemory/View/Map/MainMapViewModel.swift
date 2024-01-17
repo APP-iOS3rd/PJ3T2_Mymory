@@ -14,18 +14,14 @@ import CoreLocation
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
+    private var startingClusters: [MemoCluster] = []
+    
+    
     @Published var location: CLLocation?
+    @Published var myCurrentAddress: String? = nil
     @Published var MemoList: [MiniMemoModel] = []
     @Published var isUserTracking: Bool = true
-    @Published var clusters: [MemoCluster] = [] {
-        didSet {
-            // mapview Update
-            distance = 0.0
-        }
-    }
-    var distance = 0.0
-    private var startingClusters: [MemoCluster] = []
-
+    @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
     @Published var selectedMemoId: UUID = UUID()
     @Published var selectedCluster: MemoCluster? = nil{
@@ -62,26 +58,27 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationConfig()
         }
         tempModel()
+        getCurrentAddress()
     }
     private func tempModel() {
         self.MemoList = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.9780),
                                      title: "test1",
                                      contents: "contents2",
-                                     images: [],
-                                  createdAt: Date().timeIntervalSince1970),
+                               images: [], tag: ["맛집","핫플","추억공유","테스트2"],
+                               createdAt: Date().timeIntervalSince1970 + 100, likeCount: 10),
                             .init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.979),
                                                          title: "새로운 메모 크기 제한을 알아보기 위해서 제목 길이를 너무 길게 써 봄",
                                                          contents: "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
-                                                         images: [],
-                                                      createdAt: Date().timeIntervalSince1970),
+                                  images: [], tag:["맛집","핫플"],
+                                  createdAt: Date().timeIntervalSince1970, likeCount: 20),
                             .init(id: UUID(), coordinate: .init(latitude: 37.5665,
                                                     longitude: 126.980),
                                                          title: "test3",
                                                          contents: "contents2",
-                                                         images: [],
-                                                      createdAt: Date().timeIntervalSince1970)]
+                                  images: [], tag: ["맛집","핫플","추억공유","테스트2"],
+                                  createdAt: Date().timeIntervalSince1970 - 100, likeCount: 30)]
         self.startingClusters = initialCluster()
     }
 }
@@ -119,10 +116,30 @@ extension MainMapViewModel {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed")
     }
+    //MARK: - View Controll logic
+    
+    func sortByDistance(_ distance: Bool) {
+        if distance {
+            guard let location = location else { return }
+            MemoList.sort(by: {$0.coordinate.distance(to: location.coordinate) < $1.coordinate.distance(to: location.coordinate)})
+        } else {
+            MemoList.sort(by: {$0.createdAt < $1.createdAt})
+        }
+    }
     //MARK: - 주소 얻어오는 함수
+    //특정 selected 위치 주소값
     private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
         Task{@MainActor in
             self.selectedAddress = await GetAddress.shared.getAddressStr(location: .init(longitude: longitude, latitude: latitude))
+        }
+    }
+    //user location주소값
+    func getCurrentAddress() {
+        guard let loc = self.location else { return }
+        let point = MapPoint(longitude: loc.coordinate.longitude, latitude: loc.coordinate.latitude)
+        Task{@MainActor in
+            self.myCurrentAddress = await GetAddress.shared.getAddressStr(location: point)
+            print(self.myCurrentAddress)
         }
     }
 }

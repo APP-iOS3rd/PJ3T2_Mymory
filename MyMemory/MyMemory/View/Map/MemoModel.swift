@@ -13,8 +13,17 @@ struct MiniMemoModel: Identifiable {
     let title: String
     let contents: String
     let images: [UIImage]
+    let tag: [String]
     let createdAt: TimeInterval
+    let likeCount: Int
+    
+    func distanceFromNow(location: CLLocation?) -> Int {
+        guard let loc = location else {return -1}
+        let dist = loc.distance(from: .init(latitude: coordinate.latitude, longitude: coordinate.longitude))
+        return Int(dist)
+    }
 }
+
 
 struct MemoCluster: Equatable, Identifiable {
     static func == (lhs: MemoCluster, rhs: MemoCluster) -> Bool {
@@ -27,6 +36,15 @@ struct MemoCluster: Equatable, Identifiable {
         self.id = UUID()
         self.center = memo.coordinate
         self.memos = [memo]
+    }
+    func isNearBy(threshold : Double = 500) -> Bool {
+        if let location = LocationsHandler.shared.manager.location {
+            
+            let centerloc = CLLocation(latitude: center.latitude, longitude: center.longitude)
+            let dist = location.distance(from: centerloc)
+            return dist < threshold
+        }
+        return false
     }
     mutating func updateCenter(with other: MemoCluster) {
         self.memos.append(contentsOf: other.memos)
