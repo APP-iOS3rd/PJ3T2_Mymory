@@ -740,6 +740,7 @@
 				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
 				28BB13392B569075001A4C0C /* CertificationView.swift in Sources */,
+				DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */,
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
@@ -982,7 +983,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
