@@ -29,7 +29,8 @@ struct MemoMapView: View {
             KakaoMapView(draw: $draw,
                          isUserTracking: $viewModel.isUserTracking,
                          userLocation: $viewModel.location,
-                         clusters: $viewModel.clusters)
+                         userDirection: .constant(0),
+                         clusters: $viewModel.clusters, selectedID: .constant(nil))
                 .onAppear(perform: {
                             self.draw = true
                         }).onDisappear(perform: {
@@ -40,8 +41,10 @@ struct MemoMapView: View {
             
             
             VStack {
-                TopBarAddress()
-                    .padding(.horizontal, 12)
+                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)                    .padding(.horizontal, 12)
+                    .onAppear(){
+                        viewModel.getCurrentAddress()
+                    }
                 
                 HStack{
                     
@@ -101,21 +104,21 @@ struct MemoMapView: View {
 //                        .environmentObject(viewModel)
 //                }
                 
-                ScrollView(.horizontal) {
-                    LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(memoList, id: \.self) { item  in
-                            
-                            MemoCell(isVisible: true, isDark: true)
-                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                                .padding(.leading, 12)
-                                .padding(.bottom, 12)
-                        }
-                    }
-                }
-                .fixedSize(horizontal: false, vertical: true)
+//                ScrollView(.horizontal) {
+//                    LazyHGrid(rows: layout, spacing: 20) {
+//                        ForEach(memoList, id: \.self) { item  in
+//                            
+//                            MemoCell(isVisible: true, isDark: true, item: <#MiniMemoModel#>)
+//                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+//                                .padding(.leading, 12)
+//                                .padding(.bottom, 12)
+//                        }
+//                    }
+//                }
+//                .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet) {
-                MemoListView()
+                MemoListView(sortDistance: $sortDistance)
             }
         }
     }

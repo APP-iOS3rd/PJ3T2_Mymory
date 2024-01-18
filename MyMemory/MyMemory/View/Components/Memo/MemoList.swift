@@ -14,8 +14,8 @@ struct MemoList: View {
             ForEach(memoList, id: \.self) { memo in
                 MemoListCell(
                     title: memo.title,
-                    tags: memo.tags ?? [],
-                    date: memo.date,
+                    tags: memo.tags,
+                    date: memo.date.createdAtTimeYYMMDD,
                     address: memo.address
                 )
             }
