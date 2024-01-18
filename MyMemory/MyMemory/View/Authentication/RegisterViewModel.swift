@@ -47,7 +47,7 @@ class RegisterViewModel: ObservableObject {
                 return
             } else {
                 let imageName = "\(self.email)"
-                let firebaseRef = Storage.storage().reference().child("images/\(imageName).jpeg")
+                let firebaseRef = Storage.storage().reference().child("images/\(imageName).jpg")
                 let metadata = StorageMetadata()
                 metadata.contentType = "image/jpeg"
                 guard let userID = Auth.auth().currentUser?.uid else { return }
@@ -63,7 +63,6 @@ class RegisterViewModel: ObservableObject {
                             "id" : userID,
                             "name": self.name,
                             "email": self.email,
-                            "password": self.password,
                             "profilePicture": imageURL
                             ])
                         print("working")
