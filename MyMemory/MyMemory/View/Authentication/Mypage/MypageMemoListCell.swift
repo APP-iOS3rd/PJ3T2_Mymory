@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct MypageMemoListCell: View {
-    @Binding var title: String
-    @Binding var tags: [String]?
-    @Binding var date: String
-    @Binding var address: String
-    @Binding var like: Int
+    @Binding var memo: Memo
     
     var body: some View {
         HStack {
@@ -27,7 +23,7 @@ struct MypageMemoListCell: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 3) {
-                    if let tags = tags, !tags.isEmpty {
+                    if let tags = memo.tags, !tags.isEmpty {
                         HStack(spacing: 2) {
                             ForEach(tags, id: \.self) { tag in
                                 Text("#\(tag)")
@@ -36,7 +32,7 @@ struct MypageMemoListCell: View {
                             }
                         }
                     }
-                    Text(title)
+                    Text(memo.title)
                         .font(.bold16)
                     
                     Text("해당 장소 메모보기")
@@ -49,7 +45,7 @@ struct MypageMemoListCell: View {
                     HStack(spacing: 2) {
                         Image(systemName: "heart.fill")
                             .font(.system(size: 11))
-                        Text("\(like)개")
+                        Text("\(memo.like)개")
                             .font(.regular12)
                         Text("|")
                             .font(.semibold11)

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SettingView: View {
-    @StateObject var settingViewModel = SettingViewModel.shared
+    @StateObject var settingViewModel: SettingViewModel = .init()
+    
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView() {
@@ -55,39 +56,49 @@ struct SettingView: View {
                 }
             }
             
-            VStack(alignment: .trailing) {
-                Button {
-                    // 구현 필요
-                } label: {
-                    Text("로그아웃")
-                        .foregroundStyle(.white)
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .background(.blue)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                }
-                
-                NavigationLink {
-                    WithdrawalView()
-                } label: {
-                    Text("회원 탈퇴하기")
-                        .underline()
-                        .foregroundStyle(Color(UIColor.systemGray))
+            if settingViewModel.isCurrentUserLoginState {
+                VStack(alignment: .trailing) {
+                    Button {
+                        settingViewModel.fetchUserLogout {
+                            settingViewModel.isShowingLogoutAlert = true
+                        }
+                    } label: {
+                        Text("로그아웃")
+                            .foregroundStyle(.white)
+                            .frame(height: 50)
+                            .frame(maxWidth: .infinity)
+                            .background(.blue)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
+                    .alert("로그아웃 되었습니다.", isPresented: $settingViewModel.isShowingLogoutAlert) {
+                        Button("확인", role: .cancel) {
+                            
+                        }
+                    }
+                    
+                    NavigationLink {
+                        WithdrawalView()
+                            .environmentObject(settingViewModel)
+                    } label: {
+                        Text("회원 탈퇴하기")
+                            .underline()
+                            .foregroundStyle(Color(UIColor.systemGray))
+                    }
                 }
             }
         }
         .padding(.horizontal, 12)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                BackButton()
-                    .foregroundStyle(Color.black)
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text("내 정보")
-                    .font(.semibold16)
-            }
-        }
+//        .navigationBarBackButtonHidden(true)
+//        .toolbar {
+//            ToolbarItem(placement: .topBarLeading) {
+//                BackButton()
+//                    .foregroundStyle(Color.black)
+//            }
+//            
+//            ToolbarItem(placement: .principal) {
+//                Text("내 정보")
+//                    .font(.semibold16)
+//            }
+//        }
     }
 }
