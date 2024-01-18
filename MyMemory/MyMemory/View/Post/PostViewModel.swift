@@ -57,7 +57,7 @@ class PostViewModel: ObservableObject {
     }
     
     
-    func saveMemo() {
+    func saveMemo() async {
         let newMemo = PostMemoModel(
             userCoordinateLatitude: Double(userCoordinate.latitude),
             userCoordinateLongitude: Double(userCoordinate.longitude),
@@ -68,13 +68,14 @@ class PostViewModel: ObservableObject {
             memoTagList: memoSelectedTags,
             memoLikeCount: 0,
             memoSelectedImageData: memoSelectedImageData,
-            memocreatedAt: Date().timeIntervalSince1970
+            memoCreatedAt: Date().timeIntervalSince1970
         )
 
         memoData.append(newMemo)
         print(newMemo)
         
         // 메모 저장 후 필요한 초기화 작업 등을 수행할 수 있습니다.
+        await MemoService.shared.uploadMemo(newMemo: newMemo)
         resetMemoFields()
     }
 
