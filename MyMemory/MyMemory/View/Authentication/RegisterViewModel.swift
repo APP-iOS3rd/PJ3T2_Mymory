@@ -10,6 +10,9 @@ import Photos
 import PhotosUI
 import SwiftUI
 import SafariServices
+import FirebaseAuth
+import FirebaseFirestore
+import FirebaseStorage
 
 class RegisterViewModel: ObservableObject {
 
@@ -27,12 +30,50 @@ class RegisterViewModel: ObservableObject {
     
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var imageSelected : Bool = false
+    @Published var selectedImageData: Data? = nil
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
     @Published var privacyPolicyUrlString = "https://www.google.com"
     @Published var termsOfUseUrlString = "https://www.naver.com"
     // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
+    
+    func userCreate() {
+        
+        let db = Firestore.firestore()
+        Auth.auth().createUser(withEmail: self.email, password: self.password) {authResult, error in
+            if let error = error {
+                print("Error : Failed to create newuser because of \(error)")
+                return
+            } else {
+                let imageName = "\(self.email)"
+                let firebaseRef = Storage.storage().reference().child("images/\(imageName).jpeg")
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/jpeg"
+                guard let userID = Auth.auth().currentUser?.uid else { return }
+                firebaseRef.putData(self.selectedImageData!, metadata: metadata) {metaData, error in
+                    if let error = error {
+                        print("failed to upload profile image because of \(error)")
+                        return
+                    }
+                    firebaseRef.downloadURL { url, _ in
+                        guard let imageURL = url?.absoluteString else {return}
+                        print("not working?")
+                        db.collection("users").document(userID).setData([
+                            "id" : userID,
+                            "name": self.name,
+                            "email": self.email,
+                            "password": self.password,
+                            "profilePicture": imageURL
+                            ])
+                        print("working")
+                    }
+                }
+                print("Newuser created")
+            }
+        }
+    }
+
     
     
     struct SafariView: UIViewControllerRepresentable {
@@ -48,6 +89,11 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
+    
+    
+    
+    
+    
     func checkPassword(password: String) -> Bool {
         let passwordRegEx = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#?$%^&*()_+=-]).{7,50}$"
         return NSPredicate(format:"SELF MATCHES %@", passwordRegEx).evaluate(with: password)
@@ -60,7 +106,7 @@ class RegisterViewModel: ObservableObject {
     }
     
     func checkIfCanRegister() -> Bool {
-        if checkPassword(password: password) == true && checkPassword(password: password) == true && name != "" && checkIfAllBoxsesAreChecked() == true {
+        if checkPassword(password: password) == true && checkPassword(password: password) == true && name != "" && checkIfAllBoxsesAreChecked() == true && selectedImageData != nil {
             return true
         } else {
             return false
