@@ -16,11 +16,7 @@ struct MypageMemoList: View {
                     MemoDetailView()
                 } label: {
                     MypageMemoListCell(
-                        title: memo.title,
-                        tags: memo.tags,
-                        date: memo.date,
-                        address: memo.address,
-                        like: memo.like
+                        memo: memo
                     )
                 }
                 .buttonStyle(.plain)

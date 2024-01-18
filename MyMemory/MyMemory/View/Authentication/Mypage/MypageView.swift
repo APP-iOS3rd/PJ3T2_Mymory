@@ -8,76 +8,65 @@
 import SwiftUI
 
 struct MypageView: View {
-    @StateObject var myPageViewModel = MypageViewModel.shared
+    @StateObject var myPageViewModel: MypageViewModel = .init()
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    HStack {
-                        NavigationLink {
-                            ProfileEditView(
-                                profileImage: $myPageViewModel.selectedImage,
-                                selectedPhotoData: $myPageViewModel.selectedPhotoData
-                            )
-                        } label: {
-                            if let data = myPageViewModel.selectedPhotoData, let profileImage = UIImage(data: data) {
-                                Image(uiImage: profileImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .clipShape(.circle)
-                                    .frame(width: 76, height: 76)
-                            } else {
-                                Circle()
-                                    .frame(width: 76, height: 76)
-                                    .foregroundStyle(Color(hex: "d9d9d9"))
-                            }
-                        }
-                        
-                        Text("닉네임")
-                            .font(.semibold20)
-                            .padding(.leading, 10)
-                        
-                        Spacer()
-                        
-                        NavigationLink {
-                            SettingView()
-                        } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 24))
-                                .foregroundStyle(.black)
-                        }
-                    }
-                    .padding(.top, 30)
+            VStack(alignment: .leading) {
+                MypageTopView()
+                    .environmentObject(myPageViewModel)
+                
+                HStack(alignment: .lastTextBaseline) {
+                    Text("내가 작성한 메모")
+                        .font(.semibold20)
                     
-                    HStack(alignment: .lastTextBaseline) {
-                        Text("내가 작성한 메모")
-                            .font(.semibold20)
-                        
-                        Spacer()
-                        
-                        Button {
-                            myPageViewModel.isShowingOptions.toggle()
-                        } label: {
-                            Image(systemName: "slider.horizontal.3")
-                                .foregroundStyle(Color.gray)
-                                .font(.system(size: 24))
-                        }
-                        .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $myPageViewModel.isShowingOptions) {
-                            ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
-                                Button(type.rawValue) {
-                                    myPageViewModel.sortMemoList(type: type)
-                                }
+                    Spacer()
+                    
+                    Button {
+                        myPageViewModel.isShowingOptions.toggle()
+                    } label: {
+                        Image(systemName: "slider.horizontal.3")
+                            .foregroundStyle(Color.gray)
+                            .font(.system(size: 24))
+                    }
+                    .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $myPageViewModel.isShowingOptions) {
+                        ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
+                            Button(type.rawValue) {
+                                myPageViewModel.sortMemoList(type: type)
                             }
                         }
                     }
-                    .padding(.top, 38)
-                    
-                    MypageMemoList(memoList: $myPageViewModel.memoList)
+                    .disabled(!myPageViewModel.isCurrentUserLoginState)
                 }
-                .padding(.horizontal, 24)
+                .padding(.top, 38)
+                
+                if myPageViewModel.isCurrentUserLoginState {
+                    ScrollView {
+                        MypageMemoList(memoList: $myPageViewModel.memoList)
+                    }
+                    .scrollIndicators(.hidden)
+                } else {
+                    VStack(alignment: .center) {
+                        Spacer()
+                        
+                        HStack {
+                            Spacer()
+                            Text("로그인이 필요해요!")
+                                .font(.semibold20)
+                            Spacer()
+                        }
+                        NavigationLink {
+                            LoginView()
+                        } label: {
+                            Text("로그인 하러가기")
+                        }
+                        
+                        Spacer()
+                    }
+//                    .frame(width: UIScreen().bounds.width)
+                }
             }
+            .padding(.horizontal, 24)
             .background(Color(hex: "FAFAFA"))
         }
     }

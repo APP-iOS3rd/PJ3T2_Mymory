@@ -11,39 +11,6 @@ import Combine
 import _PhotosUI_SwiftUI
 
 
-// 💁 사용자 위치추적 및 권한허용 싱글톤 구현 위치 임시지정
-class LocationsHandler: NSObject, CLLocationManagerDelegate {
-    static let shared = LocationsHandler()
-    private let locationManager = CLLocationManager()
-    var completion: ((CLLocationCoordinate2D?) -> Void)?
-    
-    private override init() {
-        super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-    }
-    
-    func getCurrentLocation(completion: @escaping (CLLocationCoordinate2D?) -> Void) {
-        self.completion = completion
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            completion?(location.coordinate)
-        }
-        completion?(nil)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-        completion?(nil)
-    }
-}
-
-
-
 
 struct PostView: View {
     
@@ -69,11 +36,11 @@ struct PostView: View {
                              isUserTracking: $MapviewModel.isUserTracking,
                              userLocation: $MapviewModel.location,
                              clusters: $MapviewModel.clusters)
-                    .onAppear(perform: {
-                                self.draw = true
-                            }).onDisappear(perform: {
-                                self.draw = false
-                            }).frame(maxWidth: .infinity, maxHeight: .infinity)
+                .onAppear(perform: {
+                    self.draw = true
+                }).onDisappear(perform: {
+                    self.draw = false
+                }).frame(maxWidth: .infinity, maxHeight: .infinity)
                     .environmentObject(viewModel)
                     .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
                     .background(.ultraThinMaterial)
@@ -165,7 +132,10 @@ struct PostView: View {
                 Button(action: {
                     // 사용자 입력값을 뷰모델에 저장
                     
-                    viewModel.saveMemo()
+                    Task {
+                        await viewModel.saveMemo()
+                        
+                    }
                     
                     // 임시로 로직 구현전 뒤로가기
                     // 메인뷰 보여주기
@@ -175,8 +145,8 @@ struct PostView: View {
                 })
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.memoAddressText.isEmpty )
-                .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.memoAddressText.isEmpty ? Color(.systemGray5) : Color.blue)
+                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty  )
+                .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                 .padding(.bottom)
                 
                 Spacer()
@@ -193,7 +163,7 @@ struct PostView: View {
                 .foregroundColor(.blue)
         })
     }
-        
+    
     
 }
 
