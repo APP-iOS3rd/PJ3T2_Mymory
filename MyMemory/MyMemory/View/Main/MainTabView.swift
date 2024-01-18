@@ -23,14 +23,15 @@ struct MainTabView: View {
                         Text("지도")
                     }.tag(0)
  
-                MemoMapView()
+                PostView2()
+              //  MemoMapView()
                     .onTapGesture{
                         selectedIndex = 1
                     }
                     .tabItem {
                         Image(systemName: "pencil")
                         Text("메모하기")
-                    }.tag(2)
+                    }.tag(1)
 
                 MypageView()
                     .onTapGesture{
@@ -39,7 +40,7 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "person")
                         Text("마이")
-                    }.tag(3)
+                    }.tag(2)
             }
         }
     }
