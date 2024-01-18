@@ -81,18 +81,17 @@ class MypageViewModel: ObservableObject {
         switch type {
         case .last:
             self.memoList = memoList.sorted {
-                if let first = $0.date.toDate(), let second = $1.date.toDate() {
-                    // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
-                    switch first.compare(second) {
-                    case .orderedAscending: return false
-                    case .orderedDescending: return true
-                    case .orderedSame: return true
-                    }
+                let first = Date(timeIntervalSince1970: $0.date)
+                let second = Date(timeIntervalSince1970: $1.date)
+                // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
+                switch first.compare(second) {
+                case .orderedAscending: return false
+                case .orderedDescending: return true
+                case .orderedSame: return true
                 }
-                return false
-            }
+        }
         case .like:
-            self.memoList = memoList.sorted { $0.like > $1.like }
+            self.memoList = memoList.sorted { $0.likeCount > $1.likeCount }
         case .close:
             self.memoList = memoList.sorted {
                 let first = fetchDistanceOfUserAndMemo(myLocation: CLLocationCoordinate2D(latitude: 37.5664056, longitude: 126.9778222), memoLocation: $0.location)

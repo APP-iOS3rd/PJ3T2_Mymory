@@ -19,13 +19,10 @@ struct MainMapView: View {
         ZStack {
             KakaoMapView(draw: $draw,
                          isUserTracking: $viewModel.isUserTracking,
-                         userLocation: $viewModel.location,
-                         clusters: $viewModel.clusters)
-//            .onAppear(perform: {
-//                self.draw = true
-//            }).onDisappear(perform: {
-//                self.draw = false
-//            })
+                         userLocation: $viewModel.location, userDirection: $viewModel.direction,
+                         clusters: $viewModel.clusters, 
+                         selectedID: $viewModel.selectedMemoId)
+
             .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .environmentObject(viewModel)
                 .ignoresSafeArea(edges: .top)
@@ -38,7 +35,7 @@ struct MainMapView: View {
                 HStack{
                     
                     Button{
-                        
+                        self.fileterSheet.toggle()
                     } label: {
                         FilterButton(buttonName: .constant("전체메뉴"))
                     }
@@ -93,13 +90,16 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(viewModel.MemoList) { item  in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item  in
                             
                             MemoCell(
                                 isVisible: true,
                                 isDark: true,
                                 location: $viewModel.location,
                                 item: item)
+                            .onTapGesture {
+                                viewModel.selectedMemoId = item.id
+                            }
                             .frame(width: UIScreen.main.bounds.size.width * 0.84)
                             .padding(.leading, 12)
                             .padding(.bottom, 12)
@@ -112,6 +112,11 @@ struct MainMapView: View {
                 EmptyView()
                 MemoListView(sortDistance: $sortDistance)
                     .environmentObject(viewModel)
+            })
+            
+            .sheet(isPresented: $fileterSheet, content: {
+                FileterListView(filteredList: $viewModel.filterList)
+                    .presentationDetents([.medium])
             })
         }
     }

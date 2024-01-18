@@ -20,7 +20,7 @@ struct MypageMemoList: View {
                         tags: memo.tags,
                         date: memo.date,
                         address: memo.address,
-                        like: memo.like
+                        like: memo.likeCount
                     )
                 }
                 .buttonStyle(.plain)

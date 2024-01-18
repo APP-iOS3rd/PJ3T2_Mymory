@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MypageMemoListCell: View {
     @Binding var title: String
-    @Binding var tags: [String]?
-    @Binding var date: String
+    @Binding var tags: [String]
+    @Binding var date: Double
     @Binding var address: String
     @Binding var like: Int
     
@@ -27,7 +27,7 @@ struct MypageMemoListCell: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 3) {
-                    if let tags = tags, !tags.isEmpty {
+                    if !tags.isEmpty {
                         HStack(spacing: 2) {
                             ForEach(tags, id: \.self) { tag in
                                 Text("#\(tag)")

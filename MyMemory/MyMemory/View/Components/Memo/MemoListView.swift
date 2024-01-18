@@ -11,6 +11,7 @@ struct MemoListView: View {
     
     @Binding var sortDistance: Bool
     @Environment(\.dismiss) private var dismiss
+    @State var filterSheet: Bool = false
     @EnvironmentObject var viewModel: MainMapViewModel
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct MemoListView: View {
                 HStack{
                     
                     Button{
-                        
+                        filterSheet.toggle()
                     } label: {
                         FilterButton(buttonName: .constant("전체메뉴"))
                     }
@@ -47,7 +48,7 @@ struct MemoListView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     
                     VStack(spacing: 12) {
-                        ForEach(viewModel.MemoList) { item in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item in
                             
                             MemoCell(
                                 isVisible: true,
@@ -78,6 +79,10 @@ struct MemoListView: View {
             
             
         )
+        .sheet(isPresented: $filterSheet, content: {
+            FileterListView(filteredList: $viewModel.filterList)
+                .presentationDetents([.medium])
+        })
         //.padding()
       
     }

@@ -21,14 +21,12 @@ struct MemoCluster: Equatable, Identifiable {
         self.memos = [memo]
     }
     
-    func isNearBy(threshold : Double = 500) -> Bool {
-        if let location = LocationsHandler.shared.manager.location {
-            
+    func isNearBy(threshold : Double = 500) {
+        LocationsHandler.shared.getCurrentLocation(completion: { location2d in
+            let location = CLLocation(latitude: location2d?.latitude ?? 0, longitude: location2d?.longitude ?? 0)
             let centerloc = CLLocation(latitude: center.latitude, longitude: center.longitude)
             let dist = location.distance(from: centerloc)
-            return dist < threshold
-        }
-        return false
+        })
     }
     mutating func updateCenter(with other: MemoCluster) {
         self.memos.append(contentsOf: other.memos)

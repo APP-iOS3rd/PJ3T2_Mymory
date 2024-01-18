@@ -29,7 +29,8 @@ struct MemoMapView: View {
             KakaoMapView(draw: $draw,
                          isUserTracking: $viewModel.isUserTracking,
                          userLocation: $viewModel.location,
-                         clusters: $viewModel.clusters)
+                         userDirection: .constant(0),
+                         clusters: $viewModel.clusters, selectedID: .constant(nil))
                 .onAppear(perform: {
                             self.draw = true
                         }).onDisappear(perform: {
