@@ -45,6 +45,8 @@
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
+		28A62B942B58BA4B00FD818B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 28A62B932B58BA4B00FD818B /* FirebaseStorage */; };
+		28A62B962B58CAC700FD818B /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A62B952B58CAC700FD818B /* Footer.swift */; };
 		28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13292B568DC3001A4C0C /* ProgressBarView.swift */; };
 		28BB132C2B568E14001A4C0C /* run4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 28BB132B2B568E14001A4C0C /* run4.gif */; };
 		28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB132D2B568E4C001A4C0C /* GIFView.swift */; };
@@ -146,6 +148,7 @@
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		28A62B952B58CAC700FD818B /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		28BB13292B568DC3001A4C0C /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		28BB132B2B568E14001A4C0C /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = run4.gif; path = ../../../../../../../run4.gif; sourceTree = "<group>"; };
 		28BB132D2B568E4C001A4C0C /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
@@ -216,6 +219,7 @@
 				28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */,
 				DAB3157C2B43F48C000357C7 /* FirebaseAuth in Frameworks */,
 				DAB3157E2B43F48C000357C7 /* FirebaseDatabase in Frameworks */,
+				28A62B942B58BA4B00FD818B /* FirebaseStorage in Frameworks */,
 				DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */,
 				DAB3157A2B43F48C000357C7 /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
@@ -391,6 +395,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		28A62B922B58BA4B00FD818B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		28BB13272B568D5F001A4C0C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +421,7 @@
 				28BB13342B568FE7001A4C0C /* ImgDetailView.swift */,
 				28BB133A2B56908D001A4C0C /* MiniMap.swift */,
 				28E829362B57D095001ED57E /* CertificationViewModel.swift */,
+				28A62B952B58CAC700FD818B /* Footer.swift */,
 			);
 			path = DetailViewComponent;
 			sourceTree = "<group>";
@@ -510,6 +522,7 @@
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
 				DAB315482B43EFDB000357C7 /* Products */,
 				6491CAA62B565B16004E0D62 /* Recovered References */,
+				28A62B922B58BA4B00FD818B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -603,6 +616,7 @@
 				DAB3157F2B43F48C000357C7 /* FirebaseFirestore */,
 				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
 				28BB13302B568E96001A4C0C /* FLAnimatedImage */,
+				28A62B932B58BA4B00FD818B /* FirebaseStorage */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -767,6 +781,7 @@
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
+				28A62B962B58CAC700FD818B /* Footer.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
 				6AF0E0272B565F46008ABE05 /* MypageMemoList.swift in Sources */,
@@ -892,7 +907,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -950,7 +965,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -987,7 +1002,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1034,7 +1049,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1203,6 +1218,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		28A62B932B58BA4B00FD818B /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		28BB13302B568E96001A4C0C /* FLAnimatedImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;

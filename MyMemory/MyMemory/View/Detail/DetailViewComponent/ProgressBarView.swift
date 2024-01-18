@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import FirebaseStorage
 
 struct ProgressBarView: View {
     @State private var progress = 0.0
@@ -24,7 +25,7 @@ struct ProgressBarView: View {
             
             VStack(alignment: .leading) {
                 
-                if var distance = viewModel.userCoordinate?.distance(from: marker) {
+                if let distance = viewModel.userCoordinate?.distance(from: marker) {
                     
                     ProgressView(value: distance, total: 300000)
                         .progressViewStyle(RoundedRectProgressViewStyle())

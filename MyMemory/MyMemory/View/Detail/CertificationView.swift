@@ -20,15 +20,16 @@ struct CertificationView: View {
             
             VStack {
                 VStack {
-                    Text("장소 근처에서")
-                        .frame(alignment: .center)
+                    Text("장소 근처")
                         .foregroundStyle(.white)
-                        .font(.title3)
-                    
-                    Text("메모를 확인할 수 있어요!")
-                        .frame(alignment: .center)
+                       .font(.bold24)
+                      +
+                     Text("에서")
                         .foregroundStyle(.white)
-                        .font(.title3)
+                       .font(.regular24)
+                     Text("메모를 확인할 수 있어요!")
+                        .foregroundStyle(.white)
+                        .font(.regular24)
                 }
                 .padding(.top, 20)
                 

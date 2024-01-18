@@ -38,7 +38,7 @@ struct MiniMap: View {
                 
                 Map()
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(height: 400)
+                    .frame(height: 390)
                     .offset(y: 10)
                 
                 

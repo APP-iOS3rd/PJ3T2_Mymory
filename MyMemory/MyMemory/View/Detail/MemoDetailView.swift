@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct MemoDetailView: View {
     @State private var isHeart: Bool = false
     @State private var isBookmark: Bool = false
@@ -18,9 +19,6 @@ struct MemoDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Rectangle()
-                    .frame(height: 250)
-                    .padding()
                 
                 HStack {
                     Capsule()
@@ -30,72 +28,74 @@ struct MemoDetailView: View {
                     Capsule()
                         .frame(width: 60, height: 30)
                 }
-                .padding(.horizontal, 20)
-            }
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Text("제목입니다")
-                        .font(.title2)
-                    Text("서울특별시 은평구")
-                        .font(.caption)
-                    Text("제목입니다")
-                        .font(.caption)
-                }
+                .padding(.top, 20)
                 
-                Spacer()
-                
-                VStack {
-                    Button {
-                        isShowingSheet.toggle()
-                    } label: {
-                        Image(systemName: "light.beacon.max")
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("제목입니다")
+                            .font(.title2)
+                        Text("서울특별시 은평구")
+                            .font(.caption)
+                        Text("등록 수정일")
+                            .font(.caption)
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Button {
+                            isShowingSheet.toggle()
+                        } label: {
+                            Image(systemName: "light.beacon.max")
+                            
+                        }
+                        .buttonStyle(.plain)
+                        .sheet(isPresented: $isShowingSheet) {
+                            ReportView()
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.medium, .large])
+                        }
                         
-                    }
-                    .buttonStyle(.plain)
-                    .sheet(isPresented: $isShowingSheet) {
-                        ReportView()
-                            .presentationDragIndicator(.visible)
-                            .presentationDetents([.medium, .large])
-                    }
-                    
-                    Text(" ")
-                        .font(.caption2)
+                        Text(" ")
+                            .font(.caption2)
 
-                }
-                
-                VStack {
-                    Button {
-                        isHeart.toggle()
-                    } label: {
-                        if isHeart {
-                            Image(systemName: "suit.heart.fill")
-                        } else {
-                            Image(systemName: "suit.heart")
-                        }
                     }
-                    .buttonStyle(.plain)
                     
-                    Text("1k")
-                        .font(.caption2)
-                }
-                
-                VStack {
-                    Button {
-                        isBookmark.toggle()
-                    } label: {
-                        if isBookmark {
-                            Image(systemName: "bookmark.fill")
-                        } else {
-                            Image(systemName: "bookmark")
+                    VStack {
+                        Button {
+                            isHeart.toggle()
+                        } label: {
+                            if isHeart {
+                                Image(systemName: "suit.heart.fill")
+                            } else {
+                                Image(systemName: "suit.heart")
+                            }
                         }
+                        .buttonStyle(.plain)
+                        
+                        Text("1k")
+                            .font(.caption2)
                     }
-                    .buttonStyle(.plain)
-                    Text("400")
-                        .font(.caption2)
-                }
-            }//: HSTACK
+                    
+                    VStack {
+                        Button {
+                            isBookmark.toggle()
+                        } label: {
+                            if isBookmark {
+                                Image(systemName: "bookmark.fill")
+                            } else {
+                                Image(systemName: "bookmark")
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        Text("400")
+                            .font(.caption2)
+                    }
+                }//: HSTACK
+                .padding(.top, 15)
+            }
             .padding()
+            
             
             ScrollView(.horizontal) {
                 HStack{
@@ -117,6 +117,9 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 """)
             .multilineTextAlignment(.leading)
             .padding()
+            
+            Footer()
+            
         }
     }
     
