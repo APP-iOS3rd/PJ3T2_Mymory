@@ -11,7 +11,6 @@ import PhotosUI
 
 struct RegisterView: View {
     @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
-    @State private var selectedImageData: Data? = nil
     var body: some View {
         NavigationView {
             ScrollView {
@@ -28,8 +27,8 @@ struct RegisterView: View {
                                 .foregroundStyle(Color.gray)
                         }
                         else {
-                            if let selectedImageData,
-                               let uiImage = UIImage(data: selectedImageData) {
+                            if let imageData = viewModel.selectedImageData,
+                               let uiImage = UIImage(data: viewModel.selectedImageData!) {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFill()
@@ -194,7 +193,8 @@ struct RegisterView: View {
                     Spacer(minLength: 32)
                     Button(action: {
                         if viewModel.checkIfCanRegister() == true {
-                            print("Register completed")
+                            viewModel.userCreate()
+                            print("Register Completed")
                         } else {
                             print("Register failed")
                         }
@@ -213,7 +213,7 @@ struct RegisterView: View {
             viewModel.imageSelected = true
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                    selectedImageData = data
+                    viewModel.selectedImageData = data
                 }
             }
         }
