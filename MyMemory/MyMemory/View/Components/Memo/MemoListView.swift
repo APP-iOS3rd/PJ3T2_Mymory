@@ -75,11 +75,9 @@ struct MemoListView: View {
             }
             .buttonStyle(Pill.secondary)
             .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 0))
-            
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             
         )
-        //.padding()
       
     }
 }
