@@ -3,27 +3,25 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>당신의 위치 정보가 필요합니다</string>
+	<string>사용자의 현 위치 데이터를 이용하려고 합니다.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict/>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict/>
+	</array>
 	<key>KAKAO_APP_KEY</key>
 	<string>$(MAP_KEY)</string>
-	<key>REST_API</key>
-	<string>$(REST_API)</string>
 	<key>KAKAO_PHASE</key>
 	<string>beta</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진에 접근하려고 합니다</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>사용자의 위치를 추적하려고 합니다</string>
-	<key>NSCameraUsageDescription</key>
-	<string></string>
-	<key>NSLocationUsageDescription</key>
-	<string></string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string></string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string></string>
+	<key>REST_API</key>
+	<string>$(REST_API)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
