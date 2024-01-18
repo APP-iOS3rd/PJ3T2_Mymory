@@ -85,7 +85,7 @@ struct PostView2: View {
                             Spacer()
                             
                         } //:HSTACK
-                        SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
+//                        SelectPhotos(memoSelectedImageItems: $memoSelectedImageItems)
                     }//:VSTACK
                 }
                 .padding(.horizontal, 20)
@@ -94,13 +94,13 @@ struct PostView2: View {
                 Button(action: {
                     // 사용자 입력값을 뷰모델에 저장
                     
-                    viewModel.saveMemo(userCoordinate: userCoordinate,
-                                       memoShare: memoShare,
-                                       memoTitle: memoTitle,
-                                       memoContents: memoContents,
-                                       memoAddressText: memoAddressText,
-                                       memoSelectedImageItems: memoSelectedImageItems,
-                                       memoSelectedTags: memoSelectedTags)
+//                    viewModel.saveMemo(userCoordinate: userCoordinate,
+//                                       memoShare: memoShare,
+//                                       memoTitle: memoTitle,
+//                                       memoContents: memoContents,
+//                                       memoAddressText: memoAddressText,
+//                                       memoSelectedImageItems: memoSelectedImageItems,
+//                                       memoSelectedTags: memoSelectedTags)
                     
                     // 임시로 로직 구현전 뒤로가기
                     // 메인뷰 보여주기
