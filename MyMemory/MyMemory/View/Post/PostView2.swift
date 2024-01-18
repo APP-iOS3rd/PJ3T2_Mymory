@@ -118,7 +118,7 @@ struct PostView2: View {
             } //:VSTACK
     
         } //: ScrollView
-        .toolbar(.hidden, for: .tabBar)
+       //.toolbar(.hidden, for: .tabBar)
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
             // 뒤로 가기 동작을 구현합니다
