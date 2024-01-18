@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 import Combine
 import _PhotosUI_SwiftUI
+import UIKit
 
 
 
@@ -162,8 +163,11 @@ struct PostView: View {
             Image(systemName: "chevron.left")
                 .foregroundColor(.blue)
         })
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
     }
-    
+        
     
 }
 
@@ -173,4 +177,5 @@ struct MemoView_Previews: PreviewProvider {
         PostView()
     }
 }
+
 
