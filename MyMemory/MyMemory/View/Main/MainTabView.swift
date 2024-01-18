@@ -32,16 +32,6 @@ struct MainTabView: View {
                         Text("메모하기")
                     }.tag(1)
  
-//                PostView2()
-//              //  MemoMapView()
-//                    .onTapGesture{
-//                        selectedIndex = 2
-//                    }
-//                    .tabItem {
-//                        Image(systemName: "pencil")
-//                        Text("메모하기")
-//                    }.tag(2)
-
                 MypageView()
                     .onTapGesture{
                         selectedIndex = 2
