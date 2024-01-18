@@ -72,7 +72,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        tempModel()
+        fetchMemos()
         getCurrentAddress()
     }
     private func tempModel() {
@@ -85,6 +85,20 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         ]
         self.startingClusters = initialCluster()
     }
+    
+    func fetchMemos() {
+        Task {
+            do {
+                MemoList = try await MemoService.shared.fetchMemos()
+                // 테이블 뷰 리로드 또는 다른 UI 업데이트
+                self.startingClusters = initialCluster()
+
+            } catch {
+                print("Error fetching memos: \(error)")
+            }
+        }
+    }
+   
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
@@ -184,9 +198,11 @@ extension MainMapViewModel {
         }
         return tempClusters
     }
-    private func initialCluster() -> [MemoCluster] {
-        return self.MemoList.map{.init(memo: $0)}
-    }
+    
+    // 오류나서 일단 주석
+//    private func initialCluster() -> [MemoCluster] {
+//        return self.MemoList.map{.init(memo: $0)}
+//    }
     private func cluster(distance: Double) -> [MemoCluster] {
         let result = calculateDistance(from: startingClusters, threshold: distance)
         return result
@@ -212,3 +228,7 @@ extension CLLocationCoordinate2D: Equatable {
         return sqrt(squaredDistance(to: to))
     }
 }
+
+
+// Marker 생성로직
+

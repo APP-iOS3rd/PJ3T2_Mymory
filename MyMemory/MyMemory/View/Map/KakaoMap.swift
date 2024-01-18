@@ -33,6 +33,9 @@ struct KakaoMapView: UIViewRepresentable {
         context.coordinator.controller?.initEngine()
         return view
     }
+    
+    
+    
     /// Updates the presented `UIView` (and coordinator) to the latest
     /// configuration.
     /// draw가 true로 설정되면 엔진을 시작하고 렌더링을 시작한다.
@@ -210,7 +213,7 @@ struct KakaoMapView: UIViewRepresentable {
             let perLevelStyle1 = PerLevelPoiStyle(iconStyle: marker, level: 0)
             let poiStyle1 = PoiStyle(styleID: "positionPoiStyle", styles: [perLevelStyle1])
             manager.addPoiStyle(poiStyle1)
-            
+         
             let direction = PoiIconStyle(symbol: UIImage(named: "map_ico_marker_direction"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
             let perLevelStyle2 = PerLevelPoiStyle(iconStyle: direction, level: 0)
             let poiStyle2 = PoiStyle(styleID: "directionArrowPoiStyle", styles: [perLevelStyle2])
@@ -366,4 +369,7 @@ struct KakaoMapView: UIViewRepresentable {
         var _currentPosition: GeoCoordinate
         var _moveOnce: Bool
     }
+    
+    
+    
 }
