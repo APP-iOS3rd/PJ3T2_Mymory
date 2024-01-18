@@ -3,8 +3,9 @@ import PhotosUI
 import Photos
 
 struct SelectPhotos: View {
-    @Binding var memoSelectedImageItems: [PhotosPickerItem] 
-    @State var imageData: [Data?] = []
+   
+    @Binding var memoSelectedImageData: [Data]
+    @State var memoSelectedImageItems: [PhotosPickerItem] = []
     @State var selectImage: Bool = false
     @State var showPermissionAlert: Bool = false
     @State var selectedItemsCounts: Int = 0
@@ -41,8 +42,8 @@ struct SelectPhotos: View {
                     if selectImage == true {
                         
                         
-                        ForEach(imageData.indices, id: \.self) { index in
-                            if let data = imageData[index], let uiimage = UIImage(data: data) {
+                        ForEach(memoSelectedImageData.indices, id: \.self) { index in
+                            if let uiimage = UIImage(data: memoSelectedImageData[index]) {
                                 Image(uiImage: uiimage)
                                     .resizable()
                                     //.scaledToFit()
@@ -65,7 +66,7 @@ struct SelectPhotos: View {
         }
         .onChange(of: memoSelectedImageItems) { newValue in
             DispatchQueue.main.async {
-                imageData.removeAll()
+                memoSelectedImageData.removeAll()
                 selectedItemsCounts = 0
             }
             for (index, item) in memoSelectedImageItems.enumerated() {
@@ -73,7 +74,7 @@ struct SelectPhotos: View {
                     switch result {
                     case .success(let data):
                         DispatchQueue.main.async {
-                            imageData.append(data)
+                            memoSelectedImageData.append(data!)
                             print("사진 \(index+1) 업로드 완료, \(data)")
                             selectedItemsCounts += 1
                             selectImage = true
@@ -112,15 +113,9 @@ struct SelectPhotos: View {
     
 }
 
-
-
-
-
-
 struct SelectPhotos_Previews: PreviewProvider {
     static var previews: some View {
-        let memoSelectedImageItems = Binding<[PhotosPickerItem]>.constant([])
-        return SelectPhotos(memoSelectedImageItems: memoSelectedImageItems)
+        let memoSelectedImageData = Binding<[Data]>.constant([])
+        return SelectPhotos(memoSelectedImageData: memoSelectedImageData)
     }
 }
-

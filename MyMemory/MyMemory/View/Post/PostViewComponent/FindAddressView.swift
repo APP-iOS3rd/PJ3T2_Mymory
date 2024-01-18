@@ -22,7 +22,7 @@ struct FindAddressView: View {
                     .foregroundColor(Color(.systemGray3))
             }//:HSTACK
             
-            TextField("서울특별시 00구 00동", text: $memoAddressText)
+            TextField(memoAddressText, text: $memoAddressText)
                 .textFieldStyle(.roundedBorder)
                 .disabled(true) // TextField를 선택할 수 없도록 비활성화
         }//: VSTACK

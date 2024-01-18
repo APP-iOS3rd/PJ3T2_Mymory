@@ -60,11 +60,17 @@
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
+		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
+		6A5519F62B56AA2A0028665D /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5519F52B56AA2A0028665D /* ProfileEditView.swift */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
 		6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */; };
 		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
+		6AF0E0232B565DFF008ABE05 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0222B565DFF008ABE05 /* SettingViewModel.swift */; };
+		6AF0E0252B565EED008ABE05 /* MypageMemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0242B565EED008ABE05 /* MypageMemoListCell.swift */; };
+		6AF0E0272B565F46008ABE05 /* MypageMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* MypageMemoList.swift */; };
+		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		9DA79BF42B5675D60064FAD8 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */; };
@@ -152,13 +158,20 @@
 		649128ED2B550BD60034F567 /* FindAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
+		6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../../../../../Downloads/APIKEYS.xcconfig; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6A5519F52B56AA2A0028665D /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
 		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
 		6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
+		6AF0E0222B565DFF008ABE05 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		6AF0E0242B565EED008ABE05 /* MypageMemoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMemoListCell.swift; sourceTree = "<group>"; };
+		6AF0E0262B565F46008ABE05 /* MypageMemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMemoList.swift; sourceTree = "<group>"; };
+		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
@@ -281,6 +294,7 @@
 				DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */,
 				01700A922B550B820096E1CA /* Button+Extension.swift */,
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
+				6AF0E0282B565FF1008ABE05 /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -342,6 +356,7 @@
 				28F26D3E2B551E8500CE783D /* LoginViewModel.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
 				9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */,
+				6A5519F52B56AA2A0028665D /* ProfileEditView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -363,6 +378,7 @@
 			children = (
 				649427752B5525B60079481D /* Model */,
 				649128EC2B550BB00034F567 /* PostViewComponent */,
+				01700A832B5506B80096E1CA /* Memo */,
 				01E6A6422B4683090061F08C /* PostView.swift */,
 				01A19D372B58B4EA0031ABCB /* PostView2.swift */,
 				6494277B2B5527DA0079481D /* PostViewModel.swift */,
@@ -414,6 +430,14 @@
 			path = PostViewComponent;
 			sourceTree = "<group>";
 		};
+		6491CAA62B565B16004E0D62 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				DA3785602B561BEE007AECD9 /* ClusterSelectionView.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		649427752B5525B60079481D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +452,7 @@
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
 				6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */,
+				6AF0E0222B565DFF008ABE05 /* SettingViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -445,6 +470,8 @@
 			children = (
 				01E6A63F2B4681DC0061F08C /* MypageView.swift */,
 				6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */,
+				6AF0E0242B565EED008ABE05 /* MypageMemoListCell.swift */,
+				6AF0E0262B565F46008ABE05 /* MypageMemoList.swift */,
 			);
 			path = Mypage;
 			sourceTree = "<group>";
@@ -483,12 +510,12 @@
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
-				9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */,
+				6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */,
 				DAB315492B43EFDB000357C7 /* MyMemory */,
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
 				DAB315482B43EFDB000357C7 /* Products */,
-				DADFA2C22B56552D0061E28C /* Recovered References */,
+				6491CAA62B565B16004E0D62 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -556,19 +583,6 @@
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		DADFA2C22B56552D0061E28C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				DA3C24EE2B55079E00425288 /* SelectTagView.swift */,
-				DA3C24ED2B55079E00425288 /* SelectPhotos.swift */,
-				DA3C24EF2B55079E00425288 /* FindAddressView.swift */,
-				DA3C24EB2B55079E00425288 /* MemoView.swift */,
-				DA3C24F02B55079E00425288 /* PostView.swift */,
-				DA3C24EC2B55079E00425288 /* MemoCell.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -705,6 +719,7 @@
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
+				28BB132C2B568E14001A4C0C /* run4.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +750,9 @@
 				0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */,
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
+				6AF0E0252B565EED008ABE05 /* MypageMemoListCell.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
+				01700A892B5506B80096E1CA /* MemoView.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
 				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
@@ -746,6 +763,7 @@
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
 				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
+				6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */,
 				6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */,
 				01700AB42B5588780096E1CA /* SearchBar.swift in Sources */,
 				28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */,
@@ -757,12 +775,15 @@
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
+				6AF0E0272B565F46008ABE05 /* MypageMemoList.swift in Sources */,
 				0133834F2B565F50004D4B8A /* Onboarding.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */,
 				28BB13352B568FE7001A4C0C /* ImgDetailView.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
+				6A5519F62B56AA2A0028665D /* ProfileEditView.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
+				01700A8D2B5506B80096E1CA /* FindAddressView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
@@ -826,6 +847,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -890,6 +912,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -947,6 +970,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -994,6 +1018,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1041,6 +1066,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1061,6 +1087,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1081,6 +1108,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1101,6 +1129,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6491CAA52B565A79004E0D62 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

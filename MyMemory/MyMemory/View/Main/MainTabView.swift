@@ -22,11 +22,20 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
+                
+                PostView()
+                    .onTapGesture{
+                        selectedIndex = 1
+                    }
+                    .tabItem {
+                        Image(systemName: "pencil")
+                        Text("메모하기")
+                    }.tag(1)
  
                 PostView2()
               //  MemoMapView()
                     .onTapGesture{
-                        selectedIndex = 1
+                        selectedIndex = 2
                     }
                     .tabItem {
                         Image(systemName: "pencil")
@@ -35,7 +44,7 @@ struct MainTabView: View {
 
                 MypageView()
                     .onTapGesture{
-                        selectedIndex = 2
+                        selectedIndex = 3
                     }
                     .tabItem {
                         Image(systemName: "person")
