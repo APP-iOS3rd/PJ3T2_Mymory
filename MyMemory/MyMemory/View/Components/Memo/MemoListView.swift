@@ -15,7 +15,7 @@ struct MemoListView: View {
     var body: some View {
         ZStack {
             
-            Color(UIColor.systemGray5)
+            Color.lightGray
                 .ignoresSafeArea()
             
             VStack {
