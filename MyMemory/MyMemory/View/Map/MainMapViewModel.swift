@@ -19,7 +19,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     
     @Published var location: CLLocation?
     @Published var myCurrentAddress: String? = nil
-    @Published var MemoList: [MiniMemoModel] = []
+    @Published var MemoList: [Memo] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
@@ -61,24 +61,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         getCurrentAddress()
     }
     private func tempModel() {
-        self.MemoList = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.9780),
-                                     title: "test1",
-                                     contents: "contents2",
-                               images: [], tag: ["맛집","핫플","추억공유","테스트2"],
-                               createdAt: Date().timeIntervalSince1970 + 100, likeCount: 10),
-                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.979),
-                                                         title: "새로운 메모 크기 제한을 알아보기 위해서 제목 길이를 너무 길게 써 봄",
-                                                         contents: "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
-                                  images: [], tag:["맛집","핫플"],
-                                  createdAt: Date().timeIntervalSince1970, likeCount: 20),
-                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.980),
-                                                         title: "test3",
-                                                         contents: "contents2",
-                                  images: [], tag: ["맛집","핫플","추억공유","테스트2"],
-                                  createdAt: Date().timeIntervalSince1970 - 100, likeCount: 30)]
+        self.MemoList = MemoManager.shared.memoList
         self.startingClusters = initialCluster()
     }
 }
@@ -121,9 +104,9 @@ extension MainMapViewModel {
     func sortByDistance(_ distance: Bool) {
         if distance {
             guard let location = location else { return }
-            MemoList.sort(by: {$0.coordinate.distance(to: location.coordinate) < $1.coordinate.distance(to: location.coordinate)})
+            MemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
         } else {
-            MemoList.sort(by: {$0.createdAt < $1.createdAt})
+            MemoList.sort(by: {$0.date < $1.date})
         }
     }
     //MARK: - 주소 얻어오는 함수

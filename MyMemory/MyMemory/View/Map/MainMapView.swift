@@ -75,11 +75,15 @@ struct MainMapView: View {
                     
                     // 리스트뷰 전환 버튼
                     Button {
-                        self.showingSheet = true
+                        print("tapped")
+
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "list.bullet")
                             Text("리스트뷰")
+                        }
+                        .onTapGesture {
+                            self.showingSheet = true
                         }
                     }
                     .buttonStyle(Pill.secondary)
@@ -94,7 +98,7 @@ struct MainMapView: View {
                             MemoCell(
                                 isVisible: true,
                                 isDark: true,
-                                location: viewModel.location,
+                                location: $viewModel.location,
                                 item: item)
                             .frame(width: UIScreen.main.bounds.size.width * 0.84)
                             .padding(.leading, 12)
@@ -104,10 +108,11 @@ struct MainMapView: View {
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
-            
-        }.fullScreenCover(isPresented: $showingSheet) {
-            MemoListView(sortDistance: $sortDistance)
-                .environmentObject(viewModel)
+            .fullScreenCover(isPresented: $showingSheet, content: {
+                EmptyView()
+                MemoListView(sortDistance: $sortDistance)
+                    .environmentObject(viewModel)
+            })
         }
     }
 }

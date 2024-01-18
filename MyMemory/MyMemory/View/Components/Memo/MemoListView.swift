@@ -31,6 +31,7 @@ struct MemoListView: View {
                     Button {
                         // 거리순 - 최근 등록순
                         self.sortDistance.toggle()
+                        viewModel.sortByDistance(sortDistance)
                     } label: {
                         FilterButton(
                             imageName: "arrow.left.arrow.right",
@@ -51,7 +52,7 @@ struct MemoListView: View {
                             MemoCell(
                                 isVisible: true,
                                 isDark: false,
-                                location: viewModel.location,
+                                location: $viewModel.location,
                                 item: item)
                         }
                        
@@ -64,7 +65,7 @@ struct MemoListView: View {
         }
         .overlay(
             Button {
-                
+                dismiss()
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "map")

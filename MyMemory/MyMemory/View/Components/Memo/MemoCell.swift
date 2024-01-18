@@ -12,9 +12,9 @@ struct MemoCell: View {
 
     @State var isVisible: Bool = true
     @State var isDark: Bool = false
-    @State var location: CLLocation? = nil
+    @Binding var location: CLLocation?
     
-    var item: MiniMemoModel
+    var item: Memo
     var body: some View {
         HStack(spacing: 16) {
             
@@ -32,12 +32,12 @@ struct MemoCell: View {
                 
                 // Tag는 세 개까지 표시
                 HStack {
-                    if item.tag.count > 3 {
-                        ForEach(item.tag[0..<3], id: \.self) { str in
+                    if item.tags.count > 3 {
+                        ForEach(item.tags[0..<3], id: \.self) { str in
                         Text("#\(str)")
                         }
                     } else {
-                        ForEach(item.tag, id: \.self) { str in
+                        ForEach(item.tags, id: \.self) { str in
                         Text("#\(str)")
                         }
                     }
@@ -69,7 +69,11 @@ struct MemoCell: View {
                         Text("\(item.likeCount)개")
                         Text("|")
                         Image(systemName: "location.fill")
-                        Text("\(item.distanceFromNow(location: location))m")
+                        if let loc = location {
+                            Text("\(item.location.distance(from: loc))m")
+                        } else {
+                            Text("\(-1)m")
+                        }
                     }
                     .foregroundColor(.gray)
                     .font(.regular12)
