@@ -66,7 +66,7 @@ struct MemoListView: View {
         }
         .overlay(
             Button {
-                
+                dismiss()
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "map")
@@ -75,11 +75,9 @@ struct MemoListView: View {
             }
             .buttonStyle(Pill.secondary)
             .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 0))
-            
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             
         )
-        //.padding()
       
     }
 }

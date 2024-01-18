@@ -102,6 +102,9 @@ struct MainMapView: View {
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }
+            .fullScreenCover(isPresented: $showingSheet) {
+                MemoListView()
+            }
         }
     }
 }
