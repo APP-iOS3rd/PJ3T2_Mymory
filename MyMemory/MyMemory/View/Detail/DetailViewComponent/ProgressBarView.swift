@@ -15,9 +15,9 @@ struct ProgressBarView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
-                .foregroundStyle(.gray)
+                .foregroundStyle(Color.deepGray)
                 .clipShape(.rect(cornerRadius: 15))
-                .frame(height: 180)
+                .frame(height: 140)
             
             VStack(alignment: .leading) {
                 ProgressView(value: Double(userDistance), total: 100)
@@ -25,9 +25,11 @@ struct ProgressBarView: View {
                 
                 if userDistance < 5 {
                     Text("인증 장소에 도착했어요!")
+                        .font(.bold14)
                         .foregroundStyle(.white)
                 } else {
                     Text("인증 장소까지 \(userDistance)m")
+                        .font(.bold14)
                         .foregroundStyle(.white)
                 }
 //                Button(action: {
@@ -36,7 +38,7 @@ struct ProgressBarView: View {
 //                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
 //                })
             }
-            .padding(.top, 8)
+          //  .padding(.top, 8)
 
         }
     }
@@ -69,8 +71,8 @@ struct RoundedRectProgressViewStyle: ProgressViewStyle {
 
 
 
-
-
-#Preview {
-    ProgressView()
-}
+//
+//
+//#Preview {
+//    ProgressView()
+//}
