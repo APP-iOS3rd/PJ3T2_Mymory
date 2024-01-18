@@ -8,6 +8,7 @@
 import Foundation
 import CoreLocation
 import _PhotosUI_SwiftUI
+import FirebaseAuth
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -49,16 +50,16 @@ struct Location: Hashable, Codable {
     }
 }
 
-class MypageViewModel: ObservableObject {
-    static let shared = MypageViewModel()
-    
+class MypageViewModel: ObservableObject {   
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
+    @Published var isCurrentUserLoginState = false
     
     init() {
+        self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         self.memoList = [
             Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
             Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
@@ -99,5 +100,12 @@ class MypageViewModel: ObservableObject {
                 return first < second
             }
         }
+    }
+    
+    func fetchCurrentUserLoginState() -> Bool {
+        if let _ = Auth.auth().currentUser {
+            return true
+        }
+        return false
     }
 }

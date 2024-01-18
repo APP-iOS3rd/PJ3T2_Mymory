@@ -13,14 +13,10 @@ struct MypageMemoList: View {
         VStack(spacing: 12) {
             ForEach($memoList, id: \.self) { memo in
                 NavigationLink {
-                    
+                    MemoDetailView()
                 } label: {
                     MypageMemoListCell(
-                        title: memo.title,
-                        tags: memo.tags,
-                        date: memo.date,
-                        address: memo.address,
-                        like: memo.likeCount
+                        memo: memo
                     )
                 }
                 .buttonStyle(.plain)

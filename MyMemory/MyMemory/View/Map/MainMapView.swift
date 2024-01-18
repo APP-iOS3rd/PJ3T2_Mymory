@@ -15,6 +15,13 @@ struct MainMapView: View {
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
+    
+    
+    let memoList: [String] = Array(1...10).map {"메모 \($0)"}
+    @State var sortDistance: Bool = true
+    @State var showingSheet: Bool = false
+    @State var isClicked: Bool = false
+    
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
@@ -73,7 +80,6 @@ struct MainMapView: View {
                     // 리스트뷰 전환 버튼
                     Button {
                         print("tapped")
-
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "list.bullet")
@@ -87,6 +93,10 @@ struct MainMapView: View {
                     
                 }
                 .padding(.horizontal, 16)
+                    }
+                    .buttonStyle(Pill.secondary)
+                }
+                .padding(.horizontal, 12)
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
@@ -109,7 +119,6 @@ struct MainMapView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                EmptyView()
                 MemoListView(sortDistance: $sortDistance)
                     .environmentObject(viewModel)
             })

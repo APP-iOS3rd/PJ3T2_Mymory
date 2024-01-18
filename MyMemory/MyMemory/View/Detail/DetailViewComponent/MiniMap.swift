@@ -11,40 +11,49 @@ import MapKit
 @available(iOS 17.0, *)
 struct MiniMap: View {
     var body: some View {
-        ZStack {
-
-            Rectangle()
-                    .foregroundStyle(.gray)
-                    .clipShape(.rect(cornerRadius: 15))
-                    .frame(height: 300)
-                    .offset(y: -50)
-            
+  
             VStack(alignment: .leading) {
                 
                 HStack {
-                    Image(systemName: "photo.circle.fill")
-                        .foregroundStyle(.white)
+                    Image(systemName: "photo.fill")
+                        .padding()
+                        .frame(width: 40, height: 40)
+                        .background(.white)
+                        .clipShape(Circle())
+                    
                     VStack(alignment: .leading) {
                         Text("CGV 홍대")
+                            .font(.bold18)
+                            .foregroundColor(.white)
+                           
                         Text("#영화관 #핫플레이스")
-                            .font(.footnote)
+                            .font(.regular14)
+                            .foregroundColor(.accentColor)
+                            
                     }
+                    .frame(maxWidth: .infinity)
                     .padding()
                     
                 }
-                .padding(.horizontal, 30)
-                .offset(y: 25)
-                
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 16)
+                .fixedSize(horizontal: true, vertical: false)
                 
                 Map()
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(height: 400)
-                    .offset(y: 10)
+                    .frame(maxHeight: .infinity)
                 
+                CurrentSpotButton()
+                    .position(y:0)
                 
             }
-        }//:ZSTACK
-        .padding(.horizontal, 20)
+            .background(
+                Rectangle()
+                    .foregroundStyle(Color.deepGray)
+                    .clipShape(.rect(cornerRadius: 15))
+            )
+        
+        .padding()
     }
 }
 
