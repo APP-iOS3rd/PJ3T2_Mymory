@@ -27,6 +27,9 @@ struct KakaoMapView: UIViewRepresentable {
         context.coordinator.controller?.initEngine()
         return view
     }
+    
+    
+    
     /// Updates the presented `UIView` (and coordinator) to the latest
     /// configuration.
     /// draw가 true로 설정되면 엔진을 시작하고 렌더링을 시작한다.
@@ -59,7 +62,7 @@ struct KakaoMapView: UIViewRepresentable {
     }
     
     /// Coordinator 구현. KMControllerDelegate를 adopt한다.
-    class KakaoMapCoordinator: NSObject, MapControllerDelegate, KakaoMapEventDelegate, K3fMapContainerDelegate {
+    class KakaoMapCoordinator: NSObject, MapControllerDelegate, KakaoMapEventDelegate, K3fMapContainerDelegate, GuiEventDelegate {
         var parent: KakaoMapView
         var controller: KMController?
         var first: Bool
@@ -160,6 +163,48 @@ struct KakaoMapView: UIViewRepresentable {
                 _mapTapEventHandler = map.addMapTappedEventHandler(target: self, handler: KakaoMapCoordinator.mapDidTapped)
             }
         }
+        
+        
+        // 마커 로직
+//        func createSpriteGUI() {
+//            let mapView = controller?.getView("mapview") as! KakaoMap
+//            let guiManager = mapView.getGuiManager()
+//            let spriteGui = SpriteGui("testSprite") //SpriteGui를 만듬.
+//            
+//            spriteGui.arrangement = .horizontal
+//            spriteGui.bgColor = UIColor.clear
+//            spriteGui.splitLineColor = UIColor.white
+//            spriteGui.origin = GuiAlignment(vAlign: .bottom, hAlign: .right) //화면의 우하단으로 배치
+//            
+//            // 버튼 두개 생성
+//            let button1 = GuiButton("button1")
+//            button1.image = UIImage(named: "track_location_btn.png")
+//            
+//            let button2 = GuiButton("button2")
+//            button2.image = UIImage(named: "tile.png")
+//            
+//            spriteGui.addChild(button1)
+//            spriteGui.addChild(button2)
+//            
+//            let _ = guiManager.addGui(spriteGui)
+//            // gui event의 delegate를 지정한다.
+//            spriteGui.delegate = self
+//            spriteGui.show()
+//        }
+//        
+//        // GuiButton(마커)이 클릭되면 아래 delegate를 호출한다.
+//        func guiDidTapped(_ gui: KakaoMapsSDK.GuiBase, componentName: String) {
+//            // 클릭된 gui 객체와 클릭된 컴포넌트의 name을 이벤트로 전달한다.
+//            print("Gui: \(gui.name), Component: \(componentName) tapped")
+//            if componentName == "button1" {
+//                //do something
+//            }
+//            
+//            if componentName == "button2" {
+//                //do something
+//            }
+//        }
+//        
         func mapDidTapped(_ param: ViewInteractionEventParam) {
             let mapView = param.view as! KakaoMap
             let position = mapView.getPosition(param.point)
@@ -266,4 +311,7 @@ struct KakaoMapView: UIViewRepresentable {
             print("호출")
         }
     }
+    
+    
+    
 }

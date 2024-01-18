@@ -178,3 +178,7 @@ extension CLLocationCoordinate2D: Equatable {
         return sqrt(squaredDistance(to: to))
     }
 }
+
+
+// Marker 생성로직
+
