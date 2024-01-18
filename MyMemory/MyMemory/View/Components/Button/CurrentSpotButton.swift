@@ -9,10 +9,12 @@ import SwiftUI
 
 struct CurrentSpotButton: View {
     
-    @State private var isClicked: Bool = false
-   
+    @State var isClicked: Bool = false
+    //@Binding var isClicked: Bool
+    
     var body: some View {
         Image(systemName: "dot.scope")
+            .foregroundColor(Color.deepGray)
             .frame(width: 40, height: 40)
             .background(isClicked ? Color.lightPrimary : .white)
             .clipShape(Circle())
@@ -25,6 +27,6 @@ struct CurrentSpotButton: View {
     }
 }
 
-#Preview {
-    CurrentSpotButton()
-}
+//#Preview {
+//    CurrentSpotButton()
+//}
