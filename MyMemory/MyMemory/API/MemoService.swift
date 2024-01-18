@@ -67,6 +67,7 @@ struct MemoService {
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 HH시 mm분" // 입력받을 날짜 형식
 
         if let date = dateFormatter.date(from: dateString) {
+            //print("memoCreatedAt\(memoCreatedAt)")
             return date.timeIntervalSince1970
         } else {
             return nil // 문자열이 올바른 날짜 형식이 아닌 경우 nil 반환
@@ -135,7 +136,7 @@ struct MemoService {
                   let memoTagList = data["memoTagList"] as? [String],
                   let memoLikeCount = data["memoLikeCount"] as? Int,
                   let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
-                  let memoCreatedAt = timeIntervalFromString( data["memoCreatedAt"] as! String) {
+                  let memoCreatedAt = timeIntervalFromString( data["memoCreatedAt"] as? String ?? "") {
 
                    let memo = PostMemoModel(
                        id: id,

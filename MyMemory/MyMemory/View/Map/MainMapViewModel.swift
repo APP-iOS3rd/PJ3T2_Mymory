@@ -15,7 +15,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
     @Published var location: CLLocation?
-    @Published var MemoList: [MiniMemoModel] = []
+    @Published var MemoList: [PostMemoModel] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = [] {
         didSet {
@@ -61,29 +61,20 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        tempModel()
+        fetchMemos()
     }
-    private func tempModel() {
-        self.MemoList = [.init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.9780),
-                                     title: "test1",
-                                     contents: "contents2",
-                                     images: [],
-                                  createdAt: Date().timeIntervalSince1970),
-                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.979),
-                                                         title: "새로운 메모 크기 제한을 알아보기 위해서 제목 길이를 너무 길게 써 봄",
-                                                         contents: "ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
-                                                         images: [],
-                                                      createdAt: Date().timeIntervalSince1970),
-                            .init(id: UUID(), coordinate: .init(latitude: 37.5665,
-                                                    longitude: 126.980),
-                                                         title: "test3",
-                                                         contents: "contents2",
-                                                         images: [],
-                                                      createdAt: Date().timeIntervalSince1970)]
-        self.startingClusters = initialCluster()
+    
+    func fetchMemos() {
+        Task {
+            do {
+                MemoList = try await MemoService.shared.fetchMemos()
+                // 테이블 뷰 리로드 또는 다른 UI 업데이트
+            } catch {
+                print("Error fetching memos: \(error)")
+            }
+        }
     }
+   
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
@@ -157,9 +148,11 @@ extension MainMapViewModel {
         }
         return tempClusters
     }
-    private func initialCluster() -> [MemoCluster] {
-        return self.MemoList.map{.init(memo: $0)}
-    }
+    
+    // 오류나서 일단 주석
+//    private func initialCluster() -> [MemoCluster] {
+//        return self.MemoList.map{.init(memo: $0)}
+//    }
     private func cluster(distance: Double) -> [MemoCluster] {
         let result = calculateDistance(from: startingClusters, threshold: distance)
         return result

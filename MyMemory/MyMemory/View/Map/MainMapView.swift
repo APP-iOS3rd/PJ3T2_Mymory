@@ -13,6 +13,7 @@ struct MainMapView: View {
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
+    var memos: [PostMemoModel] = []
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
@@ -69,9 +70,9 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(viewModel.MemoList) { item  in
-                            
-                            MemoCell(isVisible: true, isDark: true)
+                        
+                        ForEach(viewModel.MemoList) { Memo  in
+                            MemoCell(isVisible: true, isDark: true, Memo: Memo)
                                 .frame(width: UIScreen.main.bounds.size.width * 0.84)
                                 .padding(.leading, 12)
                                 .padding(.bottom, 12)
