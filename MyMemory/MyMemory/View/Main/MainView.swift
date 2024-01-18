@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
    
     @StateObject var viewRouter: ViewRouter = .init()
-    @State var initialIdx = 1
+    @State var initialIdx = 0
     
     var body: some View {
         if viewRouter.currentPage == "page0" {

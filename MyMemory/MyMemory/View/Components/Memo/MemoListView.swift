@@ -9,20 +9,21 @@ import SwiftUI
 
 struct MemoListView: View {
     
-    @State var sortDistance: Bool = true
+    @Binding var sortDistance: Bool
     @Environment(\.dismiss) private var dismiss
-    
+    @State var filterSheet: Bool = false
+    @EnvironmentObject var viewModel: MainMapViewModel
     var body: some View {
         ZStack {
             
-            Color(UIColor.systemGray5)
+            Color.lightGray
                 .ignoresSafeArea()
             
             VStack {
                 HStack{
                     
                     Button{
-                        
+                        filterSheet.toggle()
                     } label: {
                         FilterButton(buttonName: .constant("전체메뉴"))
                     }
@@ -31,6 +32,7 @@ struct MemoListView: View {
                     Button {
                         // 거리순 - 최근 등록순
                         self.sortDistance.toggle()
+                        viewModel.sortByDistance(sortDistance)
                     } label: {
                         FilterButton(
                             imageName: "arrow.left.arrow.right",
@@ -46,17 +48,15 @@ struct MemoListView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     
                     VStack(spacing: 12) {
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: true, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
-                        MemoCell(isVisible: false, isDark: false)
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item in
+                            
+                            MemoCell(
+                                isVisible: true,
+                                isDark: false,
+                                location: $viewModel.location,
+                                item: item)
+                        }
+                       
                     }
                     
                 }
@@ -66,7 +66,7 @@ struct MemoListView: View {
         }
         .overlay(
             Button {
-                
+                dismiss()
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "map")
@@ -75,15 +75,18 @@ struct MemoListView: View {
             }
             .buttonStyle(Pill.secondary)
             .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 0))
-            
+            .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
             
         )
+        .sheet(isPresented: $filterSheet, content: {
+            FileterListView(filteredList: $viewModel.filterList)
+                .presentationDetents([.medium])
+        })
         //.padding()
       
     }
 }
 
 #Preview {
-    MemoListView()
+    MemoListView(sortDistance: .constant(true))
 }

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct WithdrawalView: View {
+    @EnvironmentObject var viewModel: SettingViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -43,7 +46,7 @@ struct WithdrawalView: View {
                 .padding(.bottom, 32)
                 
                 Button {
-                    
+                    self.presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("그대로 사용할게요")
                         .foregroundStyle(.white)
@@ -54,7 +57,9 @@ struct WithdrawalView: View {
                 }
                 
                 Button {
-                    
+                    viewModel.fetchUserWithdrawal {
+                        viewModel.isShowingWithdrawalAlert = true
+                    }
                 } label: {
                     Text("네 그래도 탈퇴할게요")
                         .foregroundStyle(.white)
@@ -62,6 +67,10 @@ struct WithdrawalView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color(UIColor.systemGray))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
+                }.alert("회원탈퇴되었습니다.", isPresented: $viewModel.isShowingWithdrawalAlert) {
+                    Button("확인", role: .cancel) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
             }
             .navigationTitle("회원 탈퇴")

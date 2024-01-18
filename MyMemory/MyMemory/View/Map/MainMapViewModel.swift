@@ -14,20 +14,30 @@ import CoreLocation
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
-    @Published var location: CLLocation?
-    @Published var MemoList: [PostMemoModel] = []
-    @Published var isUserTracking: Bool = true
-    @Published var clusters: [MemoCluster] = [] {
+    private var startingClusters: [MemoCluster] = []
+    
+    @Published var filterList: Set<String> = Set() {
         didSet {
-            // mapview Update
-            distance = 0.0
+            filteredMemoList = MemoList.filter{ [weak self] memo in
+                guard let self = self else { return false }
+                if self.filterList.isEmpty { return true }
+                var preset = false
+                for f in self.filterList {
+                    preset = memo.tags.contains(f) || preset
+                }
+                return preset
+            }
         }
     }
-    var distance = 0.0
-    private var startingClusters: [MemoCluster] = []
-
+    @Published var location: CLLocation?
+    @Published var direction: Double = 0
+    @Published var myCurrentAddress: String? = nil
+    @Published var filteredMemoList: [Memo] = []
+    @Published var MemoList: [Memo] = []
+    @Published var isUserTracking: Bool = true
+    @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
-    @Published var selectedMemoId: UUID = UUID()
+    @Published var selectedMemoId: UUID? = nil
     @Published var selectedCluster: MemoCluster? = nil{
         didSet {
             guard let cluster = selectedCluster else {
@@ -37,6 +47,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             let latitude = cluster.center.latitude
             let longitude = cluster.center.longitude
             getAddressFromCoordinates(latitude: latitude, longitude: longitude)
+            selectedMemoId = cluster.memos.first?.id
         }
     }
     @Published var selectedAddress: String? = nil 
@@ -62,6 +73,17 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationConfig()
         }
         fetchMemos()
+        getCurrentAddress()
+    }
+    private func tempModel() {
+        self.MemoList = [
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10),
+        ]
+        self.startingClusters = initialCluster()
     }
     
     func fetchMemos() {
@@ -69,6 +91,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             do {
                 MemoList = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
+                self.startingClusters = initialCluster()
+
             } catch {
                 print("Error fetching memos: \(error)")
             }
@@ -81,6 +105,7 @@ extension MainMapViewModel {
     private func locationConfig() {
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
         self.locationManager.requestAlwaysAuthorization() // 권한 요청
+        self.locationManager.startUpdatingHeading()
         self.locationManager.startUpdatingLocation() // 위치 업데이트 시작
         self.locationManager.delegate = self
     }
@@ -107,13 +132,38 @@ extension MainMapViewModel {
                                    longitude: location.coordinate.longitude)
         }
     }
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        direction = newHeading.trueHeading * Double.pi / 180.0
+    }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("failed")
     }
+    //MARK: - View Controll logic
+    
+    func sortByDistance(_ distance: Bool) {
+        if distance {
+            guard let location = location else { return }
+            MemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
+            filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
+        } else {
+            MemoList.sort(by: {$0.date < $1.date})
+            filteredMemoList.sort(by: {$0.date < $1.date})
+        }
+    }
     //MARK: - 주소 얻어오는 함수
+    //특정 selected 위치 주소값
     private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
         Task{@MainActor in
             self.selectedAddress = await GetAddress.shared.getAddressStr(location: .init(longitude: longitude, latitude: latitude))
+        }
+    }
+    //user location주소값
+    func getCurrentAddress() {
+        guard let loc = self.location else { return }
+        let point = MapPoint(longitude: loc.coordinate.longitude, latitude: loc.coordinate.latitude)
+        Task{@MainActor in
+            self.myCurrentAddress = await GetAddress.shared.getAddressStr(location: point)
+            print(self.myCurrentAddress)
         }
     }
 }

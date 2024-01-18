@@ -36,7 +36,8 @@ struct PostView: View {
                 KakaoMapView(draw: $draw,
                              isUserTracking: $MapviewModel.isUserTracking,
                              userLocation: $MapviewModel.location,
-                             clusters: $MapviewModel.clusters)
+                             userDirection: .constant(0),
+                             clusters: $MapviewModel.clusters, selectedID: .constant(nil))
                 .onAppear(perform: {
                     self.draw = true
                 }).onDisappear(perform: {

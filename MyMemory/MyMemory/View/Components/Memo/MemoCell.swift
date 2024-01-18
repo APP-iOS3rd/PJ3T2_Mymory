@@ -6,20 +6,15 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct MemoCell: View {
     
     @State var isVisible: Bool = true
     @State var isDark: Bool = false
-    @State var Memo: PostMemoModel = PostMemoModel(userCoordinateLatitude: 37.5125, userCoordinateLongitude: 127.102778,
-                                                   userAddress: "대한민국 서울특별시 송파구 올림픽로 300 (신천동 29)",
-                                                   memoTitle: "오늘의 메모",
-                                                   memoContents: "메모메모메모메모메모메모",
-                                                   isPublic: false,
-                                                   memoTagList: ["데이트장소", "맛집"],
-                                                   memoLikeCount: 0,
-                                                   memoSelectedImageData: [/* initialize your PhotosPickerItem array here */],
-                                                   memoCreatedAt: Date().timeIntervalSince1970)
+    @Binding var location: CLLocation?
+    
+    var item: Memo
     var body: some View {
         HStack(spacing: 16) {
             
@@ -37,16 +32,21 @@ struct MemoCell: View {
                 
                 // Tag는 세 개까지 표시
                 HStack {
-                    // memoTagList의 앞에서부터 최대 3개의 원소를 가져옴
-                    ForEach(Array(Memo.memoTagList.prefix(3)), id: \.self) { tag in
-                        Text("#\(tag)")
+                    if item.tags.count > 3 {
+                        ForEach(item.tags[0..<3], id: \.self) { str in
+                        Text("#\(str)")
+                        }
+                    } else {
+                        ForEach(item.tags, id: \.self) { str in
+                        Text("#\(str)")
+                        }
                     }
                 }
 
                 .foregroundColor(.gray)
                 .font(.regular14)
-                
-                Text(isVisible ? Memo.memoTitle : "거리가 멀어서 볼 수 없어요.")
+                Text(isVisible ? item.title : "거리가 멀어서 볼 수 없어요.")
+                    .lineLimit(1)
                     .font(.black20)
                     .foregroundStyle(isDark ? .white : .black)
                 
@@ -68,10 +68,14 @@ struct MemoCell: View {
                 HStack(alignment:  .center) {
                     HStack {
                         Image(systemName: "heart.fill")
-                        Text("0개")
+                        Text("\(item.likeCount)개")
                         Text("|")
                         Image(systemName: "location.fill")
-                        Text("0m")
+                        if let loc = location {
+                            Text("\(item.location.distance(from: loc))m")
+                        } else {
+                            Text("\(-1)m")
+                        }
                     }
                     .foregroundColor(.gray)
                     .font(.regular12)
@@ -109,10 +113,10 @@ struct MemoCell: View {
 
 #Preview {
     VStack {
-        MemoCell(isVisible: true, isDark: true)
-        MemoCell(isVisible: true, isDark: false)
-        MemoCell(isVisible: false, isDark: true)
-        MemoCell(isVisible: false, isDark: false)
+//        MemoCell(isVisible: true, isDark: true)
+//        MemoCell(isVisible: true, isDark: false)
+//        MemoCell(isVisible: false, isDark: true)
+//        MemoCell(isVisible: false, isDark: false)
     }
     
 }

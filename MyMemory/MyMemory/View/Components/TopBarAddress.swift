@@ -10,7 +10,7 @@ import SwiftUI
 struct TopBarAddress: View {
     
     // 추후 작업 때, binding으로 바꿔야함.
-    @State var currentAddress: String = "서울특별시 마포구 서교동 364-2"
+    @Binding var currentAddress: String?
     
     var body: some View {
         
@@ -18,7 +18,7 @@ struct TopBarAddress: View {
             SearchView()
         } label: {
             HStack {
-                Text(currentAddress)
+                Text(currentAddress ?? "주소를 불러올 수 없습니다.")
                     .foregroundStyle(.black)
                 Spacer()
                 Image(systemName: "chevron.right")
@@ -35,5 +35,5 @@ struct TopBarAddress: View {
 }
 
 #Preview {
-    TopBarAddress()
+    TopBarAddress(currentAddress: .constant("wnth"))
 }
