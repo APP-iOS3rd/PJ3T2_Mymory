@@ -18,8 +18,6 @@ struct MainMapView: View {
     
     
     let memoList: [String] = Array(1...10).map {"메모 \($0)"}
-    @State var sortDistance: Bool = true
-    @State var showingSheet: Bool = false
     @State var isClicked: Bool = false
     
     var body: some View {
@@ -27,12 +25,12 @@ struct MainMapView: View {
             KakaoMapView(draw: $draw,
                          isUserTracking: $viewModel.isUserTracking,
                          userLocation: $viewModel.location, userDirection: $viewModel.direction,
-                         clusters: $viewModel.clusters, 
+                         clusters: $viewModel.clusters,
                          selectedID: $viewModel.selectedMemoId)
-
+            
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .environmentObject(viewModel)
-                .ignoresSafeArea(edges: .top)
+            .environmentObject(viewModel)
+            .ignoresSafeArea(edges: .top)
             VStack {
                 TopBarAddress(currentAddress: $viewModel.myCurrentAddress)
                     .padding(.horizontal, 12)
@@ -60,7 +58,6 @@ struct MainMapView: View {
                         )
                     }
                     .buttonStyle(RoundedRect.standard)
-                    
                     Spacer()
                 }
                 .padding(.horizontal, 12)
@@ -93,10 +90,7 @@ struct MainMapView: View {
                     
                 }
                 .padding(.horizontal, 16)
-                    }
-                    .buttonStyle(Pill.secondary)
-                }
-                .padding(.horizontal, 12)
+                
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
