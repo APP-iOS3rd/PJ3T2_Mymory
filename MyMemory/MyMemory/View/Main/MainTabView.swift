@@ -41,15 +41,6 @@ struct MainTabView: View {
                         Text("마이")
                     }.tag(2)
                 
-                // 임시
-//                RegisterView()
-//                    .onTapGesture{
-//                        selectedIndex = 3
-//                    }
-//                    .tabItem {
-//                        Image(systemName: "person")
-//                        Text("회원가입")
-//                    }.tag(3)
             }
         }
     }

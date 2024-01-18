@@ -18,12 +18,11 @@ struct CurrentSpotButton: View {
             .frame(width: 40, height: 40)
             .background(isClicked ? Color.lightPrimary : .white)
             .clipShape(Circle())
-            .cornerRadius(40)
             .overlay(
                 Circle()
                     .stroke(Color(UIColor.systemGray5))
             )
-         
+           
     }
 }
 

@@ -72,9 +72,7 @@ struct MainMapView: View {
                     label: {
                         CurrentSpotButton()
                     })
-                    .background(Color.white)
-                    .cornerRadius(10)
-                    .padding()
+ 
                     Spacer()
                     // 리스트뷰 전환 버튼
                     Button {
