@@ -9,10 +9,18 @@ import SwiftUI
 import MapKit
 struct MainMapView: View {
     @ObservedObject var viewModel: MainMapViewModel = .init()
+    
     @State var draw = true
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
+    
+    
+    let memoList: [String] = Array(1...10).map {"메모 \($0)"}
+    @State var sortDistance: Bool = true
+    @State var showingSheet: Bool = false
+    @State var isClicked: Bool = false
+    
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
@@ -29,43 +37,57 @@ struct MainMapView: View {
             VStack {
                 TopBarAddress()
                     .padding(.horizontal, 12)
+                
                 HStack {
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        TextField("Search", text: $viewModel.searchTxt)
-                            .font(.regular16)
-                            .foregroundStyle(Color.primary.opacity(0.6))
-                            
-                        if !viewModel.searchTxt.isEmpty {
-                            Button(action: {
-                                self.viewModel.searchTxt = ""
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                            }
-                        } else {
-                            EmptyView()
-                        }
-                    }            .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
-                        .background(Color(red: 0.46, green: 0.46, blue: 0.5).opacity(0.12))
-                        .cornerRadius(10.0)
+                    Button{
+                        
+                    } label: {
+                        FilterButton(buttonName: .constant("전체메뉴"))
+                    }
+                    .buttonStyle(RoundedRect.standard)
+                    
+                    Button {
+                        // 거리순 - 최근 등록순
+                        self.sortDistance.toggle()
+                    } label: {
+                        FilterButton(
+                            imageName: "arrow.left.arrow.right",
+                            buttonName: sortDistance ?
+                                .constant("거리순보기") : .constant("최근 등록순 보기")
+                        )
+                    }
+                    .buttonStyle(RoundedRect.standard)
+                    
+                    Spacer()
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 12)
+                
                 Spacer()
                 HStack {
-                    Spacer()
+                   // Spacer()
                     Button(action: {
                         viewModel.switchUserLocation()
+//                        viewModel.isUserTracking.toggle()
                     },
-                           label: {
-                        Text("내 위치 보기")
-                            .foregroundStyle(viewModel.isUserTracking ? Color.blue : Color.black)
-                            .font(.bold14)
-                            .padding(5)
+                    label: {
+                        CurrentSpotButton()
                     })
                     .background(Color.white)
                     .cornerRadius(10)
                     .padding()
+                    Spacer()
+                    // 리스트뷰 전환 버튼
+                    Button {
+                        self.showingSheet = true
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "list.bullet")
+                            Text("리스트뷰")
+                        }
+                    }
+                    .buttonStyle(Pill.secondary)
                 }
+                .padding(.horizontal, 12)
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
