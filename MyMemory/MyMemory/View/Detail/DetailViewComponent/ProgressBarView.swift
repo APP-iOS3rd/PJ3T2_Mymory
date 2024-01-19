@@ -18,9 +18,9 @@ struct ProgressBarView: View {
     var body: some View {
         ZStack(alignment: .top) {
             Rectangle()
-                .foregroundStyle(.gray)
+                .foregroundStyle(Color.deepGray)
                 .clipShape(.rect(cornerRadius: 15))
-                .frame(height: 180)
+                .frame(height: 140)
             
             VStack(alignment: .leading) {
                 
@@ -40,9 +40,10 @@ struct ProgressBarView: View {
                     }
                 }
                 
-                
+
             }
             .padding(.top, 8)
+
         }
     }
 }

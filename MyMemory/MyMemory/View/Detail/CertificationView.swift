@@ -20,36 +20,32 @@ struct CertificationView: View {
             
             VStack {
                 VStack {
-                    Text("장소 근처")
-                        .foregroundStyle(.white)
-                       .font(.bold24)
-                      +
-                     Text("에서")
-                        .foregroundStyle(.white)
-                       .font(.regular24)
-                     Text("메모를 확인할 수 있어요!")
-                        .foregroundStyle(.white)
-                        .font(.regular24)
+                    VStack {
+                        Text("장소 근처")
+                            .font(.bold24)
+                        +
+                        Text("에서")
+                            .font(.regular24)
+                        
+                        Text("메모를 확인할 수 있어요!")
+                            .font(.regular24)
+                    }
+                    .frame(alignment: .center)
+                    .foregroundStyle(.white)
+                    .padding(.top, 20)
                 }
-                .padding(.top, 20)
+                 
+                MiniMap()
+               
+                Spacer()
                 
-                ScrollView {
+                ProgressBarView()
+                    .ignoresSafeArea()
+                    .frame(maxWidth: .infinity)
 
-                    MiniMap()
-                }
-                
-                VStack {
-                    ProgressBarView()
-                        .offset(CGSize(width: 0.0, height: 35.0))
-                        .frame(maxWidth: .infinity)
-                        //.padding(.vertical)
-                }
                 
             }
-            .frame(alignment: .bottom)
-            
-
-            
+            .edgesIgnoringSafeArea(.bottom)
             
         }
     }
