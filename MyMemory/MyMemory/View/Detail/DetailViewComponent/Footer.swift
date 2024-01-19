@@ -2,7 +2,7 @@
 //  Footer.swift
 //  MyMemory
 //
-//  Created by 김성엽 on 1/18/24.
+//  Created by 김성엽 on 1/19/24.
 //
 
 import SwiftUI
