@@ -2,7 +2,7 @@
 //  CLLocation+Extension.swift
 //  MyMemory
 //
-//  Created by 김성엽 on 1/17/24.
+//  Created by 김성엽 on 1/18/24.
 //
 
 import CoreLocation

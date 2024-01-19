@@ -25,7 +25,8 @@ struct MyMemoryApp: App {
   
     var body: some Scene {
         WindowGroup {
-            MainView(viewRouter: ViewRouter())
+            MemoDetailView()
+            //MainView(viewRouter: ViewRouter())
         }
         
     }

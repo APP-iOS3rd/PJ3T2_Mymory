@@ -45,6 +45,7 @@ struct Footer: View {
 
     }
 }
+
 #Preview {
     Footer()
 }

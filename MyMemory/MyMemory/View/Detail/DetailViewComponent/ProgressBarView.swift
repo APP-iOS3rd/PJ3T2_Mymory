@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreLocation
-import FirebaseStorage
 
 struct ProgressBarView: View {
     @State private var progress = 0.0
@@ -71,6 +70,10 @@ struct RoundedRectProgressViewStyle: ProgressViewStyle {
         }
     }
 }
+
+
+
+
 
 #Preview {
     ProgressView()

@@ -21,7 +21,7 @@ struct PostMemoModel: Identifiable {
     let memoTagList: [String]
     let memoLikeCount: Int
     let memoSelectedImageData: [Data]
-    let memocreatedAt: TimeInterval
+    let memoCreatedAt: TimeInterval
     
     
     static let sampleMemoModel = PostMemoModel(userCoordinateLatitude: 37.5125, userCoordinateLongitude: 127.102778,
@@ -32,6 +32,6 @@ struct PostMemoModel: Identifiable {
                                                memoTagList: ["데이트장소", "맛집"],
                                                memoLikeCount: 0,
                                                memoSelectedImageData: [/* initialize your PhotosPickerItem array here */],
-                                               memocreatedAt: Date().timeIntervalSince1970)
+                                               memoCreatedAt: Date().timeIntervalSince1970)
 }
 

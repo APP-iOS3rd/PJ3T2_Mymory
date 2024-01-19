@@ -45,26 +45,27 @@
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
-		28A62B942B58BA4B00FD818B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 28A62B932B58BA4B00FD818B /* FirebaseStorage */; };
-		28A62B962B58CAC700FD818B /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A62B952B58CAC700FD818B /* Footer.swift */; };
+		28A62B982B58E73000FD818B /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A62B972B58E73000FD818B /* Footer.swift */; };
+		28A62B9A2B58E7B800FD818B /* CertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A62B992B58E7B800FD818B /* CertificationViewModel.swift */; };
+		28A62B9C2B58E7F400FD818B /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A62B9B2B58E7F400FD818B /* CLLocation+Extension.swift */; };
+		28A62B9E2B58E91300FD818B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 28A62B9D2B58E91300FD818B /* APIKEYS.xcconfig */; };
+		28A62BA02B58E91F00FD818B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 28A62B9F2B58E91F00FD818B /* APIKEYS.xcconfig */; };
 		28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13292B568DC3001A4C0C /* ProgressBarView.swift */; };
-		28BB132C2B568E14001A4C0C /* run4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 28BB132B2B568E14001A4C0C /* run4.gif */; };
 		28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB132D2B568E4C001A4C0C /* GIFView.swift */; };
 		28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = 28BB13302B568E96001A4C0C /* FLAnimatedImage */; };
 		28BB13352B568FE7001A4C0C /* ImgDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13342B568FE7001A4C0C /* ImgDetailView.swift */; };
 		28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13362B56900B001A4C0C /* MemoDetailView.swift */; };
 		28BB13392B569075001A4C0C /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13382B569075001A4C0C /* CertificationView.swift */; };
 		28BB133B2B56908D001A4C0C /* MiniMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB133A2B56908D001A4C0C /* MiniMap.swift */; };
-		28E829312B57CB77001ED57E /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 28E829302B57CB77001ED57E /* APIKEYS.xcconfig */; };
-		28E829332B57CC7C001ED57E /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 28E829322B57CC7C001ED57E /* APIKEYS.xcconfig */; };
-		28E829352B57CF26001ED57E /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E829342B57CF26001ED57E /* CLLocation+Extension.swift */; };
-		28E829372B57D095001ED57E /* CertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E829362B57D095001ED57E /* CertificationViewModel.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
+		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
 		649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128ED2B550BD60034F567 /* FindAddressView.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
+		64D3C2762B58B60000EEA19F /* LocationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D3C2752B58B60000EEA19F /* LocationsHandler.swift */; };
+		64D3C2792B58BAAE00EEA19F /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 64D3C2782B58BAAE00EEA19F /* FirebaseStorage */; };
 		6A5519F62B56AA2A0028665D /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5519F52B56AA2A0028665D /* ProfileEditView.swift */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
@@ -148,24 +149,26 @@
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		28A62B952B58CAC700FD818B /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
+		28A62B972B58E73000FD818B /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
+		28A62B992B58E7B800FD818B /* CertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewModel.swift; sourceTree = "<group>"; };
+		28A62B9B2B58E7F400FD818B /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
+		28A62B9D2B58E91300FD818B /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../APIKEYS.xcconfig; sourceTree = "<group>"; };
+		28A62B9F2B58E91F00FD818B /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../APIKEYS.xcconfig; sourceTree = "<group>"; };
 		28BB13292B568DC3001A4C0C /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
-		28BB132B2B568E14001A4C0C /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = run4.gif; path = ../../../../../../../run4.gif; sourceTree = "<group>"; };
 		28BB132D2B568E4C001A4C0C /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
 		28BB13342B568FE7001A4C0C /* ImgDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgDetailView.swift; sourceTree = "<group>"; };
 		28BB13362B56900B001A4C0C /* MemoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailView.swift; sourceTree = "<group>"; };
 		28BB13382B569075001A4C0C /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		28BB133A2B56908D001A4C0C /* MiniMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMap.swift; sourceTree = "<group>"; };
-		28E829302B57CB77001ED57E /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../APIKEYS.xcconfig; sourceTree = "<group>"; };
-		28E829322B57CC7C001ED57E /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../APIKEYS.xcconfig; sourceTree = "<group>"; };
-		28E829342B57CF26001ED57E /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
-		28E829362B57D095001ED57E /* CertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewModel.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		641A8B3C2B57C76800A942A1 /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run4.gif; sourceTree = "<group>"; };
+		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
 		649128ED2B550BD60034F567 /* FindAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		64D3C2752B58B60000EEA19F /* LocationsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsHandler.swift; sourceTree = "<group>"; };
 		6A5519F52B56AA2A0028665D /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		6A7BA0452B51050F00BEE111 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
@@ -219,7 +222,7 @@
 				28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */,
 				DAB3157C2B43F48C000357C7 /* FirebaseAuth in Frameworks */,
 				DAB3157E2B43F48C000357C7 /* FirebaseDatabase in Frameworks */,
-				28A62B942B58BA4B00FD818B /* FirebaseStorage in Frameworks */,
+				64D3C2792B58BAAE00EEA19F /* FirebaseStorage in Frameworks */,
 				DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */,
 				DAB3157A2B43F48C000357C7 /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
@@ -293,7 +296,7 @@
 				01700A922B550B820096E1CA /* Button+Extension.swift */,
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
 				6AF0E0282B565FF1008ABE05 /* String+Extension.swift */,
-				28E829342B57CF26001ED57E /* CLLocation+Extension.swift */,
+				28A62B9B2B58E7F400FD818B /* CLLocation+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -395,19 +398,13 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		28A62B922B58BA4B00FD818B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		28BB13272B568D5F001A4C0C /* Detail */ = {
 			isa = PBXGroup;
 			children = (
 				28BB13282B568D8F001A4C0C /* DetailViewComponent */,
 				28BB13362B56900B001A4C0C /* MemoDetailView.swift */,
 				28BB13382B569075001A4C0C /* CertificationView.swift */,
+				28A62B992B58E7B800FD818B /* CertificationViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -415,15 +412,22 @@
 		28BB13282B568D8F001A4C0C /* DetailViewComponent */ = {
 			isa = PBXGroup;
 			children = (
-				28BB132B2B568E14001A4C0C /* run4.gif */,
+				641A8B3C2B57C76800A942A1 /* run4.gif */,
 				28BB13292B568DC3001A4C0C /* ProgressBarView.swift */,
 				28BB132D2B568E4C001A4C0C /* GIFView.swift */,
 				28BB13342B568FE7001A4C0C /* ImgDetailView.swift */,
 				28BB133A2B56908D001A4C0C /* MiniMap.swift */,
-				28E829362B57D095001ED57E /* CertificationViewModel.swift */,
-				28A62B952B58CAC700FD818B /* Footer.swift */,
+				28A62B972B58E73000FD818B /* Footer.swift */,
 			);
 			path = DetailViewComponent;
+			sourceTree = "<group>";
+		};
+		641A8B3D2B57CBAE00A942A1 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				641A8B3E2B57CBD500A942A1 /* MemoService.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		649128EC2B550BB00034F567 /* PostViewComponent */ = {
@@ -439,7 +443,7 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				28E829322B57CC7C001ED57E /* APIKEYS.xcconfig */,
+				28A62B9F2B58E91F00FD818B /* APIKEYS.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -450,6 +454,13 @@
 				649427782B5525EC0079481D /* PostMemoModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		64D3C2772B58BAAD00EEA19F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6A7BA0442B5104DC00BEE111 /* Setting */ = {
@@ -493,6 +504,7 @@
 			isa = PBXGroup;
 			children = (
 				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
+				64D3C2752B58B60000EEA19F /* LocationsHandler.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -516,13 +528,13 @@
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
-				28E829302B57CB77001ED57E /* APIKEYS.xcconfig */,
+				28A62B9D2B58E91300FD818B /* APIKEYS.xcconfig */,
 				DAB315492B43EFDB000357C7 /* MyMemory */,
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
 				DAB315482B43EFDB000357C7 /* Products */,
 				6491CAA62B565B16004E0D62 /* Recovered References */,
-				28A62B922B58BA4B00FD818B /* Frameworks */,
+				64D3C2772B58BAAD00EEA19F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -539,6 +551,7 @@
 		DAB315492B43EFDB000357C7 /* MyMemory */ = {
 			isa = PBXGroup;
 			children = (
+				641A8B3D2B57CBAE00A942A1 /* API */,
 				DA52B5DA2B5609DA003F5E59 /* Shared */,
 				014CB5732B46A2950016DF70 /* Model */,
 				013127232B461B0D00483E9F /* View */,
@@ -616,7 +629,7 @@
 				DAB3157F2B43F48C000357C7 /* FirebaseFirestore */,
 				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
 				28BB13302B568E96001A4C0C /* FLAnimatedImage */,
-				28A62B932B58BA4B00FD818B /* FirebaseStorage */,
+				64D3C2782B58BAAE00EEA19F /* FirebaseStorage */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -714,7 +727,9 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
+				28A62B9E2B58E91300FD818B /* APIKEYS.xcconfig in Resources */,
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
+				28A62BA02B58E91F00FD818B /* APIKEYS.xcconfig in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
@@ -724,10 +739,7 @@
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
-				28E829312B57CB77001ED57E /* APIKEYS.xcconfig in Resources */,
-				28E829332B57CC7C001ED57E /* APIKEYS.xcconfig in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
-				28BB132C2B568E14001A4C0C /* run4.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -759,7 +771,6 @@
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				6AF0E0252B565EED008ABE05 /* MypageMemoListCell.swift in Sources */,
-				28E829372B57D095001ED57E /* CertificationViewModel.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
 				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
@@ -773,15 +784,19 @@
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
 				6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */,
 				6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */,
+				64D3C2762B58B60000EEA19F /* LocationsHandler.swift in Sources */,
 				01700AB42B5588780096E1CA /* SearchBar.swift in Sources */,
+				641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */,
 				28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */,
 				01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */,
+				28A62B9A2B58E7B800FD818B /* CertificationViewModel.swift in Sources */,
 				01700AA42B5530430096E1CA /* SearchView.swift in Sources */,
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
+				28A62B9C2B58E7F400FD818B /* CLLocation+Extension.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
+				28A62B982B58E73000FD818B /* Footer.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
-				28A62B962B58CAC700FD818B /* Footer.swift in Sources */,
 				6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */,
 				6A7BA04E2B5105DC00BEE111 /* MypageViewModel.swift in Sources */,
 				6AF0E0272B565F46008ABE05 /* MypageMemoList.swift in Sources */,
@@ -800,7 +815,6 @@
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
 				01700AAB2B5535580096E1CA /* MemoMapView.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
-				28E829352B57CF26001ED57E /* CLLocation+Extension.swift in Sources */,
 				013383532B5669E4004D4B8A /* SceneDelegate.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
@@ -907,7 +921,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -965,7 +979,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -993,16 +1007,20 @@
 				INFOPLIST_FILE = MyMemory/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyMemory;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "사진첩에 접근합니다.";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라로 사진을 찍습니다.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 추적하려고 합니다";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "당신의 위치 정보가 필요합니다";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진에 접근하려고 합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1029,7 +1047,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
@@ -1040,16 +1058,20 @@
 				INFOPLIST_FILE = MyMemory/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = MyMemory;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "사진첩에 접근합니다.";
-				INFOPLIST_KEY_NSCameraUsageDescription = "카메라로 사진을 찍습니다.";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보가 필요합니다.";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치 정보가 필요합니다.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 추적하려고 합니다";
+				INFOPLIST_KEY_NSLocationUsageDescription = "";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "당신의 위치 정보가 필요합니다";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진에 접근하려고 합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1058,7 +1080,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1218,15 +1240,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		28A62B932B58BA4B00FD818B /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseStorage;
-		};
 		28BB13302B568E96001A4C0C /* FLAnimatedImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;
 			productName = FLAnimatedImage;
+		};
+		64D3C2782B58BAAE00EEA19F /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 		DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;
