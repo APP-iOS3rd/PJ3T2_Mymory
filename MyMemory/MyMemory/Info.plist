@@ -2,24 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string></string>
-	<key>NSLocationUsageDescription</key>
-	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>사용자의 현 위치 데이터를 이용하려고 합니다.</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict/>
+	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict/>
+	</array>
+	<key>KAKAO_APP_KEY</key>
+	<string>$(MAP_KEY)</string>
+	<key>KAKAO_PHASE</key>
+	<string>beta</string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string></string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string></string>
+	<key>REST_API</key>
+	<string>$(REST_API)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Black.otf</string>
 		<string>Pretendard-Bold.otf</string>
 		<string>Pretendard-ExtraBold.otf</string>
-		<string>Pretendard-ExtraLight.otf</string>
-		<string>Pretendard-Light.otf</string>
+		<string>Pretendard-SemiBold.otf</string>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-Regular.otf</string>
-		<string>Pretendard-SemiBold.otf</string>
+		<string>Pretendard-Light.otf</string>
+		<string>Pretendard-ExtraLight.otf</string>
 		<string>Pretendard-Thin.otf</string>
 	</array>
 </dict>
