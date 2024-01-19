@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
 import KakaoMapsSDK
@@ -58,26 +59,37 @@ class PostViewModel: ObservableObject {
     
     
     func saveMemo() async {
-        let newMemo = PostMemoModel(
-            userCoordinateLatitude: Double(userCoordinate.latitude),
-            userCoordinateLongitude: Double(userCoordinate.longitude),
-            userAddress: memoAddressText,
-            memoTitle: memoTitle,
-            memoContents: memoContents,
-            isPublic: memoShare,
-            memoTagList: memoSelectedTags,
-            memoLikeCount: 0,
-            memoSelectedImageData: memoSelectedImageData,
-            memoCreatedAt: Date().timeIntervalSince1970
-        )
-
-        memoData.append(newMemo)
-        print(newMemo)
-        
-        // 메모 저장 후 필요한 초기화 작업 등을 수행할 수 있습니다.
-        await MemoService.shared.uploadMemo(newMemo: newMemo)
-        resetMemoFields()
+        do {
+            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+            // 로그인 성공한 경우의 코드
+            let userID = authResult.user.uid
+            print("userID \(userID)")
+            
+            let newMemo = PostMemoModel(
+                userUid: userID,
+                userCoordinateLatitude: Double(userCoordinate.latitude),
+                userCoordinateLongitude: Double(userCoordinate.longitude),
+                userAddress: memoAddressText,
+                memoTitle: memoTitle,
+                memoContents: memoContents,
+                isPublic: memoShare,
+                memoTagList: memoSelectedTags,
+                memoLikeCount: 0,
+                memoSelectedImageData: memoSelectedImageData,
+                memoCreatedAt: Date().timeIntervalSince1970
+            )
+            
+            print(newMemo)
+            
+            await MemoService.shared.uploadMemo(newMemo: newMemo)
+            resetMemoFields()
+        } catch {
+            // 오류 처리
+            print("Error signing in: \(error.localizedDescription)")
+        }
     }
+
+
 
     private func resetMemoFields() {
         // 메모 저장 후 필요한 필드 초기화를 여기에 추가하세요.
@@ -88,5 +100,8 @@ class PostViewModel: ObservableObject {
         memoSelectedTags = []
         memoShare = false
     }
+    
+    
+    
 
 }

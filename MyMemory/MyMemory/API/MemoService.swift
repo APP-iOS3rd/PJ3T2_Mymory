@@ -97,6 +97,7 @@ struct MemoService {
             let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
             let ref = try await db.collection("Memos").addDocument(data: [
                 "uid": newMemo.id,
+                "userUid" : newMemo.userUid,
                 "userCoordinateLatitude": newMemo.userCoordinateLatitude,
                 "userCoordinateLongitude": newMemo.userCoordinateLongitude,
                 "userAddress": newMemo.userAddress,
@@ -115,8 +116,8 @@ struct MemoService {
     }
     
     // Firestore에서 메모들을 가져오는 메서드
-       func fetchMemos() async throws -> [PostMemoModel] {
-           var memos = [PostMemoModel]()
+       func fetchMemos() async throws -> [Memo] {
+           var memos = [Memo]()
            
            // "Memos" 컬렉션에서 문서들을 가져옴
            let querySnapshot = try await db.collection("Memos").getDocuments()
@@ -127,6 +128,7 @@ struct MemoService {
                
                // 필요한 데이터를 추출하여 PostMemoModel을 생성
                if let id = data["uid"] as? String,
+                  let userUid = data["userUid"] as? String,
                   let userCoordinateLatitude = data["userCoordinateLatitude"] as? Double,
                   let userCoordinateLongitude = data["userCoordinateLongitude"] as? Double,
                   let userAddress = data["userAddress"] as? String,
@@ -138,19 +140,10 @@ struct MemoService {
                   let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
                   let memoCreatedAt = timeIntervalFromString( data["memoCreatedAt"] as? String ?? "") {
 
-                   let memo = PostMemoModel(
-                       id: id,
-                       userCoordinateLatitude: userCoordinateLatitude,
-                       userCoordinateLongitude: userCoordinateLongitude,
-                       userAddress: userAddress,
-                       memoTitle: memoTitle,
-                       memoContents: memoContents,
-                       isPublic: isPublic,
-                       memoTagList: memoTagList,
-                       memoLikeCount: memoLikeCount,
-                       memoSelectedImageData: [], // 이 부분은 실제 URL이나 이미지 데이터로 대체해야 함
-                       memoCreatedAt: memoCreatedAt
-                   )
+                   
+                  let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
+                   
+                   let memo = Memo(userUid: userUid, title: memoTitle, description: memoContents, address: userAddress, tags: memoTagList, images: memoSelectedImageURLs, isPublic: isPublic, date: memoCreatedAt, location: location, likeCount: memoLikeCount)
                    memos.append(memo)
                }
            }
