@@ -53,15 +53,6 @@ struct ImgDetailView: View {
                     
                 }
                 .tabViewStyle(.page)
-                
-                
-                
-                //                    Rectangle()
-                //                        .foregroundStyle(.white)
-                //                        .frame(maxWidth: .infinity)
-                //                        .frame(height: 600)
-                //                        .padding(.bottom, 50)
-                
             }
         }
     }
