@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ProgressBarView: View {
     @State private var progress = 0.0
     @State private var userDistance: Int = 50
     
+    @StateObject var viewModel: CertificationViewModel = CertificationViewModel()
+    private var marker: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -20,25 +23,26 @@ struct ProgressBarView: View {
                 .frame(height: 140)
             
             VStack(alignment: .leading) {
-                ProgressView(value: Double(userDistance), total: 100)
-                    .progressViewStyle(RoundedRectProgressViewStyle())
                 
-                if userDistance < 5 {
-                    Text("인증 장소에 도착했어요!")
-                        .font(.bold14)
-                        .foregroundStyle(.white)
-                } else {
-                    Text("인증 장소까지 \(userDistance)m")
-                        .font(.bold14)
-                        .foregroundStyle(.white)
+                if let distance = viewModel.userCoordinate?.distance(from: marker) {
+                    
+                    ProgressView(value: distance, total: 300000)
+                        .progressViewStyle(RoundedRectProgressViewStyle())
+                    
+                    if userDistance < 5 {
+                        Text("인증 장소에 도착했어요!")
+                            .font(.regular16)
+                            .foregroundStyle(.white)
+                    } else {
+                        Text("인증 장소까지 \(Int(distance))m")
+                            .font(.regular16)
+                            .foregroundStyle(.white)
+                    }
                 }
-//                Button(action: {
-//                    progress += 10
-//                }, label: {
-//                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-//                })
+                
+
             }
-          //  .padding(.top, 8)
+            .padding(.top, 8)
 
         }
     }
