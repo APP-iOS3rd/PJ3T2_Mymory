@@ -14,7 +14,7 @@ struct MemoCell: View {
     @State var isDark: Bool = false
     @Binding var location: CLLocation?
     
-    var item: Memo
+    var memo: Memo
     var body: some View {
         HStack(spacing: 16) {
             
@@ -32,20 +32,20 @@ struct MemoCell: View {
                 
                 // Tag는 세 개까지 표시
                 HStack {
-                    if item.tags.count > 3 {
-                        ForEach(item.tags[0..<3], id: \.self) { str in
-                        Text("#\(str)")
+                    if memo.tags.count > 3 {
+                        ForEach(memo.tags[0..<3], id: \.self) { str in
+                            Text("#\(str)")
                         }
                     } else {
-                        ForEach(item.tags, id: \.self) { str in
-                        Text("#\(str)")
+                        ForEach(memo.tags, id: \.self) { str in
+                            Text("#\(str)")
                         }
                     }
                 }
-
+                
                 .foregroundColor(.gray)
                 .font(.regular14)
-                Text(isVisible ? item.title : "거리가 멀어서 볼 수 없어요.")
+                Text(isVisible ? memo.title : "거리가 멀어서 볼 수 없어요.")
                     .lineLimit(1)
                     .font(.black20)
                     .foregroundStyle(isDark ? .white : .black)
@@ -68,11 +68,11 @@ struct MemoCell: View {
                 HStack(alignment:  .center) {
                     HStack {
                         Image(systemName: "heart.fill")
-                        Text("\(item.likeCount)개")
+                        Text("\(memo.likeCount)개")
                         Text("|")
                         Image(systemName: "location.fill")
                         if let loc = location {
-                            Text("\(item.location.distance(from: loc))m")
+                            Text("\(memo.location.distance(from: loc))m")
                         } else {
                             Text("\(-1)m")
                         }
@@ -83,17 +83,17 @@ struct MemoCell: View {
                     Spacer()
                     
                     if isVisible {
-                        
-                        Button {
-                            // 디테일 뷰로 이동
+                        NavigationLink { // 버튼이랑 비슷함
+                            // destination : 목적지 -> 어디로 페이지 이동할꺼냐
+                            MemoDetailView(memo: memo)
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")
-                                Text("방문하기")
+                                Text("메모보기")
                             }
-                            
                         }
-                    }
+                    } // : VStack
+                    
                     
                 }
                 .buttonStyle(RoundedRect.primary)
@@ -113,10 +113,10 @@ struct MemoCell: View {
 
 #Preview {
     VStack {
-//        MemoCell(isVisible: true, isDark: true)
-//        MemoCell(isVisible: true, isDark: false)
-//        MemoCell(isVisible: false, isDark: true)
-//        MemoCell(isVisible: false, isDark: false)
+        //        MemoCell(isVisible: true, isDark: true)
+        //        MemoCell(isVisible: true, isDark: false)
+        //        MemoCell(isVisible: false, isDark: true)
+        //        MemoCell(isVisible: false, isDark: false)
     }
     
 }

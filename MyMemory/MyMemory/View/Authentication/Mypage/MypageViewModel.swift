@@ -32,7 +32,7 @@ struct Memo: Hashable, Codable, Identifiable {
     // 태그
     var tags: [String]
     // 사진
-    var images: [String]
+    var images: [Data]
     // 공개여부
     var isPublic: Bool
     // 작성일
