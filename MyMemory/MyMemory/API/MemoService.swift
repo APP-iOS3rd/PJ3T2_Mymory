@@ -127,7 +127,7 @@ struct MemoService {
         }
     }
     
-    // Firestore에서 메모들을 가져오는 메서드
+    // Firestore에서 모든 메모들을 가져오는 메서드
     func fetchMemos() async throws -> [Memo] {
         var memos = [Memo]()
         
@@ -139,40 +139,7 @@ struct MemoService {
             let data = document.data()
             
             // 필요한 데이터를 추출하여 PostMemoModel을 생성
-            if let id = data["uid"] as? String,
-               let userUid = data["userUid"] as? String,
-               let userCoordinateLatitude = data["userCoordinateLatitude"] as? Double,
-               let userCoordinateLongitude = data["userCoordinateLongitude"] as? Double,
-               let userAddress = data["userAddress"] as? String,
-               let memoTitle = data["memoTitle"] as? String,
-               let memoContents = data["memoContents"] as? String,
-               let isPublic = data["isPublic"] as? Bool,
-               let memoTagList = data["memoTagList"] as? [String],
-               let memoLikeCount = data["memoLikeCount"] as? Int,
-               let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
-               let memoCreatedAt = timeIntervalFromString( data["memoCreatedAt"] as? String ?? "") {
-                
-                // Convert image URLs to Data asynchronously
-                let imageDataArray: [Data] = try await withThrowingTaskGroup(of: Data.self) { group in
-                    for url in memoSelectedImageURLs {
-                        group.addTask {
-                            return try await downloadImageData(from: url)
-                        }
-                    }
-                    
-                    var dataArray = [Data]()
-                    for try await data in group {
-                        dataArray.append(data)
-                    }
-                    
-                    return dataArray
-                }
-                
-                
-                
-                let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
-                
-                let memo = Memo(userUid: userUid, title: memoTitle, description: memoContents, address: userAddress, tags: memoTagList, images: imageDataArray, isPublic: isPublic, date: memoCreatedAt, location: location, likeCount: memoLikeCount)
+            if let memo = try await fetchMemoFromDocument(data: data) {
                 memos.append(memo)
             }
         }
@@ -180,24 +147,107 @@ struct MemoService {
         return memos
     }
     
+    func fetchMyMemos() async -> [Memo] {
+        do {
+            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+            let userID = authResult.user.uid
+            
+            let querySnapshot = try await db.collection("Memos").getDocuments()
+            
+            var memos = [Memo]()
+            
+            // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
+            for document in querySnapshot.documents {
+                let data = document.data()
+                
+                if let userUid = data["userUid"] as? String, userUid == userID {
+                    if let memo = try await fetchMemoFromDocument(data: data) {
+                        memos.append(memo)
+                    }
+                }
+            }
+            
+            return memos
+        } catch {
+            // Handle errors
+            print("Error signing in: \(error.localizedDescription)")
+            return []
+        }
+    }
+
     
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
-    func checkMyMemo(checkMemo:Memo) async -> Bool {
+    func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
             let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
             // 로그인 성공한 경우의 코드
             let userID = authResult.user.uid
             
-            if checkMemo.userUid == authResult.user.uid {
-                return true
-            }
-            
-        }
-        catch {
+            return checkMemo.userUid == userID
+        } catch {
             // 오류 처리
             print("Error signing in: \(error.localizedDescription)")
+            return false
+        }
+    }
+
+    // 공통 코드를 기반으로 Memo 객체 생성
+    private func fetchMemoFromDocument(data: [String: Any]) async throws -> Memo? {
+        guard let userUid = data["userUid"] as? String,
+              let userCoordinateLatitude = data["userCoordinateLatitude"] as? Double,
+              let userCoordinateLongitude = data["userCoordinateLongitude"] as? Double,
+              let userAddress = data["userAddress"] as? String,
+              let memoTitle = data["memoTitle"] as? String,
+              let memoContents = data["memoContents"] as? String,
+              let isPublic = data["isPublic"] as? Bool,
+              let memoTagList = data["memoTagList"] as? [String],
+              let memoLikeCount = data["memoLikeCount"] as? Int,
+              let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
+              let memoCreatedAt = timeIntervalFromString(data["memoCreatedAt"] as? String ?? "") else {
+                  return nil
+              }
+        
+        // Convert image URLs to Data asynchronously
+        /*
+         
+         withThrowingTaskGroup는 비동기로 실행되는 여러 작업들을 그룹으로 묶어 처리할 수 있게 해주는 Swift의 도구입니다.
+         withThrowingTaskGroup를 사용하면 여러 비동기 작업을 병렬로 실행하고, 각 작업이 독립적으로 진행됩니다.
+         각 작업은 서로에게 영향을 주지 않고 동시에 진행됩니다.
+         
+         이 작업 그룹을 사용하면 병렬로 여러 비동기 작업을 실행하고 결과를 모아서 반환할 수 있습니다.
+         이 코드를 통해 여러 이미지 URL을 병렬로 처리하여 이미지 데이터를 모아 배열로 만들 수 있습니다.
+         이렇게 병렬로 작업을 수행하면 각 이미지를 순차적으로 다운로드하는 것보다 효율적으로 시간을 활용할 수 있습니다.
+         */
+        let imageDataArray: [Data] = try await withThrowingTaskGroup(of: Data.self) { group in
+            for url in memoSelectedImageURLs {
+                group.addTask {
+                    return try await downloadImageData(from: url)
+                }
+            }
+            
+            var dataArray = [Data]()
+            for try await data in group {
+                dataArray.append(data)
+            }
+            
+            return dataArray
         }
         
-        return false
+        let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
+        
+        return Memo(
+            userUid: userUid,
+            title: memoTitle,
+            description: memoContents,
+            address: userAddress,
+            tags: memoTagList,
+            images: imageDataArray,
+            isPublic: isPublic,
+            date: memoCreatedAt,
+            location: location,
+            likeCount: memoLikeCount
+        )
     }
+
+   
 }
