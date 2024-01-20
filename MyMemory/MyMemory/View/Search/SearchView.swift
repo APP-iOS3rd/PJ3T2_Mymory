@@ -19,13 +19,12 @@ struct SearchView: View {
         }
     }
     
-    
     var body: some View  {
         
             ZStack {
                 Color(UIColor.systemGray6)
                     .ignoresSafeArea()
-                VStack{
+                VStack {
                     SearchBar(searchText: $searchQueryString)
                         .padding()
                     
@@ -39,7 +38,10 @@ struct SearchView: View {
                     }
                     .listStyle(.plain)
                 }
+                .padding(.top, 12)
             }
+            
+            //.padding(.top, 24)
         .onSubmit(of: .search) {
             print("검색 완료: \(searchQueryString)")
         }
@@ -48,8 +50,14 @@ struct SearchView: View {
             print("검색 입력: \(newValue)")
         } 
         .navigationBarTitle("위치 검색", displayMode: .inline)
-        
-        
+        .navigationBarBackButtonHidden()
+        .navigationBarItems(trailing:
+            CloseButton().offset(CGSize(width: 0, height: 12))
+        )
+        .navigationBarColor(
+            backgroundColor: .white,
+            titleColor: .black
+        )
     }
 }
 
