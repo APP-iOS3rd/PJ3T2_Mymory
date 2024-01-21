@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
+    @Binding var userInfo: UserInfo?
     @Binding var isCurrentUserLoginState: Bool
     
     var body: some View {
@@ -79,7 +80,10 @@ struct SettingView: View {
                     }
                     
                     NavigationLink {
-                        WithdrawalView(isCurrentUserLoginState: $isCurrentUserLoginState)
+                        WithdrawalView(
+                            isCurrentUserLoginState: $isCurrentUserLoginState,
+                            userInfo: $userInfo
+                        )
                             .environmentObject(settingViewModel)
                     } label: {
                         Text("회원 탈퇴하기")

@@ -53,7 +53,10 @@ struct MypageTopView: View {
             Spacer()
             
             NavigationLink {
-                SettingView(isCurrentUserLoginState: $viewModel.isCurrentUserLoginState)
+                SettingView(
+                    userInfo: $viewModel.userInfo,
+                    isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
+                )
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
