@@ -92,7 +92,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
-   
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
@@ -224,5 +223,4 @@ extension CLLocationCoordinate2D: Equatable {
 }
 
 
-// Marker 생성로직
 

@@ -11,17 +11,18 @@ struct TopBarAddress: View {
     
     // 추후 작업 때, binding으로 바꿔야함.
     @Binding var currentAddress: String?
-    
+    //@ObservedObject var MapviewModel: MainMapViewModel = .init()
     var body: some View {
         
-        NavigationLink {
-            SearchView()
+        Button {
+            //SearchView()
+            //MapviewModel.fetchMemos()
         } label: {
             HStack {
                 Text(currentAddress ?? "주소를 불러올 수 없습니다.")
                     .foregroundStyle(.black)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Image(systemName: "arrow.circlepath")
                     .foregroundColor(Color(UIColor.systemGray5))
             }
         }

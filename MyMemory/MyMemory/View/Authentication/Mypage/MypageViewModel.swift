@@ -42,7 +42,8 @@ struct Memo: Hashable, Codable, Identifiable {
     // 좋아요 개수
     var likeCount: Int
     
-    
+    var memoImageUUIDs: [String]
+    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
 }
 
 struct Location: Hashable, Codable {
@@ -65,11 +66,11 @@ class MypageViewModel: ObservableObject {
     init() {
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         self.memoList = [
-            Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
-            Memo(userUid: "456", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
-            Memo(userUid: "789", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10),
-            Memo(userUid: "91011", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10),
-            Memo(userUid: "1234", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10),
+            Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "456", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "789", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "91011", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "1234", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10, memoImageUUIDs: [""]),
         ]
     }
     
