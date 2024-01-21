@@ -11,6 +11,7 @@ import _PhotosUI_SwiftUI
 struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
     var existingProfileImage: String?
+    var uid: String
     
     var body: some View {
         VStack {
@@ -48,8 +49,16 @@ struct ProfileEditView: View {
             }
             
             Button("수정하기") {
-                print("수정하기")
+                if let photoData = viewModel.selectedPhotoData {
+                    Task {
+                        await viewModel.fetchEditProfileImage(
+                            imageData: photoData,
+                            uid: uid
+                        )
+                    }
+                }
             }
+            .disabled(viewModel.selectedPhotoData == nil)
             .buttonStyle(Pill.standard)
             .padding(.top, 30)
             

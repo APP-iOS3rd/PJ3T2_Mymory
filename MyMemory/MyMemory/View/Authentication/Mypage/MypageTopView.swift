@@ -15,7 +15,8 @@ struct MypageTopView: View {
             if viewModel.isCurrentUserLoginState {
                 NavigationLink {
                     ProfileEditView(
-                        existingProfileImage: viewModel.userInfo?.profilePicture
+                        existingProfileImage: viewModel.userInfo?.profilePicture,
+                        uid: viewModel.userInfo?.id ?? ""
                     )
                 } label: {
                     if let imageUrl = viewModel.userInfo?.profilePicture, let url = URL(string: imageUrl) {
