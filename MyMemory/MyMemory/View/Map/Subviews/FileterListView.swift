@@ -12,31 +12,35 @@ struct FileterListView: View {
     @Binding var filteredList: Set<String>
     var body: some View {
         Rectangle()
-            .frame(width: 100,height: 3)
-            .foregroundStyle(Color.lightGray)
-            .cornerRadius(1)
+            .frame(width: 40,height: 5)
+            .foregroundStyle(Color.init(hex: "B5B5B5"))
+            .cornerRadius(3)
             .padding(.vertical, 10)
-        
+        Text("어떤 주제를 선택해볼래?")
+            .font(.bold20)
+            .padding(.top, 30)
         ScrollView {
-            LazyVGrid(columns: [GridItem(.flexible()),
-                             GridItem(.flexible()),
-                             GridItem(.flexible()),
-                             GridItem(.flexible())], spacing: 20) {
-                ForEach(data, id: \.self){ d in
-                    Button(action: {
-                        print(d)
-                        if filteredList.contains(d) {
-                            filteredList.remove(d)
-                        } else {
-                            filteredList.insert(d)
-                        }
-                    }, label: {
-                        Text("#\(d)")
-                    }).buttonStyle(
-                        filteredList.contains(d) ?                     Pill.standard : Pill.lightGray
-                    )
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .aspectRatio(contentMode: .fit)
+            VStack {
+                Spacer().frame(height: 20)
+                GeometryReader { GeometryProxy in
+                    FlexibleView(availableWidth: GeometryProxy.size.width,
+                                 data: data,
+                                 spacing: 15,
+                                 alignment: .center) { item in
+                        Button(action: {
+                            if filteredList.contains(item) {
+                                filteredList.remove(item)
+                            } else {
+                                filteredList.insert(item)
+                            }
+                        }, label: {
+                            Text("#\(item)")
+                        }).buttonStyle(
+                            filteredList.contains(item) ?                     Pill.selected : Pill.lightGray
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .aspectRatio(contentMode: .fit)
+                    }.frame(maxWidth: .infinity)
                 }
             }
         }

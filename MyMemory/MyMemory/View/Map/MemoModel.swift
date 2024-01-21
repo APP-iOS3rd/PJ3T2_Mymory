@@ -20,7 +20,13 @@ struct MemoCluster: Equatable, Identifiable {
         self.center = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
         self.memos = [memo]
     }
-    
+    init(memoList: [Memo]) {
+        self.id = UUID()
+        self.memos = memoList
+        let memoLocationSum = memos.reduce(CLLocationCoordinate2D(latitude: 0, longitude: 0)){CLLocationCoordinate2D(latitude: $0.latitude + $1.location.latitude, longitude: $0.longitude + $1.location.longitude)}
+        let count = memos.count
+        self.center = CLLocationCoordinate2D(latitude: memoLocationSum.latitude / Double(count), longitude: memoLocationSum.longitude / Double(count))
+    }
     func isNearBy(threshold : Double = 500) {
         LocationsHandler.shared.getCurrentLocation(completion: { location2d in
             let location = CLLocation(latitude: location2d?.latitude ?? 0, longitude: location2d?.longitude ?? 0)

@@ -25,7 +25,12 @@ struct Pill: ButtonStyle {
     static var lightGray: Pill {
         return Pill(backgroundColor: .lightGray, titleColor: .darkGray, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
-    
+    static var selected: Pill {
+        return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+    }
+    static var contains: Pill {
+        return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+    }
     static var deepGray: Pill {
         return Pill(backgroundColor: .deepGray, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
@@ -62,7 +67,9 @@ struct RoundedRect: ButtonStyle {
     static var large: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
     }
-    
+    static var selected: RoundedRect {
+        return RoundedRect(backgroundColor: .lightPeach, titleColor: .peach, setFont: .bold14)
+    }
     static var primary: RoundedRect {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
     }
