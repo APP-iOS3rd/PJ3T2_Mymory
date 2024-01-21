@@ -9,13 +9,13 @@ import SwiftUI
 import _PhotosUI_SwiftUI
 
 struct ProfileEditView: View {
-    @Binding var profileImage: PhotosPickerItem?
-    @Binding var selectedPhotoData: Data?
+    @StateObject var viewModel: ProfileEditViewModel = .init()
+    var existingProfileImage: String?
     
     var body: some View {
         VStack {
-            PhotosPicker(selection: $profileImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
-                if let selectedPhotoData, let image = UIImage(data: selectedPhotoData) {
+            PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
+                if let selectedPhotoData = viewModel.selectedPhotoData, let image = UIImage(data: selectedPhotoData) {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFill()
@@ -23,14 +23,26 @@ struct ProfileEditView: View {
                         .clipShape(.circle)
                         .frame(width: 300, height: 300)
                 } else {
-                    Circle()
-                        .frame(width: 300, height: 300)
+                    if let imageUrl = existingProfileImage, let url = URL(string: imageUrl) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .clipShape(.circle)
+                        } placeholder: {
+                            ProgressView()
+                        }.frame(width: 300, height: 300)
+                    } else {
+                        Circle()
+                            .frame(width: 300, height: 300)
+                    }
                 }
             }
-            .onChange(of: profileImage) { newValue in
+            .onChange(of: viewModel.selectedImage) { newValue in
                 Task {
                     if let data = try? await newValue?.loadTransferable(type: Data.self) {
-                        selectedPhotoData = data
+                        viewModel.selectedPhotoData = data
                     }
                 }
             }

@@ -9,6 +9,8 @@ import Foundation
 import CoreLocation
 import _PhotosUI_SwiftUI
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -41,6 +43,13 @@ struct Memo: Hashable, Codable, Identifiable {
     var likeCount: Int
 }
 
+struct UserInfo: Codable {
+    var id: String
+    var name: String
+    var email: String
+    var profilePicture: String
+}
+
 struct Location: Hashable, Codable {
     var latitude: Double
     var longitude: Double
@@ -57,6 +66,9 @@ class MypageViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
+    @Published var userInfo: UserInfo? = nil
+    
+    let db = Firestore.firestore()
     
     init() {
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
@@ -107,5 +119,19 @@ class MypageViewModel: ObservableObject {
             return true
         }
         return false
+    }
+    
+    func fetchUserInfoFromUserDefaults() -> UserInfo? {
+        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
+            let decoder = JSONDecoder()
+            
+            if let userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
+                return userInfo
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
     }
 }

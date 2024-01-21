@@ -63,11 +63,14 @@ struct MypageView: View {
                         
                         Spacer()
                     }
-//                    .frame(width: UIScreen().bounds.width)
                 }
             }
             .padding(.horizontal, 24)
             .background(Color(hex: "FAFAFA"))
+        }
+        .onAppear {
+            myPageViewModel.isCurrentUserLoginState = myPageViewModel.fetchCurrentUserLoginState()
+            myPageViewModel.userInfo = myPageViewModel.fetchUserInfoFromUserDefaults()
         }
     }
 }

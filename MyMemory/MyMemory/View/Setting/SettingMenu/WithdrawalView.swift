@@ -10,6 +10,7 @@ import SwiftUI
 struct WithdrawalView: View {
     @EnvironmentObject var viewModel: SettingViewModel
     @Environment(\.presentationMode) private var presentationMode
+    @Binding var isCurrentUserLoginState: Bool
     
     var body: some View {
         ScrollView {
@@ -58,6 +59,7 @@ struct WithdrawalView: View {
                 
                 Button {
                     viewModel.fetchUserWithdrawal {
+                        isCurrentUserLoginState = false
                         viewModel.isShowingWithdrawalAlert = true
                     }
                 } label: {
@@ -79,8 +81,4 @@ struct WithdrawalView: View {
             .padding(.horizontal, 16)
         }
     }
-}
-
-#Preview {
-    WithdrawalView()
 }
