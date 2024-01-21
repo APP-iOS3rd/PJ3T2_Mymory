@@ -88,7 +88,7 @@ struct SettingView: View {
             }
         }
         .padding(.horizontal, 12)
-//        .navigationBarBackButtonHidden(true)
+ 
 //        .toolbar {
 //            ToolbarItem(placement: .topBarLeading) {
 //                BackButton()

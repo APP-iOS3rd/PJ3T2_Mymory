@@ -39,7 +39,6 @@ struct SearchView: View {
             .padding(.top, 16)
             
         }
-      //  .ignoresSafeArea()
         .onSubmit(of: .search) {
             print("검색 완료: \(searchQueryString)")
         }
