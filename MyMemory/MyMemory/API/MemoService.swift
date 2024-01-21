@@ -17,39 +17,37 @@ struct MemoService {
     let storage = Storage.storage()
     
     // 이미지를 업로드하고 URL을 반환하는 함수
-    private func uploadImage(originalImageData: Data) async throws -> String {
-        // Data에서 UIImage를 생성
+    private func uploadImage(originalImageData: Data) async throws -> (String, String) {
         guard let image = UIImage(data: originalImageData) else {
             throw NSError(domain: "Invalid image data", code: 0, userInfo: nil)
         }
         
-        // UIImage를 압축하여 새로운 Data 객체를 생성
         guard let compressedImageData = image.jpegData(compressionQuality: 0.75) else {
             throw NSError(domain: "Image compression failed.", code: 0, userInfo: nil)
         }
         
         let storageRef = storage.reference()
-        let imageRef = storageRef.child("images/\(UUID().uuidString).jpg")
+        let imageUUID = UUID().uuidString
+        let imageRef = storageRef.child("images/\(imageUUID).jpg")
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpeg"
         
-        // 압축된 이미지 데이터를 업로드
         let _ = try await imageRef.putData(compressedImageData, metadata: metadata)
         
-        // 업로드된 이미지의 URL 가져오기를 몇 번 시도 (처리가 좀 늦는 경우를 대비)
         var downloadURL: URL
         for _ in 1...3 {
             do {
                 downloadURL = try await imageRef.downloadURL()
                 print("Image uploaded with URL: \(downloadURL.absoluteString)")
-                return downloadURL.absoluteString
+                return (downloadURL.absoluteString, imageUUID)
             } catch {
                 print("Retrying to get download URL...")
-                try await Task.sleep(nanoseconds: 1_000_000_000) // 1초 대기
+                try await Task.sleep(nanoseconds: 1_000_000_000)
             }
         }
-        throw URLError(.cannotFindHost) // 적절한 에러 처리 필요
+        throw URLError(.cannotFindHost)
     }
+
     
     
     // 사람이 읽기 쉬운 날짜 형태로 파이어베이스에 저장하기 위한 함수
@@ -91,43 +89,123 @@ struct MemoService {
     // Memo 모델을 넘기자
     func uploadMemo(newMemo: PostMemoModel) async {
         var imageDownloadURLs: [String] = []
+        var memoImageUUIDs: [String] = []  // 이미지 UUID를 저장할 배열 생성
         
-        // 이미지 데이터 배열을 반복하면서 각 이미지를 업로드하고 URL을 저장
-        for imageData in newMemo.memoSelectedImageData {
+        // 이미지 데이터 배열을 반복하면서 각 이미지를 업로드하고 URL과 UUID를 저장
+           for imageData in newMemo.memoSelectedImageData {
+               do {
+                   let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)  // uploadImage 함수가 (URL, UUID) 튜플을 반환하도록 수정
+                   imageDownloadURLs.append(imageUrl)
+                   memoImageUUIDs.append(imageUUID)  // 이미지 UUID 저장
+                   print("Image URL added: \(imageUrl)")
+               } catch {
+                   print("Error uploading image: \(error)")
+               }
+           }
+        
+        do {
+               // 직접 문서 ID를 설정하여 참조 생성
+               let memoDocumentRef = db.collection("Memos").document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
+               
+               let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
+               
+               // 생성된 참조에 데이터 저장
+               try await memoDocumentRef.setData([
+                   "userUid" : newMemo.userUid,
+                   "userCoordinateLatitude": newMemo.userCoordinateLatitude,
+                   "userCoordinateLongitude": newMemo.userCoordinateLongitude,
+                   "userAddress": newMemo.userAddress,
+                   "memoTitle": newMemo.memoTitle,
+                   "memoContents": newMemo.memoContents,
+                   "isPublic": newMemo.isPublic,
+                   "memoTagList": newMemo.memoTagList,
+                   "memoLikeCount": newMemo.memoLikeCount,
+                   "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
+                   "memoImageUUIDs" : memoImageUUIDs,  // 이미지 UUID 배열 저장
+                   "memoCreatedAt": memoCreatedAtString,
+               ])
+            
+            print("Document added with ID: \(newMemo.id)")
+        } catch {
+            print("Error adding document: \(error)")
+        }
+    }
+    
+    
+    func updateMemo(documentID: String, updatedMemo: PostMemoModel) async {
+        var imageDownloadURLs: [String] = []
+        var memoImageUUIDs: [String] = []
+        
+        for imageData in updatedMemo.memoSelectedImageData {
             do {
-                let imageUrl = try await uploadImage(originalImageData: imageData)
+                let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)
                 imageDownloadURLs.append(imageUrl)
+                memoImageUUIDs.append(imageUUID)
                 print("Image URL added: \(imageUrl)")
             } catch {
                 print("Error uploading image: \(error)")
             }
         }
         
-        
-        // Firestore에 메모와 이미지 URL을 저장
         do {
-            let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
-            let ref = try await db.collection("Memos").addDocument(data: [
-                "uid": newMemo.id,
-                "userUid" : newMemo.userUid,
-                "userCoordinateLatitude": newMemo.userCoordinateLatitude,
-                "userCoordinateLongitude": newMemo.userCoordinateLongitude,
-                "userAddress": newMemo.userAddress,
-                "memoTitle": newMemo.memoTitle,
-                "memoContents": newMemo.memoContents,
-                "isPublic": newMemo.isPublic,
-                "memoTagList": newMemo.memoTagList,
-                "memoLikeCount": newMemo.memoLikeCount,
-                "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
+            let memoDocumentRef = db.collection("Memos").document(documentID)
+            let memoCreatedAtString = stringFromTimeInterval(updatedMemo.memoCreatedAt)
+            
+            try await memoDocumentRef.setData([
+                "userUid" : updatedMemo.userUid,
+                "userCoordinateLatitude": updatedMemo.userCoordinateLatitude,
+                "userCoordinateLongitude": updatedMemo.userCoordinateLongitude,
+                "userAddress": updatedMemo.userAddress,
+                "memoTitle": updatedMemo.memoTitle,
+                "memoContents": updatedMemo.memoContents,
+                "isPublic": updatedMemo.isPublic,
+                "memoTagList": updatedMemo.memoTagList,
+                "memoLikeCount": updatedMemo.memoLikeCount,
+                "memoSelectedImageURLs": imageDownloadURLs,
+                "memoImageUUIDs" : memoImageUUIDs,
                 "memoCreatedAt": memoCreatedAtString,
-            ])
-            print("Document added with ID: \(ref.documentID)")
+            ], merge: true)
+            
+            print("Document updated with ID: \(documentID)")
         } catch {
-            print("Error adding document: \(error)")
+            print("Error updating document: \(error)")
         }
     }
+
+    
+    func deleteMemo(documentID: String, deleteMemo: Memo) async {
+        do {
+            // Firestore에서 문서 삭제
+            let memoDocumentRef = db.collection("Memos").document(documentID)
+            try await memoDocumentRef.delete()
+            print("Document successfully deleted.")
+            
+            // Storage에서 이미지 삭제
+            let storageRef = storage.reference()
+            for imageName in deleteMemo.memoImageUUIDs {
+                let imageRef = storageRef.child("images/\(imageName).jpg")
+                imageRef.delete { error in
+                    if let error = error {
+                        print("Error deleting image: \(error)")
+                    } else {
+                        print("Image successfully deleted.")
+                    }
+                }
+            }
+
+        } catch {
+            print("Error deleting document: \(error)")
+        }
+    }
+
+    
+    
+    
+    
+    
     
     // Firestore에서 모든 메모들을 가져오는 메서드
+    
     func fetchMemos() async throws -> [Memo] {
         var memos = [Memo]()
         
@@ -138,14 +216,15 @@ struct MemoService {
         for document in querySnapshot.documents {
             let data = document.data()
             
-            // 필요한 데이터를 추출하여 PostMemoModel을 생성
-            if let memo = try await fetchMemoFromDocument(data: data) {
+            // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+            if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
                 memos.append(memo)
             }
         }
         
         return memos
     }
+    
     
     func fetchMyMemos() async -> [Memo] {
         do {
@@ -161,7 +240,7 @@ struct MemoService {
                 let data = document.data()
                 
                 if let userUid = data["userUid"] as? String, userUid == userID {
-                    if let memo = try await fetchMemoFromDocument(data: data) {
+                    if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
                         memos.append(memo)
                     }
                 }
@@ -174,7 +253,7 @@ struct MemoService {
             return []
         }
     }
-
+    
     
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
@@ -190,9 +269,9 @@ struct MemoService {
             return false
         }
     }
-
+    
     // 공통 코드를 기반으로 Memo 객체 생성
-    private func fetchMemoFromDocument(data: [String: Any]) async throws -> Memo? {
+    private func fetchMemoFromDocument(documentID: String, data: [String: Any]) async throws -> Memo? {
         guard let userUid = data["userUid"] as? String,
               let userCoordinateLatitude = data["userCoordinateLatitude"] as? Double,
               let userCoordinateLongitude = data["userCoordinateLongitude"] as? Double,
@@ -203,9 +282,10 @@ struct MemoService {
               let memoTagList = data["memoTagList"] as? [String],
               let memoLikeCount = data["memoLikeCount"] as? Int,
               let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
+              let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
               let memoCreatedAt = timeIntervalFromString(data["memoCreatedAt"] as? String ?? "") else {
-                  return nil
-              }
+            return nil
+        }
         
         // Convert image URLs to Data asynchronously
         /*
@@ -236,6 +316,7 @@ struct MemoService {
         let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
         
         return Memo(
+            id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
             userUid: userUid,
             title: memoTitle,
             description: memoContents,
@@ -245,9 +326,11 @@ struct MemoService {
             isPublic: isPublic,
             date: memoCreatedAt,
             location: location,
-            likeCount: memoLikeCount
+            likeCount: memoLikeCount, 
+            memoImageUUIDs: memoImageUUIDs
         )
     }
-
-   
+    
+    
+    
 }

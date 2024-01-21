@@ -23,7 +23,7 @@ struct NavigationBarItems: View {
             if isMyMemo {
                 NavigationLink { // 버튼이랑 비슷함
                     // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                    PostView()
+                    PostView(isEdit: true, memo: memo)
                 } label: {
                     Image(systemName: "pencil")
                 }
@@ -85,7 +85,7 @@ struct NavigationBarItems: View {
 #if DEBUG
 struct NavigationBarItems_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationBarItems(isHeart: .constant(false), isBookmark: .constant(false), isShowingSheet: .constant(false), isReported: .constant(false), isShowingImgSheet: .constant(false), isMyMemo: .constant(false), memo: Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10)) // Memo 타입에 맞게 적절한 초기값을 전달해주세요.
+        NavigationBarItems(isHeart: .constant(false), isBookmark: .constant(false), isShowingSheet: .constant(false), isReported: .constant(false), isShowingImgSheet: .constant(false), isMyMemo: .constant(false), memo: Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])) 
     }
 }
 #endif
