@@ -16,6 +16,20 @@ struct TopBarAddress: View {
         
         NavigationLink {
             SearchView()
+                .customNavigationBar(
+                    centerView: {
+                        Text("위치 검색")
+                    },
+                    leftView: {
+                        EmptyView()
+                    },
+                    rightView: {
+                        CloseButton()
+                            //EmptyView()
+                    }
+                )
+                .edgesIgnoringSafeArea(.bottom)
+
         } label: {
             HStack {
                 Text(currentAddress)
