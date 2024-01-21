@@ -23,9 +23,9 @@ struct MypageMemoListCell: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 3) {
-                    if let tags = memo.tags, !tags.isEmpty {
+                    if !memo.tags.isEmpty {
                         HStack(spacing: 2) {
-                            ForEach(tags, id: \.self) { tag in
+                            ForEach(memo.tags, id: \.self) { tag in
                                 Text("#\(tag)")
                                     .font(.regular12)
                                     .foregroundStyle(Color(hex: "898A8D"))
@@ -45,7 +45,7 @@ struct MypageMemoListCell: View {
                     HStack(spacing: 2) {
                         Image(systemName: "heart.fill")
                             .font(.system(size: 11))
-                        Text("\(memo.like)개")
+                        Text("\(memo.likeCount)개")
                             .font(.regular12)
                         Text("|")
                             .font(.semibold11)

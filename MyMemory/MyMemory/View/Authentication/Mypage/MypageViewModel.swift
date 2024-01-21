@@ -19,7 +19,10 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 }
 
 // 임시
-struct Memo: Hashable, Codable {
+struct Memo: Hashable, Codable, Identifiable {
+    // 유저Id
+    var userId = UUID()
+    // 메모 id
     var id = UUID()
     // 제목
     var title: String
@@ -28,22 +31,26 @@ struct Memo: Hashable, Codable {
     // 주소
     var address: String
     // 태그
-    var tags: [String]?
+    var tags: [String]
     // 사진
     var images: [String]
     // 공개여부
     var isPublic: Bool
     // 작성일
-    var date: String
+    var date: TimeInterval
     // 위치
     var location: Location
-    // 좋아요
-    var like: Int
+    // 좋아요 개수
+    var likeCount: Int
 }
 
 struct Location: Hashable, Codable {
     var latitude: Double
     var longitude: Double
+    func distance(from loc: CLLocation) -> Double {
+        let clloc = CLLocation(latitude: latitude, longitude: longitude)
+        return clloc.distance(from: loc)
+    }
 }
 
 class MypageViewModel: ObservableObject {   
@@ -57,12 +64,11 @@ class MypageViewModel: ObservableObject {
     init() {
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         self.memoList = [
-            Memo(title: "덕수궁", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.23", location: Location(latitude: 37.5658049, longitude: 126.9751461), like: 1),
-            Memo(title: "서울광장", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.20", location: Location(latitude: 37.5655675, longitude: 126.978014), like: 5),
-            Memo(title: "롯백", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.19", location: Location(latitude: 37.5647073, longitude: 126.9816637), like: 8),
-            Memo(title: "서울역", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.21", location: Location(latitude: 37.555946, longitude: 126.972317), like: 9),
-            Memo(title: "2023.10.24", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.24", location: Location(latitude: 0.0, longitude: 0.0), like: 10),
-            Memo(title: "2023.10.24", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: "2023.10.24", location: Location(latitude: 0.0, longitude: 0.0), like: 0),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10),
+            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10),
         ]
     }
     
@@ -79,18 +85,17 @@ class MypageViewModel: ObservableObject {
         switch type {
         case .last:
             self.memoList = memoList.sorted {
-                if let first = $0.date.toDate(), let second = $1.date.toDate() {
-                    // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
-                    switch first.compare(second) {
-                    case .orderedAscending: return false
-                    case .orderedDescending: return true
-                    case .orderedSame: return true
-                    }
+                let first = Date(timeIntervalSince1970: $0.date)
+                let second = Date(timeIntervalSince1970: $1.date)
+                // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
+                switch first.compare(second) {
+                case .orderedAscending: return false
+                case .orderedDescending: return true
+                case .orderedSame: return true
                 }
-                return false
-            }
+        }
         case .like:
-            self.memoList = memoList.sorted { $0.like > $1.like }
+            self.memoList = memoList.sorted { $0.likeCount > $1.likeCount }
         case .close:
             self.memoList = memoList.sorted {
                 let first = fetchDistanceOfUserAndMemo(myLocation: CLLocationCoordinate2D(latitude: 37.5664056, longitude: 126.9778222), memoLocation: $0.location)

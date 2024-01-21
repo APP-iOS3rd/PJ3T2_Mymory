@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 import Combine
 import _PhotosUI_SwiftUI
+import UIKit
 
 
 
@@ -35,7 +36,8 @@ struct PostView: View {
                 KakaoMapView(draw: $draw,
                              isUserTracking: $MapviewModel.isUserTracking,
                              userLocation: $MapviewModel.location,
-                             clusters: $MapviewModel.clusters)
+                             userDirection: .constant(0),
+                             clusters: $MapviewModel.clusters, selectedID: .constant(nil))
                 .onAppear(perform: {
                     self.draw = true
                 }).onDisappear(perform: {
@@ -162,8 +164,11 @@ struct PostView: View {
             Image(systemName: "chevron.left")
                 .foregroundColor(.blue)
         })
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
     }
-    
+        
     
 }
 
@@ -173,4 +178,5 @@ struct MemoView_Previews: PreviewProvider {
         PostView()
     }
 }
+
 
