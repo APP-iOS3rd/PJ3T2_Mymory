@@ -32,7 +32,7 @@ struct LoginView: View {
 
     
     var body: some View {
-        NavigationStack {
+        //NavigationView {
         
             VStack {
                 
@@ -109,6 +109,18 @@ struct LoginView: View {
     
                 NavigationLink {
                     RegisterView()
+                        .customNavigationBar(
+                            centerView: {
+                                Text("회원가입")
+                            },
+                            leftView: {
+                                EmptyView()
+                            },
+                            rightView: {
+                                CloseButton()
+                            },
+                            backgroundColor: .white
+                        )
                 } label: {
                     Text("내모리가 처음이시라면 - 회원가입")
                         .underline()
@@ -153,7 +165,8 @@ struct LoginView: View {
             .navigationDestination(isPresented: $isActive) {
                 MainMapView()
             }
-        }//: Navigation Stack
+            .toolbar(.hidden, for: .tabBar)
+        //}//: Navigation Stack
         .onTapGesture{
             self.endTextEditing()
         }

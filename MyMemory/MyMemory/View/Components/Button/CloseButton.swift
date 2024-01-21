@@ -15,8 +15,10 @@ struct CloseButton: View {
         Button {
             self.presentationMode.wrappedValue.dismiss()
         } label: {
-            HStack(spacing: 4){
+            HStack(spacing: 0){
                 Image(systemName: "multiply")
+                    .resizable()
+                    .frame(width: 18, height: 18)
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(.deepGray)
 //                Text("이전")

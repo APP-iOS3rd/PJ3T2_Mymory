@@ -9,65 +9,105 @@ import SwiftUI
 
 struct MypageView: View {
     @StateObject var myPageViewModel: MypageViewModel = .init()
-    
+ 
     var body: some View {
-        NavigationStack {
-            VStack(alignment: .leading) {
-                MypageTopView()
-                    .environmentObject(myPageViewModel)
+        ZStack(alignment: .top) {
+            
+            Color.lightGray
+                .edgesIgnoringSafeArea(.top)
+              
+            ScrollView(.vertical, showsIndicators: false){
                 
-                HStack(alignment: .lastTextBaseline) {
-                    Text("내가 작성한 메모")
-                        .font(.semibold20)
+                VStack(alignment: .leading) {
                     
-                    Spacer()
+                    MypageTopView()
+                        .environmentObject(myPageViewModel)
                     
-                    Button {
-                        myPageViewModel.isShowingOptions.toggle()
-                    } label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .foregroundStyle(Color.gray)
-                            .font(.system(size: 24))
-                    }
-                    .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $myPageViewModel.isShowingOptions) {
-                        ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
-                            Button(type.rawValue) {
-                                myPageViewModel.sortMemoList(type: type)
-                            }
-                        }
-                    }
-                    .disabled(!myPageViewModel.isCurrentUserLoginState)
-                }
-                .padding(.top, 38)
-                
-                if myPageViewModel.isCurrentUserLoginState {
-                    ScrollView {
-                        MypageMemoList(memoList: $myPageViewModel.memoList)
-                    }
-                    .scrollIndicators(.hidden)
-                } else {
-                    VStack(alignment: .center) {
-                        Spacer()
+                    if myPageViewModel.isCurrentUserLoginState {
                         
-                        HStack {
-                            Spacer()
-                            Text("로그인이 필요해요!")
+                        HStack(alignment: .lastTextBaseline) {
+                            Text("내가 작성한 메모")
                                 .font(.semibold20)
+                            
+                            Spacer()
+                            
+                            Button {
+                                myPageViewModel.isShowingOptions.toggle()
+                            } label: {
+                                Image(systemName: "slider.horizontal.3")
+                                    .foregroundStyle(Color.gray)
+                                    .font(.system(size: 24))
+                            }
+                            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $myPageViewModel.isShowingOptions) {
+                                ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
+                                    Button(type.rawValue) {
+                                        myPageViewModel.sortMemoList(type: type)
+                                    }
+                                }
+                            }
+                            .disabled(!myPageViewModel.isCurrentUserLoginState)
+                        }
+                        .padding(.top, 38)
+                        
+                        MypageMemoList(memoList: $myPageViewModel.memoList)
+                            
+                        
+                    } else {
+                        VStack(alignment: .center) {
+                            Spacer()
+                            
+                            HStack {
+                                Spacer()
+                                Text("로그인이 필요해요!")
+                                    .font(.semibold20)
+                                Spacer()
+                            }
+                            NavigationLink {
+                                LoginView()
+                                    .customNavigationBar(
+                                        centerView: {
+                                            Text(" ")
+                                        },
+                                        leftView: {
+                                            EmptyView()
+                                        },
+                                        rightView: {
+                                            CloseButton()
+                                        },
+                                        backgroundColor: .white
+                                    )
+                                
+                            } label: {
+                                Text("로그인 하러가기")
+                            }
+                            
                             Spacer()
                         }
-                        NavigationLink {
-                            LoginView()
-                        } label: {
-                            Text("로그인 하러가기")
-                        }
                         
-                        Spacer()
                     }
-//                    .frame(width: UIScreen().bounds.width)
                 }
             }
             .padding(.horizontal, 24)
-            .background(Color(hex: "FAFAFA"))
+            .safeAreaInset(edge: .top) {
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.lightGray)
+
+            }
+            .safeAreaInset(edge: .bottom) {
+                Color.white
+                    .frame(height: 0)
+                    .background(.white)
+                    .border(Color.black)
+
+            }
+ 
+          
         }
+    
+                
+        
+    
+        
     }
 }

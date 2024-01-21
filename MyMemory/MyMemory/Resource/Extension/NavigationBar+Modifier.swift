@@ -12,11 +12,16 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
     let centerView: (() -> C)?
     let leftView: (() -> L)?
     let rightView: (() -> R)?
+    let backgroundColor: Color?
     
-    init(centerView: (() -> C)? = nil, leftView: (() -> L)? = nil, rightView: (() -> R)? = nil) {
+    @Environment(\.dismiss) var dismiss
+    @State private var offset = CGSize.zero
+    
+    init(centerView: (() -> C)? = nil, leftView: (() -> L)? = nil, rightView: (() -> R)? = nil, backgroundColor: Color? = .lightGray) {
         self.centerView = centerView
         self.leftView = leftView
         self.rightView = rightView
+        self.backgroundColor = backgroundColor
     }
     
     func body(content: Content) -> some View {
@@ -44,63 +49,41 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
                 Color.white
                   .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             )  
-         
+            
+            
             content
+              
             Spacer()
                
         }
         .background(
-            Color.lightGray
-                .clipped()
+            self.backgroundColor
         )
- 
+        .gesture(
+            DragGesture(coordinateSpace: .local)
+                .onChanged { gesture in
+                    if gesture.startLocation.x < CGFloat(40.0) {
+                        if gesture.translation.width > 0 {
+                            offset = gesture.translation
+                            if offset.width > 200.0 {
+                                dismiss()
+                            }
+                        }
+                    }
+                    
+                }
+                .onEnded { value in
+                    withAnimation {
+                        offset = CGSize.zero
+                    }
+                }
+        )
         .navigationBarHidden(true)
         
     }
     
 }
 
-struct NavigationBarModifier: ViewModifier {
-    
-    var backgroundColor: UIColor?
-    var titleColor: UIColor?
-    
-    init(backgroundColor: UIColor?, titleColor: UIColor?) {
-        self.backgroundColor = backgroundColor
-        let coloredAppearance = UINavigationBarAppearance()
-        coloredAppearance.configureWithTransparentBackground()
-        coloredAppearance.backgroundColor = backgroundColor
-        coloredAppearance.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 12)
-        coloredAppearance.titleTextAttributes = [.foregroundColor: titleColor ?? .white]
-        coloredAppearance.largeTitleTextAttributes = [.foregroundColor: titleColor ?? .white]
-
-        UINavigationBar.appearance().standardAppearance = coloredAppearance
-        UINavigationBar.appearance().compactAppearance = coloredAppearance
-        UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
-    }
-
-    func body(content: Content) -> some View {
-        ZStack {
-            content
-            VStack {
-                Color(self.backgroundColor ?? .clear)
-                    .frame(maxWidth: .infinity, maxHeight:0)
-                    .edgesIgnoringSafeArea(.top)
-                    
-//                    .background (
-//                        RoundSpecificCorners(corners: [.bottomRight, .bottomLeft], radius: 36 )
-//                            .foregroundColor(.white)
-//                            .frame(height: 36)
-//                            .edgesIgnoringSafeArea(.all)
-//
-//                            
-//                    )
-                
-                Spacer()
-            }
-        }
-    }
-}
 struct RoundedCorner: Shape {
 
     var radius: CGFloat = .infinity
@@ -112,30 +95,31 @@ struct RoundedCorner: Shape {
     }
 }
 extension View {
-    func navigationBarColor(backgroundColor: UIColor?, titleColor: UIColor?) -> some View {
-        self.modifier(NavigationBarModifier(backgroundColor: backgroundColor, titleColor: titleColor))
-    }
-    
     func customNavigationBar<C, L, R>(
         centerView: @escaping (() -> C),
         leftView: @escaping (() -> L),
-        rightView: @escaping (() -> R)
+        rightView: @escaping (() -> R),
+        backgroundColor: Color?
     ) -> some View where C:View, L: View, R: View {
-        modifier(CustomNavigationBarModifier(centerView: centerView, leftView: leftView, rightView: rightView))
+        modifier(CustomNavigationBarModifier(centerView: centerView, leftView: leftView, rightView: rightView, backgroundColor: backgroundColor))
     }
     
     func customNavigationBar<V>(
-        centerView: @escaping (() -> V)
+        centerView: @escaping (() -> V),
+        backgroundColor: Color?
     ) -> some View where V : View {
         modifier(
             CustomNavigationBarModifier(
                 centerView: centerView,
                 leftView: {
                     EmptyView()
-                }, rightView: {
+                }, 
+                rightView: {
                     EmptyView()
-                }
+                },
+                backgroundColor: backgroundColor
             )
+            
             
         )
     }
@@ -143,6 +127,7 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
     }
+     
 }
 
 

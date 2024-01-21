@@ -26,7 +26,8 @@ struct TopBarAddress: View {
                     rightView: {
                         CloseButton()
                             //EmptyView()
-                    }
+                    },
+                    backgroundColor: .lightGray
                 )
                 .edgesIgnoringSafeArea(.bottom)
 
