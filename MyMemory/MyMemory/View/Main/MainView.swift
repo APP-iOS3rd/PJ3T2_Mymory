@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-   
     @StateObject var viewRouter: ViewRouter = .init()
     @State var initialIdx = 0
     
@@ -18,6 +17,7 @@ struct MainView: View {
         }
         else if viewRouter.currentPage == "page1" {
             MainTabView(selectedIndex: $initialIdx)
+
         }
     }
 }

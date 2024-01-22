@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-
     @Binding var selectedIndex: Int
     var body: some View {
         

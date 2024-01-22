@@ -33,7 +33,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
     
-    
     @Published var location: CLLocation?
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
@@ -86,6 +85,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     }
     
     func fetchMemos() {
+        LoadingManager.shared.phase = .loading
         Task {
             do {
                 let fetched = try await MemoService.shared.fetchMemos()
@@ -93,7 +93,9 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 //self.startingClusters = initialCluster()
                 memoList = fetched
                 cluster.addMemoList(memos: fetched)
+                LoadingManager.shared.phase = .success
             } catch {
+                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error fetching memos: \(error)")
             }
         }

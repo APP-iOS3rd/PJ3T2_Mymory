@@ -12,6 +12,7 @@ struct MainMapView: View {
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
     @State var fileterSheet: Bool = false
+    
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -27,7 +28,11 @@ struct MainMapView: View {
                          userLocation: $viewModel.location, userDirection: $viewModel.direction,
                          clusters: $viewModel.clusters,
                          selectedID: $viewModel.selectedMemoId)
-            
+            .onAppear{
+                DispatchQueue.main.async {
+                    self.draw = true
+                }
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .environmentObject(viewModel)
             .ignoresSafeArea(edges: .top)
@@ -42,7 +47,7 @@ struct MainMapView: View {
                     Button{
                         self.fileterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "리스트뷰" : viewModel.filterList.combinedWithComma))
+                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체메뉴" : viewModel.filterList.combinedWithComma))
                     }
                     .buttonStyle(viewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                     
@@ -121,7 +126,11 @@ struct MainMapView: View {
                     .background(Color.lightGrayBackground)
                     .presentationDetents([.medium])
             })
-        }
+        }.overlay(content: {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        })
     }
 }
 
