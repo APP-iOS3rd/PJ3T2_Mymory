@@ -10,6 +10,8 @@ import SwiftUI
 struct WithdrawalView: View {
     @EnvironmentObject var viewModel: SettingViewModel
     @Environment(\.presentationMode) private var presentationMode
+    @Binding var isCurrentUserLoginState: Bool
+    @Binding var userInfo: UserInfo?
     
     var body: some View {
         ScrollView {
@@ -57,7 +59,8 @@ struct WithdrawalView: View {
                 }
                 
                 Button {
-                    viewModel.fetchUserWithdrawal {
+                    viewModel.fetchUserWithdrawal(uid: userInfo?.id ?? "") {
+                        isCurrentUserLoginState = false
                         viewModel.isShowingWithdrawalAlert = true
                     }
                 } label: {
@@ -67,11 +70,13 @@ struct WithdrawalView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color(UIColor.systemGray))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                }.alert("회원탈퇴되었습니다.", isPresented: $viewModel.isShowingWithdrawalAlert) {
+                }
+                .alert("회원탈퇴되었습니다.", isPresented: $viewModel.isShowingWithdrawalAlert) {
                     Button("확인", role: .cancel) {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }
+                .disabled(userInfo?.id == nil)
             }
             .navigationTitle("회원 탈퇴")
             .navigationBarTitleDisplayMode(.large)
@@ -79,8 +84,4 @@ struct WithdrawalView: View {
             .padding(.horizontal, 16)
         }
     }
-}
-
-#Preview {
-    WithdrawalView()
 }

@@ -13,10 +13,22 @@ struct TopBarAddress: View {
     @Binding var currentAddress: String?
     //@ObservedObject var MapviewModel: MainMapViewModel = .init()
     var body: some View {
-        
-        Button {
-            //SearchView()
-            //MapviewModel.fetchMemos()
+        NavigationLink {
+            SearchView()
+                .customNavigationBar(
+                    centerView: {
+                        Text("위치 검색")
+                    },
+                    leftView: {
+                        EmptyView()
+                    },
+                    rightView: {
+                        CloseButton()
+                            //EmptyView()
+                    },
+                    backgroundColor: .lightGray
+                )
+                .edgesIgnoringSafeArea(.bottom)
         } label: {
             HStack {
                 Text(currentAddress ?? "주소를 불러올 수 없습니다.")

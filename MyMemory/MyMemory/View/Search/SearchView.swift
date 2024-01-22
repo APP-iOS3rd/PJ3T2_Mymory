@@ -19,37 +19,33 @@ struct SearchView: View {
         }
     }
     
-    
     var body: some View  {
-        
-            ZStack {
-                Color(UIColor.systemGray6)
-                    .ignoresSafeArea()
-                VStack{
-                    SearchBar(searchText: $searchQueryString)
-                        .padding()
-                    
-                    Spacer()
-                    List(filteredDatas) { data in
-                        Button {
-                            
-                        } label: {
-                            SearchCell(name: data.name, address: data.address)
-                        }
+        ZStack {
+            VStack {
+                SearchBar(searchText: $searchQueryString)
+                    .padding()
+                
+                Spacer()
+                
+                List(filteredDatas) { data in
+                    Button {
+                        
+                    } label: {
+                        SearchCell(name: data.name, address: data.address)
                     }
-                    .listStyle(.plain)
                 }
+                .listStyle(.plain)
             }
+            .padding(.top, 16)
+            
+        }
         .onSubmit(of: .search) {
             print("검색 완료: \(searchQueryString)")
         }
         .onChange(of: searchQueryString) { newValue in
             // viewModel 사용 시 이곳에서 새로운 값 입력
             print("검색 입력: \(newValue)")
-        } 
-        .navigationBarTitle("위치 검색", displayMode: .inline)
-        
-        
+        }
     }
 }
 

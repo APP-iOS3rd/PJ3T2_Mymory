@@ -13,11 +13,24 @@ struct MypageMemoList: View {
         VStack(spacing: 12) {
             ForEach($memoList, id: \.self) { memo in
                 NavigationLink {
-                    // MemoDetailView(memo: memo)
+                    MemoDetailView()
+                        .customNavigationBar(
+                            centerView: {
+                                Text(" ")
+                            },
+                            leftView: {
+                                BackButton()
+                            },
+                            rightView: {
+                                EmptyView() 
+                            },
+                            backgroundColor: .white
+                        )
                 } label: {
                     MypageMemoListCell(
                         memo: memo
                     )
+                  
                 }
                 .buttonStyle(.plain)
             }
