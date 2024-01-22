@@ -10,8 +10,8 @@ import KakaoMapsSDK
 import CoreLocation
 enum Mode: Int {
     case hidden = 0,
-    show,
-    tracking
+         show,
+         tracking
 }
 struct KakaoMapView: UIViewRepresentable {
     @Binding var draw: Bool
@@ -41,31 +41,35 @@ struct KakaoMapView: UIViewRepresentable {
     /// draw가 true로 설정되면 엔진을 시작하고 렌더링을 시작한다.
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
+        //UI 업데이트가 Global에서 되는 현상 해결
 
-        if isUserTracking {
-            // 유저 트래킹 모드 재설정
-            context.coordinator.resetLocation(latitude: userLocation?.coordinate.latitude, longitude: userLocation?.coordinate.longitude)
-
-        }
-        if let id = selectedID {
-            if let cluster = clusters.first(where: {$0.memos.contains(where: {$0.id == id})}) {
-                context.coordinator.resetLocation(latitude: cluster.center.latitude, longitude: cluster.center.longitude, withAnimation: true)
+        DispatchQueue.main.async {
+            
+            if isUserTracking {
+                // 유저 트래킹 모드 재설정
+                context.coordinator.resetLocation(latitude: userLocation?.coordinate.latitude, longitude: userLocation?.coordinate.longitude)
                 
-                selectedID = nil
             }
-        }
-        context.coordinator._currentHeading = userDirection
-        context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-        if viewModel.clusteringDidChanged {
-            context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
-        }
-        if draw {
-            context.coordinator.controller?.startEngine()
-            context.coordinator.controller?.startRendering()
-        }
-        else {
-            context.coordinator.controller?.stopRendering()
-            context.coordinator.controller?.stopEngine()
+            if let id = selectedID {
+                if let cluster = clusters.first(where: {$0.memos.contains(where: {$0.id == id})}) {
+                    context.coordinator.resetLocation(latitude: cluster.center.latitude, longitude: cluster.center.longitude, withAnimation: true)
+                    
+                    selectedID = nil
+                }
+            }
+            context.coordinator._currentHeading = userDirection
+            context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
+            if viewModel.clusteringDidChanged {
+                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
+            }
+            if draw {
+                context.coordinator.controller?.startEngine()
+                context.coordinator.controller?.startRendering()
+            }
+            else {
+                context.coordinator.controller?.stopRendering()
+                context.coordinator.controller?.stopEngine()
+            }
         }
     }
     
@@ -128,12 +132,12 @@ struct KakaoMapView: UIViewRepresentable {
         //MARK: - 현위치 마커
         // 현위치마커 버튼 GUI
         func startTracking() {
-                _timer = Timer.init(timeInterval: 0.3, target: self, selector: #selector(self.updateCurrentPositionPOI), userInfo: nil, repeats: true)
-                RunLoop.current.add(_timer!, forMode: RunLoop.Mode.common)
-                _currentPositionPoi?.show()
-                _currentDirectionArrowPoi?.show()
-                _currentArea?.show()
-                _moveOnce = true
+            _timer = Timer.init(timeInterval: 0.3, target: self, selector: #selector(self.updateCurrentPositionPOI), userInfo: nil, repeats: true)
+            RunLoop.current.add(_timer!, forMode: RunLoop.Mode.common)
+            _currentPositionPoi?.show()
+            _currentDirectionArrowPoi?.show()
+            _currentArea?.show()
+            _moveOnce = true
         }
         @objc func updateCurrentPositionPOI() {
             _currentPositionPoi?.moveAt(MapPoint(longitude: _currentPosition.longitude, latitude: _currentPosition.latitude), duration: 150)
@@ -150,26 +154,26 @@ struct KakaoMapView: UIViewRepresentable {
             parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
             
         }
-         func touchesBegan(_ touches: Set<AnyHashable>) {
-             if let touch = touches.first as? UITouch {
-                 let radius = touch.majorRadius
-                 let touchedCenter = touch.location(in: touch.window)
-                 // touch major radius기준으로 거리 재기 위한 임시 Point
-                 let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
-                 if let point = getPosition(touchedCenter),
-                 let withRadiusPoint = getPosition(withRadius)
-                 {
-                     // 거리 계산
-                     let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
-                     let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
-                     let powdDist = latdist * latdist + longdist * longdist
-                     let dist = sqrt(powdDist) // radius의 map상에서의 거리
-                     
-                     if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
-                         poiTouched(touchedPoi)
-                     }
-                 }
-             }
+        func touchesBegan(_ touches: Set<AnyHashable>) {
+            if let touch = touches.first as? UITouch {
+                let radius = touch.majorRadius
+                let touchedCenter = touch.location(in: touch.window)
+                // touch major radius기준으로 거리 재기 위한 임시 Point
+                let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
+                if let point = getPosition(touchedCenter),
+                   let withRadiusPoint = getPosition(withRadius)
+                {
+                    // 거리 계산
+                    let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
+                    let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
+                    let powdDist = latdist * latdist + longdist * longdist
+                    let dist = sqrt(powdDist) // radius의 map상에서의 거리
+                    
+                    if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
+                        poiTouched(touchedPoi)
+                    }
+                }
+            }
         }
         private func cameraRect() -> AreaRect? {
             if let map = controller?.getView("mapview") as? KakaoMap {
@@ -209,12 +213,12 @@ struct KakaoMapView: UIViewRepresentable {
         }
         private func getPosition(_ point: CGPoint) -> MapPoint? {
             let mapView: KakaoMap? = controller?.getView("mapview") as? KakaoMap
-
+            
             guard let map = mapView else
             {return nil}
-           return map.getPosition(point)
+            return map.getPosition(point)
         }
-
+        
         //MARK: - POI생성 및 관리 flow
         func createLabelLayer() {
             let view = controller?.getView("mapview") as! KakaoMap
@@ -234,7 +238,7 @@ struct KakaoMapView: UIViewRepresentable {
             let perLevelStyle1 = PerLevelPoiStyle(iconStyle: marker, level: 0)
             let poiStyle1 = PoiStyle(styleID: "positionPoiStyle", styles: [perLevelStyle1])
             manager.addPoiStyle(poiStyle1)
-         
+            
             let direction = PoiIconStyle(symbol: UIImage(named: "map_ico_marker_direction"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
             let perLevelStyle2 = PerLevelPoiStyle(iconStyle: direction, level: 0)
             let poiStyle2 = PoiStyle(styleID: "directionArrowPoiStyle", styles: [perLevelStyle2])
@@ -250,7 +254,7 @@ struct KakaoMapView: UIViewRepresentable {
             let memoSelected = PoiIconStyle(symbol: UIImage(named: "marker_selected"))
             let memoMine = PoiIconStyle(symbol: UIImage(named: "marker_mine"))
             let memoMineSelected = PoiIconStyle(symbol: UIImage(named: "maker_mine_selected"))
-
+            
             let perLevelStyleDef = PerLevelPoiStyle(iconStyle: memoDef, level: 0)
             let perLevelStyleSelected = PerLevelPoiStyle(iconStyle: memoSelected, level: 1)
             let perLevelStyleMine = PerLevelPoiStyle(iconStyle: memoMine, level: 2)
@@ -261,12 +265,12 @@ struct KakaoMapView: UIViewRepresentable {
             let poiStyleSelected = PoiStyle(styleID: "memoPoiStyle2", styles: [perLevelStyleSelected])
             let poiStyleMine = PoiStyle(styleID: "memoPoiStyle3", styles: [perLevelStyleMine])
             let poiStyleMineSelected = PoiStyle(styleID: "memoPoiStyle4", styles: [perLevelStyleMineSelected])
-
+            
             manager.addPoiStyle(poiStyleDef)
             manager.addPoiStyle(poiStyleSelected)
             manager.addPoiStyle(poiStyleMine)
             manager.addPoiStyle(poiStyleMineSelected)
-
+            
         }
         func createUserPois() {
             let view = controller?.getView("mapview") as! KakaoMap
@@ -322,11 +326,11 @@ struct KakaoMapView: UIViewRepresentable {
             _currentDirectionPoi?.shareTransformWithShape(shape!)   //현위치마커 몸통이 Polygon이 위치 및 방향을 공유하도록 지정한다.
         }
         func createPois(clusters: [MemoCluster],_ selected: MemoCluster? = nil) {
-
+            
             if let view = controller?.getView("mapview") as? KakaoMap {
                 let manager = view.getLabelManager()
                 let layer = manager.getLabelLayer(layerID: "PoiLayer")
-
+                
                 if let currentPoi = layer?.getAllPois() {
                     layer?.removePois(poiIDs: currentPoi.map{$0.itemID})
                 }
@@ -344,17 +348,17 @@ struct KakaoMapView: UIViewRepresentable {
                             poiOption = PoiOptions(styleID: "memoPoiStyle3", poiID: c.id.uuidString)
                         }
                     }
-
+                    
                     poiOption.rank = 2
                     poiOption.transformType = .decal
                     let tempPoi = layer?.addPoi(option: poiOption, at: MapPoint(longitude: c.center.longitude,
                                                                                 latitude: c.center.latitude))
                     tempPoi?.show()
                     
-
+                    
                     
                     // 임시 구현
-
+                    
                 }
             }
         }
@@ -382,7 +386,7 @@ struct KakaoMapView: UIViewRepresentable {
                 mapView?.moveCamera(cameraUpdate)
                 first = false
             }
-
+            
         }
         func cameraDidStopped(kakaoMap: KakaoMap, by: MoveBy) {
             if let Area = cameraRect() {
@@ -396,7 +400,7 @@ struct KakaoMapView: UIViewRepresentable {
             default:
                 return
             }
-           
+            
         }
         func cameraWillMove(kakaoMap: KakaoMap, by: MoveBy) {
             switch by {
@@ -404,14 +408,14 @@ struct KakaoMapView: UIViewRepresentable {
                 return
             default:
                 let trackingManager = kakaoMap.getTrackingManager()
-
+                
                 if parent.isUserTracking {
                     
                     if trackingManager.isTracking {
                         
                     }
                     parent.isUserTracking = trackingManager.isTracking
-
+                    
                 } else {
                     trackingManager.stopTracking()
                 }

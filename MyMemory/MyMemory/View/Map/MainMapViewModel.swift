@@ -86,7 +86,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     
     func fetchMemos() {
         LoadingManager.shared.phase = .loading
-        Task {
+        Task { @MainActor in 
             do {
                 let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
