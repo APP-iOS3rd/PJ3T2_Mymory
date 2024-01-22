@@ -20,12 +20,17 @@ struct MainView: View {
         }
         
         else if viewRouter.currentPage == "page1" {
-           
-            if let user = viewModel.currentUser {
-                MainTabView(user: user, selectedIndex: $initialIdx)
-            } else {
-                LoginView(viewModel: viewModel)
+            
+            Group {
+                if viewModel.userSession == nil {
+                    LoginView(viewModel: viewModel)
+                } else {
+                    if let user = viewModel.currentUser {
+                        MainTabView(user: user, selectedIndex: $initialIdx)
+                    }
+                }
             }
+            
         }
     }
 }
