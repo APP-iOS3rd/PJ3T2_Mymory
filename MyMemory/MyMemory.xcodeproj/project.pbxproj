@@ -49,8 +49,9 @@
 		01D15FF22B5DEB37003F1BEF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF12B5DEB37003F1BEF /* User.swift */; };
 		01D15FF42B5DEB44003F1BEF /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF32B5DEB44003F1BEF /* ImageUploader.swift */; };
 		01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF52B5DEB6E003F1BEF /* AuthViewModel.swift */; };
-		01D15FF92B5DEB99003F1BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF82B5DEB99003F1BEF /* Constants.swift */; };
 		01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */; };
+		01D160022B5E0CC5003F1BEF /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */; };
+		01D160032B5E0D43003F1BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF82B5DEB99003F1BEF /* Constants.swift */; };
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* MypageView.swift */; };
@@ -67,7 +68,6 @@
 		28BB133B2B56908D001A4C0C /* MiniMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB133A2B56908D001A4C0C /* MiniMap.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
-		6470FEA22B5A596300585139 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6470FEA12B5A596300585139 /* APIKEYS.xcconfig */; };
 		649128EE2B550BD60034F567 /* FindAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128ED2B550BD60034F567 /* FindAddressView.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
@@ -175,6 +175,7 @@
 		01D15FF52B5DEB6E003F1BEF /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		01D15FF82B5DEB99003F1BEF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		01E6A6342B467FE80061F08C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
@@ -191,7 +192,7 @@
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		641A8B3C2B57C76800A942A1 /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run4.gif; sourceTree = "<group>"; };
 		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
-		6470FEA12B5A596300585139 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = ../../../../../../../Downloads/APIKEYS.xcconfig; sourceTree = "<group>"; };
+		6470FEA12B5A596300585139 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = /Downloads/APIKEYS.xcconfig; sourceTree = "<absolute>"; };
 		649128ED2B550BD60034F567 /* FindAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
@@ -207,7 +208,6 @@
 		6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
 		6A92D5FA2B5D521200942ED6 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
-		6AF0E0222B565DFF008ABE05 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		6AF0E0242B565EED008ABE05 /* MypageMemoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMemoListCell.swift; sourceTree = "<group>"; };
 		6AF0E0262B565F46008ABE05 /* MypageMemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageMemoList.swift; sourceTree = "<group>"; };
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -505,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */,
+				6470FEA12B5A596300585139 /* APIKEYS.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -603,7 +604,6 @@
 		DAB3153E2B43EFDB000357C7 = {
 			isa = PBXGroup;
 			children = (
-				DAA24FF42B59045D00D66648 /* APIKEYS.xcconfig */,
 				DAB315492B43EFDB000357C7 /* MyMemory */,
 				DAB3155A2B43EFDD000357C7 /* MyMemoryTests */,
 				DAB315642B43EFDD000357C7 /* MyMemoryUITests */,
@@ -626,6 +626,7 @@
 		DAB315492B43EFDB000357C7 /* MyMemory */ = {
 			isa = PBXGroup;
 			children = (
+				01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */,
 				DA58C2692B5CED06005CB3B3 /* Cluster */,
 				641A8B3D2B57CBAE00A942A1 /* API */,
 				DA52B5DA2B5609DA003F5E59 /* Shared */,
@@ -804,7 +805,6 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
-				6470FEA22B5A596300585139 /* APIKEYS.xcconfig in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
@@ -816,6 +816,7 @@
 				DAB315752B43F440000357C7 /* GoogleService-Info.plist in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
+				01D160022B5E0CC5003F1BEF /* APIKEYS.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -875,6 +876,7 @@
 				01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */,
 				01700AA42B5530430096E1CA /* SearchView.swift in Sources */,
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
+				01D160032B5E0D43003F1BEF /* Constants.swift in Sources */,
 				DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */,
 				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
@@ -963,7 +965,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6470FEA12B5A596300585139 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1028,7 +1030,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6470FEA12B5A596300585139 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1086,7 +1088,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6470FEA12B5A596300585139 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1138,7 +1140,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6470FEA12B5A596300585139 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
