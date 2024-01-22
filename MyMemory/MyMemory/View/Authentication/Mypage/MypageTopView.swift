@@ -8,18 +8,20 @@
 import SwiftUI
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
-    @EnvironmentObject var viewModel: MypageViewModel
+    
+    @ObservedObject var viewModel: MypageViewModel
     
     var body: some View {
         HStack {
             if viewModel.isCurrentUserLoginState {
                 NavigationLink {
                     ProfileEditView(
-                        existingProfileImage: viewModel.userInfo?.profilePicture,
-                        uid: viewModel.userInfo?.id ?? ""
+                        existingProfileImage:
+                        viewModel.user.profilePicture,
+                        uid: viewModel.user.id ?? ""
                     )
                 } label: {
-                    if let imageUrl = viewModel.userInfo?.profilePicture, let url = URL(string: imageUrl) {
+                    if let imageUrl = viewModel.user.profilePicture, let url = URL(string: imageUrl) {
                         AsyncImage(url: url) { image in
                             image
                                 .resizable()
@@ -35,12 +37,15 @@ struct MypageTopView: View {
                             .foregroundStyle(Color(hex: "d9d9d9"))
                     }
                     
-                    Text(viewModel.userInfo?.name ?? "")
+                    Text(viewModel.user.name)
                         .font(.semibold20)
                         .padding(.leading, 10)
                 }
                 .buttonStyle(.plain)
-            } else {
+            } 
+            
+            
+            else {
                 NavigationLink {
                     LoginView()
                         .customNavigationBar(
@@ -65,22 +70,24 @@ struct MypageTopView: View {
             Spacer()
             
             NavigationLink {
-                SettingView(
-                    userInfo: $viewModel.userInfo,
+                
+                SettingView (
+                    user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
-                    .customNavigationBar(
-                        centerView: {
-                            Text("내 정보")
-                        },
-                        leftView: {
-                            EmptyView()
-                        },
-                        rightView: {
-                            CloseButton()
-                        },
-                        backgroundColor: .white
-                    )
+                .customNavigationBar(
+                    centerView: {
+                        Text("내 정보")
+                    },
+                    leftView: {
+                        EmptyView()
+                    },
+                    rightView: {
+                        CloseButton()
+                    },
+                    backgroundColor: .white
+                )
+
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))

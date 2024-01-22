@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    let user: User
     @Binding var selectedIndex: Int
     var body: some View {
         
@@ -32,7 +33,7 @@ struct MainTabView: View {
                         Text("메모하기")
                     }.tag(1)
  
-                MypageView()
+                MypageView(user: user)
                     .onTapGesture{
                         selectedIndex = 2
                     }
@@ -42,8 +43,6 @@ struct MainTabView: View {
                     }.tag(2)
                 
             }
-            
-           // .zIndex(10)
         }
       
     }
