@@ -86,8 +86,7 @@ struct MemoCell: View {
                     if isVisible {
                         NavigationLink { // 버튼이랑 비슷함
                             // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                            CertificationView(memo: $memo)
-                            //MemoDetailView(memo: memo)
+                            MemoDetailView(memo: memo)
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")
