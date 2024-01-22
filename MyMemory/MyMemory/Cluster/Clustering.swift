@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 import KakaoMapsSDK
-protocol PGClusteringManagerDelegate: class {
+protocol PGClusteringManagerDelegate: AnyObject {
     
     func displayClusters(clusters: [MemoCluster])
 }

@@ -95,7 +95,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 //self.startingClusters = initialCluster()
-
+                
+                cluster.addMemoList(memos: fetched)
             } catch {
                 print("Error fetching memos: \(error)")
             }
