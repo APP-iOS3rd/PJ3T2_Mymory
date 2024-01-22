@@ -191,8 +191,7 @@
 		28BB133A2B56908D001A4C0C /* MiniMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniMap.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		641A8B3C2B57C76800A942A1 /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run4.gif; sourceTree = "<group>"; };
-		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
-		6470FEA12B5A596300585139 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = /Downloads/APIKEYS.xcconfig; sourceTree = "<absolute>"; };
+		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; }; 
 		649128ED2B550BD60034F567 /* FindAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindAddressView.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
@@ -504,8 +503,7 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */,
-				6470FEA12B5A596300585139 /* APIKEYS.xcconfig */,
+				01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -965,7 +963,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1030,7 +1028,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1088,7 +1086,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1127,7 +1125,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1140,7 +1138,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DA79BF32B5675D60064FAD8 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1179,7 +1177,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1192,6 +1190,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1212,6 +1211,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1232,6 +1232,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1252,6 +1253,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01D160012B5E0CC5003F1BEF /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
