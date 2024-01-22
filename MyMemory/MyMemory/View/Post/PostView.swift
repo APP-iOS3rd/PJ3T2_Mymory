@@ -138,8 +138,8 @@ struct PostView: View {
                 } //:VSTACK
                 
             } //: ScrollView
-         
-        .toolbar(.hidden, for: .tabBar)
+    
+       // .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
