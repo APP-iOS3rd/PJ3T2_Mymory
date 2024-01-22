@@ -6,7 +6,10 @@
 	<true/>
 	<key>CFBundleDocumentTypes</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>MyMemory</string>
+		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>

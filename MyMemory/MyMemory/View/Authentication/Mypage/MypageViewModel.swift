@@ -9,6 +9,8 @@ import Foundation
 import CoreLocation
 import _PhotosUI_SwiftUI
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -25,6 +27,8 @@ struct Memo: Hashable, Codable, Identifiable {
     // 메모 id
     var id = UUID()
     // 제목
+    var userUid: String
+    
     var title: String
     // 메모 내용
     var description: String
@@ -33,7 +37,7 @@ struct Memo: Hashable, Codable, Identifiable {
     // 태그
     var tags: [String]
     // 사진
-    var images: [String]
+    var images: [Data]
     // 공개여부
     var isPublic: Bool
     // 작성일
@@ -42,6 +46,16 @@ struct Memo: Hashable, Codable, Identifiable {
     var location: Location
     // 좋아요 개수
     var likeCount: Int
+    
+    var memoImageUUIDs: [String]
+    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
+}
+
+struct UserInfo: Codable {
+    var id: String
+    var name: String
+    var email: String
+    var profilePicture: String
 }
 
 struct Location: Hashable, Codable {
@@ -60,15 +74,18 @@ class MypageViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
+    @Published var userInfo: UserInfo? = nil
+    
+    let db = Firestore.firestore()
     
     init() {
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         self.memoList = [
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10),
+            Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "456", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "789", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "91011", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10, memoImageUUIDs: [""]),
+            Memo(userUid: "1234", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10, memoImageUUIDs: [""]),
         ]
     }
     
@@ -110,5 +127,19 @@ class MypageViewModel: ObservableObject {
             return true
         }
         return false
+    }
+    
+    func fetchUserInfoFromUserDefaults() -> UserInfo? {
+        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
+            let decoder = JSONDecoder()
+            
+            if let userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
+                return userInfo
+            } else {
+                return nil
+            }
+        } else {
+            return nil
+        }
     }
 }

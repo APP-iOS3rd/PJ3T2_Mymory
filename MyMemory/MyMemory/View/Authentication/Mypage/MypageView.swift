@@ -104,6 +104,10 @@ struct MypageView: View {
  
           
         }
+        .onAppear {
+            myPageViewModel.isCurrentUserLoginState = myPageViewModel.fetchCurrentUserLoginState()
+            myPageViewModel.userInfo = myPageViewModel.fetchUserInfoFromUserDefaults()
+        }
     
                 
         
