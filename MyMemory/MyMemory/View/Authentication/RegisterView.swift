@@ -11,6 +11,7 @@ import PhotosUI
 
 struct RegisterView: View {
     @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+    
     var body: some View {
         NavigationView {
             ScrollView {
