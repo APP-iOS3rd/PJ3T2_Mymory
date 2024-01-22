@@ -11,7 +11,6 @@ struct TopBarAddress: View {
     
     // 추후 작업 때, binding으로 바꿔야함.
     @Binding var currentAddress: String?
-    //@ObservedObject var MapviewModel: MainMapViewModel = .init()
     var body: some View {
         NavigationLink {
             SearchView()

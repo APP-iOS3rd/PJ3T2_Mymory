@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainView: View {
-   
     @StateObject var viewRouter: ViewRouter = .init()
     @State var initialIdx = 0
     @EnvironmentObject var viewModel: AuthViewModel
@@ -20,7 +19,6 @@ struct MainView: View {
         }
         
         else if viewRouter.currentPage == "page1" {
-            
             Group {
                 if viewModel.userSession == nil {
                     LoginView(viewModel: viewModel)
@@ -30,7 +28,6 @@ struct MainView: View {
                     }
                 }
             }
-            
         }
     }
 }
