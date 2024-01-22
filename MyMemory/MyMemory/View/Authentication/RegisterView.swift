@@ -10,7 +10,8 @@ import Photos
 import PhotosUI
 
 struct RegisterView: View {
-    @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+   // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+    @ObservedObject var viewModel: AuthViewModel
     
     var body: some View {
         NavigationView {
@@ -193,8 +194,11 @@ struct RegisterView: View {
                     }
                     Spacer(minLength: 32)
                     Button(action: {
-                        if viewModel.checkIfCanRegister() == true {
+                        
+                        
+                        if viewModel.checkIfCanRegister() {
                             viewModel.userCreate()
+                           // viewModel.userCreate()
                             print("Register Completed")
                         } else {
                             print("Register failed")
@@ -221,7 +225,7 @@ struct RegisterView: View {
     }
 }
 
-#Preview {
-    RegisterView()
-}
-
+//#Preview {
+//    RegisterView()
+//}
+//

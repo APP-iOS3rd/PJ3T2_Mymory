@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MypageView: View {
     
-    let user: User
+    let user: User?
     @ObservedObject var viewModel: MypageViewModel
     @ObservedObject var authViewModel: AuthViewModel
     // @StateObject var myPageViewModel: MypageViewModel = .init()
@@ -113,7 +113,10 @@ struct MypageView: View {
             }
  
         }
-        
+//        .onAppear{
+//            viewModel.
+//        }
+//        
 //        .onAppear {
 //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
 //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()

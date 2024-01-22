@@ -17,15 +17,10 @@ struct MainView: View {
         if viewRouter.currentPage == "onboardingView" {
             OnboardingView(viewRouter: viewRouter)
         }
-        else if viewModel.userSession == nil {
-            LoginView(viewModel: viewModel)
+        else if viewRouter.currentPage == "mainView" {
+            MainTabView(viewRouter: viewRouter, viewModel: viewModel)
         }
         
-        else if viewRouter.currentPage == "mainView" {
-            if let user = viewModel.currentUser {
-                MainTabView(user: user, viewRouter: viewRouter)
-            }
-        }
     }
 }
 

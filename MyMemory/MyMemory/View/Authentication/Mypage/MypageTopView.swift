@@ -73,7 +73,7 @@ struct MypageTopView: View {
             NavigationLink {
                 
                 SettingView (
-                    user: $viewModel.user,
+                    authViewModel: authViewModel, user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
                 .customNavigationBar(
