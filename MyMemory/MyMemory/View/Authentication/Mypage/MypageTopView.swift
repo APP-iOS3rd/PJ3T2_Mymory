@@ -10,10 +10,11 @@ import SwiftUI
 struct MypageTopView: View {
     
     @ObservedObject var viewModel: MypageViewModel
+    @ObservedObject var authViewModel: AuthViewModel
     
     var body: some View {
         HStack {
-            if viewModel.isCurrentUserLoginState {
+            if authViewModel.currentUser != nil {
                 NavigationLink {
                     ProfileEditView(
                         existingProfileImage:
