@@ -37,44 +37,6 @@ struct PostView: View {
         ScrollView{
             VStack(alignment: .leading){
                 
-                //💁 상단 MapView
-                KakaoMapSimple(draw: $draw, userLocation: $MapviewModel.location, userDirection: .constant(0))
-
-                .onAppear(perform: {
-                    self.draw = true
-                }).onDisappear(perform: {
-                    self.draw = false
-                }).frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .environmentObject(viewModel)
-                    .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
-                    .background(.ultraThinMaterial)
-                    .padding(.bottom)
-                    .padding(.horizontal)
-                
-                //💁 사진 등록하기 View
-                Group {
-                    VStack(alignment: .leading, spacing: 10){
-                        HStack {
-                            Text("사진 등록하기")
-                                .font(.bold20)
-                            
-                            Spacer()
-                            
-                        } //:HSTACK
-                        SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData)
-                        
-                    }//:VSTACK
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom)
-                
-                
-                // 💁 주소찾기 View
-                Group {
-                    FindAddressView(memoAddressText: $viewModel.memoAddressText)
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 25)
                 // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
                 Group {
                     VStack(alignment: .leading, spacing: 10){
@@ -127,11 +89,51 @@ struct PostView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom)
                 
+                //💁 사진 등록하기 View
+                Group {
+                    VStack(alignment: .leading, spacing: 10){
+                        HStack {
+                            Text("사진 등록하기")
+                                .font(.bold20)
+                            
+                            Spacer()
+                            
+                        } //:HSTACK
+                        SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData)
+                        
+                    }//:VSTACK
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom)
+                
+                
+                //💁 상단 MapView
+//                KakaoMapSimple(draw: $draw, userLocation: $MapviewModel.location, userDirection: .constant(0))
+//
+//                .onAppear(perform: {
+//                    self.draw = true
+//                }).onDisappear(perform: {
+//                    self.draw = false
+//                }).frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    .environmentObject(viewModel)
+//                    .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
+//                    .background(.ultraThinMaterial)
+//                    .padding(.bottom)
+//                    .padding(.horizontal)
+                
+               
                 // 💁 Tag 선택 View
                 Group {
                     SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
                 }
                 .padding(.bottom)
+                
+                // 💁 주소찾기 View
+                Group {
+                    FindAddressView(memoAddressText: $viewModel.memoAddressText)
+                }
+                .padding(.bottom, 25)
+                
                 
                 Button(action: {
                     Task {
