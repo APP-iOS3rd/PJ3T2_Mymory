@@ -23,7 +23,7 @@ struct PostView: View {
     @State var handler = LocationsHandler.shared
     @State var isEdit: Bool = false
     var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
-    
+ 
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
 
     
