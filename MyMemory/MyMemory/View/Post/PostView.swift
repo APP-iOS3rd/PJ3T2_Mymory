@@ -138,7 +138,7 @@ struct PostView: View {
                 } //:VSTACK
                 
             } //: ScrollView
-        }
+         
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
@@ -198,8 +198,8 @@ struct PostView: View {
         )
     }
         
-    
 }
+ 
 
 
 struct MemoView_Previews: PreviewProvider {
