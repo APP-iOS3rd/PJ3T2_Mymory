@@ -10,13 +10,12 @@ import CoreLocation
 
 struct MemoCell: View {
     
-
     @State var isVisible: Bool = true
     @State var isDark: Bool = false
     @Binding var location: CLLocation?
-
-    @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
     
+    @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
+    //var memo: Memo
     var body: some View {
         HStack(spacing: 16) {
             
@@ -74,9 +73,7 @@ struct MemoCell: View {
                         Image(systemName: "location.fill")
                         if let loc = location {
                             Text("\(memo.location.distance(from: loc).distanceToMeters())")
-                                .lineLimit(1)
-                          //  Text("\(memo.location.distance(from: loc))m")
-                         } else {
+                        } else {
                             Text("\(-1)m")
                                 .lineLimit(1)
                         }
@@ -89,14 +86,24 @@ struct MemoCell: View {
                     if isVisible {
                         NavigationLink { // 버튼이랑 비슷함
                             // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                            MemoDetailView(memo: memo)
+                            CertificationView(memo: $memo)
+                            //MemoDetailView(memo: memo)
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")
                                 Text("메모보기")
                             }
                         }
-                    } // : VStack
+                    } else {
+                        NavigationLink {
+                            CertificationView(memo: $memo)
+                        } label: {
+                            HStack {
+                                Image(systemName: "location.fill")
+                                Text("메모보기")
+                            }
+                        }
+                    }  // : VStack
                     
                     
                 }

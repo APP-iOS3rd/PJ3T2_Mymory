@@ -62,11 +62,3 @@ struct RoundedRectProgressViewStyle: ProgressViewStyle {
         }
     }
 }
-
-
-
-//
-//
-//#Preview {
-//    ProgressView()
-//}

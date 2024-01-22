@@ -55,7 +55,3 @@ struct CertificationView: View {
         }
     }
 }
-
-//#Preview {
-//    CertificationView()
-//}

@@ -22,7 +22,7 @@ final class CertificationViewModel: NSObject, ObservableObject, CLLocationManage
     @Published var direction: Double = 0
     @Published var targetLocation = CLLocation(latitude: 35.8551, longitude: 128.5098)
     @Published var draw: Bool = true
-    @Published var selectedAddress: String? = nil 
+    @Published var selectedAddress: String? = nil
     @Published var userCoordinate: CLLocation?
   
     override init() {
@@ -129,5 +129,6 @@ extension CertificationViewModel {
         }
     }
 }
+
 
 

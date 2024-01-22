@@ -11,6 +11,7 @@ import PhotosUI
 
 struct RegisterView: View {
     @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -206,7 +207,7 @@ struct RegisterView: View {
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
                 }
-                   // .navigationBarTitle("회원가입")
+                    
             }
         }
         .onChange(of: viewModel.selectedItem) {newItem in

@@ -24,12 +24,13 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
+    @ObservedObject var viewModel: AuthViewModel = AuthViewModel()
+    
     
     // 확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
     
-
     
     var body: some View {
         
@@ -67,7 +68,7 @@ struct LoginView: View {
                         .textContentType(.password)
                     
                 }
-            }//:VSTACK - TextField
+            } //:VSTACK - TextField
             .onSubmit {
                 switch focusedField {
                 case .email:
@@ -91,8 +92,11 @@ struct LoginView: View {
                     .buttonStyle(LoginButton())
             } else {
                 Button {
-//                        checkLogin(isEmail: email, isPassword: password)
+                    
                     self.isActive = true
+                    viewModel.login(withEmail: email, password: password)
+                    
+
                 } label: {
                     Text("로그인")
                         .font(.regular18)

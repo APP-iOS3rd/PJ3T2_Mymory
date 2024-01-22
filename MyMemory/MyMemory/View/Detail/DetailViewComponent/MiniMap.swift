@@ -48,7 +48,7 @@ struct MiniMap: View {
                 .padding(.horizontal, 16)
                 .fixedSize(horizontal: true, vertical: false)
                 
-                MiniKakaoMapView(memo: $memo, draw: $draw, userLocation: $userLocation, userDirection: $userDirection)
+                CertificationMap(memo: $memo, draw: $draw, userLocation: $userLocation, userDirection: $userDirection)
                     .onAppear {
                         self.draw = true
                     }
@@ -57,7 +57,7 @@ struct MiniMap: View {
                     }
                     //.environmentObject(viewModel)
                     .clipShape(.rect(cornerRadius: 15))
-                    //.frame(maxHeight: .infinity)
+                    //.frame(maxHeight: .infinity) 
                     .frame(height: 390)
                     .offset(y: 10)
                 
