@@ -13,6 +13,7 @@ struct MemoCell: View {
     @State var isVisible: Bool = true
     @State var isDark: Bool = false
     @Binding var location: CLLocation?
+    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var memo: Memo
     var body: some View {
@@ -88,6 +89,7 @@ struct MemoCell: View {
                         NavigationLink { // 버튼이랑 비슷함
                             // destination : 목적지 -> 어디로 페이지 이동할꺼냐
                             MemoDetailView(memo: memo)
+                                .environmentObject(mainMapViewModel)
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")

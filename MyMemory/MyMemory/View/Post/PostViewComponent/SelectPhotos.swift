@@ -41,13 +41,22 @@ struct SelectPhotos: View {
                     }
                     
                     
-                    // 이미지를 보여주는 부분
                     ForEach(memoSelectedImageData, id: \.self) { imageData in
-                        Image(uiImage: UIImage(data: imageData)!)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 90, height: 90)
+                        if let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 90, height: 90)
+                        } else {
+                            // 이미지 데이터가 nil이면 기본 이미지 또는 에러 이미지를 표시하도록 처리
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 90, height: 90)
+                                .foregroundColor(.gray)
+                        }
                     }
+
                 }
             }
             .onAppear {

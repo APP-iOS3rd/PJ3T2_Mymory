@@ -18,6 +18,7 @@ struct MemoDetailView: View {
     
     @State private var isMyMemo:Bool = false
     var memo: Memo
+    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var body: some View {
         ScrollView {
@@ -92,6 +93,7 @@ struct MemoDetailView: View {
             // 오른쪽 부분
             trailing:   
                 NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
+                .environmentObject(mainMapViewModel)
         )
     }
         

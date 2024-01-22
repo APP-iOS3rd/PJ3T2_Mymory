@@ -16,7 +16,7 @@ import UIKit
 struct PostView: View {
     
     
-    @ObservedObject var MapviewModel: MainMapViewModel = .init()
+    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     
@@ -145,6 +145,8 @@ struct PostView: View {
                             // 수정 모드가 아닐 때는 saveMemo 호출
                             await viewModel.saveMemo()
                         }
+
+                        await mainMapViewModel.fetchMemos()
                     }
                 }, label: {
                     Text(isEdit ? "수정완료" : "작성완료")
@@ -177,6 +179,7 @@ struct PostView: View {
                         // 예: 삭제 확인 대화상자를 표시합니다
                         print("Trash button tapped!")
                         await viewModel.deleteMemo(memo: memo)
+                        await mainMapViewModel.fetchMemos()
                         DispatchQueue.main.async {
                             presentationMode.wrappedValue.dismiss()
                         }

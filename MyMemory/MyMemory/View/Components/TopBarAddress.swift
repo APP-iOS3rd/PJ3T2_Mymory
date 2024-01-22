@@ -11,24 +11,26 @@ struct TopBarAddress: View {
     
     // 추후 작업 때, binding으로 바꿔야함.
     @Binding var currentAddress: String?
-    //@ObservedObject var MapviewModel: MainMapViewModel = .init()
+    // 바인딩
+    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     var body: some View {
-        NavigationLink {
-            SearchView()
-                .customNavigationBar(
-                    centerView: {
-                        Text("위치 검색")
-                    },
-                    leftView: {
-                        EmptyView()
-                    },
-                    rightView: {
-                        CloseButton()
-                            //EmptyView()
-                    },
-                    backgroundColor: .lightGray
-                )
-                .edgesIgnoringSafeArea(.bottom)
+        Button {
+//            SearchView()
+//                .customNavigationBar(
+//                    centerView: {
+//                        Text("위치 검색")
+//                    },
+//                    leftView: {
+//                        EmptyView()
+//                    },
+//                    rightView: {
+//                        CloseButton()
+//                            //EmptyView()
+//                    },
+//                    backgroundColor: .lightGray
+//                )
+//                .edgesIgnoringSafeArea(.bottom)
+            mainMapViewModel.fetchMemos()
         } label: {
             HStack {
                 Text(currentAddress ?? "주소를 불러올 수 없습니다.")
@@ -49,4 +51,5 @@ struct TopBarAddress: View {
 
 #Preview {
     TopBarAddress(currentAddress: .constant("wnth"))
+        .environmentObject(MainMapViewModel())
 }

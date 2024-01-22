@@ -13,7 +13,7 @@ import CoreLocation
 struct MemoMapView: View {
     @State var draw = true
 
-    @ObservedObject var viewModel: MainMapViewModel = .init()
+    @EnvironmentObject var viewModel: MainMapViewModel
     // LazyHGrid GridItem
     // 화면 그리드 형식으로 채워줌 임시변수
     let layout: [GridItem] = [
