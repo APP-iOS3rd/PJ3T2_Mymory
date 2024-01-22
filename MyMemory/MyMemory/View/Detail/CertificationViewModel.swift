@@ -18,7 +18,6 @@ final class CertificationViewModel: NSObject, ObservableObject, CLLocationManage
     private let locationManager = CLLocationManager()
 
     //view로 전달할 값 모음
-    @Published var memo: Memo?
     @Published var myCurrentAddress: String? = nil
     @Published var direction: Double = 0
     @Published var targetLocation = CLLocation(latitude: 35.8551, longitude: 128.5098)

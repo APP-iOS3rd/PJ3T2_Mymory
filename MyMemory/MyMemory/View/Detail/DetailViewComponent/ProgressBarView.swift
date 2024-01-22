@@ -9,8 +9,9 @@ import SwiftUI
 import CoreLocation
 
 struct ProgressBarView: View {
+    
+    @Binding var memo: Memo
     @Binding var userLocation: CLLocation?
-    @Binding var targetLocation: CLLocation
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -20,8 +21,7 @@ struct ProgressBarView: View {
                 .frame(height: 140)
             
             VStack(alignment: .leading) {
-                if let distance = userLocation?.distance(from: targetLocation) {
-                    
+                if let distance = userLocation?.coordinate.distance(from: memo.location) {
                     ProgressView(value: 1000 - distance, total: 1000)
                         .progressViewStyle(RoundedRectProgressViewStyle())
                     if distance < 10 {
@@ -35,13 +35,8 @@ struct ProgressBarView: View {
                     }
                 }
             }
-            .padding(.top, 8)
-
         }
     }
-    
-
-    
 }
 
 

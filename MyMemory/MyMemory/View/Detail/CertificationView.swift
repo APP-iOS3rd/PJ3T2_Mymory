@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CertificationView: View {
     
-    @State var memo: Memo
+    @Binding var memo: Memo
     @StateObject private var viewModel: CertificationViewModel = .init()
     
     var body: some View {
@@ -41,11 +41,11 @@ struct CertificationView: View {
                 if let _ = viewModel.userCoordinate {
                     
                     ScrollView {
-                        MiniMap(draw: $viewModel.draw, userLocation: $viewModel.userCoordinate, userDirection: $viewModel.direction, targetLocation: $memo)
+                        MiniMap(memo: $memo, draw: $viewModel.draw, userLocation: $viewModel.userCoordinate, userDirection: $viewModel.direction)
                     }
                     
                     
-                    ProgressBarView(userLocation: $viewModel.userCoordinate, targetLocation: $viewModel.targetLocation)
+                    ProgressBarView(memo: $memo, userLocation: $viewModel.userCoordinate)
                         .ignoresSafeArea()
                 } else {
                     ProgressView()
