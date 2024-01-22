@@ -8,22 +8,23 @@
 import SwiftUI
 
 struct NavigationBarItems: View {
-    
+   
     @Binding var isHeart: Bool
     @Binding var isBookmark: Bool
     @Binding var isShowingSheet: Bool
     @Binding var isReported: Bool
     @Binding var isShowingImgSheet: Bool
-    @Binding var isMyMemo:Bool
+    @Binding var isMyMemo: Bool 
+    
     var memo: Memo
     
     var body: some View {
         HStack {
             // 내가 작성한 메모라면 수정 버튼 보여주기
             if isMyMemo {
+               
                 NavigationLink { // 버튼이랑 비슷함
-                    // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                    PostView(isEdit: true, memo: memo) 
+                    PostView(isEdit: true, memo: memo)
                 } label: {
                     Image(systemName: "pencil")
                 }

@@ -20,14 +20,14 @@ final class ViewRouter: ObservableObject {
     
     func setPage(){
         if isFirstLaunch {
-            currentPage = "page0"
+            currentPage = "onboardingView"
             isFirstLaunch = false
         } else {
-            currentPage = "page1"
+            currentPage = "mainView"
         }
     }
     
-    var currentPage: String = "page1" {
+    var currentPage: String = "mainView" {
         didSet {
             withAnimation() {
                 objectWillChange.send(self)
