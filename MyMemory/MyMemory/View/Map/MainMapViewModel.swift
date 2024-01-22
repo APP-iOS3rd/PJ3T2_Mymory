@@ -55,7 +55,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
     @Published var selectedAddress: String? = nil 
-    
+    @Published var clusteringDidChanged: Bool = true
     
     
     override init() {
@@ -90,9 +90,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             do {
                 let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
-                //self.startingClusters = initialCluster()
-                memoList = fetched
-                cluster.addMemoList(memos: fetched)
+                // 특정 distance 이내의 것만 사용하기
+                if let current = location {
+                    memoList = fetched.filter{$0.location.distance(from: current) < 1000}
+                    
+                } else {
+                    memoList = fetched
+                }
+                cluster.addMemoList(memos: memoList)
                 LoadingManager.shared.phase = .success
             } catch {
                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
@@ -171,7 +176,12 @@ extension MainMapViewModel {
 //MARK: - Clustering 관련 Logics
 extension MainMapViewModel {
     func displayClusters(clusters: [MemoCluster]) {
-        self.clusters = clusters
+        if clusters != self.clusters {
+            self.clusters = clusters
+            clusteringDidChanged = true
+        } else {
+            clusteringDidChanged = false
+        }
     }
     
     func switchUserLocation() {

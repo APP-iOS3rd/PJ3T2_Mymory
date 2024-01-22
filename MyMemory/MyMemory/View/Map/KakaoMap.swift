@@ -56,7 +56,9 @@ struct KakaoMapView: UIViewRepresentable {
         }
         context.coordinator._currentHeading = userDirection
         context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-        context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
+        if viewModel.clusteringDidChanged {
+            context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
+        }
         if draw {
             context.coordinator.controller?.startEngine()
             context.coordinator.controller?.startRendering()
@@ -120,7 +122,9 @@ struct KakaoMapView: UIViewRepresentable {
             
             controller?.delegate = self
         }
-        
+        func poiDidTapped(kakaoMap: KakaoMap, layerID: String, poiID: String, position: MapPoint) {
+            print("poiDidTapped")
+        }
         //MARK: - 현위치 마커
         // 현위치마커 버튼 GUI
         func startTracking() {
@@ -128,6 +132,7 @@ struct KakaoMapView: UIViewRepresentable {
                 RunLoop.current.add(_timer!, forMode: RunLoop.Mode.common)
                 _currentPositionPoi?.show()
                 _currentDirectionArrowPoi?.show()
+                _currentArea?.show()
                 _moveOnce = true
         }
         @objc func updateCurrentPositionPOI() {
@@ -413,6 +418,7 @@ struct KakaoMapView: UIViewRepresentable {
             }
         }
         var _timer: Timer?
+        var _currentArea: PolygonShape?
         var _currentPositionPoi: Poi?
         var _currentDirectionArrowPoi: Poi?
         var _currentDirectionPoi: Poi?
