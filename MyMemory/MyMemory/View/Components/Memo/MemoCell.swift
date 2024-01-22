@@ -72,7 +72,10 @@ struct MemoCell: View {
                         Text("|")
                         Image(systemName: "location.fill")
                         if let loc = location {
-                            Text("\(memo.location.distance(from: loc))m")
+                            Text("\(memo.location.distance(from: loc).distanceToMeters())")
+                                .lineLimit(1)
+                          //  Text("\(memo.location.distance(from: loc))m")
+ 
                         } else {
                             Text("\(-1)m")
                                 .lineLimit(1)
