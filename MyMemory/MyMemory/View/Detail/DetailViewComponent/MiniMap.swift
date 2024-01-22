@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
-import MapKit
+import KakaoMapsSDK
+import CoreLocation
 
-@available(iOS 17.0, *)
 struct MiniMap: View {
+    
+    @Binding var memo: Memo
+    @Binding var draw: Bool
+    @Binding var userLocation: CLLocation?
+    @Binding var userDirection: Double
+    
     var body: some View {
   
             VStack(alignment: .leading) {
@@ -22,14 +28,17 @@ struct MiniMap: View {
                         .clipShape(Circle())
                     
                     VStack(alignment: .leading) {
-                        Text("CGV 홍대")
+                        Text("\(memo.title)")
                             .font(.bold18)
                             .foregroundColor(.white)
-                           
-                        Text("#영화관 #핫플레이스")
-                            .font(.regular14)
-                            .foregroundColor(.accentColor)
-                            
+                        
+                        HStack(spacing: 3) {
+                            // 태그 선택할때 마다 표시
+                            ForEach(memo.tags, id: \.self) { tag in
+                                Text("#\(tag)")
+                                    .foregroundColor(.accentColor)
+                            }
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .padding()
@@ -39,12 +48,18 @@ struct MiniMap: View {
                 .padding(.horizontal, 16)
                 .fixedSize(horizontal: true, vertical: false)
                 
-                Map()
+                CertificationMap(memo: $memo, draw: $draw, userLocation: $userLocation, userDirection: $userDirection)
+                    .onAppear {
+                        self.draw = true
+                    }
+                    .onDisappear{
+                        self.draw = false
+                    }
+                    //.environmentObject(viewModel)
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(maxHeight: .infinity)
-                
-                CurrentSpotButton()
-                    .position(y:0)
+                    //.frame(maxHeight: .infinity) 
+                    .frame(height: 390)
+                    .offset(y: 10)
                 
             }
             .background(
@@ -56,11 +71,3 @@ struct MiniMap: View {
         .padding()
     }
 }
-
-//#Preview {
-//    if #available(iOS 17.0, *) {
-//        MiniMap()
-//    } else {
-//        // Fallback on earlier versions
-//    }
-//}

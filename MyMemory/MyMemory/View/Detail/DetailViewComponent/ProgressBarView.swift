@@ -9,11 +9,9 @@ import SwiftUI
 import CoreLocation
 
 struct ProgressBarView: View {
-    @State private var progress = 0.0
-    @State private var userDistance: Int = 50
     
-    @StateObject var viewModel: CertificationViewModel = CertificationViewModel()
-    private var marker: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
+    @Binding var memo: Memo
+    @Binding var userLocation: CLLocation?
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -23,13 +21,10 @@ struct ProgressBarView: View {
                 .frame(height: 140)
             
             VStack(alignment: .leading) {
-                
-                if let distance = viewModel.userCoordinate?.distance(from: marker) {
-                    
-                    ProgressView(value: distance, total: 300000)
+                if let distance = userLocation?.coordinate.distance(from: memo.location) {
+                    ProgressView(value: 1000 - distance, total: 1000)
                         .progressViewStyle(RoundedRectProgressViewStyle())
-                    
-                    if userDistance < 5 {
+                    if distance < 10 {
                         Text("인증 장소에 도착했어요!")
                             .font(.regular16)
                             .foregroundStyle(.white)
@@ -39,11 +34,7 @@ struct ProgressBarView: View {
                             .foregroundStyle(.white)
                     }
                 }
-                
-
             }
-          //  .padding(.top, 8)
-
         }
     }
 }
@@ -71,12 +62,3 @@ struct RoundedRectProgressViewStyle: ProgressViewStyle {
         }
     }
 }
-
-
-
-
-//
-//
-//#Preview {
-//    ProgressView()
-//}
