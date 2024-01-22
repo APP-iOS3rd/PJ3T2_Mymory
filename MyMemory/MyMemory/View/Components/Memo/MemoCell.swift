@@ -14,7 +14,8 @@ struct MemoCell: View {
     @State var isDark: Bool = false
     @Binding var location: CLLocation?
     
-    var memo: Memo
+    @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
+    //var memo: Memo
     var body: some View {
         HStack(spacing: 16) {
             
@@ -92,7 +93,16 @@ struct MemoCell: View {
                                 Text("메모보기")
                             }
                         }
-                    } // : VStack
+                    } else {
+                        NavigationLink {
+                            CertificationView(memo: $memo)
+                        } label: {
+                            HStack {
+                                Image(systemName: "location.fill")
+                                Text("메모보기")
+                            }
+                        }
+                    }  // : VStack
                     
                     
                 }
