@@ -15,24 +15,27 @@ struct MypageTopView: View {
             if viewModel.isCurrentUserLoginState {
                 NavigationLink {
                     ProfileEditView(
-                        profileImage: $viewModel.selectedImage,
-                        selectedPhotoData: $viewModel.selectedPhotoData
+                        existingProfileImage: viewModel.userInfo?.profilePicture,
+                        uid: viewModel.userInfo?.id ?? ""
                     )
                 } label: {
-                    if let data = viewModel.selectedPhotoData, let profileImage = UIImage(data: data) {
-                        Image(uiImage: profileImage)
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
-                            .clipShape(.circle)
-                            .frame(width: 76, height: 76)
+                    if let imageUrl = viewModel.userInfo?.profilePicture, let url = URL(string: imageUrl) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .clipShape(.circle)
+                        } placeholder: {
+                            ProgressView()
+                        }.frame(width: 76, height: 76)
                     } else {
                         Circle()
                             .frame(width: 76, height: 76)
                             .foregroundStyle(Color(hex: "d9d9d9"))
                     }
                     
-                    Text("닉네임")
+                    Text(viewModel.userInfo?.name ?? "")
                         .font(.semibold20)
                         .padding(.leading, 10)
                 }
@@ -62,7 +65,10 @@ struct MypageTopView: View {
             Spacer()
             
             NavigationLink {
-                SettingView()
+                SettingView(
+                    userInfo: $viewModel.userInfo,
+                    isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
+                )
                     .customNavigationBar(
                         centerView: {
                             Text("내 정보")

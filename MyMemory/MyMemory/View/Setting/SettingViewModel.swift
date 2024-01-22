@@ -7,12 +7,16 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 class SettingViewModel: ObservableObject {
     @Published var version: String = ""
     @Published var isCurrentUserLoginState: Bool = false
     @Published var isShowingLogoutAlert = false
     @Published var isShowingWithdrawalAlert = false
+    
+    let db = Firestore.firestore()
     
     init() {
         self.version = fetchCurrentAppVersion()
@@ -37,7 +41,7 @@ class SettingViewModel: ObservableObject {
         if self.isCurrentUserLoginState {
             do {
                 try Auth.auth().signOut()
-                self.isCurrentUserLoginState = false
+                UserDefaults.standard.removeObject(forKey: "userInfo")
                 completion()
                 print("로그아웃")
             } catch {
@@ -48,13 +52,20 @@ class SettingViewModel: ObservableObject {
         }
     }
     
-    func fetchUserWithdrawal(completion: @escaping () -> Void) {
+    func fetchUserWithdrawal(uid: String, completion: @escaping () -> Void) {
         if let user = Auth.auth().currentUser {
             user.delete { error in
                 if let error = error {
                     print("ERROR: 회원탈퇴 \(error.localizedDescription)")
                 } else {
-                    self.isCurrentUserLoginState = false
+                    Task {
+                        do {
+                            try await self.db.collection("user").document(uid).delete()
+                            print("delete success")
+                        } catch {
+                            print("delete error: \(error)")
+                        }
+                    }
                     completion()
                     print("회원탈퇴 성공")
                 }
