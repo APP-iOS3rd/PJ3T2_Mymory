@@ -64,7 +64,6 @@ final class ClusterOperation {
                 yCoordinate += cellSizePoint
             }
             self.delegate?.displayClusters(clusters: clusterMemos)
-            dump(clusterMemos)
         }
     }
     private func cellSizeForZoomScale(zoomScale: Int) -> Int {
@@ -111,3 +110,4 @@ extension AreaRect {
         self.southWest.wgsCoord.latitude
     }
 }
+

@@ -25,7 +25,7 @@ struct MemoListView: View {
                     Button{
                         filterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "리스트뷰" : viewModel.filterList.combinedWithComma))
+                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체 메뉴" : viewModel.filterList.combinedWithComma))
                     }
                     .buttonStyle(viewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                 
@@ -48,7 +48,7 @@ struct MemoListView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     
                     VStack(spacing: 12) {
-                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item in
                             
                             MemoCell(
                                 isVisible: true,

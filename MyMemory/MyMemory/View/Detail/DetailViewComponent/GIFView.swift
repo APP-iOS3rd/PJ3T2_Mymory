@@ -7,7 +7,6 @@
 
 import SwiftUI
 import FLAnimatedImage
-//https://github.com/Flipboard/FLAnimatedImage
 
 enum URLType {
   case name(String)

@@ -14,16 +14,12 @@ import UIKit
 
 
 struct PostView: View {
-    
-    
-    @ObservedObject var MapviewModel: MainMapViewModel = .init()
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
-    
     let minHeight: CGFloat = 250
     let maxHeight: CGFloat = 400
     let maxCharacterCount: Int = 1000
-    
+    @State var handler = LocationsHandler.shared
     @State var isEdit: Bool = false
     var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
     
@@ -34,39 +30,21 @@ struct PostView: View {
      @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ZStack {
-            ScrollView{
-                VStack(alignment: .leading){
-                    
-                    //💁 상단 MapView
-                    KakaoMapSimple(draw: $draw, userLocation: $MapviewModel.location, userDirection: .constant(0))
-                    
-                        .onAppear(perform: {
-                            self.draw = true
-                        }).onDisappear(perform: {
-                            self.draw = false
-                        }).frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .environmentObject(viewModel)
-                        .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
-                        .background(.ultraThinMaterial)
-                        .padding(.bottom)
-                        .padding(.horizontal)
-                    
-                    //💁 사진 등록하기 View
-                    Group {
-                        VStack(alignment: .leading, spacing: 10){
-                            HStack {
-                                Text("사진 등록하기")
-                                    .font(.bold20)
-                                
-                                Spacer()
-                                
-                            } //:HSTACK
-                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData)
-                            
-                        }//:VSTACK
-                    }
-                    .padding(.horizontal, 20)
+        ScrollView{
+            VStack(alignment: .leading){
+                
+                //💁 상단 MapView
+                KakaoMapSimple(draw: $draw,
+                               userLocation: $handler.location,
+                               userDirection: $handler.heading)
+                .onAppear(perform: {
+                    self.draw = true
+                }).onDisappear(perform: {
+                    self.draw = false
+                }).frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .environmentObject(viewModel)
+                    .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
+                    .background(.ultraThinMaterial)
                     .padding(.bottom)
                     
                     
