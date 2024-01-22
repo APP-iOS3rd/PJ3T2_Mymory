@@ -13,7 +13,7 @@ struct MypageMemoList: View {
         VStack(spacing: 12) {
             ForEach($memoList, id: \.self) { memo in
                 NavigationLink {
-                    MemoDetailView()
+                    MemoDetailView(memo: memo.wrappedValue)
                         .customNavigationBar(
                             centerView: {
                                 Text(" ")
