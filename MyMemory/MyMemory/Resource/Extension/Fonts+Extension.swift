@@ -19,6 +19,7 @@ extension Font {
     static let bold16: Font = .custom(FontType.Bold.rawValue, size: 16)
     static let bold18: Font = .custom(FontType.Bold.rawValue, size: 18)
     static let bold20: Font = .custom(FontType.Bold.rawValue, size: 20)
+    static let bold22: Font = .custom(FontType.Bold.rawValue, size: 22)
     static let bold24: Font = .custom(FontType.Bold.rawValue, size: 24)
     static let bold28: Font = .custom(FontType.Bold.rawValue, size: 28)
     static let bold34: Font = .custom(FontType.Bold.rawValue, size: 34)

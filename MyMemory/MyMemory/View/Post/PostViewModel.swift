@@ -12,6 +12,7 @@ class PostViewModel: ObservableObject {
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""
+    @Published var tempAddressText: String = ""
     @Published var memoSelectedImageData: [Data] = []
     @Published var memoSelectedTags: [String] = []
     @Published var memoShare: Bool = false
@@ -51,7 +52,21 @@ class PostViewModel: ObservableObject {
             print("주소 테스트 \(addressText)")
         }
     }
-    
+    func getAddress(with loc : Location) {
+        Task{ @MainActor in
+            let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.tempAddressText = addressText
+                print("주소 테스트 \(addressText)")
+            }
+        }
+    }
+    func setAddress() {
+        if !tempAddressText.isEmpty {
+            self.memoAddressText = self.tempAddressText
+        }
+    }
     init() {
         // ViewModel이 생성될 때 사용자의 현재 위치를 가져오는 메서드를 호출합니다.
         getUserCurrentLocation()
