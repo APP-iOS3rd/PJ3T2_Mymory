@@ -7,8 +7,11 @@
 
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct CertificationView: View {
+    
+    @State var memo: Memo
+    @StateObject private var viewModel: CertificationViewModel = .init()
+    
     var body: some View {
         
         ZStack {
@@ -34,24 +37,25 @@ struct CertificationView: View {
                     .foregroundStyle(.white)
                     .padding(.top, 20)
                 }
-                 
-                MiniMap()
-               
-                Spacer()
                 
-                ProgressBarView()
-                    .ignoresSafeArea()
-                    .frame(maxWidth: .infinity)
-
-                
+                if let _ = viewModel.userCoordinate {
+                    
+                    ScrollView {
+                        MiniMap(draw: $viewModel.draw, userLocation: $viewModel.userCoordinate, userDirection: $viewModel.direction, targetLocation: $memo)
+                    }
+                    
+                    
+                    ProgressBarView(userLocation: $viewModel.userCoordinate, targetLocation: $viewModel.targetLocation)
+                        .ignoresSafeArea()
+                } else {
+                    ProgressView()
+                }
             }
             .edgesIgnoringSafeArea(.bottom)
-            
         }
     }
 }
-    
-@available(iOS 17.0, *)
-#Preview {
-    CertificationView()
-}
+
+//#Preview {
+//    CertificationView()
+//}

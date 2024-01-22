@@ -9,8 +9,8 @@ import CoreLocation
 
 extension CLLocationCoordinate2D {
 
-    func distance(from: CLLocationCoordinate2D) -> CLLocationDistance {
-        let from = CLLocation(latitude: from.latitude, longitude: from.longitude)
+    func distance(from: CLLocation) -> CLLocationDistance {
+        let from = CLLocation(latitude: from.coordinate.latitude, longitude: from.coordinate.longitude)
         let to = CLLocation(latitude: self.latitude, longitude: self.longitude)
         return round(from.distance(from: to))
     }

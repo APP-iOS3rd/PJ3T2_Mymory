@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
-import MapKit
+import KakaoMapsSDK
+import CoreLocation
 
-@available(iOS 17.0, *)
 struct MiniMap: View {
+    
+    @Binding var draw: Bool
+    @Binding var userLocation: CLLocation?
+    @Binding var userDirection: Double
+    @Binding var targetLocation: Memo
+    
     var body: some View {
   
             VStack(alignment: .leading) {
@@ -39,12 +45,17 @@ struct MiniMap: View {
                 .padding(.horizontal, 16)
                 .fixedSize(horizontal: true, vertical: false)
                 
-                Map()
+                MiniKakaoMapView(draw: $draw, userLocation: $userLocation, userDirection: $userDirection, targetLocation: $targetLocation)
+                    .onAppear {
+                        self.draw = true
+                    }
+                    .onDisappear{
+                        self.draw = false
+                    }
+                    //.environmentObject(viewModel)
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(maxHeight: .infinity)
-                
-                CurrentSpotButton()
-                    .position(y:0)
+                    .frame(height: 390)
+                    .offset(y: 10)
                 
             }
             .background(
