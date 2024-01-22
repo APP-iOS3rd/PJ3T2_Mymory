@@ -38,11 +38,9 @@ struct PostView: View {
             VStack(alignment: .leading){
                 
                 //💁 상단 MapView
-                KakaoMapView(draw: $draw,
-                             isUserTracking: $MapviewModel.isUserTracking,
-                             userLocation: $MapviewModel.location,
-                             userDirection: .constant(0),
-                             clusters: $MapviewModel.clusters, selectedID: .constant(nil))
+                KakaoMapSimple(draw: $draw,
+                               userLocation: $MapviewModel.location,
+                               userDirection: .constant(0))
                 .onAppear(perform: {
                     self.draw = true
                 }).onDisappear(perform: {

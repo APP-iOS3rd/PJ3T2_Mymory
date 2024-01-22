@@ -21,7 +21,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     
     @Published var filterList: Set<String> = Set() {
         didSet {
-            filteredMemoList = MemoList.filter{ [weak self] memo in
+            filteredMemoList = memoList.filter{ [weak self] memo in
                 guard let self = self else { return false }
                 if self.filterList.isEmpty { return true }
                 var preset = false
@@ -38,7 +38,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
     @Published var filteredMemoList: [Memo] = []
-    @Published var MemoList: [Memo] = []
+    @Published var memoList: [Memo] = []
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
@@ -84,10 +84,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         getCurrentAddress()
         self.cluster.delegate = self
     }
-    private func tempModel() {
-      
-        //self.startingClusters = initialCluster()
-    }
     
     func fetchMemos() {
         Task {
@@ -95,7 +91,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 //self.startingClusters = initialCluster()
-                
+                memoList = fetched
                 cluster.addMemoList(memos: fetched)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -147,10 +143,10 @@ extension MainMapViewModel {
     func sortByDistance(_ distance: Bool) {
         if distance {
             guard let location = location else { return }
-            MemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
+            memoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
             filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
         } else {
-            MemoList.sort(by: {$0.date < $1.date})
+            memoList.sort(by: {$0.date < $1.date})
             filteredMemoList.sort(by: {$0.date < $1.date})
         }
     }

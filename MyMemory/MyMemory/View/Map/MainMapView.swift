@@ -94,7 +94,7 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item  in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item  in
                             
                             MemoCell(
                                 isVisible: true,

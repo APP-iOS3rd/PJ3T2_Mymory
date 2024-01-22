@@ -48,7 +48,7 @@ struct MemoListView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     
                     VStack(spacing: 12) {
-                        ForEach(viewModel.filterList.isEmpty ? viewModel.MemoList : viewModel.filteredMemoList) { item in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item in
                             
                             MemoCell(
                                 isVisible: true,
