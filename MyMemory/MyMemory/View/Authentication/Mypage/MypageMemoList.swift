@@ -14,10 +14,23 @@ struct MypageMemoList: View {
             ForEach($memoList, id: \.self) { memo in
                 NavigationLink {
                     MemoDetailView()
+                        .customNavigationBar(
+                            centerView: {
+                                Text(" ")
+                            },
+                            leftView: {
+                                BackButton()
+                            },
+                            rightView: {
+                                EmptyView() 
+                            },
+                            backgroundColor: .white
+                        )
                 } label: {
                     MypageMemoListCell(
                         memo: memo
                     )
+                  
                 }
                 .buttonStyle(.plain)
             }

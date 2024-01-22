@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct MainTabView: View {
-    
-    //@State var selectedIndex: Int = 1
+
     @Binding var selectedIndex: Int
     var body: some View {
+        
         NavigationView {
+            
             TabView(selection: $selectedIndex){
                 MainMapView()
                     .onTapGesture{
@@ -42,7 +43,10 @@ struct MainTabView: View {
                     }.tag(2)
                 
             }
+            
+           // .zIndex(10)
         }
+      
     }
 }
 

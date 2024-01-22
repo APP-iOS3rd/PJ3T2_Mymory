@@ -22,6 +22,9 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 
 // 임시
 struct Memo: Hashable, Codable, Identifiable {
+    // 유저Id
+    var userId = UUID()
+    // 메모 id
     var id = UUID()
     // 제목
     var title: String

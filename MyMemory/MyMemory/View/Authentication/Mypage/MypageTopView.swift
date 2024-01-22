@@ -43,6 +43,18 @@ struct MypageTopView: View {
             } else {
                 NavigationLink {
                     LoginView()
+                        .customNavigationBar(
+                            centerView: {
+                                Text(" ")
+                            },
+                            leftView: {
+                                EmptyView()
+                            },
+                            rightView: {
+                                CloseButton()
+                            },
+                            backgroundColor: .white
+                        )
                 } label: {
                     Text("로그인이 필요합니다.")
                         .font(.semibold20)
@@ -57,6 +69,18 @@ struct MypageTopView: View {
                     userInfo: $viewModel.userInfo,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
+                    .customNavigationBar(
+                        centerView: {
+                            Text("내 정보")
+                        },
+                        leftView: {
+                            EmptyView()
+                        },
+                        rightView: {
+                            CloseButton()
+                        },
+                        backgroundColor: .white
+                    )
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
