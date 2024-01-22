@@ -134,6 +134,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
             Footer()
             
         }
+      
     }
     
     func didTapImage(img: String) {

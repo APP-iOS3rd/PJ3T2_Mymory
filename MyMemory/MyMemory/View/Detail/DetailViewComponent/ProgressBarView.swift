@@ -42,7 +42,7 @@ struct ProgressBarView: View {
                 
 
             }
-            .padding(.top, 8)
+          //  .padding(.top, 8)
 
         }
     }
