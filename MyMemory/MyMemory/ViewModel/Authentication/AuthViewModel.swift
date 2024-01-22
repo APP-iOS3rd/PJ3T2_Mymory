@@ -119,8 +119,6 @@ class AuthViewModel: ObservableObject {
                 }
             }
     }
-
-    
     
     struct SafariView: UIViewControllerRepresentable {
 
@@ -135,8 +133,6 @@ class AuthViewModel: ObservableObject {
         }
     }
      
-    
-    
     func checkPassword(password: String) -> Bool {
         let passwordRegEx = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#?$%^&*()_+=-]).{7,50}$"
         return NSPredicate(format:"SELF MATCHES %@", passwordRegEx).evaluate(with: password)

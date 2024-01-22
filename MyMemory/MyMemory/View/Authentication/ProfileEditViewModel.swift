@@ -73,18 +73,18 @@ class ProfileEditViewModel: ObservableObject {
     }
     
     func editProfileImageOnUserDefaults(image: String) {
-        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
-            let decoder = JSONDecoder()
-            
-            if var userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
-                userInfo.profilePicture = image
-                let encoder = JSONEncoder()
-                
-                if let encoded = try? encoder.encode(userInfo) {
-                    UserDefaults.standard.set(encoded, forKey: "userInfo")
-                    print("수정완료!")
-                }
-            }
-        }
+//        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
+//            let decoder = JSONDecoder()
+//            
+//            if var userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
+//                userInfo.profilePicture = image
+//                let encoder = JSONEncoder()
+//                
+//                if let encoded = try? encoder.encode(userInfo) {
+//                    UserDefaults.standard.set(encoded, forKey: "userInfo")
+//                    print("수정완료!")
+//                }
+//            }
+//        }
     }
 }
