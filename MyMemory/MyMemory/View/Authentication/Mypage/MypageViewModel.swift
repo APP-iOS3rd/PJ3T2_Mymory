@@ -128,7 +128,7 @@ class MypageViewModel: ObservableObject {
         }
         return false
     }
-    
+  
 //    func fetchUserInfoFromUserDefaults() -> UserInfo? {
 //        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
 //            let decoder = JSONDecoder()

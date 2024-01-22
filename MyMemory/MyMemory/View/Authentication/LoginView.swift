@@ -68,7 +68,7 @@ struct LoginView: View {
                         .textContentType(.password)
                     
                 }
-            }//:VSTACK - TextField
+            } //:VSTACK - TextField
             .onSubmit {
                 switch focusedField {
                 case .email:
@@ -95,6 +95,7 @@ struct LoginView: View {
                     
                     self.isActive = true
                     viewModel.login(withEmail: email, password: password)
+                    
 
                 } label: {
                     Text("로그인")

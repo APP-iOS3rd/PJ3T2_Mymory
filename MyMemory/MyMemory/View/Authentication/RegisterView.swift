@@ -207,7 +207,7 @@ struct RegisterView: View {
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
                 }
-                   // .navigationBarTitle("회원가입")
+                    
             }
         }
         .onChange(of: viewModel.selectedItem) {newItem in
