@@ -22,7 +22,7 @@ struct MemoService {
             throw NSError(domain: "Invalid image data", code: 0, userInfo: nil)
         }
         
-        guard let compressedImageData = image.jpegData(compressionQuality: 0.75) else {
+        guard let compressedImageData = image.jpegData(compressionQuality: 0.2) else {
             throw NSError(domain: "Image compression failed.", code: 0, userInfo: nil)
         }
         
