@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import Firebase
 
+// viewModel
 struct User: Identifiable, Decodable {
     let email: String
     @DocumentID var id: String?
