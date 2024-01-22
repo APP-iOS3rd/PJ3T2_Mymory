@@ -87,6 +87,12 @@
 		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
+		DA58C2662B5CD74E005CB3B3 /* view+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */; };
+		DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2672B5CD7CD005CB3B3 /* FlexibleView.swift */; };
+		DA58C26B2B5CED15005CB3B3 /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26A2B5CED15005CB3B3 /* QuadTree.swift */; };
+		DA58C26D2B5CEE5D005CB3B3 /* Clustering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */; };
+		DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */; };
+		DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */; };
 		DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
@@ -199,6 +205,12 @@
 		DA3C24FC2B5511BD00425288 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
 		DA52B5DD2B560E83003F5E59 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "view+Extension.swift"; sourceTree = "<group>"; };
+		DA58C2672B5CD7CD005CB3B3 /* FlexibleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleView.swift; sourceTree = "<group>"; };
+		DA58C26A2B5CED15005CB3B3 /* QuadTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadTree.swift; sourceTree = "<group>"; };
+		DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clustering.swift; sourceTree = "<group>"; };
+		DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterBox.swift; sourceTree = "<group>"; };
+		DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoMapSimple.swift; sourceTree = "<group>"; };
 		DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		DA7893FD2B43F5BF00DC3771 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
@@ -311,6 +323,7 @@
 				01700A922B550B820096E1CA /* Button+Extension.swift */,
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
 				6AF0E0282B565FF1008ABE05 /* String+Extension.swift */,
+				DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */,
 				289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */,
 			);
 			path = Extension;
@@ -410,6 +423,7 @@
 				013127272B4674B600483E9F /* Textarea.swift */,
 				014CB56F2B468DD90016DF70 /* SelectBox.swift */,
 				01700AA12B552CC00096E1CA /* TopBarAddress.swift */,
+				DA58C2672B5CD7CD005CB3B3 /* FlexibleView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -523,10 +537,21 @@
 		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */,
 				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
 				64D3C2752B58B60000EEA19F /* LocationsHandler.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		DA58C2692B5CED06005CB3B3 /* Cluster */ = {
+			isa = PBXGroup;
+			children = (
+				DA58C26A2B5CED15005CB3B3 /* QuadTree.swift */,
+				DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */,
+				DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */,
+			);
+			path = Cluster;
 			sourceTree = "<group>";
 		};
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
@@ -572,6 +597,7 @@
 		DAB315492B43EFDB000357C7 /* MyMemory */ = {
 			isa = PBXGroup;
 			children = (
+				DA58C2692B5CED06005CB3B3 /* Cluster */,
 				641A8B3D2B57CBAE00A942A1 /* API */,
 				DA52B5DA2B5609DA003F5E59 /* Shared */,
 				014CB5732B46A2950016DF70 /* Model */,
@@ -788,6 +814,8 @@
 			files = (
 				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
+				DA58C26B2B5CED15005CB3B3 /* QuadTree.swift in Sources */,
+				DA58C2662B5CD74E005CB3B3 /* view+Extension.swift in Sources */,
 				DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */,
 				0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */,
 				289BB2BD2B5A7C28007FEB63 /* Footer.swift in Sources */,
@@ -814,6 +842,8 @@
 				01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */,
 				01700AA42B5530430096E1CA /* SearchView.swift in Sources */,
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
+				DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */,
+				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
@@ -827,6 +857,7 @@
 				6A3F2E852B58C79200A2E84A /* MypageTopView.swift in Sources */,
 				01E6A6402B4681DC0061F08C /* MypageView.swift in Sources */,
 				6A5519F62B56AA2A0028665D /* ProfileEditView.swift in Sources */,
+				DA58C26D2B5CEE5D005CB3B3 /* Clustering.swift in Sources */,
 				289BB2BB2B5A7BF9007FEB63 /* CLLocation+Extension.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
@@ -839,6 +870,7 @@
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				013383532B5669E4004D4B8A /* SceneDelegate.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
+				DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */,
 				289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
@@ -1026,7 +1058,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1040,7 +1072,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 추적하려고 합니다";
 				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "당신의 위치 정보가 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 현 위치 데이터를 이용하려고 합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진에 접근하려고 합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1078,7 +1110,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1092,7 +1124,7 @@
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치 정보가 필요합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "사용자의 위치를 추적하려고 합니다";
 				INFOPLIST_KEY_NSLocationUsageDescription = "";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "당신의 위치 정보가 필요합니다";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 현 위치 데이터를 이용하려고 합니다.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진에 접근하려고 합니다";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1126,7 +1158,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -1146,7 +1178,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -1166,7 +1198,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1186,7 +1218,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

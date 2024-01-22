@@ -8,12 +8,6 @@
 import SwiftUI
 import FirebaseAuth
 
-// 화면 터치 시 키보드 숨기기
-extension View {
-    func endTextEditing() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
 
 struct LoginView: View {
     
