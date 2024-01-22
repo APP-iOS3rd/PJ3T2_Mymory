@@ -101,18 +101,25 @@ struct MemoDetailView: View {
                 Footer()
             }
         }
-
-        .navigationBarItems(
-            // 오른쪽 부분
-            trailing:   
-                NavigationBarItems(isHeart: $isHeart,
-                                   isBookmark: $isBookmark,
-                                   isShowingSheet: $isShowingSheet,
-                                   isReported: $isReported,
-                                   isShowingImgSheet: $isShowingSheet,
-                                   isMyMemo: $isMyMemo,
-                                   memo: memo)
+        .customNavigationBar(
+            centerView: {
+                Text(" ")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
+//                                        CloseButton()
+            },
+            backgroundColor: .white
         )
+
+//        .navigationBarItems(
+//            // 오른쪽 부분
+//            trailing:   
+//                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
+//        )
     }
         
     

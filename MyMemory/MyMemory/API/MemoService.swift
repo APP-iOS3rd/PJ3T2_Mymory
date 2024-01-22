@@ -13,7 +13,6 @@ import FirebaseAuth
 
 struct MemoService {
     static let shared = MemoService()
-    let db = Firestore.firestore()
     let storage = Storage.storage()
     
     // 이미지를 업로드하고 URL을 반환하는 함수
@@ -105,7 +104,7 @@ struct MemoService {
         
         do {
                // 직접 문서 ID를 설정하여 참조 생성
-               let memoDocumentRef = db.collection("Memos").document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
+               let memoDocumentRef = COLLECTION_MEMOS.document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
                
                let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
                
@@ -148,7 +147,7 @@ struct MemoService {
         }
         
         do {
-            let memoDocumentRef = db.collection("Memos").document(documentID)
+            let memoDocumentRef = COLLECTION_MEMOS.document(documentID)
             let memoCreatedAtString = stringFromTimeInterval(updatedMemo.memoCreatedAt)
             
             try await memoDocumentRef.setData([
@@ -176,7 +175,7 @@ struct MemoService {
     func deleteMemo(documentID: String, deleteMemo: Memo) async {
         do {
             // Firestore에서 문서 삭제
-            let memoDocumentRef = db.collection("Memos").document(documentID)
+            let memoDocumentRef = COLLECTION_MEMOS.document(documentID)
             try await memoDocumentRef.delete()
             print("Document successfully deleted.")
             
@@ -210,7 +209,7 @@ struct MemoService {
         var memos = [Memo]()
         
         // "Memos" 컬렉션에서 문서들을 가져옴
-        let querySnapshot = try await db.collection("Memos").getDocuments()
+        let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
         
         // 각 문서를 PostMemoModel로 변환하여 배열에 추가
         for document in querySnapshot.documents {
@@ -231,7 +230,7 @@ struct MemoService {
             let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
             let userID = authResult.user.uid
             
-            let querySnapshot = try await db.collection("Memos").getDocuments()
+            let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
             
             var memos = [Memo]()
             
