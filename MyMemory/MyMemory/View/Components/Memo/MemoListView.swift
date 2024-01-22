@@ -25,9 +25,9 @@ struct MemoListView: View {
                     Button{
                         filterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant("전체메뉴"))
+                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "리스트뷰" : viewModel.filterList.combinedWithComma))
                     }
-                    .buttonStyle(RoundedRect.standard)
+                    .buttonStyle(viewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                 
                     Button {
                         // 거리순 - 최근 등록순

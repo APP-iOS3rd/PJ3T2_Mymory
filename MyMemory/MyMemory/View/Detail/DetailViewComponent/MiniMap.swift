@@ -41,7 +41,9 @@ struct MiniMap: View {
                 
                 Map()
                     .clipShape(.rect(cornerRadius: 15))
-                    .frame(maxHeight: .infinity)
+                    .frame(height: 390)
+                    .offset(y: 10)
+
                 
                 CurrentSpotButton()
                     .position(y:0)

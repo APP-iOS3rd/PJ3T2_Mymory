@@ -11,10 +11,13 @@ import MapKit
 import KakaoMapsSDK
 import CoreLocation
 
-final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, PGClusteringManagerDelegate {
+
+    
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
-    private var startingClusters: [MemoCluster] = []
+    private let cluster: ClusterOperation = .init()
+    
     
     @Published var filterList: Set<String> = Set() {
         didSet {
@@ -29,6 +32,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
+    
+    
     @Published var location: CLLocation?
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
@@ -51,6 +56,9 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
     @Published var selectedAddress: String? = nil 
+    
+    
+    
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -74,6 +82,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
         fetchMemos()
         getCurrentAddress()
+        self.cluster.delegate = self
     }
     private func tempModel() {
       
@@ -83,7 +92,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     func fetchMemos() {
         Task {
             do {
-                MemoList = try await MemoService.shared.fetchMemos()
+                let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 //self.startingClusters = initialCluster()
 
@@ -123,6 +132,7 @@ extension MainMapViewModel {
 //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
             weakSelf.location = .init(latitude: location.coordinate.latitude,
                                    longitude: location.coordinate.longitude)
+            weakSelf.getCurrentAddress()
         }
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
@@ -156,55 +166,23 @@ extension MainMapViewModel {
         let point = MapPoint(longitude: loc.coordinate.longitude, latitude: loc.coordinate.latitude)
         Task{@MainActor in
             self.myCurrentAddress = await GetAddress.shared.getAddressStr(location: point)
-            print(self.myCurrentAddress)
         }
     }
 }
 //MARK: - Clustering 관련 Logics
 extension MainMapViewModel {
+    func displayClusters(clusters: [MemoCluster]) {
+        self.clusters = clusters
+    }
+    
     func switchUserLocation() {
         if !self.isUserTracking {
             self.isUserTracking = true
         }
     }
-    private func calculateDistance(from clusters: [MemoCluster], threshold: Double) -> [MemoCluster] {
-        var tempClusters = clusters
-        var i = 0, j = 0
-        while(i < tempClusters.count) {
-            j = i + 1
-            while(j < tempClusters.count) {
-                let distance = tempClusters[i].center.distance(to: tempClusters[j].center) * 5000000
-                if distance < threshold {
-                    if selectedCluster?.id == tempClusters[j].id {
-                        tempClusters[i].id = tempClusters[j].id
-                    }
-                    tempClusters[i].updateCenter(with: tempClusters[j])
-                    tempClusters.remove(at: j)
-                    j -= 1
-                }
-                j += 1
-            }
-            i += 1
-        }
-        if tempClusters == clusters {
-            return clusters
-        }
-        return tempClusters
-    }
-    
     // 오류나서 일단 주석
-//    private func initialCluster() -> [MemoCluster] {
-//        return self.MemoList.map{.init(memo: $0)}
-//    }
-    private func cluster(distance: Double) -> [MemoCluster] {
-        let result = calculateDistance(from: startingClusters, threshold: distance)
-        return result
-    }
-    func updateAnnotations(cameraDistance: Double){
-        operation.cancelAllOperations()
-        operation.addOperation { [weak self] in
-            self?.clusters = self?.cluster(distance: cameraDistance) ?? []
-        }
+    func clusterTest(mapRect: AreaRect, zoomScale: Int) {
+        cluster.clusterMemosWithMapRect(cameraRect: mapRect, zoomScale: zoomScale)
     }
 }
 extension CLLocationCoordinate2D: Equatable {

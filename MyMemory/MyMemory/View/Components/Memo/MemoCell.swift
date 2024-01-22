@@ -53,7 +53,7 @@ struct MemoCell: View {
                 Button {
                     // 메모 정보 확인
                     // 추후 디테일뷰 연결해서 메모 전달 해주면 될거같음
-                    //print(Memo)
+                    print(item)
                 } label: {
                     Text("해당 장소 메모보기")
                 }
@@ -72,9 +72,10 @@ struct MemoCell: View {
                         Text("|")
                         Image(systemName: "location.fill")
                         if let loc = location {
-                            Text("\(memo.location.distance(from: loc))m")
+                            Text("\(item.location.distance(from: loc))m")
                         } else {
                             Text("\(-1)m")
+                                .lineLimit(1)
                         }
                     }
                     .foregroundColor(.gray)
