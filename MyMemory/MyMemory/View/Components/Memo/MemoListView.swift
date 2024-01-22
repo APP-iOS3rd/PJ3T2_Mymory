@@ -54,7 +54,7 @@ struct MemoListView: View {
                                 isVisible: true,
                                 isDark: false,
                                 location: $viewModel.location,
-                                item: item)
+                                memo: item)
                         }
                        
                     }

@@ -98,9 +98,8 @@ struct MainMapView: View {
                             
                             MemoCell(
                                 isVisible: true,
-                                isDark: true,
-                                location: $viewModel.location,
-                                item: item)
+                                isDark: true, location: $viewModel.location,
+                                memo: item)
                             .onTapGesture {
                                 viewModel.selectedMemoId = item.id
                             }

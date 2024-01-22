@@ -85,13 +85,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         self.cluster.delegate = self
     }
     private func tempModel() {
-        self.MemoList = [
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10),
-            Memo(title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10),
-        ]
+      
+        //self.startingClusters = initialCluster()
     }
     
     func fetchMemos() {
@@ -99,23 +94,13 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             do {
                 let fetched = try await MemoService.shared.fetchMemos()
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
-                MemoList = fetched.map{Memo(id: UUID(uuidString: $0.id)!,
-                                            title: $0.memoTitle,
-                                            description: $0.memoContents,
-                                            address: $0.userAddress,
-                                            tags: $0.memoTagList,
-                                            images: [],
-                                            isPublic: $0.isPublic,
-                                            date: $0.memoCreatedAt, location: .init(latitude: $0.userCoordinateLatitude, longitude: $0.userCoordinateLongitude),
-                                            likeCount: $0.memoLikeCount)}
-                
-                cluster.addMemoList(memos: MemoList)
+                //self.startingClusters = initialCluster()
+
             } catch {
                 print("Error fetching memos: \(error)")
             }
         }
     }
-   
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
@@ -216,5 +201,4 @@ extension CLLocationCoordinate2D: Equatable {
 }
 
 
-// Marker 생성로직
 

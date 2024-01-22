@@ -1,11 +1,12 @@
 import Foundation
+import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
 import KakaoMapsSDK
 
 
 class PostViewModel: ObservableObject {
-    @Published var memoData: [PostMemoModel] = []
+    //@Published var memoData: [PostMemoModel] = []
     
     //view로 전달할 값 모음
     @Published var memoTitle: String = ""
@@ -58,27 +59,93 @@ class PostViewModel: ObservableObject {
     
     
     func saveMemo() async {
-        let newMemo = PostMemoModel(
-            userCoordinateLatitude: Double(userCoordinate.latitude),
-            userCoordinateLongitude: Double(userCoordinate.longitude),
-            userAddress: memoAddressText,
-            memoTitle: memoTitle,
-            memoContents: memoContents,
-            isPublic: memoShare,
-            memoTagList: memoSelectedTags,
-            memoLikeCount: 0,
-            memoSelectedImageData: memoSelectedImageData,
-            memoCreatedAt: Date().timeIntervalSince1970
-        )
-
-        memoData.append(newMemo)
-        print(newMemo)
-        
-        // 메모 저장 후 필요한 초기화 작업 등을 수행할 수 있습니다.
-        await MemoService.shared.uploadMemo(newMemo: newMemo)
-        resetMemoFields()
+        do {
+            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+            // 로그인 성공한 경우의 코드
+            let userID = authResult.user.uid
+            print("userID \(userID)")
+            
+            let newMemo = PostMemoModel(
+                userUid: userID,
+                userCoordinateLatitude: Double(userCoordinate.latitude),
+                userCoordinateLongitude: Double(userCoordinate.longitude),
+                userAddress: memoAddressText,
+                memoTitle: memoTitle,
+                memoContents: memoContents,
+                isPublic: memoShare,
+                memoTagList: memoSelectedTags,
+                memoLikeCount: 0,
+                memoSelectedImageData: memoSelectedImageData,
+                memoCreatedAt: Date().timeIntervalSince1970
+            )
+            
+            print(newMemo)
+            
+            await MemoService.shared.uploadMemo(newMemo: newMemo)
+            resetMemoFields()
+        } catch {
+            // 오류 처리
+            print("Error signing in: \(error.localizedDescription)")
+        }
     }
 
+
+    func fetchEditMemo(memo: Memo)  {
+        self.memoTitle = memo.title
+        self.memoContents = memo.description
+        self.memoAddressText = memo.address
+        self.memoSelectedImageData = memo.images
+        self.memoSelectedTags = memo.tags
+        self.memoShare = memo.isPublic
+        // memo.location
+    }
+    
+ 
+    func editMemo(memo: Memo) async {
+  
+        do {
+            // UUID를 String으로 변환 해당 값으로 수정할때 새로 생성하지 않고 업데이트 되도록 구현
+            let documentID = memo.id.uuidString
+            /*
+             새로 업데이트 된 내용을 반영시키기 위해 몇몇 부분 Published 된 값으로 다시 생성
+             */
+            let editMemo = PostMemoModel(
+                userUid: memo.userUid,
+                userCoordinateLatitude: Double(memo.location.latitude),
+                userCoordinateLongitude: Double(memo.location.longitude),
+                userAddress: memoAddressText,
+                memoTitle: memoTitle,
+                memoContents: memoContents,
+                isPublic: memoShare,
+                memoTagList: memoSelectedTags,
+                memoLikeCount: memo.likeCount,
+                memoSelectedImageData: memoSelectedImageData,
+                memoCreatedAt: Date().timeIntervalSince1970
+            )
+            
+            print(editMemo)
+            
+            await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)
+            resetMemoFields()
+        } catch {
+            // 오류 처리
+            print("Error signing in: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteMemo(memo: Memo) async {
+        do{
+            //1. UUID를 String으로 변환 해당 값으로 메모를 삭제
+            //2. deleteMemo를 굳이 만든 이유 Storage안에 저장 되어있는 메모 이미지를 삭제하기 위함 
+            let documentID = memo.id.uuidString
+            await MemoService.shared.deleteMemo(documentID: documentID, deleteMemo: memo)
+        }
+        catch {
+            // 오류 처리
+            print("Error signing in: \(error.localizedDescription)")
+        }
+    }
+    
     private func resetMemoFields() {
         // 메모 저장 후 필요한 필드 초기화를 여기에 추가하세요.
         memoTitle = ""
@@ -88,5 +155,9 @@ class PostViewModel: ObservableObject {
         memoSelectedTags = []
         memoShare = false
     }
+    
+    
+
+    
 
 }
