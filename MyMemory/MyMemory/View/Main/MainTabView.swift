@@ -62,7 +62,7 @@ struct MainTabView: View {
                         .onTapGesture{
                             selectedIndex = 2
                              
-                            isLogin = true
+                           // isLogin = true
                         }
                         .tabItem {
                             Image(systemName: "person")
@@ -111,7 +111,7 @@ struct MainTabView: View {
                     .hidden()
                 
             )
-           
+ 
         }
       
     }
