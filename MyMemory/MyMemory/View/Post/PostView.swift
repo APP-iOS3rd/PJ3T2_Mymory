@@ -14,7 +14,7 @@ import UIKit
 
 
 struct PostView: View {
-   
+    @Binding var selected: Int
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     let minHeight: CGFloat = 250
@@ -195,10 +195,23 @@ struct PostView: View {
                 
             },
             rightView: {
-                CloseButton()
+                Button {
+                    self.selected = 0
+                } label: {
+                    HStack(spacing: 0){
+                        Image(systemName: "multiply")
+                            .resizable()
+                            .frame(width: 18, height: 18)
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(.deepGray)
+        //                Text("이전")
+                    }
+                }
             },
             backgroundColor: .white
         )
+        .toolbar(.hidden, for: .tabBar)
+
         .onTapGesture {
             UIApplication.shared.endEditing()
         }

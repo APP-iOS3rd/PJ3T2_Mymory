@@ -11,7 +11,7 @@ import Combine
 struct MainTabView: View {
     
     @ObservedObject var viewRouter: ViewRouter
-    @State private var selectedIndex = 0
+    @State var selectedIndex = 0
     @ObservedObject var viewModel: AuthViewModel
     @State var isPresented: Bool = false
     
@@ -29,7 +29,7 @@ struct MainTabView: View {
                         Text("지도")
                     }.tag(0)
 
-                PostView()
+                PostView(selected: $selectedIndex)
                     .onTapGesture {
                         selectedIndex = 1
                     }

@@ -177,8 +177,8 @@ extension MainMapViewModel {
             memoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
             filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
         } else {
-            memoList.sort(by: {$0.date < $1.date})
-            filteredMemoList.sort(by: {$0.date < $1.date})
+            memoList.sort(by: {$0.date > $1.date})
+            filteredMemoList.sort(by: {$0.date > $1.date})
         }
     }
     //MARK: - 주소 얻어오는 함수
