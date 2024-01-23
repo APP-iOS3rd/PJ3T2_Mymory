@@ -10,16 +10,15 @@ import SwiftUI
 struct CertificationView: View {
     
     @Binding var memo: Memo
-    @StateObject private var viewModel: CertificationViewModel = .init()
+    @State var draw:Bool = true
+    @StateObject private var viewModel: CertificationViewModel = CertificationViewModel()
     
     var body: some View {
-        
         ZStack {
             
             Color.black
                 .foregroundStyle(.black)
                 .ignoresSafeArea()
-            
             
             VStack {
                 VStack {
@@ -38,18 +37,27 @@ struct CertificationView: View {
                     .padding(.top, 20)
                 }
                 
-                if let _ = viewModel.userCoordinate {
+                Spacer()
                     
-                    ScrollView {
-                        MiniMap(memo: $memo, draw: $viewModel.draw, userLocation: $viewModel.userCoordinate, userDirection: $viewModel.direction)
-                    }
+                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
+                        .onAppear {
+                            DispatchQueue.main.async {
+                                self.draw = true
+                            }
+                        }
+                        .onDisappear {
+                            self.draw = false
+                        }
+                        .environmentObject(viewModel)
+                        .clipShape(.rect(cornerRadius: 10))
+                        .frame(height: UIScreen.main.bounds.size.height * 0.55)
                     
+                    Spacer()
                     
-                    ProgressBarView(memo: $memo, userLocation: $viewModel.userCoordinate)
+                    ProgressBarView(memo: $memo, userLocation: $viewModel.location)
+                        .environmentObject(viewModel)
                         .ignoresSafeArea()
-                } else {
-                    ProgressView()
-                }
+                    
             }
             .edgesIgnoringSafeArea(.bottom)
         }
