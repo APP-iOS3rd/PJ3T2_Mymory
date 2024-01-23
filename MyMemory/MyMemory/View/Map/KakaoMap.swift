@@ -19,7 +19,7 @@ struct KakaoMapView: UIViewRepresentable {
     @Binding var userLocation: CLLocation?
     @Binding var userDirection: Double
     @Binding var clusters: [MemoCluster]
-    @Binding var selectedID: UUID?
+    @Binding var selectedID: String? //UUID?
     @EnvironmentObject var viewModel: MainMapViewModel
     /// UIView를 상속한 KMViewContainer를 생성한다.
     /// 뷰 생성과 함께 KMControllerDelegate를 구현한 Coordinator를 생성하고, 엔진을 생성 및 초기화한다.
@@ -344,7 +344,7 @@ struct KakaoMapView: UIViewRepresentable {
                     
                     if let current = UserDefaults.standard.string(forKey: "userID") // 저장된 내 UUID
                     {
-                        if c.memos.contains(where: {$0.id.uuidString == current}) {
+                        if c.memos.contains(where: {$0.id == current}) {
                             poiOption = PoiOptions(styleID: "memoPoiStyle3", poiID: c.id.uuidString)
                         }
                     }

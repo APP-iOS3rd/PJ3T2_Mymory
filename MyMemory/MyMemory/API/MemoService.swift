@@ -315,7 +315,8 @@ struct MemoService {
         let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
         
         return Memo(
-            id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
+          //  id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
+            id: documentID,
             userUid: userUid,
             title: memoTitle,
             description: memoContents,
