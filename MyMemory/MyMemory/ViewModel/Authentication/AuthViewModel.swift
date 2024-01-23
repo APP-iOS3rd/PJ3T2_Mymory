@@ -42,7 +42,7 @@ class AuthViewModel: ObservableObject {
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
-    @Published var privacyPolicyUrlString = "https://www.google.com"
+    @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
     @Published var termsOfUseUrlString = "https://www.naver.com"
     
     @Published var nonce : String = ""

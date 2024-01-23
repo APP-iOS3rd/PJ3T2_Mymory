@@ -43,8 +43,6 @@ class PostViewModel: ObservableObject {
     }
 
     func getAddress() async {
-        
-        
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate.longitude), latitude: Double(userCoordinate.latitude)))
         
         DispatchQueue.main.async { [weak self] in

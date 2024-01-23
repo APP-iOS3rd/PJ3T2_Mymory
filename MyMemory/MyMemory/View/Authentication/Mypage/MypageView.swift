@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
+    case last = "최신순"
+    case like = "좋아요순"
+    case close = "가까운순"
+    
+    var id: SortedTypeOfMemo { self }
+}
+
 struct MypageView: View {
     
     let user: User?
@@ -53,7 +61,7 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!viewModel.isCurrentUserLoginState)
+                            .disabled(!viewModel.user.isCurrentUser)
                         }
                         .padding(.top, 38)
                         
@@ -111,6 +119,11 @@ struct MypageView: View {
             }
  
         }
+        .onAppear(perform: {
+            Task {
+               await viewModel.fetchMyMemoList()
+            }
+        })
 //        .onAppear{
 //            viewModel.
 //        }

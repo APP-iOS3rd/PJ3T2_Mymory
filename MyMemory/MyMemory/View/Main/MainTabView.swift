@@ -30,9 +30,8 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
-                
-                
-                Text("")
+
+                Text("") 
                     .onTapGesture {
                         selectedIndex = 1
                     }
@@ -45,7 +44,6 @@ struct MainTabView: View {
                 // 로그인한 유저 확인
                 if viewModel.userSession != nil {
                     if let user = viewModel.currentUser {
-//
                         MypageView(user: user)
                             .onTapGesture{
                                 selectedIndex = 2
@@ -89,6 +87,7 @@ struct MainTabView: View {
                     
                 }
             }
+            // NavigationView - PostView
             .background(
                 
                 NavigationLink(
@@ -99,8 +98,8 @@ struct MainTabView: View {
                 }
                     .hidden()
                 
-             
             )
+            // NavigationView - LoginView
             .background(
                 
                 NavigationLink(
