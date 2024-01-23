@@ -16,6 +16,11 @@ class PostViewModel: ObservableObject {
     @Published var memoSelectedImageData: [Data] = []
     @Published var memoSelectedTags: [String] = []
     @Published var memoShare: Bool = false
+    @Published var beforeEditMemoImageUUIDs: [String] = [] // 이미지 수정 하면  Firestore 기존 Storage에 이미지를 지우고 업데이트
+    @Published var selectedItemsCounts: Int = 0
+    
+    
+    
     private var userCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
     // 사용자 위치 값 가져오기
@@ -74,16 +79,10 @@ class PostViewModel: ObservableObject {
     
     
     func saveMemo() async {
-        LoadingManager.shared.phase = .loading
         do {
             guard let user = AuthViewModel.shared.currentUser else { return }
 
 
-//            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
-//            // 로그인 성공한 경우의 코드
-//            let userID = authResult.user.uid
-//            print("userID \(userID)")
-            
             // 로그인 성공한 경우의 코드
             print("userID \(user.id ?? "")")
             
@@ -121,33 +120,11 @@ class PostViewModel: ObservableObject {
         self.memoSelectedImageData = memo.images
         self.memoSelectedTags = memo.tags
         self.memoShare = memo.isPublic
+        self.beforeEditMemoImageUUIDs = memo.memoImageUUIDs
         // memo.location
     }
-    /*
-     func fetchMemos() {
-         LoadingManager.shared.phase = .loading
-         Task { @MainActor in
-             do {
-                 let fetched = try await MemoService.shared.fetchMemos()
-                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
-                 if let current = location {
-                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
-                     
-                 } else {
-                     memoList = fetched
-                 }
-                 cluster.addMemoList(memos: memoList)
-                 LoadingManager.shared.phase = .success
-             } catch {
-                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
-                 print("Error fetching memos: \(error)")
-             }
-         }
-     }
-     */
  
     func editMemo(memo: Memo) async {
-        LoadingManager.shared.phase = .loading
         do {
             // UUID를 String으로 변환 해당 값으로 수정할때 새로 생성하지 않고 업데이트 되도록 구현
           //  let documentID = memo.id.uuidString
@@ -170,7 +147,8 @@ class PostViewModel: ObservableObject {
             )
             
             print(editMemo)
-            
+            // 버튼 눌리면  Firestore 기존 Storage에 이미지를 지우고 업데이트
+            MemoService.shared.deleteImage(deleteMemoImageUUIDS: beforeEditMemoImageUUIDs)
             await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)
             resetMemoFields()
             LoadingManager.shared.phase = .success
@@ -204,6 +182,7 @@ class PostViewModel: ObservableObject {
         memoSelectedImageData = []
         memoSelectedTags = []
         memoShare = false
+        selectedItemsCounts = 0
     }
     
     

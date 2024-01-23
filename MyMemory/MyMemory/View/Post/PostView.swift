@@ -24,6 +24,7 @@ struct PostView: View {
     let maxCharacterCount: Int = 1000
     
     @State var isEdit: Bool = false
+    @State var selectedItemsCounts: Int = 0
     var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
     
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
@@ -98,7 +99,7 @@ struct PostView: View {
                             Spacer()
                             
                         } //:HSTACK
-                        SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData)
+                        SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
                         
                     }//:VSTACK
                 }
@@ -121,6 +122,7 @@ struct PostView: View {
     
                 Button(action: {
                     Task {
+                        LoadingManager.shared.phase = .loading
                         if isEdit {
                             // 수정 모드일 때는 editMemo 호출
                             await viewModel.editMemo(memo: memo)
@@ -134,7 +136,7 @@ struct PostView: View {
                     Text(isEdit ? "수정완료" : "작성완료")
                         .frame(maxWidth: .infinity)
                 })
-                
+            
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
                 .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty  )
@@ -143,8 +145,14 @@ struct PostView: View {
                 
                 Spacer()
             } //:VSTACK
+            .overlay(content: {
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
+            })
             
         } //: ScrollView
+    
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
             // 뒤로 가기 동작을 구현합니다
@@ -169,11 +177,6 @@ struct PostView: View {
                     Image(systemName: "trash")
                         .foregroundColor(.red)
                 }
-            }
-        })
-        .overlay(content: {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
             }
         })
 

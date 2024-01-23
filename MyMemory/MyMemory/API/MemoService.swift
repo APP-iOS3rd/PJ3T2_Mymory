@@ -134,7 +134,7 @@ struct MemoService {
     func updateMemo(documentID: String, updatedMemo: PostMemoModel) async {
         var imageDownloadURLs: [String] = []
         var memoImageUUIDs: [String] = []
-        
+  
         for imageData in updatedMemo.memoSelectedImageData {
             do {
                 let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)
@@ -180,17 +180,7 @@ struct MemoService {
             print("Document successfully deleted.")
             
             // Storage에서 이미지 삭제
-            let storageRef = storage.reference()
-            for imageName in deleteMemo.memoImageUUIDs {
-                let imageRef = storageRef.child("images/\(imageName).jpg")
-                imageRef.delete { error in
-                    if let error = error {
-                        print("Error deleting image: \(error)")
-                    } else {
-                        print("Image successfully deleted.")
-                    }
-                }
-            }
+            deleteImage(deleteMemoImageUUIDS: deleteMemo.memoImageUUIDs)
 
         } catch {
             print("Error deleting document: \(error)")
@@ -198,6 +188,20 @@ struct MemoService {
     }
 
     
+    func deleteImage(deleteMemoImageUUIDS: [String]) {
+        // Storage에서 이미지 삭제
+        let storageRef = storage.reference()
+        for imageName in deleteMemoImageUUIDS {
+            let imageRef = storageRef.child("images/\(imageName).jpg")
+            imageRef.delete { error in
+                if let error = error {
+                    print("Error deleting image: \(error)")
+                } else {
+                    print("Image successfully deleted.")
+                }
+            }
+        }
+    }
     
     
     
@@ -257,9 +261,9 @@ struct MemoService {
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
-            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+            guard let user = AuthViewModel.shared.currentUser else { return false}
             // 로그인 성공한 경우의 코드
-            let userID = authResult.user.uid
+            let userID = user.id
             
             return checkMemo.userUid == userID
         } catch {

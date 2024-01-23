@@ -93,10 +93,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 if let current = location {
                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
-                    
                 } else {
                     memoList = fetched
                 }
+                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
                 LoadingManager.shared.phase = .success
             } catch {
