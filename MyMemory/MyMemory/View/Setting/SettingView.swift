@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
     @EnvironmentObject var authViewModel: AuthViewModel
-    @Binding var user: User
+    @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
     @Environment(\.presentationMode) var presentationMode
     
@@ -76,6 +76,8 @@ struct SettingView: View {
                         Button("로그아웃", role: .destructive) {
                                                    if authViewModel.signout() {
                             print("로그아웃 성공")
+                                                       
+                                                       UserDefaults.standard.removeObject(forKey: "userId")
                             presentationMode.wrappedValue.dismiss()
                         } else {
                             print("로그아웃 실패")

@@ -202,7 +202,8 @@ struct LoginView: View {
                 EmptyView()
             },
             rightView: {
-                CloseButton()
+                EmptyView()
+//                CloseButton()
             },
             backgroundColor: .white
         )

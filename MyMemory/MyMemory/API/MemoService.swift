@@ -269,7 +269,6 @@ struct MemoService {
         }
         return memos
     }
-    
     func fetchMyMemos(userID: String) async -> [Memo] {
         do {
             let querySnapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID).getDocuments()

@@ -14,8 +14,9 @@ import UIKit
 
 
 struct PostView: View {
-    
-
+    @Binding var selected: Int
+    @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     
@@ -105,17 +106,33 @@ struct PostView: View {
             } //:VSTACK
             
         } //: ScrollView
-        //.toolbar(.hidden, for: .tabBar)
+        .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        
 
         .onAppear {
-            
+            if let useruid = UserDefaults.standard.string(forKey: "userId") {
+                presentLoginAlert = false
+            } else {
+                presentLoginAlert = true
+            }
             if isEdit {
                 viewModel.fetchEditMemo(memo: memo)
             }
             
+        }
+        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            Button("로그인 하기", role: .destructive) {
+                self.presentLoginView = true
+            }
+            Button("둘러보기", role: .cancel) {
+                self.selected = 0
+            }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
@@ -144,7 +161,24 @@ struct PostView: View {
                 
             },
             rightView: {
-                CloseButton()
+                Group {
+                    if isEdit {
+                        CloseButton()
+                    } else {
+                        Button {
+                            self.selected = 0
+                        } label: {
+                            HStack(spacing: 0){
+                                Image(systemName: "multiply")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.deepGray)
+                //                Text("이전")
+                            }
+                        }
+                    }
+                }
             },
             backgroundColor: .white
         )        
@@ -157,6 +191,6 @@ struct PostView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        PostView()
+        PostView(selected: .constant(1))
     }
 }
