@@ -225,23 +225,16 @@ struct MemoService {
     }
     
     
-    func fetchMyMemos() async -> [Memo] {
+    func fetchMyMemos(userID: String) async -> [Memo] {
         do {
-            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
-            let userID = authResult.user.uid
-            
-            let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
-            
+            let querySnapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID).getDocuments()
             var memos = [Memo]()
             
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
             for document in querySnapshot.documents {
                 let data = document.data()
-                
-                if let userUid = data["userUid"] as? String, userUid == userID {
-                    if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
-                        memos.append(memo)
-                    }
+                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    memos.append(memo)
                 }
             }
             
