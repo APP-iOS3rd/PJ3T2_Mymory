@@ -14,7 +14,7 @@ import UIKit
 
 
 struct PostView: View {
-    @Binding var selected: Int
+   
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     let minHeight: CGFloat = 250
