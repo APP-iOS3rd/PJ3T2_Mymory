@@ -12,7 +12,7 @@ struct KakaoMapSimple: UIViewRepresentable {
     @Binding var draw: Bool
     @Binding var userLocation: CLLocation?
     @Binding var userDirection: Double
-    
+    @Binding var centerLocation: CLLocation?
     /// UIView를 상속한 KMViewContainer를 생성한다.
     /// 뷰 생성과 함께 KMControllerDelegate를 구현한 Coordinator를 생성하고, 엔진을 생성 및 초기화한다.
     func makeUIView(context: Self.Context) -> KMViewContainer {
@@ -30,9 +30,10 @@ struct KakaoMapSimple: UIViewRepresentable {
     /// draw가 true로 설정되면 엔진을 시작하고 렌더링을 시작한다.
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
-
+        print(uiView.center)
         context.coordinator._currentHeading = userDirection
         context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
+        self.centerLocation = context.coordinator.centerLocation(point: uiView.center)
         if draw {
             context.coordinator.controller?.startEngine()
             context.coordinator.controller?.startRendering()
@@ -94,15 +95,21 @@ struct KakaoMapSimple: UIViewRepresentable {
             controller = KMController(viewContainer: view)
             controller?.delegate = self
         }
-        
+        //MARK: - 지도중심
+        func centerLocation(point: CGPoint) -> CLLocation? {
+            if let mapView: KakaoMap = controller?.getView("mapsimpleview") as? KakaoMap {
+                let point = mapView.getPosition(point)
+                return CLLocation(latitude: point.wgsCoord.latitude, longitude: point.wgsCoord.longitude)
+            } else {return nil}
+        }
         //MARK: - 현위치 마커
         // 현위치마커 버튼 GUI
         func startTracking() {
-                _timer = Timer.init(timeInterval: 0.3, target: self, selector: #selector(self.updateCurrentPositionPOI), userInfo: nil, repeats: true)
-                RunLoop.current.add(_timer!, forMode: RunLoop.Mode.common)
-                _currentPositionPoi?.show()
-                _currentDirectionArrowPoi?.show()
-                _moveOnce = true
+            _timer = Timer.init(timeInterval: 0.3, target: self, selector: #selector(self.updateCurrentPositionPOI), userInfo: nil, repeats: true)
+            RunLoop.current.add(_timer!, forMode: RunLoop.Mode.common)
+            _currentPositionPoi?.show()
+            _currentDirectionArrowPoi?.show()
+            _moveOnce = true
         }
         @objc func updateCurrentPositionPOI() {
             _currentPositionPoi?.moveAt(MapPoint(longitude: _currentPosition.longitude, latitude: _currentPosition.latitude), duration: 150)
@@ -199,7 +206,7 @@ struct KakaoMapSimple: UIViewRepresentable {
                 mapView?.moveCamera(cameraUpdate)
                 first = false
             }
-
+            
         }
         var _timer: Timer?
         var _currentPositionPoi: Poi?

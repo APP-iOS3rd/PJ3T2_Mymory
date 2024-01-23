@@ -18,6 +18,7 @@ extension Color {
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
+    static let textGray = Color(hex: "999494")
 }
  
 extension Color {

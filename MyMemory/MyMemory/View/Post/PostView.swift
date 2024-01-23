@@ -28,8 +28,8 @@ struct PostView: View {
 
     
     // property
-     @Environment(\.presentationMode) var presentationMode
-    
+    @Environment(\.presentationMode) var presentationMode
+    @State var centerLocation: CLLocation?
     var body: some View {
         ZStack{
             ScrollView{
@@ -38,7 +38,8 @@ struct PostView: View {
                     //💁 상단 MapView
                     KakaoMapSimple(draw: $draw,
                                    userLocation: $handler.location,
-                                   userDirection: $handler.heading)
+                                   userDirection: $handler.heading,
+                                   centerLocation: $centerLocation)
                     .onAppear(perform: {
                         self.draw = true
                     }).onDisappear(perform: {
