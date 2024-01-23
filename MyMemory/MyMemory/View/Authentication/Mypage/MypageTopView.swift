@@ -18,11 +18,11 @@ struct MypageTopView: View {
                 NavigationLink {
                     ProfileEditView(
                         existingProfileImage:
-                        viewModel.user.profilePicture,
-                        uid: viewModel.user.id ?? ""
+                            viewModel.user?.profilePicture,
+                        uid: viewModel.user?.id ?? ""
                     )
                 } label: {
-                    if let imageUrl = viewModel.user.profilePicture, let url = URL(string: imageUrl) {
+                    if let imageUrl = viewModel.user?.profilePicture, let url = URL(string: imageUrl) {
                         AsyncImage(url: url) { image in
                             image
                                 .resizable()
@@ -38,7 +38,7 @@ struct MypageTopView: View {
                             .foregroundStyle(Color(hex: "d9d9d9"))
                     }
                     
-                    Text(viewModel.user.name)
+                    Text(viewModel.user?.name ?? "김메모")
                         .font(.semibold20)
                         .padding(.leading, 10)
                 }
@@ -71,7 +71,7 @@ struct MypageTopView: View {
             Spacer()
             
             NavigationLink {
-                
+            
                 SettingView (user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )

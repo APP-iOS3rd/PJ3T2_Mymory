@@ -11,7 +11,7 @@ struct WithdrawalView: View {
     @EnvironmentObject var viewModel: SettingViewModel
     @Environment(\.presentationMode) private var presentationMode
     @Binding var isCurrentUserLoginState: Bool
-    @Binding var user: User
+    @Binding var user: User?
     
     var body: some View {
         ScrollView {
@@ -59,7 +59,7 @@ struct WithdrawalView: View {
                 }
                 
                 Button {
-                    viewModel.fetchUserWithdrawal(uid: user.id ?? "") {
+                    viewModel.fetchUserWithdrawal(uid: user?.id ?? "") {
                         isCurrentUserLoginState = false
                         viewModel.isShowingWithdrawalAlert = true
                     }
@@ -76,7 +76,7 @@ struct WithdrawalView: View {
                         self.presentationMode.wrappedValue.dismiss()
                     }
                 }
-                .disabled(user.id == nil)
+                .disabled(user?.id == nil)
             }
             .navigationTitle("회원 탈퇴")
             .navigationBarTitleDisplayMode(.large)

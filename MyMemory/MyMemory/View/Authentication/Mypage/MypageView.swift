@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import AuthenticationServices
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -16,16 +18,11 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 }
 
 struct MypageView: View {
-    
-    let user: User?
-    @ObservedObject var viewModel: MypageViewModel
+    @Binding var selected: Int
+    @ObservedObject var viewModel: MypageViewModel = .init()
     @EnvironmentObject var authViewModel: AuthViewModel
- 
-    init(user: User) {
-        self.user = user
-        self.viewModel = MypageViewModel(user: user)
-    }
-    
+    @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -61,7 +58,7 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!viewModel.user.isCurrentUser)
+                            .disabled(!(AuthViewModel.shared.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
                         }
                         .padding(.top, 38)
                         
@@ -120,10 +117,27 @@ struct MypageView: View {
  
         }
         .onAppear(perform: {
+            
             Task {
-               await viewModel.fetchMyMemoList()
+                if let id = UserDefaults.standard.string(forKey: "userId") {
+                    presentLoginAlert = false
+                    await viewModel.fetchMyMemoList()
+                } else {
+                    presentLoginAlert = true
+                }
             }
         })
+        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            Button("로그인 하기", role: .destructive) {
+                self.presentLoginView = true
+            }
+            Button("둘러보기", role: .cancel) {
+                self.selected = 0
+            }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
+        }
         .overlay{
             if LoadingManager.shared.phase == .loading {
                 LoadingView()

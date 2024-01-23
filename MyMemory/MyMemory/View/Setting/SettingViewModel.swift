@@ -41,8 +41,9 @@ class SettingViewModel: ObservableObject {
         if self.isCurrentUserLoginState {
             do {
                 try Auth.auth().signOut()
-                UserDefaults.standard.removeObject(forKey: "userId")
+
                 completion()
+                UserDefaults.standard.removeObject(forKey: "userId")
                 print("로그아웃")
             } catch {
                 print("ERROR: 로그아웃 에러 \(error.localizedDescription)")

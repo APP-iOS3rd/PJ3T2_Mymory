@@ -3,7 +3,7 @@ import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
 import KakaoMapsSDK
-
+import Combine
 
 class PostViewModel: ObservableObject {
     //@Published var memoData: [PostMemoModel] = []
@@ -18,9 +18,7 @@ class PostViewModel: ObservableObject {
     @Published var memoShare: Bool = false
     @Published var beforeEditMemoImageUUIDs: [String] = [] // 이미지 수정 하면  Firestore 기존 Storage에 이미지를 지우고 업데이트
     @Published var selectedItemsCounts: Int = 0
-    
-    
-    
+    let dismissPublisher = PassthroughSubject<Bool, Never>()
     private var userCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
     
     // 사용자 위치 값 가져오기
@@ -103,6 +101,7 @@ class PostViewModel: ObservableObject {
             
             await MemoService.shared.uploadMemo(newMemo: newMemo)
             resetMemoFields()
+            dismissPublisher.send(true)
             LoadingManager.shared.phase = .success
         } catch {
             // 오류 처리

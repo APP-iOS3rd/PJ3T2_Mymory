@@ -14,8 +14,9 @@ import UIKit
 
 
 struct PostView: View {
-    
-
+    @Binding var selected: Int
+    @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     
@@ -32,62 +33,15 @@ struct PostView: View {
     
     // property
     @Environment(\.presentationMode) var presentationMode
-    
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
         ScrollView{
             VStack(alignment: .leading){
-                
                 // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
-                Group {
-                    VStack(alignment: .leading, spacing: 10){
-                        ZStack(alignment: .leading){
-                            Text("제목, 기록할 메모 입력")
-                                .font(.bold20)
-                                .bold()
-                            
-                            
-                            Toggle(
-                                isOn: $viewModel.memoShare) {
-                                    // 토글 내부에 아무 것도 추가하지 않습니다.
-                                } //: Toggle
-                                .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                                .overlay {
-                                    Text(viewModel.memoShare ? "공유 하기" : "나만 보기")
-                                    //.foregroundColor(Color(.systemGray3))
-                                        .font(.caption)
-                                    
-                                        .offset(CGSize(width:
-                                                        153.0, height: -25.0))
-                                }
-                        }// HStack
-                        
-                        
-                        TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
-                            .textFieldStyle(.roundedBorder)
-                        
-                        // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
-                        TextEditor(text: $viewModel.memoContents)
-                            .frame(minHeight: minHeight, maxHeight: maxHeight)
-                            .cornerRadius(10)
-                            .colorMultiply(Color.gray.opacity(0.2))
-                            .foregroundColor(.black)
-                        // 최대 1000자 까지만 허용
-                            .onChange(of: viewModel.memoContents) { newValue in
-                                // Limit text input to maxCharacterCount
-                                if newValue.count > maxCharacterCount {
-                                    viewModel.memoContents = String(newValue.prefix(maxCharacterCount))
-                                }
-                            }// Just는 Combine 프레임워크에서 제공하는 publisher 중 하나이며, SwiftUI에서 특정 이벤트에 반응하거나 값을 수신하기 위해 사용됩니다. 1000를 넘으면 입력을 더이상 할 수 없습니다.
-                            .onReceive(Just(viewModel.memoContents)) { _ in
-                                // Disable further input if the character count exceeds maxCharacterCount
-                                if viewModel.memoContents.count > maxCharacterCount {
-                                    viewModel.memoContents = String(viewModel.memoContents.prefix(maxCharacterCount))
-                                }
-                            }
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom)
+
+                addMemoSubView()
+                    .environmentObject(viewModel)
                 
                 //💁 사진 등록하기 View
                 Group {
@@ -105,6 +59,11 @@ struct PostView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.bottom)
+                .onReceive(viewModel.dismissPublisher) { toggle in
+                    if toggle {
+                        dismiss()
+                    }
+                }
                 
                
                 // 💁 Tag 선택 View
@@ -147,23 +106,40 @@ struct PostView: View {
             } //:VSTACK
             
         } //: ScrollView
-        .overlay(content: {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
-        })
-        //.toolbar(.hidden, for: .tabBar)
+        .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        
+
         .onAppear {
-            
+            if let useruid = UserDefaults.standard.string(forKey: "userId") {
+                presentLoginAlert = false
+            } else {
+                presentLoginAlert = true
+            }
             if isEdit {
                 viewModel.fetchEditMemo(memo: memo)
             }
             
         }
-        
+        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            Button("로그인 하기", role: .destructive) {
+                self.presentLoginView = true
+            }
+            Button("둘러보기", role: .cancel) {
+                self.selected = 0
+            }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
+        }
+        .onReceive(viewModel.dismissPublisher) { toggle in
+            if toggle {
+                dismiss()
+            }
+        }
+
         .customNavigationBar(
             centerView: {
                 Group {
@@ -179,36 +155,34 @@ struct PostView: View {
                     if isEdit {
                         BackButton()
                     } else {
-                        EmptyView()
-                    }
-                }
-                
-            },
-            rightView: {
-                Group {
-                    if isEdit {
-                        Button(action: {
-                            Task.init {
-                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
-                                // 예: 삭제 확인 대화상자를 표시합니다
-                                print("Trash button tapped!")
-                                await viewModel.deleteMemo(memo: memo)
-                                DispatchQueue.main.async {
-                                    presentationMode.wrappedValue.dismiss()
-                                }
-                            }
-                        }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                    } else {
                         CloseButton()
                         
                     }
                 }
             },
+            rightView: {
+                Group {
+                    if isEdit {
+                        CloseButton()
+                    } else {
+                        Button {
+                            self.selected = 0
+                        } label: {
+                            HStack(spacing: 0){
+                                Image(systemName: "multiply")
+                                    .resizable()
+                                    .frame(width: 18, height: 18)
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundColor(.deepGray)
+                //                Text("이전")
+                            }
+                        }
+                    }
+                }
+            },
             backgroundColor: .white
-        )
+        )        
+
     }
 }
 
@@ -217,6 +191,6 @@ struct PostView: View {
 
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        PostView()
+        PostView(selected: .constant(1))
     }
 }

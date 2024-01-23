@@ -101,7 +101,26 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         getCurrentAddress()
         self.cluster.delegate = self
     }
-    
+    func refreshMemos() {
+        guard self.location != nil else {
+            return
+        }
+        Task { @MainActor in
+            do {
+                let fetched = try await MemoService.shared.fetchMemos(in: location)
+                // 테이블 뷰 리로드 또는 다른 UI 업데이트
+                if let current = location {
+                    memoList = fetched.filter{$0.location.distance(from: current) < 1000}
+                } else {
+                    memoList = fetched
+                }
+                print(memoList) // 💁
+                cluster.addMemoList(memos: memoList)
+            } catch {
+                print("Error fetching memos: \(error)")
+            }
+        }
+    }
     func fetchMemos() {
         LoadingManager.shared.phase = .loading
         guard self.location != nil else {
