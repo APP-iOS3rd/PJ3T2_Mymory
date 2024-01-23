@@ -66,6 +66,16 @@ struct MainMapView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 12)
+                if viewModel.isFarEnough {
+                    Button(action: {
+                        viewModel.fetchMemos()
+                        viewModel.firstLocation = viewModel.location
+                    },
+                           label: {
+                        Text("현재 지도에서 메모 재검색")
+                    }).buttonStyle(Pill.standard)
+                        .padding(.top,10)
+                }
                 Spacer()
                 HStack {
                     

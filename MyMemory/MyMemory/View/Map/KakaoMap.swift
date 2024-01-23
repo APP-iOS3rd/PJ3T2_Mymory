@@ -59,9 +59,7 @@ struct KakaoMapView: UIViewRepresentable {
             }
             context.coordinator._currentHeading = userDirection
             context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-            if viewModel.clusteringDidChanged {
-                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
-            }
+
             if draw {
                 context.coordinator.controller?.startEngine()
                 context.coordinator.controller?.startRendering()
@@ -69,6 +67,9 @@ struct KakaoMapView: UIViewRepresentable {
             else {
                 context.coordinator.controller?.stopRendering()
                 context.coordinator.controller?.stopEngine()
+            }
+            if viewModel.clusteringDidChanged {
+                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
             }
         }
     }

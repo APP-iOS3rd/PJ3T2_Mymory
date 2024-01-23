@@ -91,4 +91,26 @@ final class QuadTree{
             searchNodes(inRegion: region, currentNode: currentNode.bottomRight, foundNodes: &foundNodes)
         }
     }
+    func removeAllNodes() {
+        rootNode = nil
+    }
+    func removeNode(memo: Memo) {
+        removeNode(memo, currentNode: rootNode)
+    }
+    private func removeNode(_ memo: Memo, currentNode: QuadTreeNode?) -> QuadTreeNode? {
+        guard let currentNode = currentNode else {
+            return nil
+        }
+        
+        if currentNode.value == memo {
+            return nil
+        }
+        
+        currentNode.topLeft = removeNode(memo, currentNode: currentNode.topLeft)
+        currentNode.topRight = removeNode(memo, currentNode: currentNode.topRight)
+        currentNode.bottomLeft = removeNode(memo, currentNode: currentNode.bottomLeft)
+        currentNode.bottomRight = removeNode(memo, currentNode: currentNode.bottomRight)
+        
+        return currentNode
+    }
 }
