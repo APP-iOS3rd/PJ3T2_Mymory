@@ -91,7 +91,7 @@ struct MainTabView: View {
             .background(
                 
                 NavigationLink(
-                    destination: PostView(),
+                    destination: PostView(selected: $selectedIndex),
                     isActive: $isPresented
                 ) {
                     EmptyView()
