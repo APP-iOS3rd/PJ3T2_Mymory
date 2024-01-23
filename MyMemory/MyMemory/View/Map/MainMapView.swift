@@ -143,7 +143,7 @@ struct MainMapView: View {
             }
         })
         .onAppear {
-            mainMapViewModel.fetchMemos()
+            mainMapViewModel.refreshMemos()
         }
     }
 }

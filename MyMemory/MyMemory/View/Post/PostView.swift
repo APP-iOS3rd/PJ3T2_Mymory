@@ -105,11 +105,6 @@ struct PostView: View {
             } //:VSTACK
             
         } //: ScrollView
-        .overlay(content: {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
-        })
         //.toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
