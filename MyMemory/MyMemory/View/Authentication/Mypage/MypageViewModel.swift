@@ -32,8 +32,11 @@ class MypageViewModel: ObservableObject {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         if let userID = self.user.id {
-            Task {
-                self.memoList = await memoService.fetchMyMemos(userID: userID)
+            LoadingManager.shared.phase = .loading
+            Task {[weak self] in
+                guard let self = self else {return}
+                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+                LoadingManager.shared.phase = .success
             }
         }
     }
@@ -96,9 +99,16 @@ class MypageViewModel: ObservableObject {
 //    }
     
     func fetchMyMemoList() async {
+        LoadingManager.shared.phase = .loading
+
         if let userId = self.user.id {
+            
             self.memoList = await memoService.fetchMyMemos(userID: userId)
+            LoadingManager.shared.phase = .success
+
         } else {
+            LoadingManager.shared.phase = .fail(msg: "로그인 실패")
+
             print("로그인 중이 아닙니다.")
         }
     }

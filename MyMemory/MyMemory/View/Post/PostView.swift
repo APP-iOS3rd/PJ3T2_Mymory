@@ -196,20 +196,7 @@ struct PostView: View {
                 
             },
             rightView: {
-                Button {
-                    
-                    presentationMode.wrappedValue.dismiss()
-                   // self.selected = 0
-                } label: {
-                    HStack(spacing: 0){
-                        Image(systemName: "multiply")
-                            .resizable()
-                            .frame(width: 18, height: 18)
-                            .aspectRatio(contentMode: .fit)
-                            .foregroundColor(.deepGray)
-        //                Text("이전")
-                    }
-                }
+                CloseButton()
             },
             backgroundColor: .white
         )

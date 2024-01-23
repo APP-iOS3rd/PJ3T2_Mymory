@@ -278,7 +278,7 @@ struct MemoService {
                     memos.append(memo)
                 }
             }
-            
+
             return memos
         } catch {
             // Handle errors
@@ -290,15 +290,9 @@ struct MemoService {
     
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
-        do {
-            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
-            // 로그인 성공한 경우의 코드
-            let userID = authResult.user.uid
-            
-            return checkMemo.userUid == userID
-        } catch {
-            // 오류 처리
-            print("Error signing in: \(error.localizedDescription)")
+        if let id = UserDefaults.standard.string(forKey: "userId") {
+            return id == checkMemo.userUid
+        } else {
             return false
         }
     }
