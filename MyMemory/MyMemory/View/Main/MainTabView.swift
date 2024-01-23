@@ -30,6 +30,7 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
+ 
                 
                 
                 Text("포스트뷰").hidden()
@@ -110,10 +111,7 @@ struct MainTabView: View {
             )
             
             
-//            
-//            .fullScreenCover(isPresented: $isLoginView) {
-//                LoginView()
-//            }
+
  
         }
       
@@ -123,7 +121,7 @@ struct MainTabView: View {
 }
 
  
-// 
+//
 //#Preview {
 //    MainTabView(selectedIndex: 1)
 //}

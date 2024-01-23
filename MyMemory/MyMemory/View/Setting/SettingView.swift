@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
     @EnvironmentObject var authViewModel: AuthViewModel
-    @Binding var user: User
+    @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
     @Environment(\.dismiss) var dismiss
     
@@ -77,13 +77,17 @@ struct SettingView: View {
                            isPresented: $settingViewModel.isShowingLogoutAlert) {
                         
                         Button("로그아웃", role: .destructive) {
-                                
-                            dismiss()
+       
                             if authViewModel.signout() {
-                                print("로그아웃 성공") 
+                               
+                                UserDefaults.standard.removeObject(forKey: "userId")
+                                dismiss()
+                                print("로그아웃 성공")
+ 
                             } else {
                                 print("로그아웃 실패")
                             }
+ 
                         }
                         
                         Button("뒤로가기", role: .cancel) {}

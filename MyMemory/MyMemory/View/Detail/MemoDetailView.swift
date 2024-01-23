@@ -1,9 +1,3 @@
-//
-//  MemoDetailView.swift
-//  MyMemory
-//
-//  Created by 김성엽 on 1/16/24.
-//
 
 import SwiftUI
 
