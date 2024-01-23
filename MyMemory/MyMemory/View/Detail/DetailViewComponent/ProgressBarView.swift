@@ -12,6 +12,7 @@ struct ProgressBarView: View {
     
     @Binding var memo: Memo
     @Binding var userLocation: CLLocation?
+    @EnvironmentObject var viewModel: CertificationViewModel
     
     var body: some View {
         ZStack(alignment: .top) {
