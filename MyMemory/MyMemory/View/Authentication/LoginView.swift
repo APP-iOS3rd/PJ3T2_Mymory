@@ -24,9 +24,10 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
-    @ObservedObject var viewModel: AuthViewModel = .init()
+    @EnvironmentObject var viewModel: AuthViewModel 
     @ObservedObject var viewRouter: ViewRouter = ViewRouter()
  
+    
     @Environment(\.presentationMode) var presentationMode
     // 확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"

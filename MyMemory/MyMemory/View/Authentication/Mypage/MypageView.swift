@@ -11,13 +11,11 @@ struct MypageView: View {
     
     let user: User?
     @ObservedObject var viewModel: MypageViewModel
-    @ObservedObject var authViewModel: AuthViewModel
-    // @StateObject var myPageViewModel: MypageViewModel = .init()
+    @EnvironmentObject var authViewModel: AuthViewModel
  
     init(user: User) {
         self.user = user
         self.viewModel = MypageViewModel(user: user)
-        self.authViewModel = AuthViewModel()
     }
     
     var body: some View {
@@ -30,7 +28,7 @@ struct MypageView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    MypageTopView(viewModel: viewModel, authViewModel: authViewModel)
+                    MypageTopView(viewModel: viewModel)
                     
                     
                     if authViewModel.currentUser != nil {
