@@ -37,6 +37,8 @@ class MypageViewModel: ObservableObject {
                 LoadingManager.shared.phase = .success
             }
         }
+        AuthViewModel.shared.fetchUser()
+
         let user = AuthViewModel.shared.currentUser
     }
     
