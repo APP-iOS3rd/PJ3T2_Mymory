@@ -61,8 +61,7 @@ struct MainTabView: View {
                     Text("로그인이 필요합니다.")
                         .onTapGesture{
                             selectedIndex = 2
-                             
-                           // isLogin = true
+                              isLogin = true
                         }
                         .tabItem {
                             Image(systemName: "person")
