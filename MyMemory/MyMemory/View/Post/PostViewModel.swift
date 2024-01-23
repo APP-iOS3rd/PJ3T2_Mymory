@@ -12,6 +12,7 @@ class PostViewModel: ObservableObject {
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""
+    @Published var tempAddressText: String = ""
     @Published var memoSelectedImageData: [Data] = []
     @Published var memoSelectedTags: [String] = []
     @Published var memoShare: Bool = false
@@ -51,7 +52,21 @@ class PostViewModel: ObservableObject {
             print("주소 테스트 \(addressText)")
         }
     }
-    
+    func getAddress(with loc : Location) {
+        Task{ @MainActor in
+            let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.tempAddressText = addressText
+                print("주소 테스트 \(addressText)")
+            }
+        }
+    }
+    func setAddress() {
+        if !tempAddressText.isEmpty {
+            self.memoAddressText = self.tempAddressText
+        }
+    }
     init() {
         // ViewModel이 생성될 때 사용자의 현재 위치를 가져오는 메서드를 호출합니다.
         getUserCurrentLocation()
@@ -60,13 +75,19 @@ class PostViewModel: ObservableObject {
     
     func saveMemo() async {
         do {
-            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+            guard let user = AuthViewModel.shared.currentUser else { return }
+
+
+//            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
+//            // 로그인 성공한 경우의 코드
+//            let userID = authResult.user.uid
+//            print("userID \(userID)")
+            
             // 로그인 성공한 경우의 코드
-            let userID = authResult.user.uid
-            print("userID \(userID)")
+            print("userID \(user.id ?? "")")
             
             let newMemo = PostMemoModel(
-                userUid: userID,
+                userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate.latitude),
                 userCoordinateLongitude: Double(userCoordinate.longitude),
                 userAddress: memoAddressText,
@@ -83,6 +104,7 @@ class PostViewModel: ObservableObject {
             
             await MemoService.shared.uploadMemo(newMemo: newMemo)
             resetMemoFields()
+            
         } catch {
             // 오류 처리
             print("Error signing in: \(error.localizedDescription)")
@@ -105,7 +127,8 @@ class PostViewModel: ObservableObject {
   
         do {
             // UUID를 String으로 변환 해당 값으로 수정할때 새로 생성하지 않고 업데이트 되도록 구현
-            let documentID = memo.id.uuidString
+          //  let documentID = memo.id.uuidString
+             guard let documentID = memo.id else { return }
             /*
              새로 업데이트 된 내용을 반영시키기 위해 몇몇 부분 Published 된 값으로 다시 생성
              */
@@ -137,7 +160,9 @@ class PostViewModel: ObservableObject {
         do{
             //1. UUID를 String으로 변환 해당 값으로 메모를 삭제
             //2. deleteMemo를 굳이 만든 이유 Storage안에 저장 되어있는 메모 이미지를 삭제하기 위함 
-            let documentID = memo.id.uuidString
+            guard let documentID = memo.id else { return }
+            //.uuidString
+ 
             await MemoService.shared.deleteMemo(documentID: documentID, deleteMemo: memo)
         }
         catch {

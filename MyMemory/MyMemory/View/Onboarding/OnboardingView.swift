@@ -40,7 +40,7 @@ struct OnboardingView : View {
                             Button {
                                 print(currentIndex)
                                 if currentIndex == 2 {
-                                    self.viewRouter.currentPage =  "page1"
+                                    self.viewRouter.currentPage = "mainView"
                                 } else {
                                     currentIndex = currentIndex + 1
                                 }

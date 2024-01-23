@@ -63,7 +63,9 @@ struct RoundedRect: ButtonStyle {
     static var standard: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold14)
     }
-    
+    static var active: RoundedRect {
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14)
+    }
     static var large: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
     }

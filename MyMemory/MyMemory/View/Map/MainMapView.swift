@@ -12,6 +12,7 @@ struct MainMapView: View {
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
     @State var fileterSheet: Bool = false
+    
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -23,11 +24,15 @@ struct MainMapView: View {
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
-                         isUserTracking: $mainMapViewModel.isUserTracking,
-                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
-                         clusters: $mainMapViewModel.clusters,
-                         selectedID: $mainMapViewModel.selectedMemoId)
-            
+                         isUserTracking: $viewModel.isUserTracking,
+                         userLocation: $viewModel.location, userDirection: $viewModel.direction,
+                         clusters: $viewModel.clusters,
+                         selectedID: $viewModel.selectedMemoId)
+            .onAppear{
+                DispatchQueue.main.async {
+                    self.draw = true
+                }
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .environmentObject(mainMapViewModel)
             .ignoresSafeArea(edges: .top)
@@ -42,7 +47,7 @@ struct MainMapView: View {
                     Button{
                         self.fileterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant(mainMapViewModel.filterList.isEmpty ? "리스트뷰" : mainMapViewModel.filterList.combinedWithComma))
+                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체메뉴" : viewModel.filterList.combinedWithComma))
                     }
                     .buttonStyle(mainMapViewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                     
@@ -94,7 +99,7 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.MemoList : mainMapViewModel.filteredMemoList) { item  in
+                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item  in
                             
                             MemoCell(
                                 isVisible: true,
@@ -122,7 +127,11 @@ struct MainMapView: View {
                     .background(Color.lightGrayBackground)
                     .presentationDetents([.medium])
             })
-        }
+        }.overlay(content: {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        })
     }
 }
 

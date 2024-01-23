@@ -24,12 +24,13 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
+    @ObservedObject var viewModel: AuthViewModel = AuthViewModel()
+    
     
     // 확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
     
-
     
     var body: some View {
         
@@ -67,7 +68,7 @@ struct LoginView: View {
                         .textContentType(.password)
                     
                 }
-            }//:VSTACK - TextField
+            } //:VSTACK - TextField
             .onSubmit {
                 switch focusedField {
                 case .email:
@@ -91,8 +92,11 @@ struct LoginView: View {
                     .buttonStyle(LoginButton())
             } else {
                 Button {
-//                        checkLogin(isEmail: email, isPassword: password)
+                    
                     self.isActive = true
+                    viewModel.login(withEmail: email, password: password)
+                    
+
                 } label: {
                     Text("로그인")
                         .font(.regular18)
@@ -104,7 +108,7 @@ struct LoginView: View {
             }
 
             NavigationLink {
-                RegisterView()
+                RegisterView(viewModel: viewModel)
                     .customNavigationBar(
                         centerView: {
                             Text("회원가입")
@@ -128,19 +132,7 @@ struct LoginView: View {
             
             // MARK: - 소셜 로그인 버튼
             VStack {
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Image(systemName: "apple.logo")
-                            .resizable()
-                            .frame(width: 18, height: 20)
-                        Text("Apple로 계속하기")
-                            .font(.regular16)
-                    }
-                }
-                .buttonStyle(SocialLoginButton())
-                
+                AppleSigninButton()
                 Button {
                     
                 } label: {
@@ -161,10 +153,22 @@ struct LoginView: View {
         .navigationDestination(isPresented: $isActive) {
             MainMapView()
         }
-        .toolbar(.hidden, for: .tabBar)
+       // .toolbar(.hidden, for: .tabBar)
         .onTapGesture{
             self.endTextEditing()
         }
+        .customNavigationBar(
+            centerView: {
+                Text("")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .white
+        )
     }
     
     

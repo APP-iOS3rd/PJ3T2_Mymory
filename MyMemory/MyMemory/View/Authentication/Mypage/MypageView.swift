@@ -8,8 +8,18 @@
 import SwiftUI
 
 struct MypageView: View {
-    @StateObject var myPageViewModel: MypageViewModel = .init()
+    
+    let user: User?
+    @ObservedObject var viewModel: MypageViewModel
+    @ObservedObject var authViewModel: AuthViewModel
+    // @StateObject var myPageViewModel: MypageViewModel = .init()
  
+    init(user: User) {
+        self.user = user
+        self.viewModel = MypageViewModel(user: user)
+        self.authViewModel = AuthViewModel()
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -20,10 +30,10 @@ struct MypageView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    MypageTopView()
-                        .environmentObject(myPageViewModel)
+                    MypageTopView(viewModel: viewModel, authViewModel: authViewModel)
                     
-                    if myPageViewModel.isCurrentUserLoginState {
+                    
+                    if authViewModel.currentUser != nil {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
@@ -32,25 +42,25 @@ struct MypageView: View {
                             Spacer()
                             
                             Button {
-                                myPageViewModel.isShowingOptions.toggle()
+                                viewModel.isShowingOptions.toggle()
                             } label: {
                                 Image(systemName: "slider.horizontal.3")
                                     .foregroundStyle(Color.gray)
                                     .font(.system(size: 24))
                             }
-                            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $myPageViewModel.isShowingOptions) {
+                            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $viewModel.isShowingOptions) {
                                 ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
                                     Button(type.rawValue) {
-                                        myPageViewModel.sortMemoList(type: type)
+                                        viewModel.sortMemoList(type: type)
                                     }
                                 }
                             }
-                            .disabled(!myPageViewModel.isCurrentUserLoginState)
+                            .disabled(!viewModel.isCurrentUserLoginState)
                         }
                         .padding(.top, 38)
                         
-                        MypageMemoList(memoList: $myPageViewModel.memoList)
-                            
+                        MypageMemoList(memoList: $viewModel.memoList)
+                           
                         
                     } else {
                         VStack(alignment: .center) {
@@ -102,13 +112,16 @@ struct MypageView: View {
 
             }
  
-          
         }
-        .onAppear {
-            myPageViewModel.isCurrentUserLoginState = myPageViewModel.fetchCurrentUserLoginState()
-            myPageViewModel.userInfo = myPageViewModel.fetchUserInfoFromUserDefaults()
-        }
-    
+//        .onAppear{
+//            viewModel.
+//        }
+//        
+//        .onAppear {
+//            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+//            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+//        }
+//    
                 
         
     

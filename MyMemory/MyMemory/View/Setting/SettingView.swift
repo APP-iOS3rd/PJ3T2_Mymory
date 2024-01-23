@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
-    @Binding var userInfo: UserInfo?
+    @ObservedObject var authViewModel: AuthViewModel
+    @Binding var user: User
     @Binding var isCurrentUserLoginState: Bool
     
     var body: some View {
@@ -58,13 +59,14 @@ struct SettingView: View {
                 }
             }
             
-            if settingViewModel.isCurrentUserLoginState {
+            if authViewModel.currentUser != nil {
                 VStack(alignment: .trailing) {
                     Button {
-                        settingViewModel.fetchUserLogout {
-                            isCurrentUserLoginState = false
-                            settingViewModel.isShowingLogoutAlert = true
-                        }
+                        authViewModel.signout()
+//                        settingViewModel.fetchUserLogout {
+//                            isCurrentUserLoginState = false
+//                            settingViewModel.isShowingLogoutAlert = true
+//                        }
                     } label: {
                         Text("로그아웃")
                             .foregroundStyle(.white)
@@ -80,11 +82,13 @@ struct SettingView: View {
                     }
                     
                     NavigationLink {
+                       
                         WithdrawalView(
                             isCurrentUserLoginState: $isCurrentUserLoginState,
-                            userInfo: $userInfo
+                            user: $user
                         )
-                            .environmentObject(settingViewModel)
+                        .environmentObject(settingViewModel)
+                        
                     } label: {
                         Text("회원 탈퇴하기")
                             .underline()

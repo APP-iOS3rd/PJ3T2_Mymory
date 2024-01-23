@@ -20,43 +20,36 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-// 임시
-struct Memo: Hashable, Codable, Identifiable {
-    // 유저Id
-    var userId = UUID()
-    // 메모 id
-    var id = UUID()
-    // 제목
-    var userUid: String
-    
-    var title: String
-    // 메모 내용
-    var description: String
-    // 주소
-    var address: String
-    // 태그
-    var tags: [String]
-    // 사진
-    var images: [Data]
-    // 공개여부
-    var isPublic: Bool
-    // 작성일
-    var date: TimeInterval
-    // 위치
-    var location: Location
-    // 좋아요 개수
-    var likeCount: Int
-    
-    var memoImageUUIDs: [String]
-    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
-}
-
-struct UserInfo: Codable {
-    var id: String
-    var name: String
-    var email: String
-    var profilePicture: String
-}
+//// 임시
+//struct Memo: Hashable, Codable, Identifiable {
+//    // 유저Id
+//    var userId = UUID()
+//    // 메모 id
+//    var id = UUID()
+//    // 제목
+//    var userUid: String
+//    
+//    var title: String
+//    // 메모 내용
+//    var description: String
+//    // 주소
+//    var address: String
+//    // 태그
+//    var tags: [String]
+//    // 사진
+//    var images: [Data]
+//    // 공개여부
+//    var isPublic: Bool
+//    // 작성일
+//    var date: TimeInterval
+//    // 위치
+//    var location: Location
+//    // 좋아요 개수
+//    var likeCount: Int
+//    
+//    var memoImageUUIDs: [String]
+//    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
+//}
 
 struct Location: Hashable, Codable {
     var latitude: Double
@@ -68,18 +61,22 @@ struct Location: Hashable, Codable {
 }
 
 class MypageViewModel: ObservableObject {   
+    
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
-    @Published var userInfo: UserInfo? = nil
-    
+  
     let db = Firestore.firestore()
     
-    init() {
-        self.isCurrentUserLoginState = fetchCurrentUserLoginState()
+    @Published var user: User
+    
+    init(user: User) {
+        self.user = user
+        fetchUserState()
+        //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         self.memoList = [
             Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""]),
             Memo(userUid: "456", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10, memoImageUUIDs: [""]),
@@ -121,6 +118,9 @@ class MypageViewModel: ObservableObject {
             }
         }
     }
+    func fetchUserState() {
+        guard let uid = user.id else { return }
+    }
     
     func fetchCurrentUserLoginState() -> Bool {
         if let _ = Auth.auth().currentUser {
@@ -128,18 +128,18 @@ class MypageViewModel: ObservableObject {
         }
         return false
     }
-    
-    func fetchUserInfoFromUserDefaults() -> UserInfo? {
-        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
-            let decoder = JSONDecoder()
-            
-            if let userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
-                return userInfo
-            } else {
-                return nil
-            }
-        } else {
-            return nil
-        }
-    }
+  
+//    func fetchUserInfoFromUserDefaults() -> UserInfo? {
+//        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
+//            let decoder = JSONDecoder()
+//            
+//            if let userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
+//                return userInfo
+//            } else {
+//                return nil
+//            }
+//        } else {
+//            return nil
+//        }
+//    }
 }

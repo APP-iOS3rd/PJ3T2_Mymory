@@ -41,7 +41,8 @@ struct MemoMapView: View {
             
             
             VStack {
-                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)                    .padding(.horizontal, 12)
+                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)                    
+                    .padding(.horizontal, 12)
                     .onAppear(){
                         viewModel.getCurrentAddress()
                     }
@@ -107,7 +108,7 @@ struct MemoMapView: View {
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
                         NavigationView { // 네비게이션 만들때 최상단에 위치해야함
-                            ForEach(viewModel.MemoList) { Memo  in
+                            ForEach(viewModel.memoList) { Memo  in
                                 
                                 MemoCell(isVisible: true, isDark: true, location: $viewModel.location, memo: Memo)
                                     .frame(width: UIScreen.main.bounds.size.width * 0.84)

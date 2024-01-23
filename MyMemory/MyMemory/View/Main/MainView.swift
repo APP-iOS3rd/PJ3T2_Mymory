@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct MainView: View {
-   
-    @StateObject var viewRouter: ViewRouter = .init()
-    @State var initialIdx = 0
     
+    @ObservedObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewModel: AuthViewModel
+
     var body: some View {
-        if viewRouter.currentPage == "page0" {
+        
+        if viewRouter.currentPage == "onboardingView" {
             OnboardingView(viewRouter: viewRouter)
         }
-        else if viewRouter.currentPage == "page1" {
-            MainTabView(selectedIndex: $initialIdx)
+        else if viewRouter.currentPage == "mainView" {
+            MainTabView(viewRouter: viewRouter, viewModel: viewModel)
         }
+        
     }
 }
 
-#Preview {
-    MainView(viewRouter: ViewRouter())
-}
+//#Preview {
+//    MainView(viewRouter: ViewRouter(), memo: <#Memo#>)
+//}
