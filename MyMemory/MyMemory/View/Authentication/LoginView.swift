@@ -132,19 +132,7 @@ struct LoginView: View {
             
             // MARK: - 소셜 로그인 버튼
             VStack {
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Image(systemName: "apple.logo")
-                            .resizable()
-                            .frame(width: 18, height: 20)
-                        Text("Apple로 계속하기")
-                            .font(.regular16)
-                    }
-                }
-                .buttonStyle(SocialLoginButton())
-                
+                AppleSigninButton()
                 Button {
                     
                 } label: {
