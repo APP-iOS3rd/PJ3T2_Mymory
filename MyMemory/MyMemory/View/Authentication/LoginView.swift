@@ -24,7 +24,7 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
-    @EnvironmentObject var viewModel: AuthViewModel 
+    @EnvironmentObject var viewModel: AuthViewModel
     @ObservedObject var viewRouter: ViewRouter = ViewRouter()
  
     
@@ -99,11 +99,11 @@ struct LoginView: View {
                   
                     if viewModel.login(withEmail: email, password: password) {
                         print("로그인 성공")
-                        presentationMode.wrappedValue.dismiss()
+                        
                     } else {
                         print("로그인 실패")
                     }
-              
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("로그인")
                         .font(.regular18)

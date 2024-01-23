@@ -119,11 +119,6 @@ struct MemoDetailView: View {
             backgroundColor: .white
         )
 
-//        .navigationBarItems(
-//            // 오른쪽 부분
-//            trailing:
-//                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
-//        )
     }
         
     

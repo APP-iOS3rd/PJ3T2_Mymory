@@ -138,11 +138,13 @@ struct PostView: View {
                             if isEdit {
                                 // 수정 모드일 때는 editMemo 호출
                                 await viewModel.editMemo(memo: memo)
-                                presentationMode.wrappedValue.dismiss()
+                                
                             } else {
                                 // 수정 모드가 아닐 때는 saveMemo 호출
                                 await viewModel.saveMemo()
                             }
+                            // 수정, 저장 후 dismiss
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }, label: {
                         Text(isEdit ? "수정완료" : "작성완료")

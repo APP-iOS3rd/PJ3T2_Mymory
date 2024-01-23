@@ -55,13 +55,14 @@ struct MainTabView: View {
                             .tag(2)
                    }
                 } 
+                
                 // 로그아웃 상태일 때,
                 else {
-                    
+                    // 여기 부분 수정 필요.
                     Text("로그인이 필요합니다.")
                         .onTapGesture{
                             selectedIndex = 2
-                              isLogin = true
+                            isLogin = true
                         }
                         .tabItem {
                             Image(systemName: "person")
