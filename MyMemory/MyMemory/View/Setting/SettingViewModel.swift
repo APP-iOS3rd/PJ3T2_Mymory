@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 class SettingViewModel: ObservableObject {
-    @Published var version: String = ""
+    @Published var version: String = "1.0.0"
     @Published var isCurrentUserLoginState: Bool = false
     @Published var isShowingLogoutAlert = false
     @Published var isShowingWithdrawalAlert = false
