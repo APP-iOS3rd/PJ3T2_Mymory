@@ -60,6 +60,7 @@
 		289BB2BB2B5A7BF9007FEB63 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */; };
 		289BB2BD2B5A7C28007FEB63 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BB2BC2B5A7C28007FEB63 /* Footer.swift */; };
 		28AB91BD2B5E6D41008D2D28 /* CertificationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB91BC2B5E6D41008D2D28 /* CertificationMap.swift */; };
+		28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD063A2B5FB42800F567F4 /* DetailView.swift */; };
 		28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13292B568DC3001A4C0C /* ProgressBarView.swift */; };
 		28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB132D2B568E4C001A4C0C /* GIFView.swift */; };
 		28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = 28BB13302B568E96001A4C0C /* FLAnimatedImage */; };
@@ -191,6 +192,7 @@
 		289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		289BB2BC2B5A7C28007FEB63 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		28AB91BC2B5E6D41008D2D28 /* CertificationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationMap.swift; sourceTree = "<group>"; };
+		28AD063A2B5FB42800F567F4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		28BB13292B568DC3001A4C0C /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		28BB132D2B568E4C001A4C0C /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
 		28BB13342B568FE7001A4C0C /* ImgDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgDetailView.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				28BB13362B56900B001A4C0C /* MemoDetailView.swift */,
 				28BB13382B569075001A4C0C /* CertificationView.swift */,
 				289BB2B82B5A7BCF007FEB63 /* CertificationViewModel.swift */,
+				28AD063A2B5FB42800F567F4 /* DetailView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -934,6 +937,7 @@
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				01A19D6D2B5D176C0031ABCB /* NavigationBar+Modifier.swift in Sources */,
 				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
+				28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */,
 				013383512B5669A4004D4B8A /* ViewRouter.swift in Sources */,
 				0133834D2B565F30004D4B8A /* OnboardingViewModel.swift in Sources */,
 				6A92D5FB2B5D521200942ED6 /* ProfileEditViewModel.swift in Sources */,
@@ -1152,7 +1156,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1205,7 +1209,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
