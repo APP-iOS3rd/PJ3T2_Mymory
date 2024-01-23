@@ -14,7 +14,7 @@ import UIKit
 
 
 struct PostView: View {
-    @Binding var selected: Int
+   
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     let minHeight: CGFloat = 250
@@ -197,7 +197,9 @@ struct PostView: View {
             },
             rightView: {
                 Button {
-                    self.selected = 0
+                    
+                    presentationMode.wrappedValue.dismiss()
+                   // self.selected = 0
                 } label: {
                     HStack(spacing: 0){
                         Image(systemName: "multiply")
