@@ -69,6 +69,7 @@ struct MainTabView: View {
                 }
  
             }
+
 //            .onChange(of: selectedIndex) { value in
 //              //  if selectedIndex ==  2 {
 //                     

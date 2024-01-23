@@ -126,6 +126,11 @@ struct MypageView: View {
                await viewModel.fetchMyMemoList()
             }
         })
+        .overlay{
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        }
 //        .onAppear{
 //            viewModel.
 //        }
