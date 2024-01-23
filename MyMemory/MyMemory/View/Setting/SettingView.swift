@@ -63,17 +63,7 @@ struct SettingView: View {
             if authViewModel.currentUser != nil {
                 VStack(alignment: .trailing) {
                     Button {
-                        if authViewModel.signout() {
-                            print("로그아웃 성공")
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            print("로그아웃 실패")
-                        }
-                        
-//                        settingViewModel.fetchUserLogout {
-//                            isCurrentUserLoginState = false
-//                            settingViewModel.isShowingLogoutAlert = true
-//                        }
+                        settingViewModel.isShowingLogoutAlert = true
                     } label: {
                         Text("로그아웃")
                             .foregroundStyle(.white)
@@ -82,10 +72,16 @@ struct SettingView: View {
                             .background(.blue)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                    .alert("로그아웃 되었습니다.", isPresented: $settingViewModel.isShowingLogoutAlert) {
-                        Button("확인", role: .cancel) {
-                            
+                    .alert("로그아웃 하시겠습니까?", isPresented: $settingViewModel.isShowingLogoutAlert) {
+                        Button("로그아웃", role: .destructive) {
+                                                   if authViewModel.signout() {
+                            print("로그아웃 성공")
+                            presentationMode.wrappedValue.dismiss()
+                        } else {
+                            print("로그아웃 실패")
                         }
+                        }
+                        Button("뒤로가기", role: .cancel) {}
                     }
                     
                     NavigationLink {
