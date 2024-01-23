@@ -72,15 +72,19 @@ struct SettingView: View {
                             .background(.blue)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                    .alert("로그아웃 하시겠습니까?", isPresented: $settingViewModel.isShowingLogoutAlert) {
+                    .alert("로그아웃 하시겠습니까?", 
+                           isPresented: $settingViewModel.isShowingLogoutAlert) {
+                        
                         Button("로그아웃", role: .destructive) {
-                                                   if authViewModel.signout() {
-                            print("로그아웃 성공")
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            print("로그아웃 실패")
+                                                   
+                            if authViewModel.signout() {
+                                print("로그아웃 성공")
+                                self.presentationMode.wrappedValue.dismiss()
+                            } else {
+                                print("로그아웃 실패")
+                            }
                         }
-                        }
+                        
                         Button("뒤로가기", role: .cancel) {}
                     }
                     

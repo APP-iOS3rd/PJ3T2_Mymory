@@ -123,7 +123,7 @@ struct PostView2: View {
         .navigationBarItems(leading: Button(action: {
             // 뒤로 가기 동작을 구현합니다
             // 예: PresentationMode를 사용하여 화면을 닫습니다
-            presentationMode.wrappedValue.dismiss()
+            self.presentationMode.wrappedValue.dismiss()
         }) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.blue)

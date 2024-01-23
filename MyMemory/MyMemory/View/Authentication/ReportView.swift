@@ -33,7 +33,7 @@ struct ReportView: View {
                         title: Text("신고가 완료되었습니다."),
                         message: Text("신고 내용은 24시간 이내에 조치됩니다."),
                         dismissButton: .default(Text("확인"), action: {
-                            presentationMode.wrappedValue.dismiss()
+                            self.presentationMode.wrappedValue.dismiss()
                         })
                     )
                 }

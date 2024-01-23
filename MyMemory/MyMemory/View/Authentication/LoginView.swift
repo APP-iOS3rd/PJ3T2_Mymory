@@ -26,7 +26,6 @@ struct LoginView: View {
     @State private var notCorrectLogin: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     @ObservedObject var viewRouter: ViewRouter = ViewRouter()
- 
     
     @Environment(\.presentationMode) var presentationMode
     // 확인용 임시 아이디 + 패스워드
@@ -91,19 +90,24 @@ struct LoginView: View {
                     Text("로그인")
                         .font(.regular18)
                 }
-                    .buttonStyle(LoginButton())
+                .buttonStyle(LoginButton())
+           
             } else {
                 Button {
                     
                     self.isActive = true
-                  
+                    
                     if viewModel.login(withEmail: email, password: password) {
                         print("로그인 성공")
+                        self.presentationMode.wrappedValue.dismiss()
                         
                     } else {
                         print("로그인 실패")
                     }
-                    presentationMode.wrappedValue.dismiss()
+                    
+                   
+//                    viewModel.fetchUser()
+                    
                 } label: {
                     Text("로그인")
                         .font(.regular18)

@@ -144,7 +144,7 @@ struct PostView: View {
                                 await viewModel.saveMemo()
                             }
                             // 수정, 저장 후 dismiss
-                            presentationMode.wrappedValue.dismiss()
+                            self.presentationMode.wrappedValue.dismiss()
                         }
                     }, label: {
                         Text(isEdit ? "수정완료" : "작성완료")
@@ -184,7 +184,7 @@ struct PostView: View {
                                 print("Trash button tapped!")
                                 await viewModel.deleteMemo(memo: memo)
                                 DispatchQueue.main.async {
-                                    presentationMode.wrappedValue.dismiss()
+                                    self.presentationMode.wrappedValue.dismiss()
                                 }
                             }
                         }) {

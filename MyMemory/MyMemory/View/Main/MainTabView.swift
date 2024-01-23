@@ -13,9 +13,9 @@ struct MainTabView: View {
     @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
     @EnvironmentObject var viewModel : AuthViewModel
-    @State var isPresented: Bool = false
- 
-    @State var isLogin: Bool = false
+    
+    @State private var isPostView: Bool = false
+    @State private var isLoginView: Bool = false
  
     var body: some View {
         
@@ -30,10 +30,12 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
-
-                Text("") 
+                
+                
+                Text("포스트뷰")
                     .onTapGesture {
                         selectedIndex = 1
+                       
                     }
                     .tabItem {
                         Image(systemName: "pencil")
@@ -41,58 +43,59 @@ struct MainTabView: View {
                     }
                     .tag(1)
                 
-                // 로그인한 유저 확인
-                if viewModel.userSession != nil {
+               // 로그인 상태 확인
+               // if viewModel.userSession != nil {
+                    // 로그인 상태가 맞다면, 로그인한 유저 확인한다.
+                
                     if let user = viewModel.currentUser {
                         MypageView(user: user)
                             .onTapGesture{
                                 selectedIndex = 2
+                              
                             }
                             .tabItem {
                                 Image(systemName: "person")
                                 Text("마이")
                             }
                             .tag(2)
-                   }
-                } 
-                
-                // 로그아웃 상태일 때,
-                else {
-                    // 여기 부분 수정 필요.
+                   } else {
+                       
                     Text("로그인이 필요합니다.")
                         .onTapGesture{
                             selectedIndex = 2
-                            isLogin = true
+                           // isLogin = true
+                            
                         }
                         .tabItem {
                             Image(systemName: "person")
                             Text("마이")
                         }
                         .tag(2)
-                    
-                }
+                        
+                    }
             }
-            // PostView는 Tab전환 대신 Navigation으로 이동
+           //  Tab 전환을 통해 화면 이동하는 방법 대신 Navigation으로 이동
             .onChange(of: selectedIndex) { [selectedIndex] newTab in
-                if newTab == 1 {
+                
+                if newTab == 1 && viewModel.userSession != nil   {
                     self.selectedIndex = selectedIndex
-                    isPresented = true
-                    isLogin = false
                     
+                    isLoginView = false
+                    isPostView = true
                 }
-                if newTab == 2 && viewModel.userSession == nil {
+                // 로그인 상태가 아닐 때,
+                if newTab == 2 && viewModel.userSession == nil || newTab == 1 && viewModel.userSession == nil {
                     self.selectedIndex = selectedIndex
-                    isLogin = true
-                    isPresented = false
-                    
+                    isPostView = false
+                    isLoginView = true
+                
                 }
             }
-            // NavigationView - PostView
             .background(
-                
+
                 NavigationLink(
                     destination: PostView(),
-                    isActive: $isPresented
+                    isActive: $isPostView
                 ) {
                     EmptyView()
                 }
@@ -101,10 +104,10 @@ struct MainTabView: View {
             )
             // NavigationView - LoginView
             .background(
-                
+               
                 NavigationLink(
                     destination: LoginView(),
-                    isActive: $isLogin
+                    isActive: $isLoginView
                 ) {
                     EmptyView()
                 }

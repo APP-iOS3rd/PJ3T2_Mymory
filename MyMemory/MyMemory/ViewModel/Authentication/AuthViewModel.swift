@@ -11,6 +11,7 @@ import Photos
 import PhotosUI
 import SwiftUI
 import SafariServices
+import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
@@ -51,21 +52,14 @@ class AuthViewModel: ObservableObject {
     
     init() {
         userSession = Auth.auth().currentUser
+       
         fetchUser()
-    }
-    
-//    func login(withEmail email: String, password: String)   {
-//        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-//            if let error = error {
-//                print("디버깅: 로그인실패 \(error.localizedDescription)")
-//                return
-//            }
-//            guard let user = result?.user else { return }
-//            self.userSession = user
-//            
-//            self.fetchUser()
-//        }
-//    }
+        //print("현재 userSession: \(userSession)")
+        //print("현재 currentUser: \(currentUser)")
+        
+      
+     }
+     
     func login(withEmail email: String, password: String) -> Bool {
         do {
             try Auth.auth().signIn(withEmail: email, password: password) { result, error in
@@ -198,13 +192,15 @@ class AuthViewModel: ObservableObject {
     
     func fetchUser() {
         guard let uid = userSession?.uid else { return }
-        print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
+        
+        print("DEBUG: uid \(uid)") // 최근에 생성된 uid 갖고옴.
+        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
-            self?.currentUser = user
+            self.currentUser = user
             UserDefaults.standard.set(user.id, forKey: "userId")
-            print(user)
+            print("현재 로그인 중인 유저는 \(user)")
+            
         }
     }
     func authenticate(credential: ASAuthorizationAppleIDCredential) {
@@ -245,7 +241,7 @@ class AuthViewModel: ObservableObject {
     
     func fetchAppleUser() {
         guard let uid = userSession?.uid else { return }
-        print("현재 로그인 상태: uid \(uid)")
+        print("DEBUG: uid \(uid)") // 로그인 상태 아니더라도, 최근에 사용했던 uid 호출되는듯
         COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
