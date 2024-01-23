@@ -111,7 +111,6 @@ struct MainTabView: View {
                     .hidden()
                 
             )
-           
         }
       
     }

@@ -41,7 +41,7 @@ class SettingViewModel: ObservableObject {
         if self.isCurrentUserLoginState {
             do {
                 try Auth.auth().signOut()
-                UserDefaults.standard.removeObject(forKey: "userInfo")
+                UserDefaults.standard.removeObject(forKey: "userId")
                 completion()
                 print("로그아웃")
             } catch {
@@ -62,6 +62,8 @@ class SettingViewModel: ObservableObject {
                         do {
                             try await self.db.collection("user").document(uid).delete()
                             print("delete success")
+                            UserDefaults.standard.removeObject(forKey: "userId")
+
                         } catch {
                             print("delete error: \(error)")
                         }
