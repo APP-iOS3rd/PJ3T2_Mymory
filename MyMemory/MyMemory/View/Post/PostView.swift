@@ -28,7 +28,7 @@ struct PostView: View {
 
     
     // property
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @State var centerLocation: CLLocation?
     var body: some View {
         ZStack{
@@ -144,7 +144,8 @@ struct PostView: View {
                                 await viewModel.saveMemo()
                             }
                             // 수정, 저장 후 dismiss
-                            self.presentationMode.wrappedValue.dismiss()
+                            dismiss()
+                           // self.presentationMode.wrappedValue.dismiss()
                         }
                     }, label: {
                         Text(isEdit ? "수정완료" : "작성완료")
@@ -184,7 +185,8 @@ struct PostView: View {
                                 print("Trash button tapped!")
                                 await viewModel.deleteMemo(memo: memo)
                                 DispatchQueue.main.async {
-                                    self.presentationMode.wrappedValue.dismiss()
+                                    dismiss()
+                                    //self.presentationMode.wrappedValue.dismiss()
                                 }
                             }
                         }) {

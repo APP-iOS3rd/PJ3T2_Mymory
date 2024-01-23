@@ -13,7 +13,7 @@ struct BackButton: View {
     
     var body: some View {
         Button {
-            self.presentationMode.wrappedValue.dismiss()
+           presentationMode.wrappedValue.dismiss()
         } label: {
             HStack(spacing: 4){
                 Image(systemName: "chevron.left")

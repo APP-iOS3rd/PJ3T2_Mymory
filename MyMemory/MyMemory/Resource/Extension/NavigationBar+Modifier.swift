@@ -13,8 +13,8 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
     let leftView: (() -> L)?
     let rightView: (() -> R)?
     let backgroundColor: Color?
-    
-    @Environment(\.dismiss) var dismiss
+  
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var offset = CGSize.zero
     
     init(centerView: (() -> C)? = nil, leftView: (() -> L)? = nil, rightView: (() -> R)? = nil, backgroundColor: Color? = .lightGray) {
@@ -66,7 +66,7 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
                         if gesture.translation.width > 0 {
                             offset = gesture.translation
                             if offset.width > 200.0 {
-                                dismiss()
+                                presentationMode.wrappedValue.dismiss()
                             }
                         }
                     }

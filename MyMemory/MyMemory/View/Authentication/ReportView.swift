@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ReportView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) private var dismiss
     @State private var showingAlert = false
     @State var memo: Memo
     @State var reportText: String = ""
@@ -33,7 +33,7 @@ struct ReportView: View {
                         title: Text("신고가 완료되었습니다."),
                         message: Text("신고 내용은 24시간 이내에 조치됩니다."),
                         dismissButton: .default(Text("확인"), action: {
-                            self.presentationMode.wrappedValue.dismiss()
+                           dismiss()
                         })
                     )
                 }

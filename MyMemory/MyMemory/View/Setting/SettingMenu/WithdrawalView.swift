@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WithdrawalView: View {
     @EnvironmentObject var viewModel: SettingViewModel
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @Binding var isCurrentUserLoginState: Bool
     @Binding var user: User
     
@@ -48,7 +48,7 @@ struct WithdrawalView: View {
                 .padding(.bottom, 32)
                 
                 Button {
-                    self.presentationMode.wrappedValue.dismiss()
+                    dismiss()
                 } label: {
                     Text("그대로 사용할게요")
                         .foregroundStyle(.white)
@@ -73,7 +73,7 @@ struct WithdrawalView: View {
                 }
                 .alert("회원탈퇴되었습니다.", isPresented: $viewModel.isShowingWithdrawalAlert) {
                     Button("확인", role: .cancel) {
-                        self.presentationMode.wrappedValue.dismiss()
+                        dismiss()
                     }
                 }
                 .disabled(user.id == nil)

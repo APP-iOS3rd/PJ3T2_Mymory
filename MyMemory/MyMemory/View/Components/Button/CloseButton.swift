@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CloseButton: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
        
         Button {
-            self.presentationMode.wrappedValue.dismiss()
+            presentationMode.wrappedValue.dismiss()
         } label: {
             HStack(spacing: 0){
                 Image(systemName: "multiply")

@@ -12,7 +12,7 @@ struct SettingView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var user: User
     @Binding var isCurrentUserLoginState: Bool
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,6 +64,7 @@ struct SettingView: View {
                 VStack(alignment: .trailing) {
                     Button {
                         settingViewModel.isShowingLogoutAlert = true
+                        
                     } label: {
                         Text("로그아웃")
                             .foregroundStyle(.white)
@@ -76,10 +77,10 @@ struct SettingView: View {
                            isPresented: $settingViewModel.isShowingLogoutAlert) {
                         
                         Button("로그아웃", role: .destructive) {
-                                                   
+                                
+                            dismiss()
                             if authViewModel.signout() {
-                                print("로그아웃 성공")
-                                self.presentationMode.wrappedValue.dismiss()
+                                print("로그아웃 성공") 
                             } else {
                                 print("로그아웃 실패")
                             }
@@ -105,17 +106,5 @@ struct SettingView: View {
             }
         }
         .padding(.horizontal, 12)
- 
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                BackButton()
-//                    .foregroundStyle(Color.black)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                Text("내 정보")
-//                    .font(.semibold16)
-//            }
-//        }
     }
 }
