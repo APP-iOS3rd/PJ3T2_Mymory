@@ -44,7 +44,6 @@ class PostViewModel: ObservableObject {
 
     func getAddress() async {
         
-        
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate.longitude), latitude: Double(userCoordinate.latitude)))
         
         DispatchQueue.main.async { [weak self] in
@@ -62,6 +61,7 @@ class PostViewModel: ObservableObject {
             }
         }
     }
+    
     func setAddress() {
         if !tempAddressText.isEmpty {
             self.memoAddressText = self.tempAddressText
@@ -74,6 +74,7 @@ class PostViewModel: ObservableObject {
     
     
     func saveMemo() async {
+        LoadingManager.shared.phase = .loading
         do {
             guard let user = AuthViewModel.shared.currentUser else { return }
 
@@ -104,9 +105,10 @@ class PostViewModel: ObservableObject {
             
             await MemoService.shared.uploadMemo(newMemo: newMemo)
             resetMemoFields()
-            
+            LoadingManager.shared.phase = .success
         } catch {
             // 오류 처리
+            LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
             print("Error signing in: \(error.localizedDescription)")
         }
     }
@@ -121,10 +123,31 @@ class PostViewModel: ObservableObject {
         self.memoShare = memo.isPublic
         // memo.location
     }
-    
+    /*
+     func fetchMemos() {
+         LoadingManager.shared.phase = .loading
+         Task { @MainActor in
+             do {
+                 let fetched = try await MemoService.shared.fetchMemos()
+                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
+                 if let current = location {
+                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
+                     
+                 } else {
+                     memoList = fetched
+                 }
+                 cluster.addMemoList(memos: memoList)
+                 LoadingManager.shared.phase = .success
+             } catch {
+                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
+                 print("Error fetching memos: \(error)")
+             }
+         }
+     }
+     */
  
     func editMemo(memo: Memo) async {
-  
+        LoadingManager.shared.phase = .loading
         do {
             // UUID를 String으로 변환 해당 값으로 수정할때 새로 생성하지 않고 업데이트 되도록 구현
           //  let documentID = memo.id.uuidString
@@ -150,8 +173,10 @@ class PostViewModel: ObservableObject {
             
             await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)
             resetMemoFields()
+            LoadingManager.shared.phase = .success
         } catch {
             // 오류 처리
+            LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
             print("Error signing in: \(error.localizedDescription)")
         }
     }

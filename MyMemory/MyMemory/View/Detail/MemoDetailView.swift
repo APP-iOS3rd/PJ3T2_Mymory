@@ -1,9 +1,3 @@
-//
-//  MemoDetailView.swift
-//  MyMemory
-//
-//  Created by 김성엽 on 1/16/24.
-//
 
 import SwiftUI
 
@@ -18,7 +12,6 @@ struct MemoDetailView: View {
     
     @State private var isMyMemo:Bool = false
     var memo: Memo
-    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var body: some View {
         ZStack {
@@ -111,12 +104,14 @@ struct MemoDetailView: View {
             },
             rightView: {
                 NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
-                .environmentObject(mainMapViewModel)
+//                                        CloseButton()
+            },
+            backgroundColor: .white
         )
 
 //        .navigationBarItems(
 //            // 오른쪽 부분
-//            trailing:   
+//            trailing:
 //                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
 //        )
     }
@@ -132,9 +127,3 @@ struct MemoDetailView: View {
     }
     
 }
-    
-
-//#Preview {
-//    MemoDetailView()
-//}
-

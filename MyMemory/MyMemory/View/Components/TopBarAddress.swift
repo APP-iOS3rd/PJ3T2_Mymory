@@ -12,7 +12,7 @@ struct TopBarAddress: View {
     // 추후 작업 때, binding으로 바꿔야함.
     @Binding var currentAddress: String?
     // 바인딩
-    @EnvironmentObject var mainMapViewModel: MainMapViewModel
+    @ObservedObject var mainMapViewModel: MainMapViewModel
     var body: some View {
         Button {
 //            SearchView()
@@ -49,7 +49,7 @@ struct TopBarAddress: View {
     }
 }
 
-#Preview {
-    TopBarAddress(currentAddress: .constant("wnth"))
-        .environmentObject(MainMapViewModel())
-}
+//#Preview {
+//    TopBarAddress(currentAddress: .constant("wnth"), mainMapViewModel: <#Binding<MainMapViewModel>#>)
+//        .environmentObject(MainMapViewModel())
+//}

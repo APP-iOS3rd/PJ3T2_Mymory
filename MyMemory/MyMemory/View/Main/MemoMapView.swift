@@ -41,11 +41,11 @@ struct MemoMapView: View {
             
             
             VStack {
-                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)                    
-                    .padding(.horizontal, 12)
-                    .onAppear(){
-                        viewModel.getCurrentAddress()
-                    }
+//                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)                    
+//                    .padding(.horizontal, 12)
+//                    .onAppear(){
+//                        viewModel.getCurrentAddress()
+//                    }
                 
                 HStack{
                     

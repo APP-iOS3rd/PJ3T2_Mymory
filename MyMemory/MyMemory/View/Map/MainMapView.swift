@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct MainMapView: View {
-    @EnvironmentObject var mainMapViewModel: MainMapViewModel
+    @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
@@ -24,10 +24,10 @@ struct MainMapView: View {
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
-                         isUserTracking: $viewModel.isUserTracking,
-                         userLocation: $viewModel.location, userDirection: $viewModel.direction,
-                         clusters: $viewModel.clusters,
-                         selectedID: $viewModel.selectedMemoId)
+                         isUserTracking: $mainMapViewModel.isUserTracking,
+                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
+                         clusters: $mainMapViewModel.clusters,
+                         selectedID: $mainMapViewModel.selectedMemoId)
             .onAppear{
                 DispatchQueue.main.async {
                     self.draw = true
@@ -37,7 +37,7 @@ struct MainMapView: View {
             .environmentObject(mainMapViewModel)
             .ignoresSafeArea(edges: .top)
             VStack {
-                TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress)
+                TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
                     .onAppear(){
                         mainMapViewModel.getCurrentAddress()
@@ -47,7 +47,7 @@ struct MainMapView: View {
                     Button{
                         self.fileterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체메뉴" : viewModel.filterList.combinedWithComma))
+                        FilterButton(buttonName: .constant(mainMapViewModel.filterList.isEmpty ? "전체메뉴" : mainMapViewModel.filterList.combinedWithComma))
                     }
                     .buttonStyle(mainMapViewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                     
@@ -99,7 +99,7 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item  in
+                        ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
                             
                             MemoCell(
                                 isVisible: true,

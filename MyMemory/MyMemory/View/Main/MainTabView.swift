@@ -9,17 +9,18 @@ import SwiftUI
 import Combine
 
 struct MainTabView: View {
-    @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
-    @Binding var selectedIndex: Int
+    
+    @ObservedObject var viewRouter: ViewRouter
+    @State private var selectedIndex = 0
     @ObservedObject var viewModel: AuthViewModel
     @State var isPresented: Bool = false
+    
     var body: some View {
         
         NavigationStack {
             TabView(selection: $selectedIndex){
                 
                 MainMapView()
-                    .environmentObject(mainMapViewModel)
                     .onTapGesture{
                         selectedIndex = 0
                     }
@@ -29,7 +30,7 @@ struct MainTabView: View {
                     }.tag(0)
 
                 PostView()
-                    .onTapGesture{
+                    .onTapGesture {
                         selectedIndex = 1
                     }
                     .tabItem {
@@ -70,11 +71,11 @@ struct MainTabView: View {
             }
 //            .onChange(of: selectedIndex) { value in
 //              //  if selectedIndex ==  2 {
-//                     
+//
 //                    if viewModel.userSession == nil {
 //                        isPresented = true
 //                    }
-//                
+//
 //                //}
 //                print(value)
 //            }
@@ -87,7 +88,7 @@ struct MainTabView: View {
 }
 
  
-// 
+//
 //#Preview {
 //    MainTabView(selectedIndex: 1)
 //}
