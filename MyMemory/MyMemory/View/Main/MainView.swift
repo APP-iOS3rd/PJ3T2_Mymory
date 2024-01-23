@@ -18,7 +18,7 @@ struct MainView: View {
             OnboardingView(viewRouter: viewRouter)
         }
         else if viewRouter.currentPage == "mainView" {
-            MainTabView(viewRouter: viewRouter, viewModel: viewModel)
+            MainTabView(viewRouter: viewRouter)
         }
         
     }

@@ -9,8 +9,8 @@ import SwiftUI
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
     
-    @ObservedObject var viewModel: MypageViewModel
-    @ObservedObject var authViewModel: AuthViewModel
+    @ObservedObject var viewModel: MypageViewModel 
+    @EnvironmentObject var authViewModel : AuthViewModel
     
     var body: some View {
         HStack {
@@ -72,8 +72,7 @@ struct MypageTopView: View {
             
             NavigationLink {
                 
-                SettingView (
-                    authViewModel: authViewModel, user: $viewModel.user,
+                SettingView (user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
                 .customNavigationBar(
