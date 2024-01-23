@@ -87,9 +87,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     
     func fetchMemos() {
         LoadingManager.shared.phase = .loading
-        Task { @MainActor in 
+        
+        Task { @MainActor in
             do {
-                let fetched = try await MemoService.shared.fetchMemos()
+                let fetched = try await MemoService.shared.fetchMemos(in: location)
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 // 특정 distance 이내의 것만 사용하기
                 if let current = location {
@@ -106,6 +107,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
+    
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {

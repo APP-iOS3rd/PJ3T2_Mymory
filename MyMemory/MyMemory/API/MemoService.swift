@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-
+import CoreLocation
 struct MemoService {
     static let shared = MemoService()
     let storage = Storage.storage()
@@ -210,6 +210,40 @@ struct MemoService {
         
         // "Memos" 컬렉션에서 문서들을 가져옴
         let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
+        
+        // 각 문서를 PostMemoModel로 변환하여 배열에 추가
+        for document in querySnapshot.documents {
+            let data = document.data()
+            
+            // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+            if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                memos.append(memo)
+            }
+        }
+        
+        return memos
+    }
+    // 영역 fetch
+    func fetchMemos(in location: CLLocation?, withRadius radiusInCoord: Double = 0.1) async throws -> [Memo] {
+        var memos = [Memo]()
+        var querySnapshot: QuerySnapshot
+        // "Memos" 컬렉션에서 문서들을 가져옴
+
+        if let location = location {
+            let minlatitude = location.coordinate.latitude - radiusInCoord
+            let maxlatitude = location.coordinate.latitude + radiusInCoord
+            let minlongitude = location.coordinate.longitude - radiusInCoord
+            let maxlongitude = location.coordinate.longitude + radiusInCoord
+            // Firestore 쿼리 작성
+            let query = COLLECTION_MEMOS.whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: minlatitude)
+                .whereField("userCoordinateLatitude", isLessThanOrEqualTo: maxlatitude)
+                .whereField("userCoordinateLongitude", isGreaterThanOrEqualTo: minlongitude)
+                .whereField("userCoordinateLongitude", isLessThanOrEqualTo: maxlongitude)
+            querySnapshot = try await query.getDocuments()
+      
+        } else {
+            querySnapshot = try await COLLECTION_MEMOS.getDocuments()
+        }
         
         // 각 문서를 PostMemoModel로 변환하여 배열에 추가
         for document in querySnapshot.documents {
