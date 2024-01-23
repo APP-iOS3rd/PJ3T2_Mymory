@@ -28,7 +28,7 @@ struct PostView: View {
 
     
     // property
-    @Environment(\.presentationMode) var presentationMode
+     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack{
@@ -101,7 +101,7 @@ struct PostView: View {
                             
                             TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
                                 .textFieldStyle(.roundedBorder)
-                            
+                           
                             // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
                             TextEditor(text: $viewModel.memoContents)
                                 .frame(minHeight: minHeight, maxHeight: maxHeight)
@@ -198,7 +198,6 @@ struct PostView: View {
             },
             backgroundColor: .white
         )
-
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -209,11 +208,56 @@ struct PostView: View {
             }
             
         }
-
+        
+        .customNavigationBar(
+            centerView: {
+                Group {
+                    if isEdit {
+                        Text("메모 수정")
+                    } else {
+                        Text("메모 등록")
+                    }
+                }
+            },
+            leftView: {
+                Group {
+                    if isEdit {
+                        BackButton()
+                    } else {
+                        EmptyView()
+                    }
+                }
+ 
+            },
+            rightView: {
+                Group {
+                    if isEdit {
+                        Button(action: {
+                            Task.init {
+                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
+                                // 예: 삭제 확인 대화상자를 표시합니다
+                                print("Trash button tapped!")
+                                await viewModel.deleteMemo(memo: memo)
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        CloseButton()
+                      
+                    }
+                }
+            },
+            backgroundColor: .white
+        )
     }
         
-    
 }
+ 
 
 
 //struct MemoView_Previews: PreviewProvider {

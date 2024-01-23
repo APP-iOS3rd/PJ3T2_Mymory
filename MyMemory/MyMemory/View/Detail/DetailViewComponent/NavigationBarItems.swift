@@ -24,7 +24,8 @@ struct NavigationBarItems: View {
             if isMyMemo {
                
                 NavigationLink { // 버튼이랑 비슷함
-                    PostView(isEdit: true, memo: memo)
+                    // destination : 목적지 -> 어디로 페이지 이동할꺼냐
+                    PostView(isEdit: true, memo: memo) 
                 } label: {
                     Image(systemName: "pencil")
                 }
