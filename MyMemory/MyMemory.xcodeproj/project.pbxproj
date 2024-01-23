@@ -42,7 +42,7 @@
 		01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AAF2B555E9A0096E1CA /* Color+Extension.swift */; };
 		01700AB42B5588780096E1CA /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AB32B5588780096E1CA /* SearchBar.swift */; };
 		01700AB62B5592BE0096E1CA /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700AB52B5592BE0096E1CA /* SearchCell.swift */; };
-		019443412B5E48FA001B25C3 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 01D160042B5E3847003F1BEF /* APIKEYS.xcconfig */; };
+		019443412B5E48FA001B25C3 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		01A19D152B57C7230031ABCB /* run4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 01A19D142B57C7230031ABCB /* run4.gif */; };
 		01A19D382B58B4EA0031ABCB /* PostView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D372B58B4EA0031ABCB /* PostView2.swift */; };
 		01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D6A2B5D17540031ABCB /* CloseButton.swift */; };
@@ -98,7 +98,6 @@
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
-		DA3D86B42B5E514500D9DB3C /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA3D86B32B5E514500D9DB3C /* APIKEYS.xcconfig */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
@@ -819,7 +818,7 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
-				019443412B5E48FA001B25C3 /* APIKEYS.xcconfig in Resources */,
+				019443412B5E48FA001B25C3 /* (null) in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				28AB91C12B5E7075008D2D28 /* APIKEYS.xcconfig in Resources */,
@@ -1147,7 +1146,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1200,7 +1199,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
