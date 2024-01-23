@@ -9,14 +9,15 @@ import SwiftUI
 
 struct MypageView: View {
     
-    let user: User
-    
+    let user: User?
     @ObservedObject var viewModel: MypageViewModel
+    @ObservedObject var authViewModel: AuthViewModel
     // @StateObject var myPageViewModel: MypageViewModel = .init()
  
     init(user: User) {
         self.user = user
         self.viewModel = MypageViewModel(user: user)
+        self.authViewModel = AuthViewModel()
     }
     
     var body: some View {
@@ -29,9 +30,10 @@ struct MypageView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    MypageTopView(viewModel: viewModel)
+                    MypageTopView(viewModel: viewModel, authViewModel: authViewModel)
                     
-                    if viewModel.isCurrentUserLoginState {
+                    
+                    if authViewModel.currentUser != nil {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
@@ -58,7 +60,7 @@ struct MypageView: View {
                         .padding(.top, 38)
                         
                         MypageMemoList(memoList: $viewModel.memoList)
-                            
+                           
                         
                     } else {
                         VStack(alignment: .center) {
@@ -110,13 +112,16 @@ struct MypageView: View {
 
             }
  
-          
         }
-        .onAppear {
-            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-        }
-    
+//        .onAppear{
+//            viewModel.
+//        }
+//        
+//        .onAppear {
+//            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+//            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+//        }
+//    
                 
         
     

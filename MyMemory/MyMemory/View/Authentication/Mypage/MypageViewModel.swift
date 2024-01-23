@@ -20,36 +20,36 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-// 임시
-struct Memo: Hashable, Codable, Identifiable {
-    // 유저Id
-    var userId = UUID()
-    // 메모 id
-    var id = UUID()
-    // 제목
-    var userUid: String
-    
-    var title: String
-    // 메모 내용
-    var description: String
-    // 주소
-    var address: String
-    // 태그
-    var tags: [String]
-    // 사진
-    var images: [Data]
-    // 공개여부
-    var isPublic: Bool
-    // 작성일
-    var date: TimeInterval
-    // 위치
-    var location: Location
-    // 좋아요 개수
-    var likeCount: Int
-    
-    var memoImageUUIDs: [String]
-    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
-}
+//// 임시
+//struct Memo: Hashable, Codable, Identifiable {
+//    // 유저Id
+//    var userId = UUID()
+//    // 메모 id
+//    var id = UUID()
+//    // 제목
+//    var userUid: String
+//    
+//    var title: String
+//    // 메모 내용
+//    var description: String
+//    // 주소
+//    var address: String
+//    // 태그
+//    var tags: [String]
+//    // 사진
+//    var images: [Data]
+//    // 공개여부
+//    var isPublic: Bool
+//    // 작성일
+//    var date: TimeInterval
+//    // 위치
+//    var location: Location
+//    // 좋아요 개수
+//    var likeCount: Int
+//    
+//    var memoImageUUIDs: [String]
+//    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
+//}
 
 struct Location: Hashable, Codable {
     var latitude: Double

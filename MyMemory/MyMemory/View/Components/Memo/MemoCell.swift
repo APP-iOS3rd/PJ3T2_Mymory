@@ -84,8 +84,8 @@ struct MemoCell: View {
                     Spacer()
                     
                     if isVisible {
+                        
                         NavigationLink { // 버튼이랑 비슷함
-                            // destination : 목적지 -> 어디로 페이지 이동할꺼냐
                             MemoDetailView(memo: memo)
                         } label: {
                             HStack {

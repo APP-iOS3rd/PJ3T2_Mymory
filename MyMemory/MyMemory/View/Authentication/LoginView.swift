@@ -108,7 +108,7 @@ struct LoginView: View {
             }
 
             NavigationLink {
-                RegisterView()
+                RegisterView(viewModel: viewModel)
                     .customNavigationBar(
                         centerView: {
                             Text("회원가입")
@@ -165,10 +165,22 @@ struct LoginView: View {
         .navigationDestination(isPresented: $isActive) {
             MainMapView()
         }
-        .toolbar(.hidden, for: .tabBar)
+       // .toolbar(.hidden, for: .tabBar)
         .onTapGesture{
             self.endTextEditing()
         }
+        .customNavigationBar(
+            centerView: {
+                Text("")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .white
+        )
     }
     
     

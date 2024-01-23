@@ -14,6 +14,7 @@ import UIKit
 
 
 struct PostView: View {
+   
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     let minHeight: CGFloat = 250
@@ -22,7 +23,7 @@ struct PostView: View {
     @State var handler = LocationsHandler.shared
     @State var isEdit: Bool = false
     var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
-    
+ 
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
 
     
@@ -30,22 +31,41 @@ struct PostView: View {
     @Environment(\.presentationMode) var presentationMode
     @State var centerLocation: CLLocation?
     var body: some View {
-        ScrollView{
-            VStack(alignment: .leading){
-                
-                //💁 상단 MapView
-                KakaoMapSimple(draw: $draw,
-                               userLocation: $handler.location,
-                               userDirection: $handler.heading,
-                               centerLocation: $centerLocation)
-                .onAppear(perform: {
-                    self.draw = true
-                }).onDisappear(perform: {
-                    self.draw = false
-                }).frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .environmentObject(viewModel)
-                    .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
-                    .background(.ultraThinMaterial)
+        ZStack{
+            ScrollView{
+                VStack(alignment: .leading){
+                    
+                    //💁 상단 MapView
+                    KakaoMapSimple(draw: $draw,
+                                   userLocation: $handler.location,
+                                   userDirection: $handler.heading,
+                                   centerLocation: $centerLocation)
+                    .onAppear(perform: {
+                        self.draw = true
+                    }).onDisappear(perform: {
+                        self.draw = false
+                    }).frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .environmentObject(viewModel)
+                        .frame(height: UIScreen.main.bounds.size.height * 0.2) // 화면 높이의 30%로 설정
+                        .background(.ultraThinMaterial)
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                    
+                    //💁 사진 등록하기 View
+                    Group {
+                        VStack(alignment: .leading, spacing: 10){
+                            HStack {
+                                Text("사진 등록하기")
+                                    .font(.bold20)
+                                
+                                Spacer()
+                                
+                            } //:HSTACK
+                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData)
+                            
+                        }//:VSTACK
+                    }
+                    .padding(.horizontal, 20)
                     .padding(.bottom)
                     
                     
@@ -82,7 +102,7 @@ struct PostView: View {
                             
                             TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
                                 .textFieldStyle(.roundedBorder)
-                            
+                           
                             // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
                             TextEditor(text: $viewModel.memoContents)
                                 .frame(minHeight: minHeight, maxHeight: maxHeight)
@@ -118,7 +138,7 @@ struct PostView: View {
                             if isEdit {
                                 // 수정 모드일 때는 editMemo 호출
                                 await viewModel.editMemo(memo: memo)
-                                 presentationMode.wrappedValue.dismiss()
+                                presentationMode.wrappedValue.dismiss()
                             } else {
                                 // 수정 모드가 아닐 때는 saveMemo 호출
                                 await viewModel.saveMemo()
@@ -139,8 +159,46 @@ struct PostView: View {
                 } //:VSTACK
                 
             } //: ScrollView
-    
-       // .toolbar(.hidden, for: .tabBar)
+        }
+        .customNavigationBar(
+            centerView: {
+                Group {
+                    if isEdit {
+                        Text("메모 수정")
+                    } else {
+                        Text("메모 등록")
+                    }
+                }
+            },
+            leftView: {
+                Group {
+                    if isEdit {
+                      //  BackButton()
+                        Button(action: {
+                            Task.init {
+                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
+                                // 예: 삭제 확인 대화상자를 표시합니다
+                                print("Trash button tapped!")
+                                await viewModel.deleteMemo(memo: memo)
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        EmptyView()
+                    }
+                }
+                
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .white
+        )
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -203,10 +261,9 @@ struct PostView: View {
  
 
 
-struct MemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView()
-    }
-}
-
-
+//struct MemoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostView()
+//    }
+//}
+//

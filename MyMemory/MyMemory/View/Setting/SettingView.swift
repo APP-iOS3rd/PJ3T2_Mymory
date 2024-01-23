@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
+    @ObservedObject var authViewModel: AuthViewModel
     @Binding var user: User
     @Binding var isCurrentUserLoginState: Bool
     
@@ -58,13 +59,14 @@ struct SettingView: View {
                 }
             }
             
-            if settingViewModel.isCurrentUserLoginState {
+            if authViewModel.currentUser != nil {
                 VStack(alignment: .trailing) {
                     Button {
-                        settingViewModel.fetchUserLogout {
-                            isCurrentUserLoginState = false
-                            settingViewModel.isShowingLogoutAlert = true
-                        }
+                        authViewModel.signout()
+//                        settingViewModel.fetchUserLogout {
+//                            isCurrentUserLoginState = false
+//                            settingViewModel.isShowingLogoutAlert = true
+//                        }
                     } label: {
                         Text("로그아웃")
                             .foregroundStyle(.white)

@@ -41,7 +41,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
-    @Published var selectedMemoId: UUID? = nil
+//    @Published var selectedMemoId: UUID? = nil
+    @Published var selectedMemoId: String? = ""
     @Published var selectedCluster: MemoCluster? = nil{
         didSet {
             guard let cluster = selectedCluster else {
