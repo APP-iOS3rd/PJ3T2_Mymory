@@ -24,9 +24,10 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
-    @ObservedObject var viewModel: AuthViewModel = AuthViewModel()
-    
-    
+    @ObservedObject var viewModel: AuthViewModel = .init()
+    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
+ 
+    @Environment(\.presentationMode) var presentationMode
     // 확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
@@ -94,21 +95,23 @@ struct LoginView: View {
                 Button {
                     
                     self.isActive = true
-                    viewModel.login(withEmail: email, password: password)
-                    
-
+                  
+                    if viewModel.login(withEmail: email, password: password) {
+                        print("로그인 성공")
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        print("로그인 실패")
+                    }
+              
                 } label: {
                     Text("로그인")
                         .font(.regular18)
                 }
                 .buttonStyle(LoginButton(backgroundColor: Color.indigo))
-//                    .alert(isPresented: $notCorrectLogin) {
-//                        Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
-//                    }
             }
-
+            
             NavigationLink {
-                RegisterView(viewModel: viewModel)
+                RegisterView()
                     .customNavigationBar(
                         centerView: {
                             Text("회원가입")
@@ -149,11 +152,11 @@ struct LoginView: View {
             }//: SNS 로그인
             .padding(.vertical, 20)
         }//: VSTACK
+   
         .padding()
         .navigationDestination(isPresented: $isActive) {
-            MainMapView()
+            MainTabView(viewRouter: viewRouter)
         }
-       // .toolbar(.hidden, for: .tabBar)
         .onTapGesture{
             self.endTextEditing()
         }
