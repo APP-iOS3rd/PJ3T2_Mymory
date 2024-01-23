@@ -62,7 +62,11 @@ struct SettingView: View {
             if authViewModel.currentUser != nil {
                 VStack(alignment: .trailing) {
                     Button {
-                        authViewModel.signout()
+                        if authViewModel.signout() {
+                            print("로그아웃 성공")
+                        } else {
+                            print("로그아웃 실패")
+                        }
 //                        settingViewModel.fetchUserLogout {
 //                            isCurrentUserLoginState = false
 //                            settingViewModel.isShowingLogoutAlert = true

@@ -43,7 +43,7 @@ struct MemoListView: View {
                     .buttonStyle(RoundedRect.standard)
                     
                     Spacer()
-                }
+                }.padding(.top, 20)
                 
                 ScrollView(.vertical, showsIndicators: false){
                     
@@ -59,6 +59,8 @@ struct MemoListView: View {
                        
                     }
                     
+                }.refreshable {
+                    viewModel.fetchMemos()
                 }
             }
                 .padding(.horizontal, 20)
@@ -81,6 +83,11 @@ struct MemoListView: View {
         .sheet(isPresented: $filterSheet, content: {
             FileterListView(filteredList: $viewModel.filterList)
                 .presentationDetents([.medium])
+        })
+        .overlay(content: {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
         })
         //.padding()
       

@@ -67,10 +67,14 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func signout() {
+    func signout() -> Bool{
         self.userSession = nil
-        try? Auth.auth().signOut()
-        
+        do {
+            try Auth.auth().signOut()
+            return true
+        } catch {
+            return false
+        }
     }
     
     func userCreate() {
