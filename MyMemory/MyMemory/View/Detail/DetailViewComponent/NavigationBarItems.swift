@@ -17,6 +17,7 @@ struct NavigationBarItems: View {
     @Binding var isMyMemo: Bool 
     
     var memo: Memo
+    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var body: some View {
         HStack {

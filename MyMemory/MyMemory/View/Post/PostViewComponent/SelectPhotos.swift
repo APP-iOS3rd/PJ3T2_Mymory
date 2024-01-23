@@ -7,10 +7,14 @@ struct SelectPhotos: View {
    
     @Binding var isEdit: Bool
     @Binding var memoSelectedImageData: [Data]
+    @Binding var selectedItemsCounts: Int 
     @State var memoSelectedImageItems: [PhotosPickerItem] = []
     @State var showPermissionAlert: Bool = false
-    @State var selectedItemsCounts: Int = 0
-    
+  
+    /*
+     수정 모드일때 이미지 uid 저장 되는지 확인
+     수정 이미지 누르면 일단 기존 이미지는 다 스토리지에서 삭제 하도록
+     */
     var body: some View {
         VStack {
             ScrollView(.horizontal) {
@@ -41,13 +45,17 @@ struct SelectPhotos: View {
                     }
                     
                     
-                    // 이미지를 보여주는 부분
                     ForEach(memoSelectedImageData, id: \.self) { imageData in
-                        Image(uiImage: UIImage(data: imageData)!)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 90, height: 90)
+                        if let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 90, height: 90)
+                        } else {
+                           
+                        }
                     }
+
                 }
             }
             .onAppear {
@@ -64,6 +72,7 @@ struct SelectPhotos: View {
             // 이미지 아이템이 변경되었을 때의 로직
             DispatchQueue.main.async {
                 memoSelectedImageData.removeAll()
+                selectedItemsCounts = 0 
             }
             for (index, item) in memoSelectedImageItems.enumerated() {
                 item.loadTransferable(type: Data.self) { result in

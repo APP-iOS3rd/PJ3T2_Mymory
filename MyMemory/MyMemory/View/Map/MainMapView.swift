@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct MainMapView: View {
-    @StateObject var viewModel: MainMapViewModel = .init()
+    @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
@@ -24,37 +24,37 @@ struct MainMapView: View {
     var body: some View {
         ZStack {
             KakaoMapView(draw: $draw,
-                         isUserTracking: $viewModel.isUserTracking,
-                         userLocation: $viewModel.location, userDirection: $viewModel.direction,
-                         clusters: $viewModel.clusters,
-                         selectedID: $viewModel.selectedMemoId)
+                         isUserTracking: $mainMapViewModel.isUserTracking,
+                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
+                         clusters: $mainMapViewModel.clusters,
+                         selectedID: $mainMapViewModel.selectedMemoId)
             .onAppear{
                 DispatchQueue.main.async {
                     self.draw = true
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .environmentObject(viewModel)
+            .environmentObject(mainMapViewModel)
             .ignoresSafeArea(edges: .top)
             VStack {
-                TopBarAddress(currentAddress: $viewModel.myCurrentAddress)
+                TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
                     .onAppear(){
-                        viewModel.getCurrentAddress()
+                        mainMapViewModel.getCurrentAddress()
                     }
                 HStack{
                     
                     Button{
                         self.fileterSheet.toggle()
                     } label: {
-                        FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체메뉴" : viewModel.filterList.combinedWithComma))
+                        FilterButton(buttonName: .constant(mainMapViewModel.filterList.isEmpty ? "전체메뉴" : mainMapViewModel.filterList.combinedWithComma))
                     }
-                    .buttonStyle(viewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
+                    .buttonStyle(mainMapViewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
                     
                     Button {
                         // 거리순 - 최근 등록순
                         self.sortDistance.toggle()
-                        viewModel.sortByDistance(self.sortDistance)
+                        mainMapViewModel.sortByDistance(self.sortDistance)
                     } label: {
                         FilterButton(
                             imageName: "arrow.left.arrow.right",
@@ -66,10 +66,10 @@ struct MainMapView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 12)
-                if viewModel.isFarEnough {
+                if mainMapViewModel.isFarEnough {
                     Button(action: {
-                        viewModel.fetchMemos()
-                        viewModel.firstLocation = viewModel.location
+                        mainMapViewModel.fetchMemos()
+                        mainMapViewModel.firstLocation = mainMapViewModel.location
                     },
                            label: {
                         Text("현재 지도에서 메모 재검색")
@@ -81,7 +81,7 @@ struct MainMapView: View {
                     
                     // 현 위치 버튼
                     Button {
-                        viewModel.switchUserLocation()
+                        mainMapViewModel.switchUserLocation()
                     } label: {
                         CurrentSpotButton()
                     }
@@ -109,14 +109,15 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHGrid(rows: layout, spacing: 20) {
-                        ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item  in
+                        ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
                             
                             MemoCell(
                                 isVisible: true,
-                                isDark: true, location: $viewModel.location,
+                                isDark: true, location: $mainMapViewModel.location,
                                 memo: item)
+                                .environmentObject(mainMapViewModel)
                             .onTapGesture {
-                                viewModel.selectedMemoId = item.id
+                                mainMapViewModel.selectedMemoId = item.id
                             }
                             .frame(width: UIScreen.main.bounds.size.width * 0.84)
                             .padding(.leading, 12)
@@ -128,11 +129,11 @@ struct MainMapView: View {
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
                 MemoListView(sortDistance: $sortDistance)
-                    .environmentObject(viewModel)
+                    .environmentObject(mainMapViewModel)
             })
             
             .sheet(isPresented: $fileterSheet, content: {
-                FileterListView(filteredList: $viewModel.filterList)
+                FileterListView(filteredList: $mainMapViewModel.filterList)
                     .background(Color.lightGrayBackground)
                     .presentationDetents([.medium])
             })
@@ -142,7 +143,7 @@ struct MainMapView: View {
             }
         })
         .onAppear {
-            viewModel.fetchMemos()
+            mainMapViewModel.fetchMemos()
         }
     }
 }
