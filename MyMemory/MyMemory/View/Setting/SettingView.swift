@@ -9,9 +9,10 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
-    @ObservedObject var authViewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @Binding var user: User
     @Binding var isCurrentUserLoginState: Bool
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,9 +65,11 @@ struct SettingView: View {
                     Button {
                         if authViewModel.signout() {
                             print("로그아웃 성공")
+                            presentationMode.wrappedValue.dismiss()
                         } else {
                             print("로그아웃 실패")
                         }
+                        
 //                        settingViewModel.fetchUserLogout {
 //                            isCurrentUserLoginState = false
 //                            settingViewModel.isShowingLogoutAlert = true
