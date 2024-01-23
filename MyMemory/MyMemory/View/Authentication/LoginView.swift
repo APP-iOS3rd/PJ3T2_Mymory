@@ -27,7 +27,7 @@ struct LoginView: View {
     @EnvironmentObject var viewModel: AuthViewModel
     @ObservedObject var viewRouter: ViewRouter = ViewRouter()
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     // 확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
@@ -99,14 +99,11 @@ struct LoginView: View {
                     
                     if viewModel.login(withEmail: email, password: password) {
                         print("로그인 성공")
-                        self.presentationMode.wrappedValue.dismiss()
                         
                     } else {
                         print("로그인 실패")
                     }
-                    
-                   
-//                    viewModel.fetchUser()
+                    dismiss()
                     
                 } label: {
                     Text("로그인")
@@ -159,9 +156,6 @@ struct LoginView: View {
         }//: VSTACK
    
         .padding()
-        .navigationDestination(isPresented: $isActive) {
-            MainTabView(viewRouter: viewRouter)
-        }
         .onTapGesture{
             self.endTextEditing()
         }

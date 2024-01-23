@@ -32,10 +32,9 @@ struct MainTabView: View {
                     }.tag(0)
                 
                 
-                Text("포스트뷰")
+                Text("포스트뷰").hidden()
                     .onTapGesture {
                         selectedIndex = 1
-                       
                     }
                     .tabItem {
                         Image(systemName: "pencil")
@@ -43,28 +42,24 @@ struct MainTabView: View {
                     }
                     .tag(1)
                 
-               // 로그인 상태 확인
-               // if viewModel.userSession != nil {
-                    // 로그인 상태가 맞다면, 로그인한 유저 확인한다.
-                
+                    // 로그인 여부, 유저 정보를 확인한다.
                     if let user = viewModel.currentUser {
+                        
                         MypageView(user: user)
-                            .onTapGesture{
+                            .onTapGesture {
                                 selectedIndex = 2
-                              
                             }
                             .tabItem {
                                 Image(systemName: "person")
                                 Text("마이")
                             }
                             .tag(2)
+                        
                    } else {
                        
-                    Text("로그인이 필요합니다.")
+                       Text("로그인이 필요합니다.").hidden()
                         .onTapGesture{
                             selectedIndex = 2
-                           // isLogin = true
-                            
                         }
                         .tabItem {
                             Image(systemName: "person")
@@ -74,17 +69,17 @@ struct MainTabView: View {
                         
                     }
             }
-           //  Tab 전환을 통해 화면 이동하는 방법 대신 Navigation으로 이동
+            // [화면 이동 방법] Tab 전환 대신 Navigation 으로 화면이동
             .onChange(of: selectedIndex) { [selectedIndex] newTab in
                 
+                // 클릭한 탭이 tag(1)이고, userSession이 nil이 아닐 때,
                 if newTab == 1 && viewModel.userSession != nil   {
                     self.selectedIndex = selectedIndex
-                    
                     isLoginView = false
                     isPostView = true
                 }
-                // 로그인 상태가 아닐 때,
-                if newTab == 2 && viewModel.userSession == nil || newTab == 1 && viewModel.userSession == nil {
+                // 로그인 상태가 아닐 때, tag(0)일때는 loginview x
+                if newTab == 2 && viewModel.userSession == nil || newTab == 1 && viewModel.userSession == nil  {
                     self.selectedIndex = selectedIndex
                     isPostView = false
                     isLoginView = true
@@ -102,18 +97,23 @@ struct MainTabView: View {
                     .hidden()
                 
             )
-            // NavigationView - LoginView
             .background(
-               
+                
                 NavigationLink(
                     destination: LoginView(),
                     isActive: $isLoginView
                 ) {
                     EmptyView()
                 }
-                    .hidden()
+                .hidden()
                 
             )
+            
+            
+//            
+//            .fullScreenCover(isPresented: $isLoginView) {
+//                LoginView()
+//            }
  
         }
       
