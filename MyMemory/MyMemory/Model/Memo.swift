@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import Firebase
-
+import CoreLocation
 
 struct Memo:  Hashable, Codable, Identifiable {
    
@@ -28,5 +28,13 @@ struct Memo:  Hashable, Codable, Identifiable {
 
     var likeCount: Int  // 좋아요 개수
     var memoImageUUIDs: [String]  // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
- 
+}
+
+struct Location: Hashable, Codable {
+    var latitude: Double
+    var longitude: Double
+    func distance(from loc: CLLocation) -> Double {
+        let clloc = CLLocation(latitude: latitude, longitude: longitude)
+        return clloc.distance(from: loc)
+    }
 }
