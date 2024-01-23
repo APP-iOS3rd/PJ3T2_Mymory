@@ -11,7 +11,7 @@ import FirebaseCore
 import FirebaseFirestore
 
 class SettingViewModel: ObservableObject {
-    @Published var version: String = ""
+    @Published var version: String = "1.0.0"
     @Published var isCurrentUserLoginState: Bool = false
     @Published var isShowingLogoutAlert = false
     @Published var isShowingWithdrawalAlert = false
@@ -41,7 +41,7 @@ class SettingViewModel: ObservableObject {
         if self.isCurrentUserLoginState {
             do {
                 try Auth.auth().signOut()
-                UserDefaults.standard.removeObject(forKey: "userInfo")
+                UserDefaults.standard.removeObject(forKey: "userId")
                 completion()
                 print("로그아웃")
             } catch {
@@ -62,6 +62,8 @@ class SettingViewModel: ObservableObject {
                         do {
                             try await self.db.collection("user").document(uid).delete()
                             print("delete success")
+                            UserDefaults.standard.removeObject(forKey: "userId")
+
                         } catch {
                             print("delete error: \(error)")
                         }

@@ -2,14 +2,12 @@
 import SwiftUI
 
 struct MemoDetailView: View {
-    @State private var selectedNum: String = ""
+    @State private var selectedNum: Int = 0
     @State private var isHeart: Bool = false
     @State private var isBookmark: Bool = false
     @State private var isShowingSheet: Bool = false
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
-    @State private var images: [String] = ["https://firebasestorage.googleapis.com:443/v0/b/mymemory-94fc8.appspot.com/o/images%2F02ACAC65-3830-4B43-8EA9-E35AF7B5E184.jpg?alt=media&token=2b6db024-7ed6-4176-a6ad-0955925e906e", "https://firebasestorage.googleapis.com:443/v0/b/mymemory-94fc8.appspot.com/o/images%2F70F144B2-AB09-4A3F-8155-282733613B2D.jpg?alt=media&token=f2cdb0cd-de86-42f6-8cd6-56f7b99896f9", "https://firebasestorage.googleapis.com:443/v0/b/mymemory-94fc8.appspot.com/o/images%2F02ACAC65-3830-4B43-8EA9-E35AF7B5E184.jpg?alt=media&token=2b6db024-7ed6-4176-a6ad-0955925e906e"]
-    
     @State private var isMyMemo:Bool = false
     var memo: Memo
     
@@ -64,6 +62,12 @@ struct MemoDetailView: View {
                                     //.scaledToFit()
                                         .scaledToFill()
                                         .frame(width: 90, height: 90)
+                                        .onTapGesture {
+                                            didTapImage(img: index)
+                                        }
+                                        .fullScreenCover(isPresented: self.$isShowingImgSheet) {
+                                            ImgDetailView(isShownFullScreenCover: self.$isShowingImgSheet, selectedImage: $selectedNum, images: memo.images)
+                                      }
                                 }
                             }
                         }
@@ -117,7 +121,7 @@ struct MemoDetailView: View {
     }
         
     
-    func didTapImage(img: String) {
+    func didTapImage(img: Int) {
         selectedNum = img
         isShowingImgSheet.toggle()
     }

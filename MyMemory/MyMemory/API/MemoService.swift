@@ -10,7 +10,7 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
-
+import CoreLocation
 struct MemoService {
     static let shared = MemoService()
     let storage = Storage.storage()
@@ -227,28 +227,62 @@ struct MemoService {
         
         return memos
     }
+    // 영역 fetch
+    func fetchMemos(in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
+        var memos = [Memo]()
+        var querySnapshot: QuerySnapshot
+        // "Memos" 컬렉션에서 문서들을 가져옴
+        if let location = location {
+            let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
+            let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
+
+            // Firestore 쿼리 작성
+            let query = COLLECTION_MEMOS.whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
+                .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
+            
+            querySnapshot = try await query.getDocuments()
+      
+            let filteredDocuments = querySnapshot.documents.filter { document in
+                let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
+                return longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude
+            }
+            // 경도 필터링된 문서를 메모로 변환하여 배열에 추가
+            for document in filteredDocuments {
+                let data = document.data()
+                
+                // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    memos.append(memo)
+                }
+            }
+        } else {
+            querySnapshot = try await COLLECTION_MEMOS.getDocuments()
+            // 각 문서를 PostMemoModel로 변환하여 배열에 추가
+            for document in querySnapshot.documents {
+                let data = document.data()
+                
+                // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    memos.append(memo)
+                }
+            }
+        }
+        return memos
+    }
     
-    
-    func fetchMyMemos() async -> [Memo] {
+    func fetchMyMemos(userID: String) async -> [Memo] {
         do {
-            let authResult = try await Auth.auth().signIn(withEmail: "test@test.com", password: "qwer1234!")
-            let userID = authResult.user.uid
-            
-            let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
-            
+            let querySnapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID).getDocuments()
             var memos = [Memo]()
             
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
             for document in querySnapshot.documents {
                 let data = document.data()
-                
-                if let userUid = data["userUid"] as? String, userUid == userID {
-                    if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
-                        memos.append(memo)
-                    }
+                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    memos.append(memo)
                 }
             }
-            
+
             return memos
         } catch {
             // Handle errors
@@ -266,9 +300,9 @@ struct MemoService {
             let userID = user.id
             
             return checkMemo.userUid == userID
-        } catch {
-            // 오류 처리
             print("Error signing in: \(error.localizedDescription)")
+            // 오류 처리
+        } catch {
             return false
         }
     }

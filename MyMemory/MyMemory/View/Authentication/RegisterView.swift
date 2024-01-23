@@ -11,7 +11,7 @@ import PhotosUI
 
 struct RegisterView: View {
    // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
-    @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel : AuthViewModel
     
     var body: some View {
         NavigationView {

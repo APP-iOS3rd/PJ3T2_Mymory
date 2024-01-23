@@ -59,9 +59,7 @@ struct KakaoMapView: UIViewRepresentable {
             }
             context.coordinator._currentHeading = userDirection
             context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-            if viewModel.clusteringDidChanged {
-                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
-            }
+
             if draw {
                 context.coordinator.controller?.startEngine()
                 context.coordinator.controller?.startRendering()
@@ -69,6 +67,9 @@ struct KakaoMapView: UIViewRepresentable {
             else {
                 context.coordinator.controller?.stopRendering()
                 context.coordinator.controller?.stopEngine()
+            }
+            if viewModel.clusteringDidChanged {
+                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
             }
         }
     }
@@ -235,17 +236,17 @@ struct KakaoMapView: UIViewRepresentable {
             let manager = view.getLabelManager()
             
             let marker = PoiIconStyle(symbol: UIImage(named: "map_ico_marker"))
-            let perLevelStyle1 = PerLevelPoiStyle(iconStyle: marker, level: 0)
+            let perLevelStyle1 = PerLevelPoiStyle(iconStyle: marker, level: 3)
             let poiStyle1 = PoiStyle(styleID: "positionPoiStyle", styles: [perLevelStyle1])
             manager.addPoiStyle(poiStyle1)
             
             let direction = PoiIconStyle(symbol: UIImage(named: "map_ico_marker_direction"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
-            let perLevelStyle2 = PerLevelPoiStyle(iconStyle: direction, level: 0)
+            let perLevelStyle2 = PerLevelPoiStyle(iconStyle: direction, level: 3)
             let poiStyle2 = PoiStyle(styleID: "directionArrowPoiStyle", styles: [perLevelStyle2])
             manager.addPoiStyle(poiStyle2)
             
             let area = PoiIconStyle(symbol: UIImage(named: "map_ico_direction_area"), anchorPoint: CGPoint(x: 0.5, y: 0.995))
-            let perLevelStyle3 = PerLevelPoiStyle(iconStyle: area, level: 0)
+            let perLevelStyle3 = PerLevelPoiStyle(iconStyle: area, level: 3)
             let poiStyle3 = PoiStyle(styleID: "directionPoiStyle", styles: [perLevelStyle3])
             manager.addPoiStyle(poiStyle3)
             
@@ -256,9 +257,9 @@ struct KakaoMapView: UIViewRepresentable {
             let memoMineSelected = PoiIconStyle(symbol: UIImage(named: "maker_mine_selected"))
             
             let perLevelStyleDef = PerLevelPoiStyle(iconStyle: memoDef, level: 0)
-            let perLevelStyleSelected = PerLevelPoiStyle(iconStyle: memoSelected, level: 1)
-            let perLevelStyleMine = PerLevelPoiStyle(iconStyle: memoMine, level: 2)
-            let perLevelStyleMineSelected = PerLevelPoiStyle(iconStyle: memoMineSelected, level: 3)
+            let perLevelStyleSelected = PerLevelPoiStyle(iconStyle: memoSelected, level: 0)
+            let perLevelStyleMine = PerLevelPoiStyle(iconStyle: memoMine, level: 0)
+            let perLevelStyleMineSelected = PerLevelPoiStyle(iconStyle: memoMineSelected, level: 0)
             
             
             let poiStyleDef = PoiStyle(styleID: "memoPoiStyle1", styles: [perLevelStyleDef])
@@ -342,11 +343,17 @@ struct KakaoMapView: UIViewRepresentable {
                         }
                     }
                     
-                    if let current = UserDefaults.standard.string(forKey: "userID") // 저장된 내 UUID
+                    if let current = UserDefaults.standard.string(forKey: "userId") // 저장된 내 UUID
                     {
-                        if c.memos.contains(where: {$0.id == current}) {
+                        if c.memos.contains(where: {$0.userUid == current}) {
                             poiOption = PoiOptions(styleID: "memoPoiStyle3", poiID: c.id.uuidString)
+                            if let s = selected {
+                                if c == s {
+                                    poiOption = PoiOptions(styleID: "memoPoiStyle4", poiID: c.id.uuidString)
+                                }
+                            }
                         }
+                        
                     }
                     
                     poiOption.rank = 2

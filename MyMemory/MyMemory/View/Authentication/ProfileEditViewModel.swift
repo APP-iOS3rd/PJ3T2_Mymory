@@ -47,12 +47,12 @@ class ProfileEditViewModel: ObservableObject {
             throw NSError(domain: "Invalid image data", code: 0, userInfo: nil)
         }
         
-        guard let compressedImageData = image.jpegData(compressionQuality: 0.75) else {
+        guard let compressedImageData = image.jpegData(compressionQuality: 0.2) else {
             throw NSError(domain: "Image compression failed.", code: 0, userInfo: nil)
         }
         
         let storageRef = storage.reference()
-        let imageRef = storageRef.child("images/\(UUID().uuidString).jpg")
+        let imageRef = storageRef.child("profile_images/\(UUID().uuidString).jpg")
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         

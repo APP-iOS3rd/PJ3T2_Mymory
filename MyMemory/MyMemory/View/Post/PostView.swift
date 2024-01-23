@@ -89,7 +89,11 @@ struct PostView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom)
                 
-                //💁 사진 등록하기 View
+            } //: ScrollView
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .customNavigationBar(
+            centerView: {
                 Group {
                     VStack(alignment: .leading, spacing: 10){
                         HStack {
@@ -143,42 +147,13 @@ struct PostView: View {
                 .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                 .padding(.bottom)
                 
-                Spacer()
-            } //:VSTACK
-            .overlay(content: {
-                if LoadingManager.shared.phase == .loading {
-                    LoadingView()
-                }
-            })
-            
-        } //: ScrollView
-    
-        .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button(action: {
-            // 뒤로 가기 동작을 구현합니다
-            // 예: PresentationMode를 사용하여 화면을 닫습니다
-            presentationMode.wrappedValue.dismiss()
-        }) {
-            Image(systemName: "chevron.left")
-                .foregroundColor(.blue)
-        }, trailing: Group {
-            if isEdit {
-                Button(action: {
-                    Task.init {
-                        // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
-                        // 예: 삭제 확인 대화상자를 표시합니다
-                        print("Trash button tapped!")
-                        await viewModel.deleteMemo(memo: memo)
-                        DispatchQueue.main.async {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-                }) {
-                    Image(systemName: "trash")
-                        .foregroundColor(.red)
-                }
-            }
-        })
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .white
+        )
+        .toolbar(.hidden, for: .tabBar)
 
         .onTapGesture {
             UIApplication.shared.endEditing()

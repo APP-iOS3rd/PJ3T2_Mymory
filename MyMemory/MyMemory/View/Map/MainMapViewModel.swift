@@ -17,7 +17,13 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
     private let cluster: ClusterOperation = .init()
-    
+    //위치 감별사
+    private var firstLocationUpdated = false
+    var firstLocation: CLLocation? {
+        didSet{
+            fetchMemos()
+        }
+    }
     
     @Published var filterList: Set<String> = Set() {
         didSet {
@@ -33,7 +39,18 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
     
-    @Published var location: CLLocation?
+    @Published var location: CLLocation? {
+        didSet {
+            //처음 한번 로케이션 불러오기
+            if !self.firstLocationUpdated {
+                self.firstLocation = self.location
+                self.firstLocationUpdated = true
+            } else {
+                let dist = firstLocation!.distance(from: self.location!)
+                self.isFarEnough = dist > 300 // 300미터 이상 갔을 때
+            }
+        }
+    }
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
     @Published var filteredMemoList: [Memo] = []
@@ -41,6 +58,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
+    @Published var isFarEnough = false
 //    @Published var selectedMemoId: UUID? = nil
     @Published var selectedMemoId: String? = ""
     @Published var selectedCluster: MemoCluster? = nil{
@@ -80,16 +98,19 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        fetchMemos()
         getCurrentAddress()
         self.cluster.delegate = self
     }
     
     func fetchMemos() {
         LoadingManager.shared.phase = .loading
-        Task { @MainActor in 
+        guard self.location != nil else {
+            LoadingManager.shared.phase = .fail(msg: "위치가없음")
+            return
+        }
+        Task { @MainActor in
             do {
-                let fetched = try await MemoService.shared.fetchMemos()
+                let fetched = try await MemoService.shared.fetchMemos(in: location)
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
                 if let current = location {
                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
@@ -105,6 +126,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
+    
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {
@@ -136,6 +158,7 @@ extension MainMapViewModel {
 //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
             weakSelf.location = .init(latitude: location.coordinate.latitude,
                                    longitude: location.coordinate.longitude)
+
             weakSelf.getCurrentAddress()
         }
     }
@@ -153,8 +176,8 @@ extension MainMapViewModel {
             memoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
             filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
         } else {
-            memoList.sort(by: {$0.date < $1.date})
-            filteredMemoList.sort(by: {$0.date < $1.date})
+            memoList.sort(by: {$0.date > $1.date})
+            filteredMemoList.sort(by: {$0.date > $1.date})
         }
     }
     //MARK: - 주소 얻어오는 함수

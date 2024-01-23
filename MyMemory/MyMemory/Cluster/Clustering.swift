@@ -29,8 +29,9 @@ final class ClusterOperation {
     }
     public func addMemoList(memos: [Memo]) {
         operationQueue.cancelAllOperations()
-
+        
         dispatchQueue.async {
+            self.quadTree.removeAllNodes()
             for memo in memos {
                 self.quadTree.insert(memo: memo)
             }

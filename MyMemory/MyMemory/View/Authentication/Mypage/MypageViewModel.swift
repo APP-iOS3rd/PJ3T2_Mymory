@@ -6,59 +6,12 @@
 //
 
 import Foundation
-import CoreLocation
 import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 
-enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
-    case last = "최신순"
-    case like = "좋아요순"
-    case close = "가까운순"
-    
-    var id: Self { self }
-}
 
-//// 임시
-//struct Memo: Hashable, Codable, Identifiable {
-//    // 유저Id
-//    var userId = UUID()
-//    // 메모 id
-//    var id = UUID()
-//    // 제목
-//    var userUid: String
-//    
-//    var title: String
-//    // 메모 내용
-//    var description: String
-//    // 주소
-//    var address: String
-//    // 태그
-//    var tags: [String]
-//    // 사진
-//    var images: [Data]
-//    // 공개여부
-//    var isPublic: Bool
-//    // 작성일
-//    var date: TimeInterval
-//    // 위치
-//    var location: Location
-//    // 좋아요 개수
-//    var likeCount: Int
-//    
-//    var memoImageUUIDs: [String]
-//    // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
-//}
-
-struct Location: Hashable, Codable {
-    var latitude: Double
-    var longitude: Double
-    func distance(from loc: CLLocation) -> Double {
-        let clloc = CLLocation(latitude: latitude, longitude: longitude)
-        return clloc.distance(from: loc)
-    }
-}
 
 class MypageViewModel: ObservableObject {   
     
@@ -70,6 +23,7 @@ class MypageViewModel: ObservableObject {
     @Published var isCurrentUserLoginState = false
   
     let db = Firestore.firestore()
+    let memoService = MemoService.shared
     
     @Published var user: User
     
@@ -77,13 +31,14 @@ class MypageViewModel: ObservableObject {
         self.user = user
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
-        self.memoList = [
-            Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""]),
-            Memo(userUid: "456", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 3300, location: Location(latitude: 37.402201, longitude: 127.108578), likeCount: 10, memoImageUUIDs: [""]),
-            Memo(userUid: "789", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 100, location: Location(latitude: 37.402301, longitude: 127.108678), likeCount: 10, memoImageUUIDs: [""]),
-            Memo(userUid: "91011", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 + 200, location: Location(latitude: 37.402401, longitude: 127.108778), likeCount: 10, memoImageUUIDs: [""]),
-            Memo(userUid: "1234", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970, location: Location(latitude: 37.402501, longitude: 127.108878), likeCount: 10, memoImageUUIDs: [""]),
-        ]
+        if let userID = self.user.id {
+            LoadingManager.shared.phase = .loading
+            Task {[weak self] in
+                guard let self = self else {return}
+                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+                LoadingManager.shared.phase = .success
+            }
+        }
     }
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
@@ -119,7 +74,7 @@ class MypageViewModel: ObservableObject {
         }
     }
     func fetchUserState() {
-        guard let uid = user.id else { return }
+        guard let _ = user.id else { return }
     }
     
     func fetchCurrentUserLoginState() -> Bool {
@@ -142,4 +97,19 @@ class MypageViewModel: ObservableObject {
 //            return nil
 //        }
 //    }
+    
+    func fetchMyMemoList() async {
+        LoadingManager.shared.phase = .loading
+
+        if let userId = self.user.id {
+            
+            self.memoList = await memoService.fetchMyMemos(userID: userId)
+            LoadingManager.shared.phase = .success
+
+        } else {
+            LoadingManager.shared.phase = .fail(msg: "로그인 실패")
+
+            print("로그인 중이 아닙니다.")
+        }
+    }
 }

@@ -42,7 +42,7 @@ struct NavigationBarItems: View {
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $isShowingSheet) {
-                    ReportView()
+                    ReportView(memo: memo)
                         .presentationDragIndicator(.visible)
                         .presentationDetents([.medium, .large])
                 }

@@ -12,12 +12,14 @@ struct MainTabView: View {
     
     @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
-    @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel : AuthViewModel
     @State var isPresented: Bool = false
-    
+ 
+    @State var isLogin: Bool = false
+ 
     var body: some View {
         
-        NavigationStack {
+        NavigationStack  {
             TabView(selection: $selectedIndex){
                 
                 MainMapView()
@@ -29,7 +31,7 @@ struct MainTabView: View {
                         Text("지도")
                     }.tag(0)
 
-                PostView()
+                Text("") 
                     .onTapGesture {
                         selectedIndex = 1
                     }
@@ -38,10 +40,10 @@ struct MainTabView: View {
                         Text("메모하기")
                     }
                     .tag(1)
- 
-                if let user = viewModel.currentUser {
-                    if viewModel.userSession != nil {
-               
+                
+                // 로그인한 유저 확인
+                if viewModel.userSession != nil {
+                    if let user = viewModel.currentUser {
                         MypageView(user: user)
                             .onTapGesture{
                                 selectedIndex = 2
@@ -51,40 +53,69 @@ struct MainTabView: View {
                                 Text("마이")
                             }
                             .tag(2)
-                    }
-                    
-                }
+                   }
+                } 
+                // 로그아웃 상태일 때,
                 else {
                     
-                    LoginView()
+                    Text("로그인이 필요합니다.")
                         .onTapGesture{
                             selectedIndex = 2
-                            //isPresented.toggle()
+                              isLogin = true
                         }
                         .tabItem {
                             Image(systemName: "person")
                             Text("마이")
                         }
                         .tag(2)
+                    
                 }
- 
             }
-//            .onChange(of: selectedIndex) { value in
-//              //  if selectedIndex ==  2 {
-//
-//                    if viewModel.userSession == nil {
-//                        isPresented = true
-//                    }
-//
-//                //}
-//                print(value)
-//            }
-//            .fullScreenCover(isPresented: $isPresented) {
-//                LoginView()
-//            }
+            // PostView는 Tab전환 대신 Navigation으로 이동
+            .onChange(of: selectedIndex) { [selectedIndex] newTab in
+                if newTab == 1 {
+                    self.selectedIndex = selectedIndex
+                    isPresented = true
+                    isLogin = false
+                    
+                }
+                if newTab == 2 && viewModel.userSession == nil {
+                    self.selectedIndex = selectedIndex
+                    isLogin = true
+                    isPresented = false
+                    
+                }
+            }
+            // NavigationView - PostView
+            .background(
+                
+                NavigationLink(
+                    destination: PostView(),
+                    isActive: $isPresented
+                ) {
+                    EmptyView()
+                }
+                    .hidden()
+                
+            )
+            // NavigationView - LoginView
+            .background(
+                
+                NavigationLink(
+                    destination: LoginView(),
+                    isActive: $isLogin
+                ) {
+                    EmptyView()
+                }
+                    .hidden()
+                
+            )
+ 
         }
-        
+      
     }
+        
+ 
 }
 
  

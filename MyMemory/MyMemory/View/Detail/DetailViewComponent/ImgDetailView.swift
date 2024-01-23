@@ -4,13 +4,12 @@
 //
 //  Created by 김성엽 on 1/16/24.
 //
-
 import SwiftUI
 
 struct ImgDetailView: View {
     @Binding var isShownFullScreenCover: Bool
-    @Binding var imagUrl:String
-    @Binding var images: [String]
+    @Binding var selectedImage: Int
+    var images: [Data]
     
     var body: some View {
         
@@ -23,67 +22,25 @@ struct ImgDetailView: View {
                     isShownFullScreenCover.toggle()
                 } label: {
                     Image(systemName: "xmark")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.accentColor)
                         .font(.largeTitle)
                 }
                 .padding(.top, 50)
                 
-                TabView(selection: $imagUrl) {
-                    ForEach(images, id: \.self) { img in
-                        AsyncImage(url: URL(string: img)) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image.imageModifier()
-                            case .failure(_):
-                                VStack {
-                                    Image(systemName: "xmark.circle.fill").iconModifier()
-                                    Text("오류로 이미지를 불러오지 못했습니다")
-                                        .foregroundStyle(.white)
-                                }
-                            case .empty:
-                                Image(systemName: "photo.circle.fill").iconModifier()
-                            @unknown default:
-                                ProgressView()
-                            }
+                TabView(selection: $selectedImage) {
+                    ForEach(images.indices, id: \.self) { index in
+                        if let uiimage = UIImage(data: images[index]) {
+                            Image(uiImage: uiimage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .padding(.bottom, 50)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 600)
-                        .padding(.bottom, 50)
                     }
                     
                 }
                 .tabViewStyle(.page)
-                
-                
-                
-                //                    Rectangle()
-                //                        .foregroundStyle(.white)
-                //                        .frame(maxWidth: .infinity)
-                //                        .frame(height: 600)
-                //                        .padding(.bottom, 50)
-                
             }
         }
-    }
-}
-
-//#Preview {
-//    ImgDetailView()
-//}
-
-
-extension Image {
-    func imageModifier() -> some View {
-        self
-            .resizable()
-            .scaledToFit()
-    }
-    
-    func iconModifier() -> some View {
-        self
-            .imageModifier()
-            .frame(maxWidth: 128)
-            .foregroundColor(.purple)
-            .opacity(0.5)
     }
 }

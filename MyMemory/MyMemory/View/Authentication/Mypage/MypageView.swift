@@ -7,17 +7,23 @@
 
 import SwiftUI
 
+enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
+    case last = "최신순"
+    case like = "좋아요순"
+    case close = "가까운순"
+    
+    var id: SortedTypeOfMemo { self }
+}
+
 struct MypageView: View {
     
     let user: User?
     @ObservedObject var viewModel: MypageViewModel
-    @ObservedObject var authViewModel: AuthViewModel
-    // @StateObject var myPageViewModel: MypageViewModel = .init()
+    @EnvironmentObject var authViewModel: AuthViewModel
  
     init(user: User) {
         self.user = user
         self.viewModel = MypageViewModel(user: user)
-        self.authViewModel = AuthViewModel()
     }
     
     var body: some View {
@@ -30,7 +36,7 @@ struct MypageView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    MypageTopView(viewModel: viewModel, authViewModel: authViewModel)
+                    MypageTopView(viewModel: viewModel)
                     
                     
                     if authViewModel.currentUser != nil {
@@ -55,7 +61,7 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!viewModel.isCurrentUserLoginState)
+                            .disabled(!viewModel.user.isCurrentUser)
                         }
                         .padding(.top, 38)
                         
@@ -112,6 +118,16 @@ struct MypageView: View {
 
             }
  
+        }
+        .onAppear(perform: {
+            Task {
+               await viewModel.fetchMyMemoList()
+            }
+        })
+        .overlay{
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
         }
 //        .onAppear{
 //            viewModel.

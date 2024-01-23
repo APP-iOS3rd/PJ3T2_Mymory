@@ -42,7 +42,7 @@ class AuthViewModel: ObservableObject {
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
-    @Published var privacyPolicyUrlString = "https://www.google.com"
+    @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
     @Published var termsOfUseUrlString = "https://www.naver.com"
     
     @Published var nonce : String = ""
@@ -54,23 +54,45 @@ class AuthViewModel: ObservableObject {
         fetchUser()
     }
     
-    func login(withEmail email: String, password: String){
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("디버깅: 로그인실패 \(error.localizedDescription)")
-                return
+//    func login(withEmail email: String, password: String)   {
+//        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+//            if let error = error {
+//                print("디버깅: 로그인실패 \(error.localizedDescription)")
+//                return
+//            }
+//            guard let user = result?.user else { return }
+//            self.userSession = user
+//            
+//            self.fetchUser()
+//        }
+//    }
+    func login(withEmail email: String, password: String) -> Bool {
+        do {
+            try Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                if let error = error {
+                    print("디버깅: 로그인실패 \(error.localizedDescription)")
+                    return
+                }
+                guard let user = result?.user else { return }
+                self.userSession = user
+                
+                self.fetchUser()
             }
-            guard let user = result?.user else { return }
-            self.userSession = user
             
-            self.fetchUser()
+            return true
+        } catch {
+            return false
         }
     }
     
-    func signout() {
+    func signout() -> Bool{
         self.userSession = nil
-        try? Auth.auth().signOut()
-        
+        do {
+            try Auth.auth().signOut()
+            return true
+        } catch {
+            return false
+        }
     }
     
     func userCreate() {
@@ -177,10 +199,11 @@ class AuthViewModel: ObservableObject {
     func fetchUser() {
         guard let uid = userSession?.uid else { return }
         print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
+        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
-            self.currentUser = user
+            self?.currentUser = user
+            UserDefaults.standard.set(user.id, forKey: "userId")
             print(user)
         }
     }
@@ -197,7 +220,8 @@ class AuthViewModel: ObservableObject {
         }
         
         let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
-        Auth.auth().signIn(with: firebaseCredential) { result, err in
+        Auth.auth().signIn(with: firebaseCredential) { [weak self] result, err in
+            guard let self = self else {return}
             if let err = err {
                 print(err.localizedDescription)
             }
@@ -222,10 +246,11 @@ class AuthViewModel: ObservableObject {
     func fetchAppleUser() {
         guard let uid = userSession?.uid else { return }
         print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
+        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
-            self.currentUser = user
+            self?.currentUser = user
+            UserDefaults.standard.set(user.id, forKey: "userId")
             print(user)
         }
     }
