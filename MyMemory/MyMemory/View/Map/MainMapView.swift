@@ -131,6 +131,9 @@ struct MainMapView: View {
                 LoadingView()
             }
         })
+        .onAppear {
+            viewModel.fetchMemos()
+        }
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Textarea: View {
     @State var label = "텍스트필드 라벨이에요"
-    @State var text = ""
+    @Binding var text: String
     @State var placeholder = ""
     @State var lineLimit: Int = 2
        var body: some View {
@@ -29,6 +29,6 @@ struct Textarea: View {
 
 
 #Preview {
-    Textarea()
+    Textarea(text: .constant("신고내용"))
 }
 

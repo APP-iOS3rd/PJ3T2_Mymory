@@ -5,39 +5,39 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000241">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000259">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: match" time="7.341534">
+      <testcase classname="fastlane.lanes" name="1: match" time="8.342407">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: increment_build_number" time="0.216082">
+      <testcase classname="fastlane.lanes" name="2: increment_build_number" time="0.212857">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: build_app" time="39.531387">
+      <testcase classname="fastlane.lanes" name="3: build_app" time="41.460853">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: app_store_connect_api_key" time="0.001131">
+      <testcase classname="fastlane.lanes" name="4: app_store_connect_api_key" time="0.00125">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: pilot" time="197.299463">
+      <testcase classname="fastlane.lanes" name="5: pilot" time="167.40854">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: upload_to_testflight" time="6.239449">
+      <testcase classname="fastlane.lanes" name="6: upload_to_testflight" time="6.598851">
         
-          <failure message="/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:32:in `block (2 levels) in parsing_binding&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/lane.rb:41:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/lane_manager.rb:46:in `cruise_lane&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/command_line_handler.rb:34:in `handle&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:354:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/bin/fastlane:25:in `load&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Error uploading ipa file: &#10; [Application Loader Error Output]: Error uploading &apos;/var/folders/zz/_w8zgp9n15qgyby2c9916tw80000gn/T/f95af4a1-6b01-45e5-83ac-35e5ed14311c.ipa&apos;.&#10;[Application Loader Error Output]: The provided entity includes an attribute with a value that has already been used The bundle version must be higher than the previously uploaded version: ‘23’. (ID: 7fe0790d-1030-4471-829b-ed3eb688f768) (-19232)&#10;[Application Loader Error Output]: The call to the altool completed with a non-zero exit status: 1. This indicates a failure." />
+          <failure message="/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/actions/actions_helper.rb:67:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:255:in `block in execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:229:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:229:in `execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:157:in `trigger_action_by_name&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/fast_file.rb:159:in `method_missing&apos;&#10;Fastfile:32:in `block (2 levels) in parsing_binding&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/lane.rb:41:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:49:in `block in execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:45:in `chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/runner.rb:45:in `execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/lane_manager.rb:46:in `cruise_lane&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/command_line_handler.rb:34:in `handle&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:110:in `block (2 levels) in run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/command.rb:187:in `call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/command.rb:157:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/runner.rb:444:in `run_active_command&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/commander-4.6.0/lib/commander/delegates.rb:18:in `run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:354:in `run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/commands_generator.rb:43:in `start&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/fastlane/lib/fastlane/cli_tools_distributor.rb:123:in `take_off&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/gems/fastlane-2.219.0/bin/fastlane:23:in `&lt;top (required)&gt;&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/bin/fastlane:25:in `load&apos;&#10;/opt/homebrew/Cellar/fastlane/2.219.0_2/libexec/bin/fastlane:25:in `&lt;main&gt;&apos;&#10;&#10;Error uploading ipa file: &#10; [Application Loader Error Output]: Error uploading &apos;/var/folders/zz/_w8zgp9n15qgyby2c9916tw80000gn/T/6d2f2f3c-9d6f-403d-9040-54772136e1f0.ipa&apos;.&#10;[Application Loader Error Output]: The provided entity includes an attribute with a value that has already been used The bundle version must be higher than the previously uploaded version: ‘24’. (ID: edb71e51-a4da-4fae-a67c-ef164c66bc98) (-19232)&#10;[Application Loader Error Output]: The call to the altool completed with a non-zero exit status: 1. This indicates a failure." />
         
       </testcase>
     
