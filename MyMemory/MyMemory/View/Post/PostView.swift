@@ -160,6 +160,7 @@ struct PostView: View {
                 
             } //: ScrollView
         }
+        .toolbar(.hidden, for: .tabBar)
         .customNavigationBar(
             centerView: {
                 Group {

@@ -12,12 +12,12 @@ struct MainTabView: View {
     
     @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
-    @ObservedObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel : AuthViewModel
     @State var isPresented: Bool = false
-    
+ 
     var body: some View {
         
-        NavigationStack {
+        NavigationStack  {
             TabView(selection: $selectedIndex){
                 
                 MainMapView()
@@ -28,8 +28,9 @@ struct MainTabView: View {
                         Image(systemName: "map.fill")
                         Text("지도")
                     }.tag(0)
-
-                PostView()
+                
+                
+                Text("")
                     .onTapGesture {
                         selectedIndex = 1
                     }
@@ -38,53 +39,39 @@ struct MainTabView: View {
                         Text("메모하기")
                     }
                     .tag(1)
- 
-                if let user = viewModel.currentUser {
-                    if viewModel.userSession != nil {
-               
-                        MypageView(user: user)
-                            .onTapGesture{
-                                selectedIndex = 2
-                            }
-                            .tabItem {
-                                Image(systemName: "person")
-                                Text("마이")
-                            }
-                            .tag(2)
+                
+                MypageView()
+                    .onTapGesture{
+                        selectedIndex = 2
                     }
-                    
-                }
-                else {
-                    
-                    LoginView()
-                        .onTapGesture{
-                            selectedIndex = 2
-                            //isPresented.toggle()
-                        }
-                        .tabItem {
-                            Image(systemName: "person")
-                            Text("마이")
-                        }
-                        .tag(2)
-                }
- 
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("마이")
+                    }
+                    .tag(2)
             }
-//            .onChange(of: selectedIndex) { value in
-//              //  if selectedIndex ==  2 {
-//                     
-//                    if viewModel.userSession == nil {
-//                        isPresented = true
-//                    }
-//                
-//                //}
-//                print(value)
-//            }
-//            .fullScreenCover(isPresented: $isPresented) {
-//                LoginView()
-//            }
+            // PostView는 Tab전환 대신 Navigation으로 이동
+            .onChange(of: selectedIndex) { [selectedIndex] newTab in
+                if newTab == 1 {
+                    self.selectedIndex = selectedIndex
+                    isPresented = true
+                }
+            }
+            .background(
+                NavigationLink(
+                    destination: PostView(),
+                    isActive: $isPresented
+                ) {
+                    EmptyView()
+                }
+                    .hidden()
+            )
+                
         }
-        
+      
     }
+        
+ 
 }
 
  
