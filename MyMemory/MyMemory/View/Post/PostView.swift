@@ -89,11 +89,7 @@ struct PostView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom)
                 
-            } //: ScrollView
-        }
-        .toolbar(.hidden, for: .tabBar)
-        .customNavigationBar(
-            centerView: {
+                //💁 사진 등록하기 View
                 Group {
                     VStack(alignment: .leading, spacing: 10){
                         HStack {
@@ -147,14 +143,16 @@ struct PostView: View {
                 .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                 .padding(.bottom)
                 
-            },
-            rightView: {
-                CloseButton()
-            },
-            backgroundColor: .white
-        )
-        .toolbar(.hidden, for: .tabBar)
-
+                Spacer()
+            } //:VSTACK
+            
+        } //: ScrollView
+        .overlay(content: {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        })
+        //.toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -165,11 +163,56 @@ struct PostView: View {
             }
             
         }
-     
-    }
         
-    
+        .customNavigationBar(
+            centerView: {
+                Group {
+                    if isEdit {
+                        Text("메모 수정")
+                    } else {
+                        Text("메모 등록")
+                    }
+                }
+            },
+            leftView: {
+                Group {
+                    if isEdit {
+                        BackButton()
+                    } else {
+                        EmptyView()
+                    }
+                }
+                
+            },
+            rightView: {
+                Group {
+                    if isEdit {
+                        Button(action: {
+                            Task.init {
+                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
+                                // 예: 삭제 확인 대화상자를 표시합니다
+                                print("Trash button tapped!")
+                                await viewModel.deleteMemo(memo: memo)
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    } else {
+                        CloseButton()
+                        
+                    }
+                }
+            },
+            backgroundColor: .white
+        )
+    }
 }
+
+
 
 
 struct MemoView_Previews: PreviewProvider {

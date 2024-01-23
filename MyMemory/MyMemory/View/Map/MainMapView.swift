@@ -66,10 +66,10 @@ struct MainMapView: View {
                     Spacer()
                 }
                 .padding(.horizontal, 12)
-                if viewModel.isFarEnough {
+                if mainMapViewModel.isFarEnough {
                     Button(action: {
-                        viewModel.fetchMemos()
-                        viewModel.firstLocation = viewModel.location
+                        mainMapViewModel.fetchMemos()
+                        mainMapViewModel.firstLocation = mainMapViewModel.location
                     },
                            label: {
                         Text("현재 지도에서 메모 재검색")
@@ -143,7 +143,7 @@ struct MainMapView: View {
             }
         })
         .onAppear {
-            viewModel.fetchMemos()
+            mainMapViewModel.fetchMemos()
         }
     }
 }

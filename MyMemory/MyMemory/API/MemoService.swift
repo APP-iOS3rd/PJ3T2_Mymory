@@ -300,7 +300,7 @@ struct MemoService {
             let userID = user.id
             
             return checkMemo.userUid == userID
-            print("Error signing in: \(error.localizedDescription)")
+            //print("Error signing in: \(error.localizedDescription)")
             // 오류 처리
         } catch {
             return false

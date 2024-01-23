@@ -27,7 +27,6 @@ struct NavigationBarItems: View {
                 NavigationLink { // 버튼이랑 비슷함
                     // destination : 목적지 -> 어디로 페이지 이동할꺼냐
                     PostView(isEdit: true, memo: memo)
-                        .environmentObject(mainMapViewModel)
                 } label: {
                     Image(systemName: "pencil")
                 }
