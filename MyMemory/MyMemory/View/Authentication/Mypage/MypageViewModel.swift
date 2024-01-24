@@ -22,9 +22,9 @@ class MypageViewModel: ObservableObject {
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
 
-    let db = Firestore.firestore()
+  //  let db = Firestore.firestore()
     let memoService = MemoService.shared
-    @Published var user: User? 
+    @Published var user: User?
     
     init() {
         fetchUserState()
@@ -36,9 +36,11 @@ class MypageViewModel: ObservableObject {
                 self.memoList = await self.memoService.fetchMyMemos(userID: userID)
             }
         }
-        AuthViewModel.shared.fetchUser()
-
         let user = AuthViewModel.shared.currentUser
+        AuthViewModel.shared.fetchUser()
+//        AuthViewModel.shared.fetchUser()
+
+        
     }
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
