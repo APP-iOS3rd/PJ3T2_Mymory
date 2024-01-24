@@ -10,7 +10,7 @@ import Combine
 
 struct MainTabView: View {
     
-    @ObservedObject var viewRouter: ViewRouter
+//    @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
     @EnvironmentObject var viewModel : AuthViewModel
     @State var isPresented: Bool = false
@@ -41,7 +41,6 @@ struct MainTabView: View {
                     }
                     .tag(1)
                 MypageView(selected: $selectedIndex)
-                    .environmentObject(viewModel)
                     .onTapGesture{
                         selectedIndex = 2
                     }

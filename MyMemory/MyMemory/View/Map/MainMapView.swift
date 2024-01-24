@@ -138,7 +138,7 @@ struct MainMapView: View {
                     .presentationDetents([.medium])
             })
         }.overlay(content: {
-            if LoadingManager.shared.phase == .loading {
+            if mainMapViewModel.isLoading {
                 LoadingView()
             }
         })

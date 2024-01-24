@@ -20,7 +20,7 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 struct MypageView: View {
     @Binding var selected: Int
     @ObservedObject var viewModel: MypageViewModel = .init()
-    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var authViewModel: AuthViewModel = .shared
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
     var body: some View {
@@ -100,6 +100,11 @@ struct MypageView: View {
                     }
                 }
             }
+            .refreshable {
+                Task{
+                    await viewModel.fetchMyMemoList()
+                }
+            }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {
                 Color.clear
@@ -138,11 +143,11 @@ struct MypageView: View {
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
         }
-        .overlay{
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
-        }
+//        .overlay{
+//            if LoadingManager.shared.phase == .loading {
+//                LoadingView()
+//            }
+//        }
 //        .onAppear{
 //            viewModel.
 //        }

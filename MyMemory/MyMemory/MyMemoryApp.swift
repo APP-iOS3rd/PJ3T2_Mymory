@@ -23,8 +23,8 @@ struct MyMemoryApp: App {
   
     var body: some Scene {
         WindowGroup {
-            MainView(viewRouter: ViewRouter())
-                .environmentObject(AuthViewModel.shared)
+            MainView()
+//                .environmentObject(AuthViewModel.shared)
         }
         
     }

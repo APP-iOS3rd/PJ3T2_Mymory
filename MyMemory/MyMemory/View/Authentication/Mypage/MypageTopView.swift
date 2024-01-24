@@ -10,7 +10,7 @@ import SwiftUI
 struct MypageTopView: View {
     
     @ObservedObject var viewModel: MypageViewModel 
-    @EnvironmentObject var authViewModel : AuthViewModel
+    @ObservedObject var authViewModel : AuthViewModel = .shared
     
     var body: some View {
         HStack {
