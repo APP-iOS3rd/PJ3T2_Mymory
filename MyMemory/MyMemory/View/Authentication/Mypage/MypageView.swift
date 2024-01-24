@@ -23,6 +23,7 @@ struct MypageView: View {
     @ObservedObject var authViewModel: AuthViewModel = .shared
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
+
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -75,21 +76,8 @@ struct MypageView: View {
                                     .font(.semibold20)
                                 Spacer()
                             }
-                            NavigationLink {
-                                LoginView()
-                                    .customNavigationBar(
-                                        centerView: {
-                                            Text(" ")
-                                        },
-                                        leftView: {
-                                            EmptyView()
-                                        },
-                                        rightView: {
-                                            CloseButton()
-                                        },
-                                        backgroundColor: .white
-                                    )
-                                
+                            Button{
+                                self.presentLoginView = true
                             } label: {
                                 Text("로그인 하러가기")
                             }
