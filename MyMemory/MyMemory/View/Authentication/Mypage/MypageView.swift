@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import AuthenticationServices
 
 enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     case last = "최신순"
@@ -16,16 +18,12 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 }
 
 struct MypageView: View {
-    
-    let user: User?
-    @ObservedObject var viewModel: MypageViewModel
-    @EnvironmentObject var authViewModel: AuthViewModel
-    
-    init(user: User) {
-        self.user = user
-        self.viewModel = MypageViewModel(user: user)
-    }
-    
+    @Binding var selected: Int
+    @ObservedObject var viewModel: MypageViewModel = .init()
+    @ObservedObject var authViewModel: AuthViewModel = .shared
+    @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
+
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -61,7 +59,7 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!viewModel.user.isCurrentUser)
+                            .disabled(!(AuthViewModel.shared.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
                         }
                         .padding(.top, 38)
                         
@@ -79,21 +77,8 @@ struct MypageView: View {
                                     .font(.semibold20)
                                 Spacer()
                             }
-                            NavigationLink {
-                                LoginView()
-                                    .customNavigationBar(
-                                        centerView: {
-                                            Text(" ")
-                                        },
-                                        leftView: {
-                                            EmptyView()
-                                        },
-                                        rightView: {
-                                            CloseButton()
-                                        },
-                                        backgroundColor: .white
-                                    )
-                                
+                            Button{
+                                self.presentLoginView = true
                             } label: {
                                 Text("로그인 하러가기")
                             }
@@ -102,6 +87,11 @@ struct MypageView: View {
                         }
                         
                     }
+                }
+            }
+            .refreshable {
+                Task{
+                    await viewModel.fetchMyMemoList()
                 }
             }
             .padding(.horizontal, 24)
@@ -116,14 +106,36 @@ struct MypageView: View {
                     .frame(height: 0)
                     .background(.white)
                     .border(Color.black)
-                
+
             }
-            .overlay{
+ 
+        }
+        .onAppear(perform: {
+            
+            Task {
+                if let id = UserDefaults.standard.string(forKey: "userId") {
+                    presentLoginAlert = false
+                } else {
+                    presentLoginAlert = true
+                }
+            }
+        })
+        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            Button("로그인 하기", role: .destructive) {
+                self.presentLoginView = true
+            }
+            Button("둘러보기", role: .cancel) {
+                self.selected = 0
+            }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
+        }
+        .overlay {
                 if LoadingManager.shared.phase == .loading {
                     LoadingView()
                 }
-            }            
-        }
+            }    
         
         //        .onAppear{
         //            viewModel.

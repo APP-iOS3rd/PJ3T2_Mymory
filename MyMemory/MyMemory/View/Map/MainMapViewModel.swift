@@ -59,6 +59,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
     @Published var isFarEnough = false
+    @Published var isLoading = false
 //    @Published var selectedMemoId: UUID? = nil
     @Published var selectedMemoId: String? = ""
     @Published var selectedCluster: MemoCluster? = nil{
@@ -101,28 +102,46 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         getCurrentAddress()
         self.cluster.delegate = self
     }
-    
-    func fetchMemos() {
-        LoadingManager.shared.phase = .loading
+    func refreshMemos() {
         guard self.location != nil else {
-            LoadingManager.shared.phase = .fail(msg: "위치가없음")
             return
         }
         Task { @MainActor in
             do {
                 let fetched = try await MemoService.shared.fetchMemos(in: location)
                 // 테이블 뷰 리로드 또는 다른 UI 업데이트
-                // 특정 distance 이내의 것만 사용하기
                 if let current = location {
                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
-                    
                 } else {
                     memoList = fetched
                 }
+                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
-                LoadingManager.shared.phase = .success
             } catch {
-                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
+                print("Error fetching memos: \(error)")
+            }
+        }
+    }
+    func fetchMemos() {
+        isLoading = true
+        guard self.location != nil else {
+            isLoading = false
+            return
+        }
+        Task { @MainActor in
+            do {
+                let fetched = try await MemoService.shared.fetchMemos(in: location)
+                // 테이블 뷰 리로드 또는 다른 UI 업데이트
+                if let current = location {
+                    memoList = fetched.filter{$0.location.distance(from: current) < 1000}
+                } else {
+                    memoList = fetched
+                }
+                print(memoList) // 💁
+                cluster.addMemoList(memos: memoList)
+                isLoading = false
+            } catch {
+                isLoading = false
                 print("Error fetching memos: \(error)")
             }
         }

@@ -66,44 +66,44 @@ struct SocialLoginButton: ButtonStyle {
   }
 }
 
-struct AppleSigninButton : View{
-    
-    @State var currentNounce: String?
-    @ObservedObject var appleLoginData: AuthViewModel = AuthViewModel()
-    
-    var body: some View{
-        
-        SignInWithAppleButton(
-            onRequest: { request in
-                print("working")
-                appleLoginData.nonce = appleLoginData.randomNonceString()
-                request.requestedScopes = [.fullName, .email]
-                request.nonce = appleLoginData.sha256(appleLoginData.nonce)
-            },
-            onCompletion: { result in
-                switch result {
-                case .success(let authResults):
-                    print("Apple Login Successful")
-                    guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
-                        print("error with firebase")
-                        return
-                    }
-                    switch authResults.credential {
-                        case let appleIDCredential as ASAuthorizationAppleIDCredential:
-                        let fullName = appleIDCredential.fullName
-                        self.appleLoginData.name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-                        self.appleLoginData.email = appleIDCredential.email ?? "emailnotfound"
-                    default:
-                        break
-                    }
-                    self.appleLoginData.authenticate(credential: credential)
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    print("error")
-                }
-            }
-        )
-        .frame(width : 350, height:50)
-        .cornerRadius(10)
-    }
-}
+//struct AppleSigninButton : View{
+//    
+//    @State var currentNounce: String?
+//    @ObservedObject var appleLoginData: AuthViewModel = AuthViewModel()
+//    
+//    var body: some View{
+//        
+//        SignInWithAppleButton(
+//            onRequest: { request in
+//                print("working")
+//                appleLoginData.nonce = appleLoginData.randomNonceString()
+//                request.requestedScopes = [.fullName, .email]
+//                request.nonce = appleLoginData.sha256(appleLoginData.nonce)
+//            },
+//            onCompletion: { result in
+//                switch result {
+//                case .success(let authResults):
+//                    print("Apple Login Successful")
+//                    guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
+//                        print("error with firebase")
+//                        return
+//                    }
+//                    switch authResults.credential {
+//                        case let appleIDCredential as ASAuthorizationAppleIDCredential:
+//                        let fullName = appleIDCredential.fullName
+//                        self.appleLoginData.name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+//                        self.appleLoginData.email = appleIDCredential.email ?? "emailnotfound"
+//                    default:
+//                        break
+//                    }
+//                    self.appleLoginData.authenticate(credential: credential)
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                    print("error")
+//                }
+//            }
+//        )
+//        .frame(width : 350, height:50)
+//        .cornerRadius(10)
+//    }
+//}

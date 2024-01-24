@@ -10,7 +10,7 @@ import FirebaseFirestore
 import Firebase
 import CoreLocation
 
-struct Memo:  Hashable, Codable, Identifiable {
+struct Memo: Hashable, Codable, Identifiable, Equatable{
    
     @DocumentID var id: String? // 메모 id: 도큐먼트 이름을 memo의 아이디로 설정
     // var userId: String  // 작성한 유저Id = UUID()

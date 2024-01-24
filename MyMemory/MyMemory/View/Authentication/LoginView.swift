@@ -7,7 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
-
+import AuthenticationServices
 
 struct LoginView: View {
     
@@ -25,7 +25,7 @@ struct LoginView: View {
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel 
-    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
+//    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
  
     
     @Environment(\.presentationMode) var presentationMode
@@ -136,7 +136,40 @@ struct LoginView: View {
             
             // MARK: - 소셜 로그인 버튼
             VStack {
-                AppleSigninButton()
+                SignInWithAppleButton(
+                    onRequest: { request in
+                        print("working")
+                        viewModel.nonce = viewModel.randomNonceString()
+                        request.requestedScopes = [.fullName, .email]
+                        request.nonce = viewModel.sha256(viewModel.nonce)
+                    },
+                    onCompletion: { result in
+                        switch result {
+                        case .success(let authResults):
+                            print("Apple Login Successful")
+                            guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
+                                print("error with firebase")
+                                return
+                            }
+                            switch authResults.credential {
+                                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                let fullName = appleIDCredential.fullName
+                                self.viewModel.name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+                                self.viewModel.email = appleIDCredential.email ?? "emailnotfound"
+                            default:
+                                break
+                            }
+                            self.viewModel.authenticate(credential: credential)
+                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            print("error")
+                        }
+                    }
+                )
+                .frame(width : 350, height:50)
+                .cornerRadius(10)
                 Button {
                     
                 } label: {
@@ -155,11 +188,8 @@ struct LoginView: View {
         }//: VSTACK
    
         .padding()
-        .navigationDestination(isPresented: $isActive) {
-            MainTabView(viewRouter: viewRouter)
-        }
-        .onTapGesture{
-            self.endTextEditing()
+        .fullScreenCover(isPresented: $isActive) {
+            MainTabView()
         }
         .customNavigationBar(
             centerView: {

@@ -45,7 +45,8 @@ extension Font {
     // Light
     static let light10: Font = .custom(FontType.Light.rawValue, size: 10)
     static let light14: Font = .custom(FontType.Light.rawValue, size: 14)
-    
+    static let light18: Font = .custom(FontType.Light.rawValue, size: 14)
+
     // Thin
     static let thin32: Font = .custom(FontType.Thin.rawValue, size: 32)
     //appFont

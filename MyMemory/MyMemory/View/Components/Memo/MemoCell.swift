@@ -83,26 +83,26 @@ struct MemoCell: View {
                     
                     Spacer()
                     
-                    if isVisible {
-                        
+                   // if isVisible {
                         NavigationLink { // 버튼이랑 비슷함
-                            MemoDetailView(memo: memo)
+                         DetailView(memo: $memo, isVisble: $isVisible)
+                            //MemoDetailView(memo: memo)
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")
                                 Text("메모보기")
                             }
                         }
-                    } else {
-                        NavigationLink {
-                            CertificationView(memo: $memo)
-                        } label: {
-                            HStack {
-                                Image(systemName: "location.fill")
-                                Text("메모보기")
-                            }
-                        }
-                    }  // : VStack
+//                    } else {
+//                        NavigationLink {
+//                            CertificationView(memo: $memo)
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "location.fill")
+//                                Text("메모보기")
+//                            }
+//                        }
+                  // }  // : VStack
                     
                     
                 }
@@ -118,8 +118,27 @@ struct MemoCell: View {
         .frame(maxWidth: .infinity)
         .fixedSize(horizontal: false, vertical: true)
         .cornerRadius(20)
+        .onAppear {
+            if let distance = location?.coordinate.distance(from: memo.location) {
+                if distance <= 5 {
+                    isVisible = true
+                } else {
+                    isVisible = false
+                }
+            }
+        }
+        .onChange(of: location) { Value in
+            if let distance = Value?.coordinate.distance(from: memo.location) {
+                if distance <= 5 {
+                    isVisible = true
+                } else {
+                    isVisible = false
+                }
+            }
+        }
     }
 }
+
 
 #Preview {
     VStack {

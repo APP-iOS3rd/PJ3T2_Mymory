@@ -154,6 +154,8 @@ struct RegisterView: View {
                                             }
                                             .sheet(isPresented: $viewModel.showPrivacyPolicy) {
                                                 RegisterViewModel.SafariView(url:URL(string: viewModel.privacyPolicyUrlString)!)
+                                                    .ignoresSafeArea()
+
                                             }
                                         }
                                             .font(.system(size: 13))
@@ -177,6 +179,7 @@ struct RegisterView: View {
                                             }
                                             .sheet(isPresented: $viewModel.showTermsOfUse) {
                                                 RegisterViewModel.SafariView(url:URL(string: viewModel.termsOfUseUrlString)!)
+                                                    .ignoresSafeArea()
                                             }
                                         }
                                         .font(.system(size: 13))

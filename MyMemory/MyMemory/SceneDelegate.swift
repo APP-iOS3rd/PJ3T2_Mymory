@@ -17,7 +17,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
                let window = UIWindow(windowScene: windowScene)
-               window.rootViewController = UIHostingController(rootView: MainView(viewRouter: ViewRouter()))
+               window.rootViewController = UIHostingController(rootView: MainView())
                self.window = window
                window.makeKeyAndVisible()
            }
