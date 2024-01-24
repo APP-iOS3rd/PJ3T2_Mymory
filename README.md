@@ -95,6 +95,196 @@
 |  |  |  |  |
 
 
-
+## 프로젝트 구조
+## 파일트리
+```
+📦MyMemory
+ ┣ 📂API
+ ┃ ┣ 📜ImageUploader.swift
+ ┃ ┗ 📜MemoService.swift
+ ┣ 📂Assets.xcassets
+ ┃ ┣ 📂AccentColor.colorset
+ ┃ ┃ ┗ 📜Contents.json
+ ┃ ┣ 📂AppIcon.appiconset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜temp.png
+ ┃ ┣ 📂kakao.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜kakao.png
+ ┃ ┣ 📂logo.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜Image.png
+ ┃ ┣ 📂maker_mine_selected.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┣ 📜maker_mine_selected.png
+ ┃ ┃ ┣ 📜maker_mine_selected@2x.png
+ ┃ ┃ ┗ 📜maker_mine_selected@3x.png
+ ┃ ┣ 📂map_ico_direction_area.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜map_ico_direction_area.png
+ ┃ ┣ 📂map_ico_marker.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜map_ico_marker.png
+ ┃ ┣ 📂map_ico_marker_direction.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜map_ico_marker_direction.png
+ ┃ ┣ 📂marker_default.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┣ 📜marker_default.png
+ ┃ ┃ ┣ 📜marker_default@2x.png
+ ┃ ┃ ┗ 📜marker_default@3x.png
+ ┃ ┣ 📂marker_mine.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┣ 📜marker_mine.png
+ ┃ ┃ ┣ 📜marker_mine@2x.png
+ ┃ ┃ ┗ 📜marker_mine@3x.png
+ ┃ ┣ 📂marker_selected.imageset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┣ 📜marker_selected.png
+ ┃ ┃ ┣ 📜marker_selected@2x.png
+ ┃ ┃ ┗ 📜marker_selected@3x.png
+ ┃ ┣ 📂run4.dataset
+ ┃ ┃ ┣ 📜Contents.json
+ ┃ ┃ ┗ 📜run4.gif
+ ┃ ┗ 📜Contents.json
+ ┣ 📂Cluster
+ ┃ ┣ 📜ClusterBox.swift
+ ┃ ┣ 📜Clustering.swift
+ ┃ ┗ 📜QuadTree.swift
+ ┣ 📂Model
+ ┃ ┣ 📂Authentication
+ ┃ ┃ ┗ 📜Report.swift
+ ┃ ┣ 📜AddressData.swift
+ ┃ ┣ 📜AddressModel.swift
+ ┃ ┣ 📜Memo.swift
+ ┃ ┗ 📜User.swift
+ ┣ 📂Preview Content
+ ┃ ┗ 📂Preview Assets.xcassets
+ ┃ ┃ ┗ 📜Contents.json
+ ┣ 📂Resource
+ ┃ ┣ 📂Extension
+ ┃ ┃ ┣ 📜Button+Extension.swift
+ ┃ ┃ ┣ 📜CLLocation+Extension.swift
+ ┃ ┃ ┣ 📜Color+Extension.swift
+ ┃ ┃ ┣ 📜Fonts+Extension.swift
+ ┃ ┃ ┣ 📜NavigationBar+Modifier.swift
+ ┃ ┃ ┣ 📜String+Extension.swift
+ ┃ ┃ ┗ 📜view+Extension.swift
+ ┃ ┣ 📂Fonts
+ ┃ ┃ ┣ 📜Pretendard-Black.otf
+ ┃ ┃ ┣ 📜Pretendard-Bold.otf
+ ┃ ┃ ┣ 📜Pretendard-ExtraBold.otf
+ ┃ ┃ ┣ 📜Pretendard-ExtraLight.otf
+ ┃ ┃ ┣ 📜Pretendard-Light.otf
+ ┃ ┃ ┣ 📜Pretendard-Medium.otf
+ ┃ ┃ ┣ 📜Pretendard-Regular.otf
+ ┃ ┃ ┣ 📜Pretendard-SemiBold.otf
+ ┃ ┃ ┗ 📜Pretendard-Thin.otf
+ ┃ ┣ 📜Constants.swift
+ ┃ ┗ 📜CornerShape.swift
+ ┣ 📂Shared
+ ┃ ┣ 📜GetAddress.swift
+ ┃ ┣ 📜KakaoMapSimple.swift
+ ┃ ┣ 📜LoadingManager.swift
+ ┃ ┗ 📜LocationsHandler.swift
+ ┣ 📂View
+ ┃ ┣ 📂Authentication
+ ┃ ┃ ┣ 📂Mypage
+ ┃ ┃ ┃ ┣ 📜MypageMemoList.swift
+ ┃ ┃ ┃ ┣ 📜MypageMemoListCell.swift
+ ┃ ┃ ┃ ┣ 📜MypageTopView.swift
+ ┃ ┃ ┃ ┣ 📜MypageView.swift
+ ┃ ┃ ┃ ┗ 📜MypageViewModel.swift
+ ┃ ┃ ┣ 📜LoginView.swift
+ ┃ ┃ ┣ 📜LoginViewModel.swift
+ ┃ ┃ ┣ 📜ProfileEditView.swift
+ ┃ ┃ ┣ 📜ProfileEditViewModel.swift
+ ┃ ┃ ┣ 📜RegisterView.swift
+ ┃ ┃ ┣ 📜RegisterViewModel.swift
+ ┃ ┃ ┗ 📜ReportView.swift
+ ┃ ┣ 📂Components
+ ┃ ┃ ┣ 📂Button
+ ┃ ┃ ┃ ┣ 📜BackButton.swift
+ ┃ ┃ ┃ ┣ 📜CloseButton.swift
+ ┃ ┃ ┃ ┣ 📜CurrentSpotButton.swift
+ ┃ ┃ ┃ ┗ 📜FilterButton.swift
+ ┃ ┃ ┣ 📂Memo
+ ┃ ┃ ┃ ┣ 📜MemoCell.swift
+ ┃ ┃ ┃ ┣ 📜MemoList.swift
+ ┃ ┃ ┃ ┗ 📜MemoListView.swift
+ ┃ ┃ ┣ 📜FlexibleView.swift
+ ┃ ┃ ┣ 📜LoadingView.swift
+ ┃ ┃ ┣ 📜ReportMemoView.swift
+ ┃ ┃ ┣ 📜SelectBox.swift
+ ┃ ┃ ┣ 📜Textarea.swift
+ ┃ ┃ ┗ 📜TopBarAddress.swift
+ ┃ ┣ 📂Detail
+ ┃ ┃ ┣ 📂DetailViewComponent
+ ┃ ┃ ┃ ┣ 📜CertificationMap.swift
+ ┃ ┃ ┃ ┣ 📜Footer.swift
+ ┃ ┃ ┃ ┣ 📜GIFView.swift
+ ┃ ┃ ┃ ┣ 📜ImgDetailView.swift
+ ┃ ┃ ┃ ┣ 📜MiniMap.swift
+ ┃ ┃ ┃ ┣ 📜NavigationBarItems.swift
+ ┃ ┃ ┃ ┣ 📜ProgressBarView.swift
+ ┃ ┃ ┃ ┗ 📜run4.gif
+ ┃ ┃ ┣ 📜CertificationView.swift
+ ┃ ┃ ┣ 📜CertificationViewModel.swift
+ ┃ ┃ ┣ 📜DetailView.swift
+ ┃ ┃ ┣ 📜MemoDetailView.swift
+ ┃ ┃ ┗ 📜ReportView.swift
+ ┃ ┣ 📂Main
+ ┃ ┃ ┣ 📜ContentView.swift
+ ┃ ┃ ┣ 📜MainTabView.swift
+ ┃ ┃ ┣ 📜MainView.swift
+ ┃ ┃ ┗ 📜MemoMapView.swift
+ ┃ ┣ 📂Map
+ ┃ ┃ ┣ 📂Subviews
+ ┃ ┃ ┃ ┣ 📜ClusterSelectionView.swift
+ ┃ ┃ ┃ ┣ 📜FileterListView.swift
+ ┃ ┃ ┃ ┗ 📜MemoModel.swift
+ ┃ ┃ ┣ 📜KakaoMap.swift
+ ┃ ┃ ┣ 📜MainMapView.swift
+ ┃ ┃ ┣ 📜MainMapViewModel.swift
+ ┃ ┃ ┗ 📜MapViewRepresentable.swift
+ ┃ ┣ 📂Onboarding
+ ┃ ┃ ┣ 📜Onboarding.swift
+ ┃ ┃ ┣ 📜OnboardingView.swift
+ ┃ ┃ ┗ 📜OnboardingViewModel.swift
+ ┃ ┣ 📂Post
+ ┃ ┃ ┣ 📂Model
+ ┃ ┃ ┃ ┗ 📜PostMemoModel.swift
+ ┃ ┃ ┣ 📂PostViewComponent
+ ┃ ┃ ┃ ┣ 📜FindAddressView.swift
+ ┃ ┃ ┃ ┣ 📜PostViewFooter.swift
+ ┃ ┃ ┃ ┣ 📜SelectPhotos.swift
+ ┃ ┃ ┃ ┣ 📜SelectTagView.swift
+ ┃ ┃ ┃ ┗ 📜addMemoSubView.swift
+ ┃ ┃ ┣ 📂ViewModel
+ ┃ ┃ ┃ ┗ 📜PostViewModel.swift
+ ┃ ┃ ┣ 📜ChangeLocationView.swift
+ ┃ ┃ ┣ 📜PostView.swift
+ ┃ ┃ ┣ 📜PostView2.swift
+ ┃ ┃ ┗ 📜PostViewModel.swift
+ ┃ ┣ 📂Search
+ ┃ ┃ ┣ 📜SearchBar.swift
+ ┃ ┃ ┣ 📜SearchCell.swift
+ ┃ ┃ ┗ 📜SearchView.swift
+ ┃ ┗ 📂Setting
+ ┃ ┃ ┣ 📂SettingMenu
+ ┃ ┃ ┃ ┗ 📜WithdrawalView.swift
+ ┃ ┃ ┣ 📜SettingMenuCell.swift
+ ┃ ┃ ┣ 📜SettingView.swift
+ ┃ ┃ ┗ 📜SettingViewModel.swift
+ ┣ 📂ViewModel
+ ┃ ┣ 📂Authentication
+ ┃ ┃ ┗ 📜AuthViewModel.swift
+ ┃ ┗ 📜AddressViewModel.swift
+ ┣ 📜Launch Screen.storyboard
+ ┣ 📜MyMemory.entitlements
+ ┣ 📜MyMemoryApp.swift
+ ┣ 📜SceneDelegate.swift
+ ┗ 📜ViewRouter.swift
+```
 
 
