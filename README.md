@@ -1,7 +1,7 @@
 # 프로젝트 명 : 나만의 메모리 내모리(가제)
 
 > 나의 추억을 그 장소에 남겨보아요
-[피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
+
 [베타 앱](https://testflight.apple.com/join/gjLRpOwK)
 ## 프로젝트 필요성: 내모리를 써야 하는 이유!
 
@@ -41,6 +41,46 @@
   - auth - 계정 관리
   - storage - 사진 관리
   - db - 게시글 관리
+
+## 디자인의 방항성
+[피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
+
+
+## Firebase 데이터 다이어그램
+### User
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| uid | string |  | user ID |
+| name | string |  | user 이름 |
+| email | string |  | email |
+| profilePicture | string |  | Url 값 |
+| isCurrentUser |  |  | 현재 로그인한 유저 확인 |
+|  |  |  |  |
+
+### User-Memo
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| memolist | [UUID] |  | 내가 작성한 메모 id들 |
+
+### Memo
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| uid | UUID |  | Memo 구분 Uid |
+| userCoordinateLatitude | Double |  | Memo 작성 위도 |
+| userCoordinateLongitude | Double |  | Memo 작성 경도 |
+| userAddress | String |  | 작성 주소 |
+| memoTitle | String |  | 제목 |
+| memoContents | String |  | 내용 |
+| isPublic | Bool |  | 메모 공개여부 |
+| memoTagList | [String] |  | 태그 목록 |
+| memoLikeCount | Int |  | 좋아요 수 |
+| memoSelectedImageData | [Data] |  | 메모 첨부 사진 |
+| memoCreatedAt | TimeInterval |  | 작성 시간 |
+| userId | string |  | 작성자 UUID |
+|  |  |  |  |
 
 ## 기대 효과
 
