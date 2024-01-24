@@ -20,7 +20,7 @@ struct MypageView: View {
     let user: User?
     @ObservedObject var viewModel: MypageViewModel
     @EnvironmentObject var authViewModel: AuthViewModel
- 
+    
     init(user: User) {
         self.user = user
         self.viewModel = MypageViewModel(user: user)
@@ -31,8 +31,8 @@ struct MypageView: View {
             
             Color.lightGray
                 .edgesIgnoringSafeArea(.top)
-              
-            ScrollView(.vertical, showsIndicators: false){
+            
+            ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
                     
@@ -66,7 +66,8 @@ struct MypageView: View {
                         .padding(.top, 38)
                         
                         MypageMemoList(memoList: $viewModel.memoList)
-                           
+                            .environmentObject(viewModel)
+                        
                         
                     } else {
                         VStack(alignment: .center) {
@@ -108,39 +109,34 @@ struct MypageView: View {
                 Color.clear
                     .frame(height: 0)
                     .background(Color.lightGray)
-
+                
             }
             .safeAreaInset(edge: .bottom) {
                 Color.white
                     .frame(height: 0)
                     .background(.white)
                     .border(Color.black)
-
-            }
- 
-        }
-        .onAppear(perform: {
-            Task {
-               await viewModel.fetchMyMemoList()
-            }
-        })
-        .overlay{
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
-        }
-//        .onAppear{
-//            viewModel.
-//        }
-//        
-//        .onAppear {
-//            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-//            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-//        }
-//    
                 
+            }
+            .overlay{
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
+            }            
+        }
         
-    
+        //        .onAppear{
+        //            viewModel.
+        //        }
+        //
+        //        .onAppear {
+        //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+        //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+        //        }
+        //
+        
+        
+        
         
     }
 }
