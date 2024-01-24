@@ -36,9 +36,9 @@ class MypageViewModel: ObservableObject {
                 self.memoList = await self.memoService.fetchMyMemos(userID: userID)
             }
         }
-        let user = AuthViewModel.shared.currentUser
+        user = AuthViewModel.shared.currentUser
         AuthViewModel.shared.fetchUser()
-//        AuthViewModel.shared.fetchUser()
+
 
         
     }
