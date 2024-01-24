@@ -24,7 +24,7 @@ struct MyMemoryApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-//                .environmentObject(AuthViewModel.shared)
+                .environmentObject(AuthViewModel.shared)
         }
         
     }

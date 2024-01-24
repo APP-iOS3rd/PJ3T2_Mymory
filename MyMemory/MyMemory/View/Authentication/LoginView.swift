@@ -188,10 +188,9 @@ struct LoginView: View {
         }//: VSTACK
    
         .padding()
-        .navigationDestination(isPresented: $isActive) {
+        .fullScreenCover(isPresented: $isActive) {
             MainTabView()
         }
-
         .customNavigationBar(
             centerView: {
                 Text("")
@@ -200,8 +199,7 @@ struct LoginView: View {
                 EmptyView()
             },
             rightView: {
-                EmptyView()
-//                CloseButton()
+                CloseButton()
             },
             backgroundColor: .white
         )
