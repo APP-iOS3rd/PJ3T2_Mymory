@@ -54,18 +54,6 @@ class AuthViewModel: ObservableObject {
         fetchUser()
     }
     
-//    func login(withEmail email: String, password: String)   {
-//        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-//            if let error = error {
-//                print("디버깅: 로그인실패 \(error.localizedDescription)")
-//                return
-//            }
-//            guard let user = result?.user else { return }
-//            self.userSession = user
-//            
-//            self.fetchUser()
-//        }
-//    }
     func login(withEmail email: String, password: String) -> Bool {
         do {
             try Auth.auth().signIn(withEmail: email, password: password) { result, error in
@@ -204,7 +192,7 @@ class AuthViewModel: ObservableObject {
             
             self?.currentUser = user
             UserDefaults.standard.set(user.id, forKey: "userId")
-            print(user)
+           // print(user)
         }
     }
     func authenticate(credential: ASAuthorizationAppleIDCredential) {
@@ -251,7 +239,7 @@ class AuthViewModel: ObservableObject {
             
             self?.currentUser = user
             UserDefaults.standard.set(user.id, forKey: "userId")
-            print(user)
+          //  print(user)
         }
     }
     
