@@ -24,7 +24,8 @@ class MypageViewModel: ObservableObject {
 
     let db = Firestore.firestore()
     let memoService = MemoService.shared
-    @Published var user: User? = nil
+    @Published var user: User? 
+    
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
@@ -32,7 +33,7 @@ class MypageViewModel: ObservableObject {
         if let userID = UserDefaults.standard.string(forKey: "userId") {
             Task {[weak self] in
                 guard let self = self else {return}
-//                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
             }
         }
         AuthViewModel.shared.fetchUser()
