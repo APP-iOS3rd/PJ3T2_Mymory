@@ -1,7 +1,8 @@
 # 프로젝트 명 : 나만의 메모리 내모리(가제)
 
 > 나의 추억을 그 장소에 남겨보아요
-
+[피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
+[베타 앱](https://testflight.apple.com/join/gjLRpOwK)
 ## 프로젝트 필요성: 내모리를 써야 하는 이유!
 
 1. 내 추억을 되살릴 수 있어요
