@@ -14,7 +14,7 @@ struct MypageTopView: View {
     
     var body: some View {
         HStack {
-            if authViewModel.currentUser != nil {
+            if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil {
                 NavigationLink {
                     ProfileEditView(
                         existingProfileImage:
