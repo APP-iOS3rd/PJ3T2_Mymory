@@ -1,11 +1,12 @@
 ---
 name: 새 기능 추가
 about: 새로운 기능을 추가합니다.
-title: '[Feat]'
-labels: '기능구현'
+title: "[Feat]"
+labels: 기능구현
 assignees: ''
 
 ---
+
 # 기능 설명
 
 작성해야 하는 기능에 대해서 설명해주세요
