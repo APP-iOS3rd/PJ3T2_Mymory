@@ -38,13 +38,13 @@ struct PostView: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading){
-                // 💁 메모하기 View 굳이 분리할 필요가 없어 보임
-
-                addMemoSubView()
-                    .environmentObject(viewModel)
                 
-                //💁 사진 등록하기 View
+                //💁 메모하기 View, 사진 등록하기 View
                 Group {
+                    addMemoSubView()
+                        .environmentObject(viewModel)
+                    
+                    
                     VStack(alignment: .leading, spacing: 10){
                         HStack {
                             Text("사진 등록하기")
@@ -139,7 +139,6 @@ struct PostView: View {
                 dismiss()
             }
         }
-
         .customNavigationBar(
             centerView: {
                 Group {
@@ -151,16 +150,6 @@ struct PostView: View {
                 }
             },
             leftView: {
-                Group {
-                    if isEdit {
-                        BackButton()
-                    } else {
-                        EmptyView()
-                    }
-                }
-                
-            },
-            rightView: {
                 Group {
                     if isEdit {
                         CloseButton()
@@ -180,9 +169,28 @@ struct PostView: View {
                     }
                 }
             },
-            backgroundColor: .white
-        )        
-
+            rightView: {
+                Group {
+                    if isEdit {
+                        Button(action: {
+                            Task.init {
+                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
+                                // 예: 삭제 확인 대화상자를 표시합니다
+                                print("Trash button tapped!")
+                                await viewModel.deleteMemo(memo: memo)
+                                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            }
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                
+            }, backgroundColor: .white
+        )
     }
 }
 

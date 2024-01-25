@@ -20,10 +20,10 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 struct MypageView: View {
     @Binding var selected: Int
     @ObservedObject var viewModel: MypageViewModel = .init()
-    @ObservedObject var authViewModel: AuthViewModel = .shared
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
-
+    @ObservedObject var authViewModel: AuthViewModel = .shared
+    
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -36,8 +36,7 @@ struct MypageView: View {
                     
                     MypageTopView(viewModel: viewModel)
                     
-                    
-                    if authViewModel.currentUser != nil {
+                      if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
@@ -59,7 +58,7 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!(AuthViewModel.shared.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
+                            .disabled(!(authViewModel.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
                         }
                         .padding(.top, 38)
                         
@@ -113,7 +112,7 @@ struct MypageView: View {
         .onAppear(perform: {
             
             Task {
-                if let id = UserDefaults.standard.string(forKey: "userId") {
+                if UserDefaults.standard.string(forKey: "userId") != nil {
                     presentLoginAlert = false
                 } else {
                     presentLoginAlert = true

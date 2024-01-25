@@ -22,24 +22,32 @@ class MypageViewModel: ObservableObject {
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
 
-    let db = Firestore.firestore()
+  //  let db = Firestore.firestore()
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
-    @Published var user: User? = nil
-      
+    @Published var user: User?
     var currentLocation: CLLocation? {
         didSet {
             self.fetchMyMemoList()
         }
     }
-      
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
+        
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            Task {[weak self] in
+                guard let self = self else {return}
+                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+            }
+        }
+        user = AuthViewModel.shared.currentUser
         fetchCurrentUserLocation()
+
         AuthViewModel.shared.fetchUser()
 
-        let user = AuthViewModel.shared.currentUser
+
+        
     }
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
