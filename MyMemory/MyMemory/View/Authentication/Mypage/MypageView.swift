@@ -29,8 +29,8 @@ struct MypageView: View {
             
             Color.lightGray
                 .edgesIgnoringSafeArea(.top)
-              
-            ScrollView(.vertical, showsIndicators: false){
+            
+            ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
                     
@@ -63,7 +63,8 @@ struct MypageView: View {
                         .padding(.top, 38)
                         
                         MypageMemoList(memoList: $viewModel.memoList)
-                           
+                            .environmentObject(viewModel)
+                        
                         
                     } else {
                         VStack(alignment: .center) {
@@ -97,7 +98,7 @@ struct MypageView: View {
                 Color.clear
                     .frame(height: 0)
                     .background(Color.lightGray)
-
+                
             }
             .safeAreaInset(edge: .bottom) {
                 Color.white
@@ -113,7 +114,6 @@ struct MypageView: View {
             Task {
                 if UserDefaults.standard.string(forKey: "userId") != nil {
                     presentLoginAlert = false
-                    await viewModel.fetchMyMemoList()
                 } else {
                     presentLoginAlert = true
                 }
@@ -130,23 +130,24 @@ struct MypageView: View {
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
         }
-//        .overlay{
-//            if LoadingManager.shared.phase == .loading {
-//                LoadingView()
-//            }
-//        }
-//        .onAppear{
-//            viewModel.
-//        }
-//        
-//        .onAppear {
-//            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-//            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-//        }
-//    
-                
+        .overlay {
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
+            }    
         
-    
+        //        .onAppear{
+        //            viewModel.
+        //        }
+        //
+        //        .onAppear {
+        //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+        //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+        //        }
+        //
+        
+        
+        
         
     }
 }
