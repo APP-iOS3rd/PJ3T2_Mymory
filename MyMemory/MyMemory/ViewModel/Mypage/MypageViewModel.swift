@@ -94,7 +94,7 @@ class MypageViewModel: ObservableObject {
     }
     
     func fetchMyMemoList() {
-        if let userID = self.user.id {
+        if let userID = self.user?.id {
             LoadingManager.shared.phase = .loading
             Task { [weak self] in
                 guard let self = self else {return}
