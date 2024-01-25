@@ -128,7 +128,6 @@ struct KakaoMapView: UIViewRepresentable {
             controller?.delegate = self
         }
         func poiDidTapped(kakaoMap: KakaoMap, layerID: String, poiID: String, position: MapPoint) {
-            print("poiDidTapped")
         }
         //MARK: - 현위치 마커
         // 현위치마커 버튼 GUI
@@ -401,7 +400,6 @@ struct KakaoMapView: UIViewRepresentable {
             }
             switch by {
             case .doubleTapZoomIn, .rotateZoom, .twoFingerTapZoomOut, .zoom, .oneFingerZoom:
-                print("줌 레벨 변경")
                 let dist = kakaoMap.cameraHeight
                 
             default:

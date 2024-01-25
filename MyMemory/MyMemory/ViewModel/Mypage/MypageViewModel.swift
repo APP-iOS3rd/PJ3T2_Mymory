@@ -111,7 +111,6 @@ class MypageViewModel: ObservableObject {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
-                    print("현재 위치", location)
                     self?.currentLocation = CLLocation(
                         latitude: location.latitude,
                         longitude: location.longitude

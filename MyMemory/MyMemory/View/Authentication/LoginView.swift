@@ -138,7 +138,6 @@ struct LoginView: View {
             VStack {
                 SignInWithAppleButton(
                     onRequest: { request in
-                        print("working")
                         viewModel.nonce = viewModel.randomNonceString()
                         request.requestedScopes = [.fullName, .email]
                         request.nonce = viewModel.sha256(viewModel.nonce)

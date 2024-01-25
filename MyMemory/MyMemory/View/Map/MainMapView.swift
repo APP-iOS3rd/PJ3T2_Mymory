@@ -91,7 +91,6 @@ struct MainMapView: View {
                     
                     // 리스트뷰 전환 버튼
                     Button {
-                        print("tapped")
                     } label: {
                         HStack(spacing: 4) {
                             Image(systemName: "list.bullet")

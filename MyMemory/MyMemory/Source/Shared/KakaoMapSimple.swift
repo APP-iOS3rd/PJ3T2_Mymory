@@ -30,7 +30,6 @@ struct KakaoMapSimple: UIViewRepresentable {
     /// draw가 true로 설정되면 엔진을 시작하고 렌더링을 시작한다.
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
-        print(uiView.center)
         context.coordinator._currentHeading = userDirection
         context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
         self.centerLocation = context.coordinator.centerLocation(point: uiView.center)
