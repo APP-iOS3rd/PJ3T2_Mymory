@@ -39,7 +39,11 @@ class MypageViewModel: ObservableObject {
             }
         }
         user = AuthViewModel.shared.currentUser
-        fetchCurrentUserLocation()
+        fetchCurrentUserLocation { location in
+            if let location = location {
+                self.currentLocation = location
+            }
+        }
 
         AuthViewModel.shared.fetchUser()
 
@@ -103,19 +107,21 @@ class MypageViewModel: ObservableObject {
         }
     }
     
-    func fetchCurrentUserLocation() {
+    func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         LoadingManager.shared.phase = .loading
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
                     print("현재 위치", location)
-                    self?.currentLocation = CLLocation(
+                    returnCompletion(CLLocation(
                         latitude: location.latitude,
                         longitude: location.longitude
-                    )
+                    ))
                     LoadingManager.shared.phase = .success
+                    print("주소 불러오기 완료", LoadingManager.shared.phase)
                 } else {
                     LoadingManager.shared.phase = .fail(msg: "위치 정보 획득 실패")
+                    returnCompletion(nil)
                 }
             }
         }
