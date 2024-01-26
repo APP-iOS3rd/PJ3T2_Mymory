@@ -78,6 +78,7 @@ struct MemoCell: View {
                             Text("\(-1)m")
                                 .lineLimit(1)
                         }
+                        
                     }
                     .foregroundColor(.gray)
                     .font(.regular12)
