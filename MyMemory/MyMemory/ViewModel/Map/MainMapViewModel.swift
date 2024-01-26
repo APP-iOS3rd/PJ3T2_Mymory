@@ -54,7 +54,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
-    
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
     @Published var filteredMemoList: [Memo] = []
@@ -161,15 +160,14 @@ extension MainMapViewModel {
             locationManager.requestAlwaysAuthorization()
         }
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else {return}
-            //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
+//            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
             weakSelf.location = .init(latitude: location.coordinate.latitude,
-                                      longitude: location.coordinate.longitude)
-            
+                                   longitude: location.coordinate.longitude)
+
             weakSelf.getCurrentAddress()
         }
     }
@@ -280,12 +278,11 @@ extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
     }
-    
+
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }
-    
-    
+
     func distance(to: CLLocationCoordinate2D) -> Double {
         return sqrt(squaredDistance(to: to))
     }

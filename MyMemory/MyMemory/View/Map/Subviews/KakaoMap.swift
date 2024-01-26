@@ -42,7 +42,6 @@ struct KakaoMapView: UIViewRepresentable {
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
         //UI 업데이트가 Global에서 되는 현상 해결
-        
         DispatchQueue.main.async {
             
             if isUserTracking {
@@ -59,7 +58,6 @@ struct KakaoMapView: UIViewRepresentable {
             }
             context.coordinator._currentHeading = userDirection
             context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-            
             if draw {
                 context.coordinator.controller?.startEngine()
                 context.coordinator.controller?.startRendering()
@@ -153,7 +151,6 @@ struct KakaoMapView: UIViewRepresentable {
             
         }
         func touchesBegan(_ touches: Set<AnyHashable>) {
-
             if let touch = touches.first as? UITouch {
                 if let gestureRecognizers = touch.gestureRecognizers {
                     for recognizer in gestureRecognizers {

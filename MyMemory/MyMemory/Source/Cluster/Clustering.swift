@@ -23,7 +23,6 @@ final class ClusterOperation {
     
     public func addMemo(memo: Memo) {
         operationQueue.cancelAllOperations()
-        
         dispatchQueue.async {
             self.quadTree.insert(memo: memo)
         }
@@ -52,7 +51,6 @@ final class ClusterOperation {
         let maxY = visibleMapRect.maxY
         
         operationQueue.addOperation {
-            
             var yCoordinate = minY
             
             while yCoordinate<maxY {
@@ -100,8 +98,7 @@ extension ClusterOperation {
             return 10
         }
     }
-    
-}
+
 extension AreaRect {
     var width: Double {
         abs(self.northEast.wgsCoord.longitude - self.southWest.wgsCoord.longitude)
