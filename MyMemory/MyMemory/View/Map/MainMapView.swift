@@ -23,16 +23,6 @@ struct MainMapView: View {
     
     var body: some View {
         ZStack {
-//            KakaoMapView(draw: $draw,
-//                         isUserTracking: $mainMapViewModel.isUserTracking,
-//                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
-//                         clusters: $mainMapViewModel.clusters,
-//                         selectedID: $mainMapViewModel.selectedMemoId)
-//            .onAppear{
-//                DispatchQueue.main.async {
-//                    self.draw = true
-//                }
-//            }
             MapView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .environmentObject(mainMapViewModel)
@@ -84,7 +74,7 @@ struct MainMapView: View {
                             mainMapViewModel.switchUserLocation()
                         } label: {
                             CurrentSpotButton()
-                        }                    
+                        }
                     Spacer()
                     
                     // 리스트뷰 전환 버튼
@@ -114,7 +104,7 @@ struct MainMapView: View {
                                 memo: item)
                                 .environmentObject(mainMapViewModel)
                             .onTapGesture {
-                                mainMapViewModel.selectedMemoId = item.id
+                                mainMapViewModel.memoDidSelect(memo: item)
                             }
                             .frame(width: UIScreen.main.bounds.size.width * 0.84)
                             .padding(.leading, 12)

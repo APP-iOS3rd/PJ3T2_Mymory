@@ -12,21 +12,22 @@ import CoreLocation
 final class QuadTreeNode{
     var coordinate: CLLocationCoordinate2D // 노드의 좌표
     var value: Memo // 노드의 값
-    weak var topLeft: QuadTreeNode? // 좌상단 자식 노드
-    weak var topRight: QuadTreeNode? // 우상단 자식 노드
-    weak var bottomLeft: QuadTreeNode? // 좌하단 자식 노드
-    weak var bottomRight: QuadTreeNode? // 우하단 자식 노드
+     var topLeft: QuadTreeNode? // 좌상단 자식 노드
+     var topRight: QuadTreeNode? // 우상단 자식 노드
+     var bottomLeft: QuadTreeNode? // 좌하단 자식 노드
+     var bottomRight: QuadTreeNode? // 우하단 자식 노드
     
     init(memo: Memo) {
         self.coordinate = .init(latitude: memo.location.latitude,
                                 longitude: memo.location.longitude)
         self.value = memo
     }
+
 }
 
 // Quad Tree 클래스
 final class QuadTree{
-    private weak var rootNode: QuadTreeNode? = nil // 최상위 노드
+    private var rootNode: QuadTreeNode? = nil // 최상위 노드
     
     // 좌표를 기반으로 Quad Tree에 노드를 삽입하는 메서드
     func insert(memo: Memo) {
@@ -94,7 +95,7 @@ final class QuadTree{
     func removeAllNodes() {
         rootNode = nil
     }
-    func removeNode(memo: Memo) {
+    private func removeNode(memo: Memo) {
         removeNode(memo, currentNode: rootNode)
     }
     private func removeNode(_ memo: Memo, currentNode: QuadTreeNode?) -> QuadTreeNode? {

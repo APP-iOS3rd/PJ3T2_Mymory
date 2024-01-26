@@ -68,9 +68,6 @@ struct KakaoMapView: UIViewRepresentable {
                 context.coordinator.controller?.stopRendering()
                 context.coordinator.controller?.stopEngine()
             }
-            if viewModel.clusteringDidChanged {
-                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
-            }
         }
     }
     
@@ -153,7 +150,6 @@ struct KakaoMapView: UIViewRepresentable {
         //MARK: - POI Touch Event Flow
         
         func poiTouched(_ poi: Poi) {
-            parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
             
         }
         func touchesBegan(_ touches: Set<AnyHashable>) {
