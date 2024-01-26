@@ -118,7 +118,6 @@ struct CertificationMap: UIViewRepresentable {
         }
         
         func poiDidTapped(kakaoMap: KakaoMap, layerID: String, poiID: String, position: MapPoint) {
-            print("poiDidTapped")
         }
         
         //MARK: - 현위치 마커
@@ -302,7 +301,6 @@ struct CertificationMap: UIViewRepresentable {
         func cameraDidStopped(kakaoMap: KakaoMap, by: MoveBy) {
             switch by {
             case .doubleTapZoomIn, .rotateZoom, .twoFingerTapZoomOut, .zoom, .oneFingerZoom:
-                print("줌 레벨 변경")
                 let dist = kakaoMap.cameraHeight
                 
             default:

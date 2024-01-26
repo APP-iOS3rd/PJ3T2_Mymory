@@ -115,7 +115,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
-                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -137,7 +136,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
-                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
                 isLoading = false
             } catch {
