@@ -26,11 +26,8 @@ class MypageViewModel: ObservableObject {
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
-    var currentLocation: CLLocation? {
-        didSet {
-            self.fetchMyMemoList()
-        }
-    }
+    @Published var currentLocation: CLLocation?  = nil
+    
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
