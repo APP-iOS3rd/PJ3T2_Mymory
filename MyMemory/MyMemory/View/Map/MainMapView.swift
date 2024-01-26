@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
@@ -17,22 +18,22 @@ struct MainMapView: View {
         GridItem(.flexible(maximum: 80)),
     ]
     
-    
     let memoList: [String] = Array(1...10).map {"메모 \($0)"}
     @State var isClicked: Bool = false
     
     var body: some View {
         ZStack {
-            KakaoMapView(draw: $draw,
-                         isUserTracking: $mainMapViewModel.isUserTracking,
-                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
-                         clusters: $mainMapViewModel.clusters,
-                         selectedID: $mainMapViewModel.selectedMemoId)
-            .onAppear{
-                DispatchQueue.main.async {
-                    self.draw = true
-                }
-            }
+//            KakaoMapView(draw: $draw,
+//                         isUserTracking: $mainMapViewModel.isUserTracking,
+//                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
+//                         clusters: $mainMapViewModel.clusters,
+//                         selectedID: $mainMapViewModel.selectedMemoId)
+//            .onAppear{
+//                DispatchQueue.main.async {
+//                    self.draw = true
+//                }
+//            }
+            MapView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .environmentObject(mainMapViewModel)
             .ignoresSafeArea(edges: .top)
@@ -78,15 +79,12 @@ struct MainMapView: View {
                 }
                 Spacer()
                 HStack {
-                    
-                    // 현 위치 버튼
-                    Button {
-                        mainMapViewModel.switchUserLocation()
-                    } label: {
-                        CurrentSpotButton()
-                    }
-                    
-                    
+                        // 현 위치 버튼
+                        Button {
+                            mainMapViewModel.switchUserLocation()
+                        } label: {
+                            CurrentSpotButton()
+                        }                    
                     Spacer()
                     
                     // 리스트뷰 전환 버튼

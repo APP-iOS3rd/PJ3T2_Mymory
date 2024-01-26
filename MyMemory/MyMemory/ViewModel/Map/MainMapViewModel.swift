@@ -10,8 +10,10 @@ import Combine
 import MapKit
 import KakaoMapsSDK
 import CoreLocation
+import _MapKit_SwiftUI
 
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, PGClusteringManagerDelegate {
+    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
 
     
     private let locationManager = CLLocationManager()
@@ -51,6 +53,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
+    
     @Published var direction: Double = 0
     @Published var myCurrentAddress: String? = nil
     @Published var filteredMemoList: [Memo] = []
@@ -226,8 +229,10 @@ extension MainMapViewModel {
     }
     
     func switchUserLocation() {
+        mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
         if !self.isUserTracking {
             self.isUserTracking = true
+
         }
     }
     // 오류나서 일단 주석

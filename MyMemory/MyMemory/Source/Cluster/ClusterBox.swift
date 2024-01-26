@@ -8,7 +8,7 @@
 import Foundation
 import KakaoMapsSDK
 import CoreLocation
-
+import MapKit
 struct ClusterBox {
 
     let xSouthWest: CGFloat
@@ -16,7 +16,7 @@ struct ClusterBox {
     let xNorthEast: CGFloat
     let yNorthEast: CGFloat
 
-    static func mapRectToBoundingBox(mapRect: AreaRect) -> ClusterBox {
+    static func mapRectToBoundingBox(mapRect: MKMapRect) -> ClusterBox {
 
         let topRight =  mapRect.northEast
         let botLeft = mapRect.southWest
