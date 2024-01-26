@@ -29,10 +29,9 @@ struct LoginView: View {
  
     
     @Environment(\.presentationMode) var presentationMode
-    // 확인용 임시 아이디 + 패스워드
+//    확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
-    
     
     var body: some View {
         

@@ -42,7 +42,6 @@ struct KakaoMapView: UIViewRepresentable {
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
         //UI 업데이트가 Global에서 되는 현상 해결
-
         DispatchQueue.main.async {
             
             if isUserTracking {
@@ -59,7 +58,6 @@ struct KakaoMapView: UIViewRepresentable {
             }
             context.coordinator._currentHeading = userDirection
             context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-
             if draw {
                 context.coordinator.controller?.startEngine()
                 context.coordinator.controller?.startRendering()
@@ -156,21 +154,32 @@ struct KakaoMapView: UIViewRepresentable {
         }
         func touchesBegan(_ touches: Set<AnyHashable>) {
             if let touch = touches.first as? UITouch {
-                let radius = touch.majorRadius
-                let touchedCenter = touch.location(in: touch.window)
-                // touch major radius기준으로 거리 재기 위한 임시 Point
-                let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
-                if let point = getPosition(touchedCenter),
-                   let withRadiusPoint = getPosition(withRadius)
-                {
-                    // 거리 계산
-                    let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
-                    let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
-                    let powdDist = latdist * latdist + longdist * longdist
-                    let dist = sqrt(powdDist) // radius의 map상에서의 거리
-                    
-                    if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
-                        poiTouched(touchedPoi)
+                if let gestureRecognizers = touch.gestureRecognizers {
+                    for recognizer in gestureRecognizers {
+                        if recognizer is UITapGestureRecognizer {
+                            print("터치 이벤트는 탭 제스처로 발생했습니다.")
+                        } else if recognizer is UIPanGestureRecognizer {
+                            print("터치 이벤트는 팬 제스처로 발생했습니다.")
+                        } else if recognizer is UISwipeGestureRecognizer {
+                            print("터치 이벤트는 스와이프 제스처로 발생했습니다.")
+                        }
+                    }
+                    let radius = touch.majorRadius
+                    let touchedCenter = touch.location(in: touch.window)
+                    // touch major radius기준으로 거리 재기 위한 임시 Point
+                    let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
+                    if let point = getPosition(touchedCenter),
+                       let withRadiusPoint = getPosition(withRadius)
+                    {
+                        // 거리 계산
+                        let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
+                        let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
+                        let powdDist = latdist * latdist + longdist * longdist
+                        let dist = sqrt(powdDist) // radius의 map상에서의 거리
+                        
+                        if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
+                            poiTouched(touchedPoi)
+                        }
                     }
                 }
             }

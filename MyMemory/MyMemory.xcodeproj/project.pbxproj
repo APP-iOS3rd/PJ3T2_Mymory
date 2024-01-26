@@ -91,6 +91,7 @@
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
+		DA2666412B62365600899D0C /* FirebaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2666402B62365600899D0C /* FirebaseProtocol.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
@@ -215,6 +216,7 @@
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
+		DA2666402B62365600899D0C /* FirebaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProtocol.swift; sourceTree = "<group>"; };
 		DA3C24FC2B5511BD00425288 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				01D15FF82B5DEB99003F1BEF /* Constants.swift */,
 				641A8B3E2B57CBD500A942A1 /* MemoService.swift */,
 				01D15FF32B5DEB44003F1BEF /* ImageUploader.swift */,
+				DA2666402B62365600899D0C /* FirebaseProtocol.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				DA58C26D2B5CEE5D005CB3B3 /* Clustering.swift in Sources */,
 				6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */,
 				289BB2BB2B5A7BF9007FEB63 /* CLLocation+Extension.swift in Sources */,
+				DA2666412B62365600899D0C /* FirebaseProtocol.swift in Sources */,
 				649128F22B550C200034F567 /* SelectTagView.swift in Sources */,
 				9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */,
 				DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */,
