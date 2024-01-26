@@ -87,7 +87,7 @@ struct MemoListView: View {
                 .presentationDetents([.medium])
         })
         .overlay(content: {
-            if LoadingManager.shared.phase == .loading {
+            if viewModel.isLoading {
                 LoadingView()
             }
         })

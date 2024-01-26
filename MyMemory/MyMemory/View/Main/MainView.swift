@@ -9,17 +9,18 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var viewRouter: ViewRouter
-    @EnvironmentObject var viewModel: AuthViewModel
+//    @ObservedObject var viewRouter: ViewRouter
+//    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
-        
-        if viewRouter.currentPage == "onboardingView" {
-            OnboardingView(viewRouter: viewRouter)
-        }
-        else if viewRouter.currentPage == "mainView" {
-            MainTabView(viewRouter: viewRouter)
-        }
+        MainTabView()
+//
+//        if viewRouter.currentPage == "onboardingView" {
+//            OnboardingView(viewRouter: viewRouter)
+//        }
+//        else if viewRouter.currentPage == "mainView" {
+////            MainTabView(viewRouter: viewRouter)
+//        }
         
     }
 }

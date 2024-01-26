@@ -20,23 +20,23 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 struct MypageView: View {
     @Binding var selected: Int
     @ObservedObject var viewModel: MypageViewModel = .init()
-    @EnvironmentObject var authViewModel: AuthViewModel
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
+    @ObservedObject var authViewModel: AuthViewModel = .shared
+    
     var body: some View {
         ZStack(alignment: .top) {
             
             Color.lightGray
                 .edgesIgnoringSafeArea(.top)
-              
-            ScrollView(.vertical, showsIndicators: false){
+            
+            ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
                     
                     MypageTopView(viewModel: viewModel)
                     
-                    
-                    if authViewModel.currentUser != nil {
+                      if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
@@ -58,12 +58,13 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!(AuthViewModel.shared.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
+                            .disabled(!(authViewModel.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
                         }
                         .padding(.top, 38)
                         
                         MypageMemoList(memoList: $viewModel.memoList)
-                           
+                            .environmentObject(viewModel)
+                        
                         
                     } else {
                         VStack(alignment: .center) {
@@ -75,21 +76,8 @@ struct MypageView: View {
                                     .font(.semibold20)
                                 Spacer()
                             }
-                            NavigationLink {
-                                LoginView()
-                                    .customNavigationBar(
-                                        centerView: {
-                                            Text(" ")
-                                        },
-                                        leftView: {
-                                            EmptyView()
-                                        },
-                                        rightView: {
-                                            CloseButton()
-                                        },
-                                        backgroundColor: .white
-                                    )
-                                
+                            Button{
+                                self.presentLoginView = true
                             } label: {
                                 Text("로그인 하러가기")
                             }
@@ -100,12 +88,17 @@ struct MypageView: View {
                     }
                 }
             }
+            .refreshable {
+                Task{
+                    await viewModel.fetchMyMemoList()
+                }
+            }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {
                 Color.clear
                     .frame(height: 0)
                     .background(Color.lightGray)
-
+                
             }
             .safeAreaInset(edge: .bottom) {
                 Color.white
@@ -119,9 +112,8 @@ struct MypageView: View {
         .onAppear(perform: {
             
             Task {
-                if let id = UserDefaults.standard.string(forKey: "userId") {
+                if UserDefaults.standard.string(forKey: "userId") != nil {
                     presentLoginAlert = false
-                    await viewModel.fetchMyMemoList()
                 } else {
                     presentLoginAlert = true
                 }
@@ -138,23 +130,24 @@ struct MypageView: View {
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
         }
-        .overlay{
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
-        }
-//        .onAppear{
-//            viewModel.
-//        }
-//        
-//        .onAppear {
-//            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-//            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-//        }
-//    
-                
+        .overlay {
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
+            }    
         
-    
+        //        .onAppear{
+        //            viewModel.
+        //        }
+        //
+        //        .onAppear {
+        //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+        //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+        //        }
+        //
+        
+        
+        
         
     }
 }

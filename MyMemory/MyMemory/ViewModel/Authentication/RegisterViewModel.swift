@@ -35,7 +35,7 @@ class RegisterViewModel: ObservableObject {
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
     @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
-    @Published var termsOfUseUrlString = "https://www.naver.com"
+    @Published var termsOfUseUrlString = "https://lucky-sycamore-c73.notion.site/af168c49a93b4fa48830d5bc0512dcb5"
     // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
     func userCreate() {

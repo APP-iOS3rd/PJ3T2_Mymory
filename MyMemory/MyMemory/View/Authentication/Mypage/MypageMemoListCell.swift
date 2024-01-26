@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MypageMemoListCell: View {
     @Binding var memo: Memo
-    
+    @EnvironmentObject var viewModel: MypageViewModel
     var body: some View {
         HStack {
             HStack(alignment: .top, spacing: 10){
@@ -51,8 +51,13 @@ struct MypageMemoListCell: View {
                             .font(.semibold11)
                         Image(systemName: "location.fill")
                             .font(.system(size: 11))
-                        Text("38m")
-                            .font(.regular12)
+                        if let location = viewModel.currentLocation {
+                            Text("\(memo.location.distance(from: location).distanceToMeters())")
+                                .font(.regular12)
+                        } else {
+                            Text("-1km")
+                                .font(.regular12)
+                        }
                     }
                     .foregroundStyle(Color(hex: "898A8D"))
                     .padding(.top, 27)

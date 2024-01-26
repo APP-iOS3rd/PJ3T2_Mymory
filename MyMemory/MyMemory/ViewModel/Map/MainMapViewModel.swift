@@ -59,6 +59,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var clusters: [MemoCluster] = []
     @Published var searchTxt: String = ""
     @Published var isFarEnough = false
+    @Published var isLoading = false
 //    @Published var selectedMemoId: UUID? = nil
     @Published var selectedMemoId: String? = ""
     @Published var selectedCluster: MemoCluster? = nil{
@@ -114,7 +115,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
-                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -122,9 +122,9 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         }
     }
     func fetchMemos() {
-        LoadingManager.shared.phase = .loading
+        isLoading = true
         guard self.location != nil else {
-            LoadingManager.shared.phase = .fail(msg: "위치가없음")
+            isLoading = false
             return
         }
         Task { @MainActor in
@@ -136,11 +136,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
-                print(memoList) // 💁
                 cluster.addMemoList(memos: memoList)
-                LoadingManager.shared.phase = .success
+                isLoading = false
             } catch {
-                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
+                isLoading = false
                 print("Error fetching memos: \(error)")
             }
         }

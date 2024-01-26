@@ -78,11 +78,6 @@ class PostViewModel: ObservableObject {
     func saveMemo() async {
         do {
             guard let user = AuthViewModel.shared.currentUser else { return }
-
-
-            // 로그인 성공한 경우의 코드
-            print("userID \(user.id ?? "")")
-            
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate.latitude),
@@ -96,8 +91,6 @@ class PostViewModel: ObservableObject {
                 memoSelectedImageData: memoSelectedImageData,
                 memoCreatedAt: Date().timeIntervalSince1970
             )
-            
-            print(newMemo)
             
             await MemoService.shared.uploadMemo(newMemo: newMemo)
             resetMemoFields()
@@ -143,8 +136,6 @@ class PostViewModel: ObservableObject {
                 memoSelectedImageData: memoSelectedImageData,
                 memoCreatedAt: Date().timeIntervalSince1970
             )
-            
-            print(editMemo)
             // 버튼 눌리면  Firestore 기존 Storage에 이미지를 지우고 업데이트
             MemoService.shared.deleteImage(deleteMemoImageUUIDS: beforeEditMemoImageUUIDs)
             await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)

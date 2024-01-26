@@ -25,7 +25,7 @@ struct LoginView: View {
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel 
-    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
+//    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
  
     
     @Environment(\.presentationMode) var presentationMode
@@ -138,7 +138,6 @@ struct LoginView: View {
             VStack {
                 SignInWithAppleButton(
                     onRequest: { request in
-                        print("working")
                         viewModel.nonce = viewModel.randomNonceString()
                         request.requestedScopes = [.fullName, .email]
                         request.nonce = viewModel.sha256(viewModel.nonce)
@@ -188,11 +187,8 @@ struct LoginView: View {
         }//: VSTACK
    
         .padding()
-        .navigationDestination(isPresented: $isActive) {
-            MainTabView(viewRouter: viewRouter)
-        }
-        .onTapGesture{
-            self.endTextEditing()
+        .fullScreenCover(isPresented: $isActive) {
+            MainTabView()
         }
         .customNavigationBar(
             centerView: {
@@ -202,8 +198,7 @@ struct LoginView: View {
                 EmptyView()
             },
             rightView: {
-                EmptyView()
-//                CloseButton()
+                CloseButton()
             },
             backgroundColor: .white
         )
