@@ -31,12 +31,17 @@ struct MyMemoryApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
   
     init() {
-        
+        KakaoSDK.initSDK(appKey: <#T##String#>)
     }
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environmentObject(AuthViewModel.shared)
+                .onOpenURL { url in
+                    if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                        _ = AuthController.handleOpenUrl(url: url)
+                    }
+                }
         }
         
     }
