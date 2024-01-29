@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
-import MapKit
+import _MapKit_SwiftUI
+
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
+    @State var showingAlert: Bool = false
     @State var fileterSheet: Bool = false
     
     let layout: [GridItem] = [
@@ -72,9 +74,20 @@ struct MainMapView: View {
                         // 현 위치 버튼
                         Button {
                             mainMapViewModel.switchUserLocation()
+                            UIView.setAnimationsEnabled(false)
+                            self.showingAlert.toggle()
                         } label: {
                             CurrentSpotButton()
                         }
+                        .moahAlert(isPresented: $showingAlert) {
+                            MoahAlertView(message: "f", firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showingAlert, action: {
+                                
+                            }))
+                        }
+                        .onAppear {
+                                           UIView.setAnimationsEnabled(true)
+                                       }
+                    
                     Spacer()
                     
                     // 리스트뷰 전환 버튼
@@ -95,23 +108,27 @@ struct MainMapView: View {
                 
                 //선택한 경우
                 ScrollView(.horizontal) {
-                    LazyHGrid(rows: layout, spacing: 20) {
+                    HStack(spacing: 20) {
                         ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
-                            
-                            MemoCell(
-                                isVisible: true,
-                                isDark: true, location: $mainMapViewModel.location,
-                                memo: item)
+                            VStack{
+                                Text("\(String(item.didLike))")
+                                MemoCell(
+                                    isVisible: true,
+                                    isDark: true,
+                                    location: $mainMapViewModel.location,
+                                    memo: item)
                                 .environmentObject(mainMapViewModel)
-                            .onTapGesture {
-                                mainMapViewModel.memoDidSelect(memo: item)
+                                .onTapGesture {
+                                    mainMapViewModel.memoDidSelect(memo: item)
+                                }
+                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                .padding(.leading, 12)
+                                .padding(.bottom, 12)
                             }
-                            .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                            .padding(.leading, 12)
-                            .padding(.bottom, 12)
                         }
                     }
                 }
+
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {

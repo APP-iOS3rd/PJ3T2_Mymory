@@ -15,7 +15,7 @@ struct MypageMemoList: View {
             ForEach($memoList, id: \.self) { memo in
                 NavigationLink {
                     
-                    MemoDetailView(memo: memo.wrappedValue)
+                    MemoDetailView(memo: memo)
                     
                 } label: {
                     MypageMemoListCell(
