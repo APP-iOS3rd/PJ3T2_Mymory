@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import MapKit
+import _MapKit_SwiftUI
+
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
@@ -107,23 +108,27 @@ struct MainMapView: View {
                 
                 //선택한 경우
                 ScrollView(.horizontal) {
-                    LazyHGrid(rows: layout, spacing: 20) {
+                    HStack(spacing: 20) {
                         ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
-                            
-                            MemoCell(
-                                isVisible: true,
-                                isDark: true, location: $mainMapViewModel.location,
-                                memo: item)
+                            VStack{
+                                Text("\(String(item.didLike))")
+                                MemoCell(
+                                    isVisible: true,
+                                    isDark: true,
+                                    location: $mainMapViewModel.location,
+                                    memo: item)
                                 .environmentObject(mainMapViewModel)
-                            .onTapGesture {
-                                mainMapViewModel.memoDidSelect(memo: item)
+                                .onTapGesture {
+                                    mainMapViewModel.memoDidSelect(memo: item)
+                                }
+                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                .padding(.leading, 12)
+                                .padding(.bottom, 12)
                             }
-                            .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                            .padding(.leading, 12)
-                            .padding(.bottom, 12)
                         }
                     }
                 }
+
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
