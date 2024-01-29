@@ -3,7 +3,6 @@ import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
 import _MapKit_SwiftUI
-import KakaoMapsSDK
 import Combine
 
 class PostViewModel: ObservableObject {
