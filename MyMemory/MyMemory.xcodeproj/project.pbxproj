@@ -68,13 +68,13 @@
 		28BB13392B569075001A4C0C /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13382B569075001A4C0C /* CertificationView.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
+		646A851E2B6368C000B62107 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */; };
 		6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
 		64D3C2762B58B60000EEA19F /* LocationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D3C2752B58B60000EEA19F /* LocationsHandler.swift */; };
-		64E1D9FC2B608FEC00EFCD11 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */; };
 		64F8EBCE2B5B890A007DE32E /* NavigationBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8EBCD2B5B890A007DE32E /* NavigationBarItems.swift */; };
 		6A3F2E832B58BAC100A2E84A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6A3F2E822B58BAC100A2E84A /* FirebaseStorage */; };
 		6A3F2E852B58C79200A2E84A /* MypageTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3F2E842B58C79200A2E84A /* MypageTopView.swift */; };
@@ -196,13 +196,13 @@
 		28BB13382B569075001A4C0C /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
+		646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
 		6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewFooter.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		64D3C2752B58B60000EEA19F /* LocationsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsHandler.swift; sourceTree = "<group>"; };
-		64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = APIKEYS.xcconfig; path = MyMemory/Resource/Configure/APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
 		64F8EBCD2B5B890A007DE32E /* NavigationBarItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarItems.swift; sourceTree = "<group>"; };
 		6A3F2E842B58C79200A2E84A /* MypageTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTopView.swift; sourceTree = "<group>"; };
 		6A5519F52B56AA2A0028665D /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
@@ -524,6 +524,8 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */,
+				DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -700,10 +702,10 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
+				646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
-				64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */,
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -904,7 +906,7 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
-				64E1D9FC2B608FEC00EFCD11 /* APIKEYS.xcconfig in Resources */,
+				646A851E2B6368C000B62107 /* APIKEYS.xcconfig in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
@@ -1069,7 +1071,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1134,7 +1136,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1192,7 +1194,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1245,14 +1247,14 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
@@ -1285,7 +1287,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1298,7 +1300,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1319,7 +1321,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1340,7 +1342,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1361,7 +1363,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64E1D9FB2B608FEC00EFCD11 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

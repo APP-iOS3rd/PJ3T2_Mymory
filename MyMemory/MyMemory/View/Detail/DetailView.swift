@@ -13,7 +13,7 @@ struct DetailView: View {
     
     var body: some View {
         if isVisble {
-            MemoDetailView(memo: memo)
+            MemoDetailView(memo: $memo)
         } else {
             CertificationView(memo: $memo)
         }
