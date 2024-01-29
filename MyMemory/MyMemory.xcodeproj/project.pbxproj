@@ -687,7 +687,6 @@
 				DA52B5DA2B5609DA003F5E59 /* Shared */,
 				01E6A6442B4683860061F08C /* Components */,
 				014CB5732B46A2950016DF70 /* Model */,
-				DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -740,7 +739,6 @@
 			children = (
 				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
-				DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";

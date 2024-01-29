@@ -23,7 +23,6 @@ final class ClusterOperation {
     
     public func addMemo(memo: Memo) {
         operationQueue.cancelAllOperations()
-        
         dispatchQueue.async {
             self.quadTree.insert(memo: memo)
         }
@@ -52,7 +51,6 @@ final class ClusterOperation {
         let maxY = visibleMapRect.maxY
         
         operationQueue.addOperation {
-            
             var yCoordinate = minY
             
             while yCoordinate<maxY {
@@ -62,12 +60,6 @@ final class ClusterOperation {
                     let mapRect = MKMapRect(x: xCoordinate, y: yCoordinate, width: cellSizePoints, height: cellSizePoints)
                     let area = ClusterBox.mapRectToBoundingBox(mapRect: mapRect)
                     let memos = self.quadTree.search(inRegion: area)
-//                    print("===== cell size : \(area.xNorthEast - area.xSouthWest)=====")
-//                    print("latitude 최소: \(area.xSouthWest)")
-//                    print("latitude 최대: \(area.xNorthEast)")
-//                    print("longitude 최소: \(area.ySouthWest)")
-//                    print("longitude 최대: \(area.yNorthEast)")
-//                    print("==================================")
                     if !memos.isEmpty {
                         clusterMemos.append(MemoCluster(memoList: memos))
                     }
@@ -107,7 +99,6 @@ extension ClusterOperation {
             return 10
         }
     }
-    
 }
 extension AreaRect {
     var width: Double {

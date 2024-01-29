@@ -12,17 +12,16 @@ import CoreLocation
 final class QuadTreeNode{
     var coordinate: CLLocationCoordinate2D // 노드의 좌표
     var value: Memo // 노드의 값
-     var topLeft: QuadTreeNode? // 좌상단 자식 노드
-     var topRight: QuadTreeNode? // 우상단 자식 노드
-     var bottomLeft: QuadTreeNode? // 좌하단 자식 노드
-     var bottomRight: QuadTreeNode? // 우하단 자식 노드
+    var topLeft: QuadTreeNode? // 좌상단 자식 노드
+    var topRight: QuadTreeNode? // 우상단 자식 노드
+    var bottomLeft: QuadTreeNode? // 좌하단 자식 노드
+    var bottomRight: QuadTreeNode? // 우하단 자식 노드
     
     init(memo: Memo) {
         self.coordinate = .init(latitude: memo.location.latitude,
                                 longitude: memo.location.longitude)
         self.value = memo
     }
-
 }
 
 // Quad Tree 클래스

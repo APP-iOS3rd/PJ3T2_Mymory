@@ -70,8 +70,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var searchTxt: String = ""
     @Published var myCurrentAddress: String? = nil
     @Published var isLoading = false
-    @Published var selectedAddress: String? = nil
-    
+    @Published var selectedAddress: String? = nil    
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -162,7 +161,6 @@ extension MainMapViewModel {
             locationManager.requestAlwaysAuthorization()
         }
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         DispatchQueue.main.async { [weak self] in
@@ -295,13 +293,10 @@ extension MainMapViewModel {
 extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
-    }
-    
+    }    
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }
-    
-    
     func distance(to: CLLocationCoordinate2D) -> Double {
         return sqrt(squaredDistance(to: to))
     }

@@ -230,13 +230,11 @@ struct MemoService {
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
         var memos: [Memo] = current
-        
         var querySnapshot: QuerySnapshot
         // "Memos" 컬렉션에서 문서들을 가져옴
         if let location = location {
             let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
             let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
-            
             // Firestore 쿼리 작성
             let query = COLLECTION_MEMOS
                 .whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)

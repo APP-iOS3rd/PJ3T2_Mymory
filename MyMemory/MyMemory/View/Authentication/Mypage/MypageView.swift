@@ -36,7 +36,7 @@ struct MypageView: View {
                     
                     MypageTopView(viewModel: viewModel)
                     
-                      if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
+                    if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
@@ -89,9 +89,13 @@ struct MypageView: View {
                 }
             }
             .refreshable {
-                Task{
-                    await viewModel.fetchMyMemoList()
+                viewModel.currentLocation = nil
+                viewModel.fetchCurrentUserLocation { location in
+                    if let location = location, viewModel.currentLocation != location {
+                        viewModel.currentLocation = location
+                    }
                 }
+                viewModel.fetchMyMemoList()
             }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {
@@ -105,12 +109,11 @@ struct MypageView: View {
                     .frame(height: 0)
                     .background(.white)
                     .border(Color.black)
-
+                
             }
- 
+            
         }
         .onAppear(perform: {
-            
             Task {
                 if UserDefaults.standard.string(forKey: "userId") != nil {
                     presentLoginAlert = false
@@ -131,10 +134,10 @@ struct MypageView: View {
             LoginView()
         }
         .overlay {
-                if LoadingManager.shared.phase == .loading {
-                    LoadingView()
-                }
-            }    
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        }
         
         //        .onAppear{
         //            viewModel.
