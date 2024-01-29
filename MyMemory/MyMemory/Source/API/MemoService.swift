@@ -378,7 +378,10 @@ struct MemoService {
     }
     
  
-      
+    /// 좋아요를 누르는 함수
+    /// - Parameters:
+    ///   - Memo : 현 사용자가 좋아요를 누를 메모
+    /// - Returns: 에러를 리턴
     func likeMemo(memo: Memo, completion: @escaping (Error?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid, let memoID = memo.id else {
             completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
@@ -405,6 +408,10 @@ struct MemoService {
              */
     }
     
+    /// 좋아요 개수를 표시하는 함수
+    /// - Parameters:
+    ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수
+    /// - Returns: 좋아요 받은 총 개수
     func likeMemoCount(memo: Memo) async -> Int {
         let memoID = memo.id ?? ""
         var likeCount = 0
@@ -428,7 +435,10 @@ struct MemoService {
 
     
     
-    // 위 코드는 현재 로그인한 사용자가 특정 트윗(Tweet)을 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
+    /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
+    /// - Parameters:
+    ///   - memo : 사용자가 좋아요 누른 메모가 맞는지 확인 할 메모
+    /// - Returns: 좋아요 누른 여부 ture,false(해당 값을 메모의 didLike에 넣어서 MemoCell의 UI를 표시)
     func checkLikedMemo(_ memo: Memo, completion: @escaping (Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(false)

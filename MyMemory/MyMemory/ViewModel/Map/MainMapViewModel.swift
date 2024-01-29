@@ -137,7 +137,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
-                print("memoList \(memoList)")
+                //print("memoList \(memoList)")
                 // 👍 좋아요 누른 메모 체크
                 for (index, memo) in memoList.enumerated() {
                     MemoService.shared.checkLikedMemo(memo) { didLike in
@@ -145,6 +145,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                         self.memoList[index].didLike = didLike
                     }
                 }
+                
                 cluster.addMemoList(memos: memoList)
                 isLoading = false
             } catch {

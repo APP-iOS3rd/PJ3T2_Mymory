@@ -108,8 +108,6 @@
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
-		DAA8DC0D2B6379AF006D5694 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */; };
-		DAA8DC0F2B6380C8006D5694 /* ViewModelUsingMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
 		DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB315512B43EFDD000357C7 /* Preview Assets.xcassets */; };
@@ -517,6 +515,8 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */,
+				DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -954,7 +954,6 @@
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */,
-				DAA8DC0F2B6380C8006D5694 /* ViewModelUsingMap.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,
@@ -1005,7 +1004,6 @@
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
 				DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */,
-				DAA8DC0D2B6379AF006D5694 /* MapViewModel.swift in Sources */,
 				289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,

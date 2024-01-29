@@ -95,7 +95,7 @@ struct MapView: View {
         }
     }
 }
-#Preview {
-    MapView()
-        .environmentObject(MapViewModel())
-}
+//#Preview {
+//    MapView()
+//        .environmentObject(MapViewModel())
+//}
