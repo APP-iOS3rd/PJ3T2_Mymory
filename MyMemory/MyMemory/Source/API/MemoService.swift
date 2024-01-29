@@ -269,9 +269,26 @@ struct MemoService {
         }
         return memos
     }
-    func fetchMyMemos(userID: String) async -> [Memo] {
+    /// 사용자가 작성한 메모만 불러오는 함수입니다.
+    /// - Parameters:
+    ///     - userID: 사용자의 UID
+    ///     - lastDocument: 불러온 Documents 중 가장 마지막 요소입니다. 이를 활용해 몇번째 메모까지 불렀는지 확인할 수 있습니다.
+    ///     - completion: 각 View에서 사용하는 lastDocument에 현재 불러온 lastDocument를 덮어씌우는 closure입니다.
+    /// - Returns: 사용자가 작성한 메모들을 lastDocument부터 사용자가 설정한 limits개의 documents를 Memo타입으로 변환하여 [Memo] 타입으로 반환합니다.
+    func fetchMyMemos(userID: String, lastDocument: QueryDocumentSnapshot?, completion: (QueryDocumentSnapshot?) -> Void) async -> [Memo] {
         do {
-            let querySnapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID).getDocuments()
+            let querySnapshot = await pagenate(
+                query: COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID),
+                limit: 5,
+                lastDocument: lastDocument
+            )
+            
+            if querySnapshot.documents.isEmpty {
+                return []
+            }
+            
+            completion(querySnapshot.documents.last)
+            
             var memos = [Memo]()
             
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
@@ -281,7 +298,7 @@ struct MemoService {
                     memos.append(memo)
                 }
             }
-
+            
             return memos
         } catch {
             // Handle errors
@@ -368,4 +385,26 @@ struct MemoService {
     
     
     
+    /// firestore의 Document를 페이지네이션화하는 함수. 기본적으로 최신순으로 데이터를 받아온다.
+    /// - Parameters:
+    ///     - query: Document Query
+    ///     - limit: fetch 시 받아올 데이터의 개수
+    ///     - lastDocument: 현재 불러온 데이터의 마지막 요소. 이 파라미터를 통해 query의 커서(불러올 순서)를 정할 수 있다.
+    /// - Returns: query에서 정렬된 Documents들을 lastDocument부터 limits의 값만큼 Return
+    func pagenate(query: Query, limit: Int, lastDocument: QueryDocumentSnapshot?) async -> QuerySnapshot {
+        do {
+            var query: Query = query.order(by: "memoCreatedAt", descending: true)
+                                    .limit(to: limit)
+            
+            if let lastDocument = lastDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            let querySnapshot = try await query.getDocuments()
+            
+            return querySnapshot
+        } catch {
+            fatalError("ERROR: querysnapshot \(error)")
+        }
+    }
 }
