@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
     
@@ -23,15 +24,12 @@ struct MypageTopView: View {
                     )
                 } label: {
                     if let imageUrl = viewModel.user?.profilePicture, let url = URL(string: imageUrl) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .clipShape(.circle)
-                        } placeholder: {
-                            ProgressView()
-                        }.frame(width: 76, height: 76)
+                        KFImage(url)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .clipShape(.circle)
+                            .frame(width: 76, height: 76)
                     } else {
                         Circle()
                             .frame(width: 76, height: 76)

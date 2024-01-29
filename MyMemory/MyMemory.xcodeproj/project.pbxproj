@@ -104,6 +104,7 @@
 		DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
+		DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DAA71E942B677F0600157DA1 /* Kingfisher */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
@@ -265,6 +266,7 @@
 				6A3F2E832B58BAC100A2E84A /* FirebaseStorage in Frameworks */,
 				DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */,
 				DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */,
+				DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */,
 				DAB4CE552B58B9CA00CBE177 /* FirebaseAuthCombine-Community in Frameworks */,
 				DAB3157A2B43F48C000357C7 /* FirebaseAppDistribution-Beta in Frameworks */,
 			);
@@ -787,6 +789,7 @@
 				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
 				28BB13302B568E96001A4C0C /* FLAnimatedImage */,
 				6A3F2E822B58BAC100A2E84A /* FirebaseStorage */,
+				DAA71E942B677F0600157DA1 /* Kingfisher */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -864,6 +867,7 @@
 				DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
+				DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = DAB315482B43EFDB000357C7 /* Products */;
 			projectDirPath = "";
@@ -1414,6 +1418,14 @@
 				minimumVersion = 2.6.3;
 			};
 		};
+		DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.2;
+			};
+		};
 		DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1439,6 +1451,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
 			productName = KakaoMapsSDK_SPM;
+		};
+		DAA71E942B677F0600157DA1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		DAB315772B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -197,6 +197,30 @@ class AuthViewModel: ObservableObject {
            // print(user)
         }
     }
+    func fetchUser(completion: @escaping (User?) -> Void) {
+        guard let uid = userSession?.uid else {
+            completion(nil)
+            return
+        }
+        
+        print("현재 로그인 상태: uid \(uid)")
+        
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                if let user = try? snapshot.data(as: User.self) {
+                    UserDefaults.standard.set(user.id, forKey: "userId")
+                    completion(user)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
     func authenticate(credential: ASAuthorizationAppleIDCredential) {
         //getting token
         guard let token = credential.identityToken else {

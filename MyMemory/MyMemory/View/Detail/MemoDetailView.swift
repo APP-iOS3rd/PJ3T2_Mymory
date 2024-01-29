@@ -1,6 +1,6 @@
 
 import SwiftUI
-
+import Kingfisher
 struct MemoDetailView: View {
     @State private var selectedNum: Int = 0
     @State private var isHeart: Bool = false
@@ -56,7 +56,7 @@ struct MemoDetailView: View {
                     ScrollView(.horizontal) {
                         HStack{
                             ForEach(memo.images.indices, id: \.self) { index in
-                                if let uiimage = UIImage(data: memo.images[index]) {
+                                if let uiimage =  UIImage(data: memo.images[index]) {
                                     Image(uiImage: uiimage)
                                         .resizable()
                                     //.scaledToFit()
