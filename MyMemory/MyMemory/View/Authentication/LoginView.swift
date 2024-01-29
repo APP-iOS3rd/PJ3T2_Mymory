@@ -8,6 +8,9 @@
 import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
 
 struct LoginView: View {
     
@@ -169,7 +172,31 @@ struct LoginView: View {
                 .frame(width : 350, height:50)
                 .cornerRadius(10)
                 Button {
-                    
+                    if (UserApi.isKakaoTalkLoginAvailable()) {
+                        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                            if let error = error {
+                                print(error)
+                                return
+                            } else {
+                                UserApi.shared.me { User, Error in
+                                    UserApi.shared.me { User, Error in
+                                         if let name = User?.kakaoAccount?.profile?.nickname {
+//                                            userName = name
+                                             print("\(name)")
+                                         }
+                                         if let mail = User?.kakaoAccount?.email {
+//                                            userMail = mail
+                                             print("\(mail)")
+                                         }
+                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
+//                                            profileImage = profile
+                                             print("\(profile)")
+                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 } label: {
                     HStack {
                         Image("kakao")
