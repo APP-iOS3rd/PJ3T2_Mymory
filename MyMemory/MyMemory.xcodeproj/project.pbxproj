@@ -59,7 +59,6 @@
 		289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BB2B82B5A7BCF007FEB63 /* CertificationViewModel.swift */; };
 		289BB2BB2B5A7BF9007FEB63 /* CLLocation+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */; };
 		289BB2BD2B5A7C28007FEB63 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289BB2BC2B5A7C28007FEB63 /* Footer.swift */; };
-		28AB91BD2B5E6D41008D2D28 /* CertificationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AB91BC2B5E6D41008D2D28 /* CertificationMap.swift */; };
 		28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD063A2B5FB42800F567F4 /* DetailView.swift */; };
 		28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13292B568DC3001A4C0C /* ProgressBarView.swift */; };
 		28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB132D2B568E4C001A4C0C /* GIFView.swift */; };
@@ -97,7 +96,6 @@
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
 		DA2666412B62365600899D0C /* FirebaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2666402B62365600899D0C /* FirebaseProtocol.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
-		DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3C24FC2B5511BD00425288 /* KakaoMap.swift */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
@@ -106,7 +104,6 @@
 		DA58C26B2B5CED15005CB3B3 /* QuadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26A2B5CED15005CB3B3 /* QuadTree.swift */; };
 		DA58C26D2B5CEE5D005CB3B3 /* Clustering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */; };
 		DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */; };
-		DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */; };
 		DA63D2A22B6009530000978B /* addMemoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA63D2A12B6009530000978B /* addMemoSubView.swift */; };
 		DA7894052B43F61F00DC3771 /* Fonts+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7894042B43F61F00DC3771 /* Fonts+Extension.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
@@ -191,7 +188,6 @@
 		289BB2B82B5A7BCF007FEB63 /* CertificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationViewModel.swift; sourceTree = "<group>"; };
 		289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocation+Extension.swift"; sourceTree = "<group>"; };
 		289BB2BC2B5A7C28007FEB63 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
-		28AB91BC2B5E6D41008D2D28 /* CertificationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationMap.swift; sourceTree = "<group>"; };
 		28AD063A2B5FB42800F567F4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		28BB13292B568DC3001A4C0C /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		28BB132D2B568E4C001A4C0C /* GIFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFView.swift; sourceTree = "<group>"; };
@@ -226,7 +222,6 @@
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
 		DA2666402B62365600899D0C /* FirebaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProtocol.swift; sourceTree = "<group>"; };
-		DA3C24FC2B5511BD00425288 /* KakaoMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoMap.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
 		DA52B5DD2B560E83003F5E59 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
@@ -235,7 +230,6 @@
 		DA58C26A2B5CED15005CB3B3 /* QuadTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuadTree.swift; sourceTree = "<group>"; };
 		DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clustering.swift; sourceTree = "<group>"; };
 		DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterBox.swift; sourceTree = "<group>"; };
-		DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoMapSimple.swift; sourceTree = "<group>"; };
 		DA63D2A12B6009530000978B /* addMemoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemoSubView.swift; sourceTree = "<group>"; };
 		DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
@@ -500,7 +494,6 @@
 				28BB13342B568FE7001A4C0C /* ImgDetailView.swift */,
 				64F8EBCD2B5B890A007DE32E /* NavigationBarItems.swift */,
 				289BB2BC2B5A7C28007FEB63 /* Footer.swift */,
-				28AB91BC2B5E6D41008D2D28 /* CertificationMap.swift */,
 				28BB13382B569075001A4C0C /* CertificationView.swift */,
 			);
 			path = Subviews;
@@ -574,7 +567,6 @@
 		DA37855F2B561BDF007AECD9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				DA3C24FC2B5511BD00425288 /* KakaoMap.swift */,
 				DA131A472B4AB19700743FD0 /* MemoModel.swift */,
 				DA12ABC32B58EA4F0093229C /* FileterListView.swift */,
 				DAA8DC0A2B63798A006D5694 /* MapView.swift */,
@@ -585,7 +577,6 @@
 		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				DA58C2712B5DE8F9005CB3B3 /* KakaoMapSimple.swift */,
 				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
 				64D3C2752B58B60000EEA19F /* LocationsHandler.swift */,
 				DAF026152B5E31130092A3B3 /* LoadingManager.swift */,
@@ -951,7 +942,6 @@
 			files = (
 				28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */,
 				013127282B4674B600483E9F /* Textarea.swift in Sources */,
-				28AB91BD2B5E6D41008D2D28 /* CertificationMap.swift in Sources */,
 				DA58C26B2B5CED15005CB3B3 /* QuadTree.swift in Sources */,
 				DA58C2662B5CD74E005CB3B3 /* view+Extension.swift in Sources */,
 				DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */,
@@ -965,7 +955,6 @@
 				01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
-				DA3C24FD2B5511BD00425288 /* KakaoMap.swift in Sources */,
 				DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */,
 				01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
@@ -1021,7 +1010,6 @@
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
-				DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */,
 				289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */,
 				280561F42B67809600D9B9B6 /* ViewModelUsingMap.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
@@ -1213,7 +1201,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1266,7 +1254,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1315,7 +1303,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -1336,7 +1324,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
@@ -1357,7 +1345,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1378,7 +1366,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

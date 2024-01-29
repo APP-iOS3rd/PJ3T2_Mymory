@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import KakaoMapsSDK
 import CoreLocation
 import MapKit
 struct ClusterBox {

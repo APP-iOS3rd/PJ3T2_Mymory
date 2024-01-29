@@ -46,7 +46,7 @@ struct PostMemoModel: Identifiable {
     }
 
     
-    static let sampleMemoModel = PostMemoModel(userUid: "1234", userCoordinateLatitude: 37.5125, userCoordinateLongitude: 127.102778,
+    /*static let sampleMemoModel = PostMemoModel(userUid: "1234", userCoordinateLatitude: 37.5125, userCoordinateLongitude: 127.102778,
                                                userAddress: "대한민국 서울특별시 송파구 올림픽로 300 (신천동 29)",
                                                memoTitle: "오늘의 메모",
                                                memoContents: "메모메모메모메모메모메모",
@@ -55,5 +55,6 @@ struct PostMemoModel: Identifiable {
                                                memoLikeCount: 0,
                                                memoSelectedImageData: [/* initialize your PhotosPickerItem array here */],
                                                memoCreatedAt: Date().timeIntervalSince1970)
+     */
 }
 

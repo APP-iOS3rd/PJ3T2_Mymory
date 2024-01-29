@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import _MapKit_SwiftUI
 
 struct CertificationView: View {
-    
+    @State var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @Binding var memo: Memo
     @State var draw:Bool = true
     @StateObject private var viewModel: CertificationViewModel = CertificationViewModel()
@@ -38,19 +39,37 @@ struct CertificationView: View {
                 }
                 
                 Spacer()
-                    
-                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
-                        .onAppear {
-                            DispatchQueue.main.async {
-                                self.draw = true
+                Map(position: $mapPosition,
+                    interactionModes: .all) {
+                    if let loc = viewModel.location{
+                        Annotation("", coordinate: loc.coordinate) {
+                            ZStack {
+                                Image(.mapIcoMarker)
+                                    .resizable()
+                                    .frame(width: 20,height: 20)
+                                    .shadow(radius: 5)
+
                             }
-                        }
-                        .onDisappear {
-                            self.draw = false
-                        }
-                        .environmentObject(viewModel)
-                        .clipShape(.rect(cornerRadius: 10))
-                        .frame(height: UIScreen.main.bounds.size.height * 0.55)
+                        }.mapOverlayLevel(level: .aboveLabels)
+                        
+                    }
+                    Annotation("", coordinate: .init(latitude: memo.location.latitude, longitude: memo.location.longitude)) {
+                        Image(.makerMineSelected)
+                    }
+                }
+                    .clipShape(.rect(cornerRadius: 10))
+                    .frame(height: UIScreen.main.bounds.size.height * 0.55)
+//                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
+//                        .onAppear {
+//                            DispatchQueue.main.async {
+//                                self.draw = true
+//                            }
+//                        }
+//                        .onDisappear {
+//                            self.draw = false
+//                        }
+//                        .environmentObject(viewModel)
+
                     
                     Spacer()
                     
