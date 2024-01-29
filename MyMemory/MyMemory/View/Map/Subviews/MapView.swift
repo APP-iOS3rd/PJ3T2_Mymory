@@ -17,11 +17,18 @@ struct MapView: View {
                     interactionModes: .all) {
                     if let loc = viewModel.location{
                         Annotation("", coordinate: loc.coordinate) {
-                            Image(.mapIcoMarker)
-                                .resizable()
-                                .frame(width: 20,height: 20)
-                                .shadow(radius: 5)
+                            ZStack {
+                                Image(.mapIcoMarker)
+                                    .resizable()
+                                    .frame(width: 20,height: 20)
+                                    .shadow(radius: 5)
+                                    
+                            }
                         }.mapOverlayLevel(level: .aboveLabels)
+                        MapCircle(center: loc.coordinate, radius: 500.0)
+                            .foregroundStyle(Color(red: 0.98, green: 0.15, blue: 0.15).opacity(0.1))
+
+
                     }
                     ForEach(viewModel.clusters) { cluster in
                         //case 1: 로그인 되었을 경우
@@ -81,6 +88,7 @@ struct MapView: View {
                     }//foreach
                 }//map
                     .onMapCameraChange { context in
+                        viewModel.setCamera(boundWidth: proxy.size.width, context: context)
                         viewModel.cameraDidChange(boundWidth: proxy.size.width, context: context)
                     }
             }

@@ -27,7 +27,6 @@ class MypageViewModel: ObservableObject {
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
-    
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
@@ -44,7 +43,6 @@ class MypageViewModel: ObservableObject {
                 self.currentLocation = location
             }
         }
-
         AuthViewModel.shared.fetchUser()
 
 

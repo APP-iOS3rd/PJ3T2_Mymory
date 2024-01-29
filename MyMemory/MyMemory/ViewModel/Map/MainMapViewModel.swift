@@ -13,20 +13,35 @@ import CoreLocation
 import _MapKit_SwiftUI
 
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, ClusteringDelegate {
-    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
+    //MARK: - Map, location 관련 프로퍼티
     private var cameraDistance: Double? = nil
-    
     private let locationManager = CLLocationManager()
-    private let operation: OperationQueue = OperationQueue()
-    private let cluster: ClusterOperation = .init()
-    //위치 감별사
     private var firstLocationUpdated = false
     var firstLocation: CLLocation? {
         didSet{
             fetchMemos()
         }
     }
-    
+    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
+    @Published var location: CLLocation? {
+        didSet {
+            //처음 한번 로케이션 불러오기
+            if !self.firstLocationUpdated {
+                self.firstLocation = self.location
+                self.firstLocationUpdated = true
+            } else {
+                let dist = firstLocation!.distance(from: self.location!)
+                self.isFarEnough = dist > 300 // 300미터 이상 갔을 때
+            }
+        }
+    }    
+    @Published var direction: Double = 0
+    @Published var isUserTracking: Bool = true
+    @Published var isFarEnough = false
+    @Published var mapBoundWidth: Double? = nil
+    @Published var currentCameraMapContext: MapCameraUpdateContext? = nil
+    //MARK: - Memo, 클러스터링 관련 프로퍼티
+    private let cluster: ClusterOperation = .init()
     @Published var filterList: Set<String> = Set() {
         didSet {
             filteredMemoList = memoList.filter{ [weak self] memo in
@@ -39,37 +54,23 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 return preset
             }
             cluster.addMemoList(memos: filteredMemoList)
-        }
-    }
-    
-    @Published var location: CLLocation? {
-        didSet {
-            //처음 한번 로케이션 불러오기
-            if !self.firstLocationUpdated {
-                self.firstLocation = self.location
-                self.firstLocationUpdated = true
-            } else {
-                let dist = firstLocation!.distance(from: self.location!)
-                self.isFarEnough = dist > 300 // 300미터 이상 갔을 때
+            if let bound = mapBoundWidth,
+               let context = currentCameraMapContext {
+                self.cameraDidChange(boundWidth: bound, context: context)
             }
         }
     }
-    @Published var direction: Double = 0
-    @Published var myCurrentAddress: String? = nil
     @Published var filteredMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
-    @Published var isUserTracking: Bool = true
     @Published var clusters: [MemoCluster] = []
-    @Published var searchTxt: String = ""
-    @Published var isFarEnough = false
-    @Published var isLoading = false
-    //    @Published var selectedMemoId: UUID? = nil
     @Published var selectedMemoId: String? = ""
-
-    @Published var selectedAddress: String? = nil
     @Published var clusteringDidChanged: Bool = true
-    
-    
+
+    //MARK: - 기타 프로퍼티
+    @Published var searchTxt: String = ""
+    @Published var myCurrentAddress: String? = nil
+    @Published var isLoading = false
+    @Published var selectedAddress: String? = nil    
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -164,10 +165,10 @@ extension MainMapViewModel {
         guard let location = locations.last else { return }
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else {return}
-//            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
+            //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
             weakSelf.location = .init(latitude: location.coordinate.latitude,
-                                   longitude: location.coordinate.longitude)
-
+                                      longitude: location.coordinate.longitude)
+            
             weakSelf.getCurrentAddress()
         }
     }
@@ -220,6 +221,21 @@ extension MainMapViewModel {
         Task{@MainActor in
             self.myCurrentAddress = await GetAddress.shared.getAddressStr(location: point)
         }
+    }
+}
+//MARK: - Map 관련 로직
+
+/// 카메라가 변경되었을 때 호출되는 함수
+/// - Parameters:
+///   - boundWidth : 현재 호출하는 Map()의 width값
+///   - context: onMapCameraChange를 통해 확인할 수 있는 camera update context
+/// - Returns: void, 클러스터를 업데이트 하는 함수를 호출
+///
+extension MainMapViewModel {
+    func setCamera(boundWidth: Double, context: MapCameraUpdateContext) {
+        self.cameraDistance = context.camera.distance
+        self.mapBoundWidth = boundWidth
+        self.currentCameraMapContext = context
     }
 }
 //MARK: - Clustering 관련 Logics
@@ -277,12 +293,10 @@ extension MainMapViewModel {
 extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
-    }
-
+    }    
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }
-
     func distance(to: CLLocationCoordinate2D) -> Double {
         return sqrt(squaredDistance(to: to))
     }
