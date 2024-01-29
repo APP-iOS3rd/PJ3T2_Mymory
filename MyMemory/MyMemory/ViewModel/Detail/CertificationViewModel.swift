@@ -10,7 +10,6 @@ import CoreLocation
 import Combine
 import MapKit
 import KakaoMapsSDK
-
 final class CertificationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager = CLLocationManager()

@@ -8,10 +8,9 @@
 import Foundation
 import Combine
 import MapKit
-import KakaoMapsSDK
 import CoreLocation
 import _MapKit_SwiftUI
-
+import KakaoMapsSDK
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, ClusteringDelegate {
     //MARK: - Map, location 관련 프로퍼티
     private var cameraDistance: Double? = nil
