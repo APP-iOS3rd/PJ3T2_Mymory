@@ -31,7 +31,7 @@ struct MyMemoryApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
   
     init() {
-        KakaoSDK.initSDK(appKey: <#T##String#>)
+        KakaoSDK.initSDK(appKey: Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as! String)
     }
     var body: some Scene {
         WindowGroup {

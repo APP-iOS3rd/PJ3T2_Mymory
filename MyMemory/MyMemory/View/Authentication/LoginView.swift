@@ -175,25 +175,25 @@ struct LoginView: View {
                     if (UserApi.isKakaoTalkLoginAvailable()) {
                         UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                             if let error = error {
-                                print(error)
+                                print("카카오로그인 에러입니다. \(error)")
                                 return
                             } else {
                                 UserApi.shared.me { User, Error in
-                                    UserApi.shared.me { User, Error in
                                          if let name = User?.kakaoAccount?.profile?.nickname {
 //                                            userName = name
-                                             print("\(name)")
+                                             print("제 닉네임은 \(name) 입니다")
                                          }
-                                         if let mail = User?.kakaoAccount?.email {
-//                                            userMail = mail
-                                             print("\(mail)")
-                                         }
-                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
-//                                            profileImage = profile
-                                             print("\(profile)")
-                                         }
-                                    }
+//                                         if let mail = User?.kakaoAccount?.email {
+////                                            userMail = mail
+//                                             print("hello my mail is \(mail)")
+//                                         }
+//                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
+////                                            profileImage = profile
+//                                             print("hello my profile is \(profile)")
+//                                    }
+                                    print("공유된 결과입니다")
                                 }
+                                print("카카카오 결과입니다")
                             }
                         }
                     }
