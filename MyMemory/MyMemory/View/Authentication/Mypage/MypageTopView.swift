@@ -73,6 +73,7 @@ struct MypageTopView: View {
                 SettingView (user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
+                
                 .customNavigationBar(
                     centerView: {
                         Text("내 정보")
