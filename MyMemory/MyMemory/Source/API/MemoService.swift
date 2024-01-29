@@ -228,16 +228,16 @@ struct MemoService {
         return memos
     }
     // 영역 fetch
-    func fetchMemos(in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
-        var memos = [Memo]()
+    func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
+        var memos: [Memo] = current
         var querySnapshot: QuerySnapshot
         // "Memos" 컬렉션에서 문서들을 가져옴
         if let location = location {
             let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
-            let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
-
+            let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))            
             // Firestore 쿼리 작성
-            let query = COLLECTION_MEMOS.whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
+            let query = COLLECTION_MEMOS
+                .whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
                 .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
             
             querySnapshot = try await query.getDocuments()
@@ -319,9 +319,7 @@ struct MemoService {
               let memoLikeCount = data["memoLikeCount"] as? Int,
               let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
               let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
-              let memoCreatedAt = timeIntervalFromString(data["memoCreatedAt"] as? String ?? "") else {
-            return nil
-        }
+              let memoCreatedAt = timeIntervalFromString(data["memoCreatedAt"] as? String ?? "") else { return nil }
         
         // Convert image URLs to Data asynchronously
         /*

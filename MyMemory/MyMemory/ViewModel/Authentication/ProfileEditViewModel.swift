@@ -17,7 +17,6 @@ class ProfileEditViewModel: ObservableObject {
     let db = Firestore.firestore()
     let storage = Storage.storage()
 
-    
     init() {}
     
     func fetchEditProfileImage(imageData: Data, uid: String) async {

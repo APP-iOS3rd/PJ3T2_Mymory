@@ -10,9 +10,11 @@ import Combine
 import MapKit
 import KakaoMapsSDK
 import CoreLocation
+import _MapKit_SwiftUI
 
-final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, PGClusteringManagerDelegate {
-
+final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, ClusteringDelegate {
+    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
+    private var cameraDistance: Double? = nil
     
     private let locationManager = CLLocationManager()
     private let operation: OperationQueue = OperationQueue()
@@ -36,6 +38,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 }
                 return preset
             }
+            cluster.addMemoList(memos: filteredMemoList)
         }
     }
     
@@ -60,21 +63,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var searchTxt: String = ""
     @Published var isFarEnough = false
     @Published var isLoading = false
-//    @Published var selectedMemoId: UUID? = nil
+    //    @Published var selectedMemoId: UUID? = nil
     @Published var selectedMemoId: String? = ""
-    @Published var selectedCluster: MemoCluster? = nil{
-        didSet {
-            guard let cluster = selectedCluster else {
-                selectedAddress = nil
-                return
-            }
-            let latitude = cluster.center.latitude
-            let longitude = cluster.center.longitude
-            getAddressFromCoordinates(latitude: latitude, longitude: longitude)
-            selectedMemoId = cluster.memos.first?.id
-        }
-    }
-    @Published var selectedAddress: String? = nil 
+
+    @Published var selectedAddress: String? = nil
     @Published var clusteringDidChanged: Bool = true
     
     
@@ -168,7 +160,6 @@ extension MainMapViewModel {
             locationManager.requestAlwaysAuthorization()
         }
     }
-
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         DispatchQueue.main.async { [weak self] in
@@ -198,6 +189,23 @@ extension MainMapViewModel {
             filteredMemoList.sort(by: {$0.date > $1.date})
         }
     }
+    /// 메모가 선택되었을 때 action
+    /// - Parameters:
+    ///   - memo : 선택된 Memo
+    /// - Returns: void, 선택된 메모를 가지고 이 메모를 포함하는 클러스터 위치, 만약 그 클러스터가 현재 맵에 없다면, 메모의 위치로 카메라를 이동하는 함수
+    func memoDidSelect(memo: Memo) {
+        self.selectedMemoId = memo.id
+        if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
+            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 2000))
+        } else {
+            let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
+            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 2000))
+            
+        }
+    }
+    func clusterDidSelected(cluster: MemoCluster) {
+        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 2000))
+    }
     //MARK: - 주소 얻어오는 함수
     //특정 selected 위치 주소값
     private func getAddressFromCoordinates(latitude: Double, longitude: Double) {
@@ -216,23 +224,54 @@ extension MainMapViewModel {
 }
 //MARK: - Clustering 관련 Logics
 extension MainMapViewModel {
+    /// 카메라가 변경되었을 때 호출되는 함수
+    /// - Parameters:
+    ///   - boundWidth : 현재 호출하는 Map()의 width값
+    ///   - context: onMapCameraChange를 통해 확인할 수 있는 camera update context
+    /// - Returns: void, 클러스터를 업데이트 하는 함수를 호출
+    func cameraDidChange(boundWidth: Double, context: MapCameraUpdateContext) {
+        self.cameraDistance = context.camera.distance
+        let contextWidth = context.rect.width
+        updateCluster(mapRect: context.rect, zoomScale: Double(boundWidth/contextWidth))
+    }
+    /// 클러스터가 완료되었을 때 호출되는 Delegate함수
+    /// - Parameters:
+    ///   - clusters : 클러스터링 완료 된 클러스터들
+    /// - Returns: void, view에 바인딩되는 self.clusters를 변경함
+    ///
+    ///특이사항으로는 보라 경고가 떠서 async하게 감싸줬음. 끝
     func displayClusters(clusters: [MemoCluster]) {
-        if clusters != self.clusters {
-            self.clusters = clusters
-            clusteringDidChanged = true
-        } else {
-            clusteringDidChanged = false
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            
+            if clusters != self.clusters {
+                self.clusters = clusters
+                self.clusteringDidChanged = true
+            } else {
+                self.clusteringDidChanged = false
+            }
         }
     }
-    
+    /// 맵 좌하단에 버튼을 눌렀을 때 현재 위치로 최신화 하는 기능
+    /// - Returns: void, 카메라를 현재 위치로 이동시킴
     func switchUserLocation() {
+        mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
         if !self.isUserTracking {
             self.isUserTracking = true
+            
         }
     }
     // 오류나서 일단 주석
+    /// 클러스터를 업데이트 하는 함수
+    /// - Parameters:
+    ///   - mapRect : 현재 바라보는 지도의 MKMapRect값
+    ///   - zoomScale : 현재 지도 Map의 widthSize로 MapRect를 나눈 값
+    /// - Returns: Void, 클러스터 오퍼레이션의 클러스터링을 수행하는 함수를 호출
+    func updateCluster(mapRect: MKMapRect, zoomScale: Double) {
+        cluster.clusterMemosWithMapRect(visibleMapRect: mapRect, zoomScale: zoomScale)
+    }
     func clusterTest(mapRect: AreaRect, zoomScale: Int) {
-        cluster.clusterMemosWithMapRect(cameraRect: mapRect, zoomScale: zoomScale)
+        //        cluster.clusterMemosWithMapRect(cameraRect: mapRect, zoomScale: zoomScale)
     }
 }
 extension CLLocationCoordinate2D: Equatable {
@@ -243,7 +282,6 @@ extension CLLocationCoordinate2D: Equatable {
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }
-    
 
     func distance(to: CLLocationCoordinate2D) -> Double {
         return sqrt(squaredDistance(to: to))

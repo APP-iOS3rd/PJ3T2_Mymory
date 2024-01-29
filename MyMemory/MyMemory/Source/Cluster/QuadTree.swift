@@ -94,7 +94,7 @@ final class QuadTree{
     func removeAllNodes() {
         rootNode = nil
     }
-    func removeNode(memo: Memo) {
+    private func removeNode(memo: Memo) {
         removeNode(memo, currentNode: rootNode)
     }
     private func removeNode(_ memo: Memo, currentNode: QuadTreeNode?) -> QuadTreeNode? {

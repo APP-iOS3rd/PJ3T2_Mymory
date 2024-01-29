@@ -66,9 +66,6 @@ struct KakaoMapView: UIViewRepresentable {
                 context.coordinator.controller?.stopRendering()
                 context.coordinator.controller?.stopEngine()
             }
-            if viewModel.clusteringDidChanged {
-                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
-            }
         }
     }
     
@@ -92,6 +89,7 @@ struct KakaoMapView: UIViewRepresentable {
             _currentHeading = 0
             _currentPosition = GeoCoordinate()
             _moveOnce = false
+            _clustringPois = []
             first = true
             self.parent = parent
         }
@@ -148,8 +146,8 @@ struct KakaoMapView: UIViewRepresentable {
             }
         }
         //MARK: - POI Touch Event Flow
+        
         func poiTouched(_ poi: Poi) {
-            parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
             
         }
         func touchesBegan(_ touches: Set<AnyHashable>) {
@@ -335,7 +333,7 @@ struct KakaoMapView: UIViewRepresentable {
             _currentDirectionPoi?.shareTransformWithShape(shape!)   //현위치마커 몸통이 Polygon이 위치 및 방향을 공유하도록 지정한다.
         }
         func createPois(clusters: [MemoCluster],_ selected: MemoCluster? = nil) {
-            
+            _clustringPois = []
             if let view = controller?.getView("mapview") as? KakaoMap {
                 let manager = view.getLabelManager()
                 let layer = manager.getLabelLayer(layerID: "PoiLayer")
@@ -368,6 +366,7 @@ struct KakaoMapView: UIViewRepresentable {
                     poiOption.transformType = .decal
                     let tempPoi = layer?.addPoi(option: poiOption, at: MapPoint(longitude: c.center.longitude,
                                                                                 latitude: c.center.latitude))
+                    _clustringPois.append(tempPoi)
                     tempPoi?.show()
                     
                     
@@ -440,6 +439,7 @@ struct KakaoMapView: UIViewRepresentable {
         var _currentPositionPoi: Poi?
         var _currentDirectionArrowPoi: Poi?
         var _currentDirectionPoi: Poi?
+        var _clustringPois: [Poi?]
         var _currentHeading: Double
         var _currentPosition: GeoCoordinate
         var _moveOnce: Bool
