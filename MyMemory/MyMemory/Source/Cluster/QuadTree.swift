@@ -84,12 +84,11 @@ final class QuadTree{
         }
         if region.containsCoordinate(coordinate: currentNode.coordinate) {
             foundNodes.append(currentNode.value)
-            
-            searchNodes(inRegion: region, currentNode: currentNode.topLeft, foundNodes: &foundNodes)
-            searchNodes(inRegion: region, currentNode: currentNode.topRight, foundNodes: &foundNodes)
-            searchNodes(inRegion: region, currentNode: currentNode.bottomLeft, foundNodes: &foundNodes)
-            searchNodes(inRegion: region, currentNode: currentNode.bottomRight, foundNodes: &foundNodes)
         }
+        searchNodes(inRegion: region, currentNode: currentNode.topLeft, foundNodes: &foundNodes)
+        searchNodes(inRegion: region, currentNode: currentNode.topRight, foundNodes: &foundNodes)
+        searchNodes(inRegion: region, currentNode: currentNode.bottomLeft, foundNodes: &foundNodes)
+        searchNodes(inRegion: region, currentNode: currentNode.bottomRight, foundNodes: &foundNodes)
     }
     func removeAllNodes() {
         rootNode = nil

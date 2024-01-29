@@ -35,7 +35,9 @@ struct PostViewFooter: View {
                 .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical: 7))
                 .padding(.trailing)
                 .task {
-                    await viewModel.getAddress()
+                    if viewModel.memoAddressText.isEmpty {
+                        await viewModel.getAddress()
+                    }
                 }
             }
         }

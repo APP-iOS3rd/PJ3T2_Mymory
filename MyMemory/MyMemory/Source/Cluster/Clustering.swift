@@ -57,7 +57,8 @@ final class ClusterOperation {
                 var xCoordinate = minX
                 
                 while xCoordinate<maxX {
-                    let area = ClusterBox.mapRectToBoundingBox(mapRect: MKMapRect(x: xCoordinate, y: yCoordinate, width: cellSizePoints, height: cellSizePoints))
+                    let mapRect = MKMapRect(x: xCoordinate, y: yCoordinate, width: cellSizePoints, height: cellSizePoints)
+                    let area = ClusterBox.mapRectToBoundingBox(mapRect: mapRect)
                     let memos = self.quadTree.search(inRegion: area)
                     if !memos.isEmpty {
                         clusterMemos.append(MemoCluster(memoList: memos))
@@ -98,7 +99,7 @@ extension ClusterOperation {
             return 10
         }
     }
-
+}
 extension AreaRect {
     var width: Double {
         abs(self.northEast.wgsCoord.longitude - self.southWest.wgsCoord.longitude)
