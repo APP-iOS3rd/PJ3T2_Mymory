@@ -55,7 +55,7 @@ struct MypageMemoListCell: View {
                             Text("\(memo.location.distance(from: location).distanceToMeters())")
                                 .font(.regular12)
                         } else {
-                            Text("-1km")
+                            Text("-")
                                 .font(.regular12)
                         }
                     }
