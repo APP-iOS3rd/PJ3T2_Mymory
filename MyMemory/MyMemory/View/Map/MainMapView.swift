@@ -12,6 +12,7 @@ struct MainMapView: View {
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
+    @State var showingAlert: Bool = false
     @State var fileterSheet: Bool = false
     
     let layout: [GridItem] = [
@@ -72,9 +73,20 @@ struct MainMapView: View {
                         // 현 위치 버튼
                         Button {
                             mainMapViewModel.switchUserLocation()
+                            UIView.setAnimationsEnabled(false)
+                            self.showingAlert.toggle()
                         } label: {
                             CurrentSpotButton()
                         }
+                        .moahAlert(isPresented: $showingAlert) {
+                            MoahAlertView(message: "f", firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showingAlert, action: {
+                                
+                            }))
+                        }
+                        .onAppear {
+                                           UIView.setAnimationsEnabled(true)
+                                       }
+                    
                     Spacer()
                     
                     // 리스트뷰 전환 버튼
