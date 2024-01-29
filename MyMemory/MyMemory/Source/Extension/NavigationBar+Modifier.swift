@@ -46,9 +46,10 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
             .padding(.horizontal, 16)
   
             .background(
-                Color.white
+                Color.bgColor
                   .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
-            )  
+                  .ignoresSafeArea()
+            )
             
             
             content
@@ -57,7 +58,7 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
                
         }
         .background(
-            self.backgroundColor
+            self.backgroundColor.ignoresSafeArea()
         )
         .gesture(
             DragGesture(coordinateSpace: .local)

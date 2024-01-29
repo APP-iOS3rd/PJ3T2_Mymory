@@ -27,7 +27,7 @@ struct MypageView: View {
     var body: some View {
         ZStack(alignment: .top) {
             
-            Color.lightGray
+            Color.bgColor
                 .edgesIgnoringSafeArea(.top)
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -41,7 +41,7 @@ struct MypageView: View {
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
                                 .font(.semibold20)
-                            
+                                .foregroundStyle(Color.textColor)
                             Spacer()
                             
                             Button {
@@ -101,16 +101,16 @@ struct MypageView: View {
             .safeAreaInset(edge: .top) {
                 Color.clear
                     .frame(height: 0)
-                    .background(Color.lightGray)
+                    .background(Color.bgColor)
                 
             }
-            .safeAreaInset(edge: .bottom) {
-                Color.white
-                    .frame(height: 0)
-                    .background(.white)
-                    .border(Color.black)
-                
-            }
+//            .safeAreaInset(edge: .bottom) {
+//                Color.white
+//                    .frame(height: 0)
+//                    .background(.white)
+//                    .border(Color.black)
+//                
+//            }
             
         }
         .onAppear(perform: {

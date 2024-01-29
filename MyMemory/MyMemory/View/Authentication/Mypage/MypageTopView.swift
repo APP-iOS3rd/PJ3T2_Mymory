@@ -40,6 +40,7 @@ struct MypageTopView: View {
                     
                     Text(viewModel.user?.name ?? "김메모")
                         .font(.semibold20)
+                        .foregroundStyle(Color.textColor)
                         .padding(.leading, 10)
                 }
                 .buttonStyle(.plain)

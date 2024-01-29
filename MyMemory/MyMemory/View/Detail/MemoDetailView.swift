@@ -13,6 +13,7 @@ struct MemoDetailView: View {
     
     var body: some View {
         ZStack {
+       
             ScrollView {
                 VStack(alignment: .leading) {
                     ScrollView(.horizontal) {
@@ -84,7 +85,9 @@ struct MemoDetailView: View {
                     Spacer()
                 }
                 //.padding(.top, 50)
+   
             }
+
             .onAppear {
                 Task {
                     do {
@@ -100,6 +103,7 @@ struct MemoDetailView: View {
                 Footer()
             }
         }
+        
         .customNavigationBar(
             centerView: {
                 Text(" ")
@@ -111,7 +115,7 @@ struct MemoDetailView: View {
                 NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
 //                                        CloseButton()
             },
-            backgroundColor: .white
+            backgroundColor: .bgColor
         )
 
 //        .navigationBarItems(
