@@ -98,7 +98,7 @@ extension ClusterOperation {
             return 10
         }
     }
-
+}
 extension AreaRect {
     var width: Double {
         abs(self.northEast.wgsCoord.longitude - self.southWest.wgsCoord.longitude)

@@ -42,6 +42,7 @@
 		01A19D152B57C7230031ABCB /* run4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 01A19D142B57C7230031ABCB /* run4.gif */; };
 		01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D6A2B5D17540031ABCB /* CloseButton.swift */; };
 		01A19D6D2B5D176C0031ABCB /* NavigationBar+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */; };
+		01C3DF7C2B67642900839646 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C3DF7B2B67642900839646 /* MapViewModel.swift */; };
 		01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C92BF52B5D2F3D005AF6C5 /* LoadingView.swift */; };
 		01D15FF22B5DEB37003F1BEF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF12B5DEB37003F1BEF /* User.swift */; };
 		01D15FF42B5DEB44003F1BEF /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF32B5DEB44003F1BEF /* ImageUploader.swift */; };
@@ -108,8 +109,6 @@
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
-		DAA8DC0D2B6379AF006D5694 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */; };
-		DAA8DC0F2B6380C8006D5694 /* ViewModelUsingMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
 		DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB315512B43EFDD000357C7 /* Preview Assets.xcassets */; };
@@ -172,6 +171,7 @@
 		01A19D142B57C7230031ABCB /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run4.gif; sourceTree = "<group>"; };
 		01A19D6A2B5D17540031ABCB /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NavigationBar+Modifier.swift"; sourceTree = "<group>"; };
+		01C3DF7B2B67642900839646 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		01C92BF52B5D2F3D005AF6C5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		01D15FF12B5DEB37003F1BEF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		01D15FF32B5DEB44003F1BEF /* ImageUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
@@ -517,6 +517,8 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */,
+				DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -739,6 +741,7 @@
 			children = (
 				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
+				01C3DF7B2B67642900839646 /* MapViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -944,6 +947,7 @@
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				6AF0E0252B565EED008ABE05 /* MypageMemoListCell.swift in Sources */,
+				01C3DF7C2B67642900839646 /* MapViewModel.swift in Sources */,
 				01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */,
 				01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
@@ -954,7 +958,6 @@
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */,
-				DAA8DC0F2B6380C8006D5694 /* ViewModelUsingMap.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,
@@ -1005,7 +1008,6 @@
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
 				DA58C2722B5DE8FA005CB3B3 /* KakaoMapSimple.swift in Sources */,
-				DAA8DC0D2B6379AF006D5694 /* MapViewModel.swift in Sources */,
 				289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
@@ -1226,7 +1228,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1279,7 +1281,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
