@@ -152,7 +152,7 @@ struct MemoCell: View {
         }
         .onChange(of: location) { Value in
             if let distance = Value?.coordinate.distance(from: memo.location) {
-                if distance <= 5 {
+                if distance <= 50 {
                     isVisible = true
                 } else {
                     isVisible = false

@@ -26,11 +26,7 @@ class MypageViewModel: ObservableObject {
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
-    var currentLocation: CLLocation? {
-        didSet {
-            self.fetchMyMemoList()
-        }
-    }
+    @Published var currentLocation: CLLocation?  = nil
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
@@ -42,8 +38,11 @@ class MypageViewModel: ObservableObject {
             }
         }
         user = AuthViewModel.shared.currentUser
-        fetchCurrentUserLocation()
-
+        fetchCurrentUserLocation { location in
+            if let location = location {
+                self.currentLocation = location
+            }
+        }
         AuthViewModel.shared.fetchUser()
 
 
@@ -106,18 +105,21 @@ class MypageViewModel: ObservableObject {
         }
     }
     
-    func fetchCurrentUserLocation() {
+    func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         LoadingManager.shared.phase = .loading
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
-                    self?.currentLocation = CLLocation(
+                    print("현재 위치", location)
+                    returnCompletion(CLLocation(
                         latitude: location.latitude,
                         longitude: location.longitude
-                    )
+                    ))
                     LoadingManager.shared.phase = .success
+                    print("주소 불러오기 완료", LoadingManager.shared.phase)
                 } else {
                     LoadingManager.shared.phase = .fail(msg: "위치 정보 획득 실패")
+                    returnCompletion(nil)
                 }
             }
         }

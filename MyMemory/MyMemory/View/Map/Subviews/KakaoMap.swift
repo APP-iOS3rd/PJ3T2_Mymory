@@ -42,7 +42,6 @@ struct KakaoMapView: UIViewRepresentable {
     /// draw가 false로 설정되면 렌더링을 멈추고 엔진을 stop한다.
     func updateUIView(_ uiView: KMViewContainer, context: Self.Context) {
         //UI 업데이트가 Global에서 되는 현상 해결
-
         DispatchQueue.main.async {
             
             if isUserTracking {
@@ -59,7 +58,6 @@ struct KakaoMapView: UIViewRepresentable {
             }
             context.coordinator._currentHeading = userDirection
             context.coordinator._currentPosition = GeoCoordinate(longitude: userLocation?.coordinate.longitude ?? 1, latitude: userLocation?.coordinate.latitude ?? 1)
-
             if draw {
                 context.coordinator.controller?.startEngine()
                 context.coordinator.controller?.startRendering()
@@ -67,9 +65,6 @@ struct KakaoMapView: UIViewRepresentable {
             else {
                 context.coordinator.controller?.stopRendering()
                 context.coordinator.controller?.stopEngine()
-            }
-            if viewModel.clusteringDidChanged {
-                context.coordinator.createPois(clusters: clusters, viewModel.selectedCluster)
             }
         }
     }
@@ -94,6 +89,7 @@ struct KakaoMapView: UIViewRepresentable {
             _currentHeading = 0
             _currentPosition = GeoCoordinate()
             _moveOnce = false
+            _clustringPois = []
             first = true
             self.parent = parent
         }
@@ -150,27 +146,38 @@ struct KakaoMapView: UIViewRepresentable {
             }
         }
         //MARK: - POI Touch Event Flow
+        
         func poiTouched(_ poi: Poi) {
-            parent.viewModel.selectedCluster = parent.viewModel.clusters.first(where: {$0.id.uuidString == poi.itemID})
             
         }
         func touchesBegan(_ touches: Set<AnyHashable>) {
             if let touch = touches.first as? UITouch {
-                let radius = touch.majorRadius
-                let touchedCenter = touch.location(in: touch.window)
-                // touch major radius기준으로 거리 재기 위한 임시 Point
-                let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
-                if let point = getPosition(touchedCenter),
-                   let withRadiusPoint = getPosition(withRadius)
-                {
-                    // 거리 계산
-                    let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
-                    let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
-                    let powdDist = latdist * latdist + longdist * longdist
-                    let dist = sqrt(powdDist) // radius의 map상에서의 거리
-                    
-                    if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
-                        poiTouched(touchedPoi)
+                if let gestureRecognizers = touch.gestureRecognizers {
+                    for recognizer in gestureRecognizers {
+                        if recognizer is UITapGestureRecognizer {
+                            print("터치 이벤트는 탭 제스처로 발생했습니다.")
+                        } else if recognizer is UIPanGestureRecognizer {
+                            print("터치 이벤트는 팬 제스처로 발생했습니다.")
+                        } else if recognizer is UISwipeGestureRecognizer {
+                            print("터치 이벤트는 스와이프 제스처로 발생했습니다.")
+                        }
+                    }
+                    let radius = touch.majorRadius
+                    let touchedCenter = touch.location(in: touch.window)
+                    // touch major radius기준으로 거리 재기 위한 임시 Point
+                    let withRadius = CGPoint(x: touchedCenter.x + radius, y: touchedCenter.y)
+                    if let point = getPosition(touchedCenter),
+                       let withRadiusPoint = getPosition(withRadius)
+                    {
+                        // 거리 계산
+                        let latdist = (point.wgsCoord.latitude - withRadiusPoint.wgsCoord.latitude)
+                        let longdist = (point.wgsCoord.longitude - withRadiusPoint.wgsCoord.longitude)
+                        let powdDist = latdist * latdist + longdist * longdist
+                        let dist = sqrt(powdDist) // radius의 map상에서의 거리
+                        
+                        if let touchedPoi = touchedPOI(point.wgsCoord, dist) {
+                            poiTouched(touchedPoi)
+                        }
                     }
                 }
             }
@@ -326,7 +333,7 @@ struct KakaoMapView: UIViewRepresentable {
             _currentDirectionPoi?.shareTransformWithShape(shape!)   //현위치마커 몸통이 Polygon이 위치 및 방향을 공유하도록 지정한다.
         }
         func createPois(clusters: [MemoCluster],_ selected: MemoCluster? = nil) {
-            
+            _clustringPois = []
             if let view = controller?.getView("mapview") as? KakaoMap {
                 let manager = view.getLabelManager()
                 let layer = manager.getLabelLayer(layerID: "PoiLayer")
@@ -359,6 +366,7 @@ struct KakaoMapView: UIViewRepresentable {
                     poiOption.transformType = .decal
                     let tempPoi = layer?.addPoi(option: poiOption, at: MapPoint(longitude: c.center.longitude,
                                                                                 latitude: c.center.latitude))
+                    _clustringPois.append(tempPoi)
                     tempPoi?.show()
                     
                     
@@ -431,6 +439,7 @@ struct KakaoMapView: UIViewRepresentable {
         var _currentPositionPoi: Poi?
         var _currentDirectionArrowPoi: Poi?
         var _currentDirectionPoi: Poi?
+        var _clustringPois: [Poi?]
         var _currentHeading: Double
         var _currentPosition: GeoCoordinate
         var _moveOnce: Bool
