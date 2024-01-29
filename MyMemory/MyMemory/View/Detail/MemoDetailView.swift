@@ -19,10 +19,10 @@ struct MemoDetailView: View {
                         LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
                             ForEach(memo.tags, id: \.self) { tag in
                                 Text("#\(tag)")
-                                    .font(.semibold11)
+                                    .font(.semibold12)
                                     .padding(.horizontal, 13)
-                                    .padding(.vertical, 8)
-                                    .foregroundColor(.white)
+                                    .padding(.vertical, 6)
+                                    .foregroundColor(.textColor)
                                     .background(
                                         Capsule()
                                             .foregroundColor(.peach)
@@ -82,7 +82,8 @@ struct MemoDetailView: View {
                         .padding(.horizontal, 25)
                         .padding(.bottom, 70)
                     Spacer()
-                }.padding(.top, 50)
+                }
+                //.padding(.top, 50)
             }
             .onAppear {
                 Task {

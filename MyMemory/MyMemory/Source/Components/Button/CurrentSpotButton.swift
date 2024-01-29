@@ -20,7 +20,7 @@ struct CurrentSpotButton: View {
             .clipShape(Circle())
             .overlay(
                 Circle()
-                    .stroke(Color(UIColor.systemGray5))
+                    .stroke(Color.lightGray)
             )
            
     }
