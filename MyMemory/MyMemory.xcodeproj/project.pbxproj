@@ -66,6 +66,7 @@
 		28BB13392B569075001A4C0C /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13382B569075001A4C0C /* CertificationView.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
+		646A851E2B6368C000B62107 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */; };
 		6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
@@ -193,6 +194,7 @@
 		28BB13382B569075001A4C0C /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
+		646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
 		6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewFooter.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
@@ -522,6 +524,8 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				DAA8DC0E2B6380C8006D5694 /* ViewModelUsingMap.swift */,
+				DAA8DC0C2B6379AF006D5694 /* MapViewModel.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
