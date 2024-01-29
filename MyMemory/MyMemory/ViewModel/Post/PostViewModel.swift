@@ -2,12 +2,13 @@ import Foundation
 import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
-import KakaoMapsSDK
+import _MapKit_SwiftUI
 import Combine
 
 class PostViewModel: ObservableObject {
     //@Published var memoData: [PostMemoModel] = []
-    
+    //Map 관련
+    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     //view로 전달할 값 모음
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""

@@ -6,33 +6,26 @@
 //
 
 import SwiftUI
+import _MapKit_SwiftUI
+
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
+    @State var showingAlert: Bool = false
     @State var fileterSheet: Bool = false
     
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
     
-    
     let memoList: [String] = Array(1...10).map {"메모 \($0)"}
     @State var isClicked: Bool = false
     
     var body: some View {
         ZStack {
-            KakaoMapView(draw: $draw,
-                         isUserTracking: $mainMapViewModel.isUserTracking,
-                         userLocation: $mainMapViewModel.location, userDirection: $mainMapViewModel.direction,
-                         clusters: $mainMapViewModel.clusters,
-                         selectedID: $mainMapViewModel.selectedMemoId)
-            .onAppear{
-                DispatchQueue.main.async {
-                    self.draw = true
-                }
-            }
+            MapView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .environmentObject(mainMapViewModel)
             .ignoresSafeArea(edges: .top)
@@ -78,14 +71,22 @@ struct MainMapView: View {
                 }
                 Spacer()
                 HStack {
-                    
-                    // 현 위치 버튼
-                    Button {
-                        mainMapViewModel.switchUserLocation()
-                    } label: {
-                        CurrentSpotButton()
-                    }
-                    
+                        // 현 위치 버튼
+                        Button {
+                            mainMapViewModel.switchUserLocation()
+                            UIView.setAnimationsEnabled(false)
+                            self.showingAlert.toggle()
+                        } label: {
+                            CurrentSpotButton()
+                        }
+                        .moahAlert(isPresented: $showingAlert) {
+                            MoahAlertView(message: "f", firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showingAlert, action: {
+                                
+                            }))
+                        }
+                        .onAppear {
+                                           UIView.setAnimationsEnabled(true)
+                                       }
                     
                     Spacer()
                     
@@ -107,23 +108,27 @@ struct MainMapView: View {
                 
                 //선택한 경우
                 ScrollView(.horizontal) {
-                    LazyHGrid(rows: layout, spacing: 20) {
+                    HStack(spacing: 20) {
                         ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
-                            
-                            MemoCell(
-                                isVisible: true,
-                                isDark: true, location: $mainMapViewModel.location,
-                                memo: item)
+                            VStack{
+                                Text("\(String(item.didLike))")
+                                MemoCell(
+                                    isVisible: true,
+                                    isDark: true,
+                                    location: $mainMapViewModel.location,
+                                    memo: item)
                                 .environmentObject(mainMapViewModel)
-                            .onTapGesture {
-                                mainMapViewModel.selectedMemoId = item.id
+                                .onTapGesture {
+                                    mainMapViewModel.memoDidSelect(memo: item)
+                                }
+                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                .padding(.leading, 12)
+                                .padding(.bottom, 12)
                             }
-                            .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                            .padding(.leading, 12)
-                            .padding(.bottom, 12)
                         }
                     }
                 }
+
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {

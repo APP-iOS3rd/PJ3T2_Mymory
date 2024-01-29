@@ -16,16 +16,41 @@ struct MemoCell: View {
     @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
-    //var memo: Memo
+    
+    @State var likeCount = 0
+    
     var body: some View {
         HStack(spacing: 16) {
             
             VStack{
-                Image(systemName: isVisible ? "heart.fill": "lock")
+                if isVisible {
+                    Button(action: {
+                        MemoService.shared.likeMemo(memo: memo) { err in
+                            guard err == nil else {
+                                return
+                            }
+                        }
+                        self.memo.didLike.toggle()
+                        Task {
+                            await fetchlikeCount()
+                        }
+                        //print("\(memo.didLike)")
+                        //memo.didLike.toggle()
+                        //print("\(memo.didLike)")
+                    }) {
+                        Image(systemName: "heart.fill")
+                            .foregroundColor(memo.didLike ? .red : .gray)
+                            .frame(width: 46, height: 46)
+                            .background(isDark ? .white : .lightGray)
+                            .clipShape(Circle())
+                    }
+                }else {
+                    Image(systemName: "lock")
                     .foregroundColor(.gray)
                     .frame(width: 46, height: 46)
                     .background(isDark ? .white : .lightGray)
                     .clipShape(Circle())
+                }
                 
                 Spacer()
             }
@@ -69,7 +94,7 @@ struct MemoCell: View {
                 HStack(alignment:  .center) {
                     HStack {
                         Image(systemName: "heart.fill")
-                        Text("\(memo.likeCount)개")
+                        Text("\(likeCount)개")
                         Text("|")
                         Image(systemName: "location.fill")
                         if let loc = location {
@@ -78,32 +103,24 @@ struct MemoCell: View {
                             Text("\(-1)m")
                                 .lineLimit(1)
                         }
+                        
                     }
                     .foregroundColor(.gray)
                     .font(.regular12)
                     
                     Spacer()
                     
-                   // if isVisible {
-                        NavigationLink { // 버튼이랑 비슷함
-                         DetailView(memo: $memo, isVisble: $isVisible)
-                            //MemoDetailView(memo: memo)
-                        } label: {
-                            HStack {
-                                Image(systemName: "location.fill")
-                                Text("메모보기")
-                            }
+                    
+                    NavigationLink { // 버튼이랑 비슷함
+                        DetailView(memo: $memo, isVisble: $isVisible)
+                        
+                    } label: {
+                        HStack {
+                            Image(systemName: "location.fill")
+                            Text("메모보기")
                         }
-//                    } else {
-//                        NavigationLink {
-//                            CertificationView(memo: $memo)
-//                        } label: {
-//                            HStack {
-//                                Image(systemName: "location.fill")
-//                                Text("메모보기")
-//                            }
-//                        }
-                  // }  // : VStack
+                    }
+                    
                     
                     
                 }
@@ -127,16 +144,25 @@ struct MemoCell: View {
                     isVisible = false
                 }
             }
+    
+            Task {
+                await fetchlikeCount()
+            }
+            
         }
         .onChange(of: location) { Value in
             if let distance = Value?.coordinate.distance(from: memo.location) {
-                if distance <= 5 {
+                if distance <= 50 {
                     isVisible = true
                 } else {
                     isVisible = false
                 }
             }
         }
+    }
+    
+    func fetchlikeCount() async{
+            likeCount = await MemoService.shared.likeMemoCount(memo: memo)
     }
 }
 
