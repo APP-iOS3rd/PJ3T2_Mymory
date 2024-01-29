@@ -115,6 +115,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
+                // 👍 좋아요 누른 메모 체크
+                for (index, memo) in memoList.enumerated() {
+                    MemoService.shared.checkLikedMemo(memo) { didLike in
+                        print("didLike \(didLike)")
+                        self.memoList[index].didLike = didLike
+                    }
+                }
+
                 cluster.addMemoList(memos: memoList)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -135,6 +143,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                     memoList = fetched.filter{$0.location.distance(from: current) < 1000}
                 } else {
                     memoList = fetched
+                }
+                print("memoList \(memoList)")
+                // 👍 좋아요 누른 메모 체크
+                for (index, memo) in memoList.enumerated() {
+                    MemoService.shared.checkLikedMemo(memo) { didLike in
+                        print("didLike \(didLike)")
+                        self.memoList[index].didLike = didLike
+                    }
                 }
                 cluster.addMemoList(memos: memoList)
                 isLoading = false

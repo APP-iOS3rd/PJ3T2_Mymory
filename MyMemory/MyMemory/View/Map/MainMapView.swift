@@ -114,13 +114,14 @@ struct MainMapView: View {
                                 isVisible: true,
                                 isDark: true, location: $mainMapViewModel.location,
                                 memo: item)
-                                .environmentObject(mainMapViewModel)
+                            .environmentObject(mainMapViewModel)
                             .onTapGesture {
                                 mainMapViewModel.selectedMemoId = item.id
                             }
                             .frame(width: UIScreen.main.bounds.size.width * 0.84)
                             .padding(.leading, 12)
                             .padding(.bottom, 12)
+                            
                         }
                     }
                 }

@@ -267,6 +267,17 @@ struct MemoService {
                 }
             }
         }
+        
+//        // 👍 좋아요 누른 메모 체크
+//        for (index, memo) in memos.enumerated() {
+//            checkLikedMemo(memo) { didLike in
+//                print("didLike \(didLike)")
+//                memos[index].didLike = didLike
+//                print("memos[index].didLike \(memos[index].didLike)")
+//            }
+//        }
+
+        
         return memos
     }
     func fetchMyMemos(userID: String) async -> [Memo] {
@@ -418,6 +429,40 @@ struct MemoService {
 
 
     
+    
+    // 위 코드는 현재 로그인한 사용자가 특정 트윗(Tweet)을 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
+    func checkLikedMemo(_ memo: Memo, completion: @escaping (Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        
+        let memoID = memo.id ?? ""
+        
+        let userLikesRef = COLLECTION_USER_LIKES.document(uid)
+        userLikesRef.getDocument { (document, error) in
+            if let error = error {
+                print("사용자 좋아요 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
+                print("데이터 \(dataArray)")
+                print("메모 ID \(memoID)")
+                if dataArray.keys.contains(memoID) {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
 
-   
+
+
+
+    
 }
