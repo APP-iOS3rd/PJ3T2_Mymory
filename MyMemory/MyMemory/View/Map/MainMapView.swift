@@ -73,20 +73,17 @@ struct MainMapView: View {
                 HStack {
                         // 현 위치 버튼
                         Button {
-                            mainMapViewModel.switchUserLocation()
-                            UIView.setAnimationsEnabled(false)
-                            self.showingAlert.toggle()
+                            switch CLLocationManager.authorizationStatus() {
+                            case .authorizedAlways, .authorizedWhenInUse:
+                                mainMapViewModel.switchUserLocation()
+                            case .notDetermined, .restricted, .denied:
+                                showingAlert.toggle()
+                            @unknown default:
+                                mainMapViewModel.switchUserLocation()
+                            }
                         } label: {
                             CurrentSpotButton()
                         }
-                        .moahAlert(isPresented: $showingAlert) {
-                            MoahAlertView(message: "f", firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showingAlert, action: {
-                                
-                            }))
-                        }
-                        .onAppear {
-                                           UIView.setAnimationsEnabled(true)
-                                       }
                     
                     Spacer()
                     
@@ -145,6 +142,11 @@ struct MainMapView: View {
             if mainMapViewModel.isLoading {
                 LoadingView()
             }
+        })
+        .moahAlert(isPresented: $showingAlert, moahAlert: {
+            MoahAlertView(message: "현재 위치를 찾을 수 없어요. 위치서비스를 켜 주세요.", firstBtn: MoahAlertButtonView(type: .CANCEL, isPresented: $showingAlert, action: {}), secondBtn: MoahAlertButtonView(type: .SETTING, isPresented: $showingAlert, action: {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }))
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
