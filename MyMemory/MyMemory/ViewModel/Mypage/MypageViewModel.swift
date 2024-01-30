@@ -21,12 +21,14 @@ class MypageViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
-    
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
+    
+    var lastDocument: QueryDocumentSnapshot? = nil
+    
     init() {
         fetchUserState()
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
@@ -35,10 +37,9 @@ class MypageViewModel: ObservableObject {
             DispatchQueue.main.async {
                 Task {[weak self] in
                     guard let self = self else {return}
-                    
+                    await self.pagenate(userID: userID)
                     self.memoList = await self.memoService.fetchMyMemos(userID: userID)
                 }
-                
             }
         }
         user = AuthViewModel.shared.currentUser
@@ -95,19 +96,6 @@ class MypageViewModel: ObservableObject {
         return false
     }
     
-    func fetchMyMemoList() {
-        if let userID = self.user?.id {
-            LoadingManager.shared.phase = .loading
-            Task { [weak self] in
-                guard let self = self else {return}
-                self.memoList = await self.memoService.fetchMyMemos(userID: userID)
-                LoadingManager.shared.phase = .success
-            }
-        } else {
-            LoadingManager.shared.phase = .fail(msg: "로그인 중이 아닙니다.")
-        }
-    }
-    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         LoadingManager.shared.phase = .loading
         locationHandler.getCurrentLocation { [weak self] location in
@@ -125,6 +113,18 @@ class MypageViewModel: ObservableObject {
                     returnCompletion(nil)
                 }
             }
+        }
+    }
+    /// MypageView에서 사용하는 memolist에 페이지네이션한 개수만큼 추가하는 함수
+    /// - Parameters:
+    ///     - userID: 사용자 UID
+    func pagenate(userID: String) async {
+        let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
+            self.lastDocument = last
+        }
+        
+        await MainActor.run {
+            self.memoList += fetchedMemos
         }
     }
 }
