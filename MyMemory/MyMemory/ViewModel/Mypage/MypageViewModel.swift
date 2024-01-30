@@ -21,7 +21,6 @@ class MypageViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
-
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
@@ -35,9 +34,12 @@ class MypageViewModel: ObservableObject {
         //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         
         if let userID = UserDefaults.standard.string(forKey: "userId") {
-            Task {[weak self] in
-                guard let self = self else {return}
-                await self.pagenate(userID: userID)
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+                }
             }
         }
         user = AuthViewModel.shared.currentUser
@@ -46,10 +48,9 @@ class MypageViewModel: ObservableObject {
                 self.currentLocation = location
             }
         }
-        AuthViewModel.shared.fetchUser()
-
-
-        
+        AuthViewModel.shared.fetchUser{ user in
+            self.user = user
+        }
     }
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
@@ -58,7 +59,7 @@ class MypageViewModel: ObservableObject {
         let location = CLLocationCoordinate2D(latitude: memoLocation.latitude, longitude: memoLocation.longitude)
         return location.distance(to: myLocation)
     }
-
+    
     // MARK: MemoList 필터링 & 정렬하는 메서드입니다
     func sortMemoList(type: SortedTypeOfMemo) {
         self.selectedFilter = type

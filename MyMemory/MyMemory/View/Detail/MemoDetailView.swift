@@ -1,6 +1,6 @@
 
 import SwiftUI
-
+import Kingfisher
 struct MemoDetailView: View {
     @State private var selectedNum: Int = 0
     @State private var isHeart: Bool = false
@@ -9,7 +9,7 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
-    var memo: Memo
+    @Binding var memo: Memo
     
     var body: some View {
         ZStack {
@@ -56,7 +56,7 @@ struct MemoDetailView: View {
                     ScrollView(.horizontal) {
                         HStack{
                             ForEach(memo.images.indices, id: \.self) { index in
-                                if let uiimage = UIImage(data: memo.images[index]) {
+                                if let uiimage =  UIImage(data: memo.images[index]) {
                                     Image(uiImage: uiimage)
                                         .resizable()
                                     //.scaledToFit()
@@ -107,7 +107,7 @@ struct MemoDetailView: View {
                 BackButton()
             },
             rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
+                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memo)
 //                                        CloseButton()
             },
             backgroundColor: .white

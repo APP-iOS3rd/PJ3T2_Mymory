@@ -8,10 +8,9 @@
 import Foundation
 import Combine
 import MapKit
-import KakaoMapsSDK
 import CoreLocation
 import _MapKit_SwiftUI
-
+import KakaoMapsSDK
 final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate, ClusteringDelegate {
     //MARK: - Map, location 관련 프로퍼티
     private var cameraDistance: Double? = nil
@@ -108,6 +107,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
+                // 👍 좋아요 누른 메모 체크
+                for (index, memo) in memoList.enumerated() {
+                    MemoService.shared.checkLikedMemo(memo) { didLike in
+                        print("didLike \(didLike)")
+                        self.memoList[index].didLike = didLike
+                    }
+                }
+
                 cluster.addMemoList(memos: memoList)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -129,6 +136,15 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 } else {
                     memoList = fetched
                 }
+                //print("memoList \(memoList)")
+                // 👍 좋아요 누른 메모 체크
+                for (index, memo) in memoList.enumerated() {
+                    MemoService.shared.checkLikedMemo(memo) { didLike in
+                        print("didLike \(didLike)")
+                        self.memoList[index].didLike = didLike
+                    }
+                }
+                
                 cluster.addMemoList(memos: memoList)
                 isLoading = false
             } catch {

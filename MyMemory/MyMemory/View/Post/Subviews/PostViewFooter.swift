@@ -13,7 +13,7 @@ struct PostViewFooter: View {
             
             HStack(spacing: 20) {
                 VStack(alignment: .leading) {
-                    Text(viewModel.memoAddressText)
+                    Text(viewModel.memoAddressText.isEmpty ? "위치를 탐색 중입니다." : viewModel.memoAddressText)
                         .foregroundStyle(.white)
                         .font(.bold14)
                         .lineLimit(1)

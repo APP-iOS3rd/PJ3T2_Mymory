@@ -14,9 +14,10 @@ struct NavigationBarItems: View {
     @Binding var isShowingSheet: Bool
     @Binding var isReported: Bool
     @Binding var isShowingImgSheet: Bool
-    @Binding var isMyMemo: Bool 
+    @Binding var isMyMemo: Bool
+    @Binding var memo: Memo
     
-    var memo: Memo
+    @State var likeCount = 0
     @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var body: some View {
@@ -53,9 +54,18 @@ struct NavigationBarItems: View {
             
             VStack {
                 Button {
-                    isHeart.toggle()
+                    print("memo.didLike\(memo.didLike)")
+                    MemoService.shared.likeMemo(memo: memo) { err in
+                        guard err == nil else {
+                            return
+                        }
+                    }
+                    self.memo.didLike.toggle()
+                    Task {
+                        await fetchlikeCount()
+                    }
                 } label: {
-                    if isHeart {
+                    if memo.didLike {
                         Image(systemName: "suit.heart.fill")
                     } else {
                         Image(systemName: "suit.heart")
@@ -63,7 +73,7 @@ struct NavigationBarItems: View {
                 }
                 .buttonStyle(.plain)
                 
-                Text("1k")
+                Text("\(likeCount)")
                     .font(.caption2)
             }
             
@@ -82,13 +92,22 @@ struct NavigationBarItems: View {
                     .font(.caption2)
             }
         }//: HSTACK
+        .onAppear {
+            Task {
+                await fetchlikeCount()
+            }
+        }
+    }
+    
+    func fetchlikeCount() async{
+            likeCount = await MemoService.shared.likeMemoCount(memo: memo)
     }
 }
 
-#if DEBUG
-struct NavigationBarItems_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationBarItems(isHeart: .constant(false), isBookmark: .constant(false), isShowingSheet: .constant(false), isReported: .constant(false), isShowingImgSheet: .constant(false), isMyMemo: .constant(false), memo: Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])) 
-    }
-}
-#endif
+//#if DEBUG
+//struct NavigationBarItems_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NavigationBarItems(isHeart: .constant(false), isBookmark: .constant(false), isShowingSheet: .constant(false), isReported: .constant(false), isShowingImgSheet: .constant(false), isMyMemo: .constant(false), memo: Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])) 
+//    }
+//}
+//#endif

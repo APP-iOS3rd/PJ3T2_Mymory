@@ -3,7 +3,6 @@ import FirebaseAuth
 import CoreLocation
 import _PhotosUI_SwiftUI
 import _MapKit_SwiftUI
-import KakaoMapsSDK
 import Combine
 
 class PostViewModel: ObservableObject {
@@ -21,7 +20,7 @@ class PostViewModel: ObservableObject {
     @Published var beforeEditMemoImageUUIDs: [String] = [] // 이미지 수정 하면  Firestore 기존 Storage에 이미지를 지우고 업데이트
     @Published var selectedItemsCounts: Int = 0
     let dismissPublisher = PassthroughSubject<Bool, Never>()
-    private var userCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 37.5125, longitude: 127.102778)
+    var userCoordinate: CLLocationCoordinate2D? = nil
     
     // 사용자 위치 값 가져오기
     var locationsHandler = LocationsHandler.shared
@@ -48,7 +47,8 @@ class PostViewModel: ObservableObject {
     }
 
     func getAddress() async {
-        let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate.longitude), latitude: Double(userCoordinate.latitude)))
+        guard userCoordinate != nil else { return }
+        let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
         
         DispatchQueue.main.async { [weak self] in
             self?.memoAddressText = addressText
@@ -82,8 +82,8 @@ class PostViewModel: ObservableObject {
             guard let user = AuthViewModel.shared.currentUser else { return }
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
-                userCoordinateLatitude: Double(userCoordinate.latitude),
-                userCoordinateLongitude: Double(userCoordinate.longitude),
+                userCoordinateLatitude: Double(userCoordinate!.latitude),
+                userCoordinateLongitude: Double(userCoordinate!.longitude),
                 userAddress: memoAddressText,
                 memoTitle: memoTitle,
                 memoContents: memoContents,

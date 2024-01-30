@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import KakaoMapsSDK
 import MapKit
 protocol ClusteringDelegate: AnyObject {
     
@@ -100,31 +99,3 @@ extension ClusterOperation {
         }
     }
 }
-extension AreaRect {
-    var width: Double {
-        abs(self.northEast.wgsCoord.longitude - self.southWest.wgsCoord.longitude)
-    }
-    var widthMeters: Double {
-        let west = CLLocation(latitude: minY, longitude: minX)
-        let east = CLLocation(latitude: minY, longitude: maxX)
-        return west.distance(from: east)
-    }
-    var heightMeters: Double {
-        let west = CLLocation(latitude: minY, longitude: minX)
-        let east = CLLocation(latitude: maxY, longitude: minX)
-        return west.distance(from: east)
-    }
-    var minX: CGFloat {
-        self.southWest.wgsCoord.longitude
-    }
-    var maxX: CGFloat {
-        self.northEast.wgsCoord.longitude
-    }
-    var minY: CGFloat {
-        self.northEast.wgsCoord.latitude
-    }
-    var maxY: CGFloat {
-        self.southWest.wgsCoord.latitude
-    }
-}
-

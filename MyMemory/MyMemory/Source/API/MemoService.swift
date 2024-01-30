@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 import CoreLocation
+import UIKit
 struct MemoService {
     static let shared = MemoService()
     let storage = Storage.storage()
@@ -267,6 +268,17 @@ struct MemoService {
                 }
             }
         }
+        
+//        // 👍 좋아요 누른 메모 체크
+//        for (index, memo) in memos.enumerated() {
+//            checkLikedMemo(memo) { didLike in
+//                print("didLike \(didLike)")
+//                memos[index].didLike = didLike
+//                print("memos[index].didLike \(memos[index].didLike)")
+//            }
+//        }
+
+        
         return memos
     }
     /// 사용자가 작성한 메모만 불러오는 함수입니다.
@@ -383,7 +395,101 @@ struct MemoService {
         )
     }
     
+ 
+    /// 좋아요를 누르는 함수
+    /// - Parameters:
+    ///   - Memo : 현 사용자가 좋아요를 누를 메모
+    /// - Returns: 에러를 리턴
+    func likeMemo(memo: Memo, completion: @escaping (Error?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid, let memoID = memo.id else {
+            completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
+            return
+        }
+        
+        /*
+         COLLECTION_MEMO_LIKES 키 값으로 메모 uid 및에 좋아요 누른 사용자 uid들을 저장
+         COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
+         */
+        if memo.didLike {
+                COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
+                COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
+            } else {
+                COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
+                COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
+            }
+            /*
+             setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
+
+             그러나 updateData는 문서가 이미 존재할 경우에만 작동합니다. 따라서 문서가 존재하지 않을 경우에는 setData를 사용하고, merge 옵션을 true로 설정하여 기존 문서에 데이터를 병합해야 합니다.
+             setData 메서드의 두 번째 매개변수로 merge: true를 전달하면 Firestore는 기존 문서와 새 데이터를 병합합니다.
+             즉, 특정 필드만 추가하거나 변경하면서도 기존 필드를 유지할 수 있습니다. 만약 문서가 존재하지 않으면 새 문서를 생성합니다.
+             */
+    }
     
+    /// 좋아요 개수를 표시하는 함수
+    /// - Parameters:
+    ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수
+    /// - Returns: 좋아요 받은 총 개수
+    func likeMemoCount(memo: Memo) async -> Int {
+        let memoID = memo.id ?? ""
+        var likeCount = 0
+        
+        do {
+            let document = try await COLLECTION_MEMO_LIKES.document(memoID).getDocument()
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                likeCount = fieldCount
+            }
+        } catch {
+            print("에러 발생: \(error)")
+        }
+        
+        print(likeCount)
+        return likeCount
+    }
+
+
+
+    
+    
+    /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
+    /// - Parameters:
+    ///   - memo : 사용자가 좋아요 누른 메모가 맞는지 확인 할 메모
+    /// - Returns: 좋아요 누른 여부 ture,false(해당 값을 메모의 didLike에 넣어서 MemoCell의 UI를 표시)
+    func checkLikedMemo(_ memo: Memo, completion: @escaping (Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        
+        let memoID = memo.id ?? ""
+        
+        let userLikesRef = COLLECTION_USER_LIKES.document(uid)
+        userLikesRef.getDocument { (document, error) in
+            if let error = error {
+                print("사용자 좋아요 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
+                completion(false)
+                return
+            }
+            
+            if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
+                print("데이터 \(dataArray)")
+                print("메모 ID \(memoID)")
+                if dataArray.keys.contains(memoID) {
+                    completion(true)
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
+        }
+    }
+
+
+
+
     
     /// firestore의 Document를 페이지네이션화하는 함수. 기본적으로 최신순으로 데이터를 받아온다.
     /// - Parameters:
