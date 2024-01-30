@@ -38,7 +38,7 @@ class MypageViewModel: ObservableObject {
                 Task {[weak self] in
                     guard let self = self else {return}
                     await self.pagenate(userID: userID)
-                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
                 }
             }
         }

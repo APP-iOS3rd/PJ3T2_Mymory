@@ -95,7 +95,7 @@ struct MypageView: View {
                         viewModel.currentLocation = location
                     }
                 }
-                viewModel.fetchMyMemoList()
+//                viewModel.fetchMyMemoList()
             }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {

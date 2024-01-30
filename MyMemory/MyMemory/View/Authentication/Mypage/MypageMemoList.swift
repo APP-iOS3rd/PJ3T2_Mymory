@@ -9,8 +9,10 @@ import SwiftUI
 
 struct MypageMemoList: View {
     @EnvironmentObject var viewModel: MypageViewModel
+    @State private var isLoadingFetchMemos = false
+    
     var body: some View {
-        VStack(spacing: 12) {
+        LazyVStack(spacing: 12) {
             ForEach($viewModel.memoList, id: \.self) { memo in
                 NavigationLink {
                     MemoDetailView(memo: memo)
@@ -19,10 +21,29 @@ struct MypageMemoList: View {
                     MypageMemoListCell(
                         memo: memo
                     )
-                  
+                    .onAppear {
+                        if memo.id == self.viewModel.memoList.last?.id {
+                            Task {
+                                if let userId = UserDefaults.standard.string(forKey: "userId") {
+                                    self.isLoadingFetchMemos = true
+                                    await self.viewModel.pagenate(userID: userId)
+                                    self.isLoadingFetchMemos = false
+                                }
+                            }
+                        }
+                    }
                 }
                 .buttonStyle(.plain)
             }
+        }
+        
+        if isLoadingFetchMemos {
+            HStack {
+                Spacer()
+                ProgressView()
+                Spacer()
+            }
+            .padding(.vertical, 16)
         }
     }
 }
