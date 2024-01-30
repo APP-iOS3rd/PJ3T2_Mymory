@@ -1,7 +1,7 @@
 ---
 name: 버그 리포트
 about: 발생한 버그 찾기
-title: '[Bug]'
+title: "[Bug]"
 labels: 버그수정
 assignees: ''
 
