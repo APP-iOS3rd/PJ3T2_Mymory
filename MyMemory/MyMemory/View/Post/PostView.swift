@@ -155,6 +155,7 @@ struct PostView: View {
             MoahAlertView(message: "현재 위치를 찾을 수 없어요. 위치서비스를 켜 주세요.", firstBtn: MoahAlertButtonView(type: .CANCEL, isPresented: $presentLocationAlert, action: {
                 self.selected = 0
             }), secondBtn: MoahAlertButtonView(type: .SETTING, isPresented: $presentLocationAlert, action: {
+                self.selected = 0
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }))
         })
