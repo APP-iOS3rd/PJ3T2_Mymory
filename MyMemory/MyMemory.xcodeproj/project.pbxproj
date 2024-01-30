@@ -711,10 +711,6 @@
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAB315742B43F440000357C7 /* GoogleService-Info.plist */,
-<<<<<<< HEAD
-				9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */,
-=======
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -818,13 +814,10 @@
 				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
 				28BB13302B568E96001A4C0C /* FLAnimatedImage */,
 				6A3F2E822B58BAC100A2E84A /* FirebaseStorage */,
-<<<<<<< HEAD
 				9D5077732B67653700460FD8 /* KakaoSDKAuth */,
 				9D5077752B67653700460FD8 /* KakaoSDKCommon */,
 				9D5077772B67653700460FD8 /* KakaoSDKUser */,
-=======
 				DAA71E942B677F0600157DA1 /* Kingfisher */,
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -902,11 +895,8 @@
 				DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
-<<<<<<< HEAD
 				9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
-=======
 				DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			);
 			productRefGroup = DAB315482B43EFDB000357C7 /* Products */;
 			projectDirPath = "";
@@ -927,14 +917,7 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
-<<<<<<< HEAD
-<<<<<<< HEAD
 				9D50777C2B6765ED00460FD8 /* APIKEYS.xcconfig in Resources */,
-=======
-				646A851E2B6368C000B62107 /* APIKEYS.xcconfig in Resources */,
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				DA12208F2B67936000943177 /* APIKEYS.xcconfig in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
@@ -1098,15 +1081,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1169,15 +1144,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
-			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1233,12 +1200,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1343,19 +1305,11 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			name = Debug;
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1364,11 +1318,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 29;
-=======
 				CURRENT_PROJECT_VERSION = 30;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1390,11 +1340,8 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-<<<<<<< HEAD
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-=======
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1412,24 +1359,11 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
-<<<<<<< HEAD
-=======
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			name = Release;
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1450,15 +1384,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1479,15 +1405,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1508,15 +1426,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-<<<<<<< HEAD
 			baseConfigurationReference = 9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = 646A851D2B6368BF00B62107 /* APIKEYS.xcconfig */;
->>>>>>> 6bdad81bc8d1f5d4ae7b5a68325ab5ab2730ac29
-=======
-			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
->>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
