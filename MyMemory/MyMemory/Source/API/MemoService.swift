@@ -11,6 +11,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
 import CoreLocation
+import UIKit
 struct MemoService {
     static let shared = MemoService()
     let storage = Storage.storage()

@@ -62,7 +62,7 @@ struct MypageView: View {
                         }
                         .padding(.top, 38)
                         
-                        MypageMemoList(memoList: $viewModel.memoList)
+                        MypageMemoList()
                             .environmentObject(viewModel)
                         
                         
@@ -148,9 +148,6 @@ struct MypageView: View {
         //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
         //        }
         //
-        
-        
-        
         
     }
 }
