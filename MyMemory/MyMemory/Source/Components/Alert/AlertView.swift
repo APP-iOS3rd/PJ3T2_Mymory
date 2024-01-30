@@ -78,7 +78,7 @@ public struct MoahAlertView: View {
             .background(Color.white)
             .cornerRadius(8)
         }
-        .background(ClearBackground())
+        //.background(ClearBackground())
     }
 }
 
