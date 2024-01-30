@@ -18,11 +18,14 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
 }
 
 struct MypageView: View {
-    @Binding var selected: Int
+    @State var selected: Int = 2
     @ObservedObject var viewModel: MypageViewModel = .init()
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
     @ObservedObject var authViewModel: AuthViewModel = .shared
+    
+    @State var fromDetail: Bool = false
+    @State var memoCreator: User = User(email: "", name: "")
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -33,9 +36,11 @@ struct MypageView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
-                    
-                    MypageTopView(viewModel: viewModel)
-                    
+                    if fromDetail == true {
+                        OtherUserProfileView(memoCreator: $memoCreator, viewModel: viewModel)
+                    } else{
+                        MypageTopView(viewModel: viewModel)
+                    }
                     if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
                         
                         HStack(alignment: .lastTextBaseline) {
@@ -139,15 +144,9 @@ struct MypageView: View {
             }
         }
         
-        //        .onAppear{
-        //            viewModel.
-        //        }
-        //
-        //        .onAppear {
-        //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-        //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-        //        }
-        //
+        .onAppear{
+            viewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
+        }
         
     }
 }

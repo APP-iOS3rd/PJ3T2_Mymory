@@ -34,10 +34,10 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "pencil")
                         Text("메모하기")
-                    }
+                    } 
                     .tag(1)
                 
-                MypageView(selected: $selectedIndex)
+                MypageView()
                     .onTapGesture{
                         selectedIndex = 2
                     }

@@ -196,6 +196,28 @@ class AuthViewModel: ObservableObject {
         privacyPolicyBox = false
     }
     
+    /// 메모 작성자의 정보를 가져오는 함수 입니다
+    /// - Parameters:
+    ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
+    /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
+    func MemoCreatorfetchUser(uid: String, completion: @escaping (User?) -> Void) {
+        print("현재 메모 작성자: uid \(uid)")
+        
+        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, error in
+            if let error = error {
+                print("Error fetching user: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
+            
+            guard let memoCreator = try? snapshot?.data(as: User.self) else {
+                completion(nil)
+                return
+            }
+            
+            completion(memoCreator)
+        }
+    }
     
     func fetchUser() {
         guard let uid = userSession?.uid else { return }

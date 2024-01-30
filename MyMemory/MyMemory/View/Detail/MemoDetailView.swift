@@ -11,6 +11,8 @@ struct MemoDetailView: View {
     @State private var isMyMemo:Bool = false
     @Binding var memo: Memo
     
+    @StateObject var viewModel: DetailViewModel = DetailViewModel()
+    
     var body: some View {
         ZStack {
        
@@ -92,6 +94,7 @@ struct MemoDetailView: View {
                 Task {
                     do {
                         isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                        viewModel.fetchMemoCreator(uid: memo.userUid)
                     } catch {
                         // 에러 처리
                         print("Error checking my memo: \(error.localizedDescription)")
@@ -100,7 +103,7 @@ struct MemoDetailView: View {
             }
             VStack {
                 Spacer()
-                Footer()
+                MoveUserProfileButton(viewModel: viewModel)
             }
         }
         

@@ -42,7 +42,18 @@ struct MypageTopView: View {
                         .padding(.leading, 10)
                 }
                 .buttonStyle(.plain)
-            } 
+                
+                VStack{
+                    Text("357")
+                    Text("팔로워")
+                }
+                .padding(.leading, 10)
+                VStack{
+                    Text("445")
+                    Text("팔로잉")
+                }
+                .padding(.leading, 10)
+            }
             
             
             else {
@@ -93,6 +104,8 @@ struct MypageTopView: View {
                     .font(.system(size: 24))
                     .foregroundStyle(.black)
             }
+            
+            // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
         }
         .padding(.top, 30)
         
