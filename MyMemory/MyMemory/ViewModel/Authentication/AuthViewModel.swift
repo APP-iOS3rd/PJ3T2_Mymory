@@ -16,6 +16,9 @@ import FirebaseFirestore
 import FirebaseStorage
 import AuthenticationServices
 import CryptoKit
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 
 class AuthViewModel: ObservableObject {
 
@@ -51,6 +54,14 @@ class AuthViewModel: ObservableObject {
     
     init() {
         userSession = Auth.auth().currentUser
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("unlink() success.")
+            }
+        }
         fetchUser()
     }
     
