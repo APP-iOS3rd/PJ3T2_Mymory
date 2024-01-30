@@ -14,6 +14,11 @@ import SafariServices
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
+import AuthenticationServices
+import CryptoKit
+import KakaoSDKAuth
+import KakaoSDKCommon
+import KakaoSDKUser
 
 class AuthViewModel: ObservableObject {
 
@@ -40,32 +45,55 @@ class AuthViewModel: ObservableObject {
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
-    @Published var privacyPolicyUrlString = "https://www.google.com"
+    @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
     @Published var termsOfUseUrlString = "https://www.naver.com"
+    
+    @Published var nonce : String = ""
+    @Published var appleID : String = ""
     // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
     init() {
         userSession = Auth.auth().currentUser
+        UserApi.shared.unlink {(error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("unlink() success.")
+            }
+        }
         fetchUser()
     }
     
-    func login(withEmail email: String, password: String){
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("디버깅: 로그인실패 \(error.localizedDescription)")
-                return
+    func login(withEmail email: String, password: String) -> Bool {
+        do {
+            try Auth.auth().signIn(withEmail: email, password: password) { result, error in
+                if let error = error {
+                    print("디버깅: 로그인실패 \(error.localizedDescription)")
+                    return
+                }
+                guard let user = result?.user else { return }
+                self.userSession = user
+                
+                self.fetchUser()
             }
-            guard let user = result?.user else { return }
-            self.userSession = user
             
-            self.fetchUser()
+            return true
+        } catch {
+            return false
         }
     }
     
-    func signout() {
+    func signout() -> Bool{
         self.userSession = nil
-        try? Auth.auth().signOut()
-        
+        do {
+            try Auth.auth().signOut()
+            
+            self.fetchUser()
+            return true
+        } catch {
+            return false
+        }
     }
     
     func userCreate() {
@@ -112,10 +140,6 @@ class AuthViewModel: ObservableObject {
                         }
                         print("계정생성 성공")
                     }
-                  
-                    
-                   
-                   
                 }
             }
     }
@@ -176,11 +200,114 @@ class AuthViewModel: ObservableObject {
     func fetchUser() {
         guard let uid = userSession?.uid else { return }
         print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { snapshot, _ in
+        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
-            self.currentUser = user
-            print(user)
+            self?.currentUser = user
+            UserDefaults.standard.set(user.id, forKey: "userId")
+           // print(user)
         }
+    }
+    func fetchUser(completion: @escaping (User?) -> Void) {
+        guard let uid = userSession?.uid else {
+            completion(nil)
+            return
+        }
+        
+        print("현재 로그인 상태: uid \(uid)")
+        
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
+            guard let snapshot = snapshot, snapshot.exists else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                if let user = try? snapshot.data(as: User.self) {
+                    UserDefaults.standard.set(user.id, forKey: "userId")
+                    completion(user)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    func authenticate(credential: ASAuthorizationAppleIDCredential) {
+        //getting token
+        guard let token = credential.identityToken else {
+            print("error with firebase")
+            return
+        }
+        
+        guard let tokenString = String(data: token, encoding: .utf8) else {
+            print("error with token")
+            return
+        }
+        
+        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
+        Auth.auth().signIn(with: firebaseCredential) { [weak self] result, err in
+            guard let self = self else {return}
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            if self.name != "" && self.email != "" {
+                let data = [
+                    "id" : result!.user.uid,
+                    "name": self.name,
+                    "email": self.email,
+                    "profilePicture": ""
+                ]
+                COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
+                    self.userSession = result!.user
+                    self.fetchUser()
+                }
+            }
+            self.userSession = result!.user
+            self.fetchUser()
+            print("로그인 완료")
+        }
+    }
+    
+    func fetchAppleUser() {
+        guard let uid = userSession?.uid else { return }
+        print("현재 로그인 상태: uid \(uid)")
+        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
+            guard let user = try? snapshot?.data(as: User.self) else { return }
+            
+            self?.currentUser = user
+            UserDefaults.standard.set(user.id, forKey: "userId")
+          //  print(user)
+        }
+    }
+    
+    func randomNonceString(length: Int = 32) -> String {
+      precondition(length > 0)
+      var randomBytes = [UInt8](repeating: 0, count: length)
+      let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
+      if errorCode != errSecSuccess {
+        fatalError(
+          "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+        )
+      }
+
+      let charset: [Character] =
+        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+
+      let nonce = randomBytes.map { byte in
+        // Pick a random character from the set, wrapping around if needed.
+        charset[Int(byte) % charset.count]
+      }
+
+      return String(nonce)
+    }
+    
+    func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = SHA256.hash(data: inputData)
+      let hashString = hashedData.compactMap {
+        String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
     }
 }

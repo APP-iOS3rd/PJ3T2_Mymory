@@ -7,7 +7,10 @@
 
 import SwiftUI
 import FirebaseAuth
-
+import AuthenticationServices
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoSDKUser
 
 struct LoginView: View {
     
@@ -24,13 +27,14 @@ struct LoginView: View {
     
     @State private var isActive: Bool = false
     @State private var notCorrectLogin: Bool = false
-    @ObservedObject var viewModel: AuthViewModel = AuthViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel 
+//    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
+ 
     
-    
-    // 확인용 임시 아이디 + 패스워드
+    @Environment(\.presentationMode) var presentationMode
+//    확인용 임시 아이디 + 패스워드
 //    private var correctEmail: String = "12345@naver.com"
 //    private var correctPassword: String = "12345"
-    
     
     var body: some View {
         
@@ -94,19 +98,21 @@ struct LoginView: View {
                 Button {
                     
                     self.isActive = true
-                    viewModel.login(withEmail: email, password: password)
-                    
-
+                  
+                    if viewModel.login(withEmail: email, password: password) {
+                        print("로그인 성공")
+                        presentationMode.wrappedValue.dismiss()
+                    } else {
+                        print("로그인 실패")
+                    }
+              
                 } label: {
                     Text("로그인")
                         .font(.regular18)
                 }
                 .buttonStyle(LoginButton(backgroundColor: Color.indigo))
-//                    .alert(isPresented: $notCorrectLogin) {
-//                        Alert(title: Text("주의\n"), message: Text("이메일, 또는 비밀번호가 일치하지 않습니다."), dismissButton: .default(Text("확인")))
-//                    }
             }
-
+            
             NavigationLink {
                 RegisterView()
                     .customNavigationBar(
@@ -132,21 +138,65 @@ struct LoginView: View {
             
             // MARK: - 소셜 로그인 버튼
             VStack {
-                Button {
-                    
-                } label: {
-                    HStack {
-                        Image(systemName: "apple.logo")
-                            .resizable()
-                            .frame(width: 18, height: 20)
-                        Text("Apple로 계속하기")
-                            .font(.regular16)
+                SignInWithAppleButton(
+                    onRequest: { request in
+                        viewModel.nonce = viewModel.randomNonceString()
+                        request.requestedScopes = [.fullName, .email]
+                        request.nonce = viewModel.sha256(viewModel.nonce)
+                    },
+                    onCompletion: { result in
+                        switch result {
+                        case .success(let authResults):
+                            print("Apple Login Successful")
+                            guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
+                                print("error with firebase")
+                                return
+                            }
+                            switch authResults.credential {
+                                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                let fullName = appleIDCredential.fullName
+                                self.viewModel.name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+                                self.viewModel.email = appleIDCredential.email ?? "emailnotfound"
+                            default:
+                                break
+                            }
+                            self.viewModel.authenticate(credential: credential)
+                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            print("error")
+                        }
                     }
-                }
-                .buttonStyle(SocialLoginButton())
-                
+                )
+                .frame(width : 350, height:50)
+                .cornerRadius(10)
                 Button {
-                    
+                    if (UserApi.isKakaoTalkLoginAvailable()) {
+                        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                            if let error = error {
+                                print("카카오로그인 에러입니다. \(error)")
+                                return
+                            } else {
+                                UserApi.shared.me { User, Error in
+                                         if let name = User?.kakaoAccount?.profile?.nickname {
+//                                            userName = name
+                                             print("제 닉네임은 \(name) 입니다")
+                                         }
+//                                         if let mail = User?.kakaoAccount?.email {
+////                                            userMail = mail
+//                                             print("hello my mail is \(mail)")
+//                                         }
+//                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
+////                                            profileImage = profile
+//                                             print("hello my profile is \(profile)")
+//                                    }
+                                    print("공유된 결과입니다")
+                                }
+                                print("카카카오 결과입니다")
+                            }
+                        }
+                    }
                 } label: {
                     HStack {
                         Image("kakao")
@@ -161,14 +211,23 @@ struct LoginView: View {
             }//: SNS 로그인
             .padding(.vertical, 20)
         }//: VSTACK
+   
         .padding()
-        .navigationDestination(isPresented: $isActive) {
-            MainMapView()
+        .fullScreenCover(isPresented: $isActive) {
+            MainTabView()
         }
-        .toolbar(.hidden, for: .tabBar)
-        .onTapGesture{
-            self.endTextEditing()
-        }
+        .customNavigationBar(
+            centerView: {
+                Text("")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .white
+        )
     }
     
     

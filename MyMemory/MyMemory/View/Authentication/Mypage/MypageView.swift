@@ -6,37 +6,42 @@
 //
 
 import SwiftUI
+import FirebaseAuth
+import AuthenticationServices
+
+enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
+    case last = "최신순"
+    case like = "좋아요순"
+    case close = "가까운순"
+    
+    var id: SortedTypeOfMemo { self }
+}
 
 struct MypageView: View {
-    
-    let user: User
-    
-    @ObservedObject var viewModel: MypageViewModel
-    // @StateObject var myPageViewModel: MypageViewModel = .init()
- 
-    init(user: User) {
-        self.user = user
-        self.viewModel = MypageViewModel(user: user)
-    }
+    @Binding var selected: Int
+    @ObservedObject var viewModel: MypageViewModel = .init()
+    @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
+    @ObservedObject var authViewModel: AuthViewModel = .shared
     
     var body: some View {
         ZStack(alignment: .top) {
             
-            Color.lightGray
+            Color.bgColor
                 .edgesIgnoringSafeArea(.top)
-              
-            ScrollView(.vertical, showsIndicators: false){
+            
+            ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
                     
                     MypageTopView(viewModel: viewModel)
                     
-                    if viewModel.isCurrentUserLoginState {
+                    if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")
                                 .font(.semibold20)
-                            
+                                .foregroundStyle(Color.textColor)
                             Spacer()
                             
                             Button {
@@ -53,12 +58,13 @@ struct MypageView: View {
                                     }
                                 }
                             }
-                            .disabled(!viewModel.isCurrentUserLoginState)
+                            .disabled(!(authViewModel.userSession?.uid == UserDefaults.standard.string(forKey: "userId") ))
                         }
                         .padding(.top, 38)
                         
-                        MypageMemoList(memoList: $viewModel.memoList)
-                            
+                        MypageMemoList()
+                            .environmentObject(viewModel)
+                        
                         
                     } else {
                         VStack(alignment: .center) {
@@ -70,21 +76,8 @@ struct MypageView: View {
                                     .font(.semibold20)
                                 Spacer()
                             }
-                            NavigationLink {
-                                LoginView()
-                                    .customNavigationBar(
-                                        centerView: {
-                                            Text(" ")
-                                        },
-                                        leftView: {
-                                            EmptyView()
-                                        },
-                                        rightView: {
-                                            CloseButton()
-                                        },
-                                        backgroundColor: .white
-                                    )
-                                
+                            Button{
+                                self.presentLoginView = true
                             } label: {
                                 Text("로그인 하러가기")
                             }
@@ -95,31 +88,66 @@ struct MypageView: View {
                     }
                 }
             }
+            .refreshable {
+                viewModel.currentLocation = nil
+                viewModel.fetchCurrentUserLocation { location in
+                    if let location = location, viewModel.currentLocation != location {
+                        viewModel.currentLocation = location
+                    }
+                }
+//                viewModel.fetchMyMemoList()
+            }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {
                 Color.clear
                     .frame(height: 0)
-                    .background(Color.lightGray)
-
-            }
-            .safeAreaInset(edge: .bottom) {
-                Color.white
-                    .frame(height: 0)
-                    .background(.white)
-                    .border(Color.black)
-
-            }
- 
-          
-        }
-        .onAppear {
-            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
-            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
-        }
-    
+                    .background(Color.bgColor)
                 
+            }
+//            .safeAreaInset(edge: .bottom) {
+//                Color.white
+//                    .frame(height: 0)
+//                    .background(.white)
+//                    .border(Color.black)
+//                
+//            }
+            
+        }
+        .onAppear(perform: {
+            Task {
+                if UserDefaults.standard.string(forKey: "userId") != nil {
+                    presentLoginAlert = false
+                } else {
+                    presentLoginAlert = true
+                }
+            }
+        })
+        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            Button("로그인 하기", role: .destructive) {
+                self.presentLoginView = true
+            }
+            Button("둘러보기", role: .cancel) {
+                self.selected = 0
+            }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
+        }
+        .overlay {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+            }
+        }
         
-    
+        //        .onAppear{
+        //            viewModel.
+        //        }
+        //
+        //        .onAppear {
+        //            viewModel.isCurrentUserLoginState = viewModel.fetchCurrentUserLoginState()
+        //            //viewModel.userInfo = viewModel.fetchUserInfoFromUserDefaults()
+        //        }
+        //
         
     }
 }

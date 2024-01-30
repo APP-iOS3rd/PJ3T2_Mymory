@@ -6,39 +6,39 @@
 //
 
 import SwiftUI
+import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
     
-    @ObservedObject var viewModel: MypageViewModel
+    @ObservedObject var viewModel: MypageViewModel 
+    @ObservedObject var authViewModel : AuthViewModel = .shared
     
     var body: some View {
         HStack {
-            if viewModel.isCurrentUserLoginState {
+            if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil {
                 NavigationLink {
                     ProfileEditView(
                         existingProfileImage:
-                        viewModel.user.profilePicture,
-                        uid: viewModel.user.id ?? ""
+                            viewModel.user?.profilePicture,
+                        uid: viewModel.user?.id ?? ""
                     )
                 } label: {
-                    if let imageUrl = viewModel.user.profilePicture, let url = URL(string: imageUrl) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .clipShape(.circle)
-                        } placeholder: {
-                            ProgressView()
-                        }.frame(width: 76, height: 76)
+                    if let imageUrl = viewModel.user?.profilePicture, let url = URL(string: imageUrl) {
+                        KFImage(url)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .clipShape(.circle)
+                            .frame(width: 76, height: 76)
                     } else {
                         Circle()
                             .frame(width: 76, height: 76)
                             .foregroundStyle(Color(hex: "d9d9d9"))
                     }
                     
-                    Text(viewModel.user.name)
+                    Text(viewModel.user?.name ?? "김메모")
                         .font(.semibold20)
+                        .foregroundStyle(Color.textColor)
                         .padding(.leading, 10)
                 }
                 .buttonStyle(.plain)
@@ -70,11 +70,11 @@ struct MypageTopView: View {
             Spacer()
             
             NavigationLink {
-                
-                SettingView (
-                    user: $viewModel.user,
+            
+                SettingView (user: $viewModel.user,
                     isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
                 )
+                
                 .customNavigationBar(
                     centerView: {
                         Text("내 정보")

@@ -10,7 +10,8 @@ import Photos
 import PhotosUI
 
 struct RegisterView: View {
-    @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+   // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+    @EnvironmentObject var viewModel : AuthViewModel
     
     var body: some View {
         NavigationView {
@@ -153,6 +154,8 @@ struct RegisterView: View {
                                             }
                                             .sheet(isPresented: $viewModel.showPrivacyPolicy) {
                                                 RegisterViewModel.SafariView(url:URL(string: viewModel.privacyPolicyUrlString)!)
+                                                    .ignoresSafeArea()
+
                                             }
                                         }
                                             .font(.system(size: 13))
@@ -176,6 +179,7 @@ struct RegisterView: View {
                                             }
                                             .sheet(isPresented: $viewModel.showTermsOfUse) {
                                                 RegisterViewModel.SafariView(url:URL(string: viewModel.termsOfUseUrlString)!)
+                                                    .ignoresSafeArea()
                                             }
                                         }
                                         .font(.system(size: 13))
@@ -193,8 +197,11 @@ struct RegisterView: View {
                     }
                     Spacer(minLength: 32)
                     Button(action: {
-                        if viewModel.checkIfCanRegister() == true {
+                        
+                        
+                        if viewModel.checkIfCanRegister() {
                             viewModel.userCreate()
+                           // viewModel.userCreate()
                             print("Register Completed")
                         } else {
                             print("Register failed")
@@ -221,7 +228,7 @@ struct RegisterView: View {
     }
 }
 
-#Preview {
-    RegisterView()
-}
-
+//#Preview {
+//    RegisterView()
+//}
+//

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MypageMemoListCell: View {
     @Binding var memo: Memo
-    
+    @EnvironmentObject var viewModel: MypageViewModel
     var body: some View {
         HStack {
             HStack(alignment: .top, spacing: 10){
@@ -28,18 +28,19 @@ struct MypageMemoListCell: View {
                             ForEach(memo.tags, id: \.self) { tag in
                                 Text("#\(tag)")
                                     .font(.regular12)
-                                    .foregroundStyle(Color(hex: "898A8D"))
+                                    .foregroundStyle(Color.textColor)
                             }
                         }
                     }
                     Text(memo.title)
                         .font(.bold16)
+                        .foregroundStyle(Color.textColor)
                     
                     Text("해당 장소 메모보기")
                         .padding(EdgeInsets(top: 6, leading: 13, bottom: 6, trailing: 13))
                         .background(Color(hex: "F4F4F4"))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(Color(hex: "5a5a5a"))
+                        .foregroundStyle(Color.textColor)
                         .font(.extraBold12)
                     
                     HStack(spacing: 2) {
@@ -51,8 +52,13 @@ struct MypageMemoListCell: View {
                             .font(.semibold11)
                         Image(systemName: "location.fill")
                             .font(.system(size: 11))
-                        Text("38m")
-                            .font(.regular12)
+                        if let location = viewModel.currentLocation {
+                            Text("\(memo.location.distance(from: location).distanceToMeters())")
+                                .font(.regular12)
+                        } else {
+                            Text("-")
+                                .font(.regular12)
+                        }
                     }
                     .foregroundStyle(Color(hex: "898A8D"))
                     .padding(.top, 27)
