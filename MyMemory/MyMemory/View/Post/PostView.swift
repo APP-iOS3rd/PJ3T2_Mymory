@@ -142,6 +142,7 @@ struct PostView: View {
                 dismiss()
             }
         }
+     
         .customNavigationBar(
             centerView: {
                 Group {
@@ -192,7 +193,8 @@ struct PostView: View {
                     }
                 }
                 
-            }, backgroundColor: .white
+            }, 
+            backgroundColor: .bgColor
         )
     }
 }
