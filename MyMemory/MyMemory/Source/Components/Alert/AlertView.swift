@@ -46,9 +46,10 @@ public struct MoahAlertView: View {
                     // 내용
                     if let message = message {
                         Text(message)
-                            .font(.regular14)
+                            .font(.regular16)
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
+                            .padding(.horizontal, 5)
                     }
  
                     
