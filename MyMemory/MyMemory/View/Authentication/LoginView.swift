@@ -170,7 +170,7 @@ struct LoginView: View {
                     }
                 )
                 .frame(width : 350, height:50)
-                .cornerRadius(10)
+                .cornerRadius(12)
                 Button {
                     if (UserApi.isKakaoTalkLoginAvailable()) {
                         UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -202,12 +202,13 @@ struct LoginView: View {
                         Image("kakao")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 18, height: 20)
-                        Text("Kakao로 계속하기")
-                            .font(.regular16)
+                            .frame(width: 18, height: 18)
+                        Text("카카오 로그인")
+                            .font(.regular18)
+                            
                     }
                 }
-                .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.yellow))
+                .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.kakaoYellow))
             }//: SNS 로그인
             .padding(.vertical, 20)
         }//: VSTACK

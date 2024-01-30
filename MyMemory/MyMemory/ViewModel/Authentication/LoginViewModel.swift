@@ -59,7 +59,7 @@ struct SocialLoginButton: ButtonStyle {
           .padding()
       .foregroundColor(labelColor)
       .background(
-        RoundedRectangle(cornerRadius: 10)
+        RoundedRectangle(cornerRadius: 12)
             .fill(backgroundColor)
             .frame(width: 350, height: 50)
       )
