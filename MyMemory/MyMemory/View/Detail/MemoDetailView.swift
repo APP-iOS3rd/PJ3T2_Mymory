@@ -1,6 +1,6 @@
 
 import SwiftUI
-
+import Kingfisher
 struct MemoDetailView: View {
     @State private var selectedNum: Int = 0
     @State private var isHeart: Bool = false
@@ -13,16 +13,17 @@ struct MemoDetailView: View {
     
     var body: some View {
         ZStack {
+       
             ScrollView {
                 VStack(alignment: .leading) {
                     ScrollView(.horizontal) {
                         LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
                             ForEach(memo.tags, id: \.self) { tag in
                                 Text("#\(tag)")
-                                    .font(.semibold11)
+                                    .font(.semibold12)
                                     .padding(.horizontal, 13)
-                                    .padding(.vertical, 8)
-                                    .foregroundColor(.white)
+                                    .padding(.vertical, 6)
+                                    .foregroundColor(.textColor)
                                     .background(
                                         Capsule()
                                             .foregroundColor(.peach)
@@ -56,7 +57,7 @@ struct MemoDetailView: View {
                     ScrollView(.horizontal) {
                         HStack{
                             ForEach(memo.images.indices, id: \.self) { index in
-                                if let uiimage = UIImage(data: memo.images[index]) {
+                                if let uiimage =  UIImage(data: memo.images[index]) {
                                     Image(uiImage: uiimage)
                                         .resizable()
                                     //.scaledToFit()
@@ -82,8 +83,11 @@ struct MemoDetailView: View {
                         .padding(.horizontal, 25)
                         .padding(.bottom, 70)
                     Spacer()
-                }.padding(.top, 50)
+                }
+                //.padding(.top, 50)
+   
             }
+
             .onAppear {
                 Task {
                     do {
@@ -99,6 +103,7 @@ struct MemoDetailView: View {
                 Footer()
             }
         }
+        
         .customNavigationBar(
             centerView: {
                 Text(" ")
@@ -110,7 +115,7 @@ struct MemoDetailView: View {
                 NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memo)
 //                                        CloseButton()
             },
-            backgroundColor: .white
+            backgroundColor: .bgColor
         )
 
 //        .navigationBarItems(

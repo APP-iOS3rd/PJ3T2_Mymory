@@ -36,11 +36,11 @@ struct SelectTagView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
-            HStack(alignment: .lastTextBaseline, spacing: 200){
+            HStack(alignment: .lastTextBaseline){
                 Text("#어떤타입?")
                     .font(.bold20)
                     .bold()
-                
+                Spacer()
                 Button {
                     withAnimation {
                         // Toggle the view's visibility
@@ -59,19 +59,23 @@ struct SelectTagView: View {
                 .cornerRadius(10)
                 .foregroundStyle(Color.gray.opacity(0.17))
                 .overlay(
-                    HStack(spacing: 5) {
-                        // 태그 선택할때 마다 표시
-                        ForEach(memoSelectedTags, id: \.self) { tag in
-                            Text("#\(tag)")
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 8)
-                                .background(
-                                    Capsule()
-                                        .foregroundColor(.pink)
-                                )
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 5) {
+                            // 태그 선택할때 마다 표시
+                            ForEach(memoSelectedTags, id: \.self) { tag in
+                                Text("#\(tag)")
+                                    .font(.bold14)
+                                    .padding(5)
+                                    .foregroundColor(.lightPeach)
+                                    .padding(.horizontal, 8)
+                                    .background(
+                                        Capsule()
+                                            .foregroundColor(Color.peach)
+                                    )
+                            }
                         }
+                        .padding(5)
                     }
-                    .padding(5)
                 )
 
         }  //:VSTACK
@@ -89,33 +93,49 @@ struct SelectTagView: View {
                  
                  HStack 내부의 두 번째 ForEach는 각 행에 5개의 태그를 생성합니다. rowIndex * 5 + columnIndex를 통해 각 태그의 인덱스를 계산합니다.
                  */
-                ScrollView(.horizontal, showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 20) {
-                        ForEach(0..<(TagType.allCases.count + 2) / 5) { rowIndex in
-                            HStack(spacing: 20) {
-                                ForEach(0..<5) { columnIndex in
-                                    let index = rowIndex * 5 + columnIndex
-                                    if index < TagType.allCases.count {
-                                        let tag = TagType.allCases[index]
-                                        Button(action: {
-                                            withAnimation {
-                                                toggleTag(tag)
-                                            }
-                                        }) {
-                                            Text(tag.rawValue)
-                                                .padding()
-                                                .background(
-                                                    Capsule()
-                                                        .foregroundColor(memoSelectedTags.contains(tag.rawValue) ? .pink : .gray)
-                                                )
-                                                .foregroundColor(.white)
-                                        }
-                                    } else {
-                                        Spacer()
-                                    }
-                                } // ForEach
-                            } // HStack
-                        }// ForEach
+                ScrollView {
+                    VStack {
+                        GeometryReader { GeometryProxy in
+                            FlexibleView(availableWidth: GeometryProxy.size.width,
+                                         data: TagType.allCases,
+                                         spacing: 15,
+                                         alignment: .center) { item in
+                                Button(action: {
+                                    toggleTag(item)
+                                }, label: {
+                                    Text("#\(item.rawValue)")
+                                }).buttonStyle(
+                                    memoSelectedTags.contains(item.rawValue) ?                     Pill.selected : Pill.lightGray
+                                )
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .aspectRatio(contentMode: .fit)
+                            }.frame(maxWidth: .infinity)
+                        }
+//                        ForEach(0..<(TagType.allCases.count + 2) / 5) { rowIndex in
+//                            HStack(spacing: 20) {
+//                                ForEach(0..<5) { columnIndex in
+//                                    let index = rowIndex * 5 + columnIndex
+//                                    if index < TagType.allCases.count {
+//                                        let tag = TagType.allCases[index]
+//                                        Button(action: {
+//                                            withAnimation {
+//                                                toggleTag(tag)
+//                                            }
+//                                        }) {
+//                                            Text(tag.rawValue)
+//                                                .padding()
+//                                                .background(
+//                                                    Capsule()
+//                                                        .foregroundColor(memoSelectedTags.contains(tag.rawValue) ? .pink : .gray)
+//                                                )
+//                                                .foregroundColor(.white)
+//                                        }
+//                                    } else {
+//                                        Spacer()
+//                                    }
+//                                } // ForEach
+//                            } // HStack
+//                        }// ForEach
                     } // VStack
                     .padding()
                 } // ScrollView
@@ -150,5 +170,5 @@ struct SelectTagView: View {
     
 }
 #Preview {
-    SelectTagView(memoSelectedTags: .constant(["태그1", "태그2"]))
+    SelectTagView(memoSelectedTags: .constant(["태그1", "그2","태1", "태그277","1", "태그52","태그yy1", "태그7802"]))
 }

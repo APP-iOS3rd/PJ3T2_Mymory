@@ -58,7 +58,7 @@ struct RoundedRect: ButtonStyle {
     var paddingVertical: CGFloat = 12
     var paddingHorzontal: CGFloat = 16
     let cornerRadius: CGFloat = 10
-    var borderColor: Color = Color(UIColor.systemGray4)
+    var borderColor: Color = .borderColor
     
     static var standard: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold14)

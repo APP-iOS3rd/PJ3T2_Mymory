@@ -10,6 +10,7 @@
       }
     },
     {
+<<<<<<< HEAD
       "identity" : "alamofire",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire.git",
@@ -19,6 +20,8 @@
       }
     },
     {
+=======
+>>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
       "identity" : "app-check",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/app-check.git",
@@ -100,6 +103,7 @@
       }
     },
     {
+<<<<<<< HEAD
       "identity" : "kakao-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao/kakao-ios-sdk",
@@ -109,6 +113,8 @@
       }
     },
     {
+=======
+>>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
       "identity" : "kakaomapssdk-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git",
@@ -118,6 +124,18 @@
       }
     },
     {
+<<<<<<< HEAD
+=======
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "3ec0ab0bca4feb56e8b33e289c9496e89059dd08",
+        "version" : "7.10.2"
+      }
+    },
+    {
+>>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
       "identity" : "leveldb",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/leveldb.git",

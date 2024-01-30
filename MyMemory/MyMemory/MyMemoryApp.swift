@@ -36,14 +36,16 @@ struct MyMemoryApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
+<<<<<<< HEAD
                 .environmentObject(AuthViewModel.shared)
                 .onOpenURL { url in
                     if (AuthApi.isKakaoTalkLoginUrl(url)) {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
+=======
+>>>>>>> 0c3e17dfeebf0d09abc44baf2e47fbebc3217c2f
         }
-        
     }
 }
 

@@ -69,7 +69,10 @@ struct PostView: View {
                 // 💁 Tag 선택 View
                 Group {
                     SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(contentMode: .fit)
                 }
+                
                 .padding(.bottom)
                 
                 // 💁 주소찾기 View
@@ -98,7 +101,7 @@ struct PostView: View {
             
                 .buttonStyle(.borderedProminent)
                 .padding(.horizontal)
-                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty  )
+                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                 .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                 .padding(.bottom)
                 
@@ -139,6 +142,7 @@ struct PostView: View {
                 dismiss()
             }
         }
+     
         .customNavigationBar(
             centerView: {
                 Group {
@@ -189,7 +193,8 @@ struct PostView: View {
                     }
                 }
                 
-            }, backgroundColor: .white
+            }, 
+            backgroundColor: .bgColor
         )
     }
 }

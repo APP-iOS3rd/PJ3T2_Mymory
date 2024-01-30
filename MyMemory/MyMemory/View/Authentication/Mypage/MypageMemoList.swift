@@ -9,12 +9,10 @@ import SwiftUI
 
 struct MypageMemoList: View {
     @EnvironmentObject var viewModel: MypageViewModel
-    @Binding var memoList: [Memo]
     var body: some View {
         VStack(spacing: 12) {
-            ForEach($memoList, id: \.self) { memo in
+            ForEach($viewModel.memoList, id: \.self) { memo in
                 NavigationLink {
-                    
                     MemoDetailView(memo: memo)
                     
                 } label: {

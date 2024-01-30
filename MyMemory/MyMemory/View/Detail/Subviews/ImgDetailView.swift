@@ -8,9 +8,23 @@ import SwiftUI
 
 struct ImgDetailView: View {
     @Binding var isShownFullScreenCover: Bool
-    @Binding var selectedImage: Int
+    @Binding var selectedImage: Int {
+        didSet {
+            self.scale = 1.0
+        }
+    }
+    @State private var scale: CGFloat = 1.0
+    var magnification: some Gesture {
+        MagnifyGesture()
+            .onChanged { value in
+                // 제스처가 변경될 때마다 상태 업데이트
+                scale = value.magnification
+            }
+            .onEnded { _ in
+                // 제스처가 끝날 때 아무 작업도 하지 않음
+            }
+    }
     var images: [Data]
-    
     var body: some View {
         
         ZStack {
@@ -35,6 +49,8 @@ struct ImgDetailView: View {
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .padding(.bottom, 50)
+                                .scaleEffect(scale)
+                                .gesture(magnification)
                         }
                     }
                     

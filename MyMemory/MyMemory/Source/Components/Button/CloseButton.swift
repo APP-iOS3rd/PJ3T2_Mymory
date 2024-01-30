@@ -20,7 +20,7 @@ struct CloseButton: View {
                     .resizable()
                     .frame(width: 18, height: 18)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.deepGray)
+                    .foregroundColor(.textColor)
 //                Text("이전")
             }
         }

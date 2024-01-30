@@ -15,21 +15,6 @@ struct TopBarAddress: View {
     @ObservedObject var mainMapViewModel: MainMapViewModel
     var body: some View {
         Button {
-//            SearchView()
-//                .customNavigationBar(
-//                    centerView: {
-//                        Text("위치 검색")
-//                    },
-//                    leftView: {
-//                        EmptyView()
-//                    },
-//                    rightView: {
-//                        CloseButton()
-//                            //EmptyView()
-//                    },
-//                    backgroundColor: .lightGray
-//                )
-//                .edgesIgnoringSafeArea(.bottom)
             mainMapViewModel.fetchMemos()
         } label: {
             HStack {
@@ -37,7 +22,7 @@ struct TopBarAddress: View {
                     .foregroundStyle(.black)
                 Spacer()
                 Image(systemName: "arrow.circlepath")
-                    .foregroundColor(Color(UIColor.systemGray5))
+                    .foregroundColor(.iconColor)
             }
         }
         .frame(maxWidth: .infinity)
