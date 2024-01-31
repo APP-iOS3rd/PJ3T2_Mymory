@@ -11,6 +11,9 @@ import AuthenticationServices
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseCore
 
 struct LoginView: View {
     
@@ -138,6 +141,25 @@ struct LoginView: View {
             
             // MARK: - 소셜 로그인 버튼
             VStack {
+                GoogleSignInButton(
+                    scheme: .light, style: .wide, action: {
+                        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                                
+                        let config = GIDConfiguration(clientID: clientID)
+
+                        GIDSignIn.sharedInstance.configuration = config
+                        guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+                        GIDSignIn.sharedInstance.signIn(withPresenting: check) { Result, error in
+                            if let error = error {
+                                print("구글 로그인 에러입니다\(error)")
+                                return
+                            } else {
+                                print("일단 오케이")
+                            }
+                        }
+                    })
+                .frame(width: 350, height: 50)
+                .cornerRadius(10)
                 SignInWithAppleButton(
                     onRequest: { request in
                         viewModel.nonce = viewModel.randomNonceString()
@@ -180,18 +202,8 @@ struct LoginView: View {
                             } else {
                                 UserApi.shared.me { User, Error in
                                          if let name = User?.kakaoAccount?.profile?.nickname {
-//                                            userName = name
                                              print("제 닉네임은 \(name) 입니다")
                                          }
-//                                         if let mail = User?.kakaoAccount?.email {
-////                                            userMail = mail
-//                                             print("hello my mail is \(mail)")
-//                                         }
-//                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
-////                                            profileImage = profile
-//                                             print("hello my profile is \(profile)")
-//                                    }
-                                    print("공유된 결과입니다")
                                 }
                                 print("카카카오 결과입니다")
                             }
