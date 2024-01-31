@@ -1,4 +1,3 @@
-
 import SwiftUI
 import Kingfisher
 struct MemoDetailView: View {
@@ -139,3 +138,4 @@ struct MemoDetailView: View {
     }
     
 }
+

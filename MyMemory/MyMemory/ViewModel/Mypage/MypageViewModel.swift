@@ -53,11 +53,13 @@ class MypageViewModel: ObservableObject {
         }
     }
     
+    // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
     func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
         if fromDetail == true {
             // 현 사용자 로그인 파악
             fetchUserState()
           
+            //memoList = []
             DispatchQueue.main.async {
                 Task {[weak self] in
                     guard let self = self else {return}
