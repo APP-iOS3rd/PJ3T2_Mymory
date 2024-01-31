@@ -30,28 +30,11 @@ struct NavigationBarItems: View {
                     PostView(selected: .constant(1), isEdit: true, memo: memo)
                 } label: {
                     Image(systemName: "pencil")
+                        .font(.semibold20)
                 }
     
             }
-            VStack {
-                Button {
-                    isShowingSheet.toggle()
-                } label: {
-                    Image(systemName: "light.beacon.max")
-                    
-                }
-                .buttonStyle(.plain)
-                .sheet(isPresented: $isShowingSheet) {
-                    ReportView(memo: memo)
-                        .presentationDragIndicator(.visible)
-                        .presentationDetents([.medium, .large])
-                }
-                
-                Text(" ")
-                    .font(.caption2)
-                
-            }
-            
+           
             VStack {
                 Button {
                     print("memo.didLike\(memo.didLike)")
@@ -67,14 +50,16 @@ struct NavigationBarItems: View {
                 } label: {
                     if memo.didLike {
                         Image(systemName: "suit.heart.fill")
+                            .font(.semibold20)
                     } else {
                         Image(systemName: "suit.heart")
+                            .font(.semibold20)
                     }
                 }
                 .buttonStyle(.plain)
                 
-                Text("\(likeCount)")
-                    .font(.caption2)
+//                Text("\(likeCount)")
+//                    .font(.caption2)
             }
             
             VStack {
@@ -83,14 +68,36 @@ struct NavigationBarItems: View {
                 } label: {
                     if isBookmark {
                         Image(systemName: "bookmark.fill")
+                            .font(.semibold20)
                     } else {
                         Image(systemName: "bookmark")
+                            .font(.semibold20)
                     }
                 }
                 .buttonStyle(.plain)
-                Text("400")
-                    .font(.caption2)
+
             }
+            
+            
+            // 더보기
+            VStack {
+                Button {
+                    isShowingSheet.toggle()
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.semibold20)
+                    
+                }
+                .buttonStyle(.plain)
+                .sheet(isPresented: $isShowingSheet) {
+                    ReportView(memo: memo)
+                        .presentationDragIndicator(.visible)
+                        .presentationDetents([.medium, .large])
+                }
+            }
+            // : 더보기
+            
+            
         }//: HSTACK
         .onAppear {
             Task {

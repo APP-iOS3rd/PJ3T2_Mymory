@@ -108,16 +108,5 @@ struct SettingView: View {
         }
         .padding(.horizontal, 12)
  
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                BackButton()
-//                    .foregroundStyle(Color.black)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                Text("내 정보")
-//                    .font(.semibold16)
-//            }
-//        }
     }
 }

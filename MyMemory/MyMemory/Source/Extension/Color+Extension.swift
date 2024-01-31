@@ -24,9 +24,10 @@ extension Color {
     
     // 테마에 따라 Color Change
     static let textGray = adaptiveColor(light: Color(hex:"949494"), dark: Color(hex:"949494"))
-    static let textColor = adaptiveColor(light: Color(hex:"000000"), dark: Color(hex:"000000")) // 본문컬러
-    static let borderColor = adaptiveColor(light: .lightGray, dark: .lightGray)
-    static let iconColor = adaptiveColor(light: .darkGray, dark: .deepGray)
+    static let textColor = adaptiveColor(light: .black, dark: .white) // 본문컬러
+    static let orginColor = adaptiveColor(light: .white, dark: .black)
+    static let borderColor = adaptiveColor(light: .lightGray, dark: .deepGray)
+    static let iconColor = adaptiveColor(light: .darkGray, dark: .lightGray)
     static let bgColor = adaptiveColor(light: .lightGray, dark: Color(hex:"252525"))
 }
 

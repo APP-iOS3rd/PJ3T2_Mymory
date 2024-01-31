@@ -38,7 +38,7 @@ struct MypageMemoListCell: View {
                     
                     Text("해당 장소 메모보기")
                         .padding(EdgeInsets(top: 6, leading: 13, bottom: 6, trailing: 13))
-                        .background(Color(hex: "F4F4F4"))
+                        .background(Color.bgColor)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .foregroundStyle(Color.textColor)
                         .font(.extraBold12)
@@ -68,7 +68,7 @@ struct MypageMemoListCell: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 12, leading: 18, bottom:12, trailing: 18))
-        .background(Color.white)
+        .background(Color.orginColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

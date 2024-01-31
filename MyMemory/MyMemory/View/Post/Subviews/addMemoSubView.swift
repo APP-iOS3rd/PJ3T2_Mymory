@@ -42,7 +42,7 @@ struct addMemoSubView: View {
                     .frame(minHeight: minHeight, maxHeight: maxHeight)
                     .cornerRadius(10)
                     .colorMultiply(Color.gray.opacity(0.2))
-                    .foregroundColor(.black)
+                    .foregroundColor(.textColor)
                 // 최대 1000자 까지만 허용
                     .onChange(of: viewModel.memoContents) { newValue in
                         // Limit text input to maxCharacterCount

@@ -13,7 +13,7 @@ struct FileterListView: View {
     var body: some View {
         Rectangle()
             .frame(width: 40,height: 5)
-            .foregroundStyle(Color.init(hex: "B5B5B5"))
+            .foregroundColor(Color.bgColor)
             .cornerRadius(3)
             .padding(.vertical, 10)
         Text("어떤 주제를 선택해볼래?")
@@ -46,11 +46,13 @@ struct FileterListView: View {
                         }, label: {
                             Text("#\(item)")
                         }).buttonStyle(
-                            filteredList.contains(item) ?                     Pill.selected : Pill.lightGray
+                            filteredList.contains(item) ?                     
+                            Pill.selected : Pill.lightGray
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .aspectRatio(contentMode: .fit)
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
         }
