@@ -13,12 +13,15 @@ struct FileterListView: View {
     var body: some View {
         Rectangle()
             .frame(width: 40,height: 5)
-            .foregroundColor(Color.bgColor)
+//            .foregroundColor(Color.darkGray)
             .cornerRadius(3)
             .padding(.vertical, 10)
+        
         Text("어떤 주제를 선택해볼래?")
                 .font(.bold20)
                 .padding(.top, 30)
+                .foregroundColor(Color.textColor)
+        
         if !self.filteredList.isEmpty {
             HStack {
                 Spacer()
@@ -47,7 +50,7 @@ struct FileterListView: View {
                             Text("#\(item)")
                         }).buttonStyle(
                             filteredList.contains(item) ?                     
-                            Pill.selected : Pill.lightGray
+                            Pill.selected : Pill.standard2
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .aspectRatio(contentMode: .fit)

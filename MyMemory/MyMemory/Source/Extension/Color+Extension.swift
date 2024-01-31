@@ -28,6 +28,7 @@ extension Color {
     static let orginColor = adaptiveColor(light: .white, dark: .black)
     static let borderColor = adaptiveColor(light: .lightGray, dark: .deepGray)
     static let iconColor = adaptiveColor(light: .darkGray, dark: .lightGray)
+ //   static let lightColor = adaptiveColor(light: ., dark: <#T##Color#>)
     static let bgColor = adaptiveColor(light: .lightGray, dark: Color(hex:"252525"))
 }
 
