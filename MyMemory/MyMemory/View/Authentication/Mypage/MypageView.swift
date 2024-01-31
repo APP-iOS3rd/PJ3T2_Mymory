@@ -36,7 +36,7 @@ struct MypageView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 
                 VStack(alignment: .leading) {
-                    if fromDetail == true {
+                    if fromDetail == true && memoCreator.isCurrentUser == false {
                         OtherUserProfileView(memoCreator: $memoCreator, viewModel: viewModel)
                     } else{
                         MypageTopView(viewModel: viewModel)

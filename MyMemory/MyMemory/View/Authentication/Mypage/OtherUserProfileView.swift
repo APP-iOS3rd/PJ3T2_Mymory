@@ -10,10 +10,10 @@ import SwiftUI
 import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct OtherUserProfileView: View {
-    @Binding var memoCreator: User 
+    @Binding var memoCreator: User
     @ObservedObject var viewModel: MypageViewModel
     @ObservedObject var authViewModel : AuthViewModel = .shared
-    
+    @State var isFollow: Bool = false
     var body: some View {
         HStack {
             
@@ -45,40 +45,51 @@ struct OtherUserProfileView: View {
                 Text("팔로잉")
             }
             .padding(.leading, 10)
+            
+            
         }
         .buttonStyle(.plain)
+        .onAppear {
+            authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
+                print("didFollow \(didFollow)")
+                isFollow = didFollow ?? false
+            }
+        }
         
-        
-        
-        
-        //        NavigationLink {
-        //
-        //            SettingView (user: $viewModel.user,
-        //                         isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
-        //            )
-        //
-        //            .customNavigationBar(
-        //                centerView: {
-        //                    Text("내 정보")
-        //                },
-        //                leftView: {
-        //                    EmptyView()
-        //                },
-        //                rightView: {
-        //                    CloseButton()
-        //                },
-        //                backgroundColor: .white
-        //            )
-        //
-        //        } label: {
-        //            Image(systemName: "gearshape")
-        //                .font(.system(size: 24))
-        //                .foregroundStyle(.black)
-        //        }
-        
-        // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게
+        if isFollow == false {
+            Button {
+                authViewModel.UserFollow(followUser: memoCreator) { err in
+                    guard err == nil else {
+                        return
+                    }
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "location.fill")
+                    Text("Follow")
+                }
+            }
+            .buttonStyle(RoundedRect.primary)
+            
+        } else {
+            Button {
+                authViewModel.UnUserFollow(followUser: memoCreator) { err in
+                    guard err == nil else {
+                        return
+                    }
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "location.fill")
+                    Text("UnFollow")
+                }
+            }
+            .buttonStyle(RoundedRect.primary)
+            
+        }
+
+     
     }
-        
+       
     
 }
-
