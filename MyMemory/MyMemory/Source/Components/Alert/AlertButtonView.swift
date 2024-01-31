@@ -59,7 +59,7 @@ public struct MoahAlertButtonView: View {
         } label: {
             Text(btnTitle)
                 .foregroundColor(self.btnColor)
-                .font(.regular16)
+                .font(.regular18)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
