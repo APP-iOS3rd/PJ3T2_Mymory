@@ -52,7 +52,8 @@ struct SettingView: View {
                                 Spacer()
                                 Text(settingViewModel.version)
                                     .foregroundStyle(Color(UIColor.systemGray))
-                            }.foregroundStyle(.black)
+                            }
+                            .foregroundStyle(Color.textColor)
                             
                             Divider()
                         }
