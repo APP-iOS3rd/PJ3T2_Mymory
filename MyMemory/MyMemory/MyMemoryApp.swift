@@ -29,7 +29,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct MyMemoryApp: App {
     // register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-  
+    
     init() {
         KakaoSDK.initSDK(appKey: Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as! String)
     }
@@ -42,7 +42,6 @@ struct MyMemoryApp: App {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
-
         }
     }
 }
