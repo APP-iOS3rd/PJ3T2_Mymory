@@ -25,7 +25,8 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
-    @State private var isActive: Bool = false
+    @State private var isShowingLoginErrorAlert: Bool = false
+    @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     //    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
@@ -97,21 +98,22 @@ struct LoginView: View {
                     .buttonStyle(LoginButton())
                 } else {
                     Button {
-                        
-                        self.isActive = true
-                        
-                        if viewModel.login(withEmail: email, password: password) {
-                            print("로그인 성공")
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            print("로그인 실패")
+                        Task {
+                            if let alertTitle = await self.viewModel.login(withEmail: email, password: password) {
+                                self.loginErrorAlertTitle = alertTitle
+                                self.isShowingLoginErrorAlert = true
+                            } else {
+                                presentationMode.wrappedValue.dismiss()
+                            }
                         }
-                        
                     } label: {
                         Text("로그인")
                             .font(.regular18)
                     }
                     .buttonStyle(LoginButton(backgroundColor: Color.indigo))
+                    .alert(loginErrorAlertTitle, isPresented: $isShowingLoginErrorAlert) {
+                        Button("확인", role: .cancel) {}
+                    }
                 }
                 
                 NavigationLink {
@@ -162,7 +164,6 @@ struct LoginView: View {
                                     break
                                 }
                                 self.viewModel.authenticate(credential: credential)
-                                self.isActive = true
                                 presentationMode.wrappedValue.dismiss()
                             case .failure(let error):
                                 print(error.localizedDescription)
