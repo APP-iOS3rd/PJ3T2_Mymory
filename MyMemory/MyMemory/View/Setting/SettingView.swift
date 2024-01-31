@@ -30,6 +30,11 @@ struct SettingView: View {
                                 .padding(.bottom, 20)
                             SettingMenuCell(name: "알림")
                             Divider()
+                            SettingMenuCell(name: "테마")
+                            Divider()
+                            SettingMenuCell(name: "폰트")
+                            Divider()
+                            
                         }
                     }.padding(.horizontal, 9)
                     

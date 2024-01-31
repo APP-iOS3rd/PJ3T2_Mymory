@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118AFB12B6A252800BAC3B1 /* ThemeView.swift */; };
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
 		0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0133834A2B565F09004D4B8A /* OnboardingView.swift */; };
@@ -147,6 +148,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0118AFB12B6A252800BAC3B1 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportView.swift; path = ../Authentication/ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
 		0133834A2B565F09004D4B8A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -301,6 +303,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0118AFB32B6A42BF00BAC3B1 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				0118AFB12B6A252800BAC3B1 /* ThemeView.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +555,7 @@
 		6A7BA0442B5104DC00BEE111 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				0118AFB32B6A42BF00BAC3B1 /* Style */,
 				DAF5FCAF2B621E9D00098EF7 /* SubViews */,
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
@@ -990,6 +1001,7 @@
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
 				01D160032B5E0D43003F1BEF /* Constants.swift in Sources */,
 				DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */,
+				0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */,
 				280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */,
 				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
