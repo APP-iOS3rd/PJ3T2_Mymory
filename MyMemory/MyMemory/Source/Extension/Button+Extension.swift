@@ -75,6 +75,9 @@ struct RoundedRect: ButtonStyle {
     static var primary: RoundedRect {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
     }
+    static var follow: RoundedRect {
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 10, borderColor: .accentColor)
+    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

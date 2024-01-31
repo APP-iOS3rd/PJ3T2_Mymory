@@ -15,40 +15,76 @@ struct OtherUserProfileView: View {
     @ObservedObject var authViewModel : AuthViewModel = .shared
     @State var isFollow: Bool = false
     var body: some View {
-        HStack {
-            
-            if let imageUrl = memoCreator.profilePicture, let url = URL(string: imageUrl) {
-                KFImage(url)
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-                    .clipShape(.circle)
-                    .frame(width: 76, height: 76)
-            } else {
-                Circle()
-                    .frame(width: 76, height: 76)
-                    .foregroundStyle(Color(hex: "d9d9d9"))
+        HStack(spacing: 20) {
+            VStack(alignment: .center){
+                if let imageUrl = memoCreator.profilePicture, let url = URL(string: imageUrl) {
+                    KFImage(url)
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .clipShape(.circle)
+                        .frame(width: 76, height: 76)
+                } else {
+                    Circle()
+                        .frame(width: 76, height: 76)
+                        .foregroundStyle(Color(hex: "d9d9d9"))
+                }
+                
+                Text(memoCreator.name ?? "김메모")
+                    .font(.semibold20)
+                    .foregroundStyle(Color.textColor)
+                    .padding(.leading, 10)
             }
-            
-            Text(memoCreator.name ?? "김메모")
-                .font(.semibold20)
-                .foregroundStyle(Color.textColor)
-                .padding(.leading, 10)
+        
             
             VStack{
                 Text("357")
                 Text("팔로워")
             }
-            .padding(.leading, 10)
+         
+            
             VStack{
                 Text("445")
                 Text("팔로잉")
             }
-            .padding(.leading, 10)
+       
+      
+            if authViewModel.isFollow == false{
+                Button {
+                    authViewModel.UserFollow(followUser: memoCreator) { err in
+                        guard err == nil else {
+                            return
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "location.fill")
+                        Text("Follow")
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                }
+                .buttonStyle(RoundedRect.follow)
+                
+            } else {
+                Button {
+                    authViewModel.UnUserFollow(followUser: memoCreator) { err in
+                        guard err == nil else {
+                            return
+                        }
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: "location.fill")
+                        Text("UnFollow")
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                }
+                .buttonStyle(RoundedRect.follow)
+                
+            }
             
-            
+           
         }
-        .buttonStyle(.plain)
         .onAppear {
             authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
                 print("didFollow \(didFollow)")
@@ -56,40 +92,10 @@ struct OtherUserProfileView: View {
             }
         }
         
-        if isFollow == false {
-            Button {
-                authViewModel.UserFollow(followUser: memoCreator) { err in
-                    guard err == nil else {
-                        return
-                    }
-                }
-            } label: {
-                HStack {
-                    Image(systemName: "location.fill")
-                    Text("Follow")
-                }
-            }
-            .buttonStyle(RoundedRect.primary)
-            
-        } else {
-            Button {
-                authViewModel.UnUserFollow(followUser: memoCreator) { err in
-                    guard err == nil else {
-                        return
-                    }
-                }
-            } label: {
-                HStack {
-                    Image(systemName: "location.fill")
-                    Text("UnFollow")
-                }
-            }
-            .buttonStyle(RoundedRect.primary)
-            
-        }
-
-     
-    }
        
+        
+        
+    }
+        
     
 }

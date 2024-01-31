@@ -52,6 +52,9 @@ class AuthViewModel: ObservableObject {
     @Published var appleID : String = ""
     // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
+    // 팔로우, 팔로잉 파악을 위한
+    @Published var isFollow: Bool = false
+    
     init() {
         userSession = Auth.auth().currentUser
         UserApi.shared.unlink {(error) in
@@ -229,6 +232,11 @@ class AuthViewModel: ObservableObject {
            
                COLLECTION_USER_Following.document(uid).setData([String(followUser.id ?? "") : "followUserUid"], merge: true)
                COLLECTION_USER_Followers.document(followUser.id ?? "").setData([uid : "followingUserUid"], merge: true)
+           
+           DispatchQueue.main.async {
+               self.isFollow = true
+           }
+           
        }
        
        func UnUserFollow(followUser: User , completion: @escaping (Error?) -> Void) {
@@ -240,6 +248,10 @@ class AuthViewModel: ObservableObject {
            
                COLLECTION_USER_Following.document(uid).updateData([String(followUser.id ?? "") : FieldValue.delete()])
                COLLECTION_USER_Followers.document(followUser.id ?? "").updateData([uid : FieldValue.delete()])
+           
+           DispatchQueue.main.async {
+               self.isFollow = false
+           }
        }
        
        // 팔로우 유져인지 확인하는 함수
@@ -270,6 +282,7 @@ class AuthViewModel: ObservableObject {
                } else {
                    completion(false)
                }
+               
            }
        }
        
