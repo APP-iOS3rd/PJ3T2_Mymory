@@ -66,7 +66,8 @@ class AuthViewModel: ObservableObject {
     }
     
     func login(withEmail email: String, password: String) -> Bool {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        do {
+            try Auth.auth().signIn(withEmail: email, password: password) { result, error in
                 if let error = error {
                     print("디버깅: 로그인실패 \(error.localizedDescription)")
                     return
@@ -75,10 +76,10 @@ class AuthViewModel: ObservableObject {
                 self.userSession = user
                 
                 self.fetchUser()
-        }
-        if self.userSession != nil {
+            }
+            
             return true
-        } else {
+        } catch {
             return false
         }
     }
@@ -87,7 +88,6 @@ class AuthViewModel: ObservableObject {
         self.userSession = nil
         do {
             try Auth.auth().signOut()
-            
             self.fetchUser()
             return true
         } catch {

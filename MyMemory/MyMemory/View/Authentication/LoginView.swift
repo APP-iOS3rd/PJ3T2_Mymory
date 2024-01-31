@@ -26,7 +26,6 @@ struct LoginView: View {
     @State private var password: String = ""
     
     @State private var isActive: Bool = false
-    @State private var isNotRealAccount: Bool = false
     @State private var notCorrectLogin: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel 
 //    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
@@ -97,12 +96,11 @@ struct LoginView: View {
                     .buttonStyle(LoginButton())
             } else {
                 Button {
+                    self.isActive = true
                     if viewModel.login(withEmail: email, password: password) {
-                        self.isActive = true
                         print("로그인 성공")
                         presentationMode.wrappedValue.dismiss()
                     } else {
-                        self.isNotRealAccount = true
                         print("로그인 실패")
                     }
               
@@ -111,12 +109,6 @@ struct LoginView: View {
                         .font(.regular18)
                 }
                 .buttonStyle(LoginButton(backgroundColor: Color.indigo))
-                .alert("계정을 찾을수없습니다", isPresented: $isNotRealAccount) {
-                    Button("Cancel", role: .cancel) {
-                        self.email = ""
-                        self.password = ""
-                    }
-                }
             }
             
             NavigationLink {
