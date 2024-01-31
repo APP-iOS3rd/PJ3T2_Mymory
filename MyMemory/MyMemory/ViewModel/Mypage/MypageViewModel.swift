@@ -97,7 +97,6 @@ class MypageViewModel: ObservableObject {
     }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
-        LoadingManager.shared.phase = .loading
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
@@ -106,10 +105,8 @@ class MypageViewModel: ObservableObject {
                         latitude: location.latitude,
                         longitude: location.longitude
                     ))
-                    LoadingManager.shared.phase = .success
                     print("주소 불러오기 완료", LoadingManager.shared.phase)
                 } else {
-                    LoadingManager.shared.phase = .fail(msg: "위치 정보 획득 실패")
                     returnCompletion(nil)
                 }
             }
