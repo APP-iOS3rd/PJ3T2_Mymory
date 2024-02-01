@@ -14,10 +14,10 @@ struct MemoListView: View {
     @State var filterSheet: Bool = false
     @EnvironmentObject var viewModel: MainMapViewModel
     var body: some View {
-        NavigationStack {
+        VStack {
             ZStack {
                 
-                Color.lightGray
+                Color.bgColor
                     .ignoresSafeArea()
                 
                 VStack {
@@ -49,16 +49,12 @@ struct MemoListView: View {
                     ScrollView(.vertical, showsIndicators: false){
                         
                         VStack(spacing: 12) {
-                            
-                            ForEach(viewModel.filterList.isEmpty ? Array(zip(viewModel.memoList.indices, viewModel.memoList)) : Array(zip(viewModel.filteredMemoList.indices, viewModel.filteredMemoList)), id: \.0) { index, item  in
-                                MemoCell(
-                                    isVisible: true,
-                                     isDark: true,
-                                     location: $viewModel.location,
-                                     selectedMemoIndex: index,
-                                     memo: item,
-                                     memos: viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList
-                                )
+                            ForEach(viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList) { item in
+                                NavigationLink {
+                                    DetailView(memo: item, isVisble: .constant(true))
+                                } label: {
+                                    MemoCard(memo: item, isVisible: true)
+                                }
                             }
                             
                         }

@@ -83,7 +83,7 @@ struct MemoDetailView: View {
                                                             didTapImage(img: index)
                                                         }
                                                         .fullScreenCover(isPresented: self.$isShowingImgSheet) {
-                                                            ImgDetailView(isShownFullScreenCover: self.$isShowingImgSheet, selectedImage: $selectedNum, images: memo.images)
+                                                            ImgDetailView(selectedImage: $selectedNum, images: memo.images)
                                                       }
                                                 }
                                             }
