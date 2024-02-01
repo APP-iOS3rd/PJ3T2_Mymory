@@ -25,6 +25,7 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
+    @State private var isActive: Bool = false
     @State private var isShowingLoginErrorAlert: Bool = false
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
@@ -172,7 +173,7 @@ struct LoginView: View {
                         }
                     )
                     .frame(width : 350, height:50)
-                    .cornerRadius(10)
+                    .cornerRadius(12)
                     Button {
                         if (UserApi.isKakaoTalkLoginAvailable()) {
                             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -182,18 +183,8 @@ struct LoginView: View {
                                 } else {
                                     UserApi.shared.me { User, Error in
                                         if let name = User?.kakaoAccount?.profile?.nickname {
-                                            //                                            userName = name
                                             print("제 닉네임은 \(name) 입니다")
                                         }
-                                        //                                         if let mail = User?.kakaoAccount?.email {
-                                        ////                                            userMail = mail
-                                        //                                             print("hello my mail is \(mail)")
-                                        //                                         }
-                                        //                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
-                                        ////                                            profileImage = profile
-                                        //                                             print("hello my profile is \(profile)")
-                                        //                                    }
-                                        print("공유된 결과입니다")
                                     }
                                     print("카카카오 결과입니다")
                                 }
@@ -215,9 +206,9 @@ struct LoginView: View {
             }//: VSTACK
             
             .padding()
-            //        .fullScreenCover(isPresented: $isActive) {
-            //            MainTabView()
-            //        }
+            .fullScreenCover(isPresented: $isActive) {
+                MainTabView()
+            }
             .customNavigationBar(
                 centerView: {
                     Text("")
@@ -228,18 +219,10 @@ struct LoginView: View {
                 rightView: {
                     CloseButton()
                 },
-                backgroundColor: .bgColor
+                backgroundColor: .white
             )
         }
     }
-    
-    
-    //    private func checkLogin(isEmail: String, isPassword: String) {
-    //        if isEmail != correctEmail || isPassword != correctPassword {
-    //            notCorrectLogin = true
-    //        }
-    //    }
-    
 }
 
 #Preview {

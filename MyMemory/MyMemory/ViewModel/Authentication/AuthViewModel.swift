@@ -81,7 +81,6 @@ class AuthViewModel: ObservableObject {
         self.userSession = nil
         do {
             try Auth.auth().signOut()
-            
             self.fetchUser()
             return true
         } catch {
