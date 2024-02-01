@@ -7,13 +7,13 @@
 import SwiftUI
 
 struct ImgDetailView: View {
-    @Binding var isShownFullScreenCover: Bool
     @Binding var selectedImage: Int {
         didSet {
             self.scale = 1.0
         }
     }
     @State private var scale: CGFloat = 1.0
+    @Environment(\.dismiss) var dismiss
     var magnification: some Gesture {
         MagnifyGesture()
             .onChanged { value in
@@ -33,7 +33,7 @@ struct ImgDetailView: View {
             
             VStack(alignment: .trailing) {
                 Button {
-                    isShownFullScreenCover.toggle()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundStyle(Color.accentColor)

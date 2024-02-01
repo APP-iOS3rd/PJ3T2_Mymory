@@ -17,7 +17,7 @@ struct MemoListView: View {
         NavigationStack {
             ZStack {
                 
-                Color.lightGray
+                Color.bgColor
                     .ignoresSafeArea()
                 
                 VStack {
@@ -49,13 +49,18 @@ struct MemoListView: View {
                     ScrollView(.vertical, showsIndicators: false){
                         
                         VStack(spacing: 12) {
-                            ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item in
-                                
-                                MemoCell(
-                                    isVisible: true,
-                                    isDark: false,
-                                    location: $viewModel.location,
-                                    memo: item)
+                            ForEach(viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList) { item in
+                                NavigationLink {
+                                    DetailView(memo: item, isVisble: .constant(true))
+                                } label: {
+                                    MemoCard(memo: item, isVisible: true)
+                                }
+
+//                                MemoCell(
+//                                    isVisible: true,
+//                                    isDark: false,
+//                                    location: $viewModel.location,
+//                                    memo: item)
                             }
                             
                         }
