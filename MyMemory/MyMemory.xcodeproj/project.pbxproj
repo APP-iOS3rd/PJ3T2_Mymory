@@ -94,17 +94,6 @@
 		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
-<<<<<<< HEAD
-		9DC3FD852B6A1CF40008E97B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */; };
-		9DC3FD862B6A1CF40008E97B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */; };
-		9DC3FD872B6A1CF40008E97B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */; };
-		9DC3FD8A2B6A257C0008E97B /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
-		9DC3FD8C2B6A257C0008E97B /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
-		9DC3FD8E2B6A2DA30008E97B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD8D2B6A2DA30008E97B /* GoogleService-Info.plist */; };
-		9DC3FD8F2B6A2DA30008E97B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD8D2B6A2DA30008E97B /* GoogleService-Info.plist */; };
-		9DC3FD902B6A2DA30008E97B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9DC3FD8D2B6A2DA30008E97B /* GoogleService-Info.plist */; };
-=======
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 		DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12ABC32B58EA4F0093229C /* FileterListView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
@@ -237,11 +226,6 @@
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
-		9DC3FD8D2B6A2DA30008E97B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-=======
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
@@ -745,17 +729,10 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				9DC3FD8D2B6A2DA30008E97B /* GoogleService-Info.plist */,
-=======
-				DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */,
-				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
-				DAB315822B43F52C000357C7 /* Info.plist */,
-				DA3325BA2B6A2DB000DC9452 /* GoogleService-Info.plist */,
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -975,10 +952,6 @@
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
-<<<<<<< HEAD
-				9DC3FD8E2B6A2DA30008E97B /* GoogleService-Info.plist in Resources */,
-=======
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
 			);
@@ -1140,11 +1113,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1207,11 +1176,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1267,11 +1232,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1280,11 +1241,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 30;
-=======
 				CURRENT_PROJECT_VERSION = 31;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1305,11 +1262,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-<<<<<<< HEAD
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-=======
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1332,11 +1285,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1366,11 +1315,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-<<<<<<< HEAD
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-=======
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1393,15 +1338,6 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = "";
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1409,7 +1345,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -1425,15 +1360,6 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = "";
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -1441,7 +1367,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -1457,22 +1382,12 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = "";
-=======
 				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemoryUITests;
@@ -1487,22 +1402,13 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< HEAD
-			baseConfigurationReference = 9DC3FD842B6A1CF40008E97B /* APIKEYS.xcconfig */;
-=======
 			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-<<<<<<< HEAD
-				CURRENT_PROJECT_VERSION = 30;
-				DEVELOPMENT_TEAM = "";
-=======
 				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemoryUITests;

@@ -151,7 +151,6 @@ struct LoginView: View {
                             request.requestedScopes = [.fullName, .email]
                             request.nonce = viewModel.sha256(viewModel.nonce)
                         },
-<<<<<<< HEAD
                         leftView: {
                             EmptyView()
                         },
@@ -248,7 +247,6 @@ struct LoginView: View {
                                          if let name = User?.kakaoAccount?.profile?.nickname {
                                              print("제 닉네임은 \(name) 입니다")
                                          }
-=======
                         onCompletion: { result in
                             switch result {
                             case .success(let authResults):
@@ -256,7 +254,6 @@ struct LoginView: View {
                                 guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
                                     print("error with firebase")
                                     return
->>>>>>> 35a37ec709a6f0c64d035e056683a2cfa1f408da
                                 }
                                 switch authResults.credential {
                                 case let appleIDCredential as ASAuthorizationAppleIDCredential:
