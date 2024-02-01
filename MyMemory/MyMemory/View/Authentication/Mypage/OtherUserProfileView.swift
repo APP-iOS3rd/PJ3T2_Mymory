@@ -52,7 +52,7 @@ struct OtherUserProfileView: View {
             if authViewModel.isFollow == false {
                 Button {
                     Task {
-                        await authViewModel.UserFollow(followUser: memoCreator) { err in
+                        await authViewModel.userFollow(followUser: memoCreator) { err in
                             guard err == nil else {
                                 return
                             }
@@ -70,7 +70,7 @@ struct OtherUserProfileView: View {
             } else {
                 Button {
                     Task {
-                        await authViewModel.UnUserFollow(followUser: memoCreator) { err in
+                        await authViewModel.userUnFollow(followUser: memoCreator) { err in
                             guard err == nil else {
                                 return
                             }
@@ -91,7 +91,7 @@ struct OtherUserProfileView: View {
         }
         .onAppear {
             Task {
-                await authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
+                await authViewModel.followCheck(followUser: memoCreator) { didFollow in
                     print("didFollow \(didFollow)")
                     isFollow = didFollow ?? false
                 }

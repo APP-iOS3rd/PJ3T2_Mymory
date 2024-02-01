@@ -33,7 +33,7 @@ class DetailViewModel: ObservableObject {
     
     func fetchMemoCreator(uid: String) {
         
-        AuthViewModel.shared.MemoCreatorfetchUser(uid: uid) { user in
+        AuthViewModel.shared.memoCreatorfetchUser(uid: uid) { user in
             if let user = user {
                 // 성공적으로 유저 정보를 받아온 경우
                 self.memoCreator = user
