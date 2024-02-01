@@ -8,6 +8,7 @@
 import SwiftUI
 import Kingfisher
 struct MemoCard: View {
+    @Binding var memo: Memo
     @State var imgs: [String] = ["https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202304/21/bemypet/20230421120037737gfub.jpg"
                                  ,"https://mblogthumb-phinf.pstatic.net/MjAxNzA0MDNfMjAg/MDAxNDkxMTg4Njg4MTQ0.kjtqiy0TcfdhhpOqiwXQiOwBqjiibjFItiFT_8K7leog.wM9LnbuIAhpvtKdNJeVbKyKTjJuDAclt_HByAHHhvgMg.JPEG.truthy2000/3bbcd721fc7b53e3a7655aa0b77b6441.jpg?type=w800"
                                  ,"https://godomall.speedycdn.net/09a3e8c0a817b72d1e313a19117c72e3/goods/1000000085/image/detail/1000000085_detail_025.jpg"
@@ -102,11 +103,6 @@ struct MemoCard: View {
         }.padding(.horizontal, 20)
     }
 }
-
-#Preview {
-    MemoCard()
-}
-
 struct ImageGridView: View {
     @State var proxy: GeometryProxy
     @Binding var imgs: [String]
