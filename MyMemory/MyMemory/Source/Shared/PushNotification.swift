@@ -12,5 +12,4 @@ import SwiftUI
 final class PushNotification: ObservableObject {
     static let shared = PushNotification()
     @Published var memo: Memo? = nil
-    @Published var memos: [Memo]? = nil
 }
