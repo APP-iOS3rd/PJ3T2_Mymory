@@ -34,6 +34,8 @@ extension Font {
     static let semibold24: Font = .custom(FontType.SemiBold.rawValue, size: 24)
     
     // Medium
+    static let medium12: Font = .custom(FontType.Medium.rawValue, size: 12)
+    static let medium14: Font = .custom(FontType.Medium.rawValue, size: 14)
     static let medium16: Font = .custom(FontType.Medium.rawValue, size: 16)
     static let medium18: Font = .custom(FontType.Medium.rawValue, size: 18)
     

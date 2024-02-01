@@ -116,6 +116,8 @@
 		DA63D2A22B6009530000978B /* addMemoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA63D2A12B6009530000978B /* addMemoSubView.swift */; };
 		DA7481A02B6B602000127B83 /* Fonts+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */; };
 		DA7481A22B6B613F00127B83 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */; };
+		DA7481A42B6B621B00127B83 /* MemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7481A32B6B621B00127B83 /* MemoCard.swift */; };
+		DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DAA71E942B677F0600157DA1 /* Kingfisher */; };
@@ -249,6 +251,8 @@
 		DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterBox.swift; sourceTree = "<group>"; };
 		DA63D2A12B6009530000978B /* addMemoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemoSubView.swift; sourceTree = "<group>"; };
 		DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
+		DA7481A32B6B621B00127B83 /* MemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCard.swift; sourceTree = "<group>"; };
+		DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+Extensions.swift"; sourceTree = "<group>"; };
 		DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Black.otf"; sourceTree = "<group>"; };
 		DA7893FD2B43F5BF00DC3771 /* Pretendard-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraLight.otf"; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 				289BB2BA2B5A7BF9007FEB63 /* CLLocation+Extension.swift */,
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 				645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */,
+				DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 			children = (
 				01700A8E2B5508E20096E1CA /* MemoCell.swift */,
 				6A7BA04F2B51060300BEE111 /* MemoList.swift */,
+				DA7481A32B6B621B00127B83 /* MemoCard.swift */,
 			);
 			path = Memo;
 			sourceTree = "<group>";
@@ -993,6 +999,7 @@
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				6AF0E0252B565EED008ABE05 /* MypageMemoListCell.swift in Sources */,
+				DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */,
 				01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */,
 				01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
@@ -1042,6 +1049,7 @@
 				6A5519F62B56AA2A0028665D /* ProfileEditView.swift in Sources */,
 				DA58C26D2B5CEE5D005CB3B3 /* Clustering.swift in Sources */,
 				6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */,
+				DA7481A42B6B621B00127B83 /* MemoCard.swift in Sources */,
 				289BB2BB2B5A7BF9007FEB63 /* CLLocation+Extension.swift in Sources */,
 				6452621C2B6A27F9004FE5C7 /* MoveUserProfileButton.swift in Sources */,
 				DA2666412B62365600899D0C /* FirebaseProtocol.swift in Sources */,

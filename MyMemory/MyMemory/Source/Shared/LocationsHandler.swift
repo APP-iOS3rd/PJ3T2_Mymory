@@ -45,6 +45,18 @@ class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
         Task{
             do {
                 if let memo = try await MemoService.shared.fetchPushMemo(in: location) {
+                    var pushed: [String] = []
+                    if UserDefaults.standard.stringArray(forKey: "PushedMemo") != nil {
+                        pushed = UserDefaults.standard.stringArray(forKey: "PushedMemo")!
+                    }
+                    //만약 push한 적 있는 메모면 건너뛰기
+                    if pushed.contains(memo.id!) {
+                        return
+                    } else {
+                        pushed.append(memo.id!)
+                        //다시 Userdefault에 저장
+                        UserDefaults.standard.set(pushed, forKey: "PushedMemo")
+                    }
                     content.title = "근처에 새로운 메모가 있어요!"
                     content.body = "\(memo.title)"
                     content.sound = UNNotificationSound.default
