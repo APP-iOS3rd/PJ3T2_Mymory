@@ -65,22 +65,15 @@ class AuthViewModel: ObservableObject {
         fetchUser()
     }
     
-    func login(withEmail email: String, password: String) -> Bool {
+    func login(withEmail email: String, password: String) async -> String? {
         do {
-            try Auth.auth().signIn(withEmail: email, password: password) { result, error in
-                if let error = error {
-                    print("디버깅: 로그인실패 \(error.localizedDescription)")
-                    return
-                }
-                guard let user = result?.user else { return }
-                self.userSession = user
-                
-                self.fetchUser()
-            }
-            
-            return true
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = result.user
+            self.fetchUser()
+            return nil
         } catch {
-            return false
+            let errorMessage = self.emailLoginErrorHandler(error: error as NSError)
+            return errorMessage
         }
     }
     
@@ -201,7 +194,6 @@ class AuthViewModel: ObservableObject {
         print("현재 로그인 상태: uid \(uid)")
         COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
-            
             self?.currentUser = user
             UserDefaults.standard.set(user.id, forKey: "userId")
            // print(user)
@@ -309,4 +301,30 @@ class AuthViewModel: ObservableObject {
 
       return hashString
     }
+    
+    /// Firebase Auth를 활용한 로그인 중 발생하는 에러들에 대한 핸들러입니다.
+    /// 참고: https://firebase.google.com/docs/reference/ios/firebaseauth/api/reference/Enums/FIRAuthErrorCode
+    ///      https://firebase.google.com/docs/auth/ios/errors
+    /// - Parameters:
+    ///     - error: Auth.auth().signIn(withEmail: ..) 메서드 사용시 발생하는
+    /// - Returns: alert에 띄워줄 내용들을 반환합니다.
+    func emailLoginErrorHandler(error: NSError) -> String {
+        print(error.code)
+        switch error.code {
+        case 17020 :
+            return "네트워크 에러입니다. 네트워크 상태를 확인해주세요."
+        case 17010 :
+            return "비정상적인 요청입니다. 잠시 후 다시 시도해주세요."
+        case 17008 :
+            return "이메일 형식이 알맞지 않습니다."
+        case 17009 :
+            return "비밀번호가 일치하지 않습니다."
+            // 기존의 17009번 에러가 비밀번호 불일치이지만, 현재 테스트 시 비밀번호 불일치 시 17004번 에러가 반환되므로 임시로 비밀번호 에러로 사용하겠습니다.
+        case 17004 :
+            return "비밀번호가 일치하지 않습니다."
+        default:
+            return "에러입니다. 잠시 후 다시 시도해주세요."
+        }
+    }
+        
 }
