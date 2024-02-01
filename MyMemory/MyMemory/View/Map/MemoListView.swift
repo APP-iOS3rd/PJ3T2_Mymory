@@ -45,6 +45,7 @@ struct MemoListView: View {
                         
                         Spacer()
                     }.padding(.top, 20)
+                        .padding(.horizontal, 20)
                     
                     ScrollView(.vertical, showsIndicators: false){
                         
@@ -84,6 +85,8 @@ struct MemoListView: View {
                     .buttonStyle(Pill.secondary)
                     .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
                     .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .padding(.horizontal, 20)
+
                 
             )
         }
