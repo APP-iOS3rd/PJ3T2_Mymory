@@ -42,7 +42,20 @@ struct MypageTopView: View {
                         .padding(.leading, 10)
                 }
                 .buttonStyle(.plain)
-            } 
+                
+                VStack{
+                    Text("\(authViewModel.followerCount)")
+                    Text("팔로워")
+                }
+                
+                
+                VStack{
+                    Text("\(authViewModel.followingCount)")
+                    Text("팔로잉")
+                }
+                
+                .padding(.leading, 10)
+            }
             
             
             else {
@@ -62,6 +75,7 @@ struct MypageTopView: View {
                         )
                 } label: {
                     Text("로그인이 필요합니다.")
+                        .foregroundStyle(Color.textColor)
                         .font(.semibold20)
                 }
                 .buttonStyle(.plain)
@@ -85,15 +99,25 @@ struct MypageTopView: View {
                     rightView: {
                         CloseButton()
                     },
-                    backgroundColor: .white
+                    backgroundColor: Color.bgColor
                 )
 
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.iconColor)
+            }
+            
+            // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
+        }
+        .onAppear {
+            Task { // 로그인 안하면 실행 x
+                if let currentUser = authViewModel.currentUser {
+                    await authViewModel.followAndFollowingCount(user: currentUser)
+                }
             }
         }
+
         .padding(.top, 30)
         
     }

@@ -30,6 +30,11 @@ struct SettingView: View {
                                 .padding(.bottom, 20)
                             SettingMenuCell(name: "알림")
                             Divider()
+                            SettingMenuCell(name: "테마")
+                            Divider()
+                            SettingMenuCell(name: "폰트")
+                            Divider()
+                            
                         }
                     }.padding(.horizontal, 9)
                     
@@ -52,7 +57,8 @@ struct SettingView: View {
                                 Spacer()
                                 Text(settingViewModel.version)
                                     .foregroundStyle(Color(UIColor.systemGray))
-                            }.foregroundStyle(.black)
+                            }
+                            .foregroundStyle(Color.textColor)
                             
                             Divider()
                         }
@@ -108,16 +114,5 @@ struct SettingView: View {
         }
         .padding(.horizontal, 12)
  
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                BackButton()
-//                    .foregroundStyle(Color.black)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                Text("내 정보")
-//                    .font(.semibold16)
-//            }
-//        }
     }
 }

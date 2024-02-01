@@ -31,7 +31,7 @@ class MypageViewModel: ObservableObject {
     
     init() {
         fetchUserState()
-        //self.isCurrentUserLoginState = fetchCurrentUserLoginState()
+        self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         
         if let userID = UserDefaults.standard.string(forKey: "userId") {
             DispatchQueue.main.async {
@@ -52,6 +52,30 @@ class MypageViewModel: ObservableObject {
             self.user = user
         }
     }
+    
+    // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
+    func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
+        if fromDetail == true {
+            // 현 사용자 로그인 파악
+            fetchUserState()
+          
+            //memoList = []
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: memoCreator.id ?? "")
+                }
+            }
+ 
+            fetchCurrentUserLocation { location in
+                if let location = location {
+                    self.currentLocation = location
+                }
+            }
+        }
+           
+    }
+    
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
     func fetchDistanceOfUserAndMemo(myLocation: CLLocationCoordinate2D, memoLocation: Location ) -> Double {
@@ -97,7 +121,6 @@ class MypageViewModel: ObservableObject {
     }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
-        LoadingManager.shared.phase = .loading
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
@@ -106,10 +129,8 @@ class MypageViewModel: ObservableObject {
                         latitude: location.latitude,
                         longitude: location.longitude
                     ))
-                    LoadingManager.shared.phase = .success
                     print("주소 불러오기 완료", LoadingManager.shared.phase)
                 } else {
-                    LoadingManager.shared.phase = .fail(msg: "위치 정보 획득 실패")
                     returnCompletion(nil)
                 }
             }
