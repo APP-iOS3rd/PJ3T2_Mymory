@@ -44,14 +44,16 @@ struct MypageTopView: View {
                 .buttonStyle(.plain)
                 
                 VStack{
-                    Text("357")
+                    Text("\(authViewModel.followerCount)")
                     Text("팔로워")
                 }
-                .padding(.leading, 10)
+                
+                
                 VStack{
-                    Text("445")
+                    Text("\(authViewModel.followingCount)")
                     Text("팔로잉")
                 }
+                
                 .padding(.leading, 10)
             }
             
@@ -106,6 +108,11 @@ struct MypageTopView: View {
             }
             
             // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
+        }
+        .onAppear {
+            Task {
+                await authViewModel.followAndFollowingCount(user: authViewModel.currentUser ?? User(email: "", id: "", name: "", profilePicture: ""))
+            }
         }
         .padding(.top, 30)
         

@@ -35,26 +35,29 @@ struct OtherUserProfileView: View {
                     .foregroundStyle(Color.textColor)
                     .padding(.leading, 10)
             }
-        
+            
             
             VStack{
-                Text("357")
+                Text("\(authViewModel.followerCount)")
                 Text("팔로워")
             }
-         
+            
             
             VStack{
-                Text("445")
+                Text("\(authViewModel.followingCount)")
                 Text("팔로잉")
             }
-       
-      
-            if authViewModel.isFollow == false{
+            
+            
+            if authViewModel.isFollow == false {
                 Button {
-                    authViewModel.UserFollow(followUser: memoCreator) { err in
-                        guard err == nil else {
-                            return
+                    Task {
+                        await authViewModel.UserFollow(followUser: memoCreator) { err in
+                            guard err == nil else {
+                                return
+                            }
                         }
+                        await authViewModel.followAndFollowingCount(user: memoCreator)
                     }
                 } label: {
                     HStack {
@@ -64,13 +67,15 @@ struct OtherUserProfileView: View {
                     }
                 }
                 .buttonStyle(RoundedRect.follow)
-                
             } else {
                 Button {
-                    authViewModel.UnUserFollow(followUser: memoCreator) { err in
-                        guard err == nil else {
-                            return
+                    Task {
+                        await authViewModel.UnUserFollow(followUser: memoCreator) { err in
+                            guard err == nil else {
+                                return
+                            }
                         }
+                        await authViewModel.followAndFollowingCount(user: memoCreator)
                     }
                 } label: {
                     HStack {
@@ -80,22 +85,26 @@ struct OtherUserProfileView: View {
                     }
                 }
                 .buttonStyle(RoundedRect.follow)
-                
             }
             
-           
+            
         }
         .onAppear {
-            authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
-                print("didFollow \(didFollow)")
-                isFollow = didFollow ?? false
+            Task {
+                authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
+                    print("didFollow \(didFollow)")
+                    isFollow = didFollow ?? false
+                }
+                
+                await authViewModel.followAndFollowingCount(user: memoCreator)
+                // 이제 counts를 사용할 수 있습니다.
             }
         }
         
-       
+        
         
         
     }
-        
+    
     
 }

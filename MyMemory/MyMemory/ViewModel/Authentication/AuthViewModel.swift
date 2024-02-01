@@ -54,6 +54,8 @@ class AuthViewModel: ObservableObject {
     
     // 팔로우, 팔로잉 파악을 위한
     @Published var isFollow: Bool = false
+    @Published var followerCount: Int = 0
+    @Published var followingCount: Int = 0
     
     init() {
         userSession = Auth.auth().currentUser
@@ -287,67 +289,41 @@ class AuthViewModel: ObservableObject {
        }
        
        
-       /// 좋아요 개수를 표시하는 함수
-       /// - Parameters:
-       ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수
-       /// - Returns: 좋아요 받은 총 개수
-   //    func likeMemoCount(memo: Memo) async -> Int {
-   //        let memoID = memo.id ?? ""
-   //        var likeCount = 0
-   //
-   //        do {
-   //            let document = try await COLLECTION_MEMO_LIKES.document(memoID).getDocument()
-   //
-   //            if document.exists {
-   //                let fieldCount = document.data()?.count ?? 0
-   //                likeCount = fieldCount
-   //            }
-   //        } catch {
-   //            print("에러 발생: \(error)")
-   //        }
-   //
-   //        print(likeCount)
-   //        return likeCount
-   //    }
-       
-       
-       
-       
-       
-       /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
-       /// - Parameters:
-       ///   - memo : 사용자가 좋아요 누른 메모가 맞는지 확인 할 메모
-       /// - Returns: 좋아요 누른 여부 ture,false(해당 값을 메모의 didLike에 넣어서 MemoCell의 UI를 표시)
-   //    func checkLikedMemo(_ memo: Memo, completion: @escaping (Bool) -> Void) {
-   //        guard let uid = Auth.auth().currentUser?.uid else {
-   //            completion(false)
-   //            return
-   //        }
-   //
-   //        let memoID = memo.id ?? ""
-   //
-   //        let userLikesRef = COLLECTION_USER_LIKES.document(uid)
-   //        userLikesRef.getDocument { (document, error) in
-   //            if let error = error {
-   //                print("사용자 좋아요 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
-   //                completion(false)
-   //                return
-   //            }
-   //
-   //            if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
-   //                print("데이터 \(dataArray)")
-   //                print("메모 ID \(memoID)")
-   //                if dataArray.keys.contains(memoID) {
-   //                    completion(true)
-   //                } else {
-   //                    completion(false)
-   //                }
-   //            } else {
-   //                completion(false)
-   //            }
-   //        }
-   //    }
+    // 팔로우, 팔로잉을 표시하는 함수
+    // - Parameters:
+    //   - user : following, follower 숫자를 알고 싶은 사용자
+    // - Returns: 튜플로 헤당 사용자의 (following, follower) 반환
+    func followAndFollowingCount(user: User) async -> Void {
+        let userID = user.id ?? ""
+        followingCount = 0
+        followerCount = 0
+        
+        do {
+            let document = try await COLLECTION_USER_Following.document(userID).getDocument()
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                followingCount = fieldCount
+            }
+        } catch {
+            print("에러 발생: \(error)")
+        }
+        
+        do {
+            let document = try await COLLECTION_USER_Followers.document(userID).getDocument()
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                followerCount = fieldCount
+            }
+        } catch {
+            print("에러 발생: \(error)")
+        }
+        
+        
+    }
 
+       
        
     
     func fetchUser() {
