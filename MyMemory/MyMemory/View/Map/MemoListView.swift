@@ -49,13 +49,16 @@ struct MemoListView: View {
                     ScrollView(.vertical, showsIndicators: false){
                         
                         VStack(spacing: 12) {
-                            ForEach(viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList) { item in
-                                
+                            
+                            ForEach(viewModel.filterList.isEmpty ? Array(zip(viewModel.memoList.indices, viewModel.memoList)) : Array(zip(viewModel.filteredMemoList.indices, viewModel.filteredMemoList)), id: \.0) { index, item  in
                                 MemoCell(
                                     isVisible: true,
-                                    isDark: false,
-                                    location: $viewModel.location,
-                                    memo: item)
+                                     isDark: true,
+                                     location: $viewModel.location,
+                                     selectedMemoIndex: index,
+                                     memo: item,
+                                     memos: viewModel.filterList.isEmpty ? viewModel.memoList : viewModel.filteredMemoList
+                                )
                             }
                             
                         }
