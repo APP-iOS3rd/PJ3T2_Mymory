@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118AFB12B6A252800BAC3B1 /* ThemeView.swift */; };
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
 		0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0133834A2B565F09004D4B8A /* OnboardingView.swift */; };
@@ -150,6 +151,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0118AFB12B6A252800BAC3B1 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportView.swift; path = ../Authentication/ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
 		0133834A2B565F09004D4B8A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -307,6 +309,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0118AFB32B6A42BF00BAC3B1 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				0118AFB12B6A252800BAC3B1 /* ThemeView.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +562,7 @@
 		6A7BA0442B5104DC00BEE111 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				0118AFB32B6A42BF00BAC3B1 /* Style */,
 				DAF5FCAF2B621E9D00098EF7 /* SubViews */,
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
@@ -1000,7 +1011,7 @@
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
 				01D160032B5E0D43003F1BEF /* Constants.swift in Sources */,
 				DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */,
-				645262182B6A26F7004FE5C7 /* Fonts+Extensions.swift in Sources */,
+				0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */,
 				280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */,
 				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
@@ -1090,7 +1101,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1153,7 +1164,6 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1209,7 +1219,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1239,7 +1249,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1269,7 +1279,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
@@ -1292,7 +1302,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1302,7 +1312,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1315,7 +1325,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1336,7 +1346,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1357,7 +1367,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1378,7 +1388,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64A41CAE2B68AED000087B66 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA12208E2B67936000943177 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

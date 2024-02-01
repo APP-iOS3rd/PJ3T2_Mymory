@@ -25,9 +25,20 @@ struct Pill: ButtonStyle {
     static var lightGray: Pill {
         return Pill(backgroundColor: .lightGray, titleColor: .darkGray, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
+    
+    static var standard2: Pill {
+        return Pill(backgroundColor: .bgColor, titleColor: .iconColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+    }
+    
+    static var standard3: Pill {
+        return Pill(backgroundColor: .clear, titleColor: .textColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+    }
+    
     static var selected: Pill {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
+    
+    
     static var contains: Pill {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }

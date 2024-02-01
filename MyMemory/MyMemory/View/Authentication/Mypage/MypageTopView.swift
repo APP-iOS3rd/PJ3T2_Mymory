@@ -75,6 +75,7 @@ struct MypageTopView: View {
                         )
                 } label: {
                     Text("로그인이 필요합니다.")
+                        .foregroundStyle(Color.textColor)
                         .font(.semibold20)
                 }
                 .buttonStyle(.plain)
@@ -98,13 +99,13 @@ struct MypageTopView: View {
                     rightView: {
                         CloseButton()
                     },
-                    backgroundColor: .white
+                    backgroundColor: Color.bgColor
                 )
 
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.iconColor)
             }
             
             // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
