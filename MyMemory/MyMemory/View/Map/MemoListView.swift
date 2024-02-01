@@ -14,7 +14,7 @@ struct MemoListView: View {
     @State var filterSheet: Bool = false
     @EnvironmentObject var viewModel: MainMapViewModel
     var body: some View {
-        NavigationStack {
+        VStack {
             ZStack {
                 
                 Color.lightGray

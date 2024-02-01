@@ -129,7 +129,7 @@ struct MainMapView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MemoListView(sortDistance: $sortDistance)
+                MainSectionsView(sortDistance: $sortDistance)
                     .environmentObject(mainMapViewModel)
             })
             
