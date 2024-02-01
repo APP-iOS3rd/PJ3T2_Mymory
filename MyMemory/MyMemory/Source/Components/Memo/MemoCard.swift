@@ -248,7 +248,6 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-
                         .overlay(
                             ZStack{
                                 Color.black.opacity(0.6)
