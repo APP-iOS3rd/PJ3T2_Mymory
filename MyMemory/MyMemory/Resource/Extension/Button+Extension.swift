@@ -25,20 +25,9 @@ struct Pill: ButtonStyle {
     static var lightGray: Pill {
         return Pill(backgroundColor: .lightGray, titleColor: .darkGray, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
-    
-    static var standard2: Pill {
-        return Pill(backgroundColor: .bgColor, titleColor: .iconColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
-    }
-    
-    static var standard3: Pill {
-        return Pill(backgroundColor: .clear, titleColor: .textColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
-    }
-    
     static var selected: Pill {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
-    
-    
     static var contains: Pill {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
@@ -69,14 +58,12 @@ struct RoundedRect: ButtonStyle {
     var paddingVertical: CGFloat = 12
     var paddingHorzontal: CGFloat = 16
     let cornerRadius: CGFloat = 10
-    var borderColor: Color = .borderColor
+    var borderColor: Color = Color(UIColor.systemGray4)
     
     static var standard: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold14)
     }
-    static var active: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14)
-    }
+    
     static var large: RoundedRect {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
     }
@@ -85,9 +72,6 @@ struct RoundedRect: ButtonStyle {
     }
     static var primary: RoundedRect {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
-    }
-    static var follow: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 10, borderColor: .accentColor)
     }
     
     func makeBody(configuration: Configuration) -> some View {
