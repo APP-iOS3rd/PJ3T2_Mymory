@@ -142,19 +142,33 @@ struct LoginView: View {
             // MARK: - 소셜 로그인 버튼
             VStack {
                 GoogleSignInButton(
-                    scheme: .light, style: .wide, action: {
+                    scheme: .light, style: .standard, action: {
                         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
                                 
                         let config = GIDConfiguration(clientID: clientID)
 
                         GIDSignIn.sharedInstance.configuration = config
                         guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-                        GIDSignIn.sharedInstance.signIn(withPresenting: check) { Result, error in
+                        GIDSignIn.sharedInstance.signIn(withPresenting: check) { signResult, error in
                             if let error = error {
                                 print("구글 로그인 에러입니다\(error)")
                                 return
                             } else {
-                                print("일단 오케이")
+                                guard let user = signResult?.user,
+                                           let idToken = user.idToken else { return }
+                                     
+                                     let accessToken = user.accessToken
+                                            
+                                     let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                Task {
+                                    if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
+                                        print(alertTitle)
+                                        return
+                                    } else {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                                
                             }
                         }
                     })
@@ -241,14 +255,6 @@ struct LoginView: View {
             backgroundColor: .white
         )
     }
-    
-    
-//    private func checkLogin(isEmail: String, isPassword: String) {
-//        if isEmail != correctEmail || isPassword != correctPassword {
-//            notCorrectLogin = true
-//        }
-//    }
-    
 }
 
 #Preview {

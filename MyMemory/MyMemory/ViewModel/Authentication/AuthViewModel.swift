@@ -19,6 +19,9 @@ import CryptoKit
 import KakaoSDKAuth
 import KakaoSDKCommon
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseCore
 
 class AuthViewModel: ObservableObject {
 
@@ -54,6 +57,7 @@ class AuthViewModel: ObservableObject {
     
     init() {
         userSession = Auth.auth().currentUser
+        signout()
         UserApi.shared.unlink {(error) in
             if let error = error {
                 print(error)
@@ -81,6 +85,46 @@ class AuthViewModel: ObservableObject {
             return true
         } catch {
             return false
+        }
+    }
+    
+    func loginWithGoogle(credential: AuthCredential) async -> String? {
+        do {
+            let result = try await Auth.auth().signIn(with: credential)
+            let newUserCheck = await checkUser(userID: result.user.uid)
+            if newUserCheck {
+                let data = [
+                    "id" : result.user.uid,
+                    "name": result.user.displayName,
+                    "email": result.user.email,
+                    "profilePicture": ""
+                ]
+                COLLECTION_USERS.document(result.user.uid).setData(data) { _ in
+                    self.userSession = result.user
+                    self.fetchUser()
+                }
+                print("계정생성 성공")
+            } else {
+                self.userSession = result.user
+                self.fetchUser()
+            }
+            return nil
+        } catch {
+            return ("구글 로그인 실패")
+        }
+    }
+    
+    func checkUser(userID: String) async -> Bool {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("id", isEqualTo: userID).getDocuments()
+            if querySnapshot.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return true
         }
     }
     
