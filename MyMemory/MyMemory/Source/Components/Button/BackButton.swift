@@ -17,7 +17,7 @@ struct BackButton: View {
         } label: {
             HStack(spacing: 4){
                 Image(systemName: "chevron.left")
-                    .font(.semibold22)
+                    .font(.semibold20)
                     .aspectRatio(contentMode: .fit)
                     .foregroundColor(.deepGray)
 //                Text("이전")
