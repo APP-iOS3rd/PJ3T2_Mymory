@@ -47,7 +47,7 @@ struct MemoService {
         }
         throw URLError(.cannotFindHost)
     }
-
+    
     
     
     // 사람이 읽기 쉬운 날짜 형태로 파이어베이스에 저장하기 위한 함수
@@ -92,38 +92,38 @@ struct MemoService {
         var memoImageUUIDs: [String] = []  // 이미지 UUID를 저장할 배열 생성
         
         // 이미지 데이터 배열을 반복하면서 각 이미지를 업로드하고 URL과 UUID를 저장
-           for imageData in newMemo.memoSelectedImageData {
-               do {
-                   let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)  // uploadImage 함수가 (URL, UUID) 튜플을 반환하도록 수정
-                   imageDownloadURLs.append(imageUrl)
-                   memoImageUUIDs.append(imageUUID)  // 이미지 UUID 저장
-                   print("Image URL added: \(imageUrl)")
-               } catch {
-                   print("Error uploading image: \(error)")
-               }
-           }
+        for imageData in newMemo.memoSelectedImageData {
+            do {
+                let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)  // uploadImage 함수가 (URL, UUID) 튜플을 반환하도록 수정
+                imageDownloadURLs.append(imageUrl)
+                memoImageUUIDs.append(imageUUID)  // 이미지 UUID 저장
+                print("Image URL added: \(imageUrl)")
+            } catch {
+                print("Error uploading image: \(error)")
+            }
+        }
         
         do {
-               // 직접 문서 ID를 설정하여 참조 생성
-               let memoDocumentRef = COLLECTION_MEMOS.document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
-               
-               let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
-               
-               // 생성된 참조에 데이터 저장
-               try await memoDocumentRef.setData([
-                   "userUid" : newMemo.userUid,
-                   "userCoordinateLatitude": newMemo.userCoordinateLatitude,
-                   "userCoordinateLongitude": newMemo.userCoordinateLongitude,
-                   "userAddress": newMemo.userAddress,
-                   "memoTitle": newMemo.memoTitle,
-                   "memoContents": newMemo.memoContents,
-                   "isPublic": newMemo.isPublic,
-                   "memoTagList": newMemo.memoTagList,
-                   "memoLikeCount": newMemo.memoLikeCount,
-                   "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
-                   "memoImageUUIDs" : memoImageUUIDs,  // 이미지 UUID 배열 저장
-                   "memoCreatedAt": memoCreatedAtString,
-               ])
+            // 직접 문서 ID를 설정하여 참조 생성
+            let memoDocumentRef = COLLECTION_MEMOS.document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
+            
+            let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
+            
+            // 생성된 참조에 데이터 저장
+            try await memoDocumentRef.setData([
+                "userUid" : newMemo.userUid,
+                "userCoordinateLatitude": newMemo.userCoordinateLatitude,
+                "userCoordinateLongitude": newMemo.userCoordinateLongitude,
+                "userAddress": newMemo.userAddress,
+                "memoTitle": newMemo.memoTitle,
+                "memoContents": newMemo.memoContents,
+                "isPublic": newMemo.isPublic,
+                "memoTagList": newMemo.memoTagList,
+                "memoLikeCount": newMemo.memoLikeCount,
+                "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
+                "memoImageUUIDs" : memoImageUUIDs,  // 이미지 UUID 배열 저장
+                "memoCreatedAt": memoCreatedAtString,
+            ])
             
             print("Document added with ID: \(newMemo.id)")
         } catch {
@@ -135,7 +135,7 @@ struct MemoService {
     func updateMemo(documentID: String, updatedMemo: PostMemoModel) async {
         var imageDownloadURLs: [String] = []
         var memoImageUUIDs: [String] = []
-  
+        
         for imageData in updatedMemo.memoSelectedImageData {
             do {
                 let (imageUrl, imageUUID) = try await uploadImage(originalImageData: imageData)
@@ -171,7 +171,7 @@ struct MemoService {
             print("Error updating document: \(error)")
         }
     }
-
+    
     
     func deleteMemo(documentID: String, deleteMemo: Memo) async {
         do {
@@ -182,12 +182,12 @@ struct MemoService {
             
             // Storage에서 이미지 삭제
             deleteImage(deleteMemoImageUUIDS: deleteMemo.memoImageUUIDs)
-
+            
         } catch {
             print("Error deleting document: \(error)")
         }
     }
-
+    
     
     func deleteImage(deleteMemoImageUUIDS: [String]) {
         // Storage에서 이미지 삭제
@@ -228,6 +228,15 @@ struct MemoService {
         
         return memos
     }
+    func fetchMemo(id: String) async throws -> Memo? {
+        let querySnapshot = try await COLLECTION_MEMOS.document(id).getDocument()
+        guard let data = querySnapshot.data() else { return nil }
+        
+        // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+        if let memo = try await fetchMemoFromDocument(documentID: querySnapshot.documentID, data: data) {
+            return memo
+        } else {return nil}
+    }
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
         var memos: [Memo] = current
@@ -242,7 +251,7 @@ struct MemoService {
                 .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
             
             querySnapshot = try await query.getDocuments()
-      
+            
             let filteredDocuments = querySnapshot.documents.filter { document in
                 let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
                 return longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude
@@ -269,17 +278,48 @@ struct MemoService {
             }
         }
         
-//        // 👍 좋아요 누른 메모 체크
-//        for (index, memo) in memos.enumerated() {
-//            checkLikedMemo(memo) { didLike in
-//                print("didLike \(didLike)")
-//                memos[index].didLike = didLike
-//                print("memos[index].didLike \(memos[index].didLike)")
-//            }
-//        }
-
+        //        // 👍 좋아요 누른 메모 체크
+        //        for (index, memo) in memos.enumerated() {
+        //            checkLikedMemo(memo) { didLike in
+        //                print("didLike \(didLike)")
+        //                memos[index].didLike = didLike
+        //                print("memos[index].didLike \(memos[index].didLike)")
+        //            }
+        //        }
+        
         
         return memos
+    }
+    
+    func fetchPushMemo(_ current: [Memo] = [],in location: CLLocation, withRadius distanceInMeters: CLLocationDistance = 50) async throws -> Memo? {
+        var memos: [Memo] = current
+        var querySnapshot: QuerySnapshot
+        // "Memos" 컬렉션에서 문서들을 가져옴
+        let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
+        let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
+        // Firestore 쿼리 작성
+        let query = COLLECTION_MEMOS
+            .whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
+            .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
+        
+        querySnapshot = try await query.getDocuments()
+        
+        let filteredDocuments = querySnapshot.documents.filter { document in
+            let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
+            return longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude
+        }
+        // 경도 필터링된 문서를 메모로 변환하여 배열에 추가
+        for document in filteredDocuments {
+            let data = document.data()
+            
+            // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+            if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                memos.append(memo)
+            }
+        }
+        
+        
+        return memos.sorted(by: {$0.date > $1.date}).first
     }
     /// 사용자가 작성한 메모만 불러오는 함수입니다.
     /// - Parameters:
@@ -379,7 +419,7 @@ struct MemoService {
         let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
         
         return Memo(
-          //  id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
+            //  id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
             id: documentID,
             userUid: userUid,
             title: memoTitle,
@@ -390,12 +430,12 @@ struct MemoService {
             isPublic: isPublic,
             date: memoCreatedAt,
             location: location,
-            likeCount: memoLikeCount, 
+            likeCount: memoLikeCount,
             memoImageUUIDs: memoImageUUIDs
         )
     }
     
- 
+    
     /// 좋아요를 누르는 함수
     /// - Parameters:
     ///   - Memo : 현 사용자가 좋아요를 누를 메모
@@ -411,19 +451,19 @@ struct MemoService {
          COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
          */
         if memo.didLike {
-                COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
-                COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
-            } else {
-                COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
-                COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
-            }
-            /*
-             setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
-
-             그러나 updateData는 문서가 이미 존재할 경우에만 작동합니다. 따라서 문서가 존재하지 않을 경우에는 setData를 사용하고, merge 옵션을 true로 설정하여 기존 문서에 데이터를 병합해야 합니다.
-             setData 메서드의 두 번째 매개변수로 merge: true를 전달하면 Firestore는 기존 문서와 새 데이터를 병합합니다.
-             즉, 특정 필드만 추가하거나 변경하면서도 기존 필드를 유지할 수 있습니다. 만약 문서가 존재하지 않으면 새 문서를 생성합니다.
-             */
+            COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
+            COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
+        } else {
+            COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
+            COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
+        }
+        /*
+         setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
+         
+         그러나 updateData는 문서가 이미 존재할 경우에만 작동합니다. 따라서 문서가 존재하지 않을 경우에는 setData를 사용하고, merge 옵션을 true로 설정하여 기존 문서에 데이터를 병합해야 합니다.
+         setData 메서드의 두 번째 매개변수로 merge: true를 전달하면 Firestore는 기존 문서와 새 데이터를 병합합니다.
+         즉, 특정 필드만 추가하거나 변경하면서도 기존 필드를 유지할 수 있습니다. 만약 문서가 존재하지 않으면 새 문서를 생성합니다.
+         */
     }
     
     /// 좋아요 개수를 표시하는 함수
@@ -448,9 +488,9 @@ struct MemoService {
         print(likeCount)
         return likeCount
     }
-
-
-
+    
+    
+    
     
     
     /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
@@ -486,10 +526,10 @@ struct MemoService {
             }
         }
     }
-
-
-
-
+    
+    
+    
+    
     
     /// firestore의 Document를 페이지네이션화하는 함수. 기본적으로 최신순으로 데이터를 받아온다.
     /// - Parameters:
@@ -500,7 +540,7 @@ struct MemoService {
     func pagenate(query: Query, limit: Int, lastDocument: QueryDocumentSnapshot?) async -> QuerySnapshot {
         do {
             var query: Query = query.order(by: "memoCreatedAt", descending: true)
-                                    .limit(to: limit)
+                .limit(to: limit)
             
             if let lastDocument = lastDocument {
                 query = query.start(afterDocument: lastDocument)
