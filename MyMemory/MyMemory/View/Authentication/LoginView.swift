@@ -25,6 +25,7 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     
+    @State private var isActive: Bool = false
     @State private var isShowingLoginErrorAlert: Bool = false
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
@@ -170,31 +171,22 @@ struct LoginView: View {
                                 print("error")
                             }
                         }
-                    }
-                )
-                .frame(width : 350, height:50)
-                .cornerRadius(12)
-                Button {
-                    if (UserApi.isKakaoTalkLoginAvailable()) {
-                        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                            if let error = error {
-                                print("카카오로그인 에러입니다. \(error)")
-                                return
-                            } else {
-                                UserApi.shared.me { User, Error in
-                                         if let name = User?.kakaoAccount?.profile?.nickname {
-//                                            userName = name
-                                             print("제 닉네임은 \(name) 입니다")
-                                         }
-//                                         if let mail = User?.kakaoAccount?.email {
-////                                            userMail = mail
-//                                             print("hello my mail is \(mail)")
-//                                         }
-//                                         if let profile = User?.kakaoAccount?.profile?.profileImageUrl {
-////                                            profileImage = profile
-//                                             print("hello my profile is \(profile)")
-//                                    }
-                                    print("공유된 결과입니다")
+                    )
+                    .frame(width : 350, height:50)
+                    .cornerRadius(12)
+                    Button {
+                        if (UserApi.isKakaoTalkLoginAvailable()) {
+                            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                                if let error = error {
+                                    print("카카오로그인 에러입니다. \(error)")
+                                    return
+                                } else {
+                                    UserApi.shared.me { User, Error in
+                                        if let name = User?.kakaoAccount?.profile?.nickname {
+                                            print("제 닉네임은 \(name) 입니다")
+                                        }
+                                    }
+                                    print("카카카오 결과입니다")
                                 }
                             }
                         }
@@ -208,35 +200,29 @@ struct LoginView: View {
                                 .font(.regular16)
                         }
                     }
-                } label: {
-                    HStack {
-                        Image("kakao")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 18)
-                        Text("카카오 로그인")
-                            .font(.regular18)
-                            
-                    }
-                }
-                .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.kakaoYellow))
-            }//: SNS 로그인
-            .padding(.vertical, 20)
-        }//: VSTACK
-   
-        .padding()
-        .fullScreenCover(isPresented: $isActive) {
-            MainTabView()
+                    .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.yellow))
+                }//: SNS 로그인
+                .padding(.vertical, 20)
+            }//: VSTACK
+            
+            .padding()
+            .fullScreenCover(isPresented: $isActive) {
+                MainTabView()
+            }
+            .customNavigationBar(
+                centerView: {
+                    Text("")
+                },
+                leftView: {
+                    EmptyView()
+                },
+                rightView: {
+                    CloseButton()
+                },
+                backgroundColor: .white
+            )
         }
     }
-    
-    
-    //    private func checkLogin(isEmail: String, isPassword: String) {
-    //        if isEmail != correctEmail || isPassword != correctPassword {
-    //            notCorrectLogin = true
-    //        }
-    //    }
-    
 }
 
 #Preview {
