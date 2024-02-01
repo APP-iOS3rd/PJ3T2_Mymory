@@ -251,36 +251,44 @@ class AuthViewModel: ObservableObject {
        
        // 팔로우 유져인지 확인하는 함수
        
-       func FollowCheck(followUser: User , completion: @escaping (Bool?) -> Void){
-           guard let uid = Auth.auth().currentUser?.uid else {
-               completion(false)
-               return
-           }
-           
-           let followUserID = followUser.id ?? ""
-           
-           let userFollowRef = COLLECTION_USER_Following.document(uid)
-           userFollowRef.getDocument { (document, error) in
-               if let error = error {
-                   print("사용자 팔로우 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
-                   completion(false)
-                   return
-               }
-               
-               if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
-                 
-                   if dataArray.keys.contains(followUserID) {
-                       completion(true)
-                   } else {
-                       completion(false)
-                   }
-               } else {
-                   completion(false)
-               }
-               
-           }
-       }
-       
+    func FollowCheck(followUser: User , completion: @escaping (Bool?) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(false)
+            return
+        }
+        
+        let followUserID = followUser.id ?? ""
+        
+        let userFollowRef = COLLECTION_USER_Following.document(uid)
+        userFollowRef.getDocument { (document, error) in
+            if let error = error {
+                print("사용자 팔로우 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.isFollow = false
+                }
+                return
+            }
+            
+            if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
+                
+                if dataArray.keys.contains(followUserID) {
+                    DispatchQueue.main.async {
+                        self.isFollow = true
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.isFollow = false
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.isFollow = false
+                }
+            }
+            
+        }
+    }
+    
        
     // 팔로우, 팔로잉을 표시하는 함수
     // - Parameters:
@@ -288,15 +296,22 @@ class AuthViewModel: ObservableObject {
     // - Returns: 튜플로 헤당 사용자의 (following, follower) 반환
     func followAndFollowingCount(user: User) async -> Void {
         let userID = user.id ?? ""
-        followingCount = 0
-        followerCount = 0
-        
+        // 메인 스레드에서 UI 업데이트
+        DispatchQueue.main.async {
+            self.followingCount = 0
+            self.followerCount = 0
+        }
+ 
         do {
             let document = try await COLLECTION_USER_Following.document(userID).getDocument()
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
-                followingCount = fieldCount
+                // 메인 스레드에서 UI 업데이트
+                DispatchQueue.main.async {
+                    self.followingCount = fieldCount
+                }
+             
             }
         } catch {
             print("에러 발생: \(error)")
@@ -307,7 +322,9 @@ class AuthViewModel: ObservableObject {
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
-                followerCount = fieldCount
+                DispatchQueue.main.async {
+                    self.followerCount = fieldCount
+                }
             }
         } catch {
             print("에러 발생: \(error)")

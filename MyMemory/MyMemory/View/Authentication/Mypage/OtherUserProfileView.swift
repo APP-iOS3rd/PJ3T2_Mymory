@@ -91,7 +91,7 @@ struct OtherUserProfileView: View {
         }
         .onAppear {
             Task {
-                authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
+                await authViewModel.FollowCheck(followUser: memoCreator) { didFollow in
                     print("didFollow \(didFollow)")
                     isFollow = didFollow ?? false
                 }

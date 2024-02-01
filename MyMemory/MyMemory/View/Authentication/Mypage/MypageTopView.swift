@@ -110,10 +110,13 @@ struct MypageTopView: View {
             // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
         }
         .onAppear {
-            Task {
-                await authViewModel.followAndFollowingCount(user: authViewModel.currentUser ?? User(email: "", id: "", name: "", profilePicture: ""))
+            Task { // 로그인 안하면 실행 x
+                if let currentUser = authViewModel.currentUser {
+                    await authViewModel.followAndFollowingCount(user: currentUser)
+                }
             }
         }
+
         .padding(.top, 30)
         
     }
