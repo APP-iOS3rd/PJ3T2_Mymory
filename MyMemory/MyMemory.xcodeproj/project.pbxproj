@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118AFB12B6A252800BAC3B1 /* ThemeView.swift */; };
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
 		0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0133834A2B565F09004D4B8A /* OnboardingView.swift */; };
@@ -90,7 +91,9 @@
 		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
-		DA12208F2B67936000943177 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA12208E2B67936000943177 /* APIKEYS.xcconfig */; };
+		9DFD24DE2B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD24DD2B6B21A400CEC87C /* APIKEYS.xcconfig */; };
+		9DFD24DF2B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD24DD2B6B21A400CEC87C /* APIKEYS.xcconfig */; };
+		9DFD24E02B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DFD24DD2B6B21A400CEC87C /* APIKEYS.xcconfig */; };
 		DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12ABC32B58EA4F0093229C /* FileterListView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
@@ -148,6 +151,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0118AFB12B6A252800BAC3B1 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportView.swift; path = ../Authentication/ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
 		0133834A2B565F09004D4B8A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -217,7 +221,7 @@
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
-		DA12208E2B67936000943177 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
+		9DFD24DD2B6B21A400CEC87C /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
@@ -301,6 +305,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0118AFB32B6A42BF00BAC3B1 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				0118AFB12B6A252800BAC3B1 /* ThemeView.swift */,
+			);
+			path = Style;
+			sourceTree = "<group>";
+		};
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +542,7 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				9D50777B2B6765ED00460FD8 /* APIKEYS.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -544,6 +557,7 @@
 		6A7BA0442B5104DC00BEE111 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				0118AFB32B6A42BF00BAC3B1 /* Style */,
 				DAF5FCAF2B621E9D00098EF7 /* SubViews */,
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
@@ -706,8 +720,8 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				DA12208E2B67936000943177 /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
+				9DFD24DD2B6B21A400CEC87C /* APIKEYS.xcconfig */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DA3325BA2B6A2DB000DC9452 /* GoogleService-Info.plist */,
 			);
@@ -916,8 +930,8 @@
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				DA3325BB2B6A2DB000DC9452 /* GoogleService-Info.plist in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
+				9DFD24DE2B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
-				DA12208F2B67936000943177 /* APIKEYS.xcconfig in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
@@ -934,6 +948,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DFD24DF2B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -941,6 +956,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DFD24E02B6B21A400CEC87C /* APIKEYS.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +1005,7 @@
 				01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */,
 				01D160032B5E0D43003F1BEF /* Constants.swift in Sources */,
 				DA58C2682B5CD7CD005CB3B3 /* FlexibleView.swift in Sources */,
+				0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */,
 				280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */,
 				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
@@ -1228,7 +1245,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1281,7 +1298,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1291,7 +1308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

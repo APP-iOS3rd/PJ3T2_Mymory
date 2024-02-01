@@ -135,7 +135,7 @@ struct MainMapView: View {
             
             .sheet(isPresented: $fileterSheet, content: {
                 FileterListView(filteredList: $mainMapViewModel.filterList)
-                    .background(Color.lightGrayBackground)
+                    .background(Color.bgColor)
                     .presentationDetents([.medium])
             })
         }.overlay(content: {

@@ -173,18 +173,15 @@ struct PostView: View {
             leftView: {
                 Group {
                     if isEdit {
-                        CloseButton()
+                       BackButton()
                     } else {
                         Button {
                             self.selected = 0
                         } label: {
                             HStack(spacing: 0){
-                                Image(systemName: "multiply")
-                                    .resizable()
-                                    .frame(width: 18, height: 18)
+                                Image(systemName: "chevron.left")
+                                    .font(.bold20)
                                     .aspectRatio(contentMode: .fit)
-                                    .foregroundColor(.deepGray)
-                //                Text("이전")
                             }
                         }
                     }
@@ -207,6 +204,8 @@ struct PostView: View {
                             Image(systemName: "trash")
                                 .foregroundColor(.red)
                         }
+                    } else {
+                        Text("저장")
                     }
                 }
                 
