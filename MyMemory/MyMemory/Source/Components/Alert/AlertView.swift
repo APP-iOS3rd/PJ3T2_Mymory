@@ -24,7 +24,7 @@ public struct MoahAlertView: View {
         ZStack {
             // 배경
             Color.black
-                .opacity(0.1)
+                .opacity(0.3)
                 .ignoresSafeArea()
             
             VStack(spacing: .zero) {
@@ -46,9 +46,10 @@ public struct MoahAlertView: View {
                     // 내용
                     if let message = message {
                         Text(message)
-                            .font(.regular14)
+                            .font(.regular16)
                             .foregroundColor(.black)
                             .multilineTextAlignment(.center)
+                            .padding(.horizontal, 5)
                     }
  
                     
@@ -77,7 +78,7 @@ public struct MoahAlertView: View {
             .background(Color.white)
             .cornerRadius(8)
         }
-        .background(ClearBackground())
+        //.background(ClearBackground())
     }
 }
 
@@ -91,10 +92,15 @@ public struct MoahAlertModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
             content
-                .fullScreenCover(isPresented: $isPresent) {
-                    // 모달 효과
+            .overlay {
+                if isPresent {
                     alert
-        }
+                }
+            }
+//                .fullScreenCover(isPresented: $isPresent) {
+//                    // 모달 효과
+//                    alert
+//        }
     }
 }
 
@@ -106,27 +112,27 @@ extension View {
 }
 
 
-// MARK: - ㄴ 얼럿에서 투명한 배경
-public struct ClearBackground: UIViewRepresentable {
-    
-    public func makeUIView(context: Context) -> UIView {
-        
-        let view = ClearBackgroundView()
-        DispatchQueue.main.async {
-            view.superview?.superview?.backgroundColor = .clear
-        }
-        return view
-    }
-
-    public func updateUIView(_ uiView: UIView, context: Context) {}
-}
-
-open class ClearBackgroundView: UIView {
-    open override func layoutSubviews() {
-        guard let parentView = superview?.superview else {
-            print("ERROR: Failed to get parent view to make it clear")
-            return
-        }
-        parentView.backgroundColor = .clear
-    }
-}
+//// MARK: - 얼럿에서 투명한 배경
+//public struct ClearBackground: UIViewRepresentable {
+//    
+//    public func makeUIView(context: Context) -> UIView {
+//        
+//        let view = ClearBackgroundView()
+//        DispatchQueue.main.async {
+//            view.superview?.superview?.backgroundColor = .clear
+//        }
+//        return view
+//    }
+//
+//    public func updateUIView(_ uiView: UIView, context: Context) {}
+//}
+//
+//open class ClearBackgroundView: UIView {
+//    open override func layoutSubviews() {
+//        guard let parentView = superview?.superview else {
+//            print("ERROR: Failed to get parent view to make it clear")
+//            return
+//        }
+//        parentView.backgroundColor = .clear
+//    }
+//}
