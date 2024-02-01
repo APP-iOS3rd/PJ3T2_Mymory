@@ -21,17 +21,17 @@ struct MemoDetailView: View {
         ZStack {
             TabView(selection: $selectedMemoIndex) {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
-                    if let loc = location?.coordinate.distance(from: memo.location) {
-                        if loc > 100 && !isMyMemo{
-                            VStack {
-                                Image(systemName: "lock")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.gray)
-                                    .padding()
-                                Text("해당 메모는 거리가 멀어서 볼 수 없어요.")
-                                    .font(.regular18)
-                            }
-                        } else {
+                    // if let loc = location?.coordinate.distance(from: memo.location) {
+                    //     if loc > 100 && !isMyMemo{
+                    //         VStack {
+                    //             Image(systemName: "lock")
+                    //                 .font(.largeTitle)
+                    //                 .foregroundColor(.gray)
+                    //                 .padding()
+                    //             Text("해당 메모는 거리가 멀어서 볼 수 없어요.")
+                    //                 .font(.regular18)
+                    //         }
+                    //     } else {
                             VStack {
                                 ScrollView {
                                 VStack(alignment: .leading) {
@@ -118,8 +118,8 @@ struct MemoDetailView: View {
                             
                                 Spacer()
                                 MoveUserProfileButton(viewModel: viewModel)
-                            }
-                        }
+                            //}
+                       // }
                     }
                 }//foreach
             }//: tabview
