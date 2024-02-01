@@ -62,6 +62,7 @@ struct MypageTopView: View {
                         )
                 } label: {
                     Text("로그인이 필요합니다.")
+                        .foregroundStyle(Color.textColor)
                         .font(.semibold20)
                 }
                 .buttonStyle(.plain)
@@ -85,13 +86,13 @@ struct MypageTopView: View {
                     rightView: {
                         CloseButton()
                     },
-                    backgroundColor: .white
+                    backgroundColor: Color.bgColor
                 )
 
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24))
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color.iconColor)
             }
         }
         .padding(.top, 30)
