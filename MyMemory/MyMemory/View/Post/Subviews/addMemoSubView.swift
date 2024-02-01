@@ -28,12 +28,13 @@ struct addMemoSubView: View {
                                 // 토글 내부에 아무 것도 추가하지 않습니다.
                             } //: Toggle
                             .toggleStyle(SwitchToggleStyle(tint: Color.blue))
-                    }.aspectRatio(contentMode: .fit)
+                    }
+                    .aspectRatio(contentMode: .fit)
                 }// HStack
                 
                 
                 TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
-                    .font(.light18)
+                    .font(.semibold20)
                     .textFieldStyle(.roundedBorder)
                     .padding(.top, 10)
                 
@@ -41,8 +42,8 @@ struct addMemoSubView: View {
                 TextEditor(text: $viewModel.memoContents)
                     .frame(minHeight: minHeight, maxHeight: maxHeight)
                     .cornerRadius(10)
-                    .colorMultiply(Color.gray.opacity(0.2))
-                    .foregroundColor(.black)
+                    //.colorMultiply(Color.gray.opacity(0.2))
+                    .foregroundColor(.textColor)
                 // 최대 1000자 까지만 허용
                     .onChange(of: viewModel.memoContents) { newValue in
                         // Limit text input to maxCharacterCount

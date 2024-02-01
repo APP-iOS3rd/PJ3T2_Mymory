@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 extension Color {
     
@@ -17,23 +18,25 @@ extension Color {
     static let lightBlue = Color(hex:"E5F4F8")
     static let lightGreen = Color(hex: "EBF9E5")
     static let lightGray = Color(hex: "F4F4F4")
+    static let lightGray2 = Color(hex: "252525")
     static let darkGray = Color(hex: "5A5A5A")
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
-    
+ 
     // 테마에 따라 Color Change
-    static let textGray = adaptiveColor(light: Color(hex:"949494"), dark: Color(hex:"949494"))
-    static let textColor = adaptiveColor(light: Color(hex:"000000"), dark: Color(hex:"000000")) // 본문컬러
-    static let borderColor = adaptiveColor(light: .lightGray, dark: .lightGray)
-    static let iconColor = adaptiveColor(light: .darkGray, dark: .deepGray)
-    static let bgColor = adaptiveColor(light: .lightGray, dark: Color(hex:"252525"))
+    static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
+    static let textColor = Color.adaptive(light: UIColor(Color.black), dark: UIColor(Color.white)) // 본문컬러
+    static let orginColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
+    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
+    static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
+    static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
 }
 
 extension Color {
-    
+    //@Environment(\.colorScheme) static var colorScheme
     // 현재 다크, 라이트모드의 컬러를 각각 적용하였습니다.
-    // 추후 테마 변경시에도, 해당 코드에 조건을 추가해서 색상들을 일괄적으로 변경할 수 있습니다.
+    //  추후 테마 변경시에도, 해당 코드에 조건을 추가해서 색상들을 일괄적으로 변경할 수 있습니다.
     static func adaptiveColor(light: Color, dark: Color) -> Color {
        if UITraitCollection.current.userInterfaceStyle == .dark {
            return dark
@@ -41,10 +44,18 @@ extension Color {
            return light
        }
         // else if 추가조건 == { return duotone }
+        
     }
+    static func adaptive(light: UIColor, dark: UIColor) -> Color {
+      return Color(UIColor { traitCollection in
+          traitCollection.userInterfaceStyle == .dark ? dark : light
+      })
+    }
+
+
        
 }
-
+ 
 extension Color {
     init(hex: String) {
         let scanner = Scanner(string: hex)

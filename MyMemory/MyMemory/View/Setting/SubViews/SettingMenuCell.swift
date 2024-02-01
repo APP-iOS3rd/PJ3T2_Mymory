@@ -17,7 +17,8 @@ struct SettingMenuCell: View {
                 Text(name)
                     .font(.regular18)
                 Spacer()
-            }.foregroundStyle(.black)
+            }
+            .foregroundStyle(Color.textColor)
         }
     }
 }

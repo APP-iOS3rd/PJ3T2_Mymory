@@ -15,7 +15,7 @@ struct MainMapView: View {
     @State var showingSheet: Bool = false
     @State var showingAlert: Bool = false
     @State var fileterSheet: Bool = false
-    
+    @StateObject var noti = PushNotification.shared
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -135,13 +135,19 @@ struct MainMapView: View {
             
             .sheet(isPresented: $fileterSheet, content: {
                 FileterListView(filteredList: $mainMapViewModel.filterList)
-                    .background(Color.lightGrayBackground)
+                    .background(Color.bgColor)
                     .presentationDetents([.medium])
             })
         }.overlay(content: {
             if mainMapViewModel.isLoading {
                 LoadingView()
             }
+        })
+        .navigationDestination(item:$noti.memo,
+                               destination: {memo in
+            
+            MemoDetailView(memo: .constant(memo))
+            
         })
         .moahAlert(isPresented: $showingAlert, moahAlert: {
             MoahAlertView(message: "현재 위치를 찾을 수 없어요. 위치서비스를 켜 주세요.", firstBtn: MoahAlertButtonView(type: .CANCEL, isPresented: $showingAlert, action: {}), secondBtn: MoahAlertButtonView(type: .SETTING, isPresented: $showingAlert, action: {
