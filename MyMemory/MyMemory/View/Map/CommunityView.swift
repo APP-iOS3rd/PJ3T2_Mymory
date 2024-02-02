@@ -62,7 +62,6 @@ struct CommunityView: View {
                                 Image(systemName: "ellipsis")
                             }.padding(.horizontal, 15)
                         }
-//                        .padding(13)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke()
