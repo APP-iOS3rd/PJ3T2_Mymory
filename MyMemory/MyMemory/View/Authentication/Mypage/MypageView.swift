@@ -109,13 +109,13 @@ struct MypageView: View {
                     .background(Color.bgColor)
                 
             }
-//            .safeAreaInset(edge: .bottom) {
-//                Color.white
-//                    .frame(height: 0)
-//                    .background(.white)
-//                    .border(Color.black)
-//                
-//            }
+            .safeAreaInset(edge: .bottom) {
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.bgColor)
+                    .border(Color.black)
+                
+            }
             
         }
         .onAppear(perform: {
@@ -137,6 +137,7 @@ struct MypageView: View {
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
+                .environmentObject(authViewModel)
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {

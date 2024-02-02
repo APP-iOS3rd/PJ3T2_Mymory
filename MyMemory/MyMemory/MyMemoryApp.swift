@@ -9,6 +9,8 @@ import SwiftUI
 import FirebaseCore
 import KakaoSDKAuth
 import KakaoSDKCommon
+import GoogleSignIn
+import GoogleSignInSwift
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
@@ -21,6 +23,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if (AuthApi.isKakaoTalkLoginUrl(url)) {
             return AuthController.handleOpenUrl(url: url)
+        } else if (GIDSignIn.sharedInstance.handle(url)) {
+            return GIDSignIn.sharedInstance.handle(url)
         }
 
         return false
@@ -57,6 +61,8 @@ struct MyMemoryApp: App {
                 .onOpenURL { url in
                     if (AuthApi.isKakaoTalkLoginUrl(url)) {
                         _ = AuthController.handleOpenUrl(url: url)
+                    } else if (GIDSignIn.sharedInstance.handle(url)) {
+                        GIDSignIn.sharedInstance.handle(url)
                     }
                 }
         }

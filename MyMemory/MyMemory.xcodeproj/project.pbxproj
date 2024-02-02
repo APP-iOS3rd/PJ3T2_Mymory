@@ -98,12 +98,15 @@
 		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
+		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
+		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
+		DA0B42692B6C71B000D24892 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */; };
+		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
 		DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12ABC32B58EA4F0093229C /* FileterListView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
 		DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */; };
 		DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */; };
 		DA2666412B62365600899D0C /* FirebaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2666402B62365600899D0C /* FirebaseProtocol.swift */; };
-		DA3325BB2B6A2DB000DC9452 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA3325BA2B6A2DB000DC9452 /* GoogleService-Info.plist */; };
 		DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
@@ -116,7 +119,6 @@
 		DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */; };
 		DA63D2A22B6009530000978B /* addMemoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA63D2A12B6009530000978B /* addMemoSubView.swift */; };
 		DA7481A02B6B602000127B83 /* Fonts+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */; };
-		DA7481A22B6B613F00127B83 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */; };
 		DA7481A42B6B621B00127B83 /* MemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7481A32B6B621B00127B83 /* MemoCard.swift */; };
 		DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
@@ -236,12 +238,13 @@
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
+		DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
 		DA131A4B2B4BD4BA00743FD0 /* MapViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTest.swift; sourceTree = "<group>"; };
 		DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShape.swift; sourceTree = "<group>"; };
 		DA2666402B62365600899D0C /* FirebaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProtocol.swift; sourceTree = "<group>"; };
-		DA3325BA2B6A2DB000DC9452 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
@@ -252,7 +255,6 @@
 		DA58C26C2B5CEE5D005CB3B3 /* Clustering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clustering.swift; sourceTree = "<group>"; };
 		DA58C26E2B5CF094005CB3B3 /* ClusterBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterBox.swift; sourceTree = "<group>"; };
 		DA63D2A12B6009530000978B /* addMemoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addMemoSubView.swift; sourceTree = "<group>"; };
-		DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA7481A32B6B621B00127B83 /* MemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCard.swift; sourceTree = "<group>"; };
 		DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Time+Extensions.swift"; sourceTree = "<group>"; };
 		DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
@@ -287,6 +289,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */,
+				DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */,
 				DAB315782B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */,
 				28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */,
@@ -743,10 +747,10 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
-				DA3325BA2B6A2DB000DC9452 /* GoogleService-Info.plist */,
+				DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */,
+				DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */,
 			);
 			path = Configure;
 			sourceTree = "<group>";
@@ -854,6 +858,8 @@
 				9D5077752B67653700460FD8 /* KakaoSDKCommon */,
 				9D5077772B67653700460FD8 /* KakaoSDKUser */,
 				DAA71E942B677F0600157DA1 /* Kingfisher */,
+				9DC3FD892B6A257C0008E97B /* GoogleSignIn */,
+				9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -933,6 +939,7 @@
 				28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
 				9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = DAB315482B43EFDB000357C7 /* Products */;
 			projectDirPath = "";
@@ -952,13 +959,13 @@
 			files = (
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
-				DA3325BB2B6A2DB000DC9452 /* GoogleService-Info.plist in Resources */,
-				DA7481A22B6B613F00127B83 /* APIKEYS.xcconfig in Resources */,
+				DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
+				DA0B42692B6C71B000D24892 /* APIKEYS.xcconfig in Resources */,
 				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
@@ -1126,7 +1133,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1189,7 +1196,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1245,7 +1252,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1254,7 +1261,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1298,16 +1305,16 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1351,18 +1358,19 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1372,18 +1380,19 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemoryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1393,12 +1402,12 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1414,12 +1423,12 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA7481A12B6B613F00127B83 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DA0B42672B6C71B000D24892 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1491,6 +1500,14 @@
 				minimumVersion = 2.20.0;
 			};
 		};
+		9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
@@ -1542,6 +1559,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		9DC3FD892B6A257C0008E97B /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 		DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */ = {
 			isa = XCSwiftPackageProductDependency;
