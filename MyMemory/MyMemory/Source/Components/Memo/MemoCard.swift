@@ -163,13 +163,6 @@ struct ImageGridView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
-
-                .background(Color.blue)
-
-                .onTapGesture {
-                    touchEvent.toggle()
-                    imgIndex = 0
-                }
         case 2:
             HStack(spacing: 2) {
                 Image(uiImage: UIImage(data: imgs[0])!)
