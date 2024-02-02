@@ -137,6 +137,7 @@ struct MypageView: View {
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
+                .environmentObject(authViewModel)
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {
