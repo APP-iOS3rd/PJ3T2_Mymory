@@ -15,7 +15,7 @@ struct MypageMemoList: View {
         LazyVStack(spacing: 12) {
             ForEach($viewModel.memoList, id: \.self) { memo in
                 NavigationLink {
-                    MemoDetailView(memo: memo)
+                    MemoDetailView(memo: memo, memos: viewModel.memoList)
                     
                 } label: {
                     MypageMemoListCell(

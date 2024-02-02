@@ -47,11 +47,15 @@ struct MemoListView: View {
                     }.padding(.top, 20)
                     
                     ScrollView(.vertical, showsIndicators: false){
-                        
                         VStack(spacing: 12) {
-                            ForEach(viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList) { item in
+                            ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0) { index, item  in
                                 NavigationLink {
-                                    DetailView(memo: item, isVisble: .constant(true))
+                                    DetailView(
+                                        memo: item,
+                                        isVisble: .constant(true),
+                                        memos: viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList,
+                                        selectedMemoIndex: index
+                                    )
                                 } label: {
                                     MemoCard(memo: item, isVisible: true)
                                 }
@@ -81,7 +85,7 @@ struct MemoListView: View {
                         Text("지도뷰")
                     }
                 }
-                    .buttonStyle(Pill.secondary)
+                    //.buttonStyle(Pill.secondary)
                     .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
                     .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 
