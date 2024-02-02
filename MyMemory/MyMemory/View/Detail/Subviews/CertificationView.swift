@@ -17,10 +17,7 @@ struct CertificationView: View {
     var body: some View {
         ZStack {
             
-            Color.bgColor
-                .foregroundStyle(.black)
-                .ignoresSafeArea()
-            
+            Color.bgColor 
             VStack {
                 VStack {
                     VStack {
@@ -34,7 +31,7 @@ struct CertificationView: View {
                             .font(.regular24)
                     }
                     .frame(alignment: .center)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(Color.textColor)
                     .padding(.top, 20)
                 }
                 
@@ -59,6 +56,7 @@ struct CertificationView: View {
                 }
                     .clipShape(.rect(cornerRadius: 10))
                     .frame(height: UIScreen.main.bounds.size.height * 0.55)
+                    .padding()
 //                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
 //                        .onAppear {
 //                            DispatchQueue.main.async {
@@ -78,7 +76,8 @@ struct CertificationView: View {
                         .ignoresSafeArea()
                     
             }
-           // .edgesIgnoringSafeArea(.bottom)
+            .edgesIgnoringSafeArea(.bottom)
+            
         }
         .customNavigationBar(
             centerView: {
