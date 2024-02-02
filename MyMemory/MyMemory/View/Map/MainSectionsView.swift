@@ -27,7 +27,7 @@ struct MainSectionsView: View {
                     if selectedIndex == 1 {
                         self.selectedIndex = 0
                     }
-                //왼쪽
+                    //왼쪽
                 } else if swipeDistance < (UIScreen.main.bounds.width)/3.0 * -1 {
                     if selectedIndex == 0 {
                         self.selectedIndex = 1
@@ -76,14 +76,16 @@ struct MainSectionsView: View {
                                 
                                 Spacer()
                             }.padding(.top, 20)
-                            
                             ScrollView(.vertical, showsIndicators: false){
-                                
                                 VStack(spacing: 12) {
-                                    ForEach(viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList) { item in
+                                    ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in
                                         NavigationLink {
                                             //                                                MemoDetailView(memo: item)
-                                            DetailView(memo: item, isVisble: .constant(true))
+                                            DetailView(memo: item,
+                                                       isVisble: .constant(true),
+                                                       memos: viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList,
+                                                       selectedMemoIndex: index
+                                            )
                                         } label: {
                                             MemoCard(memo: item, isVisible: true)
                                         }
