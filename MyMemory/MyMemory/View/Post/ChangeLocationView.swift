@@ -88,6 +88,18 @@ struct ChangeLocationView: View {
             .cornerRadius(16, corners: [.topLeft,.topRight])
             .background(Color.bgColor)
         }
+        .customNavigationBar(
+            centerView: {
+                Text("")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                EmptyView()
+            },
+            backgroundColor: .bgColor
+        )
     }
 }
 
