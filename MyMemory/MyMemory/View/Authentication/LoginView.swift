@@ -11,6 +11,9 @@ import AuthenticationServices
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseCore
 
 struct LoginView: View {
     
@@ -139,9 +142,41 @@ struct LoginView: View {
                 }
                 
                 Spacer()
-                
                 // MARK: - 소셜 로그인 버튼
                 VStack {
+                    GoogleSignInButton(
+                        scheme: .light, style: .standard, action: {
+                            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                            
+                            let config = GIDConfiguration(clientID: clientID)
+                            
+                            GIDSignIn.sharedInstance.configuration = config
+                            guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+                            GIDSignIn.sharedInstance.signIn(withPresenting: check) { signResult, error in
+                                if let error = error {
+                                    print("구글 로그인 에러입니다\(error)")
+                                    return
+                                } else {
+                                    guard let user = signResult?.user,
+                                          let idToken = user.idToken else { return }
+                                    
+                                    let accessToken = user.accessToken
+                                    
+                                    let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                    Task {
+                                        if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
+                                            print(alertTitle)
+                                            return
+                                        } else {
+                                            presentationMode.wrappedValue.dismiss()
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        })
+                    .frame(width: 350, height: 50)
+                    .cornerRadius(10)
                     SignInWithAppleButton(
                         onRequest: { request in
                             viewModel.nonce = viewModel.randomNonceString()
@@ -165,6 +200,7 @@ struct LoginView: View {
                                     break
                                 }
                                 self.viewModel.authenticate(credential: credential)
+                                self.isActive = true
                                 presentationMode.wrappedValue.dismiss()
                             case .failure(let error):
                                 print(error.localizedDescription)
@@ -173,7 +209,7 @@ struct LoginView: View {
                         }
                     )
                     .frame(width : 350, height:50)
-                    .cornerRadius(12)
+                    .cornerRadius(10)
                     Button {
                         if (UserApi.isKakaoTalkLoginAvailable()) {
                             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -185,22 +221,25 @@ struct LoginView: View {
                                         if let name = User?.kakaoAccount?.profile?.nickname {
                                             print("제 닉네임은 \(name) 입니다")
                                         }
+                                        
+                                        print("카카카오 결과입니다")
+                                        
                                     }
-                                    print("카카카오 결과입니다")
                                 }
                             }
                         }
-                    } label: {
-                        HStack {
-                            Image("kakao")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 18, height: 20)
-                            Text("Kakao로 계속하기")
-                                .font(.regular16)
-                        }
                     }
-                    .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.yellow))
+                label: {
+                    HStack {
+                        Image("kakao")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 18, height: 20)
+                        Text("Kakao로 계속하기")
+                            .font(.regular16)
+                    }
+                }
+                .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.yellow))
                 }//: SNS 로그인
                 .padding(.vertical, 20)
             }//: VSTACK

@@ -34,7 +34,7 @@ struct MemoCard: View {
                 .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40) * 1/2)
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(10)
-                .background(.white)
+                .background(Color.orginColor)
                 .foregroundColor(.clear)
                 .background(Color.deepGray)
                 .padding(.top, 13)
@@ -43,7 +43,7 @@ struct MemoCard: View {
             Text("\(memo.description)")
                 .multilineTextAlignment(.leading)
                 .font(.medium14)
-                .foregroundColor(.darkGray)
+                .foregroundColor(.textDarkColor)
                 .padding(.top, 15)
             HStack {
                 if self.isTagExpended {
@@ -91,21 +91,21 @@ struct MemoCard: View {
                 switch memo.likeCount {
                 case 100..<1000 :
                     Text("\(memo.likeCount/100)00+")
-                        .foregroundStyle(Color(hex: "#555459"))
+                        .foregroundStyle(Color.textDeepColor)
                         .font(.medium12)
                 case 1000... :
                     Text("\(memo.likeCount/1000)k+")
-                        .foregroundStyle(Color(hex: "#555459"))
+                        .foregroundStyle(Color.textDeepColor)
                         .font(.medium12)
                 default:
                     Text("\(memo.likeCount)")
-                        .foregroundStyle(Color(hex: "#555459"))
+                        .foregroundStyle(Color.textDeepColor)
                         .font(.medium12)
                 }
                 
                 Spacer()
                 Text("\(memo.date.toSimpleStr)")
-                    .foregroundStyle(Color(hex: "#555459"))
+                    .foregroundStyle(Color.textDeepColor)
                     .font(.medium12)
                     .padding(.leading,5)
             }
@@ -114,8 +114,10 @@ struct MemoCard: View {
                 VStack(alignment:.leading) {
                     Text("\(memo.title)")
                         .font(.bold16)
+                        .foregroundStyle(Color.textColor)
                     Text("\(memo.address)")
                         .font(.regular12)
+                        .foregroundStyle(Color.textColor)
                 }
                 Spacer()
                 Button {
@@ -138,7 +140,7 @@ struct MemoCard: View {
                     .foregroundStyle(Color(hex: "#E9E9E9"))
             )
         }.padding(20)
-            .background(Color.white)
+            .background(Color.orginColor)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.images)
             }
@@ -163,13 +165,6 @@ struct ImageGridView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
-
-                .background(Color.blue)
-
-                .onTapGesture {
-                    touchEvent.toggle()
-                    imgIndex = 0
-                }
         case 2:
             HStack(spacing: 2) {
                 Image(uiImage: UIImage(data: imgs[0])!)
