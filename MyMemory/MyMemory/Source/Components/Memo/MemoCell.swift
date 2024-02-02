@@ -14,7 +14,9 @@ struct MemoCell: View {
     @State var isDark: Bool = false
     @Binding var location: CLLocation?
     
+    @State var selectedMemoIndex: Int = 0
     @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
+    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
     
     @State var likeCount = 0
     
@@ -111,7 +113,7 @@ struct MemoCell: View {
                     
                     
                     NavigationLink { // 버튼이랑 비슷함
-                        DetailView(memo: $memo, isVisble: $isVisible)
+                        DetailView(memo: $memo, isVisble: $isVisible, memos: $memos, selectedMemoIndex: selectedMemoIndex)
                         
                     } label: {
                         HStack {
@@ -137,7 +139,7 @@ struct MemoCell: View {
         .cornerRadius(20)
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
-                if distance <= 5 {
+                if distance <= 50 {
                     isVisible = true
                 } else {
                     isVisible = false
