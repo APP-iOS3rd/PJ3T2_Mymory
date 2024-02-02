@@ -11,6 +11,9 @@ import AuthenticationServices
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
+import GoogleSignIn
+import GoogleSignInSwift
+import FirebaseCore
 
 struct LoginView: View {
     
@@ -148,6 +151,102 @@ struct LoginView: View {
                             request.requestedScopes = [.fullName, .email]
                             request.nonce = viewModel.sha256(viewModel.nonce)
                         },
+                        leftView: {
+                            EmptyView()
+                        },
+                        rightView: {
+                            CloseButton()
+                        },
+                        backgroundColor: .white
+                    )
+            } label: {
+                Text("내모리가 처음이시라면 - 회원가입")
+                    .underline()
+                    .foregroundStyle(.gray)
+                    .font(.regular14)
+            }
+            
+            Spacer()
+            
+            // MARK: - 소셜 로그인 버튼
+            VStack {
+                GoogleSignInButton(
+                    scheme: .light, style: .standard, action: {
+                        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                                
+                        let config = GIDConfiguration(clientID: clientID)
+
+                        GIDSignIn.sharedInstance.configuration = config
+                        guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+                        GIDSignIn.sharedInstance.signIn(withPresenting: check) { signResult, error in
+                            if let error = error {
+                                print("구글 로그인 에러입니다\(error)")
+                                return
+                            } else {
+                                guard let user = signResult?.user,
+                                           let idToken = user.idToken else { return }
+                                     
+                                     let accessToken = user.accessToken
+                                            
+                                     let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                Task {
+                                    if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
+                                        print(alertTitle)
+                                        return
+                                    } else {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                                
+                            }
+                        }
+                    })
+                .frame(width: 350, height: 50)
+                .cornerRadius(10)
+                SignInWithAppleButton(
+                    onRequest: { request in
+                        viewModel.nonce = viewModel.randomNonceString()
+                        request.requestedScopes = [.fullName, .email]
+                        request.nonce = viewModel.sha256(viewModel.nonce)
+                    },
+                    onCompletion: { result in
+                        switch result {
+                        case .success(let authResults):
+                            print("Apple Login Successful")
+                            guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
+                                print("error with firebase")
+                                return
+                            }
+                            switch authResults.credential {
+                                case let appleIDCredential as ASAuthorizationAppleIDCredential:
+                                let fullName = appleIDCredential.fullName
+                                self.viewModel.name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
+                                self.viewModel.email = appleIDCredential.email ?? "emailnotfound"
+                            default:
+                                break
+                            }
+                            self.viewModel.authenticate(credential: credential)
+                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            print("error")
+                        }
+                    }
+                )
+                .frame(width : 350, height:50)
+                .cornerRadius(10)
+                Button {
+                    if (UserApi.isKakaoTalkLoginAvailable()) {
+                        UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                            if let error = error {
+                                print("카카오로그인 에러입니다. \(error)")
+                                return
+                            } else {
+                                UserApi.shared.me { User, Error in
+                                         if let name = User?.kakaoAccount?.profile?.nickname {
+                                             print("제 닉네임은 \(name) 입니다")
+                                         }
                         onCompletion: { result in
                             switch result {
                             case .success(let authResults):
