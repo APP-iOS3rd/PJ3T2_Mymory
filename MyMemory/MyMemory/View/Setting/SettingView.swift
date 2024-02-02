@@ -13,6 +13,7 @@ struct SettingView: View {
     @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
     @Environment(\.presentationMode) var presentationMode
+  
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,12 +28,11 @@ struct SettingView: View {
                         Group {
                             SettingMenuCell(name: "로그인 정보")
                             Divider()
-                                .padding(.bottom, 20)
                             SettingMenuCell(name: "알림")
                             Divider()
-                            SettingMenuCell(name: "테마")
+                            SettingMenuCell(name: "테마", page: "theme")
                             Divider()
-                            SettingMenuCell(name: "폰트")
+                            SettingMenuCell(name: "폰트", page: "font")
                             Divider()
                             
                         }
