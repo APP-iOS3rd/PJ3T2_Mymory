@@ -17,7 +17,7 @@ struct CertificationView: View {
     var body: some View {
         ZStack {
             
-            Color.black
+            Color.bgColor
                 .foregroundStyle(.black)
                 .ignoresSafeArea()
             
@@ -78,7 +78,7 @@ struct CertificationView: View {
                         .ignoresSafeArea()
                     
             }
-            .edgesIgnoringSafeArea(.bottom)
+           // .edgesIgnoringSafeArea(.bottom)
         }
         .customNavigationBar(
             centerView: {
