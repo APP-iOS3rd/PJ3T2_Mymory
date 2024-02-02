@@ -165,13 +165,6 @@ struct ImageGridView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
-
-                .background(Color.blue)
-
-                .onTapGesture {
-                    touchEvent.toggle()
-                    imgIndex = 0
-                }
         case 2:
             HStack(spacing: 2) {
                 Image(uiImage: UIImage(data: imgs[0])!)
@@ -250,7 +243,6 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-
                         .overlay(
                             ZStack{
                                 Color.black.opacity(0.6)
