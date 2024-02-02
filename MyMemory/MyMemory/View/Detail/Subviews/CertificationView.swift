@@ -80,5 +80,17 @@ struct CertificationView: View {
             }
             .edgesIgnoringSafeArea(.bottom)
         }
+        .customNavigationBar(
+            centerView: {
+                Text(" ")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .bgColor
+        )
     }
 }
