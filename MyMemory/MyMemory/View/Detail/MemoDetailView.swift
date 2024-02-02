@@ -11,6 +11,7 @@ struct MemoDetailView: View {
     @Binding var memo: Memo
     @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
     @State var selectedMemoIndex = 0
+    @State var filteredMemos: [Memo]?
     @State private var scrollIndex: Int?
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
@@ -23,8 +24,6 @@ struct MemoDetailView: View {
                 LazyHStack(spacing: 10) {
                     ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                         ZStack {
-                            
-
                             ScrollView {
                                 VStack(alignment: .leading) {
                                     ScrollView(.horizontal) {
@@ -121,7 +120,7 @@ struct MemoDetailView: View {
                                         .font(.regular16)
                                         .frame(width: 100, height: 60)
                                         .onTapGesture {
-                                            if scrollIndex != memos.startIndex - 1 {
+                                            if scrollIndex != memos.startIndex {
                                                 preButton()
                                             }
                                         }
