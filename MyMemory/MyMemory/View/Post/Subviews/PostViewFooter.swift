@@ -29,6 +29,7 @@ struct PostViewFooter: View {
                     // Your button action
                     ChangeLocationView()
                         .environmentObject(viewModel)
+                 
                 } label: {
                     Text("위치 재설정")
                 }
