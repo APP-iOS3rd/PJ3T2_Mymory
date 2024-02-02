@@ -109,13 +109,13 @@ struct MypageView: View {
                     .background(Color.bgColor)
                 
             }
-//            .safeAreaInset(edge: .bottom) {
-//                Color.white
-//                    .frame(height: 0)
-//                    .background(.white)
-//                    .border(Color.black)
-//                
-//            }
+            .safeAreaInset(edge: .bottom) {
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.bgColor)
+                    .border(Color.black)
+                
+            }
             
         }
         .onAppear(perform: {

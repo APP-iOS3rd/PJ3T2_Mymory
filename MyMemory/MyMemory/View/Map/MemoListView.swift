@@ -7,10 +7,3 @@
 
 import SwiftUI
 
-//struct MemoListView: View {
-//
-//}
-//
-//#Preview {
-//    MemoListView(sortDistance: .constant(true))
-//}
