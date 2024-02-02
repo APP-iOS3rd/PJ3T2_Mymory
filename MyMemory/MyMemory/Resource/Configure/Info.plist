@@ -57,5 +57,7 @@
 		<string>Pretendard-ExtraLight.otf</string>
 		<string>Pretendard-Thin.otf</string>
 	</array>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 </dict>
 </plist>
