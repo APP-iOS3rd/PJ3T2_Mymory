@@ -11,7 +11,7 @@ import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct OtherUserProfileView: View {
     @Binding var memoCreator: User
-    @ObservedObject var viewModel: MypageViewModel
+    @ObservedObject var viewModel: OtherUserViewModel
     @ObservedObject var authViewModel : AuthViewModel = .shared
     @State var isFollow: Bool = false
     var body: some View {

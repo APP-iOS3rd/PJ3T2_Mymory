@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct MypageMemoListCell: View {
+struct MypageMemoListCell<ViewModel: MemoListViewModel>: View {
+    
     @Binding var memo: Memo
-    @EnvironmentObject var viewModel: MypageViewModel
+    @ObservedObject var viewModel: ViewModel
+    
     var body: some View {
         HStack {
             HStack(alignment: .top, spacing: 10){

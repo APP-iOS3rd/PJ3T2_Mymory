@@ -46,7 +46,6 @@ struct MoveUserProfileButton: View {
                 
                 NavigationLink {
                     MypageView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                    
                 } label: {
                     Text("작성자 프로필 이동")
                 }
