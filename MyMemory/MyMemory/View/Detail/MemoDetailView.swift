@@ -100,6 +100,7 @@ struct MemoDetailView: View {
                     }
                 }
             }
+            
             VStack {
                 Spacer()
                 MoveUserProfileButton(viewModel: viewModel)
@@ -115,16 +116,10 @@ struct MemoDetailView: View {
             },
             rightView: {
                 NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memo)
-//                                        CloseButton()
             },
             backgroundColor: .bgColor
         )
 
-//        .navigationBarItems(
-//            // 오른쪽 부분
-//            trailing:
-//                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: memo)
-//        )
     }
         
     
