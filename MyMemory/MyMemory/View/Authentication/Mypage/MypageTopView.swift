@@ -43,44 +43,10 @@ struct MypageTopView: View {
                 }
                 .buttonStyle(.plain)
                 
-                VStack{
-                    Text("\(authViewModel.followerCount)")
-                    Text("팔로워")
-                }
-                
-                
-                VStack{
-                    Text("\(authViewModel.followingCount)")
-                    Text("팔로잉")
-                }
-                
-                .padding(.leading, 10)
+             
             }
             
-            
-            else {
-                NavigationLink {
-                    LoginView()
-                        .customNavigationBar(
-                            centerView: {
-                                Text(" ")
-                            },
-                            leftView: {
-                                EmptyView()
-                            },
-                            rightView: {
-                                CloseButton()
-                            },
-                            backgroundColor: .white
-                        )
-                } label: {
-                    Text("로그인이 필요합니다.")
-                        .foregroundStyle(Color.textColor)
-                        .font(.semibold20)
-                }
-                .buttonStyle(.plain)
-            }
-            
+
             Spacer()
             
             NavigationLink {
@@ -109,6 +75,7 @@ struct MypageTopView: View {
             }
             
             // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
+            
         }
         .onAppear {
             Task { // 로그인 안하면 실행 x
