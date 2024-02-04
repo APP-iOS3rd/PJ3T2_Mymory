@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
-// MypageMemoList 수정
-struct MypageMemoList<ViewModel: MemoListViewModel>: View {
+// ProfileMemoList 수정
+struct ProfileMemoList<ViewModel: MemoListViewModel>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     
     var body: some View {
         LazyVStack(spacing: 12) {
-            ForEach($viewModel.MemoList, id: \.self) { memo in
+            ForEach($viewModel.memoList, id: \.self) { memo in
                 NavigationLink {
                     MemoDetailView(memo: memo)
                 } label: {
-                    MypageMemoListCell(memo: memo, viewModel: viewModel)
+                    ProfileMemoListCell(memo: memo, viewModel: viewModel)
                         .onAppear {
                             Task {
                                 // 1. 로그인 되어있는지 체크

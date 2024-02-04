@@ -11,7 +11,7 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     var id: SortedTypeOfMemo { self }
 }
 
-struct MypageView: View {
+struct ProfileView: View {
     @State var selected: Int = 2
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
@@ -38,13 +38,13 @@ struct MypageView: View {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
                         if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
-                            OtherUserProfileView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
+                            OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             createHeader(isCurrentUser: isCurrentUser)
-                            MypageMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
+                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         } else {
                             MypageTopView() //
                             createHeader(isCurrentUser: isCurrentUser)
-                            MypageMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
                         }
                     } else {
                         showLoginPrompt()

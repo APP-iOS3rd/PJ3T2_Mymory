@@ -15,7 +15,7 @@ import FirebaseFirestore
 
 class MypageViewModel: ObservableObject, MemoListViewModel {
     
-    @Published var MemoList: [Memo] = []
+    @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
     @Published var selectedImage: PhotosPickerItem? = nil
@@ -70,7 +70,7 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         self.selectedFilter = type
         switch type {
         case .last:
-            self.MemoList = MemoList.sorted {
+            self.memoList = memoList.sorted {
                 let first = Date(timeIntervalSince1970: $0.date)
                 let second = Date(timeIntervalSince1970: $1.date)
                 // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
@@ -81,9 +81,9 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
                 }
             }
         case .like:
-            self.MemoList = MemoList.sorted { $0.likeCount > $1.likeCount }
+            self.memoList = memoList.sorted { $0.likeCount > $1.likeCount }
         case .close:
-            self.MemoList = MemoList.sorted {
+            self.memoList = memoList.sorted {
                 let first = $0.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
                 let second = $1.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
                 return first < second
@@ -126,7 +126,7 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         }
         
         await MainActor.run {
-            self.MemoList += fetchedMemos
+            self.memoList += fetchedMemos
         }
     }
 }

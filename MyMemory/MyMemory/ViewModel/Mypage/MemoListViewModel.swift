@@ -14,7 +14,7 @@ import FirebaseFirestore
 
 
 protocol MemoListViewModel: ObservableObject {
-    var MemoList: [Memo] { get set }
+    var memoList: [Memo] { get set }
     var selectedFilter: SortedTypeOfMemo { get set }
     var isShowingOptions: Bool { get set }
     var isCurrentUserLoginState: Bool { get set }
