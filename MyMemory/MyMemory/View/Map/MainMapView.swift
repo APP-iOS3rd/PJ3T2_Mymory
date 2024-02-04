@@ -106,14 +106,17 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     HStack(spacing: 20) {
-                        ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
+                        ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
                             VStack{
                                 Text("\(String(item.didLike))")
                                 MemoCell(
                                     isVisible: true,
                                     isDark: true,
                                     location: $mainMapViewModel.location,
-                                    memo: item)
+                                    selectedMemoIndex: index,
+                                    memo: item,
+                                    memos: mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList
+                                )
                                 .environmentObject(mainMapViewModel)
                                 .onTapGesture {
                                     mainMapViewModel.memoDidSelect(memo: item)
