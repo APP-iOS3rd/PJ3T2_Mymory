@@ -104,7 +104,6 @@ struct MainMapView: View {
                 .padding(.horizontal, 16)
                 
                 //선택한 경우
-                
                 ScrollViewReader { scroll in
                     
                     ScrollView(.horizontal) {
@@ -114,7 +113,6 @@ struct MainMapView: View {
                                     Text("\(String(item.didLike))")
                                     MemoCell(
                                         isVisible: true,
-                                        
                                         location: $mainMapViewModel.location,
                                         selectedMemoIndex: index,
                                         memo: item,
@@ -129,6 +127,7 @@ struct MainMapView: View {
                         }
                         
                     }
+                    
                 }
                 .fixedSize(horizontal: false, vertical: true)
             }

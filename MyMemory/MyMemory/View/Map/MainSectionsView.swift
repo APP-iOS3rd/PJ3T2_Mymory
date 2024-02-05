@@ -60,7 +60,6 @@ struct MainSectionsView: View {
                                     FilterButton(buttonName: .constant(viewModel.filterList.isEmpty ? "전체 메뉴" : viewModel.filterList.combinedWithComma))
                                 }
                                 .buttonStyle(viewModel.filterList.isEmpty ? RoundedRect.standard : RoundedRect.selected)
-                                
                                 Button {
                                     // 거리순 - 최근 등록순
                                     self.sortDistance.toggle()
