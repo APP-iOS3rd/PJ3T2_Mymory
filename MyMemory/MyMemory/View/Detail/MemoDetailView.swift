@@ -163,7 +163,7 @@ struct MemoDetailView: View {
                 Spacer()
                 MoveUserProfileButton(viewModel: viewModel)
             }
-        }
+       // }
         
  
         .scrollDisabled(true)
