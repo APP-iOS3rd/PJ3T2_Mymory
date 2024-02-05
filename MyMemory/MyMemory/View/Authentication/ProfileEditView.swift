@@ -10,6 +10,7 @@ import _PhotosUI_SwiftUI
 
 struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
+    @Environment(\.dismiss) var dismiss
     var existingProfileImage: String?
     var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
     
@@ -47,7 +48,11 @@ struct ProfileEditView: View {
                     }
                 }
             }
-            
+            .onChange(of: viewModel.isEditionSuccessd) { newValue in
+                if newValue {
+                    dismiss()
+                }
+            }
             Button("수정하기") {
                 if let photoData = viewModel.selectedPhotoData {
                     Task {
@@ -65,5 +70,10 @@ struct ProfileEditView: View {
             
         }
         .padding(.horizontal, 16)
+        .overlay(content: {
+            if viewModel.isLoading {
+                LoadingView()
+            }
+        })
     }
 }

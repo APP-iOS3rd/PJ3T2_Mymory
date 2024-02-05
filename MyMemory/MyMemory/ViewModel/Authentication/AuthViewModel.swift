@@ -68,7 +68,7 @@ class AuthViewModel: ObservableObject {
     func login(withEmail email: String, password: String) async -> String? {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
-            self.userSession = result.user
+            AuthService.shared.userSession = result.user
             AuthService.shared.fetchUser()
             return nil
         } catch {
@@ -89,12 +89,12 @@ class AuthViewModel: ObservableObject {
                     "profilePicture": ""
                 ]
                 COLLECTION_USERS.document(result.user.uid).setData(data) { _ in
-                    self.userSession = result.user
+                    AuthService.shared.userSession = result.user
                     AuthService.shared.fetchUser()
                 }
                 print("계정생성 성공")
             } else {
-                self.userSession = result.user
+                AuthService.shared.userSession = result.user
                 AuthService.shared.fetchUser()
             }
             return nil
@@ -140,7 +140,7 @@ class AuthViewModel: ObservableObject {
                         "profilePicture": ""
                     ]
                     COLLECTION_USERS.document(user.uid).setData(data) { _ in
-                        self.userSession = user
+                        AuthService.shared.userSession = user
                         AuthService.shared.fetchUser()
                     }
                     print("계정생성 성공")
@@ -156,7 +156,7 @@ class AuthViewModel: ObservableObject {
                         "profilePicture": imageUrl
                     ]
                     COLLECTION_USERS.document(user.uid).setData(data) { _ in
-                        self.userSession = user
+                        AuthService.shared.userSession = user
                         AuthService.shared.fetchUser()
                     }
                     print("계정생성 성공")
@@ -248,11 +248,11 @@ class AuthViewModel: ObservableObject {
                     "profilePicture": ""
                 ]
                 COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
-                    self.userSession = result!.user
+                    AuthService.shared.userSession = result!.user
                     AuthService.shared.fetchUser()
                 }
             }
-            self.userSession = result!.user
+            AuthService.shared.userSession = result!.user
             AuthService.shared.fetchUser()
             print("로그인 완료")
         }

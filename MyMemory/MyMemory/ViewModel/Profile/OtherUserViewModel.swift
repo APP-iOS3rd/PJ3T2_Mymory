@@ -46,6 +46,9 @@ class OtherUserViewModel: ObservableObject, MemoListViewModel {
 //            self.user = user
 //        }
     }
+    deinit{
+        print("OtherUser 뷰모델 deinited")
+    }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
     func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){

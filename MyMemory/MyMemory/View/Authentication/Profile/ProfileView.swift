@@ -66,6 +66,7 @@ struct ProfileView: View {
             }
         }
         .onAppear {
+            
             checkLoginStatus()
             authViewModel.fetchUser()
            
