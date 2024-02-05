@@ -59,12 +59,7 @@ struct MemoListView: View {
                                 } label: {
                                     MemoCard(memo: item, isVisible: true)
                                 }
-
-//                                MemoCell(
-//                                    isVisible: true,
-//                                    isDark: false,
-//                                    location: $viewModel.location,
-//                                    memo: item)
+                                
                             }
                             
                         }

@@ -111,7 +111,7 @@ struct MainMapView: View {
                                 Text("\(String(item.didLike))")
                                 MemoCell(
                                     isVisible: true,
-                                    isDark: true,
+                                
                                     location: $mainMapViewModel.location,
                                     selectedMemoIndex: index,
                                     memo: item,
