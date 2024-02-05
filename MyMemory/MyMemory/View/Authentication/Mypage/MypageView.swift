@@ -40,8 +40,11 @@ struct MypageView: View {
                         OtherUserProfileView(memoCreator: $memoCreator, viewModel: viewModel)
                     } else{
                         MypageTopView(viewModel: viewModel)
+                       
                     }
                     if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil  {
+                        
+                        UserStatusCell()
                         
                         HStack(alignment: .lastTextBaseline) {
                             Text("내가 작성한 메모")

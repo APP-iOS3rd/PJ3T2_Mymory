@@ -258,7 +258,7 @@ struct LoginView: View {
                 rightView: {
                     CloseButton()
                 },
-                backgroundColor: .white
+                backgroundColor: .bgColor
             )
         }
     }

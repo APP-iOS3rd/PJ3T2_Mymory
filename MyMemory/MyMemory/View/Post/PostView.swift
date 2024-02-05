@@ -11,8 +11,6 @@ import Combine
 import _PhotosUI_SwiftUI
 import UIKit
 
-
-
 struct PostView: View {
     @Binding var selected: Int
     @State var presentLoginAlert: Bool = false
@@ -30,14 +28,14 @@ struct PostView: View {
     var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
     
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
-
     
     // property
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ScrollView{
+        ZStack {
+            ScrollView{
             VStack(alignment: .leading){
                 
                 //💁 메모하기 View, 사진 등록하기 View
@@ -66,7 +64,7 @@ struct PostView: View {
                     }
                 }
                 
-               
+                
                 // 💁 Tag 선택 View
                 Group {
                     SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
@@ -75,46 +73,35 @@ struct PostView: View {
                 }
                 
                 .padding(.bottom)
-                
-                // 💁 주소찾기 View
-                Group {
-                    PostViewFooter()
-                        .environmentObject(viewModel)
-                }
-                .padding(.bottom, 25)
-    
-                Button(action: {
-                    Task {
-                        LoadingManager.shared.phase = .loading
-                        if isEdit {
-                            // 수정 모드일 때는 editMemo 호출
-                            await viewModel.editMemo(memo: memo)
-                            presentationMode.wrappedValue.dismiss()
-                        } else {
-                            // 수정 모드가 아닐 때는 saveMemo 호출
-                            await viewModel.saveMemo()
-                        }
-                    }
-                }, label: {
-                    Text(isEdit ? "수정완료" : "작성완료")
-                        .frame(maxWidth: .infinity)
-                })
-            
                 .buttonStyle(.borderedProminent)
-                .padding(.horizontal)
+                .padding(.horizontal, 20)
                 .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                 .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                .padding(.bottom)
+                .padding(.bottom, 60)
                 
                 Spacer()
+                    
             } //:VSTACK
             
         } //: ScrollView
+            
+            
+            // 주소찾기 View: 하단 고정
+            VStack {
+                Spacer()
+                PostViewFooter()
+                    .environmentObject(viewModel)
+                
+            }
+            .edgesIgnoringSafeArea(.bottom)
+        }
+    
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-        
+      
+        .padding(.bottom, 25)
 
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
@@ -190,22 +177,56 @@ struct PostView: View {
             rightView: {
                 Group {
                     if isEdit {
+                        HStack {
+                            Button(action: {
+                                Task.init {
+                                    // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
+                                    // 예: 삭제 확인 대화상자를 표시합니다
+                                    print("Trash button tapped!")
+                                    await viewModel.deleteMemo(memo: memo)
+                                    DispatchQueue.main.async {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                            
+                            Button(action: {
+                                Task {
+                                    LoadingManager.shared.phase = .loading
+                                    if isEdit {
+                                        // 수정 모드일 때는 editMemo 호출
+                                        await viewModel.editMemo(memo: memo)
+                                        presentationMode.wrappedValue.dismiss()
+                                    } else {
+                                        // 수정 모드가 아닐 때는 saveMemo 호출
+                                        await viewModel.saveMemo()
+                                    }
+                                }
+                            }, label: {
+                                Text("수정")
+                            })
+                        }
+                        
+                    } else {
+                        //Text("저장")
                         Button(action: {
-                            Task.init {
-                                // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
-                                // 예: 삭제 확인 대화상자를 표시합니다
-                                print("Trash button tapped!")
-                                await viewModel.deleteMemo(memo: memo)
-                                DispatchQueue.main.async {
+                            Task {
+                                LoadingManager.shared.phase = .loading
+                                if isEdit {
+                                    // 수정 모드일 때는 editMemo 호출
+                                    await viewModel.editMemo(memo: memo)
                                     presentationMode.wrappedValue.dismiss()
+                                } else {
+                                    // 수정 모드가 아닐 때는 saveMemo 호출
+                                    await viewModel.saveMemo()
                                 }
                             }
-                        }) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.red)
-                        }
-                    } else {
-                        Text("저장")
+                        }, label: {
+                            Text("저장")
+                        })
                     }
                 }
                 

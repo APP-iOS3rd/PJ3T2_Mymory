@@ -37,17 +37,7 @@ struct OtherUserProfileView: View {
             }
             
             
-            VStack{
-                Text("\(authViewModel.followerCount)")
-                Text("팔로워")
-            }
-            
-            
-            VStack{
-                Text("\(authViewModel.followingCount)")
-                Text("팔로잉")
-            }
-            
+            UserStatusCell()
             
             if authViewModel.isFollow == false {
                 Button {
