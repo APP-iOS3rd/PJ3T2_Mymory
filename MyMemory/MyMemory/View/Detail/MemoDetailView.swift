@@ -156,7 +156,6 @@ struct MemoDetailView: View {
                }
            }
         }
-                   
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))

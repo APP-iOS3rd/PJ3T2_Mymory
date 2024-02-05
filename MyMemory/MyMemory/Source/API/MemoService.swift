@@ -471,7 +471,7 @@ struct MemoService {
     ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수
     /// - Returns: 좋아요 받은 총 개수
     func likeMemoCount(memo: Memo) async -> Int {
-        let memoID = memo.id ?? ""
+        guard let memoID = memo.id else {return 0}
         var likeCount = 0
         
         do {
