@@ -122,6 +122,28 @@ final class AuthService: ObservableObject {
             completion(memoCreator)
         }
     }
+    func fetchUserFollowerCount(with id: String) async -> Int {
+        do {
+            let document = try await COLLECTION_USER_Followers.document(id).getDocument()
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                return fieldCount
+            } else { return 0 }
+        } catch {
+            print("에러 발생: \(error)")
+            return 0
+        }
+    }
+    func fetchUserMemoCount(with id: String) async -> Int {
+        do {
+            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments()
+            return documents.documents.count
+        } catch {
+            print("에러 발생: \(error)")
+            return 0
+        }
+    }
     // 팔로우, 팔로잉을 카운트 하는 함수
     // - Parameters:
     //   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.
@@ -162,8 +184,6 @@ final class AuthService: ObservableObject {
         } catch {
             print("에러 발생: \(error)")
         }
-        
-        
     }
     /// 앱을 나갔다 들어와도, 재부팅 해도 내가 팔로우한 사용자를 체크 할 수 있는 메서드입니다.
     /// - Parameters:
@@ -211,7 +231,53 @@ final class AuthService: ObservableObject {
             
         }
     }
-    
+    /// 앱을 나갔다 들어와도, 재부팅 해도 내가 팔로우한 사용자를 체크 할 수 있는 메서드입니다.
+    /// - Parameters:
+    ///   - id : UUID
+    /// - Returns: 팔로우 했었다면 true 을 팔로우 하지 않았다면 false를 반환하여 View 쪽에서 팔로우 버튼의 UI를 변경합니다.
+    func followCheck(with id: String , completion: @escaping (Bool?) -> Void){
+        guard let uid = Auth.auth().currentUser?.uid else {
+            DispatchQueue.main.async {
+                self.isFollow = false
+            }
+            return
+        }
+        let followUserID = id
+        
+        let userFollowRef = COLLECTION_USER_Following.document(uid)
+        userFollowRef.getDocument { (document, error) in
+            if let error = error {
+                print("사용자 팔로우 문서를 가져오는 중 오류가 발생했습니다: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.isFollow = false
+                    completion(false)
+                }
+                return
+            }
+            
+            if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
+                
+                if dataArray.keys.contains(followUserID) {
+                    DispatchQueue.main.async {
+                        self.isFollow = true
+                        completion(true)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.isFollow = false
+                        completion(false)
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.isFollow = false
+                    completion(false)
+                    
+                }
+            }
+            
+        }
+    }
     /// 사용자를 팔로우 하는 함수입니다.
     /// - Parameters:
     ///   - followUser : 팔로우할 사용자를 넣어주면 됩니다.

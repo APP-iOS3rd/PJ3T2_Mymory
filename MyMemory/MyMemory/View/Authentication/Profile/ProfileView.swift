@@ -46,6 +46,7 @@ struct ProfileView: View {
                         } else {
                             MypageTopView() //
                             createHeader(isCurrentUser: isCurrentUser)
+                            
                             ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
                         }
                     } else {
