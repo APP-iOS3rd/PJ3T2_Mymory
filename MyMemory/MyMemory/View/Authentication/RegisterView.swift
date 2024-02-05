@@ -10,7 +10,15 @@ import Photos
 import PhotosUI
 
 struct RegisterView: View {
-   // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
+   
+    enum Field {
+        case email
+        case password
+        case secondpassword
+        case name
+    }
+    @FocusState private var focusedField: Field?
+    
     @EnvironmentObject var viewModel : AuthViewModel
     @State private var isActive: Bool = false
     
@@ -48,6 +56,7 @@ struct RegisterView: View {
                             Text("이메일")
                                 .font(.system(size: 15))
                             TextField("example@example.com", text: $viewModel.email)
+                                .focused($focusedField, equals: .email)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
@@ -71,6 +80,7 @@ struct RegisterView: View {
                             Text("비밀번호")
                                 .font(.system(size: 15))
                             SecureField("특수문자와 숫자/대문자를 포함한 8글자", text: $viewModel.password)
+                                .focused($focusedField, equals: .password)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
@@ -91,6 +101,7 @@ struct RegisterView: View {
                             Text("비밀번호 확인")
                                 .font(.system(size: 15))
                             SecureField("비밀번호를 다시 입력해주세요", text: $viewModel.secondPassword)
+                                .focused($focusedField, equals: .secondpassword)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
@@ -111,6 +122,7 @@ struct RegisterView: View {
                             Text("이름")
                                 .font(.system(size: 15))
                             TextField("이름을 입력해주세요", text: $viewModel.name)
+                                .focused($focusedField, equals: .name)
                                 .overlay(
                                         Image(systemName: "multiply.circle.fill")
                                             .position(x:350, y:10)
@@ -235,6 +247,18 @@ struct RegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
+                }
+                .onSubmit {
+                    switch focusedField {
+                    case .email:
+                        focusedField = .password
+                    case .password:
+                        focusedField = .secondpassword
+                    case .secondpassword:
+                        focusedField = .name
+                    default:
+                        print("Done")
+                    }
                 }
                 .fullScreenCover(isPresented: $isActive) {
                     MainTabView()
