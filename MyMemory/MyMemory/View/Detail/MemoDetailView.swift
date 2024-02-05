@@ -155,7 +155,25 @@ struct MemoDetailView: View {
 //                }
 //            }
 //        }
-
+ 
+            .onAppear {
+                Task {
+                    do {
+                        isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                        viewModel.fetchMemoCreator(uid: memo.userUid)
+                    } catch {
+                        // 에러 처리
+                        print("Error checking my memo: \(error.localizedDescription)")
+                    }
+                }
+            }
+            
+            VStack {
+                Spacer()
+                MoveUserProfileButton(viewModel: viewModel)
+            }
+       // }
+        
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
