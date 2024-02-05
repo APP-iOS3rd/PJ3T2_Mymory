@@ -100,6 +100,6 @@ struct MemoListView: View {
     }
 }
 
-#Preview {
-    MemoListView(sortDistance: .constant(true))
-}
+//#Preview {
+//    MemoListView(sortDistance: .constant(true))
+//}
