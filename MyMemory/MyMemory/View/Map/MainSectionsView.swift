@@ -129,6 +129,9 @@ struct MainSectionsView: View {
                 
             )
             .background(Color.bgColor)
+            .onAppear{
+                AuthService.shared.fetchUser()
+            }
         }
     }
 }
