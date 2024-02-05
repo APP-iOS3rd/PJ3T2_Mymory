@@ -11,11 +11,12 @@ import CoreLocation
 struct MemoCell: View {
     
     @State var isVisible: Bool = true
-    @State var isDark: Bool = false
     @Binding var location: CLLocation?
     @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
+    @State var selectedMemoIndex: Int = 0
     @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
+    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
     
     @State var likeCount = 0
     
@@ -41,14 +42,14 @@ struct MemoCell: View {
                         Image(systemName: "heart.fill")
                             .foregroundColor(memo.didLike ? .red : .gray)
                             .frame(width: 46, height: 46)
-                            .background(isDark ? .white : .lightGray)
+                            .background(Color.bgColor2)
                             .clipShape(Circle())
                     }
                 }else {
                     Image(systemName: "lock")
                     .foregroundColor(.gray)
                     .frame(width: 46, height: 46)
-                    .background(isDark ? .white : .lightGray)
+                    .background(Color.bgColor2)
                     .clipShape(Circle())
                 }
                 
@@ -75,7 +76,7 @@ struct MemoCell: View {
                 Text(isVisible ? memo.title : "거리가 멀어서 볼 수 없어요.")
                     .lineLimit(1)
                     .font(.black20)
-                    .foregroundStyle(isDark ? .white : .black)
+                    .foregroundStyle(Color.textColor)
                 
                 Button {
                     // 메모 정보 확인
@@ -83,7 +84,8 @@ struct MemoCell: View {
                 } label: {
                     Text("해당 장소 메모보기")
                 }
-                .buttonStyle(isDark ? Pill.deepGray : Pill.lightGray)
+                .buttonStyle(Pill.deepGray)
+                //.buttonStyle(isDark ? Pill.deepGray : Pill.lightGray)
                 
                 Spacer()
                     .padding(.bottom, 12)
@@ -112,7 +114,7 @@ struct MemoCell: View {
                     
                     
                     NavigationLink { // 버튼이랑 비슷함
-                        DetailView(memo: $memo, isVisble: $isVisible)
+                        DetailView(memo: $memo, isVisble: $isVisible, memos: $memos, selectedMemoIndex: selectedMemoIndex)
                         
                     } label: {
                         HStack {
@@ -132,13 +134,13 @@ struct MemoCell: View {
             
         }
         .padding(20)
-        .background(isDark ? Color(UIColor.black) : .white)
+        .background(Color.orginColor)
         .frame(maxWidth: .infinity)
         .fixedSize(horizontal: false, vertical: true)
         .cornerRadius(20)
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
-                if distance <= 5 {
+                if distance <= 50 {
                     isVisible = true
                 } else {
                     isVisible = false

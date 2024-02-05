@@ -5,34 +5,32 @@ struct PostViewFooter: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .clipShape(.rect(cornerRadius: 15))
-                .foregroundStyle(Color.black)
-                .frame(height: 65)
-                .padding(.horizontal, 20)
             
-            HStack(spacing: 20) {
+            HStack {
                 VStack(alignment: .leading) {
                     Text(viewModel.memoAddressText.isEmpty ? "위치를 탐색 중입니다." : viewModel.memoAddressText)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.textColor)
                         .font(.bold14)
                         .lineLimit(1)
                         .truncationMode(.tail)
                     
                     Text("현재 위치를 기준으로 자동으로 탐색합니다.")
                         .font(.caption)
-                        .foregroundColor(Color(.systemGray3))
+                        .foregroundColor(Color.textColor)
                 }
                 .padding(.leading)
+                
+                Spacer()
                 
                 NavigationLink {
                     // Your button action
                     ChangeLocationView()
                         .environmentObject(viewModel)
+                 
                 } label: {
-                    Text("위치 재설정")
+                    Image(systemName: "arrow.circlepath")
+                        .foregroundColor(.iconColor)
                 }
-                .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical: 7))
                 .padding(.trailing)
                 .task {
                     if viewModel.memoAddressText.isEmpty {
@@ -40,6 +38,9 @@ struct PostViewFooter: View {
                     }
                 }
             }
+            .padding()
+            .background(Color.orginColor)
+            .border(width: 1, edges: [.top], color: Color.borderColor)
         }
     }
 }

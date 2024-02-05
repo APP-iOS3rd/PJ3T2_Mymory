@@ -37,7 +37,7 @@ struct SelectTagView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
             HStack(alignment: .lastTextBaseline){
-                Text("#어떤타입?")
+                Text("태그")
                     .font(.bold20)
                     .bold()
                 Spacer()
@@ -79,7 +79,7 @@ struct SelectTagView: View {
                 )
 
         }  //:VSTACK
-        .padding(.horizontal, 20)
+    
         
         if isShowingView {
             // View that appears from bottom to top

@@ -35,12 +35,12 @@ extension Color {
     static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
+    
+    static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
 }
 
 extension Color {
-    //@Environment(\.colorScheme) static var colorScheme
-    // 현재 다크, 라이트모드의 컬러를 각각 적용하였습니다.
-    //  추후 테마 변경시에도, 해당 코드에 조건을 추가해서 색상들을 일괄적으로 변경할 수 있습니다.
+    // 다크, 라이트모드의 컬러를 각각 적용하였습니다.
     static func adaptiveColor(light: Color, dark: Color) -> Color {
        if UITraitCollection.current.userInterfaceStyle == .dark {
            return dark
@@ -48,7 +48,6 @@ extension Color {
            return light
        }
         // else if 추가조건 == { return duotone }
-        
     }
     static func adaptive(light: UIColor, dark: UIColor) -> Color {
       return Color(UIColor { traitCollection in
