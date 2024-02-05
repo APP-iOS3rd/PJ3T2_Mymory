@@ -42,9 +42,7 @@ extension Color {
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
     static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
     
-//    static let bgColor4 = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
-    
-    static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color(hex: "232323")))
+    static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
     
     static let placeHolder = Color.adaptive(light: UIColor.systemGray2, dark: UIColor.systemGray2)
     
