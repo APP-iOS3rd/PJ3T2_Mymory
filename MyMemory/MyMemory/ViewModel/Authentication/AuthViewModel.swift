@@ -63,7 +63,6 @@ class AuthViewModel: ObservableObject {
     
     init() {
         userSession = Auth.auth().currentUser
-        signout()
         UserApi.shared.unlink {(error) in
             if let error = error {
                 print(error)

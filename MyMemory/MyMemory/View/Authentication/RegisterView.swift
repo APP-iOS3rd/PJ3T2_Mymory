@@ -12,6 +12,7 @@ import PhotosUI
 struct RegisterView: View {
    // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
     @EnvironmentObject var viewModel : AuthViewModel
+    @State private var isActive: Bool = false
     
     var body: some View {
         NavigationView {
@@ -100,7 +101,7 @@ struct RegisterView: View {
                                 )
                             Divider()
                                 .padding(.vertical, -5)
-                            Text(viewModel.checkSecondPassword(secondPassword: viewModel.password) ? "" : "비밀번호가 일치하지않습니다")
+                            Text(viewModel.checkSecondPassword(secondPassword: viewModel.secondPassword) ? "" : "비밀번호가 일치하지않습니다")
                                 .font(.system(size: 15))
                                 .foregroundStyle(viewModel.checkSecondPassword(secondPassword: viewModel.secondPassword) ? Color.green : Color.red)
                         }
@@ -222,8 +223,8 @@ struct RegisterView: View {
                         
                         if viewModel.checkIfCanRegister() {
                             viewModel.userCreate()
-                           // viewModel.userCreate()
                             print("Register Completed")
+                            self.isActive = true
                         } else {
                             print("Register failed")
                         }
@@ -234,6 +235,9 @@ struct RegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
+                }
+                .fullScreenCover(isPresented: $isActive) {
+                    MainTabView()
                 }
                     
             }
