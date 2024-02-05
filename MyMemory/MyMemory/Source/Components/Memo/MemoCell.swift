@@ -135,7 +135,7 @@ struct MemoCell: View {
         }
         .padding(20)
         .frame(maxWidth: .infinity)
-        .fixedSize(horizontal: false, vertical: true)
+       // .fixedSize(horizontal: false, vertical: true)
         .background(Color.cardColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay(
