@@ -19,7 +19,7 @@ struct BackButton: View {
                 Image(systemName: "chevron.left")
                     .font(.semibold20)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.textColor)
+                    .foregroundColor(.accentColor)
 
             }
      

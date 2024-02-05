@@ -37,6 +37,8 @@ extension Color {
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
     
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
+    static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
+   
 }
 
 extension Color {

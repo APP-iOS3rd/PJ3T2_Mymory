@@ -42,14 +42,14 @@ struct MemoCell: View {
                         Image(systemName: "heart.fill")
                             .foregroundColor(memo.didLike ? .red : .gray)
                             .frame(width: 46, height: 46)
-                            .background(Color.bgColor2)
+                            .background(Color.bgColor)
                             .clipShape(Circle())
                     }
-                }else {
+                } else {
                     Image(systemName: "lock")
                     .foregroundColor(.gray)
                     .frame(width: 46, height: 46)
-                    .background(Color.bgColor2)
+                    .background(Color.bgColor)
                     .clipShape(Circle())
                 }
                 
