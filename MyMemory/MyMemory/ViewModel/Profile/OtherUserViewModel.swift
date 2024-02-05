@@ -1,25 +1,24 @@
 //
-//  MyPageViewModel.swift
+//  OtherUserViewModel.swift
 //  MyMemory
 //
-//  Created by 이명섭 on 1/4/24.
-//
+//  Created by 정정욱 on 2/2/24.
+
 
 import Foundation
-import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import CoreLocation
 
 
 
-class MypageViewModel: ObservableObject {
+class OtherUserViewModel: ObservableObject, MemoListViewModel {
     
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
-    @Published var selectedImage: PhotosPickerItem? = nil
-    @Published var selectedPhotoData: Data? = nil
+
     @Published var isCurrentUserLoginState = false
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -27,39 +26,34 @@ class MypageViewModel: ObservableObject {
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
     
+    @Published var memoCreator: User = User(email: "", name: "")
+    
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         
-        if let userID = UserDefaults.standard.string(forKey: "userId") {
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: userID)
-//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
-                }
-            }
-        }
+        
+        // 현재 유져 정보, 위치 체크하기
         user = AuthViewModel.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-        AuthViewModel.shared.fetchUser{ user in
-            self.user = user
-        }
+//        AuthViewModel.shared.fetchUser{ user in
+//            self.user = user
+//        }
     }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
     func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
+        self.memoList = []
+        self.memoCreator = memoCreator
+        
         if fromDetail == true {
-            // 현 사용자 로그인 파악
             fetchUserState()
-          
-            //memoList = []
             DispatchQueue.main.async {
                 Task {[weak self] in
                     guard let self = self else {return}
@@ -140,6 +134,7 @@ class MypageViewModel: ObservableObject {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
+        
         let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
             self.lastDocument = last
         }

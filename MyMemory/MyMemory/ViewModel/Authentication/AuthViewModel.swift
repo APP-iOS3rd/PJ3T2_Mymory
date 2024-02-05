@@ -59,6 +59,7 @@ class AuthViewModel: ObservableObject {
     @Published var isFollow: Bool = false
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
+    @Published var isCurrentUserLoginState = false
     
     init() {
         userSession = Auth.auth().currentUser
@@ -71,6 +72,7 @@ class AuthViewModel: ObservableObject {
                 print("unlink() success.")
             }
         }
+        self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         fetchUser()
     }
     
@@ -236,6 +238,14 @@ class AuthViewModel: ObservableObject {
         termsOfUseBox = false
         privacyPolicyBox = false
     }
+    
+    func fetchCurrentUserLoginState() -> Bool {
+        if let _ = Auth.auth().currentUser {
+            return true
+        }
+        return false
+    }
+    
     
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
