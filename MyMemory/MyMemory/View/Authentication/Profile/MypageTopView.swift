@@ -9,21 +9,22 @@ import SwiftUI
 import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
-    
-    @ObservedObject var viewModel: MypageViewModel 
+
+    //@ObservedObject var viewModel: MypageViewModel  // 💁 디자인 패턴 고려필요
     @ObservedObject var authViewModel : AuthViewModel = .shared
     
     var body: some View {
         HStack {
+    
             if authViewModel.currentUser != nil && UserDefaults.standard.string(forKey: "userId") != nil {
                 NavigationLink {
                     ProfileEditView(
                         existingProfileImage:
-                            viewModel.user?.profilePicture,
-                        uid: viewModel.user?.id ?? ""
+                            authViewModel.currentUser?.profilePicture,
+                        uid: authViewModel.currentUser?.id ?? ""
                     )
                 } label: {
-                    if let imageUrl = viewModel.user?.profilePicture, let url = URL(string: imageUrl) {
+                    if let imageUrl = authViewModel.currentUser?.profilePicture, let url = URL(string: imageUrl) {
                         KFImage(url)
                             .resizable()
                             .scaledToFill()
@@ -36,7 +37,7 @@ struct MypageTopView: View {
                             .foregroundStyle(Color(hex: "d9d9d9"))
                     }
                     
-                    Text(viewModel.user?.name ?? "김메모")
+                    Text(authViewModel.currentUser?.name ?? "김메모")
                         .font(.semibold20)
                         .foregroundStyle(Color.textColor)
                         .padding(.leading, 10)
@@ -51,8 +52,8 @@ struct MypageTopView: View {
             
             NavigationLink {
             
-                SettingView (user: $viewModel.user,
-                    isCurrentUserLoginState: $viewModel.isCurrentUserLoginState
+                SettingView (user: $authViewModel.currentUser,
+                    isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState // 💁
                 )
                 
                 .customNavigationBar(
@@ -82,6 +83,7 @@ struct MypageTopView: View {
                 if let currentUser = authViewModel.currentUser {
                     await authViewModel.followAndFollowingCount(user: currentUser)
                 }
+                
             }
         }
 

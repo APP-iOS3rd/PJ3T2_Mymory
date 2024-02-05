@@ -11,7 +11,7 @@ import _PhotosUI_SwiftUI
 struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
     var existingProfileImage: String?
-    var uid: String
+    var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
     
     var body: some View {
         VStack {

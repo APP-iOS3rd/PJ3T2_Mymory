@@ -31,7 +31,7 @@ extension Color {
     static let textDarkColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.white)) // 본문컬러
     static let textDeepColor = Color.adaptive(light: UIColor(Color.deepGray), dark: UIColor(Color.white)) // 본문컬러
     
-    static let orginColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
+    static let originColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
     static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))

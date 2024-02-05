@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct MypageMemoListCell: View {
+struct ProfileMemoListCell<ViewModel: MemoListViewModel>: View {
+    
     @Binding var memo: Memo
-    @EnvironmentObject var viewModel: MypageViewModel
+    @ObservedObject var viewModel: ViewModel
+    
     var body: some View {
         HStack {
             HStack(alignment: .top, spacing: 10){
@@ -68,7 +70,7 @@ struct MypageMemoListCell: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 12, leading: 18, bottom:12, trailing: 18))
-        .background(Color.orginColor)
+        .background(Color.originColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

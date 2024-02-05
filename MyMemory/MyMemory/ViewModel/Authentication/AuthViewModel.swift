@@ -10,7 +10,6 @@ import Foundation
 import Photos
 import PhotosUI
 import SwiftUI
-import SafariServices
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
@@ -33,6 +32,7 @@ class AuthViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password : String = ""
     @Published var name: String = ""
+    @Published var secondPassword: String = ""
     
     @Published var emailValid : Bool = true
     @Published var passwordValid : Bool = true
@@ -49,20 +49,19 @@ class AuthViewModel: ObservableObject {
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
     @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
-    @Published var termsOfUseUrlString = "https://www.naver.com"
+    @Published var termsOfUseUrlString = "https://lucky-sycamore-c73.notion.site/af168c49a93b4fa48830d5bc0512dcb5"
     
     @Published var nonce : String = ""
     @Published var appleID : String = ""
-    // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
     // 팔로우, 팔로잉 파악을 위한
     @Published var isFollow: Bool = false
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
+    @Published var isCurrentUserLoginState = false
     
     init() {
         userSession = Auth.auth().currentUser
-        signout()
         UserApi.shared.unlink {(error) in
             if let error = error {
                 print(error)
@@ -71,6 +70,7 @@ class AuthViewModel: ObservableObject {
                 print("unlink() success.")
             }
         }
+        self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         fetchUser()
     }
     
@@ -185,23 +185,17 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    struct SafariView: UIViewControllerRepresentable {
-        
-        let url: URL
-        
-        func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
-            return SFSafariViewController(url: url)
-        }
-        
-        func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
-            
-        }
-    }
-    
     func checkPassword(password: String) -> Bool {
         let passwordRegEx = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#?$%^&*()_+=-]).{7,50}$"
         return NSPredicate(format:"SELF MATCHES %@", passwordRegEx).evaluate(with: password)
         
+    }
+    
+    func checkSecondPassword(secondPassword: String) -> Bool {
+        if self.password == secondPassword {
+            return true
+        }
+        return false
     }
     
     func checkEmail(email: String) -> Bool {
@@ -210,7 +204,12 @@ class AuthViewModel: ObservableObject {
     }
     
     func checkIfCanRegister() -> Bool {
-        if checkPassword(password: password) == true && checkPassword(password: password) == true && name != "" && checkIfAllBoxsesAreChecked() == true  {
+        let isValidPassword = checkPassword(password: password)
+        let isNameNotEmpty = name != ""
+        let isBoxsesAreChecked = checkIfAllBoxsesAreChecked()
+        let isSecondPasswordMatch = checkSecondPassword(secondPassword: secondPassword)
+        let isValidEmail = checkEmail(email: email)
+        if isValidPassword && isValidEmail && isNameNotEmpty && isBoxsesAreChecked && isSecondPasswordMatch && isValidEmail {
             return true
         } else {
             return false
@@ -236,6 +235,14 @@ class AuthViewModel: ObservableObject {
         termsOfUseBox = false
         privacyPolicyBox = false
     }
+    
+    func fetchCurrentUserLoginState() -> Bool {
+        if let _ = Auth.auth().currentUser {
+            return true
+        }
+        return false
+    }
+    
     
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
