@@ -62,10 +62,14 @@ struct MainSectionsView: View {
                                 ScrollView(.vertical, showsIndicators: false){
                                     
                                     VStack(spacing: 12) {
-                                        ForEach(viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList) { item in
+                                        ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in
                                             NavigationLink {
                                                 //                                                MemoDetailView(memo: item)
-                                                DetailView(memo: item, isVisble: .constant(true))
+                                                DetailView(memo: item, 
+                                                           isVisble: .constant(true),
+                                                           memos: viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList,
+                                                           selectedMemoIndex: index
+                                                )
                                             } label: {
                                                 MemoCard(memo: item, isVisible: true)
                                             }

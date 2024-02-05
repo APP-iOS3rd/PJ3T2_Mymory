@@ -9,9 +9,12 @@ import SwiftUI
 
 struct SettingMenuCell: View {
     var name: String
+    var page: String = ""
+    
     var body: some View {
+        
         NavigationLink {
-            
+            chooseDestination()
         } label: {
             HStack(alignment: .center) {
                 Text(name)
@@ -19,6 +22,18 @@ struct SettingMenuCell: View {
                 Spacer()
             }
             .foregroundStyle(Color.textColor)
+        }
+
+    }
+    
+    
+    @ViewBuilder
+    func chooseDestination() -> some View {
+        switch page {
+        case "theme": ThemeView()
+        case "login": LoginView()
+        case "font": FontView()
+        default: EmptyView()
         }
     }
 }

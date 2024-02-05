@@ -14,13 +14,7 @@ struct MoveUserProfileButton: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .clipShape(.rect(cornerRadius: 15))
-                .foregroundStyle(Color.black)
-                .frame(height: 65)
-                .padding(.horizontal, 20)
-            
-            HStack(spacing: 20) {
+            HStack {
 
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
@@ -33,26 +27,30 @@ struct MoveUserProfileButton: View {
                 } else {
                     Circle()
                         .frame(width: 46, height: 46)
-                        .foregroundStyle(Color(hex: "d9d9d9"))
+                        .foregroundStyle(Color.darkGray)
                 }
                 
-                
+            
                 VStack(alignment: .leading) {
                     Text(viewModel.memoCreator?.name ?? "")
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.textColor)
                         .font(.bold18)
                     
                 }
                 
+                Spacer()
                 NavigationLink {
                     ProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
                 } label: {
-                    Text("작성자 프로필 이동")
+                    Image(systemName: "ellipsis")
+//                    Text("작성자 프로필 이동")
                 }
-                .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical:7))
+             //   .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical:7))
                 
                 
             }
+            .padding()
+            .border(width: 1, edges: [.top], color: Color.bgColor)
             
         }
         
