@@ -24,7 +24,8 @@ extension Color {
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
- 
+   
+    
     // 테마에 따라 Color Change
     static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
     static let textColor = Color.adaptive(light: UIColor(Color.black), dark: UIColor(Color.white)) // 본문컬러
@@ -40,6 +41,16 @@ extension Color {
     
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
     static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
+    
+//    static let bgColor4 = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
+    
+    static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color(hex: "232323")))
+    
+    static let placeHolder = Color.adaptive(light: UIColor.systemGray2, dark: UIColor.systemGray2)
+    
+    
+ 
+    
    
 }
 

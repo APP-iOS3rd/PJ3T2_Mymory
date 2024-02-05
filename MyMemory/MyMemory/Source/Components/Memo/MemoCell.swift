@@ -43,6 +43,7 @@ struct MemoCell: View {
                             .frame(width: 46, height: 46)
                             .background(Color.bgColor)
                             .clipShape(Circle())
+                          
                     }
                 } else {
                     Image(systemName: "lock")
@@ -133,10 +134,14 @@ struct MemoCell: View {
             
         }
         .padding(20)
-        .background(Color.originColor)
         .frame(maxWidth: .infinity)
         .fixedSize(horizontal: false, vertical: true)
-        .cornerRadius(20)
+        .background(Color.cardColor)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.borderColor)
+        )
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
                 if distance <= 50 {
