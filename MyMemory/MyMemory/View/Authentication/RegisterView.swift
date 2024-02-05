@@ -57,14 +57,6 @@ struct RegisterView: View {
                                 .font(.system(size: 15))
                             TextField("example@example.com", text: $viewModel.email)
                                 .focused($focusedField, equals: .email)
-                                .overlay(
-                                        Image(systemName: "multiply.circle.fill")
-                                            .position(x:350, y:10)
-                                            .foregroundStyle(Color.gray)
-                                            .onTapGesture {
-                                                viewModel.email = ""
-                                            }
-                                )
                             
                             Divider()
                                 .padding(.vertical, -5)
@@ -81,14 +73,6 @@ struct RegisterView: View {
                                 .font(.system(size: 15))
                             SecureField("특수문자와 숫자/대문자를 포함한 8글자", text: $viewModel.password)
                                 .focused($focusedField, equals: .password)
-                                .overlay(
-                                        Image(systemName: "multiply.circle.fill")
-                                            .position(x:350, y:10)
-                                            .foregroundStyle(Color.gray)
-                                            .onTapGesture {
-                                                viewModel.password = ""
-                                            }
-                                )
                             Divider()
                                 .padding(.vertical, -5)
                             Text(viewModel.checkPassword(password: viewModel.password) ? "사용 가능한 비밀번호입니다" : "특수문자,숫자,대문자를 포함한 8글자 이상으로 설정하세요!")
@@ -102,14 +86,6 @@ struct RegisterView: View {
                                 .font(.system(size: 15))
                             SecureField("비밀번호를 다시 입력해주세요", text: $viewModel.secondPassword)
                                 .focused($focusedField, equals: .secondpassword)
-                                .overlay(
-                                        Image(systemName: "multiply.circle.fill")
-                                            .position(x:350, y:10)
-                                            .foregroundStyle(Color.gray)
-                                            .onTapGesture {
-                                                viewModel.secondPassword = ""
-                                            }
-                                )
                             Divider()
                                 .padding(.vertical, -5)
                             Text(viewModel.checkSecondPassword(secondPassword: viewModel.secondPassword) ? "" : "비밀번호가 일치하지않습니다")
@@ -123,14 +99,6 @@ struct RegisterView: View {
                                 .font(.system(size: 15))
                             TextField("이름을 입력해주세요", text: $viewModel.name)
                                 .focused($focusedField, equals: .name)
-                                .overlay(
-                                        Image(systemName: "multiply.circle.fill")
-                                            .position(x:350, y:10)
-                                            .foregroundStyle(Color.gray)
-                                            .onTapGesture {
-                                                viewModel.name = ""
-                                            }
-                                )
                             Divider()
                                 .padding(.vertical, -5)
                         }
@@ -265,6 +233,9 @@ struct RegisterView: View {
                 }
                     
             }
+        }
+        .onAppear {
+            UITextField.appearance().clearButtonMode = .whileEditing
         }
         .onChange(of: viewModel.selectedItem) {newItem in
             viewModel.imageSelected = true
