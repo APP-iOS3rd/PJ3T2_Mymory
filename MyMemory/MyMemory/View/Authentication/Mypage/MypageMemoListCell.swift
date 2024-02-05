@@ -68,7 +68,7 @@ struct MypageMemoListCell: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 12, leading: 18, bottom:12, trailing: 18))
-        .background(Color.orginColor)
+        .background(Color.originColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }

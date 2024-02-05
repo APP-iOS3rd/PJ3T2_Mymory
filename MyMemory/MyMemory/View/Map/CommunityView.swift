@@ -18,25 +18,34 @@ struct CommunityView: View {
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }.padding(.horizontal, 25)
+                    .padding(.top, 25)
                 ScrollView(.horizontal){
-                    LazyHStack(spacing: 20, content: {
+                    LazyHStack(spacing: 0, content: {
                         ForEach(1...10, id: \.self) { count in
                             MemoCell(location: $locationManager.location)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke()
+                                        .foregroundStyle(Color(hex: "#E9E9E9"))
+                                        
+                                )                                
+                                .padding(.leading, 18)
                         }
                     })
                 }.padding(.top, 25)
                 
                 HStack {
-                    Text("반응이 많은\n메모")
+                    Text("이번 주\n가장 핫한 지역")
                         .font(.bold24)
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }.padding(.horizontal, 25)
                     .padding(.top, 60)
-                LazyVStack(content: {
+                    .padding(.bottom, 25)
+                LazyVStack(spacing: 15, content: {
                     ForEach(1...10, id: \.self) { count in
                         HStack{
-                            VStack {
+                            VStack(alignment: .leading) {
                                 Text("호그와트 마법학교")
                                     .font(.bold16)
                                     .foregroundStyle(Color.textColor)
@@ -45,6 +54,7 @@ struct CommunityView: View {
                                     .font(.regular12)
                                     .foregroundStyle(Color.textColor)
                             }.padding(.horizontal, 15)
+                                .padding(.vertical, 15)
                             Spacer()
                             Button{
                                 
@@ -52,14 +62,18 @@ struct CommunityView: View {
                                 Image(systemName: "ellipsis")
                             }.padding(.horizontal, 15)
                         }
-                        .padding(13)
+//                        .padding(13)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke()
                                 .foregroundStyle(Color(hex: "#E9E9E9"))
+                                
                         )
+                        .background(Color.originColor)
+                        .cornerRadius(10)
+
                     }
-                })
+                }).padding(.horizontal, 25)
             }
         }
     }

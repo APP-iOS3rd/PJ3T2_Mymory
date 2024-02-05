@@ -104,28 +104,32 @@ struct MainMapView: View {
                 .padding(.horizontal, 16)
                 
                 //선택한 경우
-                ScrollView(.horizontal) {
-                    HStack(spacing: 20) {
-                        ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
-                            VStack{
-                                Text("\(String(item.didLike))")
-                                MemoCell(
-                                    isVisible: true,
-                                    isDark: true,
-                                    location: $mainMapViewModel.location,
-                                    memo: item)
-                                .environmentObject(mainMapViewModel)
-                                .onTapGesture {
-                                    mainMapViewModel.memoDidSelect(memo: item)
+                ScrollViewReader { scroll in
+                    
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 20) {
+                            ForEach(mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList) { item  in
+                                VStack{
+                                    Text("\(String(item.didLike))")
+                                    MemoCell(
+                                        isVisible: true,
+                                        isDark: true,
+                                        location: $mainMapViewModel.location,
+                                        memo: item)
+                                    .environmentObject(mainMapViewModel)
+                                    .onTapGesture {
+                                        mainMapViewModel.memoDidSelect(memo: item)
+                                        scroll.scrollTo(item, anchor: .center)
+                                    }
+                                    .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                    .padding(.leading, 12)
+                                    .padding(.bottom, 12)
                                 }
-                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                                .padding(.leading, 12)
-                                .padding(.bottom, 12)
                             }
                         }
                     }
+                    
                 }
-
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
