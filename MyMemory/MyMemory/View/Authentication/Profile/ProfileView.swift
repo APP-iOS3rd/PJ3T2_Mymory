@@ -16,7 +16,7 @@ struct ProfileView: View {
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
-    @ObservedObject var authViewModel: AuthViewModel = .shared
+    @ObservedObject var authViewModel: AuthService = .shared
     @State private var fromDetail = false
 
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
@@ -66,6 +66,7 @@ struct ProfileView: View {
             }
         }
         .onAppear {
+            
             checkLoginStatus()
             authViewModel.fetchUser()
            
@@ -79,7 +80,7 @@ struct ProfileView: View {
             }
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(authViewModel)
+            LoginView().environmentObject(AuthViewModel())
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {
@@ -90,7 +91,12 @@ struct ProfileView: View {
     
     private func createHeader(isCurrentUser: Bool) -> some View {
         HStack(alignment: .lastTextBaseline) {
-            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
+            if fromDetail {
+                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
+            } else {
+                Text("내가 작성한 메모")
+                    .font(.semibold20).foregroundStyle(Color.textColor)
+            }
             Spacer()
             
             Button {

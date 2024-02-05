@@ -28,6 +28,9 @@ class PostViewModel: ObservableObject {
     // 사용자의 현재 위치의 위도와 경도를 가져오는 메서드
    
     func getUserCurrentLocation() {
+        if let loc = locationsHandler.location {
+            self.getAddress(with: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude))
+        }
         locationsHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
@@ -79,7 +82,7 @@ class PostViewModel: ObservableObject {
     
     func saveMemo() async {
         do {
-            guard let user = AuthViewModel.shared.currentUser else { return }
+            guard let user = AuthService.shared.currentUser else { return }
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate!.latitude),

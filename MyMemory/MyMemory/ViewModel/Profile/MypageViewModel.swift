@@ -45,17 +45,19 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         }
         
         // 해당 코드 블럭 로그인 이후 재 호출필요
-        user = AuthViewModel.shared.currentUser
+        user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-        AuthViewModel.shared.fetchUser{ user in
+        AuthService.shared.fetchUser{ user in
             self.user = user
         }
     }
-    
+    deinit{
+        print("마이페이지 뷰모델 deinited")
+    }
     
     
     // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)

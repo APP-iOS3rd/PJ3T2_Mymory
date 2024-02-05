@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
-    @StateObject var authViewModel: AuthViewModel = .shared
+    @StateObject var authViewModel: AuthService = .shared
     @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
     @Environment(\.presentationMode) var presentationMode

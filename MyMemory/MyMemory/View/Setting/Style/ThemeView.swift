@@ -65,6 +65,9 @@ struct ThemeView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.darkGray)
                             )
+                            .onTapGesture {
+                                viewModel.changeTheme(selectedThemeId: theme.id)
+                            }
 
                            
                             Button {
