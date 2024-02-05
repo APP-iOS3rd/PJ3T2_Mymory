@@ -33,6 +33,7 @@ class AuthViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password : String = ""
     @Published var name: String = ""
+    @Published var secondPassword: String = ""
     
     @Published var emailValid : Bool = true
     @Published var passwordValid : Bool = true
@@ -204,13 +205,20 @@ class AuthViewModel: ObservableObject {
         
     }
     
+    func checkSecondPassword(secondPassword: String) -> Bool {
+        if self.password == secondPassword {
+            return true
+        }
+        return false
+    }
+    
     func checkEmail(email: String) -> Bool {
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"
         return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: email)
     }
     
     func checkIfCanRegister() -> Bool {
-        if checkPassword(password: password) == true && checkPassword(password: password) == true && name != "" && checkIfAllBoxsesAreChecked() == true  {
+        if checkPassword(password: password) == true && checkPassword(password: password) == true && name != "" && checkIfAllBoxsesAreChecked() == true && checkSecondPassword(secondPassword: secondPassword) == true  {
             return true
         } else {
             return false
