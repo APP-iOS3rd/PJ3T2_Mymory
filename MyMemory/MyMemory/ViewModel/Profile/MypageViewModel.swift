@@ -10,11 +10,12 @@ import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
-
-
+import SwiftUI
+import MapKit
 
 class MypageViewModel: ObservableObject, MemoListViewModel {
     
+    @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
@@ -127,6 +128,10 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         
         await MainActor.run {
             self.memoList += fetchedMemos
+            self.merkerMemoList = fetchedMemos
         }
     }
+    
+
+
 }

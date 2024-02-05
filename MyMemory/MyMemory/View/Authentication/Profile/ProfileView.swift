@@ -65,7 +65,8 @@ struct ProfileView: View {
                                  
                                 
                             default:
-                                CommunityView()
+                                MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                                
                             }
                             
                             

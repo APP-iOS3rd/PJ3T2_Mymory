@@ -15,6 +15,7 @@ import CoreLocation
 
 class OtherUserViewModel: ObservableObject, MemoListViewModel {
     
+    @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
