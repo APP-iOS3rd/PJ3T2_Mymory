@@ -104,8 +104,8 @@ struct MainMapView: View {
                 .padding(.horizontal, 16)
                 
                 //선택한 경우
+                
                 ScrollViewReader { scroll in
-                    
                     ScrollView(.horizontal) {
                         HStack(spacing: 20) {
                             ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
@@ -127,8 +127,16 @@ struct MainMapView: View {
                             }
                         }
                     }
+                    .onChange(of: mainMapViewModel.selectedMemoId, { oldValue, newValue in
+                        if let idx = mainMapViewModel.filteredMemoList.firstIndex(where: {$0.id == newValue}) {
+                            scroll.scrollTo(idx)
+                        } else if let idx = mainMapViewModel.memoList.firstIndex(where: {$0.id == newValue}) {
+                            scroll.scrollTo(idx)
+                        }
+                    })
                     
                 }
+
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {

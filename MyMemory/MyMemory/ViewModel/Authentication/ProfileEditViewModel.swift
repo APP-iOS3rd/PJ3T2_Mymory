@@ -16,6 +16,7 @@ class ProfileEditViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
+    @Published var name: String = AuthService.shared.currentUser?.name ?? ""
     let db = Firestore.firestore()
     let storage = Storage.storage()
     init() {}
@@ -37,6 +38,9 @@ class ProfileEditViewModel: ObservableObject {
         do {
             try await userRef.updateData([
                 "profilePicture": imageURL
+            ])
+            try await userRef.updateData([
+                "name": name
             ])
             editProfileImageOnUserDefaults(image: imageURL)
         } catch {
