@@ -23,12 +23,6 @@ struct CommunityView: View {
                     LazyHStack(spacing: 0, content: {
                         ForEach(1...10, id: \.self) { count in
                             MemoCell(location: $locationManager.location)
-//                                .overlay(
-//                                    RoundedRectangle(cornerRadius: 20)
-//                                        .stroke()
-//                                        .foregroundStyle(Color(hex: "#E9E9E9"))
-//                                        
-//                                )                                
                                 .padding(.leading, 18)
                         }
                     })

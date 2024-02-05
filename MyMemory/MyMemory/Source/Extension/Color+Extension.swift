@@ -28,23 +28,26 @@ extension Color {
     
     // 테마에 따라 Color Change
     static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
+    
     static let textColor = Color.adaptive(light: UIColor(Color.black), dark: UIColor(Color.white)) // 본문컬러
     static let textDarkColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.white)) // 본문컬러
     static let textDeepColor = Color.adaptive(light: UIColor(Color.deepGray), dark: UIColor(Color.white)) // 본문컬러
     
     static let originColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
+    
     static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color(hex: "555459")))
     
-   // static let borderColor2 = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.darkGray))
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
+    
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
     
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
+    
     static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
     
     static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
     
-    static let placeHolder = Color.adaptive(light: UIColor.systemGray2, dark: UIColor.systemGray2)
+    static let placeHolder = Color.adaptive(light: UIColor.systemGray3, dark: UIColor.systemGray2)
     
     
  
