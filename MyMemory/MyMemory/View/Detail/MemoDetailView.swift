@@ -143,29 +143,20 @@ struct MemoDetailView: View {
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
-        }//:SCROLL
- 
-
- 
-            .onAppear {
-                Task {
-                    do {
-                        isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                        viewModel.fetchMemoCreator(uid: memo.userUid)
-                    } catch {
-                        // 에러 처리
-                        print("Error checking my memo: \(error.localizedDescription)")
-                    }
-                }
-            }
-            
-            VStack {
-                Spacer()
-                MoveUserProfileButton(viewModel: viewModel)
-            }
-       // }
+        } //:SCROLL
         
- 
+       .onAppear {
+           Task {
+               do {
+                   isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                   viewModel.fetchMemoCreator(uid: memo.userUid)
+               } catch {
+                   // 에러 처리
+                   print("Error checking my memo: \(error.localizedDescription)")
+               }
+           }
+        }
+                   
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
