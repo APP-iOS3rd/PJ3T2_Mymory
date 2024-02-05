@@ -120,12 +120,12 @@ struct MainMapView: View {
                                     )
                                     .environmentObject(mainMapViewModel)
                                     .onTapGesture {
+                                        scroll.scrollTo(index)
                                         mainMapViewModel.memoDidSelect(memo: item)
                                     }
                                 }
                             }
                         }
-                        
                     }
                     
                 }

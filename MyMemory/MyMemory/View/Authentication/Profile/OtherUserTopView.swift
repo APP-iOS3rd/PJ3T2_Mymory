@@ -12,7 +12,7 @@ import Kingfisher
 struct OtherUserTopView: View {
     @Binding var memoCreator: User
     @ObservedObject var viewModel: OtherUserViewModel
-    @ObservedObject var authViewModel : AuthViewModel = .shared
+    @ObservedObject var authViewModel : AuthService = .shared
     @State var isFollow: Bool = false
     var body: some View {
         HStack(spacing: 20) {
