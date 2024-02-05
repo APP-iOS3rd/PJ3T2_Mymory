@@ -102,25 +102,28 @@ struct MemoDetailView: View {
                             Spacer()
                             
                             HStack {
-                                Text("이전 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.startIndex {
-                                            preButton()
+                                if selectedMemoIndex != memos.startIndex {
+                                    
+                                    Text("이전 글...")
+                                        .font(.regular16)
+                                        .frame(width: 100, height: 60)
+                                        .onTapGesture {
+                                            if selectedMemoIndex != memos.startIndex {
+                                                preButton()
+                                            }
                                         }
-                                    }
-                                
+                                }
                                 Spacer()
-                                
-                                Text("다음 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.endIndex - 1 {
-                                            nextButton()
+                                if selectedMemoIndex != memos.endIndex - 1 {
+                                    Text("다음 글...")
+                                        .font(.regular16)
+                                        .frame(width: 100, height: 60)
+                                        .onTapGesture {
+                                            if selectedMemoIndex != memos.endIndex - 1 {
+                                                nextButton()
+                                            }
                                         }
-                                    }
+                                }
                             }
                             .padding(.horizontal, 20)
                             

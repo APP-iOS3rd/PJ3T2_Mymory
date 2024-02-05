@@ -45,13 +45,13 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         }
         
         // 해당 코드 블럭 로그인 이후 재 호출필요
-        user = AuthViewModel.shared.currentUser
+        user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-        AuthViewModel.shared.fetchUser{ user in
+        AuthService.shared.fetchUser{ user in
             self.user = user
         }
     }

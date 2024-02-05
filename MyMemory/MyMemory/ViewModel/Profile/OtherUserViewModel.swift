@@ -36,7 +36,7 @@ class OtherUserViewModel: ObservableObject, MemoListViewModel {
         
         
         // 현재 유져 정보, 위치 체크하기
-        user = AuthViewModel.shared.currentUser
+        user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location

@@ -79,7 +79,7 @@ class PostViewModel: ObservableObject {
     
     func saveMemo() async {
         do {
-            guard let user = AuthViewModel.shared.currentUser else { return }
+            guard let user = AuthService.shared.currentUser else { return }
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate!.latitude),
