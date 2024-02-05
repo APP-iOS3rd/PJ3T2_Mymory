@@ -92,6 +92,18 @@ struct ProfileEditView: View {
             
         }
         .padding(.horizontal, 16)
+        .customNavigationBar(
+            centerView: {
+                Text("프로필 편집")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                EmptyView()
+            },
+            backgroundColor: Color.bgColor
+        )
         .overlay(content: {
             if viewModel.isLoading {
                 LoadingView()

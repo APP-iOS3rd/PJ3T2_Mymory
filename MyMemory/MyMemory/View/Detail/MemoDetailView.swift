@@ -29,10 +29,10 @@ struct MemoDetailView: View {
                                                 .font(.semibold12)
                                                 .padding(.horizontal, 13)
                                                 .padding(.vertical, 6)
-                                                .foregroundColor(.textColor)
+                                                .foregroundColor(Color.textColor)
                                                 .background(
                                                     Capsule()
-                                                        .foregroundColor(.peach)
+                                                        .foregroundColor(.accentColor)
                                                 )
                                             
                                         }
@@ -93,7 +93,7 @@ struct MemoDetailView: View {
                                 Spacer()
                             }
                             //.padding(.top, 50)
-                            
+                          
                         }
                         
                         
@@ -102,32 +102,41 @@ struct MemoDetailView: View {
                             Spacer()
                             
                             HStack {
+
                                 if selectedMemoIndex != memos.startIndex {
-                                    
-                                    Text("이전 글...")
-                                        .font(.regular16)
-                                        .frame(width: 100, height: 60)
-                                        .onTapGesture {
-                                            if selectedMemoIndex != memos.startIndex {
-                                                preButton()
-                                            }
+
+                                     HStack {
+                                        Image(systemName: "chevron.left")
+                                        Text("이전 글")
+                                    }
+                                    .font(.regular16)
+                                    .foregroundStyle(Color.textGray)
+                                    .onTapGesture {
+                                        if selectedMemoIndex != memos.startIndex {
+                                            preButton()
                                         }
+                                    }
                                 }
                                 Spacer()
                                 if selectedMemoIndex != memos.endIndex - 1 {
-                                    Text("다음 글...")
-                                        .font(.regular16)
-                                        .frame(width: 100, height: 60)
-                                        .onTapGesture {
-                                            if selectedMemoIndex != memos.endIndex - 1 {
-                                                nextButton()
-                                            }
+
+                                    HStack {
+                                        Text("다음 글")
+                                        Image(systemName: "chevron.right")
+                                    }
+                                    .font(.regular16)
+                                    .foregroundStyle(Color.textGray)
+                                    .onTapGesture {
+                                        if selectedMemoIndex != memos.endIndex - 1 {
+                                            nextButton()
                                         }
+                                    }
                                 }
+
                             }
                             .padding(.horizontal, 20)
-                            
                             MoveUserProfileButton(viewModel: viewModel)
+                           
                         }
                         .onAppear {
                             Task {
