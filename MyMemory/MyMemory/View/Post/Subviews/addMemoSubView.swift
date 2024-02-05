@@ -48,7 +48,7 @@ struct addMemoSubView: View {
                     .foregroundColor(.textColor)
                     .background(
                         Text(viewModel.memoContents.isEmpty ? "본문을 입력해주세요." : "")
-                            .foregroundStyle(Color.borderColor)
+                            .foregroundStyle(Color.placeHolder)
                             .font(.semibold20)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                             .padding(.vertical, 8)

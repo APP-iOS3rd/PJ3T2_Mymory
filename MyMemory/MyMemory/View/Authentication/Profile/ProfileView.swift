@@ -30,7 +30,8 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-          //  Color.bgColor.edgesIgnoringSafeArea(.top)
+            Color.bgColor3
+                .edgesIgnoringSafeArea(.top)
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
@@ -60,10 +61,15 @@ struct ProfileView: View {
             }
             .padding(.horizontal, 24)
             .safeAreaInset(edge: .top) {
-                Color.clear.frame(height: 0).background(Color.bgColor)
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.bgColor3)
             }
             .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color.bgColor3)
+                    .border(Color.black)
             }
         }
         .onAppear {
