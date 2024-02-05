@@ -22,7 +22,7 @@ struct ProfileView: View {
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
 
-    // 생성자를 통해 @State를 만들수 있도록 
+    // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
     init(fromDetail: Bool, memoCreator: User) {
            self._fromDetail = State(initialValue: fromDetail)
            otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
@@ -34,9 +34,11 @@ struct ProfileView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
+                    // 로그인 되었다면 로직 실행
                     if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
+                        // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
                         if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             createHeader(isCurrentUser: isCurrentUser)

@@ -9,8 +9,7 @@ import SwiftUI
 import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
-    
-    
+
     //@ObservedObject var viewModel: MypageViewModel  // 💁 디자인 패턴 고려필요
     @ObservedObject var authViewModel : AuthViewModel = .shared
     
