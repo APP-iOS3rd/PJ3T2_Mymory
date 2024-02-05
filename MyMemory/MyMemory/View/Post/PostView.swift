@@ -35,7 +35,7 @@ struct PostView: View {
 
     var body: some View {
         ZStack {
-            ScrollView{
+            ScrollView {
             VStack(alignment: .leading){
                 
                 //💁 메모하기 View, 사진 등록하기 View
@@ -83,7 +83,7 @@ struct PostView: View {
                     
             } //:VSTACK
             
-        } //: ScrollView
+            } //: ScrollView
             
             
             // 주소찾기 View: 하단 고정
@@ -91,10 +91,10 @@ struct PostView: View {
                 Spacer()
                 PostViewFooter()
                     .environmentObject(viewModel)
-                
+                    
             }
-            .edgesIgnoringSafeArea(.bottom)
-        }
+           //.edgesIgnoringSafeArea(.bottom)
+        } //: ZStack
     
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
@@ -231,7 +231,7 @@ struct PostView: View {
                 }
                 
             }, 
-            backgroundColor: .bgColor
+            backgroundColor: .bgColor3
         )
     }
 }

@@ -29,10 +29,10 @@ struct MemoDetailView: View {
                                                 .font(.semibold12)
                                                 .padding(.horizontal, 13)
                                                 .padding(.vertical, 6)
-                                                .foregroundColor(.textColor)
+                                                .foregroundColor(Color.textColor)
                                                 .background(
                                                     Capsule()
-                                                        .foregroundColor(.peach)
+                                                        .foregroundColor(.accentColor)
                                                 )
                                             
                                         }

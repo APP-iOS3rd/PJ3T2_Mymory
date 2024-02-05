@@ -12,7 +12,14 @@ struct UserStatusCell: View {
     @ObservedObject var authViewModel: AuthViewModel = .shared
     
     var body: some View {
-        HStack{
+        HStack {
+            VStack{
+                Text("0")
+                Text("메모")
+            }
+            
+            
+            
             VStack{
                 Text("\(authViewModel.followerCount)")
                 Text("팔로워")
@@ -26,6 +33,7 @@ struct UserStatusCell: View {
             
             .padding(.leading, 10)
         }
+        .frame(maxWidth: .infinity)
     }
 }
 
