@@ -2,13 +2,14 @@ import SwiftUI
 
 struct PostViewFooter: View {
     @EnvironmentObject var viewModel: PostViewModel
+    private var findCurrentLocationLocalizingText = String(localized: "현재 위치를 탐색하고 있습니다")
     
     var body: some View {
         ZStack {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.memoAddressText.isEmpty ? "위치를 탐색 중입니다." : viewModel.memoAddressText)
+                    Text(viewModel.memoAddressText.isEmpty ? findCurrentLocationLocalizingText : viewModel.memoAddressText)
                         .foregroundStyle(Color.textColor)
                         .font(.bold14)
                         .lineLimit(1)
