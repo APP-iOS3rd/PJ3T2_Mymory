@@ -12,8 +12,29 @@ struct MainSectionsView: View {
     @Binding var sortDistance: Bool
     @Environment(\.dismiss) private var dismiss
     @State var filterSheet: Bool = false
-    
     @State var selectedIndex = 0
+    //MARK: - Gesture 프로퍼티
+    @GestureState private var translation: CGSize = .zero
+    private var swipe: some Gesture {
+        DragGesture()
+            .updating($translation) { value, state, _ in
+                state = value.translation
+            }
+            .onEnded { value in
+                let swipeDistance = value.translation.width
+                //오른쪽
+                if swipeDistance > (UIScreen.main.bounds.width)/3.0 {
+                    if selectedIndex == 1 {
+                        self.selectedIndex = 0
+                    }
+                //왼쪽
+                } else if swipeDistance < (UIScreen.main.bounds.width)/3.0 * -1 {
+                    if selectedIndex == 0 {
+                        self.selectedIndex = 1
+                    }
+                }
+            }
+    }
     var body: some View {
         NavigationStack {
             VStack {
@@ -29,7 +50,6 @@ struct MainSectionsView: View {
                     .padding(.top, 0)
                 switch selectedIndex {
                 case 1:
-                    
                     VStack {
                         VStack {
                             HStack{
@@ -88,10 +108,10 @@ struct MainSectionsView: View {
                             LoadingView()
                         }
                     })
-                    .padding()
-                    
+                    .gesture(swipe)
                 default:
                     CommunityView()
+                        .gesture(swipe)
                 }
             }
             .overlay(
