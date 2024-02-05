@@ -18,14 +18,16 @@ struct ProfileView: View {
     
     @ObservedObject var authViewModel: AuthViewModel = .shared
     @State private var fromDetail = false
-
+    
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
-
+    
+    @State var selectedIndex = 0
+    
     // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
     init(fromDetail: Bool, memoCreator: User) {
-           self._fromDetail = State(initialValue: fromDetail)
-           otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
+        self._fromDetail = State(initialValue: fromDetail)
+        otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
     }
     
     var body: some View {
@@ -42,22 +44,42 @@ struct ProfileView: View {
                         if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             createHeader(isCurrentUser: isCurrentUser)
+                            
                             ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         } else {
-                            MypageTopView() //
+                            MypageTopView()
+                            
+                       
                             createHeader(isCurrentUser: isCurrentUser)
-                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                            // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                            MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                       selectedIndex: $selectedIndex,
+                                       fullWidth: UIScreen.main.bounds.width,
+                                       spacing: 50,
+                                       horizontalInset: 91.5)
+                            .padding(.horizontal)
+                            switch selectedIndex {
+                            case 0:
+                                
+                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                 
+                                
+                            default:
+                                CommunityView()
+                            }
+                            
+                            
                         }
                     } else {
                         showLoginPrompt()
                     }
                 }
-            
+                
             }
             .refreshable {
                 // Refresh logic
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 14)
             .safeAreaInset(edge: .top) {
                 Color.clear.frame(height: 0).background(Color.bgColor)
             }
@@ -68,7 +90,7 @@ struct ProfileView: View {
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
-           
+            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
