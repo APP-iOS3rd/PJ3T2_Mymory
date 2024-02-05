@@ -109,8 +109,7 @@ struct MainMapView: View {
                     ScrollView(.horizontal) {
                         HStack(spacing: 20) {
                             ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
-                                VStack{
-                                    Text("\(String(item.didLike))")
+                                VStack {
                                     MemoCell(
                                         isVisible: true,
                                         location: $mainMapViewModel.location,
@@ -123,6 +122,7 @@ struct MainMapView: View {
                                         scroll.scrollTo(index)
                                         mainMapViewModel.memoDidSelect(memo: item)
                                     }
+                                    .padding(.bottom, 12)
                                 }
                             }
                         }

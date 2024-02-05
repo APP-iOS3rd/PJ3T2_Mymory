@@ -30,7 +30,7 @@ struct ProfileView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.bgColor.edgesIgnoringSafeArea(.top)
+          //  Color.bgColor.edgesIgnoringSafeArea(.top)
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {

@@ -9,7 +9,21 @@ import SwiftUI
 
 struct FontView: View {
     var body: some View {
-        Text("Font View")
+        VStack {
+            Text("폰트")
+        }
+        .customNavigationBar(
+            centerView: {
+                Text("폰트 선택")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+              EmptyView()
+            },
+            backgroundColor: .bgColor3
+        )
     }
 }
 

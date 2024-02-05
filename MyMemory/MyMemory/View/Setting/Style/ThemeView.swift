@@ -83,9 +83,7 @@ struct ThemeView: View {
                     }
                 }
             }
-           // .padding(24)
-          
-            
+             
             
         }
         .customNavigationBar(
@@ -98,7 +96,7 @@ struct ThemeView: View {
             rightView: {
               EmptyView()
             },
-            backgroundColor: .white
+            backgroundColor: .bgColor3
         )
     }
 }
