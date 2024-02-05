@@ -39,7 +39,7 @@ struct PostViewFooter: View {
                 }
             }
             .padding()
-            .background(Color.orginColor)
+            .background(Color.originColor)
             .border(width: 1, edges: [.top], color: Color.borderColor)
         }
     }
