@@ -12,7 +12,6 @@ struct MemoCell: View {
     
     @State var isVisible: Bool = true
     @Binding var location: CLLocation?
-    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     @State var selectedMemoIndex: Int = 0
     @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
