@@ -423,7 +423,7 @@
 				DAF5FCAD2B621C5100098EF7 /* Detail */,
 				DAF5FCAB2B621C0600098EF7 /* Map */,
 				DAF5FCAE2B621C6900098EF7 /* Post */,
-				DAF5FCA92B621BD300098EF7 /* Mypage */,
+				DAF5FCA92B621BD300098EF7 /* Profile */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -780,14 +780,14 @@
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		DAF5FCA92B621BD300098EF7 /* Mypage */ = {
+		DAF5FCA92B621BD300098EF7 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
 				6A7BA04D2B5105DC00BEE111 /* MypageViewModel.swift */,
 				64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */,
 				64CD2FA02B6CBB5200CF72CB /* MemoListViewModel.swift */,
 			);
-			path = Mypage;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		DAF5FCAA2B621BEA00098EF7 /* Setting */ = {
