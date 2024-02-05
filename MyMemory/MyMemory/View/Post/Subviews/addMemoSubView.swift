@@ -41,28 +41,39 @@ struct addMemoSubView: View {
                 Divider()
                 
                 // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
-                ZStack (alignment: .top) {
-                    TextEditor(text: $viewModel.memoContents)
-                        .frame(minHeight: minHeight, maxHeight: maxHeight)
-                        .foregroundColor(.textColor)
-                        // 최대 1000자 까지만 허용
-                        .onChange(of: viewModel.memoContents) { newValue in
-                            // Limit text input to maxCharacterCount
-                            if newValue.count > maxCharacterCount {
-                                viewModel.memoContents = String(newValue.prefix(maxCharacterCount))
-                            }
-                        }// Just는 Combine 프레임워크에서 제공하는 publisher 중 하나이며, SwiftUI에서 특정 이벤트에 반응하거나 값을 수신하기 위해 사용됩니다. 1000를 넘으면 입력을 더이상 할 수 없습니다.
-                        .onReceive(Just(viewModel.memoContents)) { _ in
-                            // Disable further input if the character count exceeds maxCharacterCount
-                            if viewModel.memoContents.count > maxCharacterCount {
-                                viewModel.memoContents = String(viewModel.memoContents.prefix(maxCharacterCount))
-                            }
+                TextEditor(text: $viewModel.memoContents)
+                    .padding(.horizontal, -4)
+                    .scrollContentBackground(.hidden)
+                    .frame(minHeight: minHeight, maxHeight: maxHeight)
+                    .foregroundColor(.textColor)
+                    .background(
+                        Text(viewModel.memoContents.isEmpty ? "본문을 입력해주세요." : "")
+                            .foregroundStyle(Color.borderColor)
+                            .font(.semibold20)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .padding(.vertical, 8)
+                          //  .zIndex(-1)
+                           
+                        ,alignment: .topLeading
+                    )
+                    // 최대 1000자 까지만 허용
+                    .onChange(of: viewModel.memoContents) { newValue in
+                        // Limit text input to maxCharacterCount
+                        if newValue.count > maxCharacterCount {
+                            viewModel.memoContents = String(newValue.prefix(maxCharacterCount))
                         }
+                    } // Just는 Combine 프레임워크에서 제공하는 publisher 중 하나이며, SwiftUI에서 특정 이벤트에 반응하거나 값을 수신하기 위해 사용됩니다. 1000를 넘으면 입력을 더이상 할 수 없습니다.
+                    .onReceive(Just(viewModel.memoContents)) { _ in
+                        // Disable further input if the character count exceeds maxCharacterCount
+                        if viewModel.memoContents.count > maxCharacterCount {
+                            viewModel.memoContents = String(viewModel.memoContents.prefix(maxCharacterCount))
+                        }
+                    }
                     
                   
                 }
               
-            }
+           // }
         }
         .padding(.bottom)
     }

@@ -32,7 +32,9 @@ extension Color {
     static let textDeepColor = Color.adaptive(light: UIColor(Color.deepGray), dark: UIColor(Color.white)) // 본문컬러
     
     static let originColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
-    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
+    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.darkGray))
+    
+   // static let borderColor2 = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.darkGray))
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
     
@@ -42,6 +44,7 @@ extension Color {
 }
 
 extension Color {
+    
     // 다크, 라이트모드의 컬러를 각각 적용하였습니다.
     static func adaptiveColor(light: Color, dark: Color) -> Color {
        if UITraitCollection.current.userInterfaceStyle == .dark {
@@ -51,6 +54,8 @@ extension Color {
        }
         // else if 추가조건 == { return duotone }
     }
+    
+    
     static func adaptive(light: UIColor, dark: UIColor) -> Color {
       return Color(UIColor { traitCollection in
           traitCollection.userInterfaceStyle == .dark ? dark : light
