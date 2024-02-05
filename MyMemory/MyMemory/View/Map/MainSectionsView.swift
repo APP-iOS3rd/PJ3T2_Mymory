@@ -53,7 +53,6 @@ struct MainSectionsView: View {
                     VStack {
                         VStack {
                             HStack{
-                                
                                 Button{
                                     filterSheet.toggle()
                                 } label: {
