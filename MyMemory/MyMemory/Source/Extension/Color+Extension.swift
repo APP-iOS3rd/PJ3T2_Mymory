@@ -35,6 +35,8 @@ extension Color {
     static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
+    
+    static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
 }
 
 extension Color {
