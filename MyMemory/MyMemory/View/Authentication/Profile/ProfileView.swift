@@ -90,7 +90,12 @@ struct ProfileView: View {
     
     private func createHeader(isCurrentUser: Bool) -> some View {
         HStack(alignment: .lastTextBaseline) {
-            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
+            if fromDetail {
+                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
+            } else {
+                Text("내가 작성한 메모")
+                    .font(.semibold20).foregroundStyle(Color.textColor)
+            }
             Spacer()
             
             Button {
