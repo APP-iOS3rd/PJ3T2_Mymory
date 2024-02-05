@@ -12,6 +12,7 @@ import PhotosUI
 struct RegisterView: View {
    // @ObservedObject var viewModel: RegisterViewModel = RegisterViewModel()
     @EnvironmentObject var viewModel : AuthViewModel
+    @State private var isActive: Bool = false
     
     var body: some View {
         NavigationView {
@@ -87,6 +88,26 @@ struct RegisterView: View {
                         .padding()
                         
                         VStack(alignment: .leading) {
+                            Text("비밀번호 확인")
+                                .font(.system(size: 15))
+                            SecureField("비밀번호를 다시 입력해주세요", text: $viewModel.secondPassword)
+                                .overlay(
+                                        Image(systemName: "multiply.circle.fill")
+                                            .position(x:350, y:10)
+                                            .foregroundStyle(Color.gray)
+                                            .onTapGesture {
+                                                viewModel.secondPassword = ""
+                                            }
+                                )
+                            Divider()
+                                .padding(.vertical, -5)
+                            Text(viewModel.checkSecondPassword(secondPassword: viewModel.secondPassword) ? "" : "비밀번호가 일치하지않습니다")
+                                .font(.system(size: 15))
+                                .foregroundStyle(viewModel.checkSecondPassword(secondPassword: viewModel.secondPassword) ? Color.green : Color.red)
+                        }
+                        .padding()
+                        
+                        VStack(alignment: .leading) {
                             Text("이름")
                                 .font(.system(size: 15))
                             TextField("이름을 입력해주세요", text: $viewModel.name)
@@ -102,6 +123,7 @@ struct RegisterView: View {
                                 .padding(.vertical, -5)
                         }
                         .padding()
+                        
                         VStack(alignment: .leading) {
                                         HStack{
                                             Image(systemName: viewModel.agreeAllBoxes ? "checkmark.square" : "square")
@@ -201,8 +223,8 @@ struct RegisterView: View {
                         
                         if viewModel.checkIfCanRegister() {
                             viewModel.userCreate()
-                           // viewModel.userCreate()
                             print("Register Completed")
+                            self.isActive = true
                         } else {
                             print("Register failed")
                         }
@@ -213,6 +235,9 @@ struct RegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
+                }
+                .fullScreenCover(isPresented: $isActive) {
+                    MainTabView()
                 }
                     
             }
@@ -231,4 +256,4 @@ struct RegisterView: View {
 //#Preview {
 //    RegisterView()
 //}
-//
+
