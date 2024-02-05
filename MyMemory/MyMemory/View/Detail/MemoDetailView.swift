@@ -144,18 +144,6 @@ struct MemoDetailView: View {
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
         }//:SCROLL
-//        .onAppear {
-//            Task {
-//                do {
-//                    viewModel.fetchMemoCreator(uid: memo.userUid)
-//                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-//                } catch {
-//                    // 에러 처리
-//                    print("Error checking my memo: \(error.localizedDescription)")
-//                }
-//            }
-//        }
- 
             .onAppear {
                 Task {
                     do {
@@ -178,6 +166,7 @@ struct MemoDetailView: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
+ 
         .customNavigationBar(
             centerView: {
                 Text(" ")
@@ -190,6 +179,7 @@ struct MemoDetailView: View {
             },
             backgroundColor: .bgColor
         )
+
     }
     func didTapImage(img: Int) {
         selectedNum = img
