@@ -101,6 +101,13 @@ struct RoundedRect: ButtonStyle {
         return RoundedRect(backgroundColor: .yellow, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .yellow)
     }
     
+    static var loginBtn: RoundedRect {
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
+    }
+    static var loginBtnDisabled: RoundedRect {
+        return RoundedRect(backgroundColor: .gray, titleColor: .darkGray , setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .gray)
+    }
+    
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

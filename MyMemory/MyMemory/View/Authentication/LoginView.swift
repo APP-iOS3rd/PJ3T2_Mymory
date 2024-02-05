@@ -31,12 +31,10 @@ struct LoginView: View {
     @State private var isShowingLoginErrorAlert: Bool = false
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
+    
     @EnvironmentObject var viewModel: AuthViewModel
-
     @Environment(\.presentationMode) var presentationMode
-    //    확인용 임시 아이디 + 패스워드
-    //    private var correctEmail: String = "12345@naver.com"
-    //    private var correctPassword: String = "12345"
+    
     
     var body: some View {
         
@@ -95,8 +93,11 @@ struct LoginView: View {
                     } label: {
                         Text("로그인")
                             .font(.regular18)
+                            .frame(maxWidth: .infinity)
+                        
                     }
-                    .buttonStyle(LoginButton())
+                    .buttonStyle(RoundedRect.loginBtnDisabled)
+                    
                 } else {
                     Button {
                         Task {
@@ -110,9 +111,11 @@ struct LoginView: View {
                     } label: {
                         Text("로그인")
                             .font(.regular18)
+                            .frame(maxWidth: .infinity)
+                            
                     }
-                    
-                    .buttonStyle(LoginButton(backgroundColor: Color.indigo))
+                    .buttonStyle(RoundedRect.loginBtn)
+                   // .buttonStyle(LoginButton(backgroundColor: Color.indigo))
                     .alert(loginErrorAlertTitle, isPresented: $isShowingLoginErrorAlert) {
                         Button("확인", role: .cancel) {}
                     }
