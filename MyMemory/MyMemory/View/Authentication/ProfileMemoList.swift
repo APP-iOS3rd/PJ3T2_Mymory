@@ -8,18 +8,20 @@
 import SwiftUI
 
 //이 구조체는 MemoListViewModel 프로토콜을 준수하는 어떤 뷰모델 타입(ViewModel)을 받을 수 있습니다.
-struct ProfileMemoList<ViewModel: MemoListViewModel>: View {
+struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     
     var body: some View {
-        LazyVStack(spacing: 12) {
+        LazyVStack(spacing: 20) {
             // 각각의 뷰 모델을 활용하여 메모 리스트를 가져옴
             ForEach($viewModel.memoList, id: \.self) { memo in
                 NavigationLink {
                     MemoDetailView(memo: memo)
                 } label: {
-                    ProfileMemoListCell(memo: memo, viewModel: viewModel)
+                    //ProfileMemoListCell(memo: memo, viewModel: viewModel)
+                    MemoCard(memo: memo)
+                        .contentShape(Rectangle())
                         .onAppear {
                             Task {
                                 // 1. 로그인 되어있는지 체크

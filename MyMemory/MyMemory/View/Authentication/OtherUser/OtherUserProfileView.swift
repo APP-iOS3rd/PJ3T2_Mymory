@@ -11,27 +11,25 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     var id: SortedTypeOfMemo { self }
 }
 
-struct ProfileView: View {
-    @State var selected: Int = 2
+struct OtherUserProfileView: View {
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
-    @ObservedObject var authViewModel: AuthService = .shared
+    @ObservedObject var authViewModel: AuthViewModel = .shared
     @State private var fromDetail = false
-
-    @ObservedObject var mypageViewModel: MypageViewModel = .init()
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
-
+    
+    @State var selectedIndex = 0
+    
     // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
     init(fromDetail: Bool, memoCreator: User) {
-           self._fromDetail = State(initialValue: fromDetail)
-           otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
+        self._fromDetail = State(initialValue: fromDetail)
+        otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
     }
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.bgColor
-                .edgesIgnoringSafeArea(.top)
+            Color.bgColor.edgesIgnoringSafeArea(.top)
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
@@ -42,41 +40,35 @@ struct ProfileView: View {
                         // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
                         if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
-                            createHeader(isCurrentUser: isCurrentUser)
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                        } else {
-                            MypageTopView() //
-                            createHeader(isCurrentUser: isCurrentUser)
+                            createHeader()
                             
-                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
-                    } else {
+                        else {
+                            MyPageView()
+                        }
+                    }
+                    else {
                         showLoginPrompt()
                     }
                 }
-            
+                
             }
             .refreshable {
                 // Refresh logic
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 14)
             .safeAreaInset(edge: .top) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.bgColor)
+                Color.clear.frame(height: 0).background(Color.bgColor)
             }
             .safeAreaInset(edge: .bottom) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.bgColor)
-                    .border(Color.black)
+                Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
             }
         }
         .onAppear {
-            
             checkLoginStatus()
             authViewModel.fetchUser()
-           
+            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
@@ -87,7 +79,7 @@ struct ProfileView: View {
             }
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView().environmentObject(authViewModel)
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {
@@ -96,32 +88,31 @@ struct ProfileView: View {
         }
     }
     
-    private func createHeader(isCurrentUser: Bool) -> some View {
+    private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
-            if fromDetail {
-                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
-            } else {
-                Text("내가 작성한 메모")
-                    .font(.semibold20).foregroundStyle(Color.textColor)
-            }
+            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
+                .font(.semibold20)
+                .foregroundStyle(Color.textColor)
             Spacer()
             
             Button {
-                isCurrentUser ? mypageViewModel.isShowingOptions.toggle() : otherUserViewModel.isShowingOptions.toggle()
+                otherUserViewModel.isShowingOptions.toggle()
             } label: {
-                Image(systemName: "slider.horizontal.3").foregroundStyle(Color.gray).font(.system(size: 24))
+                Image(systemName: "slider.horizontal.3")
+                    .foregroundStyle(Color.gray)
+                    .font(.system(size: 24))
             }
-            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: isCurrentUser ? $mypageViewModel.isShowingOptions : $otherUserViewModel.isShowingOptions) {
+            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $otherUserViewModel.isShowingOptions) {
                 ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
                     Button(type.rawValue) {
-                        isCurrentUser ? mypageViewModel.sortMemoList(type: type) : otherUserViewModel.sortMemoList(type: type)
+                        otherUserViewModel.sortMemoList(type: type)
                     }
                 }
             }
-            .disabled(!isCurrentUser)
         }
         .padding(.top, 38)
     }
+
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {

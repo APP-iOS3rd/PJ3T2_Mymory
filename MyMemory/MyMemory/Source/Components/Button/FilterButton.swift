@@ -14,7 +14,7 @@ struct FilterButton: View {
     var body: some View {
         HStack {
             Image(systemName: imageName)
-            Text(LocalizedStringKey(buttonName))
+            Text(buttonName)
         }
     }
 }

@@ -87,27 +87,8 @@ struct RoundedRect: ButtonStyle {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
     }
     static var follow: RoundedRect {
-        return RoundedRect(backgroundColor: Color(hex: "d9d9d9"), titleColor: .black, setFont: .semibold14, paddingVertical: 10, paddingHorzontal: 28, borderColor: Color(hex: "d9d9d9"))
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 10, borderColor: .accentColor)
     }
-    static var loginApple: RoundedRect {
-        return RoundedRect(backgroundColor: .black, titleColor: .white, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .black)
-    }
-    
-    static var loginGoogle: RoundedRect {
-        return RoundedRect(backgroundColor: .white, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .borderColor)
-    }
-    
-    static var loginKakao: RoundedRect {
-        return RoundedRect(backgroundColor: .yellow, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .yellow)
-    }
-    
-    static var loginBtn: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
-    }
-    static var loginBtnDisabled: RoundedRect {
-        return RoundedRect(backgroundColor: .gray, titleColor: .darkGray , setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .gray)
-    }
-    
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -124,44 +105,3 @@ struct RoundedRect: ButtonStyle {
     }
 }
 
-struct ButtonStylePriview: View {
-    var body: some View {
-        VStack {
-            Text("Pill")
-                .font(.extraBold28)
-            Button("contains", action: {})
-                .buttonStyle(Pill.contains)
-            Button("deepGray", action: {})
-                .buttonStyle(Pill.deepGray)
-            Button("lightGray", action: {})
-                .buttonStyle(Pill.lightGray)
-            Button("secondary", action: {})
-                .buttonStyle(Pill.secondary)
-            Button("selected", action: {})
-                .buttonStyle(Pill.selected)
-            Button("standard", action: {})
-                .buttonStyle(Pill.standard)
-            Button("standard2", action: {})
-                .buttonStyle(Pill.standard2)
-            Button("standard3", action: {})
-                .buttonStyle(Pill.standard3)
-            Text("RoundedRect")
-                .font(.extraBold28)
-            Button("standard", action: {})
-                .buttonStyle(RoundedRect.standard)
-            Button("active", action: {})
-                .buttonStyle(RoundedRect.active)
-            Button("large", action: {})
-                .buttonStyle(RoundedRect.large)
-            Button("selected", action: {})
-                .buttonStyle(RoundedRect.selected)
-            Button("primary", action: {})
-                .buttonStyle(RoundedRect.primary)
-            Button("follow", action: {})
-                .buttonStyle(RoundedRect.follow)
-        }
-    }
-}
-#Preview {
-    ButtonStylePriview()
-}

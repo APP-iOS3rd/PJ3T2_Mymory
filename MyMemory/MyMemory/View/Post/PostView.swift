@@ -34,10 +34,14 @@ struct PostView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
-                VStack(alignment: .leading){
-                    
+        ZStack {
+            ScrollView{
+            VStack(alignment: .leading){
+                
+                //💁 메모하기 View, 사진 등록하기 View
+                Group {
+                    addMemoSubView()
+                        .environmentObject(viewModel)
                     //💁 메모하기 View, 사진 등록하기 View
                     Group {
                         addMemoSubView()
@@ -97,6 +101,9 @@ struct PostView: View {
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+      
+        .padding(.bottom, 25)
+
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 presentLoginAlert = false

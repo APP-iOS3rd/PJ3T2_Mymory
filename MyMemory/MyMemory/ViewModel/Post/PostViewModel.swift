@@ -8,9 +8,8 @@ import Combine
 class PostViewModel: ObservableObject {
     //@Published var memoData: [PostMemoModel] = []
     //Map 관련
-    @Published var mapPosition: MapCameraPosition
+    @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     //view로 전달할 값 모음
-    @Published var radius:Double = 100.0
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""
@@ -27,20 +26,8 @@ class PostViewModel: ObservableObject {
     var locationsHandler = LocationsHandler.shared
     
     // 사용자의 현재 위치의 위도와 경도를 가져오는 메서드
-    init() {
-        if let loc = self.locationsHandler.location{
-            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude), distance: 500))
-        } else {
-
-            self.mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
-        }
-        getUserCurrentLocation()
-
-    }
+   
     func getUserCurrentLocation() {
-        if let loc = locationsHandler.location {
-            self.getAddress(with: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude))
-        }
         locationsHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
                 if let location = location {
@@ -84,11 +71,15 @@ class PostViewModel: ObservableObject {
             self.memoAddressText = self.tempAddressText
         }
     }
+    init() {
+        // ViewModel이 생성될 때 사용자의 현재 위치를 가져오는 메서드를 호출합니다.
+        getUserCurrentLocation()
+    }
     
     
     func saveMemo() async {
         do {
-            guard let user = AuthService.shared.currentUser else { return }
+            guard let user = AuthViewModel.shared.currentUser else { return }
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate!.latitude),

@@ -12,24 +12,19 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class ProfileEditViewModel: ObservableObject {
-    @Published var isEditionSuccessd = false
-    @Published var isLoading: Bool = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
-    @Published var name: String = AuthService.shared.currentUser?.name ?? ""
     let db = Firestore.firestore()
     let storage = Storage.storage()
     init() {}
     
     func fetchEditProfileImage(imageData: Data, uid: String) async {
-        isLoading = true
         var imageURL: String = ""
         
         do {
             imageURL = try await uploadImage(imageData: imageData)
         } catch {
             print("이미지 불러오기 실패")
-            isLoading = false
             return
         }
         
@@ -39,12 +34,8 @@ class ProfileEditViewModel: ObservableObject {
             try await userRef.updateData([
                 "profilePicture": imageURL
             ])
-            try await userRef.updateData([
-                "name": name
-            ])
             editProfileImageOnUserDefaults(image: imageURL)
         } catch {
-            isLoading = false
             print("프로필사진 업데이트 실패")
         }
     }
@@ -70,13 +61,10 @@ class ProfileEditViewModel: ObservableObject {
             do {
                 downloadURL = try await imageRef.downloadURL()
                 print("Image uploaded with URL: \(downloadURL.absoluteString)")
-                isLoading = false
-                isEditionSuccessd = true
                 return downloadURL.absoluteString
             } catch {
                 print("Retrying to get download URL...")
                 try await Task.sleep(nanoseconds: 1_000_000_000) // 1초 대기
-                isLoading = false
             }
         }
         throw URLError(.cannotFindHost) // 적절한 에러 처리 필요    }

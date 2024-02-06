@@ -11,19 +11,11 @@ import _MapKit_SwiftUI
 
 struct ChangeLocationView: View {
     @State var handler = LocationsHandler.shared
-    @State var distanceAlert: Bool = false
     @State var centerLoc: CLLocation? = nil {
         didSet {
             if let loc = centerLoc {
                 
                 viewModel.getAddress(with: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude))
-                
-                if let currentloc = handler.location {
-                    if loc.distance(from: currentloc) > viewModel.radius {
-                        distanceAlert.toggle()
-                        
-                    }
-                }
             }
         }
     }
@@ -45,8 +37,6 @@ struct ChangeLocationView: View {
                                 
                             }
                         }.mapOverlayLevel(level: .aboveLabels)
-                        MapCircle(center: loc.coordinate, radius: viewModel.radius)
-                            .foregroundStyle(Color(red: 0.98, green: 0.15, blue: 0.15).opacity(0.1))
                     }
                 }.onMapCameraChange { context in
                     self.centerLoc = CLLocation(latitude: context.camera.centerCoordinate.latitude,
@@ -110,12 +100,6 @@ struct ChangeLocationView: View {
             },
             backgroundColor: .bgColor
         )
-        .moahAlert(isPresented: $distanceAlert) {
-            MoahAlertView(title: "너무 먼 곳은 안돼요!",message: "\(Int(viewModel.radius))M 이내에만 등록 가능합니다.", firstBtn: .init(type: .CONFIRM, isPresented: $distanceAlert, action: {
-                guard let loc = handler.location else {return}
-                viewModel.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude), distance: 500))
-            }))
-        }
     }
 }
 
