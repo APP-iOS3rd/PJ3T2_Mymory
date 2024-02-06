@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 extension Font {
+    
     // Black
     static let black20: Font = .custom(FontType.Black.rawValue, size: 20)
     // ExtraBold
@@ -60,6 +61,8 @@ extension Font {
     }
 }
 enum FontType: String {
+    
+    // Pretendard
     case Black = "Pretendard-Black"
     case ExtraBold = "Pretendard-ExtraBold"
     case Bold = "Pretendard-Bold"
@@ -69,4 +72,6 @@ enum FontType: String {
     case Light = "Pretendard-Light"
     case ExtraLight = "Pretendard-ExtraLight"
     case Thin = "Pretendard-Thin"
+    
+    case OwnglyphEuiyeon = "Ownglyph-Euiyeon"
 }
