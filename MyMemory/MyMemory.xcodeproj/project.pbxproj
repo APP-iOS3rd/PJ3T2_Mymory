@@ -151,6 +151,7 @@
 		DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE562B58BAB300CBE177 /* FirebaseStorage */; };
 		DABA02F72B5F46AA009191DA /* ReportMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA02F62B5F46AA009191DA /* ReportMemoView.swift */; };
 		DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF026152B5E31130092A3B3 /* LoadingManager.swift */; };
+		DAFBEE232B720853003E6E5A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAFBEE222B720853003E6E5A /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -303,6 +304,7 @@
 		DABA02F62B5F46AA009191DA /* ReportMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMemoView.swift; sourceTree = "<group>"; };
 		DAF026142B5E25620092A3B3 /* MyMemory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMemory.entitlements; sourceTree = "<group>"; };
 		DAF026152B5E31130092A3B3 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
+		DAFBEE222B720853003E6E5A /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -810,6 +812,7 @@
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */,
+				DAFBEE222B720853003E6E5A /* Localizable.xcstrings */,
 				DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */,
 			);
 			path = Configure;
@@ -1021,6 +1024,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
+				DAFBEE232B720853003E6E5A /* Localizable.xcstrings in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */,
 				9D856CFF2B6CC322003B8EB7 /* APIKEYS.xcconfig in Resources */,

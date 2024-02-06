@@ -82,21 +82,16 @@ struct MainSectionsView: View {
                                                     print("liked!")
                                                 }
                                             }
-
                                         }
                                         
                                     }
-                                    
-                                }.frame(maxWidth: .infinity)
-                                
-                            }.refreshable {
-                                viewModel.fetchMemos()
-                                viewModel.fetchMemoProfiles()
+                                }.refreshable {
+                                    viewModel.fetchMemos()
+                                }
                             }
                             .padding(.horizontal, 20)
                             
                         }
-
                     }
                     .sheet(isPresented: $filterSheet, content: {
                         FileterListView(filteredList: $viewModel.filterList)

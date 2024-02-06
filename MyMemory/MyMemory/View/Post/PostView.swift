@@ -92,14 +92,11 @@ struct PostView: View {
                 .environmentObject(viewModel)
                 .edgesIgnoringSafeArea(.bottom)
         } //: VStack
-        
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-        
         .padding(.bottom, 25)
-        
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 presentLoginAlert = false
@@ -226,8 +223,7 @@ struct PostView: View {
                         })
                     }
                 }
-                
-            },
+    },
             backgroundColor: .bgColor3
         )
     }
