@@ -40,7 +40,7 @@ struct MoveUserProfileButton: View {
                 
                 Spacer()
                 NavigationLink {
-                    ProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                    OtherUserProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
                 } label: {
                     Image(systemName: "ellipsis")
 //                    Text("작성자 프로필 이동")

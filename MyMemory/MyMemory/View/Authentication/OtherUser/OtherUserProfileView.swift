@@ -11,15 +11,12 @@ enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
     var id: SortedTypeOfMemo { self }
 }
 
-struct ProfileView: View {
-    @State var selected: Int = 2
+struct OtherUserProfileView: View {
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthViewModel = .shared
     @State private var fromDetail = false
-    
-    @ObservedObject var mypageViewModel: MypageViewModel = .init()
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     
     @State var selectedIndex = 0
@@ -43,35 +40,15 @@ struct ProfileView: View {
                         // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
                         if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
-                            createHeader(isCurrentUser: isCurrentUser)
+                            createHeader()
                             
                             ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                        } else {
-                            MypageTopView()
-                            
-                       
-                            createHeader(isCurrentUser: isCurrentUser)
-                            // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
-                            MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                       selectedIndex: $selectedIndex,
-                                       fullWidth: UIScreen.main.bounds.width,
-                                       spacing: 50,
-                                       horizontalInset: 91.5)
-                            .padding(.horizontal)
-                            switch selectedIndex {
-                            case 0:
-                                
-                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
-                                 
-                                
-                            default:
-                                MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
-                                
-                            }
-                            
-                            
                         }
-                    } else {
+                        else {
+                            MyPageView()
+                        }
+                    }
+                    else {
                         showLoginPrompt()
                     }
                 }
@@ -111,27 +88,31 @@ struct ProfileView: View {
         }
     }
     
-    private func createHeader(isCurrentUser: Bool) -> some View {
+    private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
-            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
+            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
+                .font(.semibold20)
+                .foregroundStyle(Color.textColor)
             Spacer()
             
             Button {
-                isCurrentUser ? mypageViewModel.isShowingOptions.toggle() : otherUserViewModel.isShowingOptions.toggle()
+                otherUserViewModel.isShowingOptions.toggle()
             } label: {
-                Image(systemName: "slider.horizontal.3").foregroundStyle(Color.gray).font(.system(size: 24))
+                Image(systemName: "slider.horizontal.3")
+                    .foregroundStyle(Color.gray)
+                    .font(.system(size: 24))
             }
-            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: isCurrentUser ? $mypageViewModel.isShowingOptions : $otherUserViewModel.isShowingOptions) {
+            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $otherUserViewModel.isShowingOptions) {
                 ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
                     Button(type.rawValue) {
-                        isCurrentUser ? mypageViewModel.sortMemoList(type: type) : otherUserViewModel.sortMemoList(type: type)
+                        otherUserViewModel.sortMemoList(type: type)
                     }
                 }
             }
-            .disabled(!isCurrentUser)
         }
         .padding(.top, 38)
     }
+
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {

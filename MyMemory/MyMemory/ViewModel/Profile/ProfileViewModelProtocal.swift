@@ -13,7 +13,7 @@ import FirebaseFirestore
 
 
 
-protocol MemoListViewModel: ObservableObject {
+protocol ProfileViewModelProtocal: ObservableObject {
     
     var merkerMemoList: [Memo] { get set } 
     var memoList: [Memo] { get set }

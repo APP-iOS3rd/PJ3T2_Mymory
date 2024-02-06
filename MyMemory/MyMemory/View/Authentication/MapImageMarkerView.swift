@@ -9,14 +9,14 @@ import SwiftUI
 import MapKit
 
 
-struct MapImageMarkerView<ViewModel: MemoListViewModel>: View {
+struct MapImageMarkerView<ViewModel: ProfileViewModelProtocal>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
     
     var body: some View {
         VStack {
             Map(position: $position) {
-                ForEach($viewModel.merkerMemoList, id: \.id) { memo in
+                ForEach($viewModel.memoList, id: \.id) { memo in
                     
                     let location = CLLocationCoordinate2D(
                         latitude: Double(memo.location.latitude.wrappedValue),
