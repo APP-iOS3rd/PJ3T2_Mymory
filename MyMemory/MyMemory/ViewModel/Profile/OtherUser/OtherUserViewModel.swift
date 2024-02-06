@@ -13,7 +13,7 @@ import CoreLocation
 
 
 
-class OtherUserViewModel: ObservableObject, ProfileViewModelProtocal {
+class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     
     @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []

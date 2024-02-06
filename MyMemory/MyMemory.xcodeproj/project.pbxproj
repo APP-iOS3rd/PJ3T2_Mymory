@@ -79,7 +79,7 @@
 		64A41CB72B68C03800087B66 /* OtherUserTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A41CB62B68C03800087B66 /* OtherUserTopView.swift */; };
 		64CA48D92B71C78A00153D2E /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA48D82B71C78A00153D2E /* MyPageView.swift */; };
 		64CD2F9F2B6CAFA400CF72CB /* OtherUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */; };
-		64CD2FA12B6CBB5200CF72CB /* ProfileViewModelProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocal.swift */; };
+		64CD2FA12B6CBB5200CF72CB /* ProfileViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocol.swift */; };
 		64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA22B70678100CF72CB /* UserStatusCell.swift */; };
 		64CD2FA72B70A51400CF72CB /* MapImageMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA62B70A51400CF72CB /* MapImageMarkerView.swift */; };
 		64D3C2762B58B60000EEA19F /* LocationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D3C2752B58B60000EEA19F /* LocationsHandler.swift */; };
@@ -232,7 +232,7 @@
 		64CA48D82B71C78A00153D2E /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserViewModel.swift; sourceTree = "<group>"; };
-		64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelProtocal.swift; sourceTree = "<group>"; };
+		64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModelProtocol.swift; sourceTree = "<group>"; };
 		64CD2FA22B70678100CF72CB /* UserStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
 		64CD2FA62B70A51400CF72CB /* MapImageMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapImageMarkerView.swift; sourceTree = "<group>"; };
 		64D3C2752B58B60000EEA19F /* LocationsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsHandler.swift; sourceTree = "<group>"; };
@@ -819,7 +819,7 @@
 			children = (
 				64CA48D62B70D7C400153D2E /* MyProfile */,
 				64CA48D52B70D7A300153D2E /* OtherUser */,
-				64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocal.swift */,
+				64CD2FA02B6CBB5200CF72CB /* ProfileViewModelProtocol.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1100,7 +1100,7 @@
 				6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */,
 				0133834F2B565F50004D4B8A /* Onboarding.swift in Sources */,
 				64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */,
-				64CD2FA12B6CBB5200CF72CB /* ProfileViewModelProtocal.swift in Sources */,
+				64CD2FA12B6CBB5200CF72CB /* ProfileViewModelProtocol.swift in Sources */,
 				01D15FF22B5DEB37003F1BEF /* User.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */,

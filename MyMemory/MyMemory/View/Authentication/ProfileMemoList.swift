@@ -8,7 +8,7 @@
 import SwiftUI
 
 //이 구조체는 MemoListViewModel 프로토콜을 준수하는 어떤 뷰모델 타입(ViewModel)을 받을 수 있습니다.
-struct ProfileMemoList<ViewModel: ProfileViewModelProtocal>: View {
+struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     

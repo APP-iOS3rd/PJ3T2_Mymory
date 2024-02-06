@@ -13,7 +13,7 @@ import FirebaseFirestore
 import SwiftUI
 import MapKit
 
-class MypageViewModel: ObservableObject, ProfileViewModelProtocal {
+class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     
     @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []

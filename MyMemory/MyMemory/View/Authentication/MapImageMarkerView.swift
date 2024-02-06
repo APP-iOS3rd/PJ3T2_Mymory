@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 
-struct MapImageMarkerView<ViewModel: ProfileViewModelProtocal>: View {
+struct MapImageMarkerView<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
     
