@@ -58,7 +58,6 @@ struct MainSectionsView: View {
                                     
                                     Spacer()
                                 }.padding(.top, 20)
-                                
                                 Spacer()
                             }.padding(.top, 20)
                                 .padding(.horizontal, 20)
@@ -82,12 +81,17 @@ struct MainSectionsView: View {
                                                     print("liked!")
                                                 }
                                             }
+
+                                                
                                         }
                                         
                                     }
-                                }.refreshable {
-                                    viewModel.fetchMemos()
-                                }
+                                    
+                                }.frame(maxWidth: .infinity)
+                                
+                            }.refreshable {
+                                viewModel.fetchMemos()
+                                viewModel.fetchMemoProfiles()
                             }
                             .padding(.horizontal, 20)
                             

@@ -66,7 +66,10 @@ struct MemoCard: View {
                         Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
                     }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
                 }.padding(.horizontal, 20)
+<<<<<<< HEAD
 
+=======
+>>>>>>> d1bcb3e (:art: Memocard)
             }
             if memo.images.count > 0 {
                 ImageGridView(width: UIScreen.main.bounds.width - 40,
@@ -75,6 +78,10 @@ struct MemoCard: View {
                               imgs: $memo.images)
                 .frame(maxWidth: UIScreen.main.bounds.width - 40, maxHeight: (UIScreen.main.bounds.width - 40) * 1/2)
                 .contentShape(Rectangle())
+<<<<<<< HEAD
+=======
+
+>>>>>>> d1bcb3e (:art: Memocard)
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(10)
                 .background(Color.originColor)
