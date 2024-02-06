@@ -211,13 +211,39 @@ extension MainMapViewModel {
     //MARK: - View Controll logic
     
     func sortByDistance(_ distance: Bool) {
-        if distance {
-            guard let location = location else { return }
-            memoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
-            filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
-        } else {
-            memoList.sort(by: {$0.date > $1.date})
-            filteredMemoList.sort(by: {$0.date > $1.date})
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            if distance {
+                guard let location = location else { return }
+                memoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
+                filteredMemoList.sort(by: {$0.location.distance(from: location) < $1.location.distance(from: location)})
+                
+            } else {
+                memoList.sort(by: {$0.date > $1.date})
+                filteredMemoList.sort(by: {$0.date > $1.date})
+            }
+            var filtered: [Profile] = []
+            for (idx, memo) in filteredMemoList.enumerated() {
+                if filteredProfilList[idx].id == memo.userUid {
+                    filtered.append(filteredProfilList[idx])
+                } else {
+                    if let new = filteredProfilList.first(where: {$0.id == memo.userUid}) {
+                        filtered.append(new)
+                    }
+                }
+            }
+            filteredProfilList = filtered
+            var temp: [Profile] = []
+            for (idx, memo) in memoList.enumerated() {
+                if memoWriterList[idx].id == memo.userUid {
+                    temp.append(memoWriterList[idx])
+                } else {
+                    if let new = memoWriterList.first(where: {$0.id == memo.userUid}) {
+                        temp.append(new)
+                    }
+                }
+            }
+            memoWriterList = temp
         }
     }
     /// 메모가 선택되었을 때 action

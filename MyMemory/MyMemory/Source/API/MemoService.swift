@@ -245,6 +245,38 @@ struct MemoService {
             return memo
         } else {return nil}
     }
+    func fetchMemosOfWeek() async throws -> [Memo] {
+        var memos: [Memo] = []
+        let week = Date().timeIntervalSince1970 - (3600 * 7)
+        do {
+            let docs = try await COLLECTION_MEMOS
+                .whereField("memoCreatedAt", isGreaterThan: week)
+                .order(by: "likeCount", descending: true)
+                .getDocuments()
+            for doc in docs.documents {
+                if doc.exists {
+                    let data = doc.data()
+                    
+                    // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+                    if var memo = try await fetchMemoFromDocument(documentID: doc.documentID, data: data) {
+                        let likeCount = await likeMemoCount(memo: memo)
+                        let memoLike = await checkLikedMemo(memo)
+                        memo.likeCount = likeCount
+                        memo.didLike = memoLike
+                        memos.append(memo)
+                        //최대 상위 5개
+                        if memos.count == 5 {
+                            return memos
+                        }
+                    }
+                }
+            }
+            return memos
+        }
+        catch {
+            return []
+        }
+    }
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
         var memos: [Memo] = current
