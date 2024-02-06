@@ -70,7 +70,11 @@ struct ProfileMemoListCell<ViewModel: ProfileViewModelProtocol>: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 12, leading: 18, bottom:12, trailing: 18))
-        .background(Color.orginColor)
+        .background(Color.cardColor)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.borderColor)
+        )
     }
 }

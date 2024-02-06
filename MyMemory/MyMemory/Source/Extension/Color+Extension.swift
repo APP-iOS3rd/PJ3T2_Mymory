@@ -24,22 +24,39 @@ extension Color {
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
- 
+   
+    
     // 테마에 따라 Color Change
     static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
+    
     static let textColor = Color.adaptive(light: UIColor(Color.black), dark: UIColor(Color.white)) // 본문컬러
     static let textDarkColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.white)) // 본문컬러
     static let textDeepColor = Color.adaptive(light: UIColor(Color.deepGray), dark: UIColor(Color.white)) // 본문컬러
     
-    static let orginColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
-    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.deepGray))
+    static let originColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
+    
+    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color(hex: "555459")))
+    
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
+    
     static let bgColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color.lightGray2))
     
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
+    
+    static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
+    
+    static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
+    
+    static let placeHolder = Color.adaptive(light: UIColor.systemGray3, dark: UIColor.systemGray2)
+    
+    
+ 
+    
+   
 }
 
 extension Color {
+    
     // 다크, 라이트모드의 컬러를 각각 적용하였습니다.
     static func adaptiveColor(light: Color, dark: Color) -> Color {
        if UITraitCollection.current.userInterfaceStyle == .dark {
@@ -49,6 +66,8 @@ extension Color {
        }
         // else if 추가조건 == { return duotone }
     }
+    
+    
     static func adaptive(light: UIColor, dark: UIColor) -> Color {
       return Color(UIColor { traitCollection in
           traitCollection.userInterfaceStyle == .dark ? dark : light
