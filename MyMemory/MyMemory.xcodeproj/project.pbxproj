@@ -54,6 +54,8 @@
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6402B4681DC0061F08C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A63F2B4681DC0061F08C /* ProfileView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
+		01FB87202B71CAD5001C7278 /* FontViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB871F2B71CAD5001C7278 /* FontViewModel.swift */; };
+		01FB87222B71CCDC001C7278 /* Ownglyph-Euiyeon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01FB87212B71CCDC001C7278 /* Ownglyph-Euiyeon.ttf */; };
 		01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB9F8E2B6BBF700021CE7F /* ThemeViewModel.swift */; };
 		280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280561ED2B67797F00D9B9B6 /* AlertView.swift */; };
 		280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280561EF2B67799000D9B9B6 /* AlertButtonView.swift */; };
@@ -207,6 +209,8 @@
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A63F2B4681DC0061F08C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		01FB871F2B71CAD5001C7278 /* FontViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontViewModel.swift; sourceTree = "<group>"; };
+		01FB87212B71CCDC001C7278 /* Ownglyph-Euiyeon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ownglyph-Euiyeon.ttf"; sourceTree = "<group>"; };
 		01FB9F8E2B6BBF700021CE7F /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
 		280561ED2B67797F00D9B9B6 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		280561EF2B67799000D9B9B6 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
@@ -527,6 +531,22 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		01FB87232B71CCE7001C7278 /* Pretendard */ = {
+			isa = PBXGroup;
+			children = (
+				DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */,
+				DA7894002B43F5BF00DC3771 /* Pretendard-Bold.otf */,
+				DA7893FE2B43F5BF00DC3771 /* Pretendard-ExtraBold.otf */,
+				DA7893FD2B43F5BF00DC3771 /* Pretendard-ExtraLight.otf */,
+				DA7894022B43F5BF00DC3771 /* Pretendard-Light.otf */,
+				DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */,
+				DA7893FF2B43F5BF00DC3771 /* Pretendard-Regular.otf */,
+				DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */,
+				DA7894012B43F5BF00DC3771 /* Pretendard-Thin.otf */,
+			);
+			path = Pretendard;
+			sourceTree = "<group>";
+		};
 		280561EC2B67796F00D9B9B6 /* Alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,15 +686,8 @@
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */,
-				DA7894002B43F5BF00DC3771 /* Pretendard-Bold.otf */,
-				DA7893FE2B43F5BF00DC3771 /* Pretendard-ExtraBold.otf */,
-				DA7893FD2B43F5BF00DC3771 /* Pretendard-ExtraLight.otf */,
-				DA7894022B43F5BF00DC3771 /* Pretendard-Light.otf */,
-				DA7893FB2B43F5BF00DC3771 /* Pretendard-Medium.otf */,
-				DA7893FF2B43F5BF00DC3771 /* Pretendard-Regular.otf */,
-				DA7894032B43F5BF00DC3771 /* Pretendard-SemiBold.otf */,
-				DA7894012B43F5BF00DC3771 /* Pretendard-Thin.otf */,
+				01FB87232B71CCE7001C7278 /* Pretendard */,
+				01FB87212B71CCDC001C7278 /* Ownglyph-Euiyeon.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -808,6 +821,7 @@
 			children = (
 				01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */,
 				01FB9F8E2B6BBF700021CE7F /* ThemeViewModel.swift */,
+				01FB871F2B71CAD5001C7278 /* FontViewModel.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -992,6 +1006,7 @@
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
+				01FB87222B71CCDC001C7278 /* Ownglyph-Euiyeon.ttf in Resources */,
 				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
 				6A3865C02B707F6E00087904 /* Localizable.xcstrings in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
@@ -1035,6 +1050,7 @@
 				0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */,
 				289BB2BD2B5A7C28007FEB63 /* Footer.swift in Sources */,
 				01700AA02B552A790096E1CA /* MemoListView.swift in Sources */,
+				01FB87202B71CAD5001C7278 /* FontViewModel.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */,
 				DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */,
