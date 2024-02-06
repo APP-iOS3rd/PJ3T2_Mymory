@@ -11,14 +11,15 @@ struct addMemoSubView: View {
     let minHeight: CGFloat = 250
     let maxHeight: CGFloat = 400
     let maxCharacterCount: Int = 1000
+    let placeholder: String = "본문을 입력해주세요."
     
     @EnvironmentObject var viewModel: PostViewModel
     var body: some View {
         Group {
             VStack(alignment: .leading, spacing: 10){
                 HStack(alignment: .bottom){
-                    Text("제목, 기록할 메모 입력")
-                        .font(.bold20)
+//                    Text("제목, 기록할 메모 입력")
+//                        .font(.bold20)
                     Spacer()
                     VStack(alignment:.trailing) {
                         Text(viewModel.memoShare ? "공유 하기" : "나만 보기")
@@ -35,15 +36,25 @@ struct addMemoSubView: View {
                 
                 TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
                     .font(.semibold20)
-                    .textFieldStyle(.roundedBorder)
-                    .padding(.top, 10)
-                
+                //.padding(.horizontal, 10)
+
+             Divider()
                 // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
                 TextEditor(text: $viewModel.memoContents)
+                    .padding(.horizontal, -4)
+                    .scrollContentBackground(.hidden)
                     .frame(minHeight: minHeight, maxHeight: maxHeight)
-                    .cornerRadius(10)
-                    //.colorMultiply(Color.gray.opacity(0.2))
                     .foregroundColor(.textColor)
+                    .background(
+                        Text(viewModel.memoContents.isEmpty ? "본문을 입력해주세요." : "")
+                            .foregroundStyle(Color.placeHolder)
+                            .font(.semibold20)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .padding(.vertical, 8)
+                          //  .zIndex(-1)
+
+                        ,alignment: .topLeading
+                    )
                 // 최대 1000자 까지만 허용
                     .onChange(of: viewModel.memoContents) { newValue in
                         // Limit text input to maxCharacterCount
