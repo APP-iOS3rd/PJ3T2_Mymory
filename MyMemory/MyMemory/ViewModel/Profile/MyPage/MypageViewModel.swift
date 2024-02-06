@@ -58,43 +58,6 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     }
     
     
-    
-    // MARK: MemoList 필터링 & 정렬하는 메서드입니다
-    func sortMemoList(type: SortedTypeOfMemo) {
-        self.selectedFilter = type
-        switch type {
-        case .last:
-            self.memoList = memoList.sorted {
-                let first = Date(timeIntervalSince1970: $0.date)
-                let second = Date(timeIntervalSince1970: $1.date)
-                // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
-                switch first.compare(second) {
-                case .orderedAscending: return false
-                case .orderedDescending: return true
-                case .orderedSame: return true
-                }
-            }
-        case .like:
-            self.memoList = memoList.sorted { $0.likeCount > $1.likeCount }
-        case .close:
-            self.memoList = memoList.sorted {
-                let first = $0.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
-                let second = $1.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
-                return first < second
-            }
-        }
-    }
-    func fetchUserState() {
-        guard let _ = UserDefaults.standard.string(forKey: "userId") else { return }
-    }
-    
-    func fetchCurrentUserLoginState() -> Bool {
-        if let _ = Auth.auth().currentUser {
-            return true
-        }
-        return false
-    }
-    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
@@ -124,7 +87,6 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
             self.merkerMemoList = fetchedMemos
         }
     }
-    
 
 
 }
