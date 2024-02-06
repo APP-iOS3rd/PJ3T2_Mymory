@@ -81,6 +81,9 @@
         }
       }
     },
+    "+" : {
+
+    },
     "+%lld" : {
 
     },
@@ -946,6 +949,7 @@
       }
     },
     "추가하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
