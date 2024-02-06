@@ -9,6 +9,8 @@
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>MyMemory</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
