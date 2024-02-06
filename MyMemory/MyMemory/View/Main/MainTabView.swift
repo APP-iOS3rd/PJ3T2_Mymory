@@ -10,9 +10,9 @@ import Combine
 
 struct MainTabView: View {
     
-//    @ObservedObject var viewRouter: ViewRouter
+    //    @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
- 
+    
     var body: some View {
         
         NavigationStack  {
@@ -34,10 +34,10 @@ struct MainTabView: View {
                     .tabItem {
                         Image(systemName: "pencil")
                         Text("메모하기")
-                    } 
+                    }
                     .tag(1)
                 
-                    ProfileView(fromDetail: false, memoCreator: User(email: "", name: ""))
+                MyPageView()
                     .onTapGesture{
                         selectedIndex = 2
                     }
@@ -48,13 +48,13 @@ struct MainTabView: View {
                     .tag(2)
             }
         }
-      
-    }
         
- 
+    }
+    
+    
 }
 
- 
+
 //
 //#Preview {
 //    MainTabView(selectedIndex: 1)

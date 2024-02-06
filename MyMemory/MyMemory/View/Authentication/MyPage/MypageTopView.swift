@@ -11,7 +11,7 @@ import Kingfisher
 struct MypageTopView: View {
 
     //@ObservedObject var viewModel: MypageViewModel  // 💁 디자인 패턴 고려필요
-    @ObservedObject var authViewModel : AuthService = .shared
+    @ObservedObject var authViewModel : AuthViewModel = .shared
     
     var body: some View {
         HStack {
@@ -75,7 +75,7 @@ struct MypageTopView: View {
                     .foregroundStyle(Color.iconColor)
             }
             
-            // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게
+            // 다른 사용자가 볼때는 팔로잉, 팔로우로 보이게 
             
         }
         .onAppear {

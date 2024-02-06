@@ -238,6 +238,7 @@
       }
     },
     "내가 작성한 메모" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

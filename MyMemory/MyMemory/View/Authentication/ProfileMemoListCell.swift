@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileMemoListCell<ViewModel: MemoListViewModel>: View {
+struct ProfileMemoListCell<ViewModel: ProfileViewModelProtocol>: View {
     
     @Binding var memo: Memo
     @ObservedObject var viewModel: ViewModel
