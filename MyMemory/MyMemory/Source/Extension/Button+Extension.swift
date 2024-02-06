@@ -87,7 +87,7 @@ struct RoundedRect: ButtonStyle {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
     }
     static var follow: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 10, borderColor: .accentColor)
+        return RoundedRect(backgroundColor: Color(hex: "d9d9d9"), titleColor: .black, setFont: .semibold14, paddingVertical: 10, paddingHorzontal: 28, borderColor: Color(hex: "d9d9d9"))
     }
     static var loginApple: RoundedRect {
         return RoundedRect(backgroundColor: .black, titleColor: .white, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .black)

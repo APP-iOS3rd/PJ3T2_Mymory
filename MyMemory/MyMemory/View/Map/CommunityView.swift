@@ -23,12 +23,6 @@ struct CommunityView: View {
                     LazyHStack(spacing: 0, content: {
                         ForEach(1...10, id: \.self) { count in
                             MemoCell(location: $locationManager.location)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke()
-                                        .foregroundStyle(Color(hex: "#E9E9E9"))
-                                        
-                                )                                
                                 .padding(.leading, 18)
                         }
                     })
@@ -53,23 +47,25 @@ struct CommunityView: View {
                                 Text("서울시 마포구 대흥동")
                                     .font(.regular12)
                                     .foregroundStyle(Color.textColor)
-                            }.padding(.horizontal, 15)
-                                .padding(.vertical, 15)
+                            }
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 15)
+                            
                             Spacer()
                             Button{
                                 
                             } label: {
                                 Image(systemName: "ellipsis")
-                            }.padding(.horizontal, 15)
+                            }
+                            .padding(.horizontal, 15)
                         }
+
+                        .background(Color.cardColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke()
-                                .foregroundStyle(Color(hex: "#E9E9E9"))
-                                
+                                .stroke(Color.borderColor)
                         )
-                        .background(Color.originColor)
-                        .cornerRadius(10)
 
                     }
                 }).padding(.horizontal, 25)

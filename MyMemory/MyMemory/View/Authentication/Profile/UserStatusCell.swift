@@ -13,27 +13,38 @@ struct UserStatusCell: View {
     
     var body: some View {
         HStack {
-            VStack{
+            VStack {
                 Text("0")
+                    .font(.bold16)
                 Text("메모")
+                    .font(.light14)
             }
+            .frame(maxWidth: .infinity)
+            Divider()
             
             
-            
-            VStack{
+            VStack {
                 Text("\(authViewModel.followerCount)")
+                    .font(.bold16)
                 Text("팔로워")
+                    .font(.light14)
             }
+            .frame(maxWidth: .infinity)
+      
             
+            Divider()
             
-            VStack{
+            VStack {
                 Text("\(authViewModel.followingCount)")
+                    .font(.bold16)
                 Text("팔로잉")
+                    .font(.light14)
             }
-            
+            .frame(maxWidth: .infinity)
             .padding(.leading, 10)
         }
         .frame(maxWidth: .infinity)
+        .padding(.vertical,24)
     }
 }
 
