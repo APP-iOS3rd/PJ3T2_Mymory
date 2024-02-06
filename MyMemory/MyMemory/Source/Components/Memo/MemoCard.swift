@@ -23,7 +23,7 @@ struct MemoCard: View {
         
         VStack(alignment: .leading){
             // Pin condition
-            if true {
+            if memo.userUid == AuthService.shared.currentUser?.id {
                 HStack{
                     Spacer()
                     Image(systemName: "pin.fill")
@@ -225,13 +225,18 @@ struct ImageGridView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    touchEvent.toggle()
+                    imgIndex = 0
+                }
         case 2:
             HStack(spacing: 2) {
                 Image(uiImage: UIImage(data: imgs[0])!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
-
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -240,7 +245,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
-
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 1
@@ -252,7 +257,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
-
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -262,7 +267,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 1
@@ -271,7 +276,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 2
@@ -284,7 +289,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
-
+                    .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -294,7 +299,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-
+                        .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 1

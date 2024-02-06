@@ -15,7 +15,7 @@ struct OtherUserProfileView: View {
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
-    @ObservedObject var authViewModel: AuthViewModel = .shared
+    @ObservedObject var authViewModel: AuthService = .shared
     @State private var fromDetail = false
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     

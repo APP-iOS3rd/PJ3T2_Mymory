@@ -21,7 +21,7 @@ enum SortedFollow: String, CaseIterable, Identifiable {
 struct OtherUserTopView: View {
     @Binding var memoCreator: User
     @ObservedObject var viewModel: OtherUserViewModel
-    @ObservedObject var authViewModel : AuthViewModel = .shared
+    @ObservedObject var authViewModel : AuthService = .shared
     @State var isFollow: Bool = false
     @State var isShowingOption:Bool = false
     

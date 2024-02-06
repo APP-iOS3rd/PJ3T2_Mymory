@@ -28,9 +28,6 @@
     "(필수)" : {
 
     },
-    "@ididid" : {
-
-    },
     "/5" : {
 
     },
@@ -105,6 +102,9 @@
     "choose a..." : {
 
     },
+    "CommunityView" : {
+
+    },
     "contains" : {
 
     },
@@ -117,7 +117,7 @@
     "follow" : {
 
     },
-    "Google로 계속하기" : {
+    "Font View" : {
 
     },
     "Kakao로 계속하기" : {
@@ -165,9 +165,6 @@
     },
     "standard3" : {
 
-    },
-    "UnFollow" : {
-        
     },
     "개인정보수집 및 개인동의" : {
       "localizations" : {
@@ -244,6 +241,7 @@
       }
     },
     "내가 작성한 메모" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -273,11 +271,7 @@
         }
       }
     },
-    "다음 글" : {
-
-    },
     "다음 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -510,12 +504,6 @@
         }
       }
     },
-    "반응이 많은\n메모" : {
-
-    },
-    "본문을 입력해주세요." : {
-
-    },
     "비밀번호" : {
       "localizations" : {
         "en" : {
@@ -574,12 +562,6 @@
           }
         }
       }
-    },
-    "새로운 메모를 작성해 보세요" : {
-
-    },
-    "서울시 마포구 대흥동" : {
-
     },
     "선택항목에 대한 동의 포함" : {
       "localizations" : {
@@ -754,9 +736,6 @@
         }
       }
     },
-    "이번 주\n가장 핫한 지역" : {
-
-    },
     "이용약관" : {
       "localizations" : {
         "en" : {
@@ -767,11 +746,7 @@
         }
       }
     },
-    "이전 글" : {
-
-    },
     "이전 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -810,9 +785,6 @@
           }
         }
       }
-    },
-    "작성된 메모가 없어요!" : {
-
     },
     "작성하기" : {
       "localizations" : {
@@ -876,7 +848,6 @@
       }
     },
     "제목, 기록할 메모 입력" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1021,12 +992,6 @@
         }
       }
     },
-    "폰트" : {
-
-    },
-    "폰트 선택" : {
-
-    },
     "프로필 편집" : {
 
     },
@@ -1070,9 +1035,6 @@
           }
         }
       }
-    },
-    "호그와트 마법학교" : {
-
     },
     "확인" : {
       "localizations" : {

@@ -9,7 +9,7 @@ struct MyPageView: View {
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
-    @ObservedObject var authViewModel: AuthViewModel = .shared
+    @ObservedObject var authViewModel: AuthService = .shared
     
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     

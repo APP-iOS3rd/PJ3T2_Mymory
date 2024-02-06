@@ -11,7 +11,7 @@ import Kingfisher
 struct MypageTopView: View {
 
     //@ObservedObject var viewModel: MypageViewModel  // 💁 디자인 패턴 고려필요
-    @ObservedObject var authViewModel : AuthViewModel = .shared
+    @ObservedObject var authViewModel : AuthService = .shared
     
     var body: some View {
         HStack {

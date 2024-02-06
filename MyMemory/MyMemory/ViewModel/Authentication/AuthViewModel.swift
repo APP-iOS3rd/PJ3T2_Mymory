@@ -157,8 +157,8 @@ class AuthViewModel: ObservableObject {
                         "profilePicture": imageUrl
                     ]
                     COLLECTION_USERS.document(user.uid).setData(data) { _ in
-                        self.userSession = user
-                        self.fetchUser()
+                        AuthService.shared.userSession = user
+                        AuthService.shared.fetchUser()
                     }
                     print("계정생성 성공")
                 }
