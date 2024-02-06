@@ -223,7 +223,7 @@ struct PostView: View {
                         })
                     }
                 }
-    },
+            },
             backgroundColor: .bgColor3
         )
     }
