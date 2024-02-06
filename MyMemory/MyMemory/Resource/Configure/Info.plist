@@ -60,9 +60,5 @@
 		<string>Pretendard-Thin.otf</string>
 		<string>Ownglyph-Euiyeon.ttf</string>
 	</array>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UISupportsDocumentBrowser</key>
-	<false/>
 </dict>
 </plist>

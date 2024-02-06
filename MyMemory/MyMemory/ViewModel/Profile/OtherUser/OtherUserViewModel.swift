@@ -28,7 +28,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var currentLocation: CLLocation?  = nil
     
     @Published var memoCreator: User = User(email: "", name: "")
-    
+    @Published var profile: Profile? = nil
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -52,7 +52,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
         self.memoList = []
         self.memoCreator = memoCreator
-        
         if fromDetail == true {
             fetchUserState()
             DispatchQueue.main.async {

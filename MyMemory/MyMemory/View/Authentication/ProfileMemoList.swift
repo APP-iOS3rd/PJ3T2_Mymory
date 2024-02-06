@@ -12,9 +12,9 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     @State private var profile: Profile = {
-        var profile = AuthService.shared.currentUser!.toProfile
-        
-        return AuthService.shared.currentUser!.toProfile
+            var profile = AuthService.shared.currentUser!.toProfile
+            
+            return AuthService.shared.currentUser!.toProfile
     }()
     var body: some View {
         LazyVStack(spacing: 20) {

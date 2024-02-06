@@ -59,7 +59,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
-    @Published var filteredMemoList: [Memo] = []
+    @Published var filteredProfilList: [Profile] = []
+    @Published var filteredMemoList: [Memo] = [] {
+        didSet {
+            self.filteredProfilList = self.memoWriterList.filter{ profile in
+                filteredMemoList.contains(where: {$0.userUid == profile.id})
+            }
+        }
+    }
     @Published var memoList: [Memo] = []
     @Published var clusters: [MemoCluster] = []
     @Published var memoWriterList: [Profile] = []
@@ -157,8 +164,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     func fetchMemoProfiles() {
         self.isLoading = true
         Task { @MainActor in
-            let memos = filterList.isEmpty ? memoList : filteredMemoList
-            self.memoWriterList = await AuthService.shared.memoCreatorfetchProfiles(memos: memos)
+            self.memoWriterList = await AuthService.shared.memoCreatorfetchProfiles(memos: memoList)
             self.isLoading = false
         }
     }

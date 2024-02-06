@@ -79,7 +79,7 @@ struct MainSectionsView: View {
                             Spacer()
                         }.padding(.top, 20)
                         ScrollView(.vertical, showsIndicators: false){
-                            LazyVStack(spacing: 12) {
+                            VStack(spacing: 12) {
                                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in
                                     NavigationLink {
                                         DetailView(memo: item,
@@ -89,7 +89,10 @@ struct MainSectionsView: View {
                                         )
                                     } label: {
                                         
-                                        MemoCard(memo: item, isVisible: true, profile: $viewModel.memoWriterList[index]) { actions in
+                                        MemoCard(memo: item,
+                                                 isVisible: true,
+                                                 profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
+                                        ) { actions in
                                             switch actions {
                                             case .follow:
                                                 viewModel.fetchMemoProfiles()
