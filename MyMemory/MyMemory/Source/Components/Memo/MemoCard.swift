@@ -34,7 +34,7 @@ struct MemoCard: View {
                 .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40) * 1/2)
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(10)
-                .background(Color.orginColor)
+                .background(Color.originColor)
                 .foregroundColor(.clear)
                 .background(Color.deepGray)
                 .padding(.top, 13)
@@ -140,7 +140,7 @@ struct MemoCard: View {
                     .foregroundStyle(Color(hex: "#E9E9E9"))
             )
         }.padding(20)
-            .background(Color.orginColor)
+            .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.images)
             }

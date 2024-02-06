@@ -134,7 +134,7 @@ struct MemoCell: View {
             
         }
         .padding(20)
-        .background(Color.orginColor)
+        .background(Color.originColor)
         .frame(maxWidth: .infinity)
         .fixedSize(horizontal: false, vertical: true)
         .cornerRadius(20)
