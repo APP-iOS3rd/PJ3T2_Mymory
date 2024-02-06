@@ -383,7 +383,7 @@ struct MemoService {
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
-            guard let user = AuthViewModel.shared.currentUser else { return false}
+            guard let user = AuthService.shared.currentUser else { return false}
             // 로그인 성공한 경우의 코드
             let userID = user.id
             

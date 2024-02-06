@@ -37,13 +37,13 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
         
         
         // 현재 유져 정보, 위치 체크하기
-        user = AuthViewModel.shared.currentUser
+        user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-//        AuthViewModel.shared.fetchUser{ user in
+//        AuthService.shared.fetchUser{ user in
 //            self.user = user
 //        }
     }

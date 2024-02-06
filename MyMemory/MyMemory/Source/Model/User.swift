@@ -16,7 +16,7 @@ struct User: Identifiable, Decodable {
     var profilePicture: String?
     
     var isCurrentUser: Bool {
-        return AuthViewModel.shared.userSession?.uid == id
+        return AuthService.shared.userSession?.uid == id
     }
     var toProfile: Profile {
         return Profile(email: self.email,
