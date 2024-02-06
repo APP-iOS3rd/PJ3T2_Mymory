@@ -534,7 +534,56 @@ struct MemoService {
         }
     }
     
-    
+    /// 메모를 신고하는 기능입니다.
+    /// - Parameters:
+    ///     - memo: 신고할 메모입니다.
+    ///     - type: 신고 종류입니다.
+    ///     - reason: 사용자가 입력한 구체적 신고 사유입니다.
+    /// - Returns: 신고 성공 시 true를 반환하고, 실패시 각 상황에 맞는 Error를 반환합니다. Error는 invalidMemo, isNotLogin, firebaseError, firebaseError으로 나누어 사용하고 있습니다.
+    func fetchReportMemo(memo: Memo, type: String, reason: String) async -> Result<Bool, ReportError> {
+        guard let reportedUser = Auth.auth().currentUser else {
+            return .failure(.isNotLogin)
+        }
+        
+        guard let memoid = memo.id else {
+            return .failure(.invalidMemo)
+        }
+        
+        let reportRef = COLLECTION_MEMO_REPORT.document(memoid)
+        
+        let memoData: [String : Any] = [
+            "types": [type],
+            "reasons": [reason],
+            "isCompleted": false,
+            "reportUserUids": [reportedUser.uid],
+            "reportCount": 1
+        ]
+        
+        do {
+            let document = try await reportRef.getDocument()
+            // 신고 메모가 이미 신고된 이력이 있을 경우를 위한 분기처리
+            if document.exists {
+                let data = document.data()
+                // 신고자의 아이디가 신고자 배열에 속해있는 경우 Error를 반환합니다.
+                if let uids = data?["reportUserUids"] as? [String], uids.contains(where: { $0 == reportedUser.uid }) {
+                    return .failure(.duplicatedReport)
+                }
+                // 기존에 신고된 이력이 있는 메모가 다시 신고받는 경우 업데이트 및 성공시 true를 반환합니다.
+                try await reportRef.updateData([
+                    "types": FieldValue.arrayUnion([type]),
+                    "reasons": FieldValue.arrayUnion([reason]),
+                    "reportUserUids": FieldValue.arrayUnion([reportedUser.uid]),
+                    "reportCount": FieldValue.increment(Int64(1))
+                ])
+                return .success(true)
+            } else {
+                try await reportRef.setData(memoData)
+                return .success(true)
+            }
+        } catch {
+            return .failure(.firebaseError)
+        }
+    }
     
     
     

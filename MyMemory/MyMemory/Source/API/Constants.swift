@@ -18,3 +18,6 @@ let COLLECTION_MEMO_LIKES = Firestore.firestore().collection("Memo-likes") // �
 // 팔로우, 팔로잉 기능
 let COLLECTION_USER_Followers = Firestore.firestore().collection("User-Followers")
 let COLLECTION_USER_Following = Firestore.firestore().collection("User-Following")
+
+// 신고하기 기능
+let COLLECTION_MEMO_REPORT = Firestore.firestore().collection("Memo-Report")

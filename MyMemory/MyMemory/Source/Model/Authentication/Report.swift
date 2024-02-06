@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+enum ReportError: Error {
+    case invalidMemo
+    case isNotLogin
+    case firebaseError
+    case duplicatedReport
+}
 
 enum ReportMessage: String, Identifiable, CaseIterable{
     case first = "사회/정치적으로 부적절한 메시지가 있어요"
