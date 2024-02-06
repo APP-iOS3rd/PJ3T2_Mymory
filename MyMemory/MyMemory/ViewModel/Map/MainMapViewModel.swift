@@ -62,9 +62,9 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var filteredMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var clusters: [MemoCluster] = []
+    @Published var memoWriterList: [Profile] = []
     @Published var selectedMemoId: String? = ""
     @Published var clusteringDidChanged: Bool = true
-
     //MARK: - 기타 프로퍼티
     @Published var searchTxt: String = ""
     @Published var myCurrentAddress: String? = nil
@@ -146,6 +146,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 }
                 
                 cluster.addMemoList(memos: memoList)
+                self.fetchMemoProfiles()
                 isLoading = false
             } catch {
                 isLoading = false
@@ -153,7 +154,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             }
         }
     }
-    
+    func fetchMemoProfiles() {
+        self.isLoading = true
+        Task { @MainActor in
+            let memos = filterList.isEmpty ? memoList : filteredMemoList
+            self.memoWriterList = await AuthService.shared.memoCreatorfetchProfiles(memos: memos)
+            self.isLoading = false
+        }
+    }
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {

@@ -221,7 +221,11 @@ struct MemoService {
             let data = document.data()
             
             // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-            if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+            if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                let likeCount = await likeMemoCount(memo: memo)
+                let memoLike = await checkLikedMemo(memo)
+                memo.likeCount = likeCount
+                memo.didLike = memoLike
                 memos.append(memo)
             }
         }
@@ -233,7 +237,11 @@ struct MemoService {
         guard let data = querySnapshot.data() else { return nil }
         
         // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-        if let memo = try await fetchMemoFromDocument(documentID: querySnapshot.documentID, data: data) {
+        if var memo = try await fetchMemoFromDocument(documentID: querySnapshot.documentID, data: data) {
+            let likeCount = await likeMemoCount(memo: memo)
+            let memoLike = await checkLikedMemo(memo)
+            memo.likeCount = likeCount
+            memo.didLike = memoLike
             return memo
         } else {return nil}
     }
@@ -261,7 +269,11 @@ struct MemoService {
                 let data = document.data()
                 
                 // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -272,7 +284,11 @@ struct MemoService {
                 let data = document.data()
                 
                 // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -346,7 +362,11 @@ struct MemoService {
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
             for document in querySnapshot.documents {
                 let data = document.data()
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -495,7 +515,29 @@ struct MemoService {
     
     
     
-    
+    func checkLikedMemo(_ memo: Memo) async -> Bool {
+        guard let uid = Auth.auth().currentUser?.uid,
+              let memoID = memo.id else {
+            return false
+        }
+        do {
+            let userLikesRef = try await COLLECTION_USER_LIKES.document(uid).getDocument()
+            if userLikesRef.exists,
+               let dataArray = userLikesRef.data() as? [String: String] {
+                print("데이터 \(dataArray)")
+                print("메모 ID \(memoID)")
+                if dataArray.keys.contains(memoID) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
     
     /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
     /// - Parameters:

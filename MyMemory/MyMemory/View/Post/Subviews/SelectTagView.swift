@@ -51,7 +51,7 @@ struct SelectTagView: View {
                     Text("+")
                         .rotationEffect(isShowingView ? .init(degrees: 45) : .zero)
                         .foregroundStyle(Color.textColor)
-                }
+                }.buttonStyle(.plain)
             }  //:HSTACK
             Rectangle()
                 .frame(height: 0.5)
