@@ -10,6 +10,7 @@ import Kingfisher
 enum actionType {
     case follow
     case like
+    case unAuthorized
 }
 struct MemoCard: View {
     @Binding var memo: Memo
@@ -51,6 +52,10 @@ struct MemoCard: View {
                     }
                     Spacer()
                     Button {
+                        if AuthService.shared.currentUser == nil {
+                            self.completion(.unAuthorized)
+                            return
+                        }
                         if self.profile.isFollowing {
                             AuthService.shared.userUnFollow(followUser: profile) { error in
                                 print(error?.localizedDescription)
@@ -129,6 +134,10 @@ struct MemoCard: View {
             .padding(.top, 15)
             HStack {
                 Button {
+                    if AuthService.shared.currentUser == nil {
+                        self.completion(.unAuthorized)
+                        return
+                    }
                     if !self.memo.didLike {
                         self.memo.likeCount += 1
                         MemoService.shared.likeMemo(memo: memo) { error in

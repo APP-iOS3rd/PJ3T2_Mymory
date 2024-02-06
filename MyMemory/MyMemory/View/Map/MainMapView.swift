@@ -14,6 +14,7 @@ struct MainMapView: View {
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
     @State var showingAlert: Bool = false
+    @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
     @StateObject var noti = PushNotification.shared
     let layout: [GridItem] = [
@@ -132,7 +133,11 @@ struct MainMapView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance)
+                MainSectionsView(sortDistance: $sortDistance) { logout in
+                    if logout {
+                        self.presentLoginView = true
+                    }
+                }
                     .environmentObject(mainMapViewModel)
             })
             
@@ -159,6 +164,9 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView().environmentObject(AuthViewModel())
         }
     }
 }

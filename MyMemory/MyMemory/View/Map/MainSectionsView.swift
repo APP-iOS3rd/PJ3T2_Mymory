@@ -11,11 +11,13 @@ struct MainSectionsView: View {
     @EnvironmentObject var viewModel: MainMapViewModel
     @Binding var sortDistance: Bool
     @Environment(\.dismiss) private var dismiss
+    @State var presentLoginAlert: Bool = false
     @State var filterSheet: Bool = false
     
     @State var selectedIndex = 0
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
+    let unAuthorized: (Bool) -> ()
     private var swipe: some Gesture {
         DragGesture()
             .updating($translation) { value, state, _ in
@@ -94,6 +96,8 @@ struct MainSectionsView: View {
                                             case .like:
                                                 viewModel.refreshMemos()
                                                 print("liked!")
+                                            case .unAuthorized:
+                                                presentLoginAlert.toggle()
                                             }
                                         }
                                         
@@ -145,6 +149,16 @@ struct MainSectionsView: View {
             .onAppear{
                 AuthService.shared.fetchUser()
                 viewModel.fetchMemoProfiles()
+            }
+            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+                Button("로그인 하기", role: .destructive) {
+                    self.dismiss()
+
+                    unAuthorized(true)
+
+                }
+                Button("둘러보기", role: .cancel) {
+                }
             }
         }
     }
