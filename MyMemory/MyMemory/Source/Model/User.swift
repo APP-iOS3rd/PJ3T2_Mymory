@@ -37,5 +37,6 @@ struct Profile: Identifiable, Decodable {
     var isFollowing: Bool
     var isCurrentUser: Bool {
         return AuthService.shared.userSession?.uid == id
+
     }
 }

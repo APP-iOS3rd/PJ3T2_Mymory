@@ -36,17 +36,12 @@ struct PostView: View {
     var body: some View {
         ZStack {
             ScrollView{
-            VStack(alignment: .leading){
-                
-                //💁 메모하기 View, 사진 등록하기 View
-                Group {
-                    addMemoSubView()
-                        .environmentObject(viewModel)
+                VStack(alignment: .leading){
                     //💁 메모하기 View, 사진 등록하기 View
                     Group {
                         addMemoSubView()
                             .environmentObject(viewModel)
-                    }                
+                    }
                     .padding(.horizontal, 20)
                     .padding(.bottom)
                     
@@ -87,7 +82,7 @@ struct PostView: View {
                     Spacer()
                     
                 } //:VSTACK
-
+                
             } //: ScrollView
             
             
@@ -97,13 +92,14 @@ struct PostView: View {
                 .environmentObject(viewModel)
                 .edgesIgnoringSafeArea(.bottom)
         } //: VStack
+        
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-      
+        
         .padding(.bottom, 25)
-
+        
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 presentLoginAlert = false

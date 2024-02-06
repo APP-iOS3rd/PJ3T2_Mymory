@@ -82,6 +82,7 @@ struct MainSectionsView: View {
                                                     print("liked!")
                                                 }
                                             }
+
                                         }
                                         
                                     }
@@ -95,6 +96,7 @@ struct MainSectionsView: View {
                             .padding(.horizontal, 20)
                             
                         }
+
                     }
                     .sheet(isPresented: $filterSheet, content: {
                         FileterListView(filteredList: $viewModel.filterList)
@@ -117,6 +119,20 @@ struct MainSectionsView: View {
                 viewModel.fetchMemoProfiles()
             }
         }
+        .overlay(
+            Button {
+                dismiss()
+            } label: {
+                HStack(spacing: 4) {
+                    Image(systemName: "map")
+                    Text("지도뷰")
+                }
+            }
+                .buttonStyle(Pill.secondary)
+                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
+                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+            
+        )
     }
 }
 
