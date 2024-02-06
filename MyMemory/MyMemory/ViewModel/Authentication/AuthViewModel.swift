@@ -43,6 +43,7 @@ class AuthViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var imageSelected: Bool = false
     @Published var selectedImageData: Data? = nil
+
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
@@ -100,6 +101,23 @@ class AuthViewModel: ObservableObject {
             return nil
         } catch {
             return ("구글 로그인 실패")
+        }
+    }
+    
+    func checkUserEmail(email: String) async -> Bool {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("email", isEqualTo: email).getDocuments()
+            if email == "emailnotfound" {
+                return false
+            }
+            if querySnapshot.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return true
         }
     }
     
@@ -190,6 +208,16 @@ class AuthViewModel: ObservableObject {
         let isSecondPasswordMatch = checkSecondPassword(secondPassword: secondPassword)
         let isValidEmail = checkEmail(email: email)
         if isValidPassword && isValidEmail && isNameNotEmpty && isBoxsesAreChecked && isSecondPasswordMatch && isValidEmail {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func checkIfCanSocialRegister() -> Bool {
+        let isNameNotEmpty = name != ""
+        let isBoxsesAreChecked = checkIfAllBoxsesAreChecked()
+        if isNameNotEmpty && isBoxsesAreChecked {
             return true
         } else {
             return false

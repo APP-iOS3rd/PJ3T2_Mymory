@@ -80,7 +80,6 @@
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
 		64A41CB72B68C03800087B66 /* OtherUserTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A41CB62B68C03800087B66 /* OtherUserTopView.swift */; };
-		64CD2F9D2B6C87C700CF72CB /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */; };
 		64CD2F9F2B6CAFA400CF72CB /* OtherUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */; };
 		64CD2FA12B6CBB5200CF72CB /* MemoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA02B6CBB5200CF72CB /* MemoListViewModel.swift */; };
 		64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA22B70678100CF72CB /* UserStatusCell.swift */; };
@@ -109,6 +108,8 @@
 		9D856D002B6CC322003B8EB7 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */; };
 		9D856D012B6CC322003B8EB7 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
+		9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */; };
+		9DAF8BE82B721AE700CA74ED /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */; };
 		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
 		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
 		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
@@ -236,7 +237,6 @@
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		64A41CB62B68C03800087B66 /* OtherUserTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserTopView.swift; sourceTree = "<group>"; };
-		64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserViewModel.swift; sourceTree = "<group>"; };
 		64CD2FA02B6CBB5200CF72CB /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		64CD2FA22B70678100CF72CB /* UserStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
@@ -260,6 +260,8 @@
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialRegisterView.swift; sourceTree = "<group>"; };
+		9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				6A7BA04C2B5105AC00BEE111 /* Profile */,
 				01E6A6382B46813E0061F08C /* LoginView.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
+				9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */,
 				6A5519F52B56AA2A0028665D /* ProfileEditView.swift */,
 			);
 			path = Authentication;
@@ -785,7 +788,7 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */,
+				9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */,
@@ -1003,7 +1006,6 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
 				DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */,
-				64CD2F9D2B6C87C700CF72CB /* APIKEYS.xcconfig in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
@@ -1015,6 +1017,7 @@
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
+				9DAF8BE82B721AE700CA74ED /* APIKEYS.xcconfig in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
 			);
@@ -1142,6 +1145,7 @@
 				DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
 				28BB13392B569075001A4C0C /* CertificationView.swift in Sources */,
+				9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */,
 				6A9BB1CE2B6B39C900AD04F7 /* MenuTabBar.swift in Sources */,
 				6A9BB1D22B6B7DED00AD04F7 /* CommunityView.swift in Sources */,
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
@@ -1188,7 +1192,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1251,7 +1255,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1307,7 +1311,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1362,7 +1366,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1417,7 +1421,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1440,7 +1444,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1463,7 +1467,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1485,7 +1489,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 64CD2F9C2B6C87C700CF72CB /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

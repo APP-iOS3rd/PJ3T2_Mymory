@@ -28,16 +28,17 @@ struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isActive: Bool = false
+    @State private var isNewUser: Bool = false
     @State private var isShowingLoginErrorAlert: Bool = false
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
+    @State var appleCredential: ASAuthorizationAppleIDCredential?
     
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
     
     var body: some View {
-        
         NavigationStack {
             VStack {
                 Image("logo")
@@ -209,9 +210,18 @@ struct LoginView: View {
                                 default:
                                     break
                                 }
-                                self.viewModel.authenticate(credential: credential)
-                                self.isActive = true
-                                presentationMode.wrappedValue.dismiss()
+                                Task {
+                                    self.appleCredential = credential
+                                    let isCheckNewUser = await viewModel.checkUserEmail(email: viewModel.email)
+                                    if isCheckNewUser {
+                                        self.isNewUser = true
+                                        print("나오지마라 나오지마라")
+                                    } else {
+                                        self.viewModel.authenticate(credential: credential)
+                                        self.isActive = true
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
                             case .failure(let error):
                                 print(error.localizedDescription)
                                 print("error")
@@ -266,6 +276,9 @@ struct LoginView: View {
             .padding()
             .fullScreenCover(isPresented: $isActive) {
                 MainTabView()
+            }
+            .fullScreenCover(isPresented: $isNewUser) {
+                SocialRegisterView(appleCredential: $appleCredential)
             }
             .customNavigationBar(
                 centerView: {
