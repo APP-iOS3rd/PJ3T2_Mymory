@@ -81,8 +81,6 @@ struct MainSectionsView: View {
                                                     print("liked!")
                                                 }
                                             }
-
-                                                
                                         }
                                         
                                     }
@@ -96,6 +94,7 @@ struct MainSectionsView: View {
                             .padding(.horizontal, 20)
                             
                         }
+
                     }
                     .sheet(isPresented: $filterSheet, content: {
                         FileterListView(filteredList: $viewModel.filterList)

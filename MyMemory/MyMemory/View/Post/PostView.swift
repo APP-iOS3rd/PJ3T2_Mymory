@@ -92,6 +92,7 @@ struct PostView: View {
                 .environmentObject(viewModel)
                 .edgesIgnoringSafeArea(.bottom)
         } //: VStack
+        
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
