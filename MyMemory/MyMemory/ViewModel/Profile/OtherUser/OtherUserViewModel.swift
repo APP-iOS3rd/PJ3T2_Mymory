@@ -19,7 +19,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
-
+    
     @Published var isCurrentUserLoginState = false
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -43,34 +43,34 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
                 self.currentLocation = location
             }
         }
-//        AuthViewModel.shared.fetchUser{ user in
-//            self.user = user
-//        }
+        //        AuthViewModel.shared.fetchUser{ user in
+        //            self.user = user
+        //        }
     }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
-    func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
+    func fetchMemoCreatorProfile(memoCreator: User){
         self.memoList = []
         self.memoCreator = memoCreator
         
-        if fromDetail == true {
-            fetchUserState()
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: memoCreator.id ?? "")
-                }
-            }
- 
-            fetchCurrentUserLocation { location in
-                if let location = location {
-                    self.currentLocation = location
-                }
+        
+        fetchUserState()
+        DispatchQueue.main.async {
+            Task {[weak self] in
+                guard let self = self else {return}
+                await self.pagenate(userID: memoCreator.id ?? "")
             }
         }
-           
+        
+        fetchCurrentUserLocation { location in
+            if let location = location {
+                self.currentLocation = location
+            }
+        }
+        
+        
     }
-     
+    
     
     // MARK: MemoList 필터링 & 정렬하는 메서드입니다
     func sortMemoList(type: SortedTypeOfMemo) {
@@ -97,7 +97,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             }
         }
     }
- 
+    
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in

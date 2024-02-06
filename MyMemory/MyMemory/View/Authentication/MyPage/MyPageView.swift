@@ -27,7 +27,6 @@ struct MyPageView: View {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
                         MypageTopView()
-                        createHeader()
                         // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
                         MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
                                    selectedIndex: $selectedIndex,
@@ -37,10 +36,9 @@ struct MyPageView: View {
                         .padding(.horizontal)
                         switch selectedIndex {
                         case 0:
-                            
+                            createHeader()
                             ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
-                            
-                            
+
                         default:
                             MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
                             

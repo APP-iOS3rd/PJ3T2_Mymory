@@ -1,5 +1,5 @@
 //
-//  OtherUserProfileView.swift
+//  OtherUserTopView.swift
 //  MyMemory
 //
 //  Created by 정정욱 on 1/30/24.
