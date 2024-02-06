@@ -1,4 +1,3 @@
-//
 //  AuthService.swift
 //  MyMemory
 //

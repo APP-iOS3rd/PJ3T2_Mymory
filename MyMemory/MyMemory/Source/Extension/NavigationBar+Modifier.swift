@@ -44,9 +44,10 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
             .frame(height: 44)
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 16)
-            .border(width: 1, edges: [.bottom], color: Color.borderColor)
+            //.border(width: 1, edges: [.bottom], color: Color(hex: "D9D9D9"))
+            
             .background(
-                Color.bgColor3
+                Color.bgColor
                   .ignoresSafeArea()
             )
            

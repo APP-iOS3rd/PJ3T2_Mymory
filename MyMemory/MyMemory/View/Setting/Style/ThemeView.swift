@@ -65,9 +65,6 @@ struct ThemeView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.darkGray)
                             )
-                            .onTapGesture {
-                                viewModel.changeTheme(selectedThemeId: theme.id)
-                            }
 
                            
                             Button {
@@ -83,7 +80,9 @@ struct ThemeView: View {
                     }
                 }
             }
-             
+           // .padding(24)
+          
+            
             
         }
         .customNavigationBar(
@@ -96,7 +95,7 @@ struct ThemeView: View {
             rightView: {
               EmptyView()
             },
-            backgroundColor: .bgColor3
+            backgroundColor: .white
         )
     }
 }

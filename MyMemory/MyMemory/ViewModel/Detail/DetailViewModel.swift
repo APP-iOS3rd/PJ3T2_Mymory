@@ -25,14 +25,15 @@ class DetailViewModel: ObservableObject {
     @Published var currentLocation: CLLocation?  = nil
     init() {
         // fetchUserState()
-        user = AuthService.shared.currentUser // 현 로그인 사용자 가져오기
-        AuthService.shared.fetchUser() // 사용자 정보 가져오기
+        user = AuthViewModel.shared.currentUser // 현 로그인 사용자 가져오기
+        AuthViewModel.shared.fetchUser() // 사용자 정보 가져오기
+        
         
     }
     
     func fetchMemoCreator(uid: String) {
         
-        AuthService.shared.memoCreatorfetchUser(uid: uid) { user in
+        AuthViewModel.shared.memoCreatorfetchUser(uid: uid) { user in
             if let user = user {
                 // 성공적으로 유저 정보를 받아온 경우
                 self.memoCreator = user

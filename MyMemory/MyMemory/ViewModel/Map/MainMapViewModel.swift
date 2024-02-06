@@ -221,9 +221,6 @@ extension MainMapViewModel {
         }
     }
     func clusterDidSelected(cluster: MemoCluster) {
-        let memo = cluster.memos.first!
-        self.selectedMemoId = memo.id
-
         self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 2000))
     }
     //MARK: - 주소 얻어오는 함수

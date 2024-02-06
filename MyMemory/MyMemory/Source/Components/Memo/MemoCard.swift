@@ -13,57 +13,17 @@ struct MemoCard: View {
     @State var isTagExpended: Bool = false
     @State var showImageViewer: Bool = false
     @State var imgIndex: Int = 0
-    @State var following: Bool = false
-    @State var memoWriter: User? = nil
-    @State var userMemoCount: Int = 0
-    @State var userFollowerCount: Int = 0
+
     var body: some View {
         
         VStack(alignment: .leading){
             // Pin condition
-            if memo.userUid == AuthService.shared.currentUser?.id {
+            if true {
                 HStack{
                     Spacer()
                     Image(systemName: "pin.fill")
                         .resizable()
                         .frame(width: 15, height: 20)
-                }
-            } else {
-                HStack {
-                    if let url = memoWriter?.profilePicture {
-                        KFImage(URL(string: url))
-                            .resizable()
-                            .frame(width: 37,height: 37)
-                            .cornerRadius(19)
-                    } else {
-                        Circle()
-                            .frame(width: 37,height: 37)
-                    }
-                    VStack(alignment: .leading){
-                        Text("\(memoWriter?.name ?? "")")
-                            .font(.semibold14)
-                            .foregroundStyle(Color.textColor)
-                        Text("메모수 \(userMemoCount) - 팔로워 \(userFollowerCount)")
-                            .font(.regular14)
-                            .foregroundStyle(Color.textDeepColor)
-                    }
-                    Spacer()
-                    Button {
-                        guard let user = memoWriter else { return }
-                        if self.following {
-                            AuthService.shared.userUnFollow(followUser: user) { error in
-                                print(error?.localizedDescription)
-                            }
-                        } else {
-                            AuthService.shared.userFollow(followUser: user) { error in
-                                print(error?.localizedDescription)
-                            }
-                        }
-                        self.following.toggle()
-
-                    } label: {
-                        Text(self.following ? "팔로잉" : "팔로우")
-                    }.buttonStyle(self.following ? RoundedRect.standard : RoundedRect.follow)
                 }
             }
             if memo.images.count > 0 {
@@ -72,8 +32,6 @@ struct MemoCard: View {
                               imgIndex: $imgIndex,
                               imgs: $memo.images)
                 .frame(width: UIScreen.main.bounds.width - 40, height: (UIScreen.main.bounds.width - 40) * 1/2)
-                .contentShape(Rectangle())
-
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(10)
                 .background(Color.originColor)
@@ -186,18 +144,6 @@ struct MemoCard: View {
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.images)
             }
-            .onAppear{
-                AuthService.shared.memoCreatorfetchUser(uid: memo.userUid) { user in
-                    self.memoWriter = user
-                }
-                AuthService.shared.followCheck(with: memo.userUid) { isFollow in
-                    self.following = isFollow == true
-                }
-                Task{ @MainActor in
-                    self.userFollowerCount = await AuthService.shared.fetchUserFollowerCount(with: memo.userUid)
-                    self.userMemoCount = await AuthService.shared.fetchUserMemoCount(with: memo.userUid)
-                }
-            }
     }
     
 }
@@ -219,18 +165,13 @@ struct ImageGridView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    touchEvent.toggle()
-                    imgIndex = 0
-                }
         case 2:
             HStack(spacing: 2) {
                 Image(uiImage: UIImage(data: imgs[0])!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
-                    .contentShape(Rectangle())
+
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -239,7 +180,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
-                    .contentShape(Rectangle())
+
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 1
@@ -251,7 +192,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
-                    .contentShape(Rectangle())
+
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -261,7 +202,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-                        .contentShape(Rectangle())
+
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 1
@@ -270,7 +211,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-                        .contentShape(Rectangle())
+
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 2
@@ -283,7 +224,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
-                    .contentShape(Rectangle())
+
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 0
@@ -293,7 +234,7 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-                        .contentShape(Rectangle())
+
                         .onTapGesture {
                             touchEvent.toggle()
                             imgIndex = 1
@@ -302,7 +243,6 @@ struct ImageGridView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
-                        .contentShape(Rectangle())
                         .overlay(
                             ZStack{
                                 Color.black.opacity(0.6)
