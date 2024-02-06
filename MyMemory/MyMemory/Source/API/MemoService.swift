@@ -363,7 +363,7 @@ struct MemoService {
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
-            guard let user = AuthViewModel.shared.currentUser else { return false}
+            guard let user = AuthService.shared.currentUser else { return false}
             // 로그인 성공한 경우의 코드
             let userID = user.id
             
@@ -445,17 +445,21 @@ struct MemoService {
             completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
             return
         }
+        guard let memoId = memo.id else {
+            completion(NSError(domain: "Wrong Input", code: 400, userInfo: nil))
+            return
+        }
         
         /*
          COLLECTION_MEMO_LIKES 키 값으로 메모 uid 및에 좋아요 누른 사용자 uid들을 저장
          COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
          */
         if memo.didLike {
-            COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
-            COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
+            COLLECTION_USER_LIKES.document(uid).updateData([String(memoId) : FieldValue.delete()])
+            COLLECTION_MEMO_LIKES.document(memoId).updateData([uid : FieldValue.delete()])
         } else {
-            COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
-            COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
+            COLLECTION_USER_LIKES.document(uid).setData([String(memoId) : "LikeMemoUid"], merge: true)
+            COLLECTION_MEMO_LIKES.document(memoId).setData([uid : "LikeUserUid"], merge: true)
         }
         /*
          setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
@@ -471,7 +475,7 @@ struct MemoService {
     ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수
     /// - Returns: 좋아요 받은 총 개수
     func likeMemoCount(memo: Memo) async -> Int {
-        let memoID = memo.id ?? ""
+        guard let memoID = memo.id else {return 0}
         var likeCount = 0
         
         do {
@@ -503,7 +507,10 @@ struct MemoService {
             return
         }
         
-        let memoID = memo.id ?? ""
+        guard let memoID = memo.id else {
+            completion(false)
+            return
+        }
         
         let userLikesRef = COLLECTION_USER_LIKES.document(uid)
         userLikesRef.getDocument { (document, error) in

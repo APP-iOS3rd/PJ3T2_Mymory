@@ -9,6 +9,8 @@
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>MyMemory</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
@@ -57,9 +59,5 @@
 		<string>Pretendard-ExtraLight.otf</string>
 		<string>Pretendard-Thin.otf</string>
 	</array>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UISupportsDocumentBrowser</key>
-	<false/>
 </dict>
 </plist>

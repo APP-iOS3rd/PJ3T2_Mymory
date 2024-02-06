@@ -51,6 +51,8 @@ struct NavigationBarItems: View {
                     if memo.didLike {
                         Image(systemName: "suit.heart.fill")
                             .font(.semibold20)
+                            .foregroundColor(.red)
+                        
                     } else {
                         Image(systemName: "suit.heart")
                             .font(.semibold20)
@@ -69,6 +71,8 @@ struct NavigationBarItems: View {
                     if isBookmark {
                         Image(systemName: "bookmark.fill")
                             .font(.semibold20)
+                            .foregroundColor(.accentColor)
+                        
                     } else {
                         Image(systemName: "bookmark")
                             .font(.semibold20)

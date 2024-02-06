@@ -93,6 +93,7 @@ struct MenuTabBar: View {
                 .foregroundStyle(Color.accentColor)
                 .alignmentGuide(.leading) { $0[.leading] }
                 .offset(.init(width: barX, height: 0))
+
         }
         .onChange(of: selectedIndex) { _, index in
             withAnimation {

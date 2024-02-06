@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileMemoListCell<ViewModel: ProfileViewModelProtocol>: View {
+struct ProfileMemoListCell<ViewModel: MemoListViewModel>: View {
     
     @Binding var memo: Memo
     @ObservedObject var viewModel: ViewModel
@@ -34,6 +34,7 @@ struct ProfileMemoListCell<ViewModel: ProfileViewModelProtocol>: View {
                             }
                         }
                     }
+                    
                     Text(memo.title)
                         .font(.bold16)
                         .foregroundStyle(Color.textColor)

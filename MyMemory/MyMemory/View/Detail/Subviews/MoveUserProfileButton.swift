@@ -13,9 +13,24 @@ struct MoveUserProfileButton: View {
     @ObservedObject var viewModel: DetailViewModel
     
     var body: some View {
-        ZStack {
-            HStack {
+     
+        HStack {
 
+            NavigationLink {
+                ProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                    .customNavigationBar(
+                        centerView: {
+                            Text(viewModel.memoCreator?.name ?? "")
+                        },
+                        leftView: {
+                            BackButton()
+                        },
+                        rightView: {
+                            EmptyView()
+                        },
+                        backgroundColor: Color.bgColor3
+                    )
+            } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()
@@ -23,36 +38,38 @@ struct MoveUserProfileButton: View {
                         .foregroundStyle(.white)
                         .clipped()
                         .clipShape(.circle)
-                        .frame(width: 46, height: 46)
+                        .frame(width: 60, height: 60)
                 } else {
                     Circle()
-                        .frame(width: 46, height: 46)
+                        .frame(width: 60, height: 60)
                         .foregroundStyle(Color.darkGray)
                 }
                 
-            
                 VStack(alignment: .leading) {
                     Text(viewModel.memoCreator?.name ?? "")
                         .foregroundStyle(Color.textColor)
-                        .font(.bold18)
-                    
+                        .font(.semibold16)
+                    Text("@ididid")
+                        .foregroundStyle(Color.textGray)
+                        .font(.regular14)
                 }
-                
-                Spacer()
-                NavigationLink {
-                    OtherUserProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                } label: {
-                    Image(systemName: "ellipsis")
-//                    Text("작성자 프로필 이동")
-                }
-             //   .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical:7))
-                
-                
+                .padding(.leading, 20)
             }
-            .padding()
-            .border(width: 1, edges: [.top], color: Color.bgColor)
+            Spacer()
+            
+            Button {
+                
+                
+            } label: {
+                Text("팔로우")
+//                Image(systemName: "ellipsis")
+//                    .foregroundColor(Color.textColor)
+            }
+
             
         }
+        .padding()
+        .border(width: 1, edges: [.top], color: Color.bgColor)
         
     }
 }

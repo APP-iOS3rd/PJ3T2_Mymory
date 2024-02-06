@@ -1,33 +1,32 @@
 //
-//  MyPageViewModel.swift
+//  OtherUserViewModel.swift
 //  MyMemory
 //
-//  Created by 이명섭 on 1/4/24.
-//
+//  Created by 정정욱 on 2/2/24.
+
 
 import Foundation
-import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
-import SwiftUI
-import MapKit
+import CoreLocation
 
-class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
+
+
+class OtherUserViewModel: ObservableObject, MemoListViewModel {
     
-    @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
-    @Published var selectedImage: PhotosPickerItem? = nil
-    @Published var selectedPhotoData: Data? = nil
+
     @Published var isCurrentUserLoginState = false
-    
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
+    
+    @Published var memoCreator: User = User(email: "", name: "")
     
     var lastDocument: QueryDocumentSnapshot? = nil
     
@@ -35,29 +34,52 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         
-        if let userID = UserDefaults.standard.string(forKey: "userId") {
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: userID)
-//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
-                }
-            }
-        }
         
-        // 해당 코드 블럭 로그인 이후 재 호출필요
-        user = AuthViewModel.shared.currentUser
+        // 현재 유져 정보, 위치 체크하기
+        user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-        AuthViewModel.shared.fetchUser{ user in
-            self.user = user
+//        AuthViewModel.shared.fetchUser{ user in
+//            self.user = user
+//        }
+    }
+    deinit{
+        print("OtherUser 뷰모델 deinited")
+    }
+    
+    // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
+    func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
+        self.memoList = []
+        self.memoCreator = memoCreator
+        
+        if fromDetail == true {
+            fetchUserState()
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: memoCreator.id ?? "")
+                }
+            }
+ 
+            fetchCurrentUserLocation { location in
+                if let location = location {
+                    self.currentLocation = location
+                }
+            }
         }
+           
     }
     
     
+    // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
+    func fetchDistanceOfUserAndMemo(myLocation: CLLocationCoordinate2D, memoLocation: Location ) -> Double {
+        // 사용자의 위치를 CLLocation객체로 생성
+        let location = CLLocationCoordinate2D(latitude: memoLocation.latitude, longitude: memoLocation.longitude)
+        return location.distance(to: myLocation)
+    }
     
     // MARK: MemoList 필터링 & 정렬하는 메서드입니다
     func sortMemoList(type: SortedTypeOfMemo) {
@@ -115,16 +137,13 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
+        
         let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
             self.lastDocument = last
         }
         
         await MainActor.run {
             self.memoList += fetchedMemos
-            self.merkerMemoList = fetchedMemos
         }
     }
-    
-
-
 }

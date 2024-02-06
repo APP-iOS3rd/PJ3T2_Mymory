@@ -37,7 +37,7 @@ struct MainTabView: View {
                     } 
                     .tag(1)
                 
-                    MyPageView()
+                    ProfileView(fromDetail: false, memoCreator: User(email: "", name: ""))
                     .onTapGesture{
                         selectedIndex = 2
                     }

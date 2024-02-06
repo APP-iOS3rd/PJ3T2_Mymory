@@ -34,75 +34,69 @@ struct PostView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        ZStack {
-            ScrollView{
-            VStack(alignment: .leading){
-                
-                //💁 메모하기 View, 사진 등록하기 View
-                Group {
-                    addMemoSubView()
-                        .environmentObject(viewModel)
+        VStack(alignment: .leading) {
+            ScrollView {
+                VStack(alignment: .leading){
                     
-                    
-                    VStack(alignment: .leading, spacing: 10){
-                        HStack {
-                            Text("사진 등록하기")
-                                .font(.bold20)
-                            
-                            Spacer()
-                            
-                        } //:HSTACK
-                        SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
+                    //💁 메모하기 View, 사진 등록하기 View
+                    Group {
+                        addMemoSubView()
+                            .environmentObject(viewModel)
                         
-                    }//:VSTACK
-                }
-                .padding(.horizontal, 20)
-                .padding(.bottom)
-                .onReceive(viewModel.dismissPublisher) { toggle in
-                    if toggle {
-                        dismiss()
+                        
+                        VStack(alignment: .leading, spacing: 10){
+                            HStack {
+                                Text("사진 등록하기")
+                                    .font(.bold20)
+                                
+                                Spacer()
+                                
+                            } //:HSTACK
+                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
+                            
+                        }//:VSTACK
                     }
-                }
-                
-                
-                // 💁 Tag 선택 View
-                Group {
-                    SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(contentMode: .fit)
-                }
-                
-                .padding(.bottom)
-                .buttonStyle(.borderedProminent)
-                .padding(.horizontal, 20)
-                .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
-                .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                .padding(.bottom, 60)
-                
-                Spacer()
+                    .padding(.horizontal, 20)
+                    .padding(.bottom)
+                    .onReceive(viewModel.dismissPublisher) { toggle in
+                        if toggle {
+                            dismiss()
+                        }
+                    }
                     
-            } //:VSTACK
+                    
+                    // 💁 Tag 선택 View
+                    Group {
+                        SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    .padding(.bottom)
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal, 20)
+                    .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
+                    .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
+                    .padding(.bottom, 60)
+                    
+                    Spacer()
+                        
+                } //:VSTACK
             
-        } //: ScrollView
+            } //: ScrollView
             
             
             // 주소찾기 View: 하단 고정
-            VStack {
-                Spacer()
-                PostViewFooter()
-                    .environmentObject(viewModel)
-                
-            }
-            .edgesIgnoringSafeArea(.bottom)
-        }
-    
+             
+            Spacer()
+            PostViewFooter()
+                .environmentObject(viewModel)
+                .edgesIgnoringSafeArea(.bottom)
+        } //: VStack
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-      
-        .padding(.bottom, 25)
-
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 presentLoginAlert = false
@@ -231,7 +225,7 @@ struct PostView: View {
                 }
                 
             }, 
-            backgroundColor: .bgColor
+            backgroundColor: .bgColor3
         )
     }
 }
