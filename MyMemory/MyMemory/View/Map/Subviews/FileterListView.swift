@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct FileterListView: View {
-    let data = ["데이트","유머","사진","속닥속닥","눈물","캌씨","군침싹","킹받네","기쁨2","화남2","ㅁㅁㅁ2","ㅈㅈㅈㅈ2","ㅊㅊㅊㅊㅊ2","ㅁㅋㅋㄴ2"]
+    let data = ["데이트","맛집","핫플레이스","스타","이벤트","속닥속닥","게임","유머","패션뷰티","예술작품","그래피티","교육","사진","나만알고싶은곳","사진찍기좋은곳","인생샷"]
     @Binding var filteredList: Set<String>
     var body: some View {
         Rectangle()
             .frame(width: 40,height: 5)
-            .foregroundStyle(Color.init(hex: "B5B5B5"))
+//            .foregroundColor(Color.darkGray)
             .cornerRadius(3)
             .padding(.vertical, 10)
+        
         Text("어떤 주제를 선택해볼래?")
                 .font(.bold20)
                 .padding(.top, 30)
+                .foregroundColor(Color.textColor)
+        
         if !self.filteredList.isEmpty {
             HStack {
                 Spacer()
@@ -46,11 +49,13 @@ struct FileterListView: View {
                         }, label: {
                             Text("#\(item)")
                         }).buttonStyle(
-                            filteredList.contains(item) ?                     Pill.selected : Pill.lightGray
+                            filteredList.contains(item) ?                     
+                            Pill.selected : Pill.standard2
                         )
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .aspectRatio(contentMode: .fit)
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .frame(maxWidth: .infinity)
                 }
             }
         }

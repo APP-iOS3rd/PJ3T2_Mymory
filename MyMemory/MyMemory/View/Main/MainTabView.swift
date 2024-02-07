@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MainTabView: View {
-    let user: User
-    @Binding var selectedIndex: Int
+    
+    //    @ObservedObject var viewRouter: ViewRouter
+    @State private var selectedIndex = 0
+    
     var body: some View {
         
-        NavigationView {
-            
+        NavigationStack  {
             TabView(selection: $selectedIndex){
+                
                 MainMapView()
                     .onTapGesture{
                         selectedIndex = 0
@@ -24,32 +27,36 @@ struct MainTabView: View {
                         Text("지도")
                     }.tag(0)
                 
-                PostView()
-                    .onTapGesture{
+                PostView(selected: $selectedIndex)
+                    .onTapGesture {
                         selectedIndex = 1
                     }
                     .tabItem {
                         Image(systemName: "pencil")
                         Text("메모하기")
-                    }.tag(1)
- 
-                MypageView(user: user)
+                    }
+                    .tag(1)
+                MyPageView()
                     .onTapGesture{
                         selectedIndex = 2
                     }
                     .tabItem {
                         Image(systemName: "person")
                         Text("마이")
-                    }.tag(2)
-                
+                    }
+                    .tag(2)
             }
+        }.onAppear {
+            AuthService.shared.fetchUser()
         }
-      
+        
     }
+    
+    
 }
 
- 
-// 
+
+//
 //#Preview {
 //    MainTabView(selectedIndex: 1)
 //}

@@ -11,7 +11,6 @@ struct OnboardingView : View {
     
     @State var currentIndex: Int = 0
     @StateObject var viewModel: OnboardingViewModel = .init()
-    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
 
@@ -38,9 +37,8 @@ struct OnboardingView : View {
                             
                             
                             Button {
-                                print(currentIndex)
                                 if currentIndex == 2 {
-                                    self.viewRouter.currentPage =  "page1"
+//                                    self.viewRouter.currentPage = "mainView"
                                 } else {
                                     currentIndex = currentIndex + 1
                                 }

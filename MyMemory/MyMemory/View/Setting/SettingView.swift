@@ -9,8 +9,11 @@ import SwiftUI
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
-    @Binding var user: User
+    @StateObject var authViewModel: AuthService = .shared
+    @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
+    @Environment(\.presentationMode) var presentationMode
+  
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -25,9 +28,13 @@ struct SettingView: View {
                         Group {
                             SettingMenuCell(name: "로그인 정보")
                             Divider()
-                                .padding(.bottom, 20)
                             SettingMenuCell(name: "알림")
                             Divider()
+                            SettingMenuCell(name: "테마", page: "theme")
+                            Divider()
+                            SettingMenuCell(name: "폰트", page: "font")
+                            Divider()
+                            
                         }
                     }.padding(.horizontal, 9)
                     
@@ -50,7 +57,8 @@ struct SettingView: View {
                                 Spacer()
                                 Text(settingViewModel.version)
                                     .foregroundStyle(Color(UIColor.systemGray))
-                            }.foregroundStyle(.black)
+                            }
+                            .foregroundStyle(Color.textColor)
                             
                             Divider()
                         }
@@ -58,13 +66,10 @@ struct SettingView: View {
                 }
             }
             
-            if settingViewModel.isCurrentUserLoginState {
+            if authViewModel.currentUser != nil {
                 VStack(alignment: .trailing) {
                     Button {
-                        settingViewModel.fetchUserLogout {
-                            isCurrentUserLoginState = false
-                            settingViewModel.isShowingLogoutAlert = true
-                        }
+                        settingViewModel.isShowingLogoutAlert = true
                     } label: {
                         Text("로그아웃")
                             .foregroundStyle(.white)
@@ -73,10 +78,22 @@ struct SettingView: View {
                             .background(.blue)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                    .alert("로그아웃 되었습니다.", isPresented: $settingViewModel.isShowingLogoutAlert) {
-                        Button("확인", role: .cancel) {
+                    .alert("로그아웃 하시겠습니까?", 
+                           isPresented: $settingViewModel.isShowingLogoutAlert) {
+                        
+                        Button("로그아웃", role: .destructive) {
+                                                   
+                            if authViewModel.signout() {
                             
+                                print("로그아웃 성공")
+                                UserDefaults.standard.removeObject(forKey: "userId")
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                print("로그아웃 실패")
+                            }
                         }
+                        
+                        Button("뒤로가기", role: .cancel) {}
                     }
                     
                     NavigationLink {
@@ -97,16 +114,5 @@ struct SettingView: View {
         }
         .padding(.horizontal, 12)
  
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//                BackButton()
-//                    .foregroundStyle(Color.black)
-//            }
-//            
-//            ToolbarItem(placement: .principal) {
-//                Text("내 정보")
-//                    .font(.semibold16)
-//            }
-//        }
     }
 }

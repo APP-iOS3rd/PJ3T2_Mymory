@@ -44,12 +44,3 @@ struct MemoCluster: Equatable, Identifiable {
         center = CLLocationCoordinate2D(latitude: memoLocationSum.latitude / Double(count), longitude: memoLocationSum.longitude / Double(count))
     }
 }
-extension TimeInterval {
-    var createdAtTimeYYMMDD: String {
-        let date = Date(timeIntervalSince1970: self)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY.MM.dd"
-        let formattedDate = dateFormatter.string(from: date)
-        return formattedDate
-    }
-}

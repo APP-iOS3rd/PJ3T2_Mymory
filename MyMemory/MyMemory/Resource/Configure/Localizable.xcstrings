@@ -1,0 +1,1103 @@
+{
+  "sourceLanguage" : "ko",
+  "strings" : {
+    "" : {
+
+    },
+    " " : {
+
+    },
+    "-" : {
+
+    },
+    "﹒%@" : {
+
+    },
+    "·  1,203,102개의 메모" : {
+
+    },
+    "·  1,204,593장의 사진" : {
+
+    },
+    "·  341개의 핫플레이스" : {
+
+    },
+    "·  기타 등등" : {
+
+    },
+    "(필수)" : {
+
+    },
+    "/5" : {
+
+    },
+    "#%@" : {
+
+    },
+    "#기쁨 #슬픔 # 분노" : {
+
+    },
+    "%@" : {
+
+    },
+    "%@님이 작성한 메모" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memo written by %@"
+          }
+        }
+      }
+    },
+    "%lld" : {
+
+    },
+    "%lld00+" : {
+
+    },
+    "%lldk+" : {
+
+    },
+    "%lldm" : {
+
+    },
+    "%lld개" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld likes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "+" : {
+
+    },
+    "+%lld" : {
+
+    },
+    "|" : {
+
+    },
+    "📍" : {
+
+    },
+    "0" : {
+
+    },
+    "31" : {
+
+    },
+    "active" : {
+
+    },
+    "choose a..." : {
+
+    },
+    "contains" : {
+
+    },
+    "deepGray" : {
+
+    },
+    "example@example.com" : {
+
+    },
+    "follow" : {
+
+    },
+    "Kakao로 계속하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login with Kakao"
+          }
+        }
+      }
+    },
+    "large" : {
+
+    },
+    "lightGray" : {
+
+    },
+    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " : {
+
+    },
+    "Pill" : {
+
+    },
+    "primary" : {
+
+    },
+    "RoundedRect" : {
+
+    },
+    "secondary" : {
+
+    },
+    "selected" : {
+
+    },
+    "Solarized Light" : {
+
+    },
+    "standard" : {
+
+    },
+    "standard2" : {
+
+    },
+    "standard3" : {
+
+    },
+    "개인정보수집 및 개인동의" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collection and Consent to Personal Information"
+          }
+        }
+      }
+    },
+    "거리순보기" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View by Distance"
+          }
+        }
+      }
+    },
+    "공유 하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
+          }
+        }
+      }
+    },
+    "구, 동, 건물명, 역 등으로 검색." : {
+
+    },
+    "그대로 사용할게요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I'll keep it as it is"
+          }
+        }
+      }
+    },
+    "그래도 회원을 탈퇴하시겠어요?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Still want to withdraw your membership?"
+          }
+        }
+      }
+    },
+    "나만 보기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private"
+          }
+        }
+      }
+    },
+    "내 정보" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Information"
+          }
+        }
+      }
+    },
+    "내가 작성한 메모" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Written Memos"
+          }
+        }
+      }
+    },
+    "내모리가 처음이시라면 - 회원가입" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If this is your first time using our app - Sign Up"
+          }
+        }
+      }
+    },
+    "네 그래도 탈퇴할게요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes, I still want to withdraw"
+          }
+        }
+      }
+    },
+    "다음 글..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next..."
+          }
+        }
+      }
+    },
+    "다음으로" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
+    "둘러보기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Explore"
+          }
+        }
+      }
+    },
+    "뒤로가기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "등록 수정일 : %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Registration Modification Date : %@"
+          }
+        }
+      }
+    },
+    "등록하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
+          }
+        }
+      }
+    },
+    "로그아웃" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Out"
+          }
+        }
+      }
+    },
+    "로그아웃 하시겠습니까?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to Log Out?"
+          }
+        }
+      }
+    },
+    "로그인" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login"
+          }
+        }
+      }
+    },
+    "로그인 하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login"
+          }
+        }
+      }
+    },
+    "로그인 하러가기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Login"
+          }
+        }
+      }
+    },
+    "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature is available after logging in. Would you like to Log in?"
+          }
+        }
+      }
+    },
+    "로그인이 필요해요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login required for access"
+          }
+        }
+      }
+    },
+    "리스트뷰" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ListView"
+          }
+        }
+      }
+    },
+    "마이" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "My Page"
+          }
+        }
+      }
+    },
+    "만 14세 이상입니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "14 years and older"
+          }
+        }
+      }
+    },
+    "메모" : {
+
+    },
+    "메모 등록" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Post"
+          }
+        }
+      }
+    },
+    "메모 수정" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Post"
+          }
+        }
+      }
+    },
+    "메모를 확인할 수 있어요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can check Memo"
+          }
+        }
+      }
+    },
+    "메모보기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Memo"
+          }
+        }
+      }
+    },
+    "메모수 %lld - 팔로워 %lld" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "메모수 %1$lld - 팔로워 %2$lld"
+          }
+        }
+      }
+    },
+    "메모하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
+          }
+        }
+      }
+    },
+    "바로 여기에 메모를 남길거에요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I'm going to leave a Memo right here!"
+          }
+        }
+      }
+    },
+    "반응이 많은\n메모" : {
+
+    },
+    "본문을 입력해주세요." : {
+
+    },
+    "비밀번호" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
+    },
+    "비밀번호 확인" : {
+
+    },
+    "비밀번호가 일치하지않습니다" : {
+
+    },
+    "비밀번호를 다시 입력해주세요" : {
+
+    },
+    "사용 가능한 비밀번호입니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password is valid"
+          }
+        }
+      }
+    },
+    "사용 가능한 이메일입니다!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email is valid"
+          }
+        }
+      }
+    },
+    "사용할수 없는 이메일입니다" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email is invalid"
+          }
+        }
+      }
+    },
+    "사진 등록하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload Photo"
+          }
+        }
+      }
+    },
+    "서울시 마포구 대흥동" : {
+
+    },
+    "선택항목에 대한 동의 포함" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Include consent for optional items"
+          }
+        }
+      }
+    },
+    "수정" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "수정하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
+    },
+    "신고 내용은 24시간 이내에 조치됩니다." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reports will be addressed within 24 hours"
+          }
+        }
+      }
+    },
+    "신고가 완료되었습니다." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your report has been received"
+          }
+        }
+      }
+    },
+    "신고하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "앱 버전" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App version"
+          }
+        }
+      }
+    },
+    "앱 정보" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App information"
+          }
+        }
+      }
+    },
+    "약관 전체동의" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agree to all terms and conditions"
+          }
+        }
+      }
+    },
+    "어떤 주제를 선택해볼래?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to choose a Topic?"
+          }
+        }
+      }
+    },
+    "어떤 태그를 선택하시겠어요?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to choose a Tag?"
+          }
+        }
+      }
+    },
+    "에서" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " "
+          }
+        }
+      }
+    },
+    "이 모두 사라집니다!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "will all disappear"
+          }
+        }
+      }
+    },
+    "이 위치로 하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use this location"
+          }
+        }
+      }
+    },
+    "이름" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nickname"
+          }
+        }
+      }
+    },
+    "이름을 입력해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter your nickname"
+          }
+        }
+      }
+    },
+    "이메일" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
+    },
+    "이번 주\n가장 핫한 지역" : {
+
+    },
+    "이용약관" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Service"
+          }
+        }
+      }
+    },
+    "이전 글..." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous..."
+          }
+        }
+      }
+    },
+    "인증 장소까지 %lldm" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lldm to the verification location!"
+          }
+        }
+      }
+    },
+    "인증 장소에 도착했어요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arrived at the verification location!"
+          }
+        }
+      }
+    },
+    "일반" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
+    },
+    "작성하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
+    },
+    "장소 근처" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearby location"
+          }
+        }
+      }
+    },
+    "장소명" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Name"
+          }
+        }
+      }
+    },
+    "저장" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Post"
+          }
+        }
+      }
+    },
+    "전체 메뉴" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All Menus"
+          }
+        }
+      }
+    },
+    "정렬하고 싶은 기준을 선택하세요." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please choose the criteria for sorting."
+          }
+        }
+      }
+    },
+    "제목, 기록할 메모 입력" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter title, write your memo"
+          }
+        }
+      }
+    },
+    "제목을 입력해주세요" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter title of Memo"
+          }
+        }
+      }
+    },
+    "지금 회원탈퇴를 하시면" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you proceed with withdrawing your membership now"
+          }
+        }
+      }
+    },
+    "지도" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        }
+      }
+    },
+    "지도뷰" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Map"
+          }
+        }
+      }
+    },
+    "초기화 하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reset"
+          }
+        }
+      }
+    },
+    "최근 등록순 보기" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View by Latest Registration"
+          }
+        }
+      }
+    },
+    "추가하기" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "태그" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag"
+          }
+        }
+      }
+    },
+    "테마 선택" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Theme"
+          }
+        }
+      }
+    },
+    "특수문자,숫자,대문자를 포함한 8글자 이상으로 설정하세요!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please set a password with at least 8 characters, including special characters, numbers, and uppercase letters!"
+          }
+        }
+      }
+    },
+    "특수문자와 숫자/대문자를 포함한 8글자" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "8 characters including special characters and numbers/uppercase"
+          }
+        }
+      }
+    },
+    "팔로우" : {
+
+    },
+    "팔로워" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follower"
+          }
+        }
+      }
+    },
+    "팔로잉" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Following"
+          }
+        }
+      }
+    },
+    "폰트" : {
+
+    },
+    "폰트 선택" : {
+
+    },
+    "해당 장소 메모보기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Memo from this location"
+          }
+        }
+      }
+    },
+    "현재 위치를 기준으로 자동으로 탐색합니다." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatically navigates based on your current location."
+          }
+        }
+      }
+    },
+    "현재 위치를 탐색하고 있습니다" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exploring current location."
+          }
+        }
+      }
+    },
+    "현재 지도에서 메모 재검색" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rescan Memos on your current location"
+          }
+        }
+      }
+    },
+    "호그와트 마법학교" : {
+
+    },
+    "확인" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
+          }
+        }
+      }
+    },
+    "회원 탈퇴" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Withdrawal of Membership"
+          }
+        }
+      }
+    },
+    "회원 탈퇴하기" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Withdrawal of Membership"
+          }
+        }
+      }
+    },
+    "회원가입" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Up"
+          }
+        }
+      }
+    },
+    "회원탈퇴되었습니다." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have successfully withdrawn from membership"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
