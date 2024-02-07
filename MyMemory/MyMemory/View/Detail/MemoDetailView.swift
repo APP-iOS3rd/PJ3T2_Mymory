@@ -146,27 +146,6 @@ struct MemoDetailView: View {
                             MoveUserProfileButton(viewModel: viewModel)
                         }
                         
-//                        .onAppear {
-//                            
-//                            if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
-//                                if loc >= 50 {
-//                                    isFar = true
-//                                } else {
-//                                    isFar = false
-//                                }
-//                            }
-//                            
-//                            Task {
-//                                do {
-//                                    viewModel.fetchMemoCreator(uid: memo.userUid)
-//                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-//                                } catch {
-//                                    // 에러 처리
-//                                    print("Error checking my memo: \(error.localizedDescription)")
-//                                }
-//                            }
-//                        }
-                        
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
                     .onAppear {
@@ -193,7 +172,6 @@ struct MemoDetailView: View {
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
         } //:SCROLL
-        
         .onAppear {
             Task {
                 do {
