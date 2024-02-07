@@ -10,6 +10,7 @@ import Foundation
 import Photos
 import PhotosUI
 import SwiftUI
+import SafariServices
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseStorage
@@ -26,7 +27,7 @@ class AuthViewModel: ObservableObject {
     
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
-    
+
     @Published var email: String = ""
     @Published var password : String = ""
     @Published var name: String = ""
@@ -47,11 +48,11 @@ class AuthViewModel: ObservableObject {
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
     @Published var privacyPolicyUrlString = "https://www.notion.so/12bd694d0a774d2f9c167eb4e7976876?pvs=4"
-    @Published var termsOfUseUrlString = "https://lucky-sycamore-c73.notion.site/af168c49a93b4fa48830d5bc0512dcb5"
+    @Published var termsOfUseUrlString = "https://www.lucky-sycamore-c73.notion.site/af168c49a93b4fa48830d5bc0512dcb5"
     
     @Published var nonce : String = ""
     @Published var appleID : String = ""
-
+    // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
     init() {
         userSession = Auth.auth().currentUser
@@ -116,7 +117,7 @@ class AuthViewModel: ObservableObject {
             return true
         }
     }
-    
+
     func userCreate() {
         
         var image: UIImage?
@@ -162,6 +163,19 @@ class AuthViewModel: ObservableObject {
                     print("계정생성 성공")
                 }
             }
+        }
+    }
+    
+    struct SafariView: UIViewControllerRepresentable {
+        
+        let url: URL
+        
+        func makeUIViewController(context: UIViewControllerRepresentableContext<SafariView>) -> SFSafariViewController {
+            return SFSafariViewController(url: url)
+        }
+        
+        func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
+            
         }
     }
     
@@ -264,7 +278,7 @@ class AuthViewModel: ObservableObject {
         COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
             
-            self?.currentUser = user
+            AuthService.shared.currentUser = user
             UserDefaults.standard.set(user.id, forKey: "userId")
             //  print(user)
         }

@@ -32,38 +32,18 @@ struct PostView: View {
     // property
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
+        ZStack {
+            ScrollView{
                 VStack(alignment: .leading){
-                    
                     //💁 메모하기 View, 사진 등록하기 View
                     Group {
                         addMemoSubView()
                             .environmentObject(viewModel)
-                        
-                        
-                        VStack(alignment: .leading, spacing: 10){
-                            HStack {
-                                Text("사진 등록하기")
-                                    .font(.bold20)
-                                
-                                Spacer()
-                                
-                            } //:HSTACK
-                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
-                            
-                        }//:VSTACK
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom)
-                    .onReceive(viewModel.dismissPublisher) { toggle in
-                        if toggle {
-                            dismiss()
-                        }
-                    }
-                    
                     
                     // 💁 Tag 선택 View
                     Group {
@@ -77,28 +57,52 @@ struct PostView: View {
                     .padding(.horizontal, 20)
                     .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                    .padding(.bottom, 60)
-                    
+                    .padding(.bottom, 20)
+                    // 💁 사진 선택 View
+                    Group {
+                        VStack(alignment: .leading, spacing: 10){
+                            HStack {
+                                Text("사진 등록하기")
+                                    .font(.bold20)
+                                
+                                Spacer()
+                                
+                            } //:HSTACK
+                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
+                            
+                        }//:VSTACK
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 100)
+                    .onReceive(viewModel.dismissPublisher) { toggle in
+                        if toggle {
+                            dismiss()
+                        }
+                    }
                     Spacer()
-                        
+                    
                 } //:VSTACK
-            
+                
             } //: ScrollView
             
             
             // 주소찾기 View: 하단 고정
-             
-            Spacer()
-            PostViewFooter()
-                .environmentObject(viewModel)
-                .edgesIgnoringSafeArea(.bottom)
+            VStack {
+                Spacer()
+                PostViewFooter()
+                    .environmentObject(viewModel)
+                    
+            }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
+        
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        .padding(.bottom, 25)
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
+                AuthService.shared.fetchUser()
                 presentLoginAlert = false
                 switch CLLocationManager.authorizationStatus() {
                 case .authorizedAlways, .authorizedWhenInUse:
@@ -129,7 +133,11 @@ struct PostView: View {
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
-                dismiss()
+                if isEdit {
+                    dismiss()
+                } else {
+                    self.selected = 0
+                }
             }
         }
         .moahAlert(isPresented: $presentLocationAlert, moahAlert: {
@@ -140,7 +148,7 @@ struct PostView: View {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }))
         })
-     
+        
         .customNavigationBar(
             centerView: {
                 Group {
@@ -154,7 +162,7 @@ struct PostView: View {
             leftView: {
                 Group {
                     if isEdit {
-                       BackButton()
+                        BackButton()
                     } else {
                         Button {
                             self.selected = 0
@@ -189,6 +197,7 @@ struct PostView: View {
                             
                             Button(action: {
                                 Task {
+                                    viewModel.loading = true
                                     LoadingManager.shared.phase = .loading
                                     if isEdit {
                                         // 수정 모드일 때는 editMemo 호출
@@ -208,6 +217,7 @@ struct PostView: View {
                         //Text("저장")
                         Button(action: {
                             Task {
+                                viewModel.loading = true
                                 LoadingManager.shared.phase = .loading
                                 if isEdit {
                                     // 수정 모드일 때는 editMemo 호출
@@ -223,10 +233,14 @@ struct PostView: View {
                         })
                     }
                 }
-                
-            }, 
+            },
             backgroundColor: .bgColor3
         )
+        .overlay( content: {
+            if viewModel.loading {
+                LoadingView()
+            }
+        })
     }
 }
 

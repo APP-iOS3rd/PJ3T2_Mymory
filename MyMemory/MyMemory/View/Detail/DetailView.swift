@@ -12,10 +12,17 @@ struct DetailView: View {
     @Binding var isVisble: Bool
     @Binding var memos: [Memo]
     @State var selectedMemoIndex = 0
+    @State var isMyMemo: Bool = false
     
     var body: some View {
-        if isVisble {
-            MemoDetailView(memo: $memo, memos: memos, selectedMemoIndex: selectedMemoIndex)
+        if isVisble || isMyMemo {
+            MemoDetailView(memos: $memos, selectedMemoIndex: selectedMemoIndex)
+        } else if let uid = AuthService.shared.currentUser?.id{
+            if memo.userUid == uid {
+                MemoDetailView(memos: $memos, selectedMemoIndex: selectedMemoIndex)
+            } else {
+                CertificationView(memo: $memo)
+            }
         } else {
             CertificationView(memo: $memo)
         }

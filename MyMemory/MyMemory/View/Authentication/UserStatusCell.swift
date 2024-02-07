@@ -1,4 +1,3 @@
-//
 //  UserStatusCell.swift
 //  MyMemory
 //

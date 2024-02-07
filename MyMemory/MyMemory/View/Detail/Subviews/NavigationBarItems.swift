@@ -18,7 +18,6 @@ struct NavigationBarItems: View {
     @Binding var memo: Memo
     
     @State var likeCount = 0
-    @EnvironmentObject var mainMapViewModel: MainMapViewModel
     
     var body: some View {
         HStack {
@@ -28,6 +27,7 @@ struct NavigationBarItems: View {
                 NavigationLink { // 버튼이랑 비슷함
                     // destination : 목적지 -> 어디로 페이지 이동할꺼냐
                     PostView(selected: .constant(1), isEdit: true, memo: memo)
+
                 } label: {
                     Image(systemName: "pencil")
                         .font(.semibold20)
@@ -51,8 +51,6 @@ struct NavigationBarItems: View {
                     if memo.didLike {
                         Image(systemName: "suit.heart.fill")
                             .font(.semibold20)
-                            .foregroundColor(.red)
-                        
                     } else {
                         Image(systemName: "suit.heart")
                             .font(.semibold20)
@@ -71,8 +69,6 @@ struct NavigationBarItems: View {
                     if isBookmark {
                         Image(systemName: "bookmark.fill")
                             .font(.semibold20)
-                            .foregroundColor(.accentColor)
-                        
                     } else {
                         Image(systemName: "bookmark")
                             .font(.semibold20)
@@ -94,7 +90,7 @@ struct NavigationBarItems: View {
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $isShowingSheet) {
-                    ReportView(memo: memo)
+                    ReportView(memo: $memo)
                         .presentationDragIndicator(.visible)
                         .presentationDetents([.medium, .large])
                 }

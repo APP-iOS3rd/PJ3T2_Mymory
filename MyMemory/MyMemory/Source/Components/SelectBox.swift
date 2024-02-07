@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SelectBox: View {
     
-    @State var selection: ReportMessage = .first
-    @State var label = ""
+    @Binding var selection: ReportMessage
+    var label: String
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -46,7 +46,4 @@ struct SelectBox: View {
         } 
         .padding()
     }
-}
-#Preview {
-    SelectBox()
 }

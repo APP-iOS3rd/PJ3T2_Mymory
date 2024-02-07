@@ -28,9 +28,6 @@
     "(필수)" : {
 
     },
-    "@ididid" : {
-
-    },
     "/5" : {
 
     },
@@ -80,6 +77,9 @@
           }
         }
       }
+    },
+    "+" : {
+
     },
     "+%lld" : {
 
@@ -244,6 +244,7 @@
       }
     },
     "내가 작성한 메모" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -273,11 +274,7 @@
         }
       }
     },
-    "다음 글" : {
-
-    },
     "다음 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -575,9 +572,6 @@
         }
       }
     },
-    "새로운 메모를 작성해 보세요" : {
-
-    },
     "서울시 마포구 대흥동" : {
 
     },
@@ -612,6 +606,7 @@
       }
     },
     "신고 내용은 24시간 이내에 조치됩니다." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -622,6 +617,7 @@
       }
     },
     "신고가 완료되었습니다." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -737,9 +733,6 @@
         }
       }
     },
-    "이름을 입력하세요" : {
-
-    },
     "이름을 입력해주세요" : {
       "localizations" : {
         "en" : {
@@ -773,11 +766,7 @@
         }
       }
     },
-    "이전 글" : {
-
-    },
     "이전 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -816,9 +805,6 @@
           }
         }
       }
-    },
-    "작성된 메모가 없어요!" : {
-
     },
     "작성하기" : {
       "localizations" : {
@@ -954,6 +940,7 @@
       }
     },
     "추가하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

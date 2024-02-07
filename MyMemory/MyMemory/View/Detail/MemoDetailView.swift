@@ -8,8 +8,7 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
-    @Binding var memo: Memo
-    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
+    @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
     @State var filteredMemos: [Memo]?
     @State private var scrollIndex: Int?
@@ -31,10 +30,10 @@ struct MemoDetailView: View {
                                                 .font(.semibold12)
                                                 .padding(.horizontal, 13)
                                                 .padding(.vertical, 6)
-                                                .foregroundColor(Color.textColor)
+                                                .foregroundColor(.textColor)
                                                 .background(
                                                     Capsule()
-                                                        .foregroundColor(.accentColor)
+                                                        .foregroundColor(.peach)
                                                 )
                                             
                                         }
@@ -100,47 +99,35 @@ struct MemoDetailView: View {
                         }
                         
                         
+
                         VStack {
                             Spacer()
                             
                             HStack {
-
-                                if selectedMemoIndex != memos.startIndex {
-
-                                     HStack {
-                                        Image(systemName: "chevron.left")
-                                        Text("이전 글")
-                                    }
+                                Text("이전 글...")
                                     .font(.regular16)
-                                    .foregroundStyle(Color.textGray)
+                                    .frame(width: 100, height: 60)
                                     .onTapGesture {
                                         if selectedMemoIndex != memos.startIndex {
                                             preButton()
                                         }
                                     }
-                                }
+
                                 
                                 Spacer()
                                 
-                                if selectedMemoIndex != memos.endIndex - 1 {
-
-                                    HStack {
-                                        Text("다음 글")
-                                        Image(systemName: "chevron.right")
-                                    }
+                                Text("다음 글...")
                                     .font(.regular16)
-                                    .foregroundStyle(Color.textGray)
+                                    .frame(width: 100, height: 60)
                                     .onTapGesture {
                                         if selectedMemoIndex != memos.endIndex - 1 {
                                             nextButton()
                                         }
                                     }
-                                }
-
                             }
                             .padding(.horizontal, 20)
+                            
                             MoveUserProfileButton(viewModel: viewModel)
-                           
                         }
                         .onAppear {
                             Task {
@@ -164,7 +151,12 @@ struct MemoDetailView: View {
        .onAppear {
            Task {
                do {
-                   isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                   let memo = memos[selectedMemoIndex!]
+
+                   isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
+                   if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
+                       self.memos[selectedMemoIndex!] = newMemo
+                   }
                    viewModel.fetchMemoCreator(uid: memo.userUid)
                } catch {
                    // 에러 처리
@@ -172,6 +164,7 @@ struct MemoDetailView: View {
                }
            }
         }
+                   
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
@@ -185,7 +178,7 @@ struct MemoDetailView: View {
                 BackButton()
             },
             rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memo)
+                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             },
             backgroundColor: .bgColor
         )
@@ -197,6 +190,7 @@ struct MemoDetailView: View {
     }
     
     func checkMyMemo() async {
+        let memo = memos[selectedMemoIndex!]
         isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
     }
     
@@ -204,10 +198,9 @@ struct MemoDetailView: View {
         if var value = selectedMemoIndex {
             value -= 1
             withAnimation(.default) {
-                selectedMemoIndex = value
-            }
+            selectedMemoIndex = value
         }
-        
+    }
     }
     
     func nextButton() {
