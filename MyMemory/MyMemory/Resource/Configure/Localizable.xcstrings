@@ -114,6 +114,9 @@
     "follow" : {
 
     },
+    "Google로 계속하기" : {
+
+    },
     "Kakao로 계속하기" : {
       "localizations" : {
         "en" : {
@@ -158,6 +161,9 @@
 
     },
     "standard3" : {
+
+    },
+    "UnFollow" : {
 
     },
     "개인정보수집 및 개인동의" : {

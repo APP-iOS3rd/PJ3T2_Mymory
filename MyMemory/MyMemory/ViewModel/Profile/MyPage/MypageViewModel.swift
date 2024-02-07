@@ -1,74 +1,63 @@
 //
-//  OtherUserViewModel.swift
+//  MyPageViewModel.swift
 //  MyMemory
 //
-//  Created by 정정욱 on 2/2/24.
-
+//  Created by 이명섭 on 1/4/24.
+//
 
 import Foundation
+import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
-import CoreLocation
+import SwiftUI
+import MapKit
 
-
-
-class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
+class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     
     @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
+    @Published var selectedImage: PhotosPickerItem? = nil
+    @Published var selectedPhotoData: Data? = nil
     @Published var isCurrentUserLoginState = false
+    
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
     
-    @Published var memoCreator: User = User(email: "", name: "")
-
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
+                }
+            }
+        }
         
-        // 현재 유져 정보, 위치 체크하기
+        // 해당 코드 블럭 로그인 이후 재 호출필요
         user = AuthService.shared.currentUser
         fetchCurrentUserLocation { location in
             if let location = location {
                 self.currentLocation = location
             }
         }
-        //        AuthViewModel.shared.fetchUser{ user in
-        //            self.user = user
-        //        }
+        AuthService.shared.fetchUser{ user in
+            self.user = user
+        }
     }
     
-    // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
-    func fetchMemoCreatorProfile(memoCreator: User){
-        self.memoList = []
-        self.memoCreator = memoCreator
-        
-        
-        fetchUserState()
-        DispatchQueue.main.async {
-            Task {[weak self] in
-                guard let self = self else {return}
-                await self.pagenate(userID: memoCreator.id ?? "")
-            }
-        }
-        
-        fetchCurrentUserLocation { location in
-            if let location = location {
-                self.currentLocation = location
-            }
-        }
-        
-        
-    }
+    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
@@ -98,4 +87,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             self.merkerMemoList = fetchedMemos
         }
     }
+
+
 }

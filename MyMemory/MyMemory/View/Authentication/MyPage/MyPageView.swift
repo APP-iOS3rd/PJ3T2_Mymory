@@ -3,27 +3,18 @@ import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
 
-enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
-    case last = "최신순"
-    case like = "좋아요순"
-    case close = "가까운순"
-    
-    var id: SortedTypeOfMemo { self }
-}
 
-struct OtherUserProfileView: View {
+struct MyPageView: View {
+    @State var selected: Int = 2
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthService = .shared
-    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+    
+    @ObservedObject var mypageViewModel: MypageViewModel = .init()
     
     @State var selectedIndex = 0
     
-    // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
-    init(memoCreator: User) {
-        otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
-    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,35 +26,42 @@ struct OtherUserProfileView: View {
                     if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
-                        // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
-                        if  otherUserViewModel.memoCreator.isCurrentUser == false  {
-                            OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
+                        MypageTopView()
+                        // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                   selectedIndex: $selectedIndex,
+                                   fullWidth: UIScreen.main.bounds.width,
+                                   spacing: 50,
+                                   horizontalInset: 91.5)
+                        .padding(.horizontal)
+                        switch selectedIndex {
+                        case 0:
                             createHeader()
+                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+
+                        default:
+                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
                             
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
-                        else {
-                            MypageTopView()
-                            createHeader()
-                            
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                        }
+                        
+                        
                     }
                     else {
                         showLoginPrompt()
                     }
                 }
                 
-            }
-            .refreshable {
-                // Refresh logic
-            }
-            .padding(.horizontal, 14)
-            .safeAreaInset(edge: .top) {
-                Color.clear.frame(height: 0).background(Color.bgColor)
-            }
-            .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                
+                .refreshable {
+                    // Refresh logic
+                }
+                .padding(.horizontal, 14)
+                .safeAreaInset(edge: .top) {
+                    Color.clear.frame(height: 0).background(Color.bgColor)
+                }
+                .safeAreaInset(edge: .bottom) {
+                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                }
             }
         }
         .onAppear {
@@ -91,22 +89,17 @@ struct OtherUserProfileView: View {
     
     private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
-            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
-                .font(.semibold20)
-                .foregroundStyle(Color.textColor)
             Spacer()
             
             Button {
-                otherUserViewModel.isShowingOptions.toggle()
+                mypageViewModel.isShowingOptions.toggle()
             } label: {
-                Image(systemName: "slider.horizontal.3")
-                    .foregroundStyle(Color.gray)
-                    .font(.system(size: 24))
+                Image(systemName: "slider.horizontal.3").foregroundStyle(Color.gray).font(.system(size: 24))
             }
-            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $otherUserViewModel.isShowingOptions) {
+            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $mypageViewModel.isShowingOptions) {
                 ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
                     Button(type.rawValue) {
-                        otherUserViewModel.sortMemoList(type: type)
+                        mypageViewModel.sortMemoList(type: type)
                     }
                 }
             }
@@ -145,3 +138,5 @@ struct OtherUserProfileView: View {
         }
     }
 }
+
+

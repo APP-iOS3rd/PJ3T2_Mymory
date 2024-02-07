@@ -1,5 +1,5 @@
 //
-//  OtherUserProfileView.swift
+//  OtherUserTopView.swift
 //  MyMemory
 //
 //  Created by 정정욱 on 1/30/24.
@@ -28,7 +28,6 @@ struct OtherUserTopView: View {
     var body: some View {
         VStack {
             HStack {
-                
                 if let imageUrl = memoCreator.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()
@@ -63,7 +62,6 @@ struct OtherUserTopView: View {
                         HStack {
                             Text("팔로우")
                         }
-                        
                     }
                     .buttonStyle(RoundedRect.follow)
                     
@@ -77,7 +75,6 @@ struct OtherUserTopView: View {
                         }
                         
                         .foregroundColor(.accentColor)
-                        // .fixedSize(horizontal: true, vertical: false)
                     }
                     .buttonStyle(RoundedRect.follow)
                     .confirmationDialog("", isPresented: $isShowingOption) {
@@ -93,19 +90,13 @@ struct OtherUserTopView: View {
                                         await authViewModel.followAndFollowingCount(user: memoCreator)
                                     }
                                 }
-                                
-                                
                             }
                             
                         }
                         
                     }
                 }
-                
-                
-                
             }
-            
             
             UserStatusCell()
         }

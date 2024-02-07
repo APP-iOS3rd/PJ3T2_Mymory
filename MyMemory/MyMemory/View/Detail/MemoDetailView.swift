@@ -93,8 +93,7 @@ struct MemoDetailView: View {
                             }
                             //.padding(.top, 50)
                             
-                        } // scrollview
-
+                        }
                         VStack {
                             Spacer()
                             
