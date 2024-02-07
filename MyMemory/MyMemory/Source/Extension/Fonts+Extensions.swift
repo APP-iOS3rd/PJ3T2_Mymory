@@ -55,11 +55,26 @@ extension Font {
 
     // Thin
     static let thin32: Font = .custom(FontType.Thin.rawValue, size: 32)
-    //appFont
+        
     static func appFont(for type : FontType, size: CGFloat) -> Font? {
         self.custom(type.rawValue, size: size)
     }
+    
+    
+    // MARK: UserDefault에 저장된 폰트 지정하기
+    static let userMainText: Font = userMainTextFont(baseSize: 16)
+    static let userEditorText: Font = userMainTextFont(baseSize: 20)
+    static let userMainTitle: Font = userMainTextFont(baseSize: 24)
+    
+    // 사용자의 메인 텍스트 폰트를 반환하는 메서드
+    static func userMainTextFont(baseSize: CGFloat = 16) -> Font {
+        let fontType = FontManager.shared.fontPreference
+        let adjustedSize = FontManager.shared.fontSize(for: fontType, baseSize: baseSize)
+        return .custom(fontType.rawValue, size: adjustedSize)
+    }
+
 }
+
 enum FontType: String {
     
     // Pretendard
@@ -73,5 +88,9 @@ enum FontType: String {
     case ExtraLight = "Pretendard-ExtraLight"
     case Thin = "Pretendard-Thin"
     
-    case OwnglyphEuiyeon = "Ownglyph-Euiyeon"
+    
+    // 추가 폰트
+    case OwnglyphEuiyeon = "OwnglyphEuiyeonChae"
+    case NeoDunggeunmo = "NeoDunggeunmo-Regular"
+    case YeongdeokSea = "Yeongdeok Sea"
 }
