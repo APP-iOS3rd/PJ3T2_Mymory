@@ -15,6 +15,8 @@ struct MemoDetailView: View {
     @State private var scrollIndex: Int?
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
+     
+    
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 10) {
@@ -46,8 +48,10 @@ struct MemoDetailView: View {
                                 
                                 HStack{
                                     VStack(alignment: .leading, spacing: 6) {
+                                        
                                         Text(memo.title)
-                                            .font(.bold20)
+                                            .font(.userMainTextFont(baseSize: 20))
+                                        
                                         Text(memo.address)
                                             .font(.regular14)
                                             .foregroundStyle(Color.textGray)
@@ -87,15 +91,13 @@ struct MemoDetailView: View {
                                 Text(memo.description)
                                     .multilineTextAlignment(.leading)
                                     .padding(.top, 25)
-                                
                                     .padding(.horizontal, 25)
                                     .padding(.bottom, 70)
+                                    .font(.userMainTextFont(baseSize: 16))
+                                
                                 Spacer()
                             }
-                            //.padding(.top, 50)
-                          
                         }
-                        
                         
                         
                         VStack {
@@ -117,7 +119,9 @@ struct MemoDetailView: View {
                                         }
                                     }
                                 }
+                                
                                 Spacer()
+                                
                                 if selectedMemoIndex != memos.endIndex - 1 {
 
                                     HStack {
