@@ -20,6 +20,7 @@ class PostViewModel: ObservableObject {
     @Published var memoShare: Bool = false
     @Published var beforeEditMemoImageUUIDs: [String] = [] // 이미지 수정 하면  Firestore 기존 Storage에 이미지를 지우고 업데이트
     @Published var selectedItemsCounts: Int = 0
+    @Published var loading: Bool = false
     let dismissPublisher = PassthroughSubject<Bool, Never>()
     var userCoordinate: CLLocationCoordinate2D? = nil
     
@@ -88,7 +89,11 @@ class PostViewModel: ObservableObject {
     
     func saveMemo() async {
         do {
-            guard let user = AuthService.shared.currentUser else { return }
+            loading = true
+            guard let user = AuthService.shared.currentUser else {
+                loading = false
+                return
+            }
             let newMemo = PostMemoModel(
                 userUid: user.id ?? "",
                 userCoordinateLatitude: Double(userCoordinate!.latitude),
@@ -103,13 +108,19 @@ class PostViewModel: ObservableObject {
                 memoCreatedAt: Date().timeIntervalSince1970
             )
             
-            await MemoService.shared.uploadMemo(newMemo: newMemo)
+            do {
+                try await MemoService.shared.uploadMemo(newMemo: newMemo)
+                loading = false
+
+            }
+            
             resetMemoFields()
             dismissPublisher.send(true)
-            LoadingManager.shared.phase = .success
+            loading = false
+
         } catch {
             // 오류 처리
-            LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
+            loading = false
             print("Error signing in: \(error.localizedDescription)")
         }
     }
@@ -128,6 +139,8 @@ class PostViewModel: ObservableObject {
  
     func editMemo(memo: Memo) async {
         do {
+            loading = true
+
             // UUID를 String으로 변환 해당 값으로 수정할때 새로 생성하지 않고 업데이트 되도록 구현
           //  let documentID = memo.id.uuidString
              guard let documentID = memo.id else { return }
@@ -152,8 +165,11 @@ class PostViewModel: ObservableObject {
             await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)
             resetMemoFields()
             LoadingManager.shared.phase = .success
+            loading = false
         } catch {
             // 오류 처리
+            loading = false
+
             LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
             print("Error signing in: \(error.localizedDescription)")
         }

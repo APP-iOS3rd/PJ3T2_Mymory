@@ -120,6 +120,7 @@ struct SelectTagView: View {
                 } //:VSTACK
                 .transition(.move(edge: .bottom))
                 .animation(.easeInOut)
+                .padding(.bottom , 40)
             }
         }
         
