@@ -15,14 +15,14 @@ struct MemoDetailView: View {
     @State var selectedMemoIndex: Int?
     
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
-    
+
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 10) {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                     ZStack {
                         
-                        if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
+                        if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                             
                             if loc >= 50 && !isMyMemo {
                                 VStack(spacing: 10) {
