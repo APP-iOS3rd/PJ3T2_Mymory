@@ -19,7 +19,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
-
     @Published var isCurrentUserLoginState = false
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -96,7 +95,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             }
         }
     }
- 
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
@@ -118,13 +116,14 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
-        
         let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
             self.lastDocument = last
         }
         
         await MainActor.run {
             self.memoList += fetchedMemos
+            self.merkerMemoList = fetchedMemos
         }
     }
+
 }

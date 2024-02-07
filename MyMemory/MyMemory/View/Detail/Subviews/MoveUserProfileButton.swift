@@ -13,9 +13,23 @@ struct MoveUserProfileButton: View {
     @ObservedObject var viewModel: DetailViewModel
     
     var body: some View {
-        ZStack {
-            HStack {
-
+     
+        HStack {
+            NavigationLink {
+                OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                    .customNavigationBar(
+                        centerView: {
+                            Text(viewModel.memoCreator?.name ?? "")
+                        },
+                        leftView: {
+                            BackButton()
+                        },
+                        rightView: {
+                            EmptyView()
+                        },
+                        backgroundColor: Color.bgColor3
+                    )
+            } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()

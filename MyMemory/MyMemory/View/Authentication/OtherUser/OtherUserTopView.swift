@@ -1,14 +1,12 @@
 //
-//  OtherUserProfileView.swift
+//  OtherUserTopView.swift
 //  MyMemory
 //
 //  Created by 정정욱 on 1/30/24.
 //
 
-
 import SwiftUI
 import Kingfisher
-// 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 
 enum SortedFollow: String, CaseIterable, Identifiable {
     case unfollow = "팔로우 취소"
@@ -18,13 +16,13 @@ enum SortedFollow: String, CaseIterable, Identifiable {
     var id: SortedFollow { self }
 }
 
+// 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct OtherUserTopView: View {
     @Binding var memoCreator: User
     @ObservedObject var viewModel: OtherUserViewModel
     @ObservedObject var authViewModel : AuthService = .shared
     @State var isFollow: Bool = false
     @State var isShowingOption:Bool = false
-    
     var body: some View {
         VStack {
             HStack {
@@ -63,7 +61,6 @@ struct OtherUserTopView: View {
                         HStack {
                             Text("팔로우")
                         }
-                        
                     }
                     .buttonStyle(RoundedRect.follow)
                     
@@ -77,7 +74,6 @@ struct OtherUserTopView: View {
                         }
                         
                         .foregroundColor(.accentColor)
-                        // .fixedSize(horizontal: true, vertical: false)
                     }
                     .buttonStyle(RoundedRect.follow)
                     .confirmationDialog("", isPresented: $isShowingOption) {
@@ -93,19 +89,13 @@ struct OtherUserTopView: View {
                                         await authViewModel.followAndFollowingCount(user: memoCreator)
                                     }
                                 }
-                                
-                                
                             }
                             
                         }
                         
                     }
                 }
-                
-                
-                
             }
-            
             
             UserStatusCell()
         }

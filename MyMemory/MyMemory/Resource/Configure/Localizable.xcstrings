@@ -114,6 +114,12 @@
     "follow" : {
 
     },
+<<<<<<< HEAD
+=======
+    "Google로 계속하기" : {
+
+    },
+>>>>>>> 592a787 (Refactoring/MyPage : MyPage, OtherUser Profile 분리 작업 🙆🏻 (#187))
     "Kakao로 계속하기" : {
       "localizations" : {
         "en" : {
@@ -159,9 +165,12 @@
     },
     "standard3" : {
 
+<<<<<<< HEAD
     },
     "UnFollow" : {
 
+=======
+>>>>>>> 592a787 (Refactoring/MyPage : MyPage, OtherUser Profile 분리 작업 🙆🏻 (#187))
     },
     "개인정보수집 및 개인동의" : {
       "localizations" : {
