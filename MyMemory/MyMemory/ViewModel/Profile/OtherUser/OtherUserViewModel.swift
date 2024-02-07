@@ -19,6 +19,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
+    
     @Published var isCurrentUserLoginState = false
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -27,7 +28,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var currentLocation: CLLocation?  = nil
     
     @Published var memoCreator: User = User(email: "", name: "")
-    @Published var profile: Profile? = nil
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -42,58 +42,32 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
                 self.currentLocation = location
             }
         }
-//        AuthService.shared.fetchUser{ user in
-//            self.user = user
-//        }
+        //        AuthViewModel.shared.fetchUser{ user in
+        //            self.user = user
+        //        }
     }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
-    func fetchMemoCreatorProfile(fromDetail: Bool, memoCreator: User){
+    func fetchMemoCreatorProfile(memoCreator: User){
         self.memoList = []
         self.memoCreator = memoCreator
-        if fromDetail == true {
-            fetchUserState()
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: memoCreator.id ?? "")
-                }
-            }
- 
-            fetchCurrentUserLocation { location in
-                if let location = location {
-                    self.currentLocation = location
-                }
+        
+        
+        fetchUserState()
+        DispatchQueue.main.async {
+            Task {[weak self] in
+                guard let self = self else {return}
+                await self.pagenate(userID: memoCreator.id ?? "")
             }
         }
-           
-    }
-     
-    
-    // MARK: MemoList 필터링 & 정렬하는 메서드입니다
-    func sortMemoList(type: SortedTypeOfMemo) {
-        self.selectedFilter = type
-        switch type {
-        case .last:
-            self.memoList = memoList.sorted {
-                let first = Date(timeIntervalSince1970: $0.date)
-                let second = Date(timeIntervalSince1970: $1.date)
-                // 시간비교 orderedAscending: first가 second보다 이전(빠른), orderedDescending: first가 second보다 이후(늦은)
-                switch first.compare(second) {
-                case .orderedAscending: return false
-                case .orderedDescending: return true
-                case .orderedSame: return true
-                }
-            }
-        case .like:
-            self.memoList = memoList.sorted { $0.likeCount > $1.likeCount }
-        case .close:
-            self.memoList = memoList.sorted {
-                let first = $0.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
-                let second = $1.location.distance(from: currentLocation ?? CLLocation(latitude: 37.5664056, longitude: 126.9778222))
-                return first < second
+        
+        fetchCurrentUserLocation { location in
+            if let location = location {
+                self.currentLocation = location
             }
         }
+        
+        
     }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
@@ -125,5 +99,4 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             self.merkerMemoList = fetchedMemos
         }
     }
-
 }

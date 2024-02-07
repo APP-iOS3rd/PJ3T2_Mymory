@@ -16,15 +16,13 @@ struct OtherUserProfileView: View {
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthService = .shared
-    @State private var fromDetail = false
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     
     @State var selectedIndex = 0
     
     // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
-    init(fromDetail: Bool, memoCreator: User) {
-        self._fromDetail = State(initialValue: fromDetail)
-        otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
+    init(memoCreator: User) {
+        otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
     }
     
     var body: some View {
@@ -38,15 +36,19 @@ struct OtherUserProfileView: View {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
                         // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
-                        if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
+                        if  otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             createHeader()
                             
                             ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
                         else {
-                            MyPageView()
+                            MypageTopView()
+                            createHeader()
+                            
+                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
+                       
                     }
                     else {
                         showLoginPrompt()

@@ -26,7 +26,6 @@ struct OtherUserTopView: View {
     var body: some View {
         VStack {
             HStack {
-                
                 if let imageUrl = memoCreator.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()
