@@ -57,7 +57,7 @@ struct PostView: View {
                     .padding(.horizontal, 20)
                     .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 20)
                     // 💁 사진 선택 View
                     Group {
                         VStack(alignment: .leading, spacing: 10){
@@ -73,7 +73,7 @@ struct PostView: View {
                         }//:VSTACK
                     }
                     .padding(.horizontal, 20)
-                    .padding(.bottom)
+                    .padding(.bottom, 100)
                     .onReceive(viewModel.dismissPublisher) { toggle in
                         if toggle {
                             dismiss()
@@ -87,10 +87,12 @@ struct PostView: View {
             
             
             // 주소찾기 View: 하단 고정
-            Spacer()
-            PostViewFooter()
-                .environmentObject(viewModel)
-                .edgesIgnoringSafeArea(.bottom)
+            VStack {
+                Spacer()
+                PostViewFooter()
+                    .environmentObject(viewModel)
+                    
+            }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
         
         .toolbar(.hidden, for: .tabBar)
@@ -100,6 +102,7 @@ struct PostView: View {
         .padding(.bottom, 25)
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
+                AuthService.shared.fetchUser()
                 presentLoginAlert = false
                 switch CLLocationManager.authorizationStatus() {
                 case .authorizedAlways, .authorizedWhenInUse:
@@ -130,7 +133,11 @@ struct PostView: View {
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
-                dismiss()
+                if isEdit {
+                    dismiss()
+                } else {
+                    self.selected = 0
+                }
             }
         }
         .moahAlert(isPresented: $presentLocationAlert, moahAlert: {
@@ -190,6 +197,7 @@ struct PostView: View {
                             
                             Button(action: {
                                 Task {
+                                    viewModel.loading = true
                                     LoadingManager.shared.phase = .loading
                                     if isEdit {
                                         // 수정 모드일 때는 editMemo 호출
@@ -209,6 +217,7 @@ struct PostView: View {
                         //Text("저장")
                         Button(action: {
                             Task {
+                                viewModel.loading = true
                                 LoadingManager.shared.phase = .loading
                                 if isEdit {
                                     // 수정 모드일 때는 editMemo 호출
@@ -227,6 +236,11 @@ struct PostView: View {
             },
             backgroundColor: .bgColor3
         )
+        .overlay( content: {
+            if viewModel.loading {
+                LoadingView()
+            }
+        })
     }
 }
 

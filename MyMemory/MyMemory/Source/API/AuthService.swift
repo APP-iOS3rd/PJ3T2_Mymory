@@ -65,7 +65,9 @@ final class AuthService: ObservableObject {
         }
     }
     func fetchUser() {
-        guard let uid = userSession?.uid else { return }
+        guard let uid = userSession?.uid else {
+            UserDefaults.standard.removeObject(forKey: "userId")
+            return }
         print("현재 로그인 상태: uid \(uid)")
         COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }

@@ -11,13 +11,7 @@ import Kingfisher
 
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
-<<<<<<<< HEAD:MyMemory/MyMemory/View/Authentication/MyPage/MypageTopView.swift
-
-    //@ObservedObject var viewModel: MypageViewModel  // 💁 디자인 패턴 고려필요
-    @ObservedObject var authViewModel : AuthViewModel = .shared
-========
     @ObservedObject var authViewModel : AuthService = .shared
->>>>>>>> develop:MyMemory/MyMemory/View/Authentication/Profile/MypageTopView.swift
     
     var body: some View {
         VStack {

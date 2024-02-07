@@ -19,7 +19,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
-    
     @Published var isCurrentUserLoginState = false
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -28,6 +27,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var currentLocation: CLLocation?  = nil
     
     @Published var memoCreator: User = User(email: "", name: "")
+
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -69,7 +69,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
         
         
     }
-    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {

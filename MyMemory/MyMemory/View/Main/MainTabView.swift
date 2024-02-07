@@ -46,6 +46,8 @@ struct MainTabView: View {
                     }
                     .tag(2)
             }
+        }.onAppear {
+            AuthService.shared.fetchUser()
         }
         
     }

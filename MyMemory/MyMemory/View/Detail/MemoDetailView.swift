@@ -8,8 +8,7 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
-    @Binding var memo: Memo
-    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
+    @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
     @State var filteredMemos: [Memo]?
     @State private var scrollIndex: Int?
@@ -95,9 +94,6 @@ struct MemoDetailView: View {
                             //.padding(.top, 50)
                             
                         }
-                        
-                        
-                        
                         VStack {
                             Spacer()
                             
@@ -148,7 +144,12 @@ struct MemoDetailView: View {
        .onAppear {
            Task {
                do {
-                   isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                   let memo = memos[selectedMemoIndex!]
+
+                   isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
+                   if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
+                       self.memos[selectedMemoIndex!] = newMemo
+                   }
                    viewModel.fetchMemoCreator(uid: memo.userUid)
                } catch {
                    // 에러 처리
@@ -170,7 +171,7 @@ struct MemoDetailView: View {
                 BackButton()
             },
             rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memo)
+                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             },
             backgroundColor: .bgColor
         )
@@ -182,6 +183,7 @@ struct MemoDetailView: View {
     }
     
     func checkMyMemo() async {
+        let memo = memos[selectedMemoIndex!]
         isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
     }
     
@@ -189,10 +191,9 @@ struct MemoDetailView: View {
         if var value = selectedMemoIndex {
             value -= 1
             withAnimation(.default) {
-                selectedMemoIndex = value
-            }
+            selectedMemoIndex = value
         }
-        
+    }
     }
     
     func nextButton() {

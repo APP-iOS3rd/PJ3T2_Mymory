@@ -48,7 +48,6 @@ struct OtherUserProfileView: View {
                             
                             ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
-                       
                     }
                     else {
                         showLoginPrompt()
