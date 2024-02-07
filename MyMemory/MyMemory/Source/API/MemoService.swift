@@ -214,7 +214,9 @@ struct MemoService {
         var memos = [Memo]()
         
         // "Memos" 컬렉션에서 문서들을 가져옴
-        let querySnapshot = try await COLLECTION_MEMOS.getDocuments()
+        let querySnapshot = try await COLLECTION_MEMOS
+                                            .whereField("reportCount", isLessThan: 5)
+                                            .getDocuments()
         
         // 각 문서를 PostMemoModel로 변환하여 배열에 추가
         for document in querySnapshot.documents {
@@ -254,8 +256,14 @@ struct MemoService {
             
             let filteredDocuments = querySnapshot.documents.filter { document in
                 let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
-                return longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude
+                let reportCount = document["reportCount"] as? Int ?? 0
+                // Firestore 쿼리는 부등식 쿼리가 단일 필드에서만 가능하다고 해서, filter 내부에 조건을 추가했습니다.
+                if longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude && reportCount < 5 {
+                    return true
+                }
+                return false
             }
+            
             // 경도 필터링된 문서를 메모로 변환하여 배열에 추가
             for document in filteredDocuments {
                 let data = document.data()
@@ -266,7 +274,9 @@ struct MemoService {
                 }
             }
         } else {
-            querySnapshot = try await COLLECTION_MEMOS.getDocuments()
+            querySnapshot = try await COLLECTION_MEMOS
+                                        .whereField("reportCount", isLessThan: 5)
+                                        .getDocuments()
             // 각 문서를 PostMemoModel로 변환하여 배열에 추가
             for document in querySnapshot.documents {
                 let data = document.data()
@@ -306,7 +316,12 @@ struct MemoService {
         
         let filteredDocuments = querySnapshot.documents.filter { document in
             let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
-            return longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude
+            let reportCount = document["reportCount"] as? Int ?? 0
+            // Firestore 쿼리는 부등식 쿼리가 단일 필드에서만 가능하다고 해서, filter 내부에 조건을 추가했습니다.
+            if longitude >= southWestCoordinate.longitude && longitude <= northEastCoordinate.longitude && reportCount < 5 {
+                return true
+            }
+            return false
         }
         // 경도 필터링된 문서를 메모로 변환하여 배열에 추가
         for document in filteredDocuments {
@@ -550,6 +565,7 @@ struct MemoService {
         }
         
         let reportRef = COLLECTION_MEMO_REPORT.document(memoid)
+        let memoRef = COLLECTION_MEMOS.document(memoid)
         
         let memoData: [String : Any] = [
             "types": [type],
@@ -560,10 +576,10 @@ struct MemoService {
         ]
         
         do {
-            let document = try await reportRef.getDocument()
+            let reportDocument = try await reportRef.getDocument()
             // 신고 메모가 이미 신고된 이력이 있을 경우를 위한 분기처리
-            if document.exists {
-                let data = document.data()
+            if reportDocument.exists {
+                let data = reportDocument.data()
                 // 신고자의 아이디가 신고자 배열에 속해있는 경우 Error를 반환합니다.
                 if let uids = data?["reportUserUids"] as? [String], uids.contains(where: { $0 == reportedUser.uid }) {
                     return .failure(.duplicatedReport)
@@ -575,11 +591,13 @@ struct MemoService {
                     "reportUserUids": FieldValue.arrayUnion([reportedUser.uid]),
                     "reportCount": FieldValue.increment(Int64(1))
                 ])
-                return .success(true)
             } else {
                 try await reportRef.setData(memoData)
-                return .success(true)
             }
+            try await memoRef.updateData([
+                "reportCount": FieldValue.increment(Int64(1))
+            ])
+            return .success(true)
         } catch {
             return .failure(.firebaseError)
         }
