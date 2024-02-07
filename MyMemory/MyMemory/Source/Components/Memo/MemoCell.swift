@@ -18,12 +18,13 @@ struct MemoCell: View {
     @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], images: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
     
     @State var likeCount = 0
+    @State var isMyMemo: Bool = false
     
     var body: some View {
         HStack(spacing: 16) {
             
             VStack{
-                if isVisible {
+                if isVisible || isMyMemo {
                     Button(action: {
                         MemoService.shared.likeMemo(memo: memo) { err in
                             guard err == nil else {
@@ -73,7 +74,7 @@ struct MemoCell: View {
                 .foregroundColor(.gray)
                 .font(.regular14)
                 
-                Text(isVisible ? memo.title : "거리가 멀어서 볼 수 없어요.")
+                Text(isVisible || isMyMemo ? memo.title : "거리가 멀어서 볼 수 없어요.")
                     .lineLimit(1)
                     .font(.black20)
                     .foregroundStyle(Color.textColor)
@@ -114,7 +115,7 @@ struct MemoCell: View {
                     
                     
                     NavigationLink { // 버튼이랑 비슷함
-                        DetailView(memo: $memo, isVisble: $isVisible, memos: $memos, selectedMemoIndex: selectedMemoIndex)
+                        DetailView(memo: $memo, isVisble: $isVisible, memos: $memos, selectedMemoIndex: selectedMemoIndex, isMyMemo: isMyMemo)
                         
                     } label: {
                         HStack {
@@ -153,11 +154,12 @@ struct MemoCell: View {
     
             Task {
                 await fetchlikeCount()
+                isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
             }
             
         }
-        .onChange(of: location) { Value in
-            if let distance = Value?.coordinate.distance(from: memo.location) {
+        .onChange(of: location) { oldValue, newValue in
+            if let distance = newValue?.coordinate.distance(from: memo.location) {
                 if distance <= 50 {
                     isVisible = true
                 } else {
