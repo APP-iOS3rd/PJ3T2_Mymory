@@ -11,10 +11,9 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
-    @State private var isFar:Bool = false
     @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
-
+    
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
     var body: some View {
@@ -22,94 +21,98 @@ struct MemoDetailView: View {
             LazyHStack(spacing: 10) {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                     ZStack {
-                        if isFar && !isMyMemo {
-                            VStack(spacing: 10) {
-                                Image(systemName: "lock")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.gray)
-                                    .frame(width: 60, height: 60)
-                                    .background(Color.bgColor2)
-                                    .clipShape(Circle())
-                                
-                                Text("거리가 멀어서 볼 수 없어요.")
-                                    .font(.regular18)
-                                    .foregroundColor(Color.darkGray)
-                            }
-                        } else {
-                            ScrollView {
-                                VStack(alignment: .leading) {
-                                    ScrollView(.horizontal) {
-                                        LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
-                                            ForEach(memo.tags, id: \.self) { tag in
-                                                Text("#\(tag)")
-                                                    .font(.semibold12)
-                                                    .padding(.horizontal, 13)
-                                                    .padding(.vertical, 6)
-                                                    .foregroundColor(.textColor)
-                                                    .background(
-                                                        Capsule()
-                                                            .foregroundColor(.peach)
-                                                    )
-                                                
-                                            }
-                                        }
-                                    }
-                                    .scrollDisabled(false)
-                                    .frame(maxWidth: .infinity)
-                                    .aspectRatio(contentMode: .fit)
-                                    .padding(.leading, 25)
+                        
+                        if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
+                            
+                            if loc >= 50 && !isMyMemo {
+                                VStack(spacing: 10) {
+                                    Image(systemName: "lock")
+                                        .font(.largeTitle)
+                                        .foregroundColor(.gray)
+                                        .frame(width: 60, height: 60)
+                                        .background(Color.bgColor2)
+                                        .clipShape(Circle())
                                     
-                                    
-                                    HStack{
-                                        VStack(alignment: .leading, spacing: 6) {
-                                            Text(memo.title)
-                                                .font(.bold20)
-                                            Text(memo.address)
-                                                .font(.regular14)
-                                                .foregroundStyle(Color.textGray)
-                                            
-                                            Text("등록 수정일 : \(memo.date.createdAtTimeYYMMDD)")
-                                                .font(.regular14)
-                                                .foregroundStyle(Color.textGray)
-                                        }
-                                        Spacer()
-                                    }.padding(.leading, 25)
-                                    
-                                    
-                                    
-                                    ScrollView(.horizontal) {
-                                        HStack{
-                                            ForEach(memo.images.indices, id: \.self) { i in
-                                                if let uiimage =  UIImage(data: memo.images[i]) {
-                                                    Image(uiImage: uiimage)
-                                                        .resizable()
-                                                    //.scaledToFit()
-                                                        .scaledToFill()
-                                                        .frame(width: 90, height: 90)
-                                                        .onTapGesture {
-                                                            didTapImage(img: i)
-                                                        }
-                                                        .fullScreenCover(isPresented: self.$isShowingImgSheet) {
-                                                            ImgDetailView(selectedImage: $selectedNum, images: memo.images)
-                                                        }
+                                    Text("거리가 멀어서 볼 수 없어요.")
+                                        .font(.regular18)
+                                        .foregroundColor(Color.darkGray)
+                                }
+                            } else {
+                                ScrollView {
+                                    VStack(alignment: .leading) {
+                                        ScrollView(.horizontal) {
+                                            LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
+                                                ForEach(memo.tags, id: \.self) { tag in
+                                                    Text("#\(tag)")
+                                                        .font(.semibold12)
+                                                        .padding(.horizontal, 13)
+                                                        .padding(.vertical, 6)
+                                                        .foregroundColor(.textColor)
+                                                        .background(
+                                                            Capsule()
+                                                                .foregroundColor(.peach)
+                                                        )
+                                                    
                                                 }
                                             }
                                         }
-                                    }
-                                    .scrollDisabled(false)
-                                    .padding(.top, 25)
-                                    .padding(.leading, 25)
-                                    
-                                    Text(memo.description)
-                                        .multilineTextAlignment(.leading)
+                                        .scrollDisabled(false)
+                                        .frame(maxWidth: .infinity)
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding(.leading, 25)
+                                        
+                                        
+                                        HStack{
+                                            VStack(alignment: .leading, spacing: 6) {
+                                                Text(memo.title)
+                                                    .font(.bold20)
+                                                Text(memo.address)
+                                                    .font(.regular14)
+                                                    .foregroundStyle(Color.textGray)
+                                                
+                                                Text("등록 수정일 : \(memo.date.createdAtTimeYYMMDD)")
+                                                    .font(.regular14)
+                                                    .foregroundStyle(Color.textGray)
+                                            }
+                                            Spacer()
+                                        }.padding(.leading, 25)
+                                        
+                                        
+                                        
+                                        ScrollView(.horizontal) {
+                                            HStack{
+                                                ForEach(memo.images.indices, id: \.self) { i in
+                                                    if let uiimage =  UIImage(data: memo.images[i]) {
+                                                        Image(uiImage: uiimage)
+                                                            .resizable()
+                                                        //.scaledToFit()
+                                                            .scaledToFill()
+                                                            .frame(width: 90, height: 90)
+                                                            .onTapGesture {
+                                                                didTapImage(img: i)
+                                                            }
+                                                            .fullScreenCover(isPresented: self.$isShowingImgSheet) {
+                                                                ImgDetailView(selectedImage: $selectedNum, images: memo.images)
+                                                            }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        .scrollDisabled(false)
                                         .padding(.top, 25)
+                                        .padding(.leading, 25)
+                                        
+                                        Text(memo.description)
+                                            .multilineTextAlignment(.leading)
+                                            .padding(.top, 25)
+                                        
+                                            .padding(.horizontal, 25)
+                                            .padding(.bottom, 70)
+                                        Spacer()
+                                    }
+                                    //.padding(.top, 50)
                                     
-                                        .padding(.horizontal, 25)
-                                        .padding(.bottom, 70)
-                                    Spacer()
                                 }
-                                //.padding(.top, 50)
-                                
                             }
                         }
                         
@@ -126,7 +129,7 @@ struct MemoDetailView: View {
                                             preButton()
                                         }
                                 }
-
+                                
                                 
                                 Spacer()
                                 
@@ -145,29 +148,19 @@ struct MemoDetailView: View {
                             
                             MoveUserProfileButton(viewModel: viewModel)
                         }
-                        
+                        .onAppear {
+                            Task {
+                                do {
+                                    viewModel.fetchMemoCreator(uid: memo.userUid)
+                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                                } catch {
+                                    // 에러 처리
+                                    print("Error checking my memo: \(error.localizedDescription)")
+                                }
+                            }
+                        }
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
-                    .onAppear {
-                        
-                        if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
-                            if loc >= 50 {
-                                isFar = true
-                            } else {
-                                isFar = false
-                            }
-                        }
-                        
-                        Task {
-                            do {
-                                viewModel.fetchMemoCreator(uid: memo.userUid)
-                                isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                            } catch {
-                                // 에러 처리
-                                print("Error checking my memo: \(error.localizedDescription)")
-                            }
-                        }
-                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
