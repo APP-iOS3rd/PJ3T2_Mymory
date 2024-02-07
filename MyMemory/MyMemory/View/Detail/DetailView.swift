@@ -15,10 +15,10 @@ struct DetailView: View {
     
     var body: some View {
         if isVisble {
-            MemoDetailView(memo: $memo, memos: memos, selectedMemoIndex: selectedMemoIndex)
+            MemoDetailView(memos: $memos, selectedMemoIndex: selectedMemoIndex)
         } else if let uid = AuthService.shared.currentUser?.id{
             if memo.userUid == uid {
-                MemoDetailView(memo: $memo, memos: memos, selectedMemoIndex: selectedMemoIndex)
+                MemoDetailView(memos: $memos, selectedMemoIndex: selectedMemoIndex)
             } else {
                 CertificationView(memo: $memo)
             }

@@ -154,7 +154,7 @@ struct MainMapView: View {
         .navigationDestination(item:$noti.memo,
                                destination: {memo in
             
-            MemoDetailView(memo: .constant(memo))
+            MemoDetailView(memos: .constant([memo]), selectedMemoIndex: 0)
             
         })
         .moahAlert(isPresented: $showingAlert, moahAlert: {

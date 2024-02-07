@@ -55,8 +55,10 @@ struct SelectPhotos: View {
                                     .overlay {
                                         Button{
                                             memoSelectedImageData.remove(at: index)
-                                            memoSelectedImageItems
-                                                .remove(at: index)
+                                            if !memoSelectedImageItems.isEmpty{
+                                                memoSelectedImageItems.remove(at: index)
+                                            }
+                                                
                                         }label: {
                                             Image(systemName: "xmark.circle.fill")
                                                 .resizable()

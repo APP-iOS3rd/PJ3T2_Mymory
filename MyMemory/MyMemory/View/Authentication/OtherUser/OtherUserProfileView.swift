@@ -20,11 +20,11 @@ struct OtherUserProfileView: View {
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     
     @State var selectedIndex = 0
-    
+    @State var user: User
     // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
     init(fromDetail: Bool, memoCreator: User) {
         self._fromDetail = State(initialValue: fromDetail)
-        otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
+        self.user = memoCreator
     }
     
     var body: some View {
@@ -68,7 +68,8 @@ struct OtherUserProfileView: View {
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
-            
+            otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: user)
+
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {

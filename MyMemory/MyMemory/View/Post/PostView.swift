@@ -57,7 +57,7 @@ struct PostView: View {
                     .padding(.horizontal, 20)
                     .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 20)
                     // 💁 사진 선택 View
                     Group {
                         VStack(alignment: .leading, spacing: 10){
@@ -91,8 +91,8 @@ struct PostView: View {
                 Spacer()
                 PostViewFooter()
                     .environmentObject(viewModel)
-                    .edgesIgnoringSafeArea(.bottom)
-            }.ignoresSafeArea()
+                    
+            }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
         
         .toolbar(.hidden, for: .tabBar)
@@ -133,7 +133,11 @@ struct PostView: View {
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
-                dismiss()
+                if isEdit {
+                    dismiss()
+                } else {
+                    self.selected = 0
+                }
             }
         }
         .moahAlert(isPresented: $presentLocationAlert, moahAlert: {
@@ -193,6 +197,7 @@ struct PostView: View {
                             
                             Button(action: {
                                 Task {
+                                    viewModel.loading = true
                                     LoadingManager.shared.phase = .loading
                                     if isEdit {
                                         // 수정 모드일 때는 editMemo 호출

@@ -19,12 +19,12 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     var body: some View {
         LazyVStack(spacing: 20) {
             // 각각의 뷰 모델을 활용하여 메모 리스트를 가져옴
-            ForEach($viewModel.memoList, id: \.self) { memo in
+            ForEach($viewModel.memoList.indices, id: \.self) { i in
                 NavigationLink {
-                    MemoDetailView(memo: memo)
+                    MemoDetailView(memos: $viewModel.memoList, selectedMemoIndex: i)
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
-                    MemoCard(memo: memo, profile:$profile) { action in
+                    MemoCard(memo: $viewModel.memoList[i], profile:$profile) { action in
                         if action == .like {
                             print("like")
                         }
