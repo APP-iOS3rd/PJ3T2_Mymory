@@ -9,14 +9,15 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct MainMapView: View {
-    @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
+    @ObservedObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
     @State var showingAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
-    @StateObject var noti = PushNotification.shared
+    @ObservedObject var noti = PushNotification.shared
+    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -133,7 +134,7 @@ struct MainMapView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance) { logout in
+                MainSectionsView(sortDistance: $sortDistance, otherUserViewModel: otherUserViewModel) { logout in
                     if logout {
                         self.presentLoginView = true
                     }

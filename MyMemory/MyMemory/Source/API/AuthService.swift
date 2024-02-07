@@ -108,7 +108,7 @@ final class AuthService: ObservableObject {
     func memoCreatorfetchUser(uid: String, completion: @escaping (User?) -> Void) {
         print("현재 메모 작성자: uid \(uid)")
         
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, error in
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             if let error = error {
                 print("Error fetching user: \(error.localizedDescription)")
                 completion(nil)

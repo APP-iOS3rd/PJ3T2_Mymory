@@ -126,17 +126,6 @@ struct MemoDetailView: View {
                             
                             MoveUserProfileButton(viewModel: viewModel)
                         }
-                        .onAppear {
-                            Task {
-                                do {
-                                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                                } catch {
-                                    // 에러 처리
-                                    print("Error checking my memo: \(error.localizedDescription)")
-                                }
-                            }
-                        }
                         
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)

@@ -22,12 +22,13 @@ struct User: Identifiable, Decodable {
         return Profile(email: self.email,
                        id: self.id,
                        name: self.name,
+                       profilePicture: self.profilePicture,
                        followerCount: 0,
                        memoCount: 0,
                        isFollowing: false)
     }
 }
-struct Profile: Identifiable, Decodable {
+struct Profile: Identifiable, Decodable, Hashable {
     let email: String
     @DocumentID var id: String?
     let name: String
@@ -37,5 +38,11 @@ struct Profile: Identifiable, Decodable {
     var isFollowing: Bool
     var isCurrentUser: Bool {
         return AuthService.shared.userSession?.uid == id
+    }
+    var toUser: User {
+        return User(email: self.email,
+                    id: self.id,
+                    name: self.name,
+                    profilePicture: self.profilePicture)
     }
 }

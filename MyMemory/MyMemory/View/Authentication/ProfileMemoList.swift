@@ -25,10 +25,14 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
                     MemoCard(memo: $viewModel.memoList[i], profile:$profile) { action in
-                        if action == .like {
+                        switch action {
+                        case .like:
                             print("like")
+
+                        default:
+                            break
                         }
-                    }
+                    }.frame(maxWidth: .infinity)
                         .contentShape(Rectangle())
                         .onAppear {
                             Task {

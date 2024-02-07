@@ -24,6 +24,22 @@ struct ImgDetailView: View {
                 // 제스처가 끝날 때 아무 작업도 하지 않음
             }
     }
+    @GestureState private var translation: CGSize = .zero
+    private var swipe: some Gesture {
+        DragGesture()
+            .updating($translation) { value, state, _ in
+                state = value.translation
+            }
+            .onEnded { value in
+                let swipeDistance = value.translation.height
+                //오른쪽
+                if swipeDistance > (UIScreen.main.bounds.height)/10.0 {
+                    dismiss()
+                    //왼쪽
+                }
+            }
+    }
+    
     var images: [Data]
     var body: some View {
         
@@ -56,7 +72,8 @@ struct ImgDetailView: View {
                     
                 }
                 .tabViewStyle(.page)
+                .gesture(swipe)
             }
-        }
+        }.gesture(swipe)
     }
 }

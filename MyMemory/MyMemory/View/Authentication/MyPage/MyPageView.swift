@@ -18,22 +18,22 @@ struct MyPageView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.bgColor.edgesIgnoringSafeArea(.top)
-            
+            Color.bgColor
+                .ignoresSafeArea()
+
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
+                MypageTopView()
+                    .padding(.horizontal, 14)
+
+                LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
                     // 로그인 되었다면 로직 실행
+                    Section {
+
                     if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
-                        MypageTopView()
                         // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
-                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                   selectedIndex: $selectedIndex,
-                                   fullWidth: UIScreen.main.bounds.width,
-                                   spacing: 50,
-                                   horizontalInset: 91.5)
-                        .padding(.horizontal)
+
                         switch selectedIndex {
                         case 0:
                             createHeader()
@@ -49,25 +49,34 @@ struct MyPageView: View {
                     else {
                         showLoginPrompt()
                     }
+                        
+                    } header: {
+                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                   selectedIndex: $selectedIndex,
+                                   fullWidth: UIScreen.main.bounds.width,
+                                   spacing: 50,
+                                   horizontalInset: 91.5)
+                        .frame(maxWidth: .infinity)
+                    }
+
                 }
-                
+                .frame(maxWidth: .infinity)
                 
                 .refreshable {
                     // Refresh logic
                 }
-                .padding(.horizontal, 14)
-                .safeAreaInset(edge: .top) {
-                    Color.clear.frame(height: 0).background(Color.bgColor)
-                }
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
-                }
+                .safeAreaPadding([.top,.bottom])
+//                .safeAreaInset(edge: .top) {
+//                    Color.clear.frame(height: 0).background(Color.bgColor)
+//                }
+//                .safeAreaInset(edge: .bottom) {
+//                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+//                }
             }
         }
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
-            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
