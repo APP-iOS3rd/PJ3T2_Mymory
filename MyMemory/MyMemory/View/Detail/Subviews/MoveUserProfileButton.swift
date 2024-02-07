@@ -15,9 +15,8 @@ struct MoveUserProfileButton: View {
     var body: some View {
      
         HStack {
-
             NavigationLink {
-                ProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
                     .customNavigationBar(
                         centerView: {
                             Text(viewModel.memoCreator?.name ?? "")
