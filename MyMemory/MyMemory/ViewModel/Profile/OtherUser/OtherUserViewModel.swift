@@ -28,7 +28,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var currentLocation: CLLocation?  = nil
     
     @Published var memoCreator: User = User(email: "", name: "")
-    
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -100,5 +99,4 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             self.merkerMemoList = fetchedMemos
         }
     }
-    
 }

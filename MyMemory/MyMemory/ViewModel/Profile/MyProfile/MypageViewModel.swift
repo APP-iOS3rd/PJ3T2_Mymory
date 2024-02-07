@@ -10,11 +10,12 @@ import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import SwiftUI
+import MapKit
 
-
-
-class MypageViewModel: ObservableObject, MemoListViewModel {
+class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     
+    @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
@@ -55,17 +56,8 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
             self.user = user
         }
     }
-    deinit{
-        print("마이페이지 뷰모델 deinited")
-    }
     
     
-    // MARK: 현재 사용의 위치(위도, 경도)와 메모의 위치, 그리고 설정할 거리를 통해 설정된 거리 내 메모를 필터링하는 함수(CLLocation의 distance 메서드 사용)
-    func fetchDistanceOfUserAndMemo(myLocation: CLLocationCoordinate2D, memoLocation: Location ) -> Double {
-        // 사용자의 위치를 CLLocation객체로 생성
-        let location = CLLocationCoordinate2D(latitude: memoLocation.latitude, longitude: memoLocation.longitude)
-        return location.distance(to: myLocation)
-    }
     
     // MARK: MemoList 필터링 & 정렬하는 메서드입니다
     func sortMemoList(type: SortedTypeOfMemo) {
@@ -129,6 +121,10 @@ class MypageViewModel: ObservableObject, MemoListViewModel {
         
         await MainActor.run {
             self.memoList += fetchedMemos
+            self.merkerMemoList = fetchedMemos
         }
     }
+    
+
+
 }

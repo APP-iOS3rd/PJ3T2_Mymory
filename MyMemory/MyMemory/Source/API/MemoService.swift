@@ -221,7 +221,11 @@ struct MemoService {
             let data = document.data()
             
             // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-            if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+            if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                let likeCount = await likeMemoCount(memo: memo)
+                let memoLike = await checkLikedMemo(memo)
+                memo.likeCount = likeCount
+                memo.didLike = memoLike
                 memos.append(memo)
             }
         }
@@ -233,9 +237,45 @@ struct MemoService {
         guard let data = querySnapshot.data() else { return nil }
         
         // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-        if let memo = try await fetchMemoFromDocument(documentID: querySnapshot.documentID, data: data) {
+        if var memo = try await fetchMemoFromDocument(documentID: querySnapshot.documentID, data: data) {
+            let likeCount = await likeMemoCount(memo: memo)
+            let memoLike = await checkLikedMemo(memo)
+            memo.likeCount = likeCount
+            memo.didLike = memoLike
             return memo
         } else {return nil}
+    }
+    func fetchMemosOfWeek() async throws -> [Memo] {
+        var memos: [Memo] = []
+        let week = Date().timeIntervalSince1970 - (3600 * 7)
+        do {
+            let docs = try await COLLECTION_MEMOS
+                .whereField("memoCreatedAt", isGreaterThan: week)
+                .order(by: "likeCount", descending: true)
+                .getDocuments()
+            for doc in docs.documents {
+                if doc.exists {
+                    let data = doc.data()
+                    
+                    // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+                    if var memo = try await fetchMemoFromDocument(documentID: doc.documentID, data: data) {
+                        let likeCount = await likeMemoCount(memo: memo)
+                        let memoLike = await checkLikedMemo(memo)
+                        memo.likeCount = likeCount
+                        memo.didLike = memoLike
+                        memos.append(memo)
+                        //최대 상위 5개
+                        if memos.count == 5 {
+                            return memos
+                        }
+                    }
+                }
+            }
+            return memos
+        }
+        catch {
+            return []
+        }
     }
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
@@ -261,7 +301,11 @@ struct MemoService {
                 let data = document.data()
                 
                 // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -272,7 +316,11 @@ struct MemoService {
                 let data = document.data()
                 
                 // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -346,7 +394,11 @@ struct MemoService {
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
             for document in querySnapshot.documents {
                 let data = document.data()
-                if let memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
                     memos.append(memo)
                 }
             }
@@ -445,21 +497,17 @@ struct MemoService {
             completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
             return
         }
-        guard let memoId = memo.id else {
-            completion(NSError(domain: "Wrong Input", code: 400, userInfo: nil))
-            return
-        }
         
         /*
          COLLECTION_MEMO_LIKES 키 값으로 메모 uid 및에 좋아요 누른 사용자 uid들을 저장
          COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
          */
         if memo.didLike {
-            COLLECTION_USER_LIKES.document(uid).updateData([String(memoId) : FieldValue.delete()])
-            COLLECTION_MEMO_LIKES.document(memoId).updateData([uid : FieldValue.delete()])
+            COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
+            COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
         } else {
-            COLLECTION_USER_LIKES.document(uid).setData([String(memoId) : "LikeMemoUid"], merge: true)
-            COLLECTION_MEMO_LIKES.document(memoId).setData([uid : "LikeUserUid"], merge: true)
+            COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
+            COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
         }
         /*
          setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
@@ -495,7 +543,29 @@ struct MemoService {
     
     
     
-    
+    func checkLikedMemo(_ memo: Memo) async -> Bool {
+        guard let uid = Auth.auth().currentUser?.uid,
+              let memoID = memo.id else {
+            return false
+        }
+        do {
+            let userLikesRef = try await COLLECTION_USER_LIKES.document(uid).getDocument()
+            if userLikesRef.exists,
+               let dataArray = userLikesRef.data() as? [String: String] {
+                print("데이터 \(dataArray)")
+                print("메모 ID \(memoID)")
+                if dataArray.keys.contains(memoID) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        } catch {
+            return false
+        }
+    }
     
     /// 현재 로그인한 사용자가 보여지는 메모에 좋아요(like)했는지 확인하는 기능을 구현한 함수입니다
     /// - Parameters:
@@ -507,10 +577,7 @@ struct MemoService {
             return
         }
         
-        guard let memoID = memo.id else {
-            completion(false)
-            return
-        }
+        let memoID = memo.id ?? ""
         
         let userLikesRef = COLLECTION_USER_LIKES.document(uid)
         userLikesRef.getDocument { (document, error) in

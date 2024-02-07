@@ -11,7 +11,11 @@ import SwiftUI
 struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
-    
+    @State private var profile: Profile = {
+            var profile = AuthService.shared.currentUser!.toProfile
+            
+            return AuthService.shared.currentUser!.toProfile
+    }()
     var body: some View {
         LazyVStack(spacing: 20) {
             // 각각의 뷰 모델을 활용하여 메모 리스트를 가져옴
@@ -20,7 +24,11 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                     MemoDetailView(memo: memo, memos: viewModel.memoList, selectedMemoIndex: index)
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
-                    MemoCard(memo: memo)
+                    MemoCard(memo: memo, profile:$profile) { action in
+                        if action == .like {
+                            print("like")
+                        }
+                    }
                         .contentShape(Rectangle())
                         .onAppear {
                             Task {

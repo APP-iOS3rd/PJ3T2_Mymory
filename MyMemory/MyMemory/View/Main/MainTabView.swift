@@ -36,7 +36,6 @@ struct MainTabView: View {
                         Text("메모하기")
                     }
                     .tag(1)
-                
                 MyPageView()
                     .onTapGesture{
                         selectedIndex = 2
