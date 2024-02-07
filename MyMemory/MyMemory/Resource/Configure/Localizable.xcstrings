@@ -114,6 +114,9 @@
     "follow" : {
 
     },
+    "Font 미리보기" : {
+
+    },
     "Google로 계속하기" : {
 
     },
@@ -134,6 +137,9 @@
 
     },
     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " : {
+
+    },
+    "Neo둥근모체" : {
 
     },
     "Pill" : {
@@ -695,6 +701,12 @@
         }
       }
     },
+    "영덕대게체" : {
+
+    },
+    "온글잎 의연체" : {
+
+    },
     "이 모두 사라집니다!" : {
       "localizations" : {
         "en" : {
@@ -1014,13 +1026,16 @@
         }
       }
     },
-    "폰트" : {
-
-    },
     "폰트 선택" : {
 
     },
+    "폰트는 메모 상세보기 및 글씨 작성 부분에만 글씨에만 적용됩니다." : {
+
+    },
     "프로필 편집" : {
+
+    },
+    "프리텐다드" : {
 
     },
     "해당 장소 메모보기" : {
