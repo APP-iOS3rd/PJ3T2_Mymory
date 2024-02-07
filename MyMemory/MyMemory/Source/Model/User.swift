@@ -18,4 +18,24 @@ struct User: Identifiable, Decodable {
     var isCurrentUser: Bool {
         return AuthService.shared.userSession?.uid == id
     }
+    var toProfile: Profile {
+        return Profile(email: self.email,
+                       id: self.id,
+                       name: self.name,
+                       followerCount: 0,
+                       memoCount: 0,
+                       isFollowing: false)
+    }
+}
+struct Profile: Identifiable, Decodable {
+    let email: String
+    @DocumentID var id: String?
+    let name: String
+    var profilePicture: String?
+    var followerCount: Int
+    var memoCount: Int
+    var isFollowing: Bool
+    var isCurrentUser: Bool {
+        return AuthService.shared.userSession?.uid == id
+    }
 }

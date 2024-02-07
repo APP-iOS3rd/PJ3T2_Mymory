@@ -15,9 +15,8 @@ struct MoveUserProfileButton: View {
     var body: some View {
      
         HStack {
-
             NavigationLink {
-                ProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
                     .customNavigationBar(
                         centerView: {
                             Text(viewModel.memoCreator?.name ?? "")
@@ -38,38 +37,36 @@ struct MoveUserProfileButton: View {
                         .foregroundStyle(.white)
                         .clipped()
                         .clipShape(.circle)
-                        .frame(width: 60, height: 60)
+                        .frame(width: 46, height: 46)
                 } else {
                     Circle()
-                        .frame(width: 60, height: 60)
+                        .frame(width: 46, height: 46)
                         .foregroundStyle(Color.darkGray)
                 }
                 
+            
                 VStack(alignment: .leading) {
                     Text(viewModel.memoCreator?.name ?? "")
                         .foregroundStyle(Color.textColor)
-                        .font(.semibold16)
-                    Text("@ididid")
-                        .foregroundStyle(Color.textGray)
-                        .font(.regular14)
+                        .font(.bold18)
+                    
                 }
-                .padding(.leading, 20)
-            }
-            Spacer()
-            
-            Button {
+                
+                Spacer()
+                NavigationLink {
+                    OtherUserProfileView(fromDetail: true, memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                } label: {
+                    Image(systemName: "ellipsis")
+//                    Text("작성자 프로필 이동")
+                }
+             //   .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical:7))
                 
                 
-            } label: {
-                Text("팔로우")
-//                Image(systemName: "ellipsis")
-//                    .foregroundColor(Color.textColor)
             }
-
+            .padding()
+            .border(width: 1, edges: [.top], color: Color.bgColor)
             
         }
-        .padding()
-        .border(width: 1, edges: [.top], color: Color.bgColor)
         
     }
 }

@@ -27,7 +27,7 @@ struct CommunityView: View {
                         }
                     })
                 }.padding(.top, 25)
-                
+
                 HStack {
                     Text("이번 주\n가장 핫한 지역")
                         .font(.bold24)
@@ -50,10 +50,10 @@ struct CommunityView: View {
                             }
                             .padding(.horizontal, 15)
                             .padding(.vertical, 15)
-                            
+
                             Spacer()
                             Button{
-                                
+
                             } label: {
                                 Image(systemName: "ellipsis")
                             }
@@ -72,8 +72,4 @@ struct CommunityView: View {
             }
         }
     }
-}
-
-#Preview {
-    CommunityView()
 }

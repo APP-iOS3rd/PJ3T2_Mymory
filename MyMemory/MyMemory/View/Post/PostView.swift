@@ -32,18 +32,34 @@ struct PostView: View {
     // property
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
-
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView {
+        ZStack {
+            ScrollView{
                 VStack(alignment: .leading){
-                    
                     //💁 메모하기 View, 사진 등록하기 View
                     Group {
                         addMemoSubView()
                             .environmentObject(viewModel)
-                        
-                        
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.bottom)
+                    
+                    // 💁 Tag 선택 View
+                    Group {
+                        SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
+                            .frame(maxWidth: .infinity)
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
+                    .padding(.bottom)
+                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal, 20)
+                    .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
+                    .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
+                    .padding(.bottom, 60)
+                    // 💁 사진 선택 View
+                    Group {
                         VStack(alignment: .leading, spacing: 10){
                             HStack {
                                 Text("사진 등록하기")
@@ -63,40 +79,25 @@ struct PostView: View {
                             dismiss()
                         }
                     }
-                    
-                    
-                    // 💁 Tag 선택 View
-                    Group {
-                        SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    
-                    .padding(.bottom)
-                    .buttonStyle(.borderedProminent)
-                    .padding(.horizontal, 20)
-                    .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
-                    .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                    .padding(.bottom, 60)
-                    
                     Spacer()
-                        
+                    
                 } //:VSTACK
-            
+                
             } //: ScrollView
             
             
             // 주소찾기 View: 하단 고정
-             
             Spacer()
             PostViewFooter()
                 .environmentObject(viewModel)
                 .edgesIgnoringSafeArea(.bottom)
         } //: VStack
+        
         .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
+        .padding(.bottom, 25)
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 presentLoginAlert = false
@@ -125,7 +126,7 @@ struct PostView: View {
             }
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView()
+            LoginView().environmentObject(AuthViewModel())
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
@@ -140,7 +141,7 @@ struct PostView: View {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }))
         })
-     
+        
         .customNavigationBar(
             centerView: {
                 Group {
@@ -154,7 +155,7 @@ struct PostView: View {
             leftView: {
                 Group {
                     if isEdit {
-                       BackButton()
+                        BackButton()
                     } else {
                         Button {
                             self.selected = 0
@@ -223,8 +224,7 @@ struct PostView: View {
                         })
                     }
                 }
-                
-            }, 
+            },
             backgroundColor: .bgColor3
         )
     }
