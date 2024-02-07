@@ -9,7 +9,7 @@ import SwiftUI
 import _MapKit_SwiftUI
 
 struct MainMapView: View {
-    @ObservedObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
+    @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
@@ -35,7 +35,13 @@ struct MainMapView: View {
                 TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
                     .onAppear(){
-                        mainMapViewModel.getCurrentAddress()
+                        //10초에 한번
+                        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { t in
+                            // 50미터 밖일 때
+                            if mainMapViewModel.dist > 50 {
+                                mainMapViewModel.getCurrentAddress()
+                            }
+                        }
                     }
                 HStack{
                     

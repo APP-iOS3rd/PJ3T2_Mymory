@@ -16,11 +16,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var cameraDistance: Double? = nil
     private let locationManager = CLLocationManager()
     private var firstLocationUpdated = false
+    private var addressOperation: Operation? = nil
     var firstLocation: CLLocation? {
         didSet{
             fetchMemos()
         }
-    }
+    }    
+    var dist: Double = 0
+
     @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @Published var location: CLLocation? {
         didSet {
@@ -29,8 +32,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 self.firstLocation = self.location
                 self.firstLocationUpdated = true
             } else {
-                let dist = firstLocation!.distance(from: self.location!)
-                self.isFarEnough = dist > 300 // 300미터 이상 갔을 때
+                DispatchQueue.main.async {
+                    self.dist = self.firstLocation!.distance(from: self.location!)
+                    self.isFarEnough = self.dist > 300 // 300미터 이상 갔을 때
+                }
             }
         }
     }
@@ -98,7 +103,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        getCurrentAddress()
+        self.addressOperation = BlockOperation(block: getCurrentAddress)
         self.cluster.delegate = self
     }
     func refreshMemos() {
@@ -193,15 +198,16 @@ extension MainMapViewModel {
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else {return}
+            //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
+            weakSelf.location = .init(latitude: location.coordinate.latitude,
+                                      longitude: location.coordinate.longitude)
+//            weakSelf.getCurrentAddress()
+            weakSelf.addressOperation?.start()
+        }
         let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] t in
-            DispatchQueue.main.async { [weak self] in
-                guard let weakSelf = self else {return}
-                //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
-                weakSelf.location = .init(latitude: location.coordinate.latitude,
-                                          longitude: location.coordinate.longitude)
-                
-                weakSelf.getCurrentAddress()
-            }
+           
         }
         
     }
@@ -315,6 +321,7 @@ extension MainMapViewModel {
     ///   - context: onMapCameraChange를 통해 확인할 수 있는 camera update context
     /// - Returns: void, 클러스터를 업데이트 하는 함수를 호출
     func cameraDidChange(boundWidth: Double, context: MapCameraUpdateContext) {
+        
         self.cameraDistance = context.camera.distance
         let contextWidth = context.rect.width
         updateCluster(mapRect: context.rect, zoomScale: Double(boundWidth/contextWidth))

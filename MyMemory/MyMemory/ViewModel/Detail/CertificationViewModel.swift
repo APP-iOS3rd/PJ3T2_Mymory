@@ -77,8 +77,6 @@ extension CertificationViewModel {
             guard let weakSelf = self else {return}
             weakSelf.location = .init(latitude: location.coordinate.latitude,
                                    longitude: location.coordinate.longitude)
-
-            weakSelf.getCurrentAddress()
         }
     }
     

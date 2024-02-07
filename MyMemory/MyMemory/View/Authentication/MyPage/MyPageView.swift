@@ -17,66 +17,86 @@ struct MyPageView: View {
     
     
     var body: some View {
+        ScrollViewReader { proxy in
+
         ZStack(alignment: .top) {
             Color.bgColor
-                .ignoresSafeArea()
-
-            ScrollView(.vertical, showsIndicators: false) {
-                MypageTopView()
-                    .padding(.horizontal, 14)
-
-                LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
-                    // 로그인 되었다면 로직 실행
-                    Section {
-
-                    if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                        let isCurrentUser = authViewModel.userSession?.uid == userId
+            //                .ignoresSafeArea()
+                VStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        MypageTopView()
+                            .padding(.horizontal, 14)
                         
-                        // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
-
-                        switch selectedIndex {
-                        case 0:
-                            createHeader()
-                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
-
-                        default:
-                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                        LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                            // 로그인 되었다면 로직 실행
+                            Section {
+                                
+                                if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+                                    let isCurrentUser = authViewModel.userSession?.uid == userId
+                                    
+                                    // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                                    
+                                    switch selectedIndex {
+                                    case 0:
+                                        createHeader()
+                                        ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                        
+                                    default:
+                                        MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                                        
+                                    }
+                                    
+                                    
+                                }
+                                else {
+                                    showLoginPrompt()
+                                }
+                                
+                            } header: {
+                                MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                           selectedIndex: $selectedIndex,
+                                           fullWidth: UIScreen.main.bounds.width,
+                                           spacing: 50,
+                                           horizontalInset: 91.5)
+                                .ignoresSafeArea(edges: .top)
+                                .frame(maxWidth: .infinity)
+                            }
                             
                         }
-                        
-                        
-                    }
-                    else {
-                        showLoginPrompt()
-                    }
-                        
-                    } header: {
-                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                   selectedIndex: $selectedIndex,
-                                   fullWidth: UIScreen.main.bounds.width,
-                                   spacing: 50,
-                                   horizontalInset: 91.5)
                         .frame(maxWidth: .infinity)
-                    }
+                        .refreshable {
+                            // Refresh logic
+                        }
+                        //                .safeAreaInset(edge: .top) {
+                        //                    Color.clear.frame(height: 0).background(Color.bgColor)
+                        //                }
+                        //                .safeAreaInset(edge: .bottom) {
+                        //                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                        //                }
+                    } //: scrollView
+                }
+                VStack{
+                    Spacer()
+                    
+                    HStack{
+                        Spacer()
+                        Button{
+                            withAnimation {
+                                proxy.scrollTo(0, anchor: .top)
 
+                            }
+                        }label: {
+                            Image(.scrollTop)
+                        }.padding([.trailing,.bottom] , 30)
+                    }
                 }
-                .frame(maxWidth: .infinity)
-                
-                .refreshable {
-                    // Refresh logic
-                }
-                .safeAreaPadding([.top,.bottom])
-//                .safeAreaInset(edge: .top) {
-//                    Color.clear.frame(height: 0).background(Color.bgColor)
-//                }
-//                .safeAreaInset(edge: .bottom) {
-//                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
-//                }
             }
+            
         }
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
+            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
@@ -115,7 +135,7 @@ struct MyPageView: View {
         }
         .padding(.top, 38)
     }
-
+    
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {
