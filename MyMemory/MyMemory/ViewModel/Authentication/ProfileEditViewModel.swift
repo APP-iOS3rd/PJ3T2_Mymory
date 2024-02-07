@@ -17,14 +17,14 @@ class ProfileEditViewModel: ObservableObject {
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
     @Published var name: String = AuthService.shared.currentUser?.name ?? ""
-    let db = Firestore.firestore()
     let storage = Storage.storage()
+    
     init() {}
     
     func fetchEditProfileImage(imageData: Data, uid: String) async {
         isLoading = true
         var imageURL: String = ""
-        
+        let storageRef = storage.reference()
         do {
             imageURL = try await uploadImage(imageData: imageData)
         } catch {
@@ -33,19 +33,27 @@ class ProfileEditViewModel: ObservableObject {
             return
         }
         
-        let userRef = db.collection("users").document(uid)
-        
+        let userRef = COLLECTION_USERS.document(uid)
+        var deleteImageURL: String?
         do {
+            let user = try await userRef.getDocument()
+            if user.exists {
+                deleteImageURL = user["profilePicture"] as? String
+            }
             try await userRef.updateData([
                 "profilePicture": imageURL
             ])
             try await userRef.updateData([
                 "name": name
             ])
+            if let deleteImage = deleteImageURL {
+                let deleteImageRef = storageRef.child("profile_images/\(deleteImage.getProfileImageUID())")
+                try await deleteImageRef.delete()
+            }
             editProfileImageOnUserDefaults(image: imageURL)
         } catch {
             isLoading = false
-            print("프로필사진 업데이트 실패")
+            print("프로필사진 업데이트 실패 \(error)")
         }
     }
     
