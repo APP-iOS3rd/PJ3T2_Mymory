@@ -106,10 +106,10 @@ struct MainMapView: View {
                 
                 //선택한 경우
                 ScrollView(.horizontal) {
-                    HStack(spacing: 20) {
+                    LazyHStack(spacing: 20) {
                         ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
                             VStack{
-                                Text("\(String(item.didLike))")
+//                                Text("\(String(item.didLike))")
                                 MemoCell(
                                     isVisible: true,
                                 
