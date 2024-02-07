@@ -222,28 +222,35 @@ extension MainMapViewModel {
                 memoList.sort(by: {$0.date > $1.date})
                 filteredMemoList.sort(by: {$0.date > $1.date})
             }
-            var filtered: [Profile] = []
-            for (idx, memo) in filteredMemoList.enumerated() {
-                if filteredProfilList[idx].id == memo.userUid {
-                    filtered.append(filteredProfilList[idx])
-                } else {
-                    if let new = filteredProfilList.first(where: {$0.id == memo.userUid}) {
-                        filtered.append(new)
+            if filteredProfilList.count == filteredProfilList.count {
+                var filtered: [Profile] = []
+
+                for (idx, memo) in filteredMemoList.enumerated() {
+                    if filteredProfilList[idx].id == memo.userUid {
+                        filtered.append(filteredProfilList[idx])
+                    } else {
+                        if let new = filteredProfilList.first(where: {$0.id == memo.userUid}) {
+                            filtered.append(new)
+                        }
                     }
                 }
+                filteredProfilList = filtered
             }
-            filteredProfilList = filtered
-            var temp: [Profile] = []
-            for (idx, memo) in memoList.enumerated() {
-                if memoWriterList[idx].id == memo.userUid {
-                    temp.append(memoWriterList[idx])
-                } else {
-                    if let new = memoWriterList.first(where: {$0.id == memo.userUid}) {
-                        temp.append(new)
+            if memoWriterList.count == memoList.count {
+                var temp: [Profile] = []
+
+                for (idx, memo) in memoList.enumerated() {
+                    if memoWriterList[idx].id == memo.userUid {
+                        temp.append(memoWriterList[idx])
+                    } else {
+                        if let new = memoWriterList.first(where: {$0.id == memo.userUid}) {
+                            temp.append(new)
+                        }
                     }
                 }
+                memoWriterList = temp
+
             }
-            memoWriterList = temp
         }
     }
     /// 메모가 선택되었을 때 action
