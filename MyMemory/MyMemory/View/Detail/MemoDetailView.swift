@@ -23,13 +23,17 @@ struct MemoDetailView: View {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                     ZStack {
                         if isFar && !isMyMemo {
-                            VStack {
+                            VStack(spacing: 10) {
                                 Image(systemName: "lock")
                                     .font(.largeTitle)
                                     .foregroundColor(.gray)
                                     .frame(width: 60, height: 60)
                                     .background(Color.bgColor2)
                                     .clipShape(Circle())
+                                
+                                Text("거리가 멀어서 볼 수 없어요.")
+                                    .font(.regular18)
+                                    .foregroundColor(Color.darkGray)
                             }
                         } else {
                             ScrollView {
@@ -113,54 +117,78 @@ struct MemoDetailView: View {
                             Spacer()
                             
                             HStack {
-                                Text("이전 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.startIndex {
+                                if selectedMemoIndex != memos.startIndex {
+                                    Text("이전 글...")
+                                        .font(.regular16)
+                                        .foregroundStyle(Color.gray)
+                                        .frame(width: 100, height: 60)
+                                        .onTapGesture {
                                             preButton()
                                         }
-                                    }
+                                }
+
                                 
                                 Spacer()
                                 
-                                Text("다음 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.endIndex - 1 {
+                                if selectedMemoIndex != memos.endIndex - 1 {
+                                    Text("다음 글...")
+                                        .foregroundStyle(Color.gray)
+                                        .font(.regular16)
+                                        .frame(width: 100, height: 60)
+                                        .onTapGesture {
                                             nextButton()
                                         }
-                                    }
+                                    
+                                }
                             }
                             .padding(.horizontal, 20)
                             
                             MoveUserProfileButton(viewModel: viewModel)
                         }
                         
-                        .onAppear {
-                            
-                            if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
-                                if loc >= 50 {
-                                    isFar = true
-                                } else {
-                                    isFar = false
-                                }
-                            }
-                            
-                            Task {
-                                do {
-                                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                                } catch {
-                                    // 에러 처리
-                                    print("Error checking my memo: \(error.localizedDescription)")
-                                }
-                            }
-                        }
+//                        .onAppear {
+//                            
+//                            if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
+//                                if loc >= 50 {
+//                                    isFar = true
+//                                } else {
+//                                    isFar = false
+//                                }
+//                            }
+//                            
+//                            Task {
+//                                do {
+//                                    viewModel.fetchMemoCreator(uid: memo.userUid)
+//                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+//                                } catch {
+//                                    // 에러 처리
+//                                    print("Error checking my memo: \(error.localizedDescription)")
+//                                }
+//                            }
+//                        }
                         
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
+                    .onAppear {
+                        
+                        if let loc = viewModel.location?.coordinate.distance(from: memo.location) {
+                            if loc >= 50 {
+                                isFar = true
+                            } else {
+                                isFar = false
+                            }
+                        }
+                        
+                        Task {
+                            do {
+                                viewModel.fetchMemoCreator(uid: memo.userUid)
+                                isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+                            } catch {
+                                // 에러 처리
+                                print("Error checking my memo: \(error.localizedDescription)")
+                            }
+                        }
+                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
