@@ -64,6 +64,7 @@
 		28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AD063A2B5FB42800F567F4 /* DetailView.swift */; };
 		28BB132A2B568DC3001A4C0C /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13292B568DC3001A4C0C /* ProgressBarView.swift */; };
 		28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB132D2B568E4C001A4C0C /* GIFView.swift */; };
+		28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = 28BB13302B568E96001A4C0C /* FLAnimatedImage */; };
 		28BB13352B568FE7001A4C0C /* ImgDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13342B568FE7001A4C0C /* ImgDetailView.swift */; };
 		28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13362B56900B001A4C0C /* MemoDetailView.swift */; };
 		28BB13392B569075001A4C0C /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13382B569075001A4C0C /* CertificationView.swift */; };
@@ -86,6 +87,7 @@
 		64DA7C772B720CC300A403B7 /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA7C712B720CC300A403B7 /* MyPageView.swift */; };
 		64DA7C792B720E2800A403B7 /* MapImageMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA7C782B720E2700A403B7 /* MapImageMarkerView.swift */; };
 		64F8EBCE2B5B890A007DE32E /* NavigationBarItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F8EBCD2B5B890A007DE32E /* NavigationBarItems.swift */; };
+		6A3F2E832B58BAC100A2E84A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6A3F2E822B58BAC100A2E84A /* FirebaseStorage */; };
 		6A7BA0462B51050F00BEE111 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0452B51050F00BEE111 /* SettingView.swift */; };
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
@@ -98,7 +100,12 @@
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
 		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
+		9D5077742B67653700460FD8 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077732B67653700460FD8 /* KakaoSDKAuth */; };
+		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
+		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
+		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
+		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
 		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
 		DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA12ABC32B58EA4F0093229C /* FileterListView.swift */; };
 		DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA131A472B4AB19700743FD0 /* MemoModel.swift */; };
@@ -111,6 +118,7 @@
 		DA2AD09F2B733ACB0052F69C /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0678BC2B71D0CF00CBD62A /* ReportViewModel.swift */; };
 		DA2AD0A12B733DDC0052F69C /* MyPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2AD0A02B733DDC0052F69C /* MyPageEmptyView.swift */; };
 		DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */; };
+		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
@@ -125,6 +133,7 @@
 		DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */; };
 		DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940A2B44090400DC3771 /* MainMapView.swift */; };
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
+		DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DAA71E942B677F0600157DA1 /* Kingfisher */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
@@ -132,6 +141,13 @@
 		DAB3155C2B43EFDD000357C7 /* MyMemoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3155B2B43EFDD000357C7 /* MyMemoryTests.swift */; };
 		DAB315662B43EFDD000357C7 /* MyMemoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB315652B43EFDD000357C7 /* MyMemoryUITests.swift */; };
 		DAB315682B43EFDD000357C7 /* MyMemoryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB315672B43EFDD000357C7 /* MyMemoryUITestsLaunchTests.swift */; };
+		DAB315782B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = DAB315772B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		DAB3157A2B43F48C000357C7 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = DAB315792B43F48C000357C7 /* FirebaseAppDistribution-Beta */; };
+		DAB3157C2B43F48C000357C7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAB3157B2B43F48C000357C7 /* FirebaseAuth */; };
+		DAB3157E2B43F48C000357C7 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = DAB3157D2B43F48C000357C7 /* FirebaseDatabase */; };
+		DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DAB3157F2B43F48C000357C7 /* FirebaseFirestore */; };
+		DAB4CE552B58B9CA00CBE177 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE542B58B9CA00CBE177 /* FirebaseAuthCombine-Community */; };
+		DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE562B58BAB300CBE177 /* FirebaseStorage */; };
 		DABA02F72B5F46AA009191DA /* ReportMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA02F62B5F46AA009191DA /* ReportMemoView.swift */; };
 		DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF026152B5E31130092A3B3 /* LoadingManager.swift */; };
 		DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAFBC45A2B72063700180E18 /* Localizable.xcstrings */; };
@@ -250,7 +266,6 @@
 		DA2AD09B2B7339E90052F69C /* MypageTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MypageTopView.swift; sourceTree = "<group>"; };
 		DA2AD09D2B7339F60052F69C /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA2AD0A02B733DDC0052F69C /* MyPageEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageEmptyView.swift; sourceTree = "<group>"; };
-		DA2EBDD52B73432D008A86C8 /* MyMemory.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = MyMemory.xcscheme; path = MyMemory.xcodeproj/xcshareddata/xcschemes/MyMemory.xcscheme; sourceTree = "<group>"; };
 		DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
@@ -292,6 +307,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DAB315442B43EFDB000357C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */,
+				DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */,
+				DAB315782B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */,
+				28BB13312B568E96001A4C0C /* FLAnimatedImage in Frameworks */,
+				DAB3157C2B43F48C000357C7 /* FirebaseAuth in Frameworks */,
+				9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */,
+				DAB3157E2B43F48C000357C7 /* FirebaseDatabase in Frameworks */,
+				6A3F2E832B58BAC100A2E84A /* FirebaseStorage in Frameworks */,
+				9D5077742B67653700460FD8 /* KakaoSDKAuth in Frameworks */,
+				9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */,
+				DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */,
+				DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */,
+				DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */,
+				DAB4CE552B58B9CA00CBE177 /* FirebaseAuthCombine-Community in Frameworks */,
+				DAB3157A2B43F48C000357C7 /* FirebaseAppDistribution-Beta in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB315542B43EFDD000357C7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,7 +654,6 @@
 		6A3F2E812B58BAC100A2E84A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DA2EBDD52B73432D008A86C8 /* MyMemory.xcscheme */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -873,27 +910,20 @@
 			);
 			name = MyMemory;
 			packageProductDependencies = (
+				DAB315772B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				DAB315792B43F48C000357C7 /* FirebaseAppDistribution-Beta */,
+				DAB3157B2B43F48C000357C7 /* FirebaseAuth */,
+				DAB3157D2B43F48C000357C7 /* FirebaseDatabase */,
+				DAB3157F2B43F48C000357C7 /* FirebaseFirestore */,
 				DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */,
+				28BB13302B568E96001A4C0C /* FLAnimatedImage */,
+				6A3F2E822B58BAC100A2E84A /* FirebaseStorage */,
 				9D5077732B67653700460FD8 /* KakaoSDKAuth */,
 				9D5077752B67653700460FD8 /* KakaoSDKCommon */,
 				9D5077772B67653700460FD8 /* KakaoSDKUser */,
 				DAA71E942B677F0600157DA1 /* Kingfisher */,
 				9DC3FD892B6A257C0008E97B /* GoogleSignIn */,
 				9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */,
-				DA2EBDC72B734304008A86C8 /* FirebaseAnalytics */,
-				DA2EBDC82B734304008A86C8 /* FirebaseAnalyticsOnDeviceConversion */,
-				DA2EBDC92B734304008A86C8 /* FirebaseAnalyticsSwift */,
-				DA2EBDCA2B734304008A86C8 /* FirebaseAnalyticsWithoutAdIdSupport */,
-				DA2EBDCB2B734304008A86C8 /* FirebaseAppCheck */,
-				DA2EBDCC2B734304008A86C8 /* FirebaseAuth */,
-				DA2EBDCD2B734304008A86C8 /* FirebaseDatabase */,
-				DA2EBDCE2B734304008A86C8 /* FirebaseFirestore */,
-				DA2EBDCF2B734304008A86C8 /* FirebaseFirestoreSwift */,
-				DA2EBDD02B734304008A86C8 /* FirebaseMessaging */,
-				DA2EBDD12B734304008A86C8 /* FirebaseRemoteConfig */,
-				DA2EBDD22B734304008A86C8 /* FirebaseRemoteConfigSwift */,
-				DA2EBDD32B734304008A86C8 /* FirebaseStorage */,
-				DA2EBDD42B734304008A86C8 /* FirebaseStorageCombine-Community */,
 			);
 			productName = MyMemory;
 			productReference = DAB315472B43EFDB000357C7 /* MyMemory.app */;
@@ -969,12 +999,12 @@
 			);
 			mainGroup = DAB3153E2B43EFDB000357C7;
 			packageReferences = (
+				DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 				28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
 				9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
-				DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = DAB315482B43EFDB000357C7 /* Products */;
 			projectDirPath = "";
@@ -1314,7 +1344,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemory/Resource/Configure/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "모아";
+				INFOPLIST_KEY_CFBundleDisplayName = "내모리";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
@@ -1369,7 +1399,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyMemory/Resource/Configure/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "모아";
+				INFOPLIST_KEY_CFBundleDisplayName = "내모리";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "";
@@ -1562,6 +1592,46 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.3;
+			};
+		};
+		DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.2;
+			};
+		};
+		DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flipboard/FLAnimatedImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.17;
+			};
+		};
+		9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.20.0;
+			};
+		};
+		9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1589,7 +1659,52 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		28BB13302B568E96001A4C0C /* FLAnimatedImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 28BB132F2B568E96001A4C0C /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;
+			productName = FLAnimatedImage;
+		};
+		6A3F2E822B58BAC100A2E84A /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		9D5077732B67653700460FD8 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		9D5077752B67653700460FD8 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		9D5077772B67653700460FD8 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+		9DC3FD892B6A257C0008E97B /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9DC3FD882B6A257C0008E97B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = KakaoMapsSDK_SPM;
+		};
+		DAA71E942B677F0600157DA1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		DAB315772B43F48C000357C7 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D5077722B67653700460FD8 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKAuth;
@@ -1654,45 +1769,15 @@
 			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		DA2EBDCF2B734304008A86C8 /* FirebaseFirestoreSwift */ = {
+		DAB4CE542B58B9CA00CBE177 /* FirebaseAuthCombine-Community */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestoreSwift;
+			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
 		};
-		DA2EBDD02B734304008A86C8 /* FirebaseMessaging */ = {
+		DAB4CE562B58BAB300CBE177 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
-		};
-		DA2EBDD12B734304008A86C8 /* FirebaseRemoteConfig */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfig;
-		};
-		DA2EBDD22B734304008A86C8 /* FirebaseRemoteConfigSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseRemoteConfigSwift;
-		};
-		DA2EBDD32B734304008A86C8 /* FirebaseStorage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = DAB315762B43F48C000357C7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		DA2EBDD42B734304008A86C8 /* FirebaseStorageCombine-Community */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA2EBDC62B73420C008A86C8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = "FirebaseStorageCombine-Community";
-		};
-		DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DA3C24F82B550FAA00425288 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
-			productName = KakaoMapsSDK_SPM;
-		};
-		DAA71E942B677F0600157DA1 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DAA71E932B677F0600157DA1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
