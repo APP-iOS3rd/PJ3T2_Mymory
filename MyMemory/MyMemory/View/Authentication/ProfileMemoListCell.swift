@@ -34,7 +34,6 @@ struct ProfileMemoListCell<ViewModel: ProfileViewModelProtocol>: View {
                             }
                         }
                     }
-                    
                     Text(memo.title)
                         .font(.bold16)
                         .foregroundStyle(Color.textColor)

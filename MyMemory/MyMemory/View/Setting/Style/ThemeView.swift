@@ -83,8 +83,6 @@ struct ThemeView: View {
                     }
                 }
             }
-             
-            
         }
         .customNavigationBar(
             centerView: {

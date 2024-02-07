@@ -9,7 +9,6 @@ import SwiftUI
 import _PhotosUI_SwiftUI
 
 struct ProfileEditView: View {
-    
     @StateObject var viewModel: ProfileEditViewModel = .init()
     @Environment(\.dismiss) var dismiss
     var existingProfileImage: String?
@@ -36,12 +35,14 @@ struct ProfileEditView: View {
                         } placeholder: {
                             ProgressView()
                         }.frame(width: 160, height: 160)
+                        
                     } else {
                         Circle()
                             .frame(width: 160, height: 160)
                     }
                 }
             }
+            
             .onChange(of: viewModel.selectedImage) { newValue in
                 Task {
                     if let data = try? await newValue?.loadTransferable(type: Data.self) {
@@ -70,7 +71,7 @@ struct ProfileEditView: View {
                     Text("이름")
                     TextField("이름을 입력하세요", text: $viewModel.name)
                 }
-             Rectangle()
+                Rectangle()
                     .frame(maxWidth: .infinity, maxHeight: 0.5)
                     .foregroundStyle(Color.textGray)
             }.padding(.top, 30)
@@ -87,9 +88,8 @@ struct ProfileEditView: View {
             .disabled(viewModel.selectedPhotoData == nil)
             .buttonStyle(Pill.standard)
             .padding(.top, 30)
-
-            Spacer()
             
+            Spacer()
         }
         .padding(.horizontal, 16)
         .customNavigationBar(

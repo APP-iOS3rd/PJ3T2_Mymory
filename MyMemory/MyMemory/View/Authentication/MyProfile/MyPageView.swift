@@ -3,35 +3,22 @@ import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
 
-enum SortedTypeOfMemo: String, CaseIterable, Identifiable {
-    case last = "최신순"
-    case like = "좋아요순"
-    case close = "가까운순"
-    
-    var id: SortedTypeOfMemo { self }
-}
 
-struct ProfileView: View {
+struct MyPageView: View {
     @State var selected: Int = 2
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthService = .shared
-    @State private var fromDetail = false
-
+    
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
-    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
-
-    // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
-    init(fromDetail: Bool, memoCreator: User) {
-           self._fromDetail = State(initialValue: fromDetail)
-           otherUserViewModel.fetchMemoCreatorProfile(fromDetail: fromDetail, memoCreator: memoCreator)
-    }
+    
+    @State var selectedIndex = 0
+    
     
     var body: some View {
         ZStack(alignment: .top) {
-            Color.bgColor
-                .edgesIgnoringSafeArea(.top)
+            Color.bgColor.edgesIgnoringSafeArea(.top)
             
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading) {
@@ -39,44 +26,50 @@ struct ProfileView: View {
                     if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
                         let isCurrentUser = authViewModel.userSession?.uid == userId
                         
-                        // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
-                        if fromDetail == true && otherUserViewModel.memoCreator.isCurrentUser == false  {
-                            OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
-                            createHeader(isCurrentUser: isCurrentUser)
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                        } else {
-                            MypageTopView() //
-                            createHeader(isCurrentUser: isCurrentUser)
+                        MypageTopView()
+                        createHeader()
+                        // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                   selectedIndex: $selectedIndex,
+                                   fullWidth: UIScreen.main.bounds.width,
+                                   spacing: 50,
+                                   horizontalInset: 91.5)
+                        .padding(.horizontal)
+                        switch selectedIndex {
+                        case 0:
                             
                             ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                            
+                            
+                        default:
+                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                            
                         }
-                    } else {
+                        
+                        
+                    }
+                    else {
                         showLoginPrompt()
                     }
                 }
-            
-            }
-            .refreshable {
-                // Refresh logic
-            }
-            .padding(.horizontal, 24)
-            .safeAreaInset(edge: .top) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.bgColor)
-            }
-            .safeAreaInset(edge: .bottom) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color.bgColor)
-                    .border(Color.black)
+                
+                
+                .refreshable {
+                    // Refresh logic
+                }
+                .padding(.horizontal, 14)
+                .safeAreaInset(edge: .top) {
+                    Color.clear.frame(height: 0).background(Color.bgColor)
+                }
+                .safeAreaInset(edge: .bottom) {
+                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                }
             }
         }
         .onAppear {
-            
             checkLoginStatus()
             authViewModel.fetchUser()
-           
+            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
@@ -87,7 +80,7 @@ struct ProfileView: View {
             }
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView().environmentObject(authViewModel)
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {
@@ -96,32 +89,26 @@ struct ProfileView: View {
         }
     }
     
-    private func createHeader(isCurrentUser: Bool) -> some View {
+    private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
-            if fromDetail {
-                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모").font(.semibold20).foregroundStyle(Color.textColor)
-            } else {
-                Text("내가 작성한 메모")
-                    .font(.semibold20).foregroundStyle(Color.textColor)
-            }
             Spacer()
             
             Button {
-                isCurrentUser ? mypageViewModel.isShowingOptions.toggle() : otherUserViewModel.isShowingOptions.toggle()
+                mypageViewModel.isShowingOptions.toggle()
             } label: {
                 Image(systemName: "slider.horizontal.3").foregroundStyle(Color.gray).font(.system(size: 24))
             }
-            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: isCurrentUser ? $mypageViewModel.isShowingOptions : $otherUserViewModel.isShowingOptions) {
+            .confirmationDialog("정렬하고 싶은 기준을 선택하세요.", isPresented: $mypageViewModel.isShowingOptions) {
                 ForEach(SortedTypeOfMemo.allCases, id: \.id) { type in
                     Button(type.rawValue) {
-                        isCurrentUser ? mypageViewModel.sortMemoList(type: type) : otherUserViewModel.sortMemoList(type: type)
+                        mypageViewModel.sortMemoList(type: type)
                     }
                 }
             }
-            .disabled(!isCurrentUser)
         }
         .padding(.top, 38)
     }
+
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {
@@ -153,3 +140,5 @@ struct ProfileView: View {
         }
     }
 }
+
+

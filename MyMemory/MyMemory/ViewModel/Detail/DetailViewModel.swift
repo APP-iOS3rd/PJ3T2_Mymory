@@ -28,6 +28,7 @@ class DetailViewModel: ObservableObject {
         user = AuthService.shared.currentUser // 현 로그인 사용자 가져오기
         AuthService.shared.fetchUser() // 사용자 정보 가져오기
         
+        
     }
     
     func fetchMemoCreator(uid: String) {
