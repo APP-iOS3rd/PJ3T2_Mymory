@@ -18,8 +18,8 @@ struct addMemoSubView: View {
         Group {
             VStack(alignment: .leading, spacing: 10){
                 HStack(alignment: .bottom){
-//                    Text("제목, 기록할 메모 입력")
-//                        .font(.bold20)
+
+                    
                     Spacer()
                     VStack(alignment:.trailing) {
                         Text(viewModel.memoShare ? "공유 하기" : "나만 보기")
@@ -31,28 +31,25 @@ struct addMemoSubView: View {
                             .toggleStyle(SwitchToggleStyle(tint: Color.blue))
                     }
                     .aspectRatio(contentMode: .fit)
-                }// HStack
+                } // HStack
                 
                 
                 TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
-                    .font(.semibold20)
-                //.padding(.horizontal, 10)
+                    .font(.userMainTextFont(baseSize: 20))
 
-             Divider()
                 // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
                 TextEditor(text: $viewModel.memoContents)
                     .padding(.horizontal, -4)
                     .scrollContentBackground(.hidden)
                     .frame(minHeight: minHeight, maxHeight: maxHeight)
                     .foregroundColor(.textColor)
+                    .font(.userMainTextFont(baseSize: 16))
                     .background(
                         Text(viewModel.memoContents.isEmpty ? "본문을 입력해주세요." : "")
                             .foregroundStyle(Color.placeHolder)
-                            .font(.semibold20)
+                            .font(.userMainTextFont(baseSize: 16))
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                             .padding(.vertical, 8)
-                          //  .zIndex(-1)
-
                         ,alignment: .topLeading
                     )
                 // 최대 1000자 까지만 허용

@@ -14,7 +14,9 @@ struct MemoDetailView: View {
     @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
     
+
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
+
 
     var body: some View {
         ScrollView(.horizontal) {
@@ -37,6 +39,7 @@ struct MemoDetailView: View {
                                         .font(.regular18)
                                         .foregroundColor(Color.darkGray)
                                 }
+ 
                             } else {
                                 ScrollView {
                                     VStack(alignment: .leading) {
@@ -60,11 +63,12 @@ struct MemoDetailView: View {
                                         .frame(maxWidth: .infinity)
                                         .aspectRatio(contentMode: .fit)
                                         .padding(.leading, 25)
+ 
                                         
                                         HStack{
                                             VStack(alignment: .leading, spacing: 6) {
                                                 Text(memo.title)
-                                                    .font(.bold20)
+                                                    .font(.userMainTextFont(baseSize: 20))
                                                 Text(memo.address)
                                                     .font(.regular14)
                                                     .foregroundStyle(Color.textGray)
@@ -104,7 +108,7 @@ struct MemoDetailView: View {
                                         Text(memo.description)
                                             .multilineTextAlignment(.leading)
                                             .padding(.top, 25)
-                                        
+                                            .font(.userMainTextFont(baseSize: 16))
                                             .padding(.horizontal, 25)
                                             .padding(.bottom, 70)
                                         Spacer()
@@ -112,9 +116,11 @@ struct MemoDetailView: View {
                                     //.padding(.top, 50)
                                     
                                 }
+ 
                             }
                         }
                         
+ 
                         VStack {
                             Spacer()
                             
@@ -129,6 +135,7 @@ struct MemoDetailView: View {
                                                 preButton()
                                             }
                                         }
+ 
                                 }
                                 Spacer()
                                 if selectedMemoIndex != memos.endIndex - 1 {
