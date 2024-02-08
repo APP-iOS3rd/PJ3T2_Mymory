@@ -267,6 +267,7 @@ class AuthViewModel: ObservableObject {
             }
             AuthService.shared.userSession = result!.user
             AuthService.shared.fetchUser()
+            UserDefaults.standard.set(result!.user.uid, forKey: "userId")
             print("로그인 완료")
         }
     }
