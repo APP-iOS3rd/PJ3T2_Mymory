@@ -492,27 +492,30 @@ struct MemoService {
         )
     }
     
-    
     /// 좋아요를 누르는 함수
     /// - Parameters:
     ///   - Memo : 현 사용자가 좋아요를 누를 메모
     /// - Returns: 에러를 리턴
-    func likeMemo(memo: Memo, completion: @escaping (Error?) -> Void) {
+    func likeMemo(memo: Memo) async {
         guard let uid = Auth.auth().currentUser?.uid, let memoID = memo.id else {
-            completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
             return
         }
-        
         /*
          COLLECTION_MEMO_LIKES 키 값으로 메모 uid 및에 좋아요 누른 사용자 uid들을 저장
          COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
          */
-        if memo.didLike {
-            COLLECTION_USER_LIKES.document(uid).updateData([String(memo.id ?? "") : FieldValue.delete()])
-            COLLECTION_MEMO_LIKES.document(memo.id ?? "").updateData([uid : FieldValue.delete()])
-        } else {
-            COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
-            COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
+        do {
+            if memo.didLike {
+                try await COLLECTION_USER_LIKES.document(uid).updateData([String(memoID ?? "") : FieldValue.delete()])
+                try await COLLECTION_MEMO_LIKES.document(memoID).updateData([uid : FieldValue.delete()])
+            } else {
+                try await COLLECTION_USER_LIKES.document(uid).setData([String(memo.id ?? "") : "LikeMemoUid"], merge: true)
+                try await COLLECTION_MEMO_LIKES.document(memo.id ?? "").setData([uid : "LikeUserUid"], merge: true)
+            }
+            let memocount = await self.likeMemoCount(memo: memo)
+            try await COLLECTION_MEMOS.document(memoID).updateData(["memoLikeCount": memocount])
+        }catch {
+            print(error.localizedDescription)
         }
         /*
          setData 메서드는 주어진 문서 ID에 대해 전체 문서를 설정하거나 대체합니다. 만약 특정 필드만 추가하거나 변경하려면 updateData 메서드를 사용할 수 있습니다.
@@ -522,7 +525,6 @@ struct MemoService {
          즉, 특정 필드만 추가하거나 변경하면서도 기존 필드를 유지할 수 있습니다. 만약 문서가 존재하지 않으면 새 문서를 생성합니다.
          */
     }
-    
     /// 좋아요 개수를 표시하는 함수
     /// - Parameters:
     ///   - memo : 해당 메모의 좋아요 총 개수를 표시하는 함수

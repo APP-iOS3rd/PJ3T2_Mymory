@@ -150,15 +150,15 @@ struct MemoCard: View {
                     }
                     if !self.memo.didLike {
                         self.memo.likeCount += 1
-                        MemoService.shared.likeMemo(memo: memo) { error in
-                            print(error?.localizedDescription)
+                        Task{@MainActor in
+                            await MemoService.shared.likeMemo(memo: memo)
                         }
                         memo.didLike = true
                         completion(.like)
                     } else {
                         self.memo.likeCount -= 1
-                        MemoService.shared.likeMemo(memo: memo) { error in
-                            print(error?.localizedDescription)
+                        Task{@MainActor in
+                            await MemoService.shared.likeMemo(memo: memo)
                         }
                         memo.didLike = false
                         completion(.like)
