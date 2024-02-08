@@ -61,7 +61,6 @@ struct MemoDetailView: View {
                                         .aspectRatio(contentMode: .fit)
                                         .padding(.leading, 25)
                                         
-                                        
                                         HStack{
                                             VStack(alignment: .leading, spacing: 6) {
                                                 Text(memo.title)
@@ -121,43 +120,32 @@ struct MemoDetailView: View {
                             
                             HStack {
                                 if selectedMemoIndex != memos.startIndex {
+                                    
                                     Text("이전 글...")
                                         .font(.regular16)
-                                        .foregroundStyle(Color.gray)
                                         .frame(width: 100, height: 60)
                                         .onTapGesture {
-                                            preButton()
+                                            if selectedMemoIndex != memos.startIndex {
+                                                preButton()
+                                            }
                                         }
                                 }
-                                
-                                
                                 Spacer()
-                                
                                 if selectedMemoIndex != memos.endIndex - 1 {
+                                    
                                     Text("다음 글...")
-                                        .foregroundStyle(Color.gray)
                                         .font(.regular16)
                                         .frame(width: 100, height: 60)
                                         .onTapGesture {
-                                            nextButton()
+                                            if selectedMemoIndex != memos.endIndex - 1 {
+                                                nextButton()
+                                            }
                                         }
-                                    
                                 }
                             }
                             .padding(.horizontal, 20)
                             
                             MoveUserProfileButton(viewModel: viewModel)
-                        }
-                        .onAppear {
-                            Task {
-                                do {
-                                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                                } catch {
-                                    // 에러 처리
-                                    print("Error checking my memo: \(error.localizedDescription)")
-                                }
-                            }
                         }
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)

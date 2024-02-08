@@ -89,10 +89,9 @@ class AuthViewModel: ObservableObject {
                     "email": result.user.email,
                     "profilePicture": ""
                 ]
-                COLLECTION_USERS.document(result.user.uid).setData(data) { _ in
-                    AuthService.shared.userSession = result.user
-                    AuthService.shared.fetchUser()
-                }
+                try await COLLECTION_USERS.document(result.user.uid).setData(data as [String : Any])
+                AuthService.shared.userSession = result.user
+                AuthService.shared.fetchUser()
                 print("계정생성 성공")
             } else {
                 AuthService.shared.userSession = result.user

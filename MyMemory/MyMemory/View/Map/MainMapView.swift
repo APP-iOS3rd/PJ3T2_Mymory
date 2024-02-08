@@ -16,7 +16,8 @@ struct MainMapView: View {
     @State var showingAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
-    @StateObject var noti = PushNotification.shared
+    @ObservedObject var noti = PushNotification.shared
+    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -34,7 +35,13 @@ struct MainMapView: View {
                 TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
                     .onAppear(){
-                        mainMapViewModel.getCurrentAddress()
+                        //10초에 한번
+                        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { t in
+                            // 50미터 밖일 때
+                            if mainMapViewModel.dist > 50 {
+                                mainMapViewModel.getCurrentAddress()
+                            }
+                        }
                     }
                 HStack{
                     
@@ -107,7 +114,7 @@ struct MainMapView: View {
                 //선택한 경우
                 ScrollView(.horizontal) {
                     LazyHStack(spacing: 20) {
-                        ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
+                        ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, $mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, $mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
                             VStack{
 //                                Text("\(String(item.didLike))")
                                 MemoCell(
@@ -116,11 +123,11 @@ struct MainMapView: View {
                                     location: $mainMapViewModel.location,
                                     selectedMemoIndex: index,
                                     memo: item,
-                                    memos: mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList
+                                    memos: mainMapViewModel.filterList.isEmpty ? $mainMapViewModel.memoList : $mainMapViewModel.filteredMemoList
                                 )
                                 .environmentObject(mainMapViewModel)
                                 .onTapGesture {
-                                    mainMapViewModel.memoDidSelect(memo: item)
+                                    mainMapViewModel.memoDidSelect(memo: item.wrappedValue)
                                 }
                                 .frame(width: UIScreen.main.bounds.size.width * 0.84)
                                 .padding(.leading, 12)
@@ -133,7 +140,7 @@ struct MainMapView: View {
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance) { logout in
+                MainSectionsView(sortDistance: $sortDistance, otherUserViewModel: otherUserViewModel) { logout in
                     if logout {
                         self.presentLoginView = true
                     }
