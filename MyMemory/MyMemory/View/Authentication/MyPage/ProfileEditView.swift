@@ -61,11 +61,8 @@ struct ProfileEditView: View {
                         viewModel.selectedPhotoData = data
                     }
                 }
-            }.onChange(of: viewModel.isEditionSuccessd) { newValue in
-                if newValue {
-                    dismiss()
-                }
             }
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text("이름")
@@ -83,6 +80,8 @@ struct ProfileEditView: View {
                     .padding(.top, 10)
             }
             .padding(.top, 52)
+            
+            Spacer()
         }
         .padding(.horizontal, 16)
         .padding(.top, 34)
@@ -114,12 +113,17 @@ struct ProfileEditView: View {
                 .alert(alertMessage, isPresented: $isShowingAlert) {
                     Button("확인", role: .cancel) {
                         if viewModel.isEditionSuccessd {
-                            dismiss()
+                            dismiss.callAsFunction()
                         }
                     }
                 }
             },
             backgroundColor: Color.bgColor
         )
+        .overlay {
+            if self.viewModel.isLoading {
+                LoadingView()
+            }
+        }
     }
 }
