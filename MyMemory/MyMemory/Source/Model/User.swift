@@ -39,3 +39,11 @@ struct Profile: Identifiable, Decodable {
         return AuthService.shared.userSession?.uid == id
     }
 }
+enum ProfileEditErrorType: Error {
+    case changeUserName
+    case uploadUserProfileImage
+    case updateProfileImage
+    case deleteUserProfileImage
+    case invalidImageData
+    case imageCompressionFail
+}
