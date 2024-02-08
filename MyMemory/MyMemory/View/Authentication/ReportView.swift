@@ -36,7 +36,6 @@ struct ReportView: View {
                             alertTitle = "신고 실패"
                             self.alertMessage = errorMessage
                         } else {
-                            print("알러트 성공")
                             alertTitle = "신고 완료"
                             self.alertMessage = "신고 내용은 24시간 이내에 조치됩니다."
                         }

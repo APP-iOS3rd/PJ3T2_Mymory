@@ -16,11 +16,14 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var cameraDistance: Double? = nil
     private let locationManager = CLLocationManager()
     private var firstLocationUpdated = false
+    private var addressOperation: Operation? = nil
     var firstLocation: CLLocation? {
         didSet{
             fetchMemos()
         }
-    }
+    }    
+    var dist: Double = 0
+
     @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @Published var location: CLLocation? {
         didSet {
@@ -29,11 +32,13 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 self.firstLocation = self.location
                 self.firstLocationUpdated = true
             } else {
-                let dist = firstLocation!.distance(from: self.location!)
-                self.isFarEnough = dist > 300 // 300미터 이상 갔을 때
+                DispatchQueue.main.async {
+                    self.dist = self.firstLocation!.distance(from: self.location!)
+                    self.isFarEnough = self.dist > 300 // 300미터 이상 갔을 때
+                }
             }
         }
-    }    
+    }
     @Published var direction: Double = 0
     @Published var isUserTracking: Bool = true
     @Published var isFarEnough = false
@@ -76,7 +81,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var searchTxt: String = ""
     @Published var myCurrentAddress: String? = nil
     @Published var isLoading = false
-    @Published var selectedAddress: String? = nil    
+    @Published var selectedAddress: String? = nil
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -98,7 +103,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         @unknown default:
             locationConfig()
         }
-        getCurrentAddress()
+        self.addressOperation = BlockOperation(block: getCurrentAddress)
         self.cluster.delegate = self
     }
     func refreshMemos() {
@@ -121,7 +126,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                         self.memoList[index].didLike = didLike
                     }
                 }
-
+                
                 cluster.addMemoList(memos: memoList)
             } catch {
                 print("Error fetching memos: \(error)")
@@ -198,9 +203,13 @@ extension MainMapViewModel {
             //            if weakSelf.location?.distance(from: location) ?? 10 > 10.0 {} // 새 중심과의 거리
             weakSelf.location = .init(latitude: location.coordinate.latitude,
                                       longitude: location.coordinate.longitude)
-            
-            weakSelf.getCurrentAddress()
+//            weakSelf.getCurrentAddress()
+            weakSelf.addressOperation?.start()
         }
+        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] t in
+           
+        }
+        
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         direction = newHeading.trueHeading * Double.pi / 180.0
@@ -222,28 +231,35 @@ extension MainMapViewModel {
                 memoList.sort(by: {$0.date > $1.date})
                 filteredMemoList.sort(by: {$0.date > $1.date})
             }
-            var filtered: [Profile] = []
-            for (idx, memo) in filteredMemoList.enumerated() {
-                if filteredProfilList[idx].id == memo.userUid {
-                    filtered.append(filteredProfilList[idx])
-                } else {
-                    if let new = filteredProfilList.first(where: {$0.id == memo.userUid}) {
-                        filtered.append(new)
+            if filteredProfilList.count == filteredProfilList.count {
+                var filtered: [Profile] = []
+                
+                for (idx, memo) in filteredMemoList.enumerated() {
+                    if filteredProfilList[idx].id == memo.userUid {
+                        filtered.append(filteredProfilList[idx])
+                    } else {
+                        if let new = filteredProfilList.first(where: {$0.id == memo.userUid}) {
+                            filtered.append(new)
+                        }
                     }
                 }
+                filteredProfilList = filtered
             }
-            filteredProfilList = filtered
-            var temp: [Profile] = []
-            for (idx, memo) in memoList.enumerated() {
-                if memoWriterList[idx].id == memo.userUid {
-                    temp.append(memoWriterList[idx])
-                } else {
-                    if let new = memoWriterList.first(where: {$0.id == memo.userUid}) {
-                        temp.append(new)
+            if memoWriterList.count == memoList.count {
+                var temp: [Profile] = []
+                
+                for (idx, memo) in memoList.enumerated() {
+                    if memoWriterList[idx].id == memo.userUid {
+                        temp.append(memoWriterList[idx])
+                    } else {
+                        if let new = memoWriterList.first(where: {$0.id == memo.userUid}) {
+                            temp.append(new)
+                        }
                     }
                 }
+                memoWriterList = temp
+                
             }
-            memoWriterList = temp
         }
     }
     /// 메모가 선택되었을 때 action
@@ -305,6 +321,7 @@ extension MainMapViewModel {
     ///   - context: onMapCameraChange를 통해 확인할 수 있는 camera update context
     /// - Returns: void, 클러스터를 업데이트 하는 함수를 호출
     func cameraDidChange(boundWidth: Double, context: MapCameraUpdateContext) {
+        
         self.cameraDistance = context.camera.distance
         let contextWidth = context.rect.width
         updateCluster(mapRect: context.rect, zoomScale: Double(boundWidth/contextWidth))
@@ -352,7 +369,7 @@ extension MainMapViewModel {
 extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
         return abs(lhs.latitude - rhs.latitude) < 0.0001 && abs(lhs.longitude - rhs.longitude) < 0.0001
-    }    
+    }
     func squaredDistance(to : CLLocationCoordinate2D) -> Double {
         return (self.latitude - to.latitude) * (self.latitude - to.latitude) + (self.longitude - to.longitude) * (self.longitude - to.longitude)
     }

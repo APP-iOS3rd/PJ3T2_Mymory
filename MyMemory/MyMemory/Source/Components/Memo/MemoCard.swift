@@ -11,6 +11,7 @@ enum actionType {
     case follow
     case like
     case unAuthorized
+    case navigate(profile: Profile)
 }
 struct MemoCard: View {
     @Binding var memo: Memo
@@ -34,10 +35,15 @@ struct MemoCard: View {
             } else {
                 HStack {
                     if let url = profile.profilePicture {
-                        KFImage(URL(string: url))
-                            .resizable()
-                            .frame(width: 37,height: 37)
-                            .cornerRadius(19)
+                        Button /* NavigationLink */ {
+                            completion(.navigate(profile: profile))
+                        } label: {
+                            KFImage(URL(string: url))
+                                .resizable()
+                                .frame(width: 37,height: 37)
+                                .contentShape(Circle())
+                                .cornerRadius(19)
+                        }
                     } else {
                         Circle()
                             .frame(width: 37,height: 37)
@@ -86,14 +92,18 @@ struct MemoCard: View {
                 .background(Color.deepGray)
                 .padding(.top, 13)
                 .padding(.horizontal, 20)
-
+                
             }
-            Text("\(memo.description)")
-                .multilineTextAlignment(.leading)
-                .font(.medium14)
-                .foregroundColor(.textDarkColor)
-                .padding(.top, 15)
-                .padding(.horizontal, 20)
+            HStack {
+                Text("\(memo.description)")
+                    .multilineTextAlignment(.leading)
+                    .font(.medium14)
+                    .foregroundColor(.textDarkColor)
+                
+                Spacer()
+            }
+            .padding(.top, 15)
+            .padding(.horizontal, 20)
             HStack {
                 if self.isTagExpended {
                     ForEach(memo.tags, id: \.self) { id in
@@ -113,7 +123,6 @@ struct MemoCard: View {
                         .padding(.horizontal,10)
                         .background(Color.backgroundColor)
                         .cornerRadius(3, corners: .allCorners)
-                        .padding(.horizontal, 20)
                     if memo.tags.count > 1 {
                         Text("+\(memo.tags.count - 1)")
                             .font(.medium12)
@@ -127,11 +136,12 @@ struct MemoCard: View {
                                     self.isTagExpended = true
                                 }
                             }
-                            .padding(.horizontal, 20)
                     }
                 }
             }
             .padding(.top, 15)
+            .padding(.horizontal, 20)
+
             HStack {
                 Button {
                     if AuthService.shared.currentUser == nil {
@@ -178,7 +188,7 @@ struct MemoCard: View {
                     .font(.medium12)
                     .padding(.leading,5)
             }.padding(.horizontal, 20)
-            .padding(.top, 15)
+                .padding(.top, 15)
             HStack {
                 VStack(alignment:.leading) {
                     Text("\(memo.title)")
@@ -208,6 +218,7 @@ struct MemoCard: View {
                     .stroke()
                     .foregroundStyle(Color(hex: "#E9E9E9"))
             ).padding(.horizontal, 20)
+            
         }.padding(20)
             .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {

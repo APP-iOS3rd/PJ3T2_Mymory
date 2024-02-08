@@ -16,6 +16,7 @@ class ProfileEditViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
+    @Published var currentName: String = AuthService.shared.currentUser?.name ?? ""
     @Published var name: String = AuthService.shared.currentUser?.name ?? ""
     let db = Firestore.firestore()
     let storage = Storage.storage()

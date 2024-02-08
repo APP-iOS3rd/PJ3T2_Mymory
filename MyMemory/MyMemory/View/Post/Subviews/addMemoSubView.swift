@@ -53,7 +53,7 @@ struct addMemoSubView: View {
                         ,alignment: .topLeading
                     )
                 // 최대 1000자 까지만 허용
-                    .onChange(of: viewModel.memoContents) { newValue in
+                    .onChange(of: viewModel.memoContents) { _, newValue in
                         // Limit text input to maxCharacterCount
                         if newValue.count > maxCharacterCount {
                             viewModel.memoContents = String(newValue.prefix(maxCharacterCount))
