@@ -56,6 +56,7 @@ class AuthViewModel: ObservableObject {
 
     
     init() {
+
         userSession = Auth.auth().currentUser
         UserApi.shared.unlink {(error) in
             if let error = error {
@@ -283,18 +284,6 @@ class AuthViewModel: ObservableObject {
             AuthService.shared.userSession = result!.user
             AuthService.shared.fetchUser()
             print("로그인 완료")
-        }
-    }
-    
-    func fetchAppleUser() {
-        guard let uid = userSession?.uid else { return }
-        print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
-            guard let user = try? snapshot?.data(as: User.self) else { return }
-            
-            self?.currentUser = user
-            UserDefaults.standard.set(user.id, forKey: "userId")
-            //  print(user)
         }
     }
     

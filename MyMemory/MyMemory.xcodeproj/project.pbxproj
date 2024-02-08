@@ -102,6 +102,7 @@
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
 		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
+		9D3A679B2B74A80E0080894A /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */; };
 		9D5077742B67653700460FD8 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077732B67653700460FD8 /* KakaoSDKAuth */; };
 		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
@@ -258,6 +259,7 @@
 		6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMemoList.swift; sourceTree = "<group>"; };
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSocialRegisterView.swift; sourceTree = "<group>"; };
 		9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialRegisterView.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				01E6A6382B46813E0061F08C /* LoginView.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
 				9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */,
+				9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */,
 				6A5519F52B56AA2A0028665D /* ProfileEditView.swift */,
 			);
 			path = Authentication;
@@ -1075,6 +1078,7 @@
 				0180F62B2B6CCAD000FECAF6 /* FontView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,
+				9D3A679B2B74A80E0080894A /* GoogleSocialRegisterView.swift in Sources */,
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
 				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,

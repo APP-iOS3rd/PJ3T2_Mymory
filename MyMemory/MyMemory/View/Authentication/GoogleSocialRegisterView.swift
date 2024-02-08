@@ -1,9 +1,11 @@
 //
-//  SocialRegisterView.swift
+//  GoogleSocialRegisterView.swift
 //  MyMemory
 //
-//  Created by hyunseo on 2/6/24.
+//  Created by hyunseo on 2/8/24.
 //
+
+import SwiftUI
 
 import SwiftUI
 import Photos
@@ -11,11 +13,11 @@ import PhotosUI
 import AuthenticationServices
 import FirebaseAuth
 
-struct SocialRegisterView: View {
+struct GoogleSocialRegisterView: View {
     
     @EnvironmentObject var viewModel : AuthViewModel
-    @Binding var appleCredential: ASAuthorizationAppleIDCredential?
-    @State private var isActive: Bool = false
+    @Binding var googleCredential: AuthCredential?
+    @State private var isItActive: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -153,10 +155,15 @@ struct SocialRegisterView: View {
                     Spacer(minLength: 32)
                     Button(action: {
                         if viewModel.checkIfCanSocialRegister() {
-                            print("애플유저입니다ㅂㄴ")
-                            viewModel.authenticate(credential: self.appleCredential!)
+                               Task {
+                                   print("구글 유저 입니다")
+                                       if let alertTitle = await self.viewModel.loginWithGoogle(credential: googleCredential!) {
+                                           print(alertTitle)
+                                   }
+                               }
                             print("Register Completed")
-                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                            
                         } else {
                             print("Register failed")
                         }
@@ -167,15 +174,11 @@ struct SocialRegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
-                    .alert("로그인 완료.", isPresented: $isActive) {
-                        Button("확인", role: .cancel) {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }
-                    }
                 }
 //                .fullScreenCover(isPresented: $isItActive) {
 //                    MainTabView()
 //                }
+                    
             }
         }
         .onAppear {
@@ -192,6 +195,7 @@ struct SocialRegisterView: View {
     }
 }
 
+
 //#Preview {
-//    SocialRegisterView()
+//    GoogleSocialRegisterView()
 //}
