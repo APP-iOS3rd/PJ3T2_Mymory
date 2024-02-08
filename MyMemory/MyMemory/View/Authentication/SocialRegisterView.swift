@@ -9,12 +9,16 @@ import SwiftUI
 import Photos
 import PhotosUI
 import AuthenticationServices
+import FirebaseAuth
 
 struct SocialRegisterView: View {
     
     @EnvironmentObject var viewModel : AuthViewModel
     @Binding var appleCredential: ASAuthorizationAppleIDCredential?
-    @State private var isActive: Bool = false
+    @Binding var googleCredential: AuthCredential?
+    @Binding var isAppleUser: Bool
+    @State private var isItActive: Bool = false
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
@@ -150,12 +154,25 @@ struct SocialRegisterView: View {
                     }
                     Spacer(minLength: 32)
                     Button(action: {
-                        
+                        print("애플 유저인가 : \(isAppleUser)")
+                        print("구글 유저인가 : \(isAppleUser)")
+                        print("유저 이메일 확인 : \(isAppleUser)")
                         if viewModel.checkIfCanSocialRegister() {
-                            print("check this \(viewModel.name) \(viewModel.email)")
-                            viewModel.authenticate(credential: self.appleCredential!)
+                            if isAppleUser {
+                                print("애플유저입니다ㅂㄴ")
+                                viewModel.authenticate(credential: self.appleCredential!)
+                            } else {
+                                Task {
+                                    print("구글 유저 입니다")
+                                        if let alertTitle = await self.viewModel.loginWithGoogle(credential: googleCredential!) {
+                                            print(alertTitle)
+                                            return
+                                    }
+                                }
+                            }
                             print("Register Completed")
-                            self.isActive = true
+                            self.isItActive = true
+                            
                         } else {
                             print("Register failed")
                         }
@@ -167,7 +184,7 @@ struct SocialRegisterView: View {
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
                 }
-                .fullScreenCover(isPresented: $isActive) {
+                .fullScreenCover(isPresented: $isItActive) {
                     MainTabView()
                 }
                     

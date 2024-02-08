@@ -43,6 +43,7 @@ class AuthViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var imageSelected: Bool = false
     @Published var selectedImageData: Data? = nil
+    @Published var isActivce : Bool = false
 
     
     @Published var showPrivacyPolicy = false
@@ -106,11 +107,12 @@ class AuthViewModel: ObservableObject {
     
     func checkUserEmail(email: String) async -> Bool {
         do {
-            let querySnapshot = try await Firestore.firestore().collection("users")
-                .whereField("email", isEqualTo: email).getDocuments()
+            print("해당유저 이메일 : \(email)")
             if email == "emailnotfound" {
                 return false
             }
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("email", isEqualTo: email).getDocuments()
             if querySnapshot.isEmpty {
                 return true
             } else {
@@ -165,8 +167,6 @@ class AuthViewModel: ObservableObject {
                     return
                 }
                 ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
-                    
-                    
                     let data = [
                         "id" : user.uid,
                         "name": self.name,

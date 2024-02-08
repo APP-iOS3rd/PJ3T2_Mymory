@@ -33,7 +33,8 @@ struct LoginView: View {
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
     @State var appleCredential: ASAuthorizationAppleIDCredential?
-    
+    @State var googleCredential: AuthCredential?
+    @State var isAppleUser: Bool = false
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -147,7 +148,6 @@ struct LoginView: View {
                 
                 // MARK: - 소셜 로그인 버튼
                 VStack {
-                    
                     Button {
                         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
                         
@@ -164,14 +164,30 @@ struct LoginView: View {
                                       let idToken = user.idToken else { return }
                                 
                                 let accessToken = user.accessToken
-                                
-                                let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                viewModel.email = user.profile?.email ?? "이메일이 없습니다"
+                                print("유저 이메일 입니다 \(viewModel.email)")
+                                googleCredential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                print("구글 확인 1")
                                 Task {
-                                    if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
-                                        print(alertTitle)
-                                        return
+                                    print("구글 확인 2")
+                                    let isCheckNewUser = await viewModel.checkUserEmail(email: viewModel.email)
+                                    print("구글 확인 3")
+                                    if isCheckNewUser {
+                                        print("구글 확인 4")
+                                        isAppleUser = false
+                                        isNewUser = true
+                                        print("구글 확인 5")
                                     } else {
-                                        presentationMode.wrappedValue.dismiss()
+                                        print("구글 확인 6")
+                                        if let alertTitle = await self.viewModel.loginWithGoogle(credential: googleCredential!) {
+                                            print(alertTitle)
+                                            print("구글 확인 7")
+                                            presentationMode.wrappedValue.dismiss()
+                                            return
+                                        } else {
+                                            presentationMode.wrappedValue.dismiss()
+                                            print("구글 확인 9")
+                                        }
                                     }
                                 }
                                 
@@ -210,19 +226,23 @@ struct LoginView: View {
                                 default:
                                     break
                                 }
+                                print("시도중인 애플로그인 유저의 이메일입니다 \(self.viewModel.email)")
                                 Task {
                                     self.appleCredential = credential
                                     let isCheckNewUser = await viewModel.checkUserEmail(email: viewModel.email)
+                                    print("애플유저 이메일 : \(viewModel.email)")
                                     if isCheckNewUser {
                                         self.isNewUser = true
-                                        print("나오지마라 나오지마라")
+                                        self.isAppleUser = true
+                                        print("신규 애플로그인 유저")
                                     } else {
                                         self.viewModel.authenticate(credential: credential)
-                                        self.isActive = true
                                         presentationMode.wrappedValue.dismiss()
+                                        print("기존 애플로그인 유저")
                                     }
                                 }
                             case .failure(let error):
+                                print("무브값 입니다 애플 2\(isActive)")
                                 print(error.localizedDescription)
                                 print("error")
                             }
@@ -277,9 +297,9 @@ struct LoginView: View {
             .fullScreenCover(isPresented: $isActive) {
                 MainTabView()
             }
-            .fullScreenCover(isPresented: $isNewUser) {
-                SocialRegisterView(appleCredential: $appleCredential)
-            }
+//            .fullScreenCover(isPresented: $isNewUser) {
+//                SocialRegisterView(appleCredential: $appleCredential, googleCredential: $googleCredential, isAppleUser: $isAppleUser)
+//            }
             .customNavigationBar(
                 centerView: {
                     Text("")
@@ -292,6 +312,9 @@ struct LoginView: View {
                 },
                 backgroundColor: .bgColor3
             )
+            .navigationDestination(isPresented: $isNewUser) {
+                SocialRegisterView(appleCredential: $appleCredential, googleCredential: $googleCredential, isAppleUser: $isAppleUser)
+            }
         }
     }
 }
