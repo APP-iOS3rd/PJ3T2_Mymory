@@ -107,6 +107,7 @@ struct ProfileEditView: View {
                         .font(.semibold17)
                         .foregroundStyle(Color.textColor)
                 }
+                .disabled(viewModel.selectedPhotoData == nil && viewModel.name == viewModel.currentName)
                 .alert(alertMessage, isPresented: $isShowingAlert) {
                     Button("확인", role: .cancel) {
                         if viewModel.isEditionSuccessd {
