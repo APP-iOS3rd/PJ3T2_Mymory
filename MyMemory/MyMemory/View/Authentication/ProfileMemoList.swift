@@ -39,15 +39,17 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                 // 1. 로그인 되어있는지 체크
                                 // 2. 뷰모델에 따라 알맞은 로직을 실행
                                 if let userId = UserDefaults.standard.string(forKey: "userId") {
-                                    if let mypageViewModel = viewModel as? MypageViewModel {
-                                        self.isLoadingFetchMemos = true
-                                        await mypageViewModel.pagenate(userID: userId)
-                                        self.isLoadingFetchMemos = false
-                                    } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
-                                        self.isLoadingFetchMemos = true
-                                        let userId = otherUserViewModel.memoCreator.id?.description
-                                        await otherUserViewModel.pagenate(userID: userId ?? "")
-                                        self.isLoadingFetchMemos = false
+                                    if i == viewModel.memoList.count - 1 {
+                                        if let mypageViewModel = viewModel as? MypageViewModel {
+                                            self.isLoadingFetchMemos = true
+                                            await mypageViewModel.pagenate(userID: userId)
+                                            self.isLoadingFetchMemos = false
+                                        } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
+                                            self.isLoadingFetchMemos = true
+                                            let userId = otherUserViewModel.memoCreator.id?.description
+                                            await otherUserViewModel.pagenate(userID: userId ?? "")
+                                            self.isLoadingFetchMemos = false
+                                        }
                                     }
                                 }
                             }

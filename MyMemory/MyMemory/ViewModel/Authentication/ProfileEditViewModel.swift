@@ -18,45 +18,65 @@ class ProfileEditViewModel: ObservableObject {
     @Published var selectedPhotoData: Data? = nil
     @Published var currentName: String = AuthService.shared.currentUser?.name ?? ""
     @Published var name: String = AuthService.shared.currentUser?.name ?? ""
-    let db = Firestore.firestore()
     let storage = Storage.storage()
+    
     init() {}
     
-    func fetchEditProfileImage(imageData: Data, uid: String) async {
+    func fetchEditProfileImage(imageData: Data, uid: String) async -> Result<Bool, ProfileEditErrorType> {
         isLoading = true
         var imageURL: String = ""
-        
+        let storageRef = storage.reference()
         do {
-            imageURL = try await uploadImage(imageData: imageData)
+            let result = try await uploadImage(imageData: imageData)
+            switch result {
+            case .success(let success):
+                imageURL = success
+            case .failure(_):
+                return .failure(.uploadUserProfileImage)
+            }
         } catch {
             print("이미지 불러오기 실패")
             isLoading = false
-            return
+            return .failure(.uploadUserProfileImage)
         }
         
-        let userRef = db.collection("users").document(uid)
-        
+        let userRef = COLLECTION_USERS.document(uid)
+        var deleteImageURL: String?
         do {
+            let user = try await userRef.getDocument()
+            if user.exists {
+                deleteImageURL = user["profilePicture"] as? String
+            }
             try await userRef.updateData([
                 "profilePicture": imageURL
             ])
             try await userRef.updateData([
                 "name": name
             ])
-            editProfileImageOnUserDefaults(image: imageURL)
+            if let deleteImage = deleteImageURL {
+                let deleteImageRef = storageRef
+                                        .child("profile_images/\(deleteImage.getProfileImageUID())")
+                do {
+                    try await deleteImageRef.delete()
+                } catch {
+                    return .failure(.deleteUserProfileImage)
+                }
+            }
+            return .success(true)
         } catch {
             isLoading = false
-            print("프로필사진 업데이트 실패")
+            print("프로필사진 업데이트 실패 \(error)")
+            return .failure(.updateProfileImage)
         }
     }
     
-    func uploadImage(imageData: Data) async throws -> String {
+    func uploadImage(imageData: Data) async throws -> Result<String, ProfileEditErrorType> {
         guard let image = UIImage(data: imageData) else {
-            throw NSError(domain: "Invalid image data", code: 0, userInfo: nil)
+            return .failure(.invalidImageData)
         }
         
         guard let compressedImageData = image.jpegData(compressionQuality: 0.2) else {
-            throw NSError(domain: "Image compression failed.", code: 0, userInfo: nil)
+            return .failure(.imageCompressionFail)
         }
         
         let storageRef = storage.reference()
@@ -73,29 +93,81 @@ class ProfileEditViewModel: ObservableObject {
                 print("Image uploaded with URL: \(downloadURL.absoluteString)")
                 isLoading = false
                 isEditionSuccessd = true
-                return downloadURL.absoluteString
+                return .success(downloadURL.absoluteString)
             } catch {
                 print("Retrying to get download URL...")
                 try await Task.sleep(nanoseconds: 1_000_000_000) // 1초 대기
                 isLoading = false
             }
         }
-        throw URLError(.cannotFindHost) // 적절한 에러 처리 필요    }
+        return .failure(.uploadUserProfileImage)
     }
     
-    func editProfileImageOnUserDefaults(image: String) {
-//        if let savedData = UserDefaults.standard.object(forKey: "userInfo") as? Data {
-//            let decoder = JSONDecoder()
-//            
-//            if var userInfo = try? decoder.decode(UserInfo.self, from: savedData) {
-//                userInfo.profilePicture = image
-//                let encoder = JSONEncoder()
-//                
-//                if let encoded = try? encoder.encode(userInfo) {
-//                    UserDefaults.standard.set(encoded, forKey: "userInfo")
-//                    print("수정완료!")
-//                }
-//            }
-//        }
+    func editUserName(changeName: String, uid: String) async -> Result<Bool, ProfileEditErrorType> {
+        let userDocument = COLLECTION_USERS.document(uid)
+        do {
+            try await userDocument.updateData([
+                "name": changeName
+            ])
+            return .success(true)
+        } catch {
+            return .failure(.changeUserName)
+        }
+    }
+    
+    func fetchEditProfile(uid: String, imageData: Data?, name: String) async -> String {
+        if imageData != nil && self.name != AuthService.shared.currentUser?.name {
+            let changeUserNameResult = await editUserName(changeName: name, uid: uid)
+            switch changeUserNameResult {
+            case .success(_):
+                let changeImageResult = await fetchEditProfileImage(imageData: imageData!, uid: uid)
+                switch changeImageResult {
+                case .success(_):
+                    self.isEditionSuccessd = true
+                    return "프로필 수정이 완료되었습니다."
+                case .failure(let failure):
+                    return self.errorHandler(errorType: failure)
+                }
+            case .failure(let failure):
+                return self.errorHandler(errorType: failure)
+            }
+        } else if let profileImage = imageData {
+            let changeImageResult = await fetchEditProfileImage(imageData: profileImage, uid: uid)
+            switch changeImageResult {
+            case .success(_):
+                self.isEditionSuccessd = true
+                return "프로필 사진 변경이 완료되었습니다."
+            case .failure(let failure):
+                return self.errorHandler(errorType: failure)
+            }
+        } else {
+            let changeUserNameResult = await editUserName(changeName: name, uid: uid)
+            switch changeUserNameResult {
+            case .success(_):
+                self.isEditionSuccessd = true
+                return "이름 변경이 완료되었습니다."
+            case .failure(let failure):
+                return errorHandler(errorType: failure)
+            }
+        }
+    }
+    
+    private func errorHandler(errorType: ProfileEditErrorType) -> String {
+        switch errorType {
+        case .changeUserName:
+            return "이름을 변경하는데 실패했습니다."
+        case .uploadUserProfileImage:
+            return "프로필 사진 업로드에 실패했습니다."
+        case .updateProfileImage:
+            return "프로필 사진 변경에 실패했습니다."
+        case .deleteUserProfileImage:
+            print("이전 프로필사진 삭제 실패")
+            return "프로필 사진 변경에 실패했습니다."
+        case .invalidImageData:
+            return "올바른 형식의 이미지가 아닙니다."
+        case .imageCompressionFail:
+            print("이미지 압축 실패")
+            return "프로필 사진 업데이트에 실패했습니다."
+        }
     }
 }
