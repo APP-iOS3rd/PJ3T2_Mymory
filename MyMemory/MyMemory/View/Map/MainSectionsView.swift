@@ -13,11 +13,15 @@ struct MainSectionsView: View {
     @Environment(\.dismiss) private var dismiss
     @State var presentLoginAlert: Bool = false
     @State var filterSheet: Bool = false
-    
+    @State var isFirst = true
     @State var selectedIndex = 0
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
+    @State var selectedUser: Profile? = nil
+    @ObservedObject var otherUserViewModel: OtherUserViewModel
+
     let unAuthorized: (Bool) -> ()
+    
     private var swipe: some Gesture {
         DragGesture()
             .updating($translation) { value, state, _ in
@@ -79,7 +83,7 @@ struct MainSectionsView: View {
                             Spacer()
                         }.padding(.top, 20)
                         ScrollView(.vertical, showsIndicators: false){
-                            VStack(spacing: 12) {
+                            LazyVStack(spacing: 12) {
                                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in
                                     NavigationLink {
                                         DetailView(memo: item,
@@ -101,20 +105,22 @@ struct MainSectionsView: View {
                                                 print("liked!")
                                             case .unAuthorized:
                                                 presentLoginAlert.toggle()
+                                            case .navigate(profile: let profile): 
+                                                selectedUser = profile
+                                                print("Navigate to \(profile.name)'s profile")
                                             }
-                                        }
+                                        }.frame(maxWidth: .infinity)
+                                        
                                         
                                         
                                     }
                                     
-                                }.frame(maxWidth: .infinity)
+                                }
                                 
                             }.refreshable {
                                 viewModel.fetchMemos()
                                 viewModel.fetchMemoProfiles()
-                            }
-                            .padding(.horizontal, 20)
-                            
+                            }.frame(maxWidth: .infinity)
                         }
                         
                     }
@@ -149,6 +155,13 @@ struct MainSectionsView: View {
 
                         )
             .background(Color.bgColor)
+            .navigationDestination(item: $selectedUser){ profile in
+                let user = profile.toUser
+                if isFirst {
+                    OtherUserProfileView(memoCreator: user)
+                        .environmentObject(otherUserViewModel)
+                }
+            }
             .onAppear{
                 AuthService.shared.fetchUser()
                 viewModel.fetchMemoProfiles()

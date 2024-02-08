@@ -99,6 +99,7 @@ struct MenuTabBar: View {
                 barX = buttonLeadings[index]
             }
         }
+        .frame(maxWidth: .infinity)
         .background(Color.bgColor)
     }
 }

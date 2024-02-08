@@ -66,7 +66,6 @@ struct MemoService {
         dateFormatter.dateFormat = "yyyy년 MM월 dd일 HH시 mm분" // 입력받을 날짜 형식
         
         if let date = dateFormatter.date(from: dateString) {
-            //print("memoCreatedAt\(memoCreatedAt)")
             return date.timeIntervalSince1970
         } else {
             return nil // 문자열이 올바른 날짜 형식이 아닌 경우 nil 반환
@@ -543,7 +542,6 @@ struct MemoService {
             print("에러 발생: \(error)")
         }
         
-        print(likeCount)
         return likeCount
     }
     
@@ -558,8 +556,6 @@ struct MemoService {
             let userLikesRef = try await COLLECTION_USER_LIKES.document(uid).getDocument()
             if userLikesRef.exists,
                let dataArray = userLikesRef.data() as? [String: String] {
-                print("데이터 \(dataArray)")
-                print("메모 ID \(memoID)")
                 if dataArray.keys.contains(memoID) {
                     return true
                 } else {
@@ -594,8 +590,6 @@ struct MemoService {
             }
             
             if let document = document, document.exists, let dataArray = document.data() as? [String: String] {
-                print("데이터 \(dataArray)")
-                print("메모 ID \(memoID)")
                 if dataArray.keys.contains(memoID) {
                     completion(true)
                 } else {

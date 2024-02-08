@@ -11,7 +11,7 @@ import Kingfisher
 struct MoveUserProfileButton: View {
 
     @ObservedObject var viewModel: DetailViewModel
-    
+    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     var body: some View {
      
         HStack {
@@ -28,7 +28,7 @@ struct MoveUserProfileButton: View {
                             EmptyView()
                         },
                         backgroundColor: Color.bgColor3
-                    )
+                    ).environmentObject(otherUserViewModel)
             } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
@@ -55,6 +55,7 @@ struct MoveUserProfileButton: View {
                 Spacer()
                 NavigationLink {
                     OtherUserProfileView( memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
+                        .environmentObject(otherUserViewModel)
                 } label: {
                     Image(systemName: "ellipsis")
 //                    Text("작성자 프로필 이동")

@@ -61,8 +61,11 @@ struct ProfileEditView: View {
                         viewModel.selectedPhotoData = data
                     }
                 }
+            }.onChange(of: viewModel.isEditionSuccessd) { newValue in
+                if newValue {
+                    dismiss()
+                }
             }
-            
             VStack(alignment: .leading) {
                 HStack {
                     Text("이름")
