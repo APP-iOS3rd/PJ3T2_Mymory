@@ -15,7 +15,8 @@ struct SocialRegisterView: View {
     
     @EnvironmentObject var viewModel : AuthViewModel
     @Binding var appleCredential: ASAuthorizationAppleIDCredential?
-    @State private var isActive: Bool = false
+    @Binding var isActive: Bool
+    @State private var isNewUser: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -156,7 +157,7 @@ struct SocialRegisterView: View {
                             print("애플유저입니다ㅂㄴ")
                             viewModel.authenticate(credential: self.appleCredential!)
                             print("Register Completed")
-                            self.isActive = true
+                            self.isNewUser = true
                         } else {
                             print("Register failed")
                         }
@@ -167,9 +168,10 @@ struct SocialRegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
-                    .alert("로그인 완료.", isPresented: $isActive) {
+                    .alert("로그인 완료.", isPresented: $isNewUser) {
                         Button("확인", role: .cancel) {
-                            self.presentationMode.wrappedValue.dismiss()
+                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }
                 }

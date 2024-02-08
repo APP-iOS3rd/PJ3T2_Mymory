@@ -17,7 +17,8 @@ struct GoogleSocialRegisterView: View {
     
     @EnvironmentObject var viewModel : AuthViewModel
     @Binding var googleCredential: AuthCredential?
-    @State private var isItActive: Bool = false
+    @Binding var isActive: Bool
+    @State private var isNewUser: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
@@ -161,9 +162,8 @@ struct GoogleSocialRegisterView: View {
                                            print(alertTitle)
                                    }
                                }
+                            self.isNewUser = true
                             print("Register Completed")
-                            presentationMode.wrappedValue.dismiss()
-                            
                         } else {
                             print("Register failed")
                         }
@@ -174,6 +174,12 @@ struct GoogleSocialRegisterView: View {
                     .background(Color.accentColor)
                     .cornerRadius(12)
                     .foregroundStyle(Color.white)
+                    .alert("로그인 완료.", isPresented: $isNewUser) {
+                        Button("확인", role: .cancel) {
+                            self.isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
                 }
 //                .fullScreenCover(isPresented: $isItActive) {
 //                    MainTabView()

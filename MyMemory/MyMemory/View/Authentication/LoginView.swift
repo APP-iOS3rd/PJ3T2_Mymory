@@ -286,14 +286,15 @@ struct LoginView: View {
             } //: VSTACK
             
             .padding()
-            .fullScreenCover(isPresented: $isActive) {
-                MainTabView()
-            }
+//            .fullScreenCover(isPresented: $isActive) {
+//                MainTabView()
+//            }
             .fullScreenCover(isPresented: $isNewGoogleUser) {
-                GoogleSocialRegisterView(googleCredential: $googleCredential)
+                GoogleSocialRegisterView(googleCredential: $googleCredential, isActive: $isActive)
             }
             .fullScreenCover(isPresented: $isNewAppleUser) {
-                SocialRegisterView(appleCredential: $appleCredential)
+                SocialRegisterView(appleCredential: $appleCredential, isActive: $isActive)
+                    
             }
             .customNavigationBar(
                 centerView: {
@@ -313,13 +314,13 @@ struct LoginView: View {
 //            .navigationDestination(isPresented: $isNewAppleUser) {
 //                SocialRegisterView(appleCredential: $appleCredential)
 //            }
-        }
-        .onAppear{
-            if let _ = AuthService.shared.userSession?.uid {
-                print("여기로 와라")
-                presentationMode.wrappedValue.dismiss()
-            } else {
-                print("여기로 오지마라")
+            .onChange(of: isActive) { _ in
+                if isActive {
+                    print("나와라")
+                    presentationMode.wrappedValue.dismiss()
+                } else {
+                    print("나오지 마라")
+                }
             }
         }
     }
