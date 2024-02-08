@@ -10,13 +10,15 @@ import _PhotosUI_SwiftUI
 
 struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
+    @State var isShowingAlert = false
+    @State var alertMessage = ""
     @Environment(\.dismiss) var dismiss
     var existingProfileImage: String?
     var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
     
     var body: some View {
         VStack {
-            PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
+            ZStack(alignment: .bottomTrailing) {
                 if let selectedPhotoData = viewModel.selectedPhotoData, let image = UIImage(data: selectedPhotoData) {
                     Image(uiImage: image)
                         .resizable()
@@ -38,8 +40,19 @@ struct ProfileEditView: View {
                     } else {
                         Circle()
                             .frame(width: 160, height: 160)
-                            
                     }
+                }
+                
+                PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
+                    Circle()
+                        .overlay {
+                            Image(systemName: "camera.fill")
+                                .foregroundStyle(.black)
+                                .font(.system(size: 22))
+                        }
+                        .frame(width: 46, height: 46)
+                        .foregroundStyle(Color.init(hex: "939397"))
+                    
                 }
             }
             .onChange(of: viewModel.selectedImage) { newValue in
@@ -53,42 +66,60 @@ struct ProfileEditView: View {
                     dismiss()
                 }
             }
-            .overlay(
-                ZStack {
-                    Circle()
-                        .foregroundStyle(Color.textGray)
-                        .frame(width: 46, height: 46)
-                    Image(systemName: "camera.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 28)
-                }.offset(CGSize(width: 50, height: 50))
-            )
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     Text("이름")
-                    TextField("이름을 입력하세요", text: $viewModel.name)
+                        .font(.regular16)
+                        .frame(minWidth: 60)
+                    
+                    Spacer()
+                    
+                    TextField("내 이름", text: $viewModel.name)
+                        .font(.regular16)
                 }
-             Rectangle()
-                    .frame(maxWidth: .infinity, maxHeight: 0.5)
-                    .foregroundStyle(Color.textGray)
-            }.padding(.top, 30)
-            Button("수정하기") {
-                if let photoData = viewModel.selectedPhotoData {
-                    Task {
-                        await viewModel.fetchEditProfileImage(
-                            imageData: photoData,
-                            uid: uid
-                        )
-                    }
-                }
+                .padding(.bottom, 0)
+                
+                Divider()
+                    .padding(.top, 10)
             }
-            .disabled(viewModel.selectedPhotoData == nil /*&& viewModel.name == viewModel.currentName*/)
-            .buttonStyle(Pill.standard)
-            .padding(.top, 30)
-            
-            Spacer()
+            .padding(.top, 52)
         }
         .padding(.horizontal, 16)
+        .padding(.top, 34)
+        .customNavigationBar(
+            centerView: {
+                Text("프로필 수정")
+                    .font(.semibold16)
+                    .foregroundStyle(Color.textColor)
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                Button {
+                    Task {
+                        let result = await viewModel.fetchEditProfile(uid: uid,
+                                                                imageData: self.viewModel.selectedPhotoData,
+                                                                name: self.viewModel.name)
+                        
+                        self.alertMessage = result
+                        self.isShowingAlert = true
+                    }
+                } label: {
+                    Text("저장")
+                        .font(.semibold17)
+                        .foregroundStyle(Color.textColor)
+                }
+                .disabled(viewModel.selectedPhotoData == nil && viewModel.name == viewModel.currentName)
+                .alert(alertMessage, isPresented: $isShowingAlert) {
+                    Button("확인", role: .cancel) {
+                        if viewModel.isEditionSuccessd {
+                            dismiss()
+                        }
+                    }
+                }
+            },
+            backgroundColor: Color.bgColor
+        )
     }
 }

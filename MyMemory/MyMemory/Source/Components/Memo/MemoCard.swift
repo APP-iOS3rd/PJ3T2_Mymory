@@ -14,6 +14,7 @@ enum actionType {
     case navigate(profile: Profile)
 }
 struct MemoCard: View {
+    
     @Binding var memo: Memo
     @State var isVisible: Bool = true
     @State var isTagExpended: Bool = false
@@ -78,11 +79,11 @@ struct MemoCard: View {
                     }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
                 }.padding(.horizontal, 20)
             }
-            if memo.images.count > 0 {
+            if memo.imagesURL.count > 0 {
                 ImageGridView(width: UIScreen.main.bounds.width - 40,
                               touchEvent:$showImageViewer,
                               imgIndex: $imgIndex,
-                              imgs: $memo.images)
+                              imgs: $memo.imagesURL)
                 .frame(maxWidth: UIScreen.main.bounds.width - 40, maxHeight: (UIScreen.main.bounds.width - 40) * 1/2)
                 .contentShape(Rectangle())
                 .aspectRatio(contentMode: .fit)
@@ -222,7 +223,7 @@ struct MemoCard: View {
         }.padding(20)
             .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {
-                ImgDetailView(selectedImage: $imgIndex, images: memo.images)
+                ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
             }
     }
     
@@ -236,12 +237,12 @@ struct ImageGridView: View {
     @State var width: CGFloat
     @Binding var touchEvent: Bool
     @Binding var imgIndex: Int
-    @Binding var imgs: [Data]
+    @Binding var imgs: [String]
     var body: some View {
         switch imgs.count {
             
         case 1:
-            Image(uiImage: UIImage(data: imgs[0])!)
+            KFImage(URL(string: imgs[0]))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: width,height: width * 1/2)
@@ -252,7 +253,7 @@ struct ImageGridView: View {
                 }
         case 2:
             HStack(spacing: 2) {
-                Image(uiImage: UIImage(data: imgs[0])!)
+                KFImage(URL(string: imgs[0]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
@@ -261,7 +262,7 @@ struct ImageGridView: View {
                         touchEvent.toggle()
                         imgIndex = 0
                     }
-                Image(uiImage: UIImage(data: imgs[1])!)
+                KFImage(URL(string: imgs[1]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width/2.0)
@@ -273,7 +274,7 @@ struct ImageGridView: View {
             }
         case 3:
             HStack(spacing: 2) {
-                Image(uiImage: UIImage(data: imgs[0])!)
+                KFImage(URL(string: imgs[0]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
@@ -283,7 +284,7 @@ struct ImageGridView: View {
                         imgIndex = 0
                     }
                 VStack(spacing:2){
-                    Image(uiImage: UIImage(data: imgs[1])!)
+                    KFImage(URL(string: imgs[1]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
@@ -292,7 +293,7 @@ struct ImageGridView: View {
                             touchEvent.toggle()
                             imgIndex = 1
                         }
-                    Image(uiImage: UIImage(data: imgs[2])!)
+                    KFImage(URL(string: imgs[2]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
@@ -305,7 +306,7 @@ struct ImageGridView: View {
             }
         default:
             HStack(spacing: 2) {
-                Image(uiImage: UIImage(data: imgs[0])!)
+                KFImage(URL(string: imgs[0]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
@@ -315,7 +316,7 @@ struct ImageGridView: View {
                         imgIndex = 0
                     }
                 VStack(spacing: 2){
-                    Image(uiImage: UIImage(data: imgs[1])!)
+                    KFImage(URL(string: imgs[1]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
@@ -324,7 +325,7 @@ struct ImageGridView: View {
                             touchEvent.toggle()
                             imgIndex = 1
                         }
-                    Image(uiImage: UIImage(data: imgs[2])!)
+                    KFImage(URL(string: imgs[2]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: width * 1/3.0)
