@@ -458,20 +458,20 @@ struct MemoService {
          이 코드를 통해 여러 이미지 URL을 병렬로 처리하여 이미지 데이터를 모아 배열로 만들 수 있습니다.
          이렇게 병렬로 작업을 수행하면 각 이미지를 순차적으로 다운로드하는 것보다 효율적으로 시간을 활용할 수 있습니다.
          */
-        let imageDataArray: [Data] = try await withThrowingTaskGroup(of: Data.self) { group in
-            for url in memoSelectedImageURLs {
-                group.addTask {
-                    return try await downloadImageData(from: url)
-                }
-            }
-            
-            var dataArray = [Data]()
-            for try await data in group {
-                dataArray.append(data)
-            }
-            
-            return dataArray
-        }
+//        let imageDataArray: [Data] = try await withThrowingTaskGroup(of: Data.self) { group in
+//            for url in memoSelectedImageURLs {
+//                group.addTask {
+//                    return try await downloadImageData(from: url)
+//                }
+//            }
+//            
+//            var dataArray = [Data]()
+//            for try await data in group {
+//                dataArray.append(data)
+//            }
+//            
+//            return dataArray
+//        }
         
         let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
         
@@ -483,7 +483,7 @@ struct MemoService {
             description: memoContents,
             address: userAddress,
             tags: memoTagList,
-            images: imageDataArray,
+            imagesURL: memoSelectedImageURLs,
             isPublic: isPublic,
             date: memoCreatedAt,
             location: location,

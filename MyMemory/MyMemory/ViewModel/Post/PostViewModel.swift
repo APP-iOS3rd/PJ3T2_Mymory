@@ -137,7 +137,7 @@ class PostViewModel: ObservableObject {
         self.memoTitle = memo.title
         self.memoContents = memo.description
         self.memoAddressText = memo.address
-        self.memoSelectedImageData = memo.images
+        self.memoSelectedImageData = memo.imagesURL.map{try! Data(contentsOf: URL(string: $0)!)}
         self.memoSelectedTags = memo.tags
         self.memoShare = memo.isPublic
         self.beforeEditMemoImageUUIDs = memo.memoImageUUIDs

@@ -5,6 +5,7 @@
 //  Created by 김성엽 on 1/16/24.
 //
 import SwiftUI
+import Kingfisher
 
 struct ImgDetailView: View {
     @Binding var selectedImage: Int {
@@ -40,7 +41,7 @@ struct ImgDetailView: View {
             }
     }
     
-    var images: [Data]
+    var images: [String]
     var body: some View {
         
         ZStack {
@@ -59,15 +60,13 @@ struct ImgDetailView: View {
                 
                 TabView(selection: $selectedImage) {
                     ForEach(images.indices, id: \.self) { index in
-                        if let uiimage = UIImage(data: images[index]) {
-                            Image(uiImage: uiimage)
+                            KFImage(URL(string: images[index]))
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .padding(.bottom, 50)
                                 .scaleEffect(scale)
                                 .gesture(magnification)
-                        }
                     }
                     
                 }
