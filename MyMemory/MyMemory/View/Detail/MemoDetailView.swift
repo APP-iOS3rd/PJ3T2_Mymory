@@ -82,7 +82,7 @@ struct MemoDetailView: View {
                                         
                                         ScrollView(.horizontal) {
                                             HStack{
-                                                ForEach(memo.images.indices, id: \.self) { i in
+                                                ForEach(memo.imagesURL.indices, id: \.self) { i in
                                                 KFImage(URL(string: memo.imagesURL[i]))
                                                 .resizable()
                                                 //.scaledToFit()
