@@ -12,6 +12,7 @@ struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
     @State var isShowingAlert = false
     @State var alertMessage = ""
+    @Environment(\.dismiss) var dismiss
     var existingProfileImage: String?
     var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
     
@@ -24,7 +25,7 @@ struct ProfileEditView: View {
                         .scaledToFill()
                         .clipped()
                         .clipShape(.circle)
-                        .frame(width: 158, height: 158)
+                        .frame(width: 160, height: 160)
                 } else {
                     if let imageUrl = existingProfileImage, let url = URL(string: imageUrl) {
                         AsyncImage(url: url) { image in
@@ -35,10 +36,10 @@ struct ProfileEditView: View {
                                 .clipShape(.circle)
                         } placeholder: {
                             ProgressView()
-                        }.frame(width: 158, height: 158)
+                        }.frame(width: 160, height: 160)
                     } else {
                         Circle()
-                            .frame(width: 158, height: 158)
+                            .frame(width: 160, height: 160)
                     }
                 }
                 
@@ -61,6 +62,7 @@ struct ProfileEditView: View {
                     }
                 }
             }
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text("이름")
@@ -71,7 +73,8 @@ struct ProfileEditView: View {
                     
                     TextField("내 이름", text: $viewModel.name)
                         .font(.regular16)
-                }.padding(.bottom, 0)
+                }
+                .padding(.bottom, 0)
                 
                 Divider()
                     .padding(.top, 10)
@@ -104,12 +107,12 @@ struct ProfileEditView: View {
                         .font(.semibold17)
                         .foregroundStyle(Color.textColor)
                 }
-                .alert(isPresented: $isShowingAlert) {
-                    Alert(
-                        title: Text("프로필 변경"),
-                        message: Text(alertMessage),
-                        dismissButton: .default(Text("확인"))
-                    )
+                .alert(alertMessage, isPresented: $isShowingAlert) {
+                    Button("확인", role: .cancel) {
+                        if viewModel.isEditionSuccessd {
+                            dismiss()
+                        }
+                    }
                 }
             },
             backgroundColor: Color.bgColor

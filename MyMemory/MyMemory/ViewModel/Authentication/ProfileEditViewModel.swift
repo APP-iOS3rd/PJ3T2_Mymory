@@ -16,6 +16,7 @@ class ProfileEditViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var selectedImage: PhotosPickerItem? = nil
     @Published var selectedPhotoData: Data? = nil
+    @Published var currentName: String = AuthService.shared.currentUser?.name ?? ""
     @Published var name: String = AuthService.shared.currentUser?.name ?? ""
     let storage = Storage.storage()
     
@@ -122,6 +123,7 @@ class ProfileEditViewModel: ObservableObject {
                 let changeImageResult = await fetchEditProfileImage(imageData: imageData!, uid: uid)
                 switch changeImageResult {
                 case .success(_):
+                    self.isEditionSuccessd = true
                     return "프로필 수정이 완료되었습니다."
                 case .failure(let failure):
                     return self.errorHandler(errorType: failure)
@@ -133,6 +135,7 @@ class ProfileEditViewModel: ObservableObject {
             let changeImageResult = await fetchEditProfileImage(imageData: profileImage, uid: uid)
             switch changeImageResult {
             case .success(_):
+                self.isEditionSuccessd = true
                 return "프로필 사진 변경이 완료되었습니다."
             case .failure(let failure):
                 return self.errorHandler(errorType: failure)
@@ -141,6 +144,7 @@ class ProfileEditViewModel: ObservableObject {
             let changeUserNameResult = await editUserName(changeName: name, uid: uid)
             switch changeUserNameResult {
             case .success(_):
+                self.isEditionSuccessd = true
                 return "이름 변경이 완료되었습니다."
             case .failure(let failure):
                 return errorHandler(errorType: failure)

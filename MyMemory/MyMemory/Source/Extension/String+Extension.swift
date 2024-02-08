@@ -42,11 +42,6 @@ extension String{
         let str = self.hasLastWordBatchimKR() ? "은" : "는"
         return self + str
     }
-    func getProfileImageUID() -> String {
-        var str = self.components(separatedBy: "images%2F")[1]
-        str = str.components(separatedBy: "?")[0]
-        return str
-    }
 }
 extension Set<String> {
     var combinedWithComma: String {
