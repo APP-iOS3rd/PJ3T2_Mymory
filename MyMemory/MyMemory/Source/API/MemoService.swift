@@ -505,7 +505,7 @@ struct MemoService {
          COLLECTION_USER_LIKES 키 값으로 사용자 uid 값에 좋아요 누른 사용자 메모 uid들을 저장
          */
         do {
-            if memo.didLike {
+            if !memo.didLike {
                 try await COLLECTION_USER_LIKES.document(uid).updateData([String(memoID ?? "") : FieldValue.delete()])
                 try await COLLECTION_MEMO_LIKES.document(memoID).updateData([uid : FieldValue.delete()])
             } else {
