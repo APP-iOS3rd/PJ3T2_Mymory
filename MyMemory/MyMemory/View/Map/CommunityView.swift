@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct CommunityView: View {
+    @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
+    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
+    
     @StateObject var locationManager = LocationsHandler.shared
     var body: some View {
         ScrollView {
@@ -22,12 +25,12 @@ struct CommunityView: View {
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
                         ForEach(1...10, id: \.self) { count in
-                            MemoCell(location: $locationManager.location)
+                            MemoCell(location: $locationManager.location,memo: $memo, memos: $memos)
                                 .padding(.leading, 18)
                         }
                     })
                 }.padding(.top, 25)
-                
+
                 HStack {
                     Text("이번 주\n가장 핫한 지역")
                         .font(.bold24)
@@ -50,10 +53,10 @@ struct CommunityView: View {
                             }
                             .padding(.horizontal, 15)
                             .padding(.vertical, 15)
-                            
+
                             Spacer()
                             Button{
-                                
+
                             } label: {
                                 Image(systemName: "ellipsis")
                             }
@@ -72,8 +75,4 @@ struct CommunityView: View {
             }
         }
     }
-}
-
-#Preview {
-    CommunityView()
 }

@@ -6,16 +6,10 @@
 //
 
 import Foundation
-import Photos
-import PhotosUI
 import SwiftUI
 import SafariServices
-import FirebaseAuth
-import FirebaseFirestore
-import FirebaseStorage
 
 class RegisterViewModel: ObservableObject {
-
     
     struct SafariView: UIViewControllerRepresentable {
 
@@ -26,6 +20,7 @@ class RegisterViewModel: ObservableObject {
         }
 
         func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafariView>) {
+
         }
     }
 }

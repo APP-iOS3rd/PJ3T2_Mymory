@@ -4,16 +4,14 @@
 //
 //  Created by 정정욱 on 1/29/24.
 
-import Foundation
+import SwiftUI
 import _PhotosUI_SwiftUI
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
 
 
-
 class DetailViewModel: ObservableObject {
-    
     
     @Published var user: User?
     @Published var memoCreator: User?
@@ -23,11 +21,12 @@ class DetailViewModel: ObservableObject {
     let memoService = MemoService.shared
     
     @Published var currentLocation: CLLocation?  = nil
+    var locationsHandler = LocationsHandler.shared
+    
     init() {
         // fetchUserState()
         user = AuthService.shared.currentUser // 현 로그인 사용자 가져오기
         AuthService.shared.fetchUser() // 사용자 정보 가져오기
-        
     }
     
     func fetchMemoCreator(uid: String) {
@@ -59,7 +58,4 @@ class DetailViewModel: ObservableObject {
         }
         return false
     }
-    
-    
-    
 }

@@ -18,4 +18,39 @@ struct User: Identifiable, Decodable {
     var isCurrentUser: Bool {
         return AuthService.shared.userSession?.uid == id
     }
+    var toProfile: Profile {
+        return Profile(email: self.email,
+                       id: self.id,
+                       name: self.name,
+                       profilePicture: self.profilePicture,
+                       followerCount: 0,
+                       memoCount: 0,
+                       isFollowing: false)
+    }
+}
+struct Profile: Identifiable, Decodable, Hashable {
+    let email: String
+    @DocumentID var id: String?
+    let name: String
+    var profilePicture: String?
+    var followerCount: Int
+    var memoCount: Int
+    var isFollowing: Bool
+    var isCurrentUser: Bool {
+        return AuthService.shared.userSession?.uid == id
+    }
+    var toUser: User {
+        return User(email: self.email,
+                    id: self.id,
+                    name: self.name,
+                    profilePicture: self.profilePicture)
+    }
+}
+enum ProfileEditErrorType: Error {
+    case changeUserName
+    case uploadUserProfileImage
+    case updateProfileImage
+    case deleteUserProfileImage
+    case invalidImageData
+    case imageCompressionFail
 }

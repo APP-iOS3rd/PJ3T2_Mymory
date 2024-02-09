@@ -1,4 +1,3 @@
-//
 //  AuthService.swift
 //  MyMemory
 //
@@ -66,7 +65,9 @@ final class AuthService: ObservableObject {
         }
     }
     func fetchUser() {
-        guard let uid = userSession?.uid else { return }
+        guard let uid = userSession?.uid else {
+            UserDefaults.standard.removeObject(forKey: "userId")
+            return }
         print("현재 로그인 상태: uid \(uid)")
         COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
             guard let user = try? snapshot?.data(as: User.self) else { return }
@@ -106,7 +107,7 @@ final class AuthService: ObservableObject {
     func memoCreatorfetchUser(uid: String, completion: @escaping (User?) -> Void) {
         print("현재 메모 작성자: uid \(uid)")
         
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, error in
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             if let error = error {
                 print("Error fetching user: \(error.localizedDescription)")
                 completion(nil)
@@ -120,6 +121,42 @@ final class AuthService: ObservableObject {
             
             completion(memoCreator)
         }
+    }
+    /// 메모 작성자의 정보를 가져오는 함수 입니다
+    /// - Parameters:
+    ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
+    /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
+    func memoCreatorfetchProfile(uid: String) async -> Profile?  {
+        do {
+            let document = try await COLLECTION_USERS.document(uid).getDocument()
+            if document.exists {
+                guard let memoCreator = try? document.data(as: User.self) else {
+                    return nil
+                }
+                var profile: Profile = memoCreator.toProfile
+                if let id = profile.id {
+                    profile.memoCount = await self.fetchUserMemoCount(with: id)
+                    profile.followerCount = await self.fetchUserFollowerCount(with: id)
+                    profile.isFollowing = await self.followCheck(with: id)
+                }
+                return profile
+            } else {return nil}
+        } catch {
+            return nil
+        }
+    }
+    /// 메모 작성자의 정보를 가져오는 함수 입니다
+    /// - Parameters:
+    ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
+    /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
+    func memoCreatorfetchProfiles(memos: [Memo]) async -> [Profile]  {
+        var profileList: [Profile] = []
+            for id in memos.map({$0.userUid}) {
+                if let profile = await memoCreatorfetchProfile(uid: id) {
+                    profileList.append(profile)
+                }
+            }
+            return profileList
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
@@ -277,11 +314,49 @@ final class AuthService: ObservableObject {
             
         }
     }
+    func followCheck(with id: String) async -> Bool{
+        guard let uid = Auth.auth().currentUser?.uid else {
+            DispatchQueue.main.async {
+                self.isFollow = false
+            }
+            return false
+        }
+        let followUserID = id
+        
+        do {
+            let userFollowRef = try await COLLECTION_USER_Following.document(uid).getDocument()
+            if userFollowRef.exists {
+                if let dataArray = userFollowRef.data() as? [String: String] {
+                    return dataArray.keys.contains(followUserID)
+                }
+                return false
+            } else {return false}
+        } catch {
+            return false
+        }
+    }
     /// 사용자를 팔로우 하는 함수입니다.
     /// - Parameters:
     ///   - followUser : 팔로우할 사용자를 넣어주면 됩니다.
     /// - Returns: 에러를 반환 합니다.
     func userFollow(followUser: User , completion: @escaping (Error?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
+            return
+        }
+        guard let fid = followUser.id else {
+            completion(NSError(domain: "Wrong User", code: 400, userInfo: nil))
+            return
+        }
+        COLLECTION_USER_Following.document(uid).setData([String(fid) : "followUserUid"], merge: true)
+        COLLECTION_USER_Followers.document(fid).setData([uid : "followingUserUid"], merge: true)
+        
+        DispatchQueue.main.async {
+            self.isFollow = true
+        }
+        
+    }
+    func userFollow(followUser: Profile , completion: @escaping (Error?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
             return
@@ -304,6 +379,23 @@ final class AuthService: ObservableObject {
     ///   - followUser : 언팔로우할 사용자를 넣어주면 됩니다.
     /// - Returns: 에러를 반환 합니다.
     func userUnFollow(followUser: User , completion: @escaping (Error?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
+            return
+        }
+        
+        guard let fid = followUser.id else {
+            completion(NSError(domain: "Wrong User", code: 400, userInfo: nil))
+            return
+        }
+        COLLECTION_USER_Following.document(uid).updateData([String(fid) : FieldValue.delete()])
+        COLLECTION_USER_Followers.document(fid).updateData([uid : FieldValue.delete()])
+        
+        DispatchQueue.main.async {
+            self.isFollow = false
+        }
+    }
+    func userUnFollow(followUser: Profile , completion: @escaping (Error?) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(NSError(domain: "Auth Error", code: 401, userInfo: nil))
             return

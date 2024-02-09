@@ -28,9 +28,6 @@
     "(필수)" : {
 
     },
-    "@ididid" : {
-
-    },
     "/5" : {
 
     },
@@ -80,6 +77,9 @@
           }
         }
       }
+    },
+    "+" : {
+
     },
     "+%lld" : {
 
@@ -136,6 +136,9 @@
     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " : {
 
     },
+    "Neo둥근모체" : {
+
+    },
     "Pill" : {
 
     },
@@ -172,6 +175,9 @@
           }
         }
       }
+    },
+    "거리가 멀어서 볼 수 없어요." : {
+
     },
     "거리순보기" : {
       "extractionState" : "stale",
@@ -227,6 +233,9 @@
         }
       }
     },
+    "내 이름" : {
+
+    },
     "내 정보" : {
       "localizations" : {
         "en" : {
@@ -238,6 +247,7 @@
       }
     },
     "내가 작성한 메모" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -267,11 +277,7 @@
         }
       }
     },
-    "다음 글" : {
-
-    },
     "다음 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -599,6 +605,7 @@
       }
     },
     "수정하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -609,6 +616,7 @@
       }
     },
     "신고 내용은 24시간 이내에 조치됩니다." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -619,6 +627,7 @@
       }
     },
     "신고가 완료되었습니다." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -698,6 +707,12 @@
         }
       }
     },
+    "영덕대게체" : {
+
+    },
+    "온글잎 의연체" : {
+
+    },
     "이 모두 사라집니다!" : {
       "localizations" : {
         "en" : {
@@ -727,9 +742,6 @@
           }
         }
       }
-    },
-    "이름을 입력하세요" : {
-
     },
     "이름을 입력해주세요" : {
       "localizations" : {
@@ -764,11 +776,7 @@
         }
       }
     },
-    "이전 글" : {
-
-    },
     "이전 글..." : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -945,6 +953,7 @@
       }
     },
     "추가하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1017,13 +1026,16 @@
         }
       }
     },
-    "폰트" : {
-
-    },
     "폰트 선택" : {
 
     },
-    "프로필 편집" : {
+    "폰트는 메모 상세보기 및 글씨 작성 부분에만 글씨에만 적용됩니다." : {
+
+    },
+    "프로필 수정" : {
+
+    },
+    "프리텐다드" : {
 
     },
     "해당 장소 메모보기" : {

@@ -21,7 +21,7 @@ struct ChangeLocationView: View {
                 if let currentloc = handler.location {
                     if loc.distance(from: currentloc) > viewModel.radius {
                         distanceAlert.toggle()
-                        
+
                     }
                 }
             }
@@ -109,8 +109,7 @@ struct ChangeLocationView: View {
                 EmptyView()
             },
             backgroundColor: .bgColor
-        )
-        .moahAlert(isPresented: $distanceAlert) {
+        ).moahAlert(isPresented: $distanceAlert) {
             MoahAlertView(title: "너무 먼 곳은 안돼요!",message: "\(Int(viewModel.radius))M 이내에만 등록 가능합니다.", firstBtn: .init(type: .CONFIRM, isPresented: $distanceAlert, action: {
                 guard let loc = handler.location else {return}
                 viewModel.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude), distance: 500))

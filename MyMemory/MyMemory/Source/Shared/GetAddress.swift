@@ -39,6 +39,7 @@ class GetAddress{
             guard let httpResponse = response as? HTTPURLResponse else {
                 return nil
             }
+            print(httpResponse.statusCode)
             if (200...299).contains( httpResponse.statusCode ) {
                 failedData = data
                 

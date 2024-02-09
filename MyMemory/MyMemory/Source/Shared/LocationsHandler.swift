@@ -84,7 +84,7 @@ class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
         completion?(nil)
         // 서버에 쿼리 날리기 30초에 한번?
         #if DEBUG
-        let timer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] t in
+        let timer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] t in
             guard let loc = self?.location else { return }
             self?.sendQueryToServer(with: loc)
         }

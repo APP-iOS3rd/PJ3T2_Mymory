@@ -48,12 +48,13 @@ struct SelectTagView: View {
                     }
                     
                 } label: {
-                    Text("추가하기")
-                        .foregroundStyle(Color(.blue))
-                        .font(.subheadline)
-                }
+                    Text("+")
+                        .rotationEffect(isShowingView ? .init(degrees: 45) : .zero)
+                        .foregroundStyle(Color.textColor)
+                }.buttonStyle(.plain)
             }  //:HSTACK
-            
+            Rectangle()
+                .frame(height: 0.5)
             Rectangle()
                 .frame(height: 40)
                 .cornerRadius(10)
@@ -72,28 +73,30 @@ struct SelectTagView: View {
                                         Capsule()
                                             .foregroundColor(Color.peach)
                                     )
+                                    .onTapGesture {
+                                        memoSelectedTags.removeAll(where: {$0 == tag})
+                                    }
                             }
                         }
                         .padding(5)
                     }
                 )
-
-        }  //:VSTACK
-    
-        
-        if isShowingView {
-            // View that appears from bottom to top
-            VStack {
-                
-                Text("어떤 태그를 선택하시겠어요?")
-                /*
-                 VStack 내부의 첫번째 ForEach는 행을 생성합니다. 각 행에는 최대 5개의 태그가 있으며, 전체 태그의 수를 5로 나눈 값이 행의 수를 결정합니다. 나머지가 있다면 행 하나를 더 추가해야 하므로 (TagType.allCases.count + 2) / 5를 사용하여 올림 연산을 수행합니다.
-
-                 각 행은 HStack으로 구현됩니다.
-                 
-                 HStack 내부의 두 번째 ForEach는 각 행에 5개의 태그를 생성합니다. rowIndex * 5 + columnIndex를 통해 각 태그의 인덱스를 계산합니다.
-                 */
-                ScrollView {
+                .onTapGesture {
+                    if isShowingView == false {
+                        withAnimation {
+                            // Toggle the view's visibility
+                            isShowingView.toggle()
+                        }
+                    }
+                }
+            
+            
+            if isShowingView {
+                // View that appears from bottom to top
+                VStack {
+                    
+                    Text("어떤 태그를 선택하시겠어요?")
+                        .font(.bold18)
                     VStack {
                         GeometryReader { GeometryProxy in
                             FlexibleView(availableWidth: GeometryProxy.size.width,
@@ -110,41 +113,15 @@ struct SelectTagView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .aspectRatio(contentMode: .fit)
                             }.frame(maxWidth: .infinity)
-                        }
-//                        ForEach(0..<(TagType.allCases.count + 2) / 5) { rowIndex in
-//                            HStack(spacing: 20) {
-//                                ForEach(0..<5) { columnIndex in
-//                                    let index = rowIndex * 5 + columnIndex
-//                                    if index < TagType.allCases.count {
-//                                        let tag = TagType.allCases[index]
-//                                        Button(action: {
-//                                            withAnimation {
-//                                                toggleTag(tag)
-//                                            }
-//                                        }) {
-//                                            Text(tag.rawValue)
-//                                                .padding()
-//                                                .background(
-//                                                    Capsule()
-//                                                        .foregroundColor(memoSelectedTags.contains(tag.rawValue) ? .pink : .gray)
-//                                                )
-//                                                .foregroundColor(.white)
-//                                        }
-//                                    } else {
-//                                        Spacer()
-//                                    }
-//                                } // ForEach
-//                            } // HStack
-//                        }// ForEach
-                    } // VStack
-                    .padding()
-                } // ScrollView
+                            
+                        } // VStack
+                    } // ScrollView
 
-                .padding()
-                
-            } //:VSTACK
-            .transition(.move(edge: .bottom))
-            .animation(.easeInOut)
+                } //:VSTACK
+                .transition(.move(edge: .bottom))
+                .animation(.easeInOut)
+                .padding(.bottom , 60)
+            }
         }
         
     }
@@ -152,10 +129,10 @@ struct SelectTagView: View {
     private func toggleTag(_ tag: TagType) {
         // tag를 문자열로 변환하여 tagString 상수에 저장
         let tagString = tag.rawValue
-
+        
         // 이미 선택된 태그인지 확인
         let isTagSelected = memoSelectedTags.contains(tagString)
-
+        
         if isTagSelected {
             // 이미 선택된 경우, 해당 태그를 제거
             memoSelectedTags.removeAll { $0 == tagString }
@@ -166,7 +143,7 @@ struct SelectTagView: View {
             }
         }
     }
-
+    
     
 }
 #Preview {
