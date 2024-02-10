@@ -141,6 +141,7 @@ struct LoginView: View {
                         .foregroundStyle(.gray)
                         .font(.regular14)
                 }
+                .padding(.vertical, 12)
                 
                 Spacer()
                 

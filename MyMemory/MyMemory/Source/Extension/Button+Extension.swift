@@ -43,12 +43,11 @@ struct Pill: ButtonStyle {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
     static var deepGray: Pill {
-        return Pill(backgroundColor: .deepGray, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+        return Pill(backgroundColor: .bgColor4, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
     static var secondary: Pill {
         return Pill(backgroundColor: .deepGray, titleColor: .white, setFont: .bold14)
     }
-    
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label

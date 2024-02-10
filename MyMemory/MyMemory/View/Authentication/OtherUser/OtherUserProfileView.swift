@@ -39,7 +39,7 @@ struct OtherUserProfileView: View {
                         if  otherUserViewModel.memoCreator.isCurrentUser == false  {
                             OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             createHeader()
-                            
+                                
                             ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
                         }
                         else {
@@ -58,7 +58,7 @@ struct OtherUserProfileView: View {
             .refreshable {
                 // Refresh logic
             }
-            .padding(.horizontal, 14)
+           
             .safeAreaInset(edge: .top) {
                 Color.clear.frame(height: 0).background(Color.bgColor)
             }
@@ -87,6 +87,21 @@ struct OtherUserProfileView: View {
                 LoadingView()
             }
         }
+        
+        .customNavigationBar(
+            centerView: {
+                Text(otherUserViewModel.memoCreator.name)
+                    .font(.semibold16)
+                    .foregroundStyle(Color.textColor)
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                EmptyView()
+            },
+            backgroundColor: Color.bgColor
+        )
     }
     
     private func createHeader() -> some View {
@@ -112,6 +127,7 @@ struct OtherUserProfileView: View {
             }
         }
         .padding(.top, 38)
+        .padding(.horizontal, 14)
     }
 
     
