@@ -46,3 +46,11 @@ struct Profile: Identifiable, Decodable, Hashable {
                     profilePicture: self.profilePicture)
     }
 }
+enum ProfileEditErrorType: Error {
+    case changeUserName
+    case uploadUserProfileImage
+    case updateProfileImage
+    case deleteUserProfileImage
+    case invalidImageData
+    case imageCompressionFail
+}

@@ -236,6 +236,9 @@
         }
       }
     },
+    "내 이름" : {
+
+    },
     "내 정보" : {
       "localizations" : {
         "en" : {
@@ -602,6 +605,7 @@
       }
     },
     "수정하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -738,9 +742,6 @@
           }
         }
       }
-    },
-    "이름을 입력하세요" : {
-
     },
     "이름을 입력해주세요" : {
       "localizations" : {

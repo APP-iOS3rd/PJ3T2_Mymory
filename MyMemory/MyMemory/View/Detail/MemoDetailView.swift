@@ -84,23 +84,20 @@ struct MemoDetailView: View {
                                         
                                         ScrollView(.horizontal) {
                                             HStack{
-                                                ForEach(memo.images.indices, id: \.self) { i in
-                                                    if let uiimage =  UIImage(data: memo.images[i]) {
-                                                        Image(uiImage: uiimage)
-                                                            .resizable()
-                                                        //.scaledToFit()
-                                                            .scaledToFill()
-                                                            .frame(width: 90, height: 90)
-                                                            .onTapGesture {
-                                                                didTapImage(img: i)
-                                                            }
-                                                            .fullScreenCover(isPresented: self.$isShowingImgSheet) {
-                                                                ImgDetailView(selectedImage: $selectedNum, images: memo.images)
-                                                            }
+                                                ForEach(memo.imagesURL.indices, id: \.self) { i in
+                                                KFImage(URL(string: memo.imagesURL[i]))
+                                                .resizable()
+                                                //.scaledToFit()
+                                                    .frame(width: 90, height: 90)
+                                                    .scaledToFill()
+                                                    .onTapGesture {
+                                                        didTapImage(img: i)
+                                                    }
+                                                    .fullScreenCover(isPresented: self.$isShowingImgSheet) {
+                                                        ImgDetailView(selectedImage: $selectedNum, images: memo.imagesURL)
                                                     }
                                                 }
-                                            }
-                                        }
+                                            }                                        }
                                         .scrollDisabled(false)
                                         .padding(.top, 25)
                                         .padding(.leading, 25)
