@@ -22,24 +22,35 @@ struct WithdrawalView: View {
                         .padding(.bottom, 53)
                     VStack(alignment: .leading, spacing: 16) {
                         HStack {
-                            Text("·  1,203,102개의 메모")
+                            Text("\(AuthService.shared.memoCount)개의 메모")
                                 .font(.regular24)
                             Spacer()
                         }
-                        Text("·  341개의 핫플레이스")
-                            .font(.regular24)
-                        Text("·  1,204,593장의 사진")
+                        Text("\(AuthService.shared.imageCount)개의 사진")
                             .font(.regular24)
                         Text("·  기타 등등")
                             .font(.regular24)
+                        
                     }
                 }
+                .onAppear {
+                    Task {
+                        do {
+                            try await AuthService.shared.countUserData(uid: user?.id ?? "")
+                        } catch {
+                            print("Error: \(error)")
+                        }
+                    }
+                }
+
+
+
                 .padding(EdgeInsets(top: 36, leading: 16, bottom: 36, trailing: 16))
                 .background(Color(UIColor.systemGray5))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 VStack(alignment: .leading) {
-                    Text("이 모두 사라집니다!")
+                    Text("회원님의 소중한 추억들이 사라집니다.")
                         .font(.bold24)
                     Text("그래도 회원을 탈퇴하시겠어요?")
                         .font(.regular24)
@@ -59,10 +70,9 @@ struct WithdrawalView: View {
                 }
                 
                 Button {
-                    viewModel.fetchUserWithdrawal(uid: user?.id ?? "") {
-                        isCurrentUserLoginState = false
-                        viewModel.isShowingWithdrawalAlert = true
-                    }
+                    viewModel.removeUserAllData(uid: user?.id ?? "")
+                    isCurrentUserLoginState = false
+                    viewModel.isShowingWithdrawalAlert = true
                 } label: {
                     Text("네 그래도 탈퇴할게요")
                         .foregroundStyle(.white)

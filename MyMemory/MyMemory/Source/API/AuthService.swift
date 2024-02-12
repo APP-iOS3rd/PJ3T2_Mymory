@@ -19,7 +19,9 @@ final class AuthService: ObservableObject {
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
-
+    @Published var memoCount: Int = 0
+    @Published var imageCount: Int = 0
+    
     init() {
         if let session = Auth.auth().currentUser {
             self.userSession = session
@@ -98,6 +100,41 @@ final class AuthService: ObservableObject {
                     completion(nil)
                 }
             }
+        }
+    }
+    
+    
+    /// 사용자의 메모 개수, 사진 개수를 가져오는 메서드 입니다.
+    /// - Parameters:
+    ///   - uid : 메모 개수, 사진 개수를 가져올 사용자의 uid
+    /// - Returns: 없음
+    func countUserData(uid: String) async  -> Void {
+     
+        do {
+            let snapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: uid).getDocuments()
+            
+            let documents = snapshot.documents
+            
+            if documents.isEmpty {
+                print("documents.isEmpty \(documents.count)")
+            }
+            DispatchQueue.main.async {
+                self.memoCount = documents.count
+            }
+            print("Number of documents: \(documents.count)")
+            
+            
+            var totalImageUUIDCount = 0
+            for document in documents {
+                if let memoImageUUIDs = document["memoImageUUIDs"] as? [String] {
+                    totalImageUUIDCount += memoImageUUIDs.count
+                }
+            }
+            DispatchQueue.main.async {
+                self.imageCount = totalImageUUIDCount
+            }
+        } catch {
+            print("Error counting Memo Image UUIDs: \(error)")
         }
     }
     
