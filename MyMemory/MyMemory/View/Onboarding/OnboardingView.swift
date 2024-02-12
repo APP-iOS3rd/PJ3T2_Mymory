@@ -20,14 +20,23 @@ struct OnboardingView : View {
                     Color.white
                         .ignoresSafeArea()
                         
-                    VStack(spacing: 15) {
+                    VStack(spacing: 30) {
                         Text(item.content)
                             .font(.bold20)
                             .multilineTextAlignment(.center)
                         
-                        Image(item.image)
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.size.height * 0.4 ,height: UIScreen.main.bounds.size.height * 0.45)
+                        if index == 2 {
+                            Image(item.image)
+                                .resizable()
+                                .frame(maxWidth: UIScreen.main.bounds.size.width * 0.9, maxHeight: UIScreen.main.bounds.size.height * 0.45)
+                        } else {
+                            Image(item.image)
+                                .resizable()
+                                .frame(width: UIScreen.main.bounds.size.width * 0.4  ,height: UIScreen.main.bounds.size.height * 0.45)
+                                //.frame(maxWidth: UIScreen.main.bounds.size.width * 0.8, maxHeight: UIScreen.main.bounds.size.height * 0.45)
+                        }
+                        
+
                     }
                     //.padding(.top, 10)
                 }
