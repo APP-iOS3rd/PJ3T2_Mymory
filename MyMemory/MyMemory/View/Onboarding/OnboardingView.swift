@@ -25,20 +25,13 @@ struct OnboardingView : View {
                             .font(.bold20)
                             .multilineTextAlignment(.center)
                         
-                        if index == 2 {
                             Image(item.image)
                                 .resizable()
-                                .frame(maxWidth: UIScreen.main.bounds.size.width * 0.9, maxHeight: UIScreen.main.bounds.size.height * 0.45)
-                        } else {
-                            Image(item.image)
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.size.width * 0.4  ,height: UIScreen.main.bounds.size.height * 0.45)
-                                //.frame(maxWidth: UIScreen.main.bounds.size.width * 0.8, maxHeight: UIScreen.main.bounds.size.height * 0.45)
-                        }
-                        
+                                .scaledToFit()
+                                .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.5)
+
 
                     }
-                    //.padding(.top, 10)
                 }
               .tag(index)
           }

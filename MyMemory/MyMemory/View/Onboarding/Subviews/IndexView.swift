@@ -39,7 +39,7 @@ struct IndexView: View {
                     }
                 }
             }
-            .padding(.top, 100)
+            .padding(.top, 90)
             
             Spacer()
             
@@ -52,7 +52,7 @@ struct IndexView: View {
                         } label: {
                             Text("시작하기")
                                 .font(.medium18)
-                                .frame(width: 200, height: 30)
+                                .frame(width: 180, height: 30)
                         }
                         .buttonStyle(Pill.standard)
                         
@@ -66,7 +66,7 @@ struct IndexView: View {
                         } label: {
                             Text("다음")
                                 .font(.medium18)
-                                .frame(width: 200, height: 30)
+                                .frame(width: 180, height: 30)
                         }
                         .buttonStyle(Pill.standard)
                     }
