@@ -7,11 +7,12 @@
 
 import SwiftUI
 import _PhotosUI_SwiftUI
-
+import Kingfisher
 struct ProfileEditView: View {
     @StateObject var viewModel: ProfileEditViewModel = .init()
     @State var isShowingAlert = false
     @State var alertMessage = ""
+    @State var showProfileImg = false
     @Environment(\.dismiss) var dismiss
     var existingProfileImage: String?
     var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
@@ -28,15 +29,24 @@ struct ProfileEditView: View {
                         .frame(width: 160, height: 160)
                 } else {
                     if let imageUrl = existingProfileImage, let url = URL(string: imageUrl) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .clipShape(.circle)
-                        } placeholder: {
-                            ProgressView()
-                        }.frame(width: 160, height: 160)
+                        KFImage(url)
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .clipShape(.circle)
+                            .frame(width: 160, height: 160)
+                            .onTapGesture {
+                                showProfileImg.toggle()
+                            }
+//                        AsyncImage(url: url) { image in
+//                            image
+//                                .resizable()
+//                                .scaledToFill()
+//                                .clipped()
+//                                .clipShape(.circle)
+//                        } placeholder: {
+//                            ProgressView()
+//                        }.frame(width: 160, height: 160)
                     } else {
                         Circle()
                             .frame(width: 160, height: 160)
@@ -84,6 +94,11 @@ struct ProfileEditView: View {
             }
             .padding(.top, 52)
         }
+        .fullScreenCover(isPresented: $showProfileImg, content: {
+            if let imageUrl = existingProfileImage, let url = URL(string: imageUrl) {
+                ImgDetailView(selectedImage: .constant(0), images: [imageUrl])
+            }
+        })
         .padding(.horizontal, 16)
         .padding(.top, 34)
         .customNavigationBar(
