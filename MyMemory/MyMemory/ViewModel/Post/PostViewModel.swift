@@ -14,6 +14,7 @@ class PostViewModel: ObservableObject {
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""
+    @Published var memoAddressBuildingName: String? = nil
     @Published var tempAddressText: String = ""
     @Published var memoSelectedImageData: [Data] = []
     @Published var memoSelectedTags: [String] = []
@@ -67,18 +68,21 @@ class PostViewModel: ObservableObject {
     func getAddress() async {
         guard userCoordinate != nil else { return }
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
-        
+        let buildingName = await GetAddress.shared.getBuildingStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
         DispatchQueue.main.async { [weak self] in
             self?.memoAddressText = addressText
+            self?.memoAddressBuildingName = buildingName
+
             print("주소 테스트 \(addressText)")
         }
     }
     func getAddress(with loc : Location) {
         Task{ @MainActor in
             let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
-            
+            let buildingName = await GetAddress.shared.getBuildingStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
             DispatchQueue.main.async { [weak self] in
                 self?.tempAddressText = addressText
+                self?.memoAddressBuildingName = buildingName
                 print("주소 테스트 \(addressText)")
             }
         }
@@ -105,6 +109,7 @@ class PostViewModel: ObservableObject {
                     userCoordinateLatitude: Double(userCoordinate!.latitude),
                     userCoordinateLongitude: Double(userCoordinate!.longitude),
                     userAddress: memoAddressText,
+                    userAddressBuildingName: memoAddressBuildingName,
                     memoTitle: memoTitle,
                     memoContents: memoContents,
                     isPublic: !memoShare,
@@ -137,6 +142,7 @@ class PostViewModel: ObservableObject {
         self.memoTitle = memo.title
         self.memoContents = memo.description
         self.memoAddressText = memo.address
+        self.memoAddressBuildingName = memo.building
         self.memoSelectedImageData = memo.imagesURL.map{try! Data(contentsOf: URL(string: $0)!)}
         self.memoSelectedTags = memo.tags
         self.memoShare = memo.isPublic

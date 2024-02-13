@@ -23,7 +23,6 @@ struct MemoCard: View {
     @State var imgIndex: Int = 0
     @Binding var profile: Profile
     @State var isMyPage: Bool = false
-    @State private var pinnedCount: Int = 0
 
     var completion: (actionType) -> ()
     var body: some View {
@@ -38,7 +37,12 @@ struct MemoCard: View {
                             .resizable()
                             .frame(width: 15, height: 20)
                             .onTapGesture {
-                                if pinnedCount < 6 {
+                                if profile.pinCount < 6 {
+                                    if memo.isPinned {
+                                        profile.pinCount -= 1
+                                    } else {
+                                        profile.pinCount += 1
+                                    }
                                     memo.isPinned.toggle()
                                     
                                     Task{
@@ -248,11 +252,6 @@ struct MemoCard: View {
             .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
-            }
-            .onAppear {
-                Task {
-                    self.pinnedCount = await AuthService.shared.pinnedCount()
-                }
             }
     }
     

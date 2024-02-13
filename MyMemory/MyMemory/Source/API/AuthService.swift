@@ -174,6 +174,7 @@ final class AuthService: ObservableObject {
                 if let id = profile.id {
                     profile.memoCount = await self.fetchUserMemoCount(with: id)
                     profile.followerCount = await self.fetchUserFollowerCount(with: id)
+                    profile.pinCount = await self.pinnedCount()
                     profile.isFollowing = await self.followCheck(with: id)
                 }
                 return profile

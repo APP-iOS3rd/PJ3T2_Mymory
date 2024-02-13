@@ -111,7 +111,16 @@ struct MemoDetailView: View {
                                     //.padding(.top, 50)
                                     
                                 }
- 
+                                .refreshable {
+                                    Task { @MainActor in
+                                        let memo = self.memos[selectedMemoIndex!]
+                                        do {
+                                            if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!) {
+                                                self.memos[selectedMemoIndex!] = newMemo
+                                            }
+                                        } catch {}
+                                    }
+                                }
                             }
                         }
                         
@@ -175,7 +184,7 @@ struct MemoDetailView: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
-        
+
         .customNavigationBar(
             centerView: {
                 Text(" ")
