@@ -98,15 +98,21 @@ class SettingViewModel: ObservableObject {
         self.removeUserLikes(uid: uid)
         self.removeUserFollowingAndFollowData(uid: uid)
         self.removeUser(uid: uid)
-        self.fetchUserLogout {
-            // Authentication에서 사용자 정보 지우기
-            Auth.auth().currentUser?.delete { error in
+        
+        // Authentication 계정 삭제
+        if let currentUser = Auth.auth().currentUser {
+            currentUser.delete { error in
                 if let error = error {
-                    print("사용자 정보 삭제 중 오류 발생:", error)
+                    print("사용자 삭제 실패: \(error.localizedDescription)")
                 } else {
-                    print("사용자 정보가 성공적으로 삭제되었습니다.")
+                    print("사용자 삭제 성공")
                 }
             }
+        } else {
+            print("현재 로그인된 사용자가 없습니다.")
+        }
+        self.fetchUserLogout {
+           
         }
       
     }

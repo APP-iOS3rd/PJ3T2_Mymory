@@ -73,6 +73,7 @@ struct WithdrawalView: View {
                     viewModel.removeUserAllData(uid: user?.id ?? "")
                     isCurrentUserLoginState = false
                     viewModel.isShowingWithdrawalAlert = true
+                    
                 } label: {
                     Text("네 그래도 탈퇴할게요")
                         .foregroundStyle(.white)
@@ -87,6 +88,7 @@ struct WithdrawalView: View {
                     }
                 }
                 .disabled(user?.id == nil)
+             
             }
             .navigationTitle("회원 탈퇴")
             .navigationBarTitleDisplayMode(.large)
