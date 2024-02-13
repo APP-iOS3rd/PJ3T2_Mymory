@@ -245,6 +245,19 @@ struct RegisterView: View {
                 }
             }
         }
+        .customNavigationBar(
+            centerView: {
+                Text("회원가입")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .bgColor3
+        )
+        .environmentObject(viewModel)
     }
 }
 

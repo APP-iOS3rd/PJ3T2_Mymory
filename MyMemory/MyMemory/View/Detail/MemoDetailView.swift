@@ -63,6 +63,8 @@ struct MemoDetailView: View {
                                         .frame(maxWidth: .infinity)
                                         .aspectRatio(contentMode: .fit)
                                         .padding(.leading, 25)
+ 
+                                        
                                         HStack{
                                             VStack(alignment: .leading, spacing: 6) {
                                                 Text(memo.title)
@@ -139,6 +141,7 @@ struct MemoDetailView: View {
                                                 preButton()
                                             }
                                         }
+ 
                                 }
                                 Spacer()
                                 if selectedMemoIndex != memos.endIndex - 1 {

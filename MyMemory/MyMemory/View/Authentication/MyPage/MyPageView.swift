@@ -21,12 +21,13 @@ struct MyPageView: View {
 
         ZStack(alignment: .top) {
             Color.bgColor
-            //                .ignoresSafeArea()
-                VStack {
+                .ignoresSafeArea()
+                
+            VStack {
                     ScrollView(.vertical, showsIndicators: false) {
-                        MypageTopView()
-                            .padding(.horizontal, 14)
-                            .environmentObject(mypageViewModel)
+//                         MypageTopView()
+//                             .padding(.horizontal, 14)
+//                             .environmentObject(mypageViewModel)
                         LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
                             // 로그인 되었다면 로직 실행
                             Section {
@@ -35,6 +36,9 @@ struct MyPageView: View {
                                     let isCurrentUser = authViewModel.userSession?.uid == userId
                                     
                                     // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                                    
+                                    MypageTopView()
+                                        .padding(.horizontal, 14)
                                     
                                     switch selectedIndex {
                                     case 0:

@@ -113,6 +113,17 @@ struct SettingView: View {
             }
         }
         .padding(.horizontal, 12)
- 
+        .customNavigationBar(
+            centerView: {
+                Text("내 정보")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: Color.bgColor3
+        )
     }
 }

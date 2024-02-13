@@ -54,18 +54,7 @@ struct MypageTopView: View {
                                          isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState // 💁
                             )
                             
-                            .customNavigationBar(
-                                centerView: {
-                                    Text("내 정보")
-                                },
-                                leftView: {
-                                    EmptyView()
-                                },
-                                rightView: {
-                                    CloseButton()
-                                },
-                                backgroundColor: Color.bgColor
-                            )
+                  
                             
                         } label: {
                             Image(systemName: "gearshape")
