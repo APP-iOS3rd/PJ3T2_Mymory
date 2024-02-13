@@ -50,6 +50,7 @@
 		01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF52B5DEB6E003F1BEF /* AuthViewModel.swift */; };
 		01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */; };
 		01D160032B5E0D43003F1BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF82B5DEB99003F1BEF /* Constants.swift */; };
+		01DA25DB2B7B495F009B9077 /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */; };
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
@@ -69,7 +70,6 @@
 		28BB13392B569075001A4C0C /* CertificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB13382B569075001A4C0C /* CertificationView.swift */; };
 		28F26D3F2B551E8500CE783D /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F26D3E2B551E8500CE783D /* LoginViewModel.swift */; };
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
-		6425FDF32B7AFB1900CACB6B /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6425FDF22B7AFB1900CACB6B /* GoogleSocialRegisterView.swift */; };
 		6452621A2B6A2776004FE5C7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262192B6A2776004FE5C7 /* DetailViewModel.swift */; };
 		6452621C2B6A27F9004FE5C7 /* MoveUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */; };
 		6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */; };
@@ -106,7 +106,6 @@
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */; };
-		9DAF8BE82B721AE700CA74ED /* (null) in Resources */ = {isa = PBXBuildFile; };
 		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
 		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
 		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
@@ -643,6 +642,7 @@
 			isa = PBXGroup;
 			children = (
 				6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */,
+				6425FDF22B7AFB1900CACB6B /* GoogleSocialRegisterView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1071,7 +1071,6 @@
 				DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
-				9DAF8BE82B721AE700CA74ED /* (null) in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
 				DADCCFFB2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
@@ -1135,7 +1134,6 @@
 				0180F62B2B6CCAD000FECAF6 /* FontView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,
-				6425FDF32B7AFB1900CACB6B /* GoogleSocialRegisterView.swift in Sources */,
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
 				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
@@ -1170,6 +1168,7 @@
 				0133834F2B565F50004D4B8A /* Onboarding.swift in Sources */,
 				64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */,
 				01D15FF22B5DEB37003F1BEF /* User.swift in Sources */,
+				01DA25DB2B7B495F009B9077 /* GoogleSocialRegisterView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */,
 				28BB13352B568FE7001A4C0C /* ImgDetailView.swift in Sources */,
@@ -1415,7 +1414,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1469,7 +1468,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
