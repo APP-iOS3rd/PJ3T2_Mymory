@@ -175,6 +175,7 @@ class PostViewModel: ObservableObject {
                 resetMemoFields()
                 LoadingManager.shared.phase = .success
                 loading = false
+                dismissPublisher.send(true)
             } catch {
                 // 오류 처리
                 loading = false
