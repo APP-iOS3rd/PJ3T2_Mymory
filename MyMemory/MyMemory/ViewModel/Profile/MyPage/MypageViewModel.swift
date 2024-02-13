@@ -16,7 +16,7 @@ import MapKit
 class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     
     @Published var merkerMemoList: [Memo] = []
-    @Published var memoList: [Memo] = []
+    @Published var memoList: [Memo] = [] // 초기화
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
     @Published var selectedImage: PhotosPickerItem? = nil
@@ -29,12 +29,19 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
     
-    var lastDocument: QueryDocumentSnapshot? = nil
+    var lastDocument: QueryDocumentSnapshot? = nil // 초기화
     
     init() {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
-        fetchUserMemo()
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+                }
+            }
+        }
 
         
         // 해당 코드 블럭 로그인 이후 재 호출필요
@@ -49,16 +56,6 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         }
     }
     
-    func fetchUserMemo(){
-        if let userID = UserDefaults.standard.string(forKey: "userId") {
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: userID)
-                }
-            }
-        }
-    }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
@@ -90,5 +87,20 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         }
     }
 
+    func refreshPagenate() async {
+        
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            self.memoList = []
+            self.merkerMemoList = []
+            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: nil) { last in
+                self.lastDocument = last
+            }
+            
+            await MainActor.run {
+                self.memoList += fetchedMemos
+                self.merkerMemoList = fetchedMemos
+            }
+        }
+    }
 
 }

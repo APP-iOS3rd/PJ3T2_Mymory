@@ -301,7 +301,7 @@ extension MemoService {
                 return []
             }
             
-            completion(querySnapshot.documents.last)
+            completion(querySnapshot.documents.last) // 마지막 요소만 기억 1부터 5(기억) 삭제하고 해도 5다음 부터 6부터 10까지 불러옴
             
             var memos = [Memo]()
             
@@ -324,6 +324,7 @@ extension MemoService {
             return []
         }
     }
+    
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
