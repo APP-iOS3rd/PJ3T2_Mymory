@@ -101,7 +101,7 @@ struct RoundedRect: ButtonStyle {
     }
     
     static var loginBtn: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .textColor, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
     }
     static var loginBtnDisabled: RoundedRect {
         return RoundedRect(backgroundColor: .gray, titleColor: .darkGray , setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .gray)
