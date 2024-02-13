@@ -27,6 +27,7 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
+    @Published var userProfile: Profile? = nil
     @Published var currentLocation: CLLocation?  = nil
     
     var lastDocument: QueryDocumentSnapshot? = nil
@@ -57,6 +58,12 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
                     await self.pagenate(userID: userID)
                 }
             }
+        }
+    }
+    func fetchUserProfile() {
+        guard let id = user?.id else {return}
+        Task {
+            self.userProfile = await AuthService.shared.memoCreatorfetchProfile(uid: id)
         }
     }
     

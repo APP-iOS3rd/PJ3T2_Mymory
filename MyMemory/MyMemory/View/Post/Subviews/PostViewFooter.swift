@@ -8,15 +8,27 @@ struct PostViewFooter: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text(viewModel.memoAddressText.isEmpty ? "위치를 탐색 중입니다." : viewModel.memoAddressText)
-                        .foregroundStyle(Color.textColor)
-                        .font(.bold14)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
-                    
-                    Text("현재 위치를 기준으로 자동으로 탐색합니다.")
-                        .font(.caption)
-                        .foregroundColor(Color.textColor)
+                    if let building = viewModel.memoAddressBuildingName {
+                        Text(building)
+                            .foregroundStyle(Color.textColor)
+                            .font(.bold14)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        
+                        Text(viewModel.memoAddressText.isEmpty ? "현재 위치를 기준으로 자동으로 탐색합니다." : viewModel.memoAddressText)
+                            .font(.caption)
+                            .foregroundColor(Color.textColor)
+                    } else {
+                        Text(viewModel.memoAddressText.isEmpty ? "위치를 탐색 중입니다." : viewModel.memoAddressText)
+                            .foregroundStyle(Color.textColor)
+                            .font(.bold14)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                        
+                        Text("현재 위치를 기준으로 자동으로 탐색합니다.")
+                            .font(.caption)
+                            .foregroundColor(Color.textColor)
+                    }
                 }
                 .padding(.leading)
                 

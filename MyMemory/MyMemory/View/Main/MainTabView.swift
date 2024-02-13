@@ -46,7 +46,7 @@ struct MainTabView: View {
                         Text("마이")
                     }
                     .tag(2)
-            }
+            }.background(Color.bgColor)
         }.onAppear {
             AuthService.shared.fetchUser()
         }
