@@ -25,7 +25,7 @@ struct PostView: View {
     
     @State var isEdit: Bool = false
     @State var selectedItemsCounts: Int = 0
-    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
+    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false,isPinned: true, date: Date().timeIntervalSince1970 - 1300,  location : Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
     
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
     
@@ -91,7 +91,8 @@ struct PostView: View {
                 Spacer()
                 PostViewFooter()
                     .environmentObject(viewModel)
-                    
+                    .disabled(isEdit)
+                
             }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
         
@@ -195,18 +196,10 @@ struct PostView: View {
                             }
                             
                             Button(action: {
-                                Task {
-                                    viewModel.loading = true
-                                    LoadingManager.shared.phase = .loading
-                                    if isEdit {
-                                        // 수정 모드일 때는 editMemo 호출
-                                        await viewModel.editMemo(memo: memo)
-                                        presentationMode.wrappedValue.dismiss()
-                                    } else {
-                                        // 수정 모드가 아닐 때는 saveMemo 호출
-                                        await viewModel.saveMemo()
-                                    }
-                                }
+                                viewModel.loading = true
+                                LoadingManager.shared.phase = .loading
+                                viewModel.editMemo(memo: memo)
+                                //                                    presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("수정")
                             })
@@ -215,18 +208,11 @@ struct PostView: View {
                     } else {
                         //Text("저장")
                         Button(action: {
-                            Task {
-                                viewModel.loading = true
-                                LoadingManager.shared.phase = .loading
-                                if isEdit {
-                                    // 수정 모드일 때는 editMemo 호출
-                                    await viewModel.editMemo(memo: memo)
-                                    presentationMode.wrappedValue.dismiss()
-                                } else {
-                                    // 수정 모드가 아닐 때는 saveMemo 호출
-                                    await viewModel.saveMemo()
-                                }
-                            }
+                            viewModel.loading = true
+                            LoadingManager.shared.phase = .loading
+                            // 수정 모드가 아닐 때는 saveMemo 호출
+                            viewModel.saveMemo()
+                            
                         }, label: {
                             Text("저장")
                         })

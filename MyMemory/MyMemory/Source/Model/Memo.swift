@@ -22,6 +22,7 @@ struct Memo: Hashable, Codable, Identifiable, Equatable{
     var tags: [String]  // 태그
     var imagesURL: [String] // 사진 Url
     var isPublic: Bool = true // 공개여부
+    var isPinned: Bool
     var date: TimeInterval  // 작성일 timestamp
     var location: Location  // 위치
     var likeCount: Int  // 좋아요 개수

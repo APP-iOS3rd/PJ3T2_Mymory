@@ -44,6 +44,8 @@ class AuthViewModel: ObservableObject {
     @Published var selectedItem: PhotosPickerItem? = nil
     @Published var imageSelected: Bool = false
     @Published var selectedImageData: Data? = nil
+    @Published var isActivce : Bool = false
+
     
     @Published var showPrivacyPolicy = false
     @Published var showTermsOfUse = false
@@ -55,6 +57,7 @@ class AuthViewModel: ObservableObject {
     // 현재 개인정보와 이용약관 문서를 정리중입니다. 추후에 완성된 문서의 주소값으로 업데이트 하겠습니다
     
     init() {
+
         userSession = Auth.auth().currentUser
         UserApi.shared.unlink {(error) in
             if let error = error {
@@ -79,20 +82,39 @@ class AuthViewModel: ObservableObject {
     }
     
     func loginWithGoogle(credential: AuthCredential) async -> String? {
+        var image: UIImage?
+        if selectedImageData != nil {
+            image = UIImage(data: selectedImageData!)
+        }
+        
         do {
             let result = try await Auth.auth().signIn(with: credential)
             let newUserCheck = await checkUser(userID: result.user.uid)
             if newUserCheck {
-                let data = [
-                    "id" : result.user.uid,
-                    "name": result.user.displayName,
-                    "email": result.user.email,
-                    "profilePicture": ""
-                ]
-                try await COLLECTION_USERS.document(result.user.uid).setData(data as [String : Any])
-                AuthService.shared.userSession = result.user
-                AuthService.shared.fetchUser()
-                print("계정생성 성공")
+                guard let image = image else {
+                    let data = [
+                        "id" : result.user.uid,
+                        "name": self.name,
+                        "email": result.user.email,
+                        "profilePicture": ""
+                    ]
+                    try await COLLECTION_USERS.document(result.user.uid).setData(data as [String: Any])
+                        AuthService.shared.userSession = result.user
+                        AuthService.shared.fetchUser()
+                        return ("계정생성 성공")
+                }
+                ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
+                    let data = [
+                        "id" : result.user.uid,
+                        "name": self.name,
+                        "email": result.user.email,
+                        "profilePicture": imageUrl
+                    ]
+                    COLLECTION_USERS.document(result.user.uid).setData(data as [String: Any])
+                        AuthService.shared.userSession = result.user
+                        AuthService.shared.fetchUser()
+                        print("계정생성 성공")
+                }
             } else {
                 AuthService.shared.userSession = result.user
                 AuthService.shared.fetchUser()
@@ -100,6 +122,24 @@ class AuthViewModel: ObservableObject {
             return nil
         } catch {
             return ("구글 로그인 실패")
+        }
+    }
+    
+    func checkUserEmail(email: String) async -> Bool {
+        do {
+            print("해당유저 이메일 : \(email)")
+            if email == "emailnotfound" {
+                return false
+            }
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("email", isEqualTo: email).getDocuments()
+            if querySnapshot.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return true
         }
     }
     
@@ -147,8 +187,6 @@ class AuthViewModel: ObservableObject {
                     return
                 }
                 ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
-                    
-                    
                     let data = [
                         "id" : user.uid,
                         "name": self.name,
@@ -209,6 +247,16 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func checkIfCanSocialRegister() -> Bool {
+        let isNameNotEmpty = name != ""
+        let isBoxsesAreChecked = checkIfAllBoxsesAreChecked()
+        if isNameNotEmpty && isBoxsesAreChecked {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     func checkIfAllBoxsesAreChecked() -> Bool {
         if overFourteenBox == false || termsOfUseBox == false || privacyPolicyBox == false {
             return false
@@ -236,6 +284,10 @@ class AuthViewModel: ObservableObject {
         return false
     }
     func authenticate(credential: ASAuthorizationAppleIDCredential) {
+        var image: UIImage?
+        if selectedImageData != nil {
+            image = UIImage(data: selectedImageData!)
+        }
         //getting token
         guard let token = credential.identityToken else {
             print("error with firebase")
@@ -254,33 +306,39 @@ class AuthViewModel: ObservableObject {
                 print(err.localizedDescription)
             }
             if self.name != "" && self.email != "" {
-                let data = [
-                    "id" : result!.user.uid,
-                    "name": self.name,
-                    "email": self.email,
-                    "profilePicture": ""
-                ]
-                COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
-                    AuthService.shared.userSession = result!.user
-                    AuthService.shared.fetchUser()
+                guard let image = image else {
+                    
+                    let data = [
+                        "id" : result!.user.uid,
+                        "name": self.name,
+                        "email": self.email,
+                        "profilePicture": ""
+                    ]
+                    COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
+                        AuthService.shared.userSession = result!.user
+                        AuthService.shared.fetchUser()
+                    }
+                    print("계정생성 성공")
+                    return
+                }
+                ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
+                    let data = [
+                        "id" : result!.user.uid,
+                        "name": self.name,
+                        "email": self.email,
+                        "profilePicture": imageUrl
+                    ]
+                    COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
+                        AuthService.shared.userSession = result!.user
+                        AuthService.shared.fetchUser()
+                    }
+                    print("계정생성 성공")
                 }
             }
             AuthService.shared.userSession = result!.user
             AuthService.shared.fetchUser()
             UserDefaults.standard.set(result!.user.uid, forKey: "userId")
             print("로그인 완료")
-        }
-    }
-    
-    func fetchAppleUser() {
-        guard let uid = userSession?.uid else { return }
-        print("현재 로그인 상태: uid \(uid)")
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, _ in
-            guard let user = try? snapshot?.data(as: User.self) else { return }
-            
-            AuthService.shared.currentUser = user
-            UserDefaults.standard.set(user.id, forKey: "userId")
-            //  print(user)
         }
     }
     

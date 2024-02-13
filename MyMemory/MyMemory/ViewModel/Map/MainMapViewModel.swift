@@ -17,6 +17,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private let locationManager = CLLocationManager()
     private var firstLocationUpdated = false
     private var addressOperation: Operation? = nil
+    private var fetchOperation: Operation? = nil
     var firstLocation: CLLocation? {
         didSet{
             fetchMemos()
@@ -28,6 +29,9 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var location: CLLocation? {
         didSet {
             //처음 한번 로케이션 불러오기
+            if location != nil {
+                fetchOperation?.start()
+            }
             if !self.firstLocationUpdated {
                 self.firstLocation = self.location
                 self.firstLocationUpdated = true
@@ -104,6 +108,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationConfig()
         }
         self.addressOperation = BlockOperation(block: getCurrentAddress)
+        self.fetchOperation = BlockOperation(block: refreshMemos)
         self.cluster.delegate = self
     }
     func refreshMemos() {

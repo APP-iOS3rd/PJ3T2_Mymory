@@ -38,14 +38,12 @@ struct NavigationBarItems: View {
             VStack {
                 Button {
                     print("memo.didLike\(memo.didLike)")
-                    MemoService.shared.likeMemo(memo: memo) { err in
-                        guard err == nil else {
-                            return
-                        }
-                    }
                     self.memo.didLike.toggle()
+
                     Task {
                         await fetchlikeCount()
+                        await MemoService.shared.likeMemo(memo: memo)
+
                     }
                 } label: {
                     if memo.didLike {

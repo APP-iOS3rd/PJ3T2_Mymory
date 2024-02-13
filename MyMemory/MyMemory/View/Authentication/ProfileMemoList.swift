@@ -12,23 +12,27 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     @State private var profile: Profile = {
-            var profile = AuthService.shared.currentUser!.toProfile
-            
-            return AuthService.shared.currentUser!.toProfile
+        var profile = AuthService.shared.currentUser!.toProfile
+        
+        return AuthService.shared.currentUser!.toProfile
     }()
     var body: some View {
         LazyVStack(spacing: 20) {
             // 각각의 뷰 모델을 활용하여 메모 리스트를 가져옴
+            
             ForEach($viewModel.memoList.indices, id: \.self) { i in
                 NavigationLink {
                     MemoDetailView(memos: $viewModel.memoList, selectedMemoIndex: i)
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
-                    MemoCard(memo: $viewModel.memoList[i], profile:$profile) { action in
+                    MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
                         switch action {
                         case .like:
                             print("like")
-
+                        case .pinned(let success):
+                            if success {
+                                print("pinned")
+                            }
                         default:
                             break
                         }
@@ -46,6 +50,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                             self.isLoadingFetchMemos = false
                                         } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
                                             self.isLoadingFetchMemos = true
+                                            self.profile = otherUserViewModel.memoCreator.toProfile
                                             let userId = otherUserViewModel.memoCreator.id?.description
                                             await otherUserViewModel.pagenate(userID: userId ?? "")
                                             self.isLoadingFetchMemos = false
@@ -57,8 +62,8 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 }
                 .buttonStyle(.plain)
             }
+            
         }
-        
         if isLoadingFetchMemos {
             HStack {
                 Spacer()

@@ -77,4 +77,6 @@ class SettingViewModel: ObservableObject {
             print("로그인 상태가 아님")
         }
     }
+    
+   
 }

@@ -19,7 +19,7 @@ final class AuthService: ObservableObject {
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
-
+    
     init() {
         if let session = Auth.auth().currentUser {
             self.userSession = session
@@ -81,8 +81,7 @@ final class AuthService: ObservableObject {
             completion(nil)
             return
         }
-        
-        print("현재 로그인 상태: uid \(uid)")
+        print("AuthService : 현재 로그인 상태: uid \(uid)")
         
         COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             guard let snapshot = snapshot, snapshot.exists else {
@@ -100,6 +99,43 @@ final class AuthService: ObservableObject {
             }
         }
     }
+    
+    
+    /// 사용자의 메모 개수, 사진 개수를 가져오는 메서드 입니다.
+    /// - Parameters:
+    ///   - uid : 메모 개수, 사진 개수를 가져올 사용자의 uid
+    /// - Returns: (Int, Int) : 메모 개수, 사진 개수
+    func countUserData(uid: String) async -> (Int, Int) {
+        var memoCount = 0
+        var imageCount = 0
+        
+        do {
+            let snapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: uid).getDocuments()
+            let documents = snapshot.documents
+            
+            if documents.isEmpty {
+                print("documents.isEmpty \(documents.count)")
+            }
+            
+            memoCount = documents.count
+            
+            print("Number of documents: \(documents.count)")
+            
+            var totalImageUUIDCount = 0
+            for document in documents {
+                if let memoImageUUIDs = document["memoImageUUIDs"] as? [String] {
+                    totalImageUUIDCount += memoImageUUIDs.count
+                }
+            }
+            
+            imageCount = totalImageUUIDCount
+        } catch {
+            print("Memo 이미지 UUID 개수를 계산하는 중에 오류가 발생했습니다: \(error)")
+        }
+        
+        return (memoCount, imageCount)
+    }
+
     
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
@@ -152,12 +188,12 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfiles(memos: [Memo]) async -> [Profile]  {
         var profileList: [Profile] = []
-            for id in memos.map({$0.userUid}) {
-                if let profile = await memoCreatorfetchProfile(uid: id) {
-                    profileList.append(profile)
-                }
+        for id in memos.map({$0.userUid}) {
+            if let profile = await memoCreatorfetchProfile(uid: id) {
+                profileList.append(profile)
             }
-            return profileList
+        }
+        return profileList
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
@@ -413,5 +449,28 @@ final class AuthService: ObservableObject {
             self.isFollow = false
         }
     }
-    
+    func pinnedCount() async -> Int {
+        guard let user = self.currentUser else { return 0}
+        
+        var count = 0
+        do {
+            let document = try await COLLECTION_MEMOS
+                .whereField("userUid", isEqualTo: user.id)
+                .getDocuments()
+            count = document.documents.filter{doc in
+                doc["isPinned"] as? Bool ?? false
+            }.count
+        } catch {
+            return 0
+        }
+        return count
+    }
+    func pinMyMemo(with memo: Memo) async {
+        guard let memoID = memo.id else {return}
+        do {
+            try await COLLECTION_MEMOS.document(memoID).updateData(["isPinned": memo.isPinned])
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

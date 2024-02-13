@@ -107,7 +107,7 @@ class PostViewModel: ObservableObject {
                     userAddress: memoAddressText,
                     memoTitle: memoTitle,
                     memoContents: memoContents,
-                    isPublic: memoShare,
+                    isPublic: !memoShare,
                     memoTagList: memoSelectedTags,
                     memoLikeCount: 0,
                     memoSelectedImageData: memoSelectedImageData,
@@ -175,6 +175,7 @@ class PostViewModel: ObservableObject {
                 resetMemoFields()
                 LoadingManager.shared.phase = .success
                 loading = false
+                dismissPublisher.send(true)
             } catch {
                 // 오류 처리
                 loading = false

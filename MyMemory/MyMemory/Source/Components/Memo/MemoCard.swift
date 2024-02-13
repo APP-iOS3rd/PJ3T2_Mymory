@@ -11,6 +11,7 @@ enum actionType {
     case follow
     case like
     case unAuthorized
+    case pinned(successed: Bool)
     case navigate(profile: Profile)
 }
 struct MemoCard: View {
@@ -21,18 +22,41 @@ struct MemoCard: View {
     @State var showImageViewer: Bool = false
     @State var imgIndex: Int = 0
     @Binding var profile: Profile
+    @State var isMyPage: Bool = false
+    @State private var pinnedCount: Int = 0
+
     var completion: (actionType) -> ()
     var body: some View {
         
         VStack(alignment: .leading){
             // Pin condition
             if memo.userUid == AuthService.shared.currentUser?.id {
-                HStack{
-                    Spacer()
-                    Image(systemName: "pin.fill")
-                        .resizable()
-                        .frame(width: 15, height: 20)
-                }.padding(.horizontal, 20)
+                if isMyPage {
+                    HStack{
+                        Spacer()
+                        Image(systemName: memo.isPinned ? "pin.fill" : "pin")
+                            .resizable()
+                            .frame(width: 15, height: 20)
+                            .onTapGesture {
+                                if pinnedCount < 6 {
+                                    memo.isPinned.toggle()
+                                    
+                                    Task{
+                                        await AuthService.shared.pinMyMemo(with:memo)
+                                        completion(.pinned(successed: true))
+                                    }
+                                } else {
+                                    //Pin 제한 갯수 알려주는 Alert?
+                                    completion(.pinned(successed: false))
+                                }
+                            }
+                    }.padding(.horizontal, 20)
+                } else {
+                    HStack{
+                        Spacer()
+                        Text("내 메모")
+                    }.padding(.horizontal, 20)
+                }
             } else {
                 HStack {
                     if let url = profile.profilePicture {
@@ -151,15 +175,15 @@ struct MemoCard: View {
                     }
                     if !self.memo.didLike {
                         self.memo.likeCount += 1
-                        MemoService.shared.likeMemo(memo: memo) { error in
-                            print(error?.localizedDescription)
+                        Task{@MainActor in
+                            await MemoService.shared.likeMemo(memo: memo)
                         }
                         memo.didLike = true
                         completion(.like)
                     } else {
                         self.memo.likeCount -= 1
-                        MemoService.shared.likeMemo(memo: memo) { error in
-                            print(error?.localizedDescription)
+                        Task{@MainActor in
+                            await MemoService.shared.likeMemo(memo: memo)
                         }
                         memo.didLike = false
                         completion(.like)
@@ -224,6 +248,11 @@ struct MemoCard: View {
             .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
+            }
+            .onAppear {
+                Task {
+                    self.pinnedCount = await AuthService.shared.pinnedCount()
+                }
             }
     }
     

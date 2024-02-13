@@ -5,7 +5,7 @@ import AuthenticationServices
 
 
 struct MyPageView: View {
-    @State var selected: Int = 2
+    @Binding var selected: Int
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
@@ -14,7 +14,7 @@ struct MyPageView: View {
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     
     @State var selectedIndex = 0
-    
+    @State private var isRefreshing = false
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -41,8 +41,13 @@ struct MyPageView: View {
                                     switch selectedIndex {
                                     case 0:
                                         createHeader()
-                                        ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
-                                        
+                                            .padding(.bottom)
+                                        if mypageViewModel.memoList.isEmpty {
+                                             MyPageEmptyView(selectedIndex: $selected)
+                                            
+                                        } else {
+                                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                        }
                                     default:
                                         MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
                                         
@@ -76,6 +81,8 @@ struct MyPageView: View {
                         //                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
                         //                }
                     } //: scrollView
+                    .padding(.horizontal)
+                    .padding(.top)
                 }
                 VStack{
                     Spacer()
@@ -95,10 +102,20 @@ struct MyPageView: View {
             }
             
         }
+        .refreshable {
+            isRefreshing = true
+            
+            // 새로고침 로직 실행
+            
+            // 로직이 완료되면 isRefreshing을 false로 설정하여 새로고침 상태를 종료합니다.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                mypageViewModel.fetchUserMemo()
+                isRefreshing = false
+            }
+        }
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
-            
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
