@@ -166,7 +166,7 @@ struct LoginView: View {
                                 let accessToken = user.accessToken
                                 
                                 let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
-                                Task {
+                                Task { @MainActor in
                                     if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
                                         print(alertTitle)
                                         return

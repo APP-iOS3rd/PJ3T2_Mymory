@@ -116,6 +116,7 @@ struct MemoService {
             "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
             "memoImageUUIDs" : memoImageUUIDs,  // 이미지 UUID 배열 저장
             "memoCreatedAt": memoCreatedAtString,
+            "createdAtTimeInterval": newMemo.memoCreatedAt
         ])
         
         print("Document added with ID: \(newMemo.id)")
@@ -154,6 +155,7 @@ struct MemoService {
                 "memoSelectedImageURLs": imageDownloadURLs,
                 "memoImageUUIDs" : memoImageUUIDs,
                 "memoCreatedAt": memoCreatedAtString,
+                "createdAtTimeInterval": updatedMemo.memoCreatedAt
             ], merge: true)
             
             print("Document updated with ID: \(documentID)")
@@ -242,10 +244,15 @@ struct MemoService {
         let week = Date().timeIntervalSince1970 - (3600 * 7)
         do {
             let docs = try await COLLECTION_MEMOS
-                .whereField("memoCreatedAt", isGreaterThan: week)
-                .order(by: "likeCount", descending: true)
+                .whereField("createdAtTimeInterval", isGreaterThan: week)
+//                .order(by: "memoLikeCount", descending: true)
                 .getDocuments()
-            for doc in docs.documents {
+            let filteredDocs = docs.documents.sorted(by: {first, second in
+                let firstCount = first["memoLikeCount"] as? Int ?? 0
+                let secondCount = second["memoLikeCount"] as? Int ?? 0
+                return firstCount > secondCount
+            })
+            for doc in filteredDocs {
                 if doc.exists {
                     let data = doc.data()
                     
@@ -266,6 +273,7 @@ struct MemoService {
             return memos
         }
         catch {
+            print(error.localizedDescription)
             return []
         }
     }
@@ -445,7 +453,7 @@ struct MemoService {
               let memoLikeCount = data["memoLikeCount"] as? Int,
               let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
               let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
-              let memoCreatedAt = timeIntervalFromString(data["memoCreatedAt"] as? String ?? "") else { return nil }
+              let memoCreatedAt = data["createdAtTimeInterval"] as? Double else { return nil }
         
         // Convert image URLs to Data asynchronously
         /*

@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct CommunityView: View {
-    @State var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])
-    @State var memos: [Memo] = [Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false, date: Date().timeIntervalSince1970 - 1300, location: Location(latitude: 0, longitude: 0), likeCount: 10, memoImageUUIDs: [""])]
-    
     @StateObject var locationManager = LocationsHandler.shared
+    @StateObject var viewModel: CommunityViewModel = .init()
     var body: some View {
         ScrollView {
             VStack {
@@ -24,8 +22,8 @@ struct CommunityView: View {
                     .padding(.top, 25)
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
-                        ForEach(1...10, id: \.self) { count in
-                            MemoCell(location: $locationManager.location,memo: $memo, memos: $memos)
+                        ForEach($viewModel.memosOfTheWeek) { memo in
+                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek)
                                 .padding(.leading, 18)
                         }
                     })
