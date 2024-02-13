@@ -34,16 +34,8 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     init() {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
-        
-        if let userID = UserDefaults.standard.string(forKey: "userId") {
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: userID)
-//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
-                }
-            }
-        }
+        fetchUserMemo()
+
         
         // 해당 코드 블럭 로그인 이후 재 호출필요
         user = AuthService.shared.currentUser
@@ -57,6 +49,16 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         }
     }
     
+    func fetchUserMemo(){
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+                }
+            }
+        }
+    }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
