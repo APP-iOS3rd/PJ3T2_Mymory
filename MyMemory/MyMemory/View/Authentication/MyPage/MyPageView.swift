@@ -74,6 +74,8 @@ struct MyPageView: View {
                         //                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
                         //                }
                     } //: scrollView
+                    .padding(.horizontal)
+                    .padding(.top)
                 }
                 VStack{
                     Spacer()
