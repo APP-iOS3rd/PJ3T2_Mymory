@@ -51,7 +51,9 @@ class PostViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let location = location {
                     print("User's current location - Latitude: \(location.latitude), Longitude: \(location.longitude)")
-                    self?.userCoordinate = location
+                    if self?.userCoordinate == nil {
+                        self?.userCoordinate = location
+                    }
                     // 주소 변환 로직이나 추가 작업을 여기에 구현
                     
                     // getUserCurrentLocation 작업이 완료되면 getAddress 호출
@@ -91,7 +93,11 @@ class PostViewModel: ObservableObject {
     func setAddress() {
         if !tempAddressText.isEmpty {
             self.memoAddressText = self.tempAddressText
+            
         }
+    }
+    func setLocation(locatioin: CLLocation) {
+        self.userCoordinate = locatioin.coordinate
     }
     
     
