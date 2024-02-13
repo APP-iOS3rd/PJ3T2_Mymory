@@ -83,8 +83,7 @@ final class AuthService: ObservableObject {
             completion(nil)
             return
         }
-        
-        print("현재 로그인 상태: uid \(uid)")
+        print("AuthService : 현재 로그인 상태: uid \(uid)")
         
         COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             guard let snapshot = snapshot, snapshot.exists else {
