@@ -11,61 +11,33 @@ struct OnboardingView : View {
     
     @State var currentIndex: Int = 0
     @StateObject var viewModel: OnboardingViewModel = .init()
-    
+    @Binding var isFirstLaunching: Bool
+        
     var body: some View {
-
-        TabView(selection: $currentIndex) {
-            ForEach(viewModel.onboardingList){ index in
-                
-                ZStack(alignment: .bottom){
-                    index.bgColor
+        TabView(selection: $currentIndex.animation()) { // 1
+            ForEach(Array(zip(viewModel.onboardingList.indices, viewModel.onboardingList)), id: \.0) { index, item in
+                ZStack {
+                    Color.white
                         .ignoresSafeArea()
-                    ZStack(alignment: .bottom) {
                         
-                        Image(index.image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 280)
-                            .offset(y:-100)
+                    VStack(spacing: 30) {
+                        Text(item.content)
+                            .font(.bold20)
+                            .multilineTextAlignment(.center)
                         
-                        VStack(spacing:10){
-                            Text(index.title)
-                                .font(.bold20)
-                            Text(index.content)
-                                .font(.light14)
-                            Spacer()
-                            
-                            
-                            Button {
-                                if currentIndex == 2 {
-//                                    self.viewRouter.currentPage = "mainView"
-                                } else {
-                                    currentIndex = currentIndex + 1
-                                }
-                            } label: {
-                                Text("다음으로")
-                            }
-                            
-                        }
-                        .padding(.horizontal,30)
-                        .padding(.vertical,70)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 260)
-                        .background(Color.white)
+                            Image(item.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: UIScreen.main.bounds.size.width * 0.85, maxHeight: UIScreen.main.bounds.size.height * 0.5)
+
+
                     }
                 }
-            }
+              .tag(index)
+          }
         }
         .ignoresSafeArea()
-        .tabViewStyle(PageTabViewStyle())
-        .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-       
- 
-            
-       
+        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+        .overlay(IndexView(numberOfPages: viewModel.onboardingList, currentIndex: $currentIndex, isFirstLaunching: $isFirstLaunching))
+      }
     }
-}
- 
-//#Preview {
-//    OnboardingView()
-//}

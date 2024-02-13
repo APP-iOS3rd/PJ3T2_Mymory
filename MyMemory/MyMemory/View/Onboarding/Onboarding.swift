@@ -13,5 +13,4 @@ struct Onboarding: Identifiable, Hashable {
     var image: String = ""
     var title: String = ""
     var content : String = ""
-    var bgColor: Color
 }

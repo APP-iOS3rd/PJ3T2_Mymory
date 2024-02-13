@@ -277,6 +277,9 @@
         }
       }
     },
+    "다음" : {
+
+    },
     "다음 글..." : {
       "localizations" : {
         "en" : {
@@ -288,6 +291,7 @@
       }
     },
     "다음으로" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -611,6 +615,9 @@
           }
         }
       }
+    },
+    "시작하기" : {
+
     },
     "신고 내용은 24시간 이내에 조치됩니다." : {
       "extractionState" : "stale",
