@@ -22,24 +22,19 @@ struct LoginView: View {
         case email
         case password
     }
-    @FocusState private var focusedField: Field?
     
+    @FocusState private var focusedField: Field?
     
     @State private var email: String = ""
     @State private var password: String = ""
-    
     @State private var isActive: Bool = false
     @State private var isShowingLoginErrorAlert: Bool = false
     @State private var loginErrorAlertTitle = ""
     @State private var notCorrectLogin: Bool = false
+    
     @EnvironmentObject var viewModel: AuthViewModel
-    //    @ObservedObject var viewRouter: ViewRouter = ViewRouter()
-    
-    
     @Environment(\.presentationMode) var presentationMode
-    //    확인용 임시 아이디 + 패스워드
-    //    private var correctEmail: String = "12345@naver.com"
-    //    private var correctPassword: String = "12345"
+    
     
     var body: some View {
         
@@ -98,8 +93,11 @@ struct LoginView: View {
                     } label: {
                         Text("로그인")
                             .font(.regular18)
+                            .frame(maxWidth: .infinity)
+                        
                     }
-                    .buttonStyle(LoginButton())
+                    .buttonStyle(RoundedRect.loginBtnDisabled)
+                    
                 } else {
                     Button {
                         Task {
@@ -113,8 +111,11 @@ struct LoginView: View {
                     } label: {
                         Text("로그인")
                             .font(.regular18)
+                            .frame(maxWidth: .infinity)
+                            
                     }
-                    .buttonStyle(LoginButton(backgroundColor: Color.indigo))
+                    .buttonStyle(RoundedRect.loginBtn)
+                   // .buttonStyle(LoginButton(backgroundColor: Color.indigo))
                     .alert(loginErrorAlertTitle, isPresented: $isShowingLoginErrorAlert) {
                         Button("확인", role: .cancel) {}
                     }
@@ -143,41 +144,50 @@ struct LoginView: View {
                 }
                 
                 Spacer()
+                
                 // MARK: - 소셜 로그인 버튼
                 VStack {
-                    GoogleSignInButton(
-                        scheme: .light, style: .standard, action: {
-                            guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-                            
-                            let config = GIDConfiguration(clientID: clientID)
-                            
-                            GIDSignIn.sharedInstance.configuration = config
-                            guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
-                            GIDSignIn.sharedInstance.signIn(withPresenting: check) { signResult, error in
-                                if let error = error {
-                                    print("구글 로그인 에러입니다\(error)")
-                                    return
-                                } else {
-                                    guard let user = signResult?.user,
-                                          let idToken = user.idToken else { return }
-                                    
-                                    let accessToken = user.accessToken
-                                    
-                                    let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
-                                    Task {
-                                        if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
-                                            print(alertTitle)
-                                            return
-                                        } else {
-                                            presentationMode.wrappedValue.dismiss()
-                                        }
+                    
+                    Button {
+                        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                        
+                        let config = GIDConfiguration(clientID: clientID)
+                        
+                        GIDSignIn.sharedInstance.configuration = config
+                        guard let check = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else {return}
+                        GIDSignIn.sharedInstance.signIn(withPresenting: check) { signResult, error in
+                            if let error = error {
+                                print("구글 로그인 에러입니다\(error)")
+                                return
+                            } else {
+                                guard let user = signResult?.user,
+                                      let idToken = user.idToken else { return }
+                                
+                                let accessToken = user.accessToken
+                                
+                                let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
+                                Task {
+                                    if let alertTitle = await self.viewModel.loginWithGoogle(credential: credential) {
+                                        print(alertTitle)
+                                        return
+                                    } else {
+                                        presentationMode.wrappedValue.dismiss()
                                     }
-                                    
                                 }
+                                
                             }
-                        })
-                    .frame(width: 350, height: 50)
-                    .cornerRadius(10)
+                        }
+                    } label: {
+                        HStack {
+                            Image("googleLogo")
+                                .frame(width: 24, height: 24)
+                            
+                            Text("Google로 계속하기")
+                        }
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(RoundedRect.loginGoogle)
+                    
                     SignInWithAppleButton(
                         onRequest: { request in
                             viewModel.nonce = viewModel.randomNonceString()
@@ -209,8 +219,12 @@ struct LoginView: View {
                             }
                         }
                     )
-                    .frame(width : 350, height:50)
-                    .cornerRadius(10)
+                    .buttonStyle(RoundedRect.loginApple)
+                  
+                    .frame(height: 50)
+    
+                    
+              
                     Button {
                         if (UserApi.isKakaoTalkLoginAvailable()) {
                             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -229,21 +243,26 @@ struct LoginView: View {
                                 }
                             }
                         }
+                    } label: {
+                        HStack {
+                            Image("kakao")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 18, height: 20)
+                            Text("Kakao로 계속하기")
+                                .font(.regular16)
+                        }
+                        .frame(maxWidth: .infinity)
+                        
+                      
+
                     }
-                label: {
-                    HStack {
-                        Image("kakao")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 18, height: 20)
-                        Text("Kakao로 계속하기")
-                            .font(.regular16)
-                    }
-                }
-                .buttonStyle(SocialLoginButton(labelColor: Color.black ,backgroundColor: Color.yellow))
-                }//: SNS 로그인
-                .padding(.vertical, 20)
-            }//: VSTACK
+                    .buttonStyle(RoundedRect.loginKakao)
+                    .frame(height: 50)
+            
+                    } //: SNS 로그인
+                   // .padding(.vertical, 20)
+            } //: VSTACK
             
             .padding()
             .fullScreenCover(isPresented: $isActive) {
@@ -259,7 +278,7 @@ struct LoginView: View {
                 rightView: {
                     CloseButton()
                 },
-                backgroundColor: .bgColor
+                backgroundColor: .bgColor3
             )
         }
     }
