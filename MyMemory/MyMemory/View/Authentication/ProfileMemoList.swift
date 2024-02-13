@@ -46,6 +46,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                             self.isLoadingFetchMemos = false
                                         } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
                                             self.isLoadingFetchMemos = true
+                                            self.profile = otherUserViewModel.memoCreator.toProfile
                                             let userId = otherUserViewModel.memoCreator.id?.description
                                             await otherUserViewModel.pagenate(userID: userId ?? "")
                                             self.isLoadingFetchMemos = false
