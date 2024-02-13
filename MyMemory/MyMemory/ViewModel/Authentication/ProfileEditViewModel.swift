@@ -53,7 +53,7 @@ class ProfileEditViewModel: ObservableObject {
             try await userRef.updateData([
                 "name": name
             ])
-            if let deleteImage = deleteImageURL {
+            if let deleteImage = deleteImageURL, !deleteImage.isEmpty {
                 let deleteImageRef = storageRef
                                         .child("profile_images/\(deleteImage.getProfileImageUID())")
                 do {
@@ -116,6 +116,7 @@ class ProfileEditViewModel: ObservableObject {
     }
     
     func fetchEditProfile(uid: String, imageData: Data?, name: String) async -> String {
+        self.isLoading = true
         if imageData != nil && self.name != AuthService.shared.currentUser?.name {
             let changeUserNameResult = await editUserName(changeName: name, uid: uid)
             switch changeUserNameResult {
@@ -124,11 +125,14 @@ class ProfileEditViewModel: ObservableObject {
                 switch changeImageResult {
                 case .success(_):
                     self.isEditionSuccessd = true
+                    self.isLoading = false
                     return "프로필 수정이 완료되었습니다."
                 case .failure(let failure):
+                    self.isLoading = false
                     return self.errorHandler(errorType: failure)
                 }
             case .failure(let failure):
+                self.isLoading = false
                 return self.errorHandler(errorType: failure)
             }
         } else if let profileImage = imageData {
@@ -136,8 +140,10 @@ class ProfileEditViewModel: ObservableObject {
             switch changeImageResult {
             case .success(_):
                 self.isEditionSuccessd = true
+                self.isLoading = false
                 return "프로필 사진 변경이 완료되었습니다."
             case .failure(let failure):
+                self.isLoading = false
                 return self.errorHandler(errorType: failure)
             }
         } else {
@@ -145,11 +151,14 @@ class ProfileEditViewModel: ObservableObject {
             switch changeUserNameResult {
             case .success(_):
                 self.isEditionSuccessd = true
+                self.isLoading = false
                 return "이름 변경이 완료되었습니다."
             case .failure(let failure):
+                self.isLoading = false
                 return errorHandler(errorType: failure)
             }
         }
+        
     }
     
     private func errorHandler(errorType: ProfileEditErrorType) -> String {

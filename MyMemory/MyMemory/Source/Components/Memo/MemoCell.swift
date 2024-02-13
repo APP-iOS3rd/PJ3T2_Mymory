@@ -26,13 +26,9 @@ struct MemoCell: View {
             VStack{
                 if isVisible || isMyMemo {
                     Button(action: {
-                        MemoService.shared.likeMemo(memo: memo) { err in
-                            guard err == nil else {
-                                return
-                            }
-                        }
                         self.memo.didLike.toggle()
                         Task {
+                            await MemoService.shared.likeMemo(memo: memo)
                             await fetchlikeCount()
                         }
                         //print("\(memo.didLike)")

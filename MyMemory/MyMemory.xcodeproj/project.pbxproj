@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118AFB12B6A252800BAC3B1 /* ThemeView.swift */; };
-		012DF3F52B7225B50048DBBF /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = 012DF3F42B7225B40048DBBF /* Yeongdeok Sea.otf */; };
-		012DF3F72B7226C70048DBBF /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 012DF3F62B7226C70048DBBF /* NeoDunggeunmo-Regular.ttf */; };
-		012FA1602B73094100AB25C1 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012FA15F2B73094100AB25C1 /* FontManager.swift */; };
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
 		0133834B2B565F09004D4B8A /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0133834A2B565F09004D4B8A /* OnboardingView.swift */; };
@@ -56,7 +53,6 @@
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
-		01FB87222B71CCDC001C7278 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 01FB87212B71CCDC001C7278 /* OwnglyphEuiyeonChae.ttf */; };
 		01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FB9F8E2B6BBF700021CE7F /* ThemeViewModel.swift */; };
 		280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280561ED2B67797F00D9B9B6 /* AlertView.swift */; };
 		280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280561EF2B67799000D9B9B6 /* AlertButtonView.swift */; };
@@ -80,6 +76,9 @@
 		649128F22B550C200034F567 /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128F12B550C200034F567 /* SelectTagView.swift */; };
 		649427792B5525EC0079481D /* PostMemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649427782B5525EC0079481D /* PostMemoModel.swift */; };
 		6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6494277B2B5527DA0079481D /* PostViewModel.swift */; };
+		64A41CB72B68C03800087B66 /* OtherUserTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A41CB62B68C03800087B66 /* OtherUserTopView.swift */; };
+		64CD2F9F2B6CAFA400CF72CB /* OtherUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */; };
+		64CD2FA12B6CBB5200CF72CB /* MemoListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA02B6CBB5200CF72CB /* MemoListViewModel.swift */; };
 		64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CD2FA22B70678100CF72CB /* UserStatusCell.swift */; };
 		64D3C2762B58B60000EEA19F /* LocationsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D3C2752B58B60000EEA19F /* LocationsHandler.swift */; };
 		64DA7C672B720C1D00A403B7 /* OtherUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DA7C632B720C1C00A403B7 /* OtherUserViewModel.swift */; };
@@ -103,10 +102,13 @@
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
 		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
 		9D1775182B554C4300BC8F5A /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */; };
+		9D3A679B2B74A80E0080894A /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */; };
 		9D5077742B67653700460FD8 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077732B67653700460FD8 /* KakaoSDKAuth */; };
 		9D5077762B67653700460FD8 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077752B67653700460FD8 /* KakaoSDKCommon */; };
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
+		9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */; };
+		9DAF8BE82B721AE700CA74ED /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */; };
 		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
 		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
 		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
@@ -151,6 +153,18 @@
 		DAB4CE552B58B9CA00CBE177 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE542B58B9CA00CBE177 /* FirebaseAuthCombine-Community */; };
 		DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE562B58BAB300CBE177 /* FirebaseStorage */; };
 		DABA02F72B5F46AA009191DA /* ReportMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA02F62B5F46AA009191DA /* ReportMemoView.swift */; };
+		DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
+		DADCCFF62B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
+		DADCCFF72B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
+		DADCCFF82B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */; };
+		DADCCFF92B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */; };
+		DADCCFFA2B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */; };
+		DADCCFFB2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
+		DADCCFFC2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
+		DADCCFFD2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
+		DADCCFFF2B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
+		DADCD0002B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
+		DADCD0012B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF026152B5E31130092A3B3 /* LoadingManager.swift */; };
 		DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAFBC45A2B72063700180E18 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
@@ -174,9 +188,6 @@
 
 /* Begin PBXFileReference section */
 		0118AFB12B6A252800BAC3B1 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
-		012DF3F42B7225B40048DBBF /* Yeongdeok Sea.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Yeongdeok Sea.otf"; sourceTree = "<group>"; };
-		012DF3F62B7226C70048DBBF /* NeoDunggeunmo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeoDunggeunmo-Regular.ttf"; sourceTree = "<group>"; };
-		012FA15F2B73094100AB25C1 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportView.swift; path = ../Authentication/ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
 		0133834A2B565F09004D4B8A /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -213,7 +224,6 @@
 		01E6A6342B467FE80061F08C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
-		01FB87212B71CCDC001C7278 /* OwnglyphEuiyeonChae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OwnglyphEuiyeonChae.ttf; sourceTree = "<group>"; };
 		01FB9F8E2B6BBF700021CE7F /* ThemeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeViewModel.swift; sourceTree = "<group>"; };
 		280561ED2B67797F00D9B9B6 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		280561EF2B67799000D9B9B6 /* AlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButtonView.swift; sourceTree = "<group>"; };
@@ -237,6 +247,9 @@
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		649427782B5525EC0079481D /* PostMemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMemoModel.swift; sourceTree = "<group>"; };
 		6494277B2B5527DA0079481D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		64A41CB62B68C03800087B66 /* OtherUserTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserTopView.swift; sourceTree = "<group>"; };
+		64CD2F9E2B6CAFA400CF72CB /* OtherUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserViewModel.swift; sourceTree = "<group>"; };
+		64CD2FA02B6CBB5200CF72CB /* MemoListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewModel.swift; sourceTree = "<group>"; };
 		64CD2FA22B70678100CF72CB /* UserStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStatusCell.swift; sourceTree = "<group>"; };
 		64D3C2752B58B60000EEA19F /* LocationsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsHandler.swift; sourceTree = "<group>"; };
 		64DA7C632B720C1C00A403B7 /* OtherUserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherUserViewModel.swift; sourceTree = "<group>"; };
@@ -260,7 +273,10 @@
 		6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMemoList.swift; sourceTree = "<group>"; };
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		9D1775172B554C4300BC8F5A /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
+		9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSocialRegisterView.swift; sourceTree = "<group>"; };
+		9D856CFE2B6CC322003B8EB7 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialRegisterView.swift; sourceTree = "<group>"; };
 		DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
@@ -305,6 +321,10 @@
 		DAB315672B43EFDD000357C7 /* MyMemoryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DAB315822B43F52C000357C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DABA02F62B5F46AA009191DA /* ReportMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMemoView.swift; sourceTree = "<group>"; };
+		DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OwnglyphEuiyeonChae.ttf; sourceTree = "<group>"; };
+		DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Yeongdeok Sea.otf"; sourceTree = "<group>"; };
+		DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeoDunggeunmo-Regular.ttf"; sourceTree = "<group>"; };
+		DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		DAF026142B5E25620092A3B3 /* MyMemory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMemory.entitlements; sourceTree = "<group>"; };
 		DAF026152B5E31130092A3B3 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		DAFBC45A2B72063700180E18 /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -497,6 +517,9 @@
 				6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */,
 				64CD2FA22B70678100CF72CB /* UserStatusCell.swift */,
 				9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */,
+				9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */,
+				9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */,
+				6A5519F52B56AA2A0028665D /* ProfileEditView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -694,11 +717,11 @@
 		DA52B5DA2B5609DA003F5E59 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */,
 				DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */,
 				64D3C2752B58B60000EEA19F /* LocationsHandler.swift */,
 				DAF026152B5E31130092A3B3 /* LoadingManager.swift */,
 				DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */,
-				012FA15F2B73094100AB25C1 /* FontManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -716,10 +739,10 @@
 		DA7893FA2B43F5AE00DC3771 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */,
+				DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */,
+				DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */,
 				01FB87232B71CCE7001C7278 /* Pretendard */,
-				01FB87212B71CCDC001C7278 /* OwnglyphEuiyeonChae.ttf */,
-				012DF3F62B7226C70048DBBF /* NeoDunggeunmo-Regular.ttf */,
-				012DF3F42B7225B40048DBBF /* Yeongdeok Sea.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -814,7 +837,7 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */,
+				9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAFBC45A2B72063700180E18 /* Localizable.xcstrings */,
@@ -1029,25 +1052,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6425FDF12B7A3F1A00CACB6B /* APIKEYS.xcconfig in Resources */,
+				DADCCFF82B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */,
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
-				012DF3F52B7225B50048DBBF /* Yeongdeok Sea.otf in Resources */,
 				DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
-				01FB87222B71CCDC001C7278 /* OwnglyphEuiyeonChae.ttf in Resources */,
 				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
+				DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
-				012DF3F72B7226C70048DBBF /* NeoDunggeunmo-Regular.ttf in Resources */,
+				9DAF8BE82B721AE700CA74ED /* APIKEYS.xcconfig in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
 				01700A992B5522030096E1CA /* Pretendard-Medium.otf in Resources */,
+				DADCCFFB2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1078,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DADCCFF92B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */,
+				DADCCFFC2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
+				DADCCFF62B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1062,6 +1088,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DADCCFFA2B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */,
+				DADCCFFD2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
+				DADCCFF72B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,7 +1130,7 @@
 				0180F62B2B6CCAD000FECAF6 /* FontView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,
-				DA2AD0A12B733DDC0052F69C /* MyPageEmptyView.swift in Sources */,
+				9D3A679B2B74A80E0080894A /* GoogleSocialRegisterView.swift in Sources */,
 				649427792B5525EC0079481D /* PostMemoModel.swift in Sources */,
 				01700AB02B555E9A0096E1CA /* Color+Extension.swift in Sources */,
 				01700A9E2B5528960096E1CA /* CurrentSpotButton.swift in Sources */,
@@ -1125,6 +1154,7 @@
 				280561EE2B67797F00D9B9B6 /* AlertView.swift in Sources */,
 				DA58C26F2B5CF094005CB3B3 /* ClusterBox.swift in Sources */,
 				28BB132E2B568E4C001A4C0C /* GIFView.swift in Sources */,
+				DADCCFFF2B7472AD0057B4E7 /* FontManager.swift in Sources */,
 				014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */,
 				01E6A6392B46813E0061F08C /* LoginView.swift in Sources */,
 				64DA7C692B720C1D00A403B7 /* MypageViewModel.swift in Sources */,
@@ -1171,6 +1201,7 @@
 				DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */,
 				01700AA22B552CC00096E1CA /* TopBarAddress.swift in Sources */,
 				28BB13392B569075001A4C0C /* CertificationView.swift in Sources */,
+				9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */,
 				6A9BB1CE2B6B39C900AD04F7 /* MenuTabBar.swift in Sources */,
 				6A9BB1D22B6B7DED00AD04F7 /* CommunityView.swift in Sources */,
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
@@ -1187,6 +1218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB3155C2B43EFDD000357C7 /* MyMemoryTests.swift in Sources */,
+				DADCD0002B7472AD0057B4E7 /* FontManager.swift in Sources */,
 				DA131A4C2B4BD4BA00743FD0 /* MapViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1196,6 +1228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB315682B43EFDD000357C7 /* MyMemoryUITestsLaunchTests.swift in Sources */,
+				DADCD0012B7472AD0057B4E7 /* FontManager.swift in Sources */,
 				DAB315662B43EFDD000357C7 /* MyMemoryUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1218,7 +1251,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1281,7 +1314,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1337,7 +1370,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1346,7 +1379,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1392,7 +1425,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1401,7 +1434,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1447,12 +1480,12 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1470,12 +1503,12 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1498,7 +1531,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1515,12 +1548,12 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DAF8BE72B721AE700CA74ED /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 37;
+				CURRENT_PROJECT_VERSION = 38;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
