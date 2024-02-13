@@ -108,6 +108,8 @@ struct MainSectionsView: View {
                                             case .navigate(profile: let profile): 
                                                 selectedUser = profile
                                                 print("Navigate to \(profile.name)'s profile")
+                                            default :
+                                                print("selected\(actions)")
                                             }
                                         }.frame(maxWidth: .infinity)
                                         
@@ -121,6 +123,7 @@ struct MainSectionsView: View {
                                 viewModel.fetchMemos()
                                 viewModel.fetchMemoProfiles()
                             }.frame(maxWidth: .infinity)
+                                .gesture(swipe)
                         }
                         
                     }

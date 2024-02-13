@@ -149,6 +149,7 @@
 		DAB315802B43F48C000357C7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = DAB3157F2B43F48C000357C7 /* FirebaseFirestore */; };
 		DAB4CE552B58B9CA00CBE177 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE542B58B9CA00CBE177 /* FirebaseAuthCombine-Community */; };
 		DAB4CE572B58BAB300CBE177 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = DAB4CE562B58BAB300CBE177 /* FirebaseStorage */; };
+		DAB8BF142B7AF7AC00A27A58 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */; };
 		DABA02F72B5F46AA009191DA /* ReportMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA02F62B5F46AA009191DA /* ReportMemoView.swift */; };
 		DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
 		DADCCFF62B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
@@ -314,6 +315,7 @@
 		DAB315652B43EFDD000357C7 /* MyMemoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryUITests.swift; sourceTree = "<group>"; };
 		DAB315672B43EFDD000357C7 /* MyMemoryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DAB315822B43F52C000357C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		DABA02F62B5F46AA009191DA /* ReportMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMemoView.swift; sourceTree = "<group>"; };
 		DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OwnglyphEuiyeonChae.ttf; sourceTree = "<group>"; };
 		DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Yeongdeok Sea.otf"; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 			children = (
 				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
+				DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1114,6 +1117,7 @@
 				64DA7C732B720CC300A403B7 /* OtherUserProfileView.swift in Sources */,
 				6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */,
 				6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */,
+				DAB8BF142B7AF7AC00A27A58 /* CommunityViewModel.swift in Sources */,
 				64DA7C672B720C1D00A403B7 /* OtherUserViewModel.swift in Sources */,
 				DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */,
 				01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */,
