@@ -43,7 +43,7 @@ struct UserStatusCell: View {
             .padding(.leading, 10)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical,24)
+        .padding(.vertical,18)
     }
 }
 

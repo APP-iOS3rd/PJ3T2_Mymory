@@ -91,7 +91,8 @@ struct PostView: View {
                 Spacer()
                 PostViewFooter()
                     .environmentObject(viewModel)
-                    
+                    .disabled(isEdit)
+                
             }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
         
@@ -196,18 +197,10 @@ struct PostView: View {
                             }
                             
                             Button(action: {
-                                Task {
-                                    viewModel.loading = true
-                                    LoadingManager.shared.phase = .loading
-                                    if isEdit {
-                                        // 수정 모드일 때는 editMemo 호출
-                                        await viewModel.editMemo(memo: memo)
-                                        presentationMode.wrappedValue.dismiss()
-                                    } else {
-                                        // 수정 모드가 아닐 때는 saveMemo 호출
-                                        await viewModel.saveMemo()
-                                    }
-                                }
+                                viewModel.loading = true
+                                LoadingManager.shared.phase = .loading
+                                viewModel.editMemo(memo: memo)
+                                //                                    presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("수정")
                             })
@@ -216,18 +209,11 @@ struct PostView: View {
                     } else {
                         //Text("저장")
                         Button(action: {
-                            Task {
-                                viewModel.loading = true
-                                LoadingManager.shared.phase = .loading
-                                if isEdit {
-                                    // 수정 모드일 때는 editMemo 호출
-                                    await viewModel.editMemo(memo: memo)
-                                    presentationMode.wrappedValue.dismiss()
-                                } else {
-                                    // 수정 모드가 아닐 때는 saveMemo 호출
-                                    await viewModel.saveMemo()
-                                }
-                            }
+                            viewModel.loading = true
+                            LoadingManager.shared.phase = .loading
+                            // 수정 모드가 아닐 때는 saveMemo 호출
+                            viewModel.saveMemo()
+                            
                         }, label: {
                             Text("저장")
                         })

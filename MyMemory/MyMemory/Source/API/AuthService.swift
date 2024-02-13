@@ -100,6 +100,43 @@ final class AuthService: ObservableObject {
         }
     }
     
+    
+    /// 사용자의 메모 개수, 사진 개수를 가져오는 메서드 입니다.
+    /// - Parameters:
+    ///   - uid : 메모 개수, 사진 개수를 가져올 사용자의 uid
+    /// - Returns: (Int, Int) : 메모 개수, 사진 개수
+    func countUserData(uid: String) async -> (Int, Int) {
+        var memoCount = 0
+        var imageCount = 0
+        
+        do {
+            let snapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: uid).getDocuments()
+            let documents = snapshot.documents
+            
+            if documents.isEmpty {
+                print("documents.isEmpty \(documents.count)")
+            }
+            
+            memoCount = documents.count
+            
+            print("Number of documents: \(documents.count)")
+            
+            var totalImageUUIDCount = 0
+            for document in documents {
+                if let memoImageUUIDs = document["memoImageUUIDs"] as? [String] {
+                    totalImageUUIDCount += memoImageUUIDs.count
+                }
+            }
+            
+            imageCount = totalImageUUIDCount
+        } catch {
+            print("Memo 이미지 UUID 개수를 계산하는 중에 오류가 발생했습니다: \(error)")
+        }
+        
+        return (memoCount, imageCount)
+    }
+
+    
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
     ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.

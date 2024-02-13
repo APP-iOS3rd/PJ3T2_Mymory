@@ -1,4 +1,3 @@
-//
 //  GoogleSocialRegisterView.swift
 //  MyMemory
 //
@@ -205,3 +204,4 @@ struct GoogleSocialRegisterView: View {
 //#Preview {
 //    GoogleSocialRegisterView()
 //}
+ 
