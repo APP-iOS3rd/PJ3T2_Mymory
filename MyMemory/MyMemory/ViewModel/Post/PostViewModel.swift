@@ -107,7 +107,7 @@ class PostViewModel: ObservableObject {
                     userAddress: memoAddressText,
                     memoTitle: memoTitle,
                     memoContents: memoContents,
-                    isPublic: memoShare,
+                    isPublic: !memoShare,
                     memoTagList: memoSelectedTags,
                     memoLikeCount: 0,
                     memoSelectedImageData: memoSelectedImageData,

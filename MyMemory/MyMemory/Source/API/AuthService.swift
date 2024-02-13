@@ -19,7 +19,7 @@ final class AuthService: ObservableObject {
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
-
+    
     init() {
         if let session = Auth.auth().currentUser {
             self.userSession = session
@@ -152,12 +152,12 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfiles(memos: [Memo]) async -> [Profile]  {
         var profileList: [Profile] = []
-            for id in memos.map({$0.userUid}) {
-                if let profile = await memoCreatorfetchProfile(uid: id) {
-                    profileList.append(profile)
-                }
+        for id in memos.map({$0.userUid}) {
+            if let profile = await memoCreatorfetchProfile(uid: id) {
+                profileList.append(profile)
             }
-            return profileList
+        }
+        return profileList
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
@@ -413,5 +413,28 @@ final class AuthService: ObservableObject {
             self.isFollow = false
         }
     }
-    
+    func pinnedCount() async -> Int {
+        guard let user = self.currentUser else { return 0}
+        
+        var count = 0
+        do {
+            let document = try await COLLECTION_MEMOS
+                .whereField("userUid", isEqualTo: user.id)
+                .getDocuments()
+            count = document.documents.filter{doc in
+                doc["isPinned"] as? Bool ?? false
+            }.count
+        } catch {
+            return 0
+        }
+        return count
+    }
+    func pinMyMemo(with memo: Memo) async {
+        guard let memoID = memo.id else {return}
+        do {
+            try await COLLECTION_MEMOS.document(memoID).updateData(["isPinned": memo.isPinned])
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }
