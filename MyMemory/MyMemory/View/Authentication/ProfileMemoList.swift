@@ -25,11 +25,14 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                     MemoDetailView(memos: $viewModel.memoList, selectedMemoIndex: i)
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
-                    MemoCard(memo: $viewModel.memoList[i], profile:$profile) { action in
+                    MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
                         switch action {
                         case .like:
                             print("like")
-                            
+                        case .pinned(let success):
+                            if success {
+                                print("pinned")
+                            }
                         default:
                             break
                         }
@@ -47,6 +50,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                             self.isLoadingFetchMemos = false
                                         } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
                                             self.isLoadingFetchMemos = true
+                                            self.profile = otherUserViewModel.memoCreator.toProfile
                                             let userId = otherUserViewModel.memoCreator.id?.description
                                             await otherUserViewModel.pagenate(userID: userId ?? "")
                                             self.isLoadingFetchMemos = false

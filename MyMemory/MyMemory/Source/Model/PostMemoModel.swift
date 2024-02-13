@@ -19,7 +19,8 @@ struct PostMemoModel: Identifiable {
     let userAddress: String
     let memoTitle: String
     let memoContents: String
-    let isPublic:Bool
+    let isPublic: Bool
+    let isPinned: Bool
     let memoTagList: [String]
     let memoLikeCount: Int
     let memoSelectedImageData: [Data]
@@ -38,6 +39,7 @@ struct PostMemoModel: Identifiable {
         self.userAddress = userAddress
         self.memoTitle = memoTitle
         self.memoContents = memoContents
+        self.isPinned = false
         self.isPublic = isPublic
         self.memoTagList = memoTagList
         self.memoLikeCount = memoLikeCount
