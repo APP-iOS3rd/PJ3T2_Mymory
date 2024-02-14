@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 import MapKit
 import CoreLocation
@@ -16,6 +17,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var cameraDistance: Double? = nil
     private let locationManager = CLLocationManager()
     private var firstLocationUpdated = false
+    private var operationQueue = OperationQueue()
+
     private var addressOperation: Operation? = nil
     private var fetchOperation: Operation? = nil
     var firstLocation: CLLocation? {
@@ -276,20 +279,27 @@ extension MainMapViewModel {
     ///   - memo : 선택된 Memo
     /// - Returns: void, 선택된 메모를 가지고 이 메모를 포함하는 클러스터 위치, 만약 그 클러스터가 현재 맵에 없다면, 메모의 위치로 카메라를 이동하는 함수
     func memoDidSelect(memo: Memo) {
-        self.selectedMemoId = memo.id
-        if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
-            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 2000))
-        } else {
-            let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
-            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 2000))
+        operationQueue.cancelAllOperations()
+        withAnimation {
+            self.selectedMemoId = memo.id
             
+            if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 2000))
+            } else {
+                let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 2000))
+                
+            }
         }
     }
     func clusterDidSelected(cluster: MemoCluster) {
         let memo = cluster.memos.first!
         self.selectedMemoId = memo.id
-        
+        withAnimation {
+
         self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 2000))
+        }
+
     }
     //MARK: - 주소 얻어오는 함수
     //특정 selected 위치 주소값

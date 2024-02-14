@@ -136,7 +136,7 @@ extension MemoService {
     }
     func fetchMemosOfWeek() async throws -> [Memo] {
         var memos: [Memo] = []
-        let week = Date().timeIntervalSince1970 - (3600 * 7)
+        let week = Date().timeIntervalSince1970 - (86400 * 7)
         do {
             let docs = try await COLLECTION_MEMOS
                 .whereField("createdAtTimeInterval", isGreaterThan: week)
