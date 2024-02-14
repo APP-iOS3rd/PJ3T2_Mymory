@@ -12,7 +12,7 @@ import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
     @ObservedObject var authViewModel : AuthService = .shared
-    @EnvironmentObject var viewModel: MypageViewModel
+//    @EnvironmentObject var viewModel: MypageViewModel
     var body: some View {
         VStack {
             HStack {
@@ -70,9 +70,9 @@ struct MypageTopView: View {
                 }
                 
             }
-            
-            UserStatusCell()
-                .environmentObject(viewModel)
+            if let uid = AuthService.shared.currentUser?.id {
+                UserStatusCell(uid: uid)
+            }
         }
         .onAppear {
             Task { // 로그인 안하면 실행 x
@@ -80,7 +80,7 @@ struct MypageTopView: View {
                     await authViewModel.followAndFollowingCount(user: currentUser)
                 }
             }
-            viewModel.fetchUserProfile()
+//            viewModel.fetchUserProfile()
         }
     }
 }

@@ -17,18 +17,19 @@ struct MoveUserProfileButton: View {
         HStack {
             NavigationLink {
                 OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                    .customNavigationBar(
-                        centerView: {
-                            Text(viewModel.memoCreator?.name ?? "")
-                        },
-                        leftView: {
-                            BackButton()
-                        },
-                        rightView: {
-                            EmptyView()
-                        },
-                        backgroundColor: Color.bgColor3
-                    ).environmentObject(otherUserViewModel)
+//                    .customNavigationBar(
+//                        centerView: {
+//                            Text(viewModel.memoCreator?.name ?? "")
+//                        },
+//                        leftView: {
+//                            BackButton()
+//                        },
+//                        rightView: {
+//                            EmptyView()
+//                        },
+//                        backgroundColor: Color.bgColor3
+//                    )
+                    .environmentObject(otherUserViewModel)
             } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)

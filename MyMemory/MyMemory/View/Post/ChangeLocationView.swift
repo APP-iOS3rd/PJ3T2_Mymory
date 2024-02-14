@@ -93,6 +93,9 @@ struct ChangeLocationView: View {
                 Button(action: {
                     if let _ = centerLoc {
                         viewModel.setAddress()
+                        if let loc = centerLoc {
+                            viewModel.setLocation(locatioin: loc)
+                        }
                     }
                     dismiss()
                 }, label: {

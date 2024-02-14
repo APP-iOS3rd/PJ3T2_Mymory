@@ -97,8 +97,9 @@ struct OtherUserTopView: View {
                     }
                 }
             }
-            
-            UserStatusCell()
+            if let uid = memoCreator.id {
+                UserStatusCell(uid: uid)
+            }
         }
         .onAppear {
             Task {
