@@ -130,9 +130,6 @@
     "lightGray" : {
 
     },
-    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. " : {
-
-    },
     "Neo둥근모체" : {
 
     },
@@ -149,9 +146,6 @@
 
     },
     "selected" : {
-
-    },
-    "Solarized Light" : {
 
     },
     "standard" : {
@@ -219,6 +213,9 @@
           }
         }
       }
+    },
+    "기본 메모지 선택 설정을 변경할 수 있습니다." : {
+
     },
     "나만 보기" : {
       "localizations" : {
@@ -496,6 +493,12 @@
           }
         }
       }
+    },
+    "메모지 선택" : {
+
+    },
+    "메모지 컬러 변경" : {
+
     },
     "메모하기" : {
       "localizations" : {
@@ -979,6 +982,7 @@
       }
     },
     "테마 선택" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
