@@ -50,9 +50,9 @@ struct MainTabView: View {
                         }
                         .tag(2)
                 }
-                .toolbarBackground(Color.bgColor, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
             }
+            .background(Color.bgColor)
         }.onAppear {
             AuthService.shared.fetchUser()
         }
