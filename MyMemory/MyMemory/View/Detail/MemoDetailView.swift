@@ -162,29 +162,28 @@ struct MemoDetailView: View {
                         }
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
+                    .onAppear {
+                        Task {
+                            do {
+                                let memo = memos[selectedMemoIndex!]
+                                
+                                isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
+                                if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
+                                    self.memos[selectedMemoIndex!] = newMemo
+                                }
+                                viewModel.fetchMemoCreator(uid: memo.userUid)
+                            } catch {
+                                // 에러 처리
+                                print("Error checking my memo: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
         } //:SCROLL
-        .onAppear {
-            Task {
-                do {
-                    let memo = memos[selectedMemoIndex!]
-                    
-                    isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
-                    if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
-                        self.memos[selectedMemoIndex!] = newMemo
-                    }
-                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                } catch {
-                    // 에러 처리
-                    print("Error checking my memo: \(error.localizedDescription)")
-                }
-            }
-        }
-        
         .scrollDisabled(true)
-        .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
 
