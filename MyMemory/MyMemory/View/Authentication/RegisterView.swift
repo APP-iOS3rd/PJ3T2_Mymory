@@ -56,6 +56,7 @@ struct RegisterView: View {
                             Text("이메일")
                                 .font(.system(size: 15))
                             TextField("example@example.com", text: $viewModel.email)
+                                .keyboardType(.emailAddress)
                                 .focused($focusedField, equals: .email)
                             
                             Divider()
