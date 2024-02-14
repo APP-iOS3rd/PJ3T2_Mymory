@@ -77,11 +77,13 @@ struct WithdrawalView: View {
                 }
                 
                 Button {
-                    MemoService.shared.removeUserAllData(uid: user?.id ?? "")
-                    isCurrentUserLoginState = false
-                    viewModel.isShowingWithdrawalAlert = true
-                    viewModel.fetchUserLogout {
-                        
+                    Task {
+                        await MemoService.shared.removeUserAllData(uid: user?.id ?? "")
+                        isCurrentUserLoginState = false
+                        viewModel.isShowingWithdrawalAlert = true
+                        viewModel.fetchUserLogout {
+                            
+                        }
                     }
                 } label: {
                     Text("네 그래도 탈퇴할게요")

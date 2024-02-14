@@ -820,12 +820,16 @@ extension MemoService {
            Authentication - 사용자 인증 기록 지우기
          
          */
-        
-        self.removeMemoData(uid: uid)
-        self.removeUserLikes(uid: uid)
-        self.removeUserFollowingAndFollowData(uid: uid)
-        self.removeUser(uid: uid)
-        
+        Task {
+            self.removeMemoData(uid: uid)
+            self.removeUserLikes(uid: uid)
+            self.removeUserFollowingAndFollowData(uid: uid)
+            let deleteImageResult = await AuthService.shared.removeUserProfileImage(uid: uid)
+            if let _ = try? deleteImageResult.get() {
+                print("사진 삭제 성공")
+            }
+            self.removeUser(uid: uid)
+        }
         // Authentication 계정 삭제
         if let currentUser = Auth.auth().currentUser {
             currentUser.delete { error in

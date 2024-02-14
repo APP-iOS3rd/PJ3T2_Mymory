@@ -41,27 +41,16 @@ class ProfileEditViewModel: ObservableObject {
         }
         
         let userRef = COLLECTION_USERS.document(uid)
-        var deleteImageURL: String?
+        let deleteProfileImageResult = await AuthService.shared.removeUserProfileImage(uid: uid)
+        
+        guard let _ = try? deleteProfileImageResult.get() else {
+            return .failure(.deleteUserProfileImage)
+        }
+        
         do {
-            let user = try await userRef.getDocument()
-            if user.exists {
-                deleteImageURL = user["profilePicture"] as? String
-            }
             try await userRef.updateData([
                 "profilePicture": imageURL
             ])
-            try await userRef.updateData([
-                "name": name
-            ])
-            if let deleteImage = deleteImageURL, !deleteImage.isEmpty {
-                let deleteImageRef = storageRef
-                                        .child("profile_images/\(deleteImage.getProfileImageUID())")
-                do {
-                    try await deleteImageRef.delete()
-                } catch {
-                    return .failure(.deleteUserProfileImage)
-                }
-            }
             return .success(true)
         } catch {
             isLoading = false
