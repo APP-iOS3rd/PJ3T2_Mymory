@@ -136,6 +136,8 @@
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DAA71E942B677F0600157DA1 /* Kingfisher */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
+		DAAD06D72B7B3CE0002D69D4 /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */; };
+		DAAD06D92B7B3D19002D69D4 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
 		DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB315512B43EFDD000357C7 /* Preview Assets.xcassets */; };
@@ -237,8 +239,6 @@
 		28BB13382B569075001A4C0C /* CertificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationView.swift; sourceTree = "<group>"; };
 		28F26D3E2B551E8500CE783D /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		641A8B3E2B57CBD500A942A1 /* MemoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoService.swift; sourceTree = "<group>"; };
-		6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
-		6425FDF22B7AFB1900CACB6B /* GoogleSocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSocialRegisterView.swift; sourceTree = "<group>"; };
 		645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extensions.swift"; sourceTree = "<group>"; };
 		645262192B6A2776004FE5C7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileButton.swift; sourceTree = "<group>"; };
@@ -306,6 +306,7 @@
 		DA78940A2B44090400DC3771 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
 		DA78940C2B44094700DC3771 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		DAA8DC0A2B63798A006D5694 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DAB315472B43EFDB000357C7 /* MyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryApp.swift; sourceTree = "<group>"; };
 		DAB3154E2B43EFDD000357C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -643,8 +644,6 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */,
-				6425FDF22B7AFB1900CACB6B /* GoogleSocialRegisterView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -845,6 +844,7 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
+				DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAFBC45A2B72063700180E18 /* Localizable.xcstrings */,
@@ -1060,6 +1060,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAAD06D92B7B3D19002D69D4 /* APIKEYS.xcconfig in Resources */,
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
@@ -1260,6 +1261,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1322,6 +1324,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1377,6 +1380,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1431,6 +1435,7 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1485,6 +1490,7 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1507,6 +1513,7 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1529,7 +1536,7 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6425FDF02B7A3F1A00CACB6B /* APIKEYS.xcconfig */;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1551,6 +1558,7 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

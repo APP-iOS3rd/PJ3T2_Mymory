@@ -11,6 +11,8 @@ import SwiftUI
 struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
+    @State private var showsAlert = false
+
     @State private var profile: Profile = {
         var profile = AuthService.shared.currentUser!.toProfile
         
@@ -32,6 +34,8 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                         case .pinned(let success):
                             if success {
                                 print("pinned")
+                            } else {
+                                showsAlert.toggle()
                             }
                         default:
                             break
@@ -62,7 +66,13 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 }
                 .buttonStyle(.plain)
             }
+
             
+        }
+        .moahAlert(isPresented: $showsAlert) {
+            MoahAlertView(title: "핀을 다 써버렸어요!", message: "5개까지만 고정할 수 있습니다.",firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showsAlert, action: {
+                
+            }))
         }
         if isLoadingFetchMemos {
             HStack {

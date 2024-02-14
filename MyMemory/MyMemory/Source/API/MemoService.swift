@@ -40,6 +40,7 @@ extension MemoService {
             "userCoordinateLatitude": newMemo.userCoordinateLatitude,
             "userCoordinateLongitude": newMemo.userCoordinateLongitude,
             "userAddress": newMemo.userAddress,
+            "buildingName": newMemo.userAddressBuildingName ?? "",
             "memoTitle": newMemo.memoTitle,
             "memoContents": newMemo.memoContents,
             "isPublic": newMemo.isPublic,
@@ -170,6 +171,55 @@ extension MemoService {
             print(error.localizedDescription)
             return []
         }
+    }
+    func fetchBuildingMemos(of buildingName: String) async throws -> [Memo] {
+        var memos: [Memo] = []
+        let query = try await COLLECTION_MEMOS
+            .whereField("buildingName", isEqualTo: buildingName)
+            .getDocuments()
+        for document in query.documents.filter({doc in
+            //공개인지?
+            let isPublic = doc["isPublic"] as? Bool ?? true
+            let memoUid = doc["userUid"] as? String ?? ""
+            //내 메모인지?
+            let isMyMemo = memoUid == AuthService.shared.currentUser?.id
+            return isPublic || isMyMemo
+        }) {
+            let data = document.data()
+            
+            // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+            if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                let likeCount = await likeMemoCount(memo: memo)
+                let memoLike = await checkLikedMemo(memo)
+                memo.likeCount = likeCount
+                memo.didLike = memoLike
+                memos.append(memo)
+            }
+        }
+        
+        return memos
+    }
+
+    func buildingList() async throws -> [BuildingInfo]{
+        var buildings: [BuildingInfo] = []
+        let query = try await COLLECTION_MEMOS
+            .order(by: "buildingName")
+            .getDocuments()
+        for document in query.documents {
+            if let name = document["buildingName"] as? String? ?? nil,
+            let address = document["userAddress"] as? String{
+                if let firstIndex = buildings.firstIndex(where: {$0.buildingName == name}) {
+                    let count = buildings[firstIndex].count
+                    buildings[firstIndex].count = count + 1
+                } else {
+                    let building = BuildingInfo(buildingName: name,
+                                                address: address,
+                                                count: 1)
+                    buildings.append(building)
+                }
+            }
+        }  
+        return buildings.sorted(by: {$0.count > $1.count})
     }
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
@@ -637,6 +687,7 @@ extension MemoService {
               let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
               let memoCreatedAt = data["createdAtTimeInterval"] as? Double else { return nil }
         let isPinned = data["isPinned"] as? Bool ?? false
+        let buildingName = data["buildingName"] as? String? ?? nil
         // Convert image URLs to Data asynchronously
         /*
          
@@ -672,6 +723,7 @@ extension MemoService {
             title: memoTitle,
             description: memoContents,
             address: userAddress,
+            building: buildingName,
             tags: memoTagList,
             imagesURL: memoSelectedImageURLs,
             isPublic: isPublic,

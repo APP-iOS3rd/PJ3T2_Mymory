@@ -9,11 +9,11 @@ import SwiftUI
 struct UserStatusCell: View {
     
     @ObservedObject var authViewModel: AuthService = .shared
-    
+    @EnvironmentObject var viewModel: MypageViewModel
     var body: some View {
         HStack {
             VStack {
-                Text("0")
+                Text("\(viewModel.userProfile?.memoCount ?? 0)")
                     .font(.bold16)
                 Text("메모")
                     .font(.light14)

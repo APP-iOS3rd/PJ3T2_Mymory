@@ -108,7 +108,11 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationConfig()
         }
         self.addressOperation = BlockOperation(block: getCurrentAddress)
-        self.fetchOperation = BlockOperation(block: refreshMemos)
+        self.fetchOperation = BlockOperation(block: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.refreshMemos()
+            }
+        })
         self.cluster.delegate = self
     }
     func refreshMemos() {

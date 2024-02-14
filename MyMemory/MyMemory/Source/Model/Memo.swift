@@ -19,6 +19,7 @@ struct Memo: Hashable, Codable, Identifiable, Equatable{
     var title: String // 제목
     var description: String // 메모 내용
     var address: String  // 주소
+    var building: String?
     var tags: [String]  // 태그
     var imagesURL: [String] // 사진 Url
     var isPublic: Bool = true // 공개여부
@@ -37,4 +38,13 @@ struct Location: Hashable, Codable {
         let clloc = CLLocation(latitude: latitude, longitude: longitude)
         return clloc.distance(from: loc)
     }
+}
+struct BuildingInfo: Equatable, Hashable {
+    let buildingName: String
+    let address: String
+    var count: Int
+    static func == (lhs: BuildingInfo, rhs: BuildingInfo) -> Bool {
+        lhs.buildingName == rhs.buildingName
+    }
+
 }

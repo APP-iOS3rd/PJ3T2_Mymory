@@ -24,7 +24,7 @@ struct User: Identifiable, Decodable {
                        name: self.name,
                        profilePicture: self.profilePicture,
                        followerCount: 0,
-                       memoCount: 0,
+                       memoCount: 0, pinCount: 0,
                        isFollowing: false)
     }
 }
@@ -35,6 +35,7 @@ struct Profile: Identifiable, Decodable, Hashable {
     var profilePicture: String?
     var followerCount: Int
     var memoCount: Int
+    var pinCount: Int
     var isFollowing: Bool
     var isCurrentUser: Bool {
         return AuthService.shared.userSession?.uid == id
