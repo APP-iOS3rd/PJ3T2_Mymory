@@ -108,6 +108,7 @@ class PostViewModel: ObservableObject {
                 loading = true
                 guard let user = AuthService.shared.currentUser else {
                     loading = false
+                    LoadingManager.shared.phase = .fail(msg: "로그인 중이 아님")
                     return
                 }
                 let newMemo = PostMemoModel(
@@ -128,16 +129,16 @@ class PostViewModel: ObservableObject {
                 do {
                     try await MemoService.shared.uploadMemo(newMemo: newMemo)
                     loading = false
-                    
-                    
+                    LoadingManager.shared.phase = .success
                 }
                 dismissPublisher.send(true)
                 resetMemoFields()
                 loading = false
-                
+                LoadingManager.shared.phase = .success
             } catch {
                 // 오류 처리
                 loading = false
+                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
         }
