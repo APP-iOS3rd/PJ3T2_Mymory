@@ -51,7 +51,9 @@ class PostViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let location = location {
                     print("User's current location - Latitude: \(location.latitude), Longitude: \(location.longitude)")
-                    self?.userCoordinate = location
+                    if self?.userCoordinate == nil {
+                        self?.userCoordinate = location
+                    }
                     // 주소 변환 로직이나 추가 작업을 여기에 구현
                     
                     // getUserCurrentLocation 작업이 완료되면 getAddress 호출
@@ -91,7 +93,11 @@ class PostViewModel: ObservableObject {
     func setAddress() {
         if !tempAddressText.isEmpty {
             self.memoAddressText = self.tempAddressText
+            
         }
+    }
+    func setLocation(locatioin: CLLocation) {
+        self.userCoordinate = locatioin.coordinate
     }
     
     
@@ -102,6 +108,7 @@ class PostViewModel: ObservableObject {
                 loading = true
                 guard let user = AuthService.shared.currentUser else {
                     loading = false
+                    LoadingManager.shared.phase = .fail(msg: "로그인 중이 아님")
                     return
                 }
                 let newMemo = PostMemoModel(
@@ -122,16 +129,16 @@ class PostViewModel: ObservableObject {
                 do {
                     try await MemoService.shared.uploadMemo(newMemo: newMemo)
                     loading = false
-                    
-                    
+                    LoadingManager.shared.phase = .success
                 }
                 dismissPublisher.send(true)
                 resetMemoFields()
                 loading = false
-                
+                LoadingManager.shared.phase = .success
             } catch {
                 // 오류 처리
                 loading = false
+                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
         }

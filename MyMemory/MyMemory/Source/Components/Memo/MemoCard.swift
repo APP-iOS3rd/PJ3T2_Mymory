@@ -69,6 +69,9 @@ struct MemoCard: View {
                         } label: {
                             KFImage(URL(string: url))
                                 .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .clipShape(.circle)
                                 .frame(width: 37,height: 37)
                                 .contentShape(Circle())
                                 .cornerRadius(19)
@@ -86,25 +89,27 @@ struct MemoCard: View {
                             .foregroundStyle(Color.textDeepColor)
                     }
                     Spacer()
-                    Button {
-                        if AuthService.shared.currentUser == nil {
-                            self.completion(.unAuthorized)
-                            return
-                        }
-                        if self.profile.isFollowing {
-                            AuthService.shared.userUnFollow(followUser: profile) { error in
-                                print(error?.localizedDescription)
+                    if !isMyPage {
+                        Button {
+                            if AuthService.shared.currentUser == nil {
+                                self.completion(.unAuthorized)
+                                return
                             }
-                        } else {
-                            AuthService.shared.userFollow(followUser: profile) { error in
-                                print(error?.localizedDescription)
+                            if self.profile.isFollowing {
+                                AuthService.shared.userUnFollow(followUser: profile) { error in
+                                    print(error?.localizedDescription)
+                                }
+                            } else {
+                                AuthService.shared.userFollow(followUser: profile) { error in
+                                    print(error?.localizedDescription)
+                                }
                             }
-                        }
-                        self.profile.isFollowing.toggle()
-                        self.completion(.follow)
-                    } label: {
-                        Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
-                    }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
+                            self.profile.isFollowing.toggle()
+                            self.completion(.follow)
+                        } label: {
+                            Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
+                        }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
+                    }
                 }.padding(.horizontal, 20)
             }
             if memo.imagesURL.count > 0 {

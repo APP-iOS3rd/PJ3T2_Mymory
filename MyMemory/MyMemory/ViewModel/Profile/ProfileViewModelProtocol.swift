@@ -21,6 +21,7 @@ protocol ProfileViewModelProtocol: ObservableObject {
     var isShowingOptions: Bool { get set }
     var isCurrentUserLoginState: Bool { get set }
     var user: User? { get set }
+    
     var currentLocation: CLLocation? { get set }
     var lastDocument: QueryDocumentSnapshot? { get set }
 
