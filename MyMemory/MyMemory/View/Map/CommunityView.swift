@@ -28,8 +28,14 @@ struct CommunityView: View {
                                 .padding(.leading, 18)
                         }
                     })
-                }.padding(.top, 25)
+                    .scrollTargetLayout()
+                    
+                }
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                .padding(.top, 25)
 
+                
                 HStack {
                     Text("이번 주\n가장 핫한 지역")
                         .font(.bold24)

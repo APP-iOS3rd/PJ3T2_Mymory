@@ -51,6 +51,7 @@
 		01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */; };
 		01D160032B5E0D43003F1BEF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF82B5DEB99003F1BEF /* Constants.swift */; };
 		01DA25DB2B7B495F009B9077 /* GoogleSocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */; };
+		01DA25E32B7B5D01009B9077 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01DA25E22B7B5D01009B9077 /* ThemeManager.swift */; };
 		01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6342B467FE80061F08C /* MainTabView.swift */; };
 		01E6A6392B46813E0061F08C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6382B46813E0061F08C /* LoginView.swift */; };
 		01E6A6432B4683090061F08C /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
@@ -218,6 +219,7 @@
 		01D15FF52B5DEB6E003F1BEF /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		01D15FF82B5DEB99003F1BEF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		01D15FFC2B5E0019003F1BEF /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		01DA25E22B7B5D01009B9077 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		01E6A6342B467FE80061F08C /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		01E6A6382B46813E0061F08C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		01E6A6422B4683090061F08C /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
@@ -725,6 +727,7 @@
 				64D3C2752B58B60000EEA19F /* LocationsHandler.swift */,
 				DAF026152B5E31130092A3B3 /* LoadingManager.swift */,
 				DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */,
+				01DA25E22B7B5D01009B9077 /* ThemeManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -1131,6 +1134,7 @@
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
+				01DA25E32B7B5D01009B9077 /* ThemeManager.swift in Sources */,
 				0180F62B2B6CCAD000FECAF6 /* FontView.swift in Sources */,
 				DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */,
 				013383552B566A1C004D4B8A /* MainView.swift in Sources */,

@@ -11,6 +11,9 @@ struct ThemeView: View {
     
     @StateObject var viewModel: ThemeViewModel = .init()
 
+    @ObservedObject var themeManager: ThemeManager = .shared
+    @State var currentTheme: ThemeType = ThemeManager.shared.userThemePreference ?? .system
+    
     // 화면을 그리드 형식으로 꽉채워 준다.
     let columns = [
         GridItem(.adaptive(minimum: 100))

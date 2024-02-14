@@ -135,8 +135,10 @@ struct MainMapView: View {
                             }
                         }
                     }
+                    .scrollTargetLayout()
                 }
-
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                 .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
