@@ -179,6 +179,9 @@ struct SocialRegisterView: View {
                                 }
                             }
                         )
+                        .buttonStyle(RoundedRect.loginApple)
+                      
+                        .frame(height: 50)
                                             .alert("로그인 완료.", isPresented: $isNewUser) {
                                                 Button("확인", role: .cancel) {
                                                     self.isActive = true

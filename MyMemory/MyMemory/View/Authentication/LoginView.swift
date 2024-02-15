@@ -214,14 +214,13 @@ struct LoginView: View {
                                 Task {
                                     self.appleCredential = credential
                                     let _ = await viewModel.getUserID(credential: credential)
-                                    let isCheckNewUser = await viewModel.checkUserEmail(email: viewModel.email)
-                                    let isCheckNewUserID = await viewModel.checkUser()
-                                    if isCheckNewUserID{
-                                        AuthService.shared.signout()
-                                        self.isNewAppleUser = true
-                                    } else {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
+                                    isNewUser = await viewModel.checkUser()
+                                }
+                                if isNewUser{
+                                    AuthService.shared.signout()
+                                    self.isNewAppleUser = true
+                                } else {
+                                    presentationMode.wrappedValue.dismiss()
                                 }
                             case .failure(let error):
                                 print(error.localizedDescription)
