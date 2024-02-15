@@ -9,8 +9,6 @@ import SwiftUI
 
 struct ThemeView: View {
     
-    @StateObject var viewModel: ThemeViewModel = .init()
-
     @ObservedObject var themeManager: ThemeManager = .shared
     @State var currentTheme: ThemeType = ThemeManager.shared.userThemePreference ?? .system
     
@@ -24,21 +22,21 @@ struct ThemeView: View {
         VStack {
             
             VStack {
+                
+                
                 VStack(alignment: .leading, spacing: 10){
-                    Text("Solarized Light")
+                    Text("메모지 컬러 변경")
                         .font(.bold20)
-                       // .foregroundStyle(Color.)
-                    Text("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. ")
+                    Text("기본 메모지 선택 설정을 변경할 수 있습니다.")
                         .font(.medium16)
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 24)
-                .background(Color.lightBlue)
-                
+                .background(themeManager.loadThemePreference().bgColor)
+                .foregroundColor(themeManager.loadThemePreference().textColor)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                    
                         .stroke(Color.deepGray)
                 )
             }
@@ -48,13 +46,12 @@ struct ThemeView: View {
             .frame(maxWidth: .infinity)
             .background(Color.lightGray)
             
-        
-            
+    
             ScrollView {
                 
                 LazyVGrid(columns: columns, spacing: 20) {
              
-                    ForEach(viewModel.themeList) { theme in
+                    ForEach(themeManager.themeList, id: \.self) { theme in
                         VStack  {
                             VStack {
                                 Text("31")
@@ -69,17 +66,19 @@ struct ThemeView: View {
                                     .stroke(Color.darkGray)
                             )
                             .onTapGesture {
-                                viewModel.changeTheme(selectedThemeId: theme.id)
+                                themeManager.changeTheme(to: theme)
+                                //viewModel.changeTheme(selectedThemeId: theme.id)
                             }
 
-                           
+                       
                             Button {
-                                viewModel.changeTheme(selectedThemeId: theme.id)
+                                themeManager.changeTheme(to: theme)
+                              //  viewModel.changeTheme(selectedThemeId: theme.id)
                             } label: {
-                                Text(theme.name)
+                                Text(theme.rawValue)
                             }
-                            .buttonStyle(theme.isSelected ? Pill.deepGray : Pill.standard3)
-                                
+                            .buttonStyle(themeManager.isThemeSelected(theme) ? Pill.deepGray : Pill.standard3)
+                           // .foregroundColor(themeManager.isThemeSelected(theme) ? theme.textColor : .gray)
                         }
                         .padding()
                         
@@ -89,7 +88,7 @@ struct ThemeView: View {
         }
         .customNavigationBar(
             centerView: {
-                Text("테마 선택")
+                Text("메모지 선택")
             },
             leftView: {
                 BackButton()

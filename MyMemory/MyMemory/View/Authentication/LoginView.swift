@@ -237,7 +237,7 @@ struct LoginView: View {
                     .frame(height: 50)
     
                     
-              
+              /*
                     Button {
                         if (UserApi.isKakaoTalkLoginAvailable()) {
                             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
@@ -269,7 +269,7 @@ struct LoginView: View {
                     }
                     .buttonStyle(RoundedRect.loginKakao)
                     .frame(height: 50)
-            
+            */
                     } //: SNS 로그인
                    // .padding(.vertical, 20)
             } //: VSTACK

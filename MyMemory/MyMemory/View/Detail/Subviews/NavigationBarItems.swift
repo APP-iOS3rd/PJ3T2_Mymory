@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+enum SortedMemoDetail: String, CaseIterable, Identifiable {
+    case report = "신고하기"
+    case delete = "삭제하기"
+  //  case theme = "메모지선택"
+    
+    var id: SortedMemoDetail { self }
+}
+
+
 struct NavigationBarItems: View {
    
     @Binding var isHeart: Bool
@@ -87,7 +96,23 @@ struct NavigationBarItems: View {
                     
                 }
                 .buttonStyle(.plain)
-                .sheet(isPresented: $isShowingSheet) {
+                .confirmationDialog("",isPresented: $isShowingSheet){
+                    ForEach(SortedMemoDetail.allCases, id: \.self) { type in
+                        Button(type.rawValue){
+                            if type.rawValue == "신고하기" {
+                                isReported.toggle()
+                            }
+                            
+                            if type.rawValue == "삭제하기" {
+                                print("삭제하기 눌림")
+                            }
+                            
+                          
+                        }
+                        
+                    }
+                }
+                .sheet(isPresented: $isReported) {
                     ReportView(memo: $memo)
                         .presentationDragIndicator(.visible)
                         .presentationDetents([.medium, .large])

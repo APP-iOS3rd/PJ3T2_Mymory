@@ -63,7 +63,14 @@ struct CommunityView: View {
                             Button{
 
                             } label: {
-                                Image(systemName: "ellipsis")
+                                VStack {
+                                    
+                                    Text("\(building.count)개의 메모")
+                                        .font(.regular12)
+                                        .foregroundStyle(Color.textColor)
+                                        .padding()
+                                    Spacer()
+                                }
                             }
                             .padding(.horizontal, 15)
                         }
@@ -82,7 +89,8 @@ struct CommunityView: View {
         .onAppear {
             Task{ @MainActor in
                 do {
-                    self.buildingInfo = try await MemoService.shared.buildingList()
+                    self.buildingInfo = try await MemoService.shared.buildingList().filter{!$0.buildingName.isEmpty}
+                    self.buildingInfo.sort(by: {$0.count > $1.count})
                     print(self.buildingInfo)
                 } catch {}
             }

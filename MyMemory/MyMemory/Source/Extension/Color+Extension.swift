@@ -24,8 +24,9 @@ extension Color {
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
-   
     
+    static let atomBgColor = Color(hex:"1d1f21")
+    static let atomTextColor = Color(hex:"86CDFF")
     // 테마에 따라 Color Change
     static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
     
