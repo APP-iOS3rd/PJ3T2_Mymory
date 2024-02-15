@@ -16,6 +16,7 @@ struct PostView: View {
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var presentLocationAlert: Bool = false
+    @State var themeSheet: Bool = false
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     
@@ -58,6 +59,22 @@ struct PostView: View {
                     .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                     .padding(.bottom, 20)
+                    
+                    // 메모지 선택 Sheet
+                    Group {
+                        Button {
+                            themeSheet.toggle()
+                        } label : {
+                            Text("메모지 선택")
+                        }
+                    }
+                    .sheet(isPresented: $themeSheet) {
+                        ThemeView()
+                    }
+                    .buttonStyle(RoundedRect.standard)
+                    .padding(.bottom, 20)
+                    .padding(.horizontal, 20)
+                    
                     // 💁 사진 선택 View
                     Group {
                         VStack(alignment: .leading, spacing: 10){
