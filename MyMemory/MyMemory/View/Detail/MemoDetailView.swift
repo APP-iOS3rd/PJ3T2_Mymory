@@ -110,9 +110,13 @@ struct MemoDetailView: View {
                                             .padding(.bottom, 70)
                                         Spacer()
                                     }
+                                   
+                                    .foregroundStyle(memo.memoTheme.textColor)
+                                    .background(memo.memoTheme.bgColor)
                                     //.padding(.top, 50)
                                     
                                 }
+                                .padding()
                                 .refreshable {
                                     Task { @MainActor in
                                         let memo = self.memos[selectedMemoIndex!]

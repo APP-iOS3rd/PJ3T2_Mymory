@@ -10,8 +10,6 @@ import SwiftUI
 struct ThemeView: View {
     
     @ObservedObject var themeManager: ThemeManager = .shared
-    @State var currentTheme: ThemeType = ThemeManager.shared.userThemePreference ?? .system
-    
     // 화면을 그리드 형식으로 꽉채워 준다.
     let columns = [
         GridItem(.adaptive(minimum: 100))
@@ -32,8 +30,6 @@ struct ThemeView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 24)
-                .background(themeManager.loadThemePreference().bgColor)
-                .foregroundColor(themeManager.loadThemePreference().textColor)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .background(
                     RoundedRectangle(cornerRadius: 10)
@@ -66,18 +62,17 @@ struct ThemeView: View {
                                     .stroke(Color.darkGray)
                             )
                             .onTapGesture {
-                                themeManager.changeTheme(to: theme)
-                                //viewModel.changeTheme(selectedThemeId: theme.id)
+ 
                             }
 
                        
                             Button {
-                                themeManager.changeTheme(to: theme)
+                             //   themeManager.changeTheme(to: theme)
                               //  viewModel.changeTheme(selectedThemeId: theme.id)
                             } label: {
                                 Text(theme.rawValue)
                             }
-                            .buttonStyle(themeManager.isThemeSelected(theme) ? Pill.deepGray : Pill.standard3)
+                           // .buttonStyle(themeManager.isThemeSelected(theme) ? Pill.deepGray : Pill.standard3)
                            // .foregroundColor(themeManager.isThemeSelected(theme) ? theme.textColor : .gray)
                         }
                         .padding()
