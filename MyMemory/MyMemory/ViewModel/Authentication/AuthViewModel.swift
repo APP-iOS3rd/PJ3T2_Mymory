@@ -125,6 +125,30 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    func getUserID(credential: ASAuthorizationAppleIDCredential)async -> String{
+        guard let token = credential.identityToken else {
+            print("error with firebase")
+            return "error"
+        }
+        
+        guard let tokenString = String(data: token, encoding: .utf8) else {
+            print("error with token")
+            return "error"
+        }
+        
+        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
+        Auth.auth().signIn(with: firebaseCredential) { [weak self] result, error in
+            if let error = error {
+                print("firebase auth error")
+                return
+            } else {
+                AuthService.shared.userSession = result!.user
+                AuthService.shared.fetchUser()
+            }
+        }
+        return "success"
+    }
+    
     func checkUserEmail(email: String) async -> Bool {
         do {
             print("해당유저 이메일 : \(email)")
@@ -133,6 +157,20 @@ class AuthViewModel: ObservableObject {
             }
             let querySnapshot = try await Firestore.firestore().collection("users")
                 .whereField("email", isEqualTo: email).getDocuments()
+            if querySnapshot.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            return true
+        }
+    }
+    
+    func checkUser() async -> Bool {
+        do {
+            let querySnapshot = try await Firestore.firestore().collection("users")
+                .whereField("id", isEqualTo: AuthService.shared.currentUser?.id ?? "no value").getDocuments()
             if querySnapshot.isEmpty {
                 return true
             } else {
@@ -202,6 +240,63 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    
+    func reauthenticate(credential: ASAuthorizationAppleIDCredential) {
+        var image: UIImage?
+        if selectedImageData != nil {
+            image = UIImage(data: selectedImageData!)
+        }
+        //getting token
+        guard let token = credential.identityToken else {
+            print("error with firebase")
+            return
+        }
+        
+        guard let tokenString = String(data: token, encoding: .utf8) else {
+            print("error with token")
+            return
+        }
+        
+        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
+        
+        Auth.auth().signIn(with: firebaseCredential) { [weak self] result, err in
+            guard let self = self else {return}
+            if let err = err {
+                print(err.localizedDescription)
+            }
+                guard let image = image else {
+                    
+                    let data = [
+                        "id" : result!.user.uid,
+                        "name": self.name,
+                        "email": result?.user.email ?? "no email",
+                        "profilePicture": ""
+                    ]
+                    COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
+                        AuthService.shared.userSession = result!.user
+                        AuthService.shared.fetchUser()
+                    }
+                    print("계정생성 성공")
+                    return
+                }
+                ImageUploader.uploadImage(image: image, type: .profile) { imageUrl in
+                    let data = [
+                        "id" : result!.user.uid,
+                        "name": self.name,
+                        "email": result?.user.email ?? "no email",
+                        "profilePicture": imageUrl
+                    ]
+                    COLLECTION_USERS.document(result!.user.uid).setData(data) { _ in
+                        AuthService.shared.userSession = result!.user
+                        AuthService.shared.fetchUser()
+                    }
+                    print("계정생성 성공")
+                }
+            UserDefaults.standard.set(result!.user.uid, forKey: "userId")
+            print("로그인 완료")
+        }
+    }
+
     
     struct SafariView: UIViewControllerRepresentable {
         

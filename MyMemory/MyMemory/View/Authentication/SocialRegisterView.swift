@@ -155,28 +155,39 @@ struct SocialRegisterView: View {
                             .padding()
                         }
                         Spacer(minLength: 32)
-                        Button(action: {
-                            if viewModel.checkIfCanSocialRegister() {
-                                print("애플유저입니다ㅂㄴ")
-                                viewModel.authenticate(credential: self.appleCredential!)
-                                print("Register Completed")
-                                self.isNewUser = true
-                            } else {
-                                print("Register failed")
+                        
+                        SignInWithAppleButton(
+                            onRequest: { request in
+                                viewModel.nonce = viewModel.randomNonceString()
+                                request.requestedScopes = [.fullName, .email]
+                                request.nonce = viewModel.sha256(viewModel.nonce)
+                            },
+                            onCompletion: { result in
+                                switch result {
+                                case .success(let authResults):
+                                    print("Apple Login Successful")
+                                    guard let credential = authResults.credential as? ASAuthorizationAppleIDCredential else {
+                                        print("error with firebase")
+                                        return
+                                    }
+                                    Task {
+                                        viewModel.reauthenticate(credential: credential)
+                                        self.isNewUser = true
+                                    }
+                                case .failure(let error):
+                                    print(error.localizedDescription)
+                                }
                             }
-                        }, label: {
-                            Text("회원가입")
-                        })
-                        .frame(width: 360, height: 50)
-                        .background(Color.accentColor)
-                        .cornerRadius(12)
-                        .foregroundStyle(Color.white)
-                        .alert("로그인 완료.", isPresented: $isNewUser) {
-                            Button("확인", role: .cancel) {
-                                self.isActive = true
-                                presentationMode.wrappedValue.dismiss()
-                            }
-                        }
+                        )
+                        .buttonStyle(RoundedRect.loginApple)
+                      
+                        .frame(height: 50)
+                                            .alert("로그인 완료.", isPresented: $isNewUser) {
+                                                Button("확인", role: .cancel) {
+                                                    self.isActive = true
+                                                    presentationMode.wrappedValue.dismiss()
+                                                }
+                                            }
                     }
                     //                .fullScreenCover(isPresented: $isItActive) {
                     //                    MainTabView()

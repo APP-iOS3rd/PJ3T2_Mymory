@@ -109,6 +109,7 @@
 		9D5077782B67653700460FD8 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 9D5077772B67653700460FD8 /* KakaoSDKUser */; };
 		9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */; };
 		9DAF8BE62B72184900CA74ED /* SocialRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */; };
+		9DE9CF1C2B7DF662000B8261 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */; };
 		DA0B42652B6C717900D24892 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD892B6A257C0008E97B /* GoogleSignIn */; };
 		DA0B42662B6C717900D24892 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9DC3FD8B2B6A257C0008E97B /* GoogleSignInSwift */; };
 		DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */; };
@@ -139,7 +140,6 @@
 		DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA78940C2B44094700DC3771 /* MainMapViewModel.swift */; };
 		DAA71E952B677F0600157DA1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DAA71E942B677F0600157DA1 /* Kingfisher */; };
 		DAA8DC0B2B63798A006D5694 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA8DC0A2B63798A006D5694 /* MapView.swift */; };
-		DAAD06D92B7B3D19002D69D4 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */; };
 		DAB3154B2B43EFDB000357C7 /* MyMemoryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */; };
 		DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB3154E2B43EFDD000357C7 /* Assets.xcassets */; };
 		DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAB315512B43EFDD000357C7 /* Preview Assets.xcassets */; };
@@ -278,6 +278,7 @@
 		9D3A679A2B74A80E0080894A /* GoogleSocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSocialRegisterView.swift; sourceTree = "<group>"; };
 		9D9D40CA2B4C184F00E9AA76 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		9DAF8BE52B72184900CA74ED /* SocialRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialRegisterView.swift; sourceTree = "<group>"; };
+		9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DA0B42682B6C71B000D24892 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DA12ABC32B58EA4F0093229C /* FileterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileterListView.swift; sourceTree = "<group>"; };
 		DA131A472B4AB19700743FD0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
@@ -312,7 +313,6 @@
 		DA78940A2B44090400DC3771 /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
 		DA78940C2B44094700DC3771 /* MainMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapViewModel.swift; sourceTree = "<group>"; };
 		DAA8DC0A2B63798A006D5694 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
 		DAB315472B43EFDB000357C7 /* MyMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB3154A2B43EFDB000357C7 /* MyMemoryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMemoryApp.swift; sourceTree = "<group>"; };
 		DAB3154E2B43EFDD000357C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -851,7 +851,7 @@
 		DAF5FCA52B62199D00098EF7 /* Configure */ = {
 			isa = PBXGroup;
 			children = (
-				DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */,
+				9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */,
 				DAF026142B5E25620092A3B3 /* MyMemory.entitlements */,
 				DAB315822B43F52C000357C7 /* Info.plist */,
 				DAFBC45A2B72063700180E18 /* Localizable.xcstrings */,
@@ -1069,7 +1069,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAAD06D92B7B3D19002D69D4 /* APIKEYS.xcconfig in Resources */,
+				9DE9CF1C2B7DF662000B8261 /* APIKEYS.xcconfig in Resources */,
 				6A83F1FC2B7DD20200645EED /* Settings.bundle in Resources */,
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */,
@@ -1272,7 +1272,7 @@
 /* Begin XCBuildConfiguration section */
 		DAB315692B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1335,7 +1335,7 @@
 		};
 		DAB3156A2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1391,7 +1391,7 @@
 		};
 		DAB3156C2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1446,14 +1446,14 @@
 		};
 		DAB3156D2B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
@@ -1488,7 +1488,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDist;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1501,10 +1501,12 @@
 		};
 		DAB3156F2B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
@@ -1524,10 +1526,12 @@
 		};
 		DAB315702B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
@@ -1547,10 +1551,11 @@
 		};
 		DAB315722B43EFDD000357C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
@@ -1569,10 +1574,11 @@
 		};
 		DAB315732B43EFDD000357C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DAAD06D82B7B3D19002D69D4 /* APIKEYS.xcconfig */;
+			baseConfigurationReference = 9DE9CF1B2B7DF662000B8261 /* APIKEYS.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
