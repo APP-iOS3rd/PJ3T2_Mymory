@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
@@ -25,7 +26,22 @@ struct SettingView: View {
                                 .font(.regular12)
                                 .opacity(0.3)
                             SettingMenuCell(name: "로그인 정보")
-                            SettingMenuCell(name: "알림")
+                            Toggle("알림", isOn: $settingViewModel.isAblePushNotification)
+                                .disabled(true)
+                                .padding(.trailing, 3)
+                                .font(.medium14)
+                                .foregroundStyle(Color.textColor)
+                                .onTapGesture {
+                                    Task {
+                                        await moveToNotificationSetting()
+                                    }
+                                }
+                                .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                                    // 앱이 포그라운드로 돌아올 때 알림 설정을 확인하고 토글 상태를 업데이트
+                                    Task {
+                                        await settingViewModel.changeToggleState()
+                                    }
+                                }
                         }
                     }
                     
@@ -121,5 +137,11 @@ struct SettingView: View {
             },
             backgroundColor: Color.bgColor3
         )
+    }
+    
+    func moveToNotificationSetting() async {
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            await UIApplication.shared.open(url)
+        }
     }
 }
