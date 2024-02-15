@@ -9,20 +9,19 @@ import Foundation
 import SwiftUI
 import Combine
 
-enum ThemeType: String, CaseIterable {
+enum ThemeType: String, CaseIterable, Codable {
     case system = "System"
     case light = "Light"
     case dark = "Dark"
     case atom = "Atom"
-    // 각 테마 유형별로 속성 정의
     
+    // 각 테마 유형별로 속성 정의
     var isSelected: Bool {
         // 여기서 현재 선택된 테마와 비교하여 반환할 수 있음
         // 예: UserDefaults 등을 사용하여 현재 선택된 테마 저장 및 비교
 //        if ThemeManager.shared.userThemePreference   {
 //           return true
 //        }
-//        
         return false
     }
       
@@ -37,9 +36,7 @@ enum ThemeType: String, CaseIterable {
               return false
           case .atom:
               return true
-              
           }
-        
     }
       
     var textColor: Color {
@@ -77,54 +74,67 @@ enum ThemeType: String, CaseIterable {
 final class ThemeManager: ObservableObject {
     
     static let shared = ThemeManager()
-    @Published var userThemePreference: ThemeType?
+   // @Published var userThemePreference: ThemeType?
+    @Published var currentTheme: ThemeType?
+    
     var themeList = ThemeType.allCases
     
     init(){
-        self.userThemePreference = loadThemePreference()
+     //   self.userThemePreference = loadThemePreference()
     }
     
-    func saveThemePreference(themeType: ThemeType) {
-        UserDefaults.standard.set(themeType.rawValue, forKey: "selectedThemeType")
-     
-    }
-    
-    func loadThemePreference() -> ThemeType {
-        guard let themeTypeString = UserDefaults.standard.string(forKey: "selectedThemeType"),
-              let themeType = ThemeType(rawValue: themeTypeString) else {
-            return .system
-        }
+    // currentTheme에 ThemeType임시저장하여 넘겨주기 위해
+    func setTheme(themeType: ThemeType) -> ThemeType {
+        
         return themeType
     }
     
-    var themePreference: ThemeType {
-        get {
-            guard let themeTypeString = UserDefaults.standard.string(forKey: "selectedThemeType"),
-                  let themeType = ThemeType(rawValue: themeTypeString) else {
-                return .system // 기본값으로 Regular 반환
-            }
-            return themeType
-        }
-        set {
-            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedThemeType")
-            
-            // userFontPreference도 함께 업데이트하여 @Published를 통해 변경 사항을 반영합니다.
-           DispatchQueue.main.async {
-               self.userThemePreference = newValue
-           }
-        }
+    func getTheme(themeData: ThemeType) -> ThemeType {
+        return themeData
     }
     
-    func changeTheme(to selectedTheme:ThemeType) {
+    // UserDefault에 저장되는 경우고
+//    func saveThemePreference(themeType: ThemeType) {
+//        UserDefaults.standard.set(themeType.rawValue, forKey: "selectedThemeType")
+//     
+//    }
+//    
+    //func loadThemePreference() -> ThemeType {
+//        guard let themeTypeString = UserDefaults.standard.string(forKey: "selectedThemeType"),
+//              let themeType = ThemeType(rawValue: themeTypeString) else {
+//            return .system
+//        }
+      //  return themeType
+  //  }
+    
+//    var themePreference: ThemeType {
+//        get {
+//            guard let themeTypeString = UserDefaults.standard.string(forKey: "selectedThemeType"),
+//                  let themeType = ThemeType(rawValue: themeTypeString) else {
+//                return .system // 기본값으로 Regular 반환
+//            }
+//            return themeType
+//        }
+//        set {
+//            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedThemeType")
+//            
+//            // userFontPreference도 함께 업데이트하여 @Published를 통해 변경 사항을 반영합니다.
+//           DispatchQueue.main.async {
+//               self.userThemePreference = newValue
+//           }
+//        }
+//    }
+//    
+  //  func changeTheme(to selectedTheme:ThemeType) {
         // UserDefaults를 사용하여 선택된 테마 저장
-        saveThemePreference(themeType: selectedTheme)
+      //  saveThemePreference(themeType: selectedTheme)
         // 선택된 테마를 @Published 프로퍼티에 반영하여 UI 업데이트 트리거
-        userThemePreference = selectedTheme
-    }
-    
+       // userThemePreference = selectedTheme
+   // }
+//
     // 현재 선택된 테마가 주어진 테마와 같은지 확인하는 메서드
      func isThemeSelected(_ theme: ThemeType) -> Bool {
-         return userThemePreference == theme
+         return currentTheme == theme
      }
     
 }
