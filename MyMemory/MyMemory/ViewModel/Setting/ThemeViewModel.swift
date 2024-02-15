@@ -31,12 +31,12 @@ extension ThemeViewModel {
     public func fetchModel(){
         self.themeList = [
             Theme(id: 0, name: "SYSTEM", isSelected: true, isPremium: false),
-            Theme(id: 1, name: "Light", isSelected: false, isPremium: false),
+            Theme(id: 1, name: "Light", isSelected: false, isPremium: false, textColor: .black, bgColor: .white),
             Theme(id: 2, name: "Dark", isSelected: false, isPremium: false, textColor: .white, bgColor: .black),
-            Theme(id: 3, name: "테마1", isSelected: false, isPremium: false, textColor: .red, bgColor: .lightBlue),
-            Theme(id: 4, name: "테마2", isSelected: false, isPremium: true),
-            Theme(id: 5, name: "테마3", isSelected: false, isPremium: true),
-            Theme(id: 6, name: "테마4", isSelected: false, isPremium: true)
+//            Theme(id: 3, name: "테마1", isSelected: false, isPremium: false, textColor: .red, bgColor: .lightBlue),
+//            Theme(id: 4, name: "테마2", isSelected: false, isPremium: true),
+//            Theme(id: 5, name: "테마3", isSelected: false, isPremium: true),
+//            Theme(id: 6, name: "테마4", isSelected: false, isPremium: true)
         ]
     }
     
