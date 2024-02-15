@@ -86,7 +86,7 @@ class SettingViewModel: ObservableObject {
     func checkNotificationPermission() async -> Bool {
         let center = UNUserNotificationCenter.current()
         let settings = await center.notificationSettings()
-        print("GGGG")
+        
         switch settings.authorizationStatus {
             case .authorized: return true
             case .provisional: return true
