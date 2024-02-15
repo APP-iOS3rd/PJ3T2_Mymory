@@ -32,12 +32,9 @@ struct SettingView: View {
                                 .font(.medium14)
                                 .foregroundStyle(Color.textColor)
                                 .onTapGesture {
-                                    Task {
-                                        await moveToNotificationSetting()
-                                    }
+                                    settingViewModel.moveToNotificationSetting()
                                 }
                                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
-                                    // 앱이 포그라운드로 돌아올 때 알림 설정을 확인하고 토글 상태를 업데이트
                                     Task {
                                         await settingViewModel.changeToggleState()
                                     }
@@ -63,7 +60,20 @@ struct SettingView: View {
                                 .opacity(0.3)
                             SettingMenuCell(name: "개인정보 처리방침", page: "termsOfPrivacy")
                             SettingMenuCell(name: "이용약관", page: "termsOfUse")
-                            SettingMenuCell(name: "오픈소스 라이센스")
+                            HStack(alignment: .center) {
+                                Text("오픈소스 라이센스")
+                                    .font(.medium14)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 17))
+                                    .opacity(0.3)
+                            }
+                            .contentShape(Rectangle())
+                            .foregroundStyle(Color.textColor)
+                            .onTapGesture {
+                                self.settingViewModel.moveToOpenSourceLicenseMenu()
+                            }
+                            
                             HStack(alignment: .center) {
                                 Text("앱 버전")
                                     .font(.regular14)
@@ -137,11 +147,5 @@ struct SettingView: View {
             },
             backgroundColor: Color.bgColor3
         )
-    }
-    
-    func moveToNotificationSetting() async {
-        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
-            await UIApplication.shared.open(url)
-        }
     }
 }

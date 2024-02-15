@@ -98,4 +98,16 @@ class SettingViewModel: ObservableObject {
     func changeToggleState() async {
         self.isAblePushNotification = await self.checkNotificationPermission()
     }
+    
+    func moveToNotificationSetting() {
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func moveToOpenSourceLicenseMenu() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
 }
