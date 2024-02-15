@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0117B8422B7D9897002C848D /* MemoThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0117B8412B7D9897002C848D /* MemoThemeView.swift */; };
 		0118AFB22B6A252800BAC3B1 /* ThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0118AFB12B6A252800BAC3B1 /* ThemeView.swift */; };
 		013127262B46448800483E9F /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127252B46448800483E9F /* ReportView.swift */; };
 		013127282B4674B600483E9F /* Textarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013127272B4674B600483E9F /* Textarea.swift */; };
@@ -185,6 +186,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0117B8412B7D9897002C848D /* MemoThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoThemeView.swift; sourceTree = "<group>"; };
 		0118AFB12B6A252800BAC3B1 /* ThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeView.swift; sourceTree = "<group>"; };
 		013127252B46448800483E9F /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportView.swift; path = ../Authentication/ReportView.swift; sourceTree = "<group>"; };
 		013127272B4674B600483E9F /* Textarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textarea.swift; sourceTree = "<group>"; };
@@ -373,6 +375,7 @@
 			children = (
 				0118AFB12B6A252800BAC3B1 /* ThemeView.swift */,
 				0180F62A2B6CCAD000FECAF6 /* FontView.swift */,
+				0117B8412B7D9897002C848D /* MemoThemeView.swift */,
 			);
 			path = Style;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */,
 				01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */,
 				280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */,
+				0117B8422B7D9897002C848D /* MemoThemeView.swift in Sources */,
 				28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */,
 				0133834D2B565F30004D4B8A /* OnboardingViewModel.swift in Sources */,
 				6A92D5FB2B5D521200942ED6 /* ProfileEditViewModel.swift in Sources */,
