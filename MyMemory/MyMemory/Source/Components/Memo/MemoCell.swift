@@ -144,7 +144,7 @@ struct MemoCell: View {
         .cornerRadius(20)
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
-                if distance <= 50 {
+                if distance <= 20 {
                     isVisible = true
                 } else {
                     isVisible = false
@@ -159,7 +159,7 @@ struct MemoCell: View {
         }
         .onChange(of: location) { oldValue, newValue in
             if let distance = newValue?.coordinate.distance(from: memo.location) {
-                if distance <= 50 {
+                if distance <= 20 {
                     isVisible = true
                 } else {
                     isVisible = false
