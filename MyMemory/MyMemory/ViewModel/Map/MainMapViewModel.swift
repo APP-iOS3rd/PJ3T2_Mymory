@@ -284,10 +284,10 @@ extension MainMapViewModel {
             self.selectedMemoId = memo.id
             
             if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
-                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 2000))
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 1000))
             } else {
                 let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
-                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 2000))
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 1000))
                 
             }
         }
@@ -297,7 +297,7 @@ extension MainMapViewModel {
         self.selectedMemoId = memo.id
         withAnimation {
 
-        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 2000))
+        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 1000))
         }
 
     }
@@ -366,6 +366,7 @@ extension MainMapViewModel {
     /// 맵 좌하단에 버튼을 눌렀을 때 현재 위치로 최신화 하는 기능
     /// - Returns: void, 카메라를 현재 위치로 이동시킴
     func switchUserLocation() {
+//        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: location!.coordinate, distance: cameraDistance ?? 1000))
         mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
         if !self.isUserTracking {
             self.isUserTracking = true
