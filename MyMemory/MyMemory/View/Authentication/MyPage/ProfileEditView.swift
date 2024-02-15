@@ -14,8 +14,9 @@ struct ProfileEditView: View {
     @State var alertMessage = ""
     @State var showProfileImg = false
     @Environment(\.dismiss) var dismiss
+    var isEdit = true
     var existingProfileImage: String?
-    var uid: String // 여기가 사용자 프로필 변경 uid 값이 들어와야함
+    var uid: String? // 여기가 사용자 프로필 변경 uid 값이 들어와야함
     
     var body: some View {
         VStack {
@@ -32,39 +33,33 @@ struct ProfileEditView: View {
                         KFImage(url)
                             .resizable()
                             .scaledToFill()
+                            .frame(width: 160, height: 160)
                             .clipped()
                             .clipShape(.circle)
-                            .frame(width: 160, height: 160)
+                            .contentShape(Circle())
                             .onTapGesture {
                                 showProfileImg.toggle()
                             }
-//                        AsyncImage(url: url) { image in
-//                            image
-//                                .resizable()
-//                                .scaledToFill()
-//                                .clipped()
-//                                .clipShape(.circle)
-//                        } placeholder: {
-//                            ProgressView()
-//                        }.frame(width: 160, height: 160)
                     } else {
                         Circle()
                             .frame(width: 160, height: 160)
                     }
                 }
-                
-                PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
-                    Circle()
-                        .overlay {
-                            Image(systemName: "camera.fill")
-                                .foregroundStyle(.black)
-                                .font(.system(size: 22))
-                        }
-                        .frame(width: 46, height: 46)
-                        .foregroundStyle(Color.init(hex: "939397"))
-                    
+                if isEdit {
+                    PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images, .not(.livePhotos)]) ,photoLibrary: .shared()) {
+                        Circle()
+                            .overlay {
+                                Image(systemName: "camera.fill")
+                                    .foregroundStyle(.black)
+                                    .font(.system(size: 22))
+                            }
+                            .frame(width: 46, height: 46)
+                            .foregroundStyle(Color.init(hex: "939397"))
+                        
+                    }
                 }
             }
+            .frame(width: 160, height: 160)
             .onChange(of: viewModel.selectedImage) { newValue in
                 Task {
                     if let data = try? await newValue?.loadTransferable(type: Data.self) {
@@ -83,6 +78,8 @@ struct ProfileEditView: View {
                     
                     TextField("내 이름", text: $viewModel.name)
                         .font(.regular16)
+                        .disabled(!isEdit)
+                        
                 }
                 .padding(.bottom, 0)
                 
@@ -102,9 +99,7 @@ struct ProfileEditView: View {
         .padding(.top, 34)
         .customNavigationBar(
             centerView: {
-                Text("프로필 수정")
-                    .font(.semibold16)
-                    .foregroundStyle(Color.textColor)
+                Text(isEdit ? "프로필 수정" : "로그인 정보")
             },
             leftView: {
                 BackButton()
@@ -112,19 +107,25 @@ struct ProfileEditView: View {
             rightView: {
                 Button {
                     Task {
+                        guard let uid = uid else { return }
                         let result = await viewModel.fetchEditProfile(uid: uid,
-                                                                imageData: self.viewModel.selectedPhotoData,
-                                                                name: self.viewModel.name)
+                                                                      imageData: self.viewModel.selectedPhotoData,
+                                                                      name: self.viewModel.name)
                         
                         self.alertMessage = result
                         self.isShowingAlert = true
                     }
                 } label: {
-                    Text("저장")
-                        .font(.semibold17)
-                        .foregroundStyle(Color.textColor)
+                    if isEdit {
+                        Text("저장")
+                            .font(.semibold17)
+                            .foregroundStyle(Color.textColor)
+                    } else {
+                        EmptyView()
+                    }
                 }
                 .disabled(viewModel.selectedPhotoData == nil && viewModel.name == viewModel.currentName)
+                .disabled(!isEdit)
                 .alert(alertMessage, isPresented: $isShowingAlert) {
                     Button("확인", role: .cancel) {
                         if viewModel.isEditionSuccessd {
@@ -132,6 +133,7 @@ struct ProfileEditView: View {
                         }
                     }
                 }
+                
             },
             backgroundColor: Color.bgColor
         )

@@ -216,6 +216,9 @@ extension MemoService {
                                                 address: address,
                                                 count: 1)
                     buildings.append(building)
+                    if buildings.count > 9 {
+                        return buildings
+                    }
                 }
             }
         }  
