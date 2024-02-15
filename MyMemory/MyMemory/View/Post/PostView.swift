@@ -55,7 +55,6 @@ struct PostView: View {
                     .padding(.bottom)
                     .buttonStyle(.borderedProminent)
                     .padding(.horizontal, 20)
-                    .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                     .padding(.bottom, 20)
                     // 💁 사진 선택 View
@@ -95,8 +94,7 @@ struct PostView: View {
                 
             }.edgesIgnoringSafeArea(.bottom)
         } //: VStack
-        
-        .toolbar(.hidden, for: .tabBar)
+        //.toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -116,9 +114,11 @@ struct PostView: View {
                 presentLoginAlert = true
             }
             if isEdit {
-                viewModel.fetchEditMemo(memo: memo)
+                viewModel.fetchEditMemo(memo: memo) 
+            } else {
+                viewModel.resetMemoFields()
             }
-            
+           
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
@@ -179,7 +179,7 @@ struct PostView: View {
             rightView: {
                 Group {
                     if isEdit {
-                        HStack {
+                        HStack(spacing: 20){
                             Button(action: {
                                 Task.init {
                                     // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
@@ -199,10 +199,12 @@ struct PostView: View {
                                 viewModel.loading = true
                                 LoadingManager.shared.phase = .loading
                                 viewModel.editMemo(memo: memo)
+                                isEdit = false
                                 //                                    presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("수정")
                             })
+                            .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                         }
                         
                     } else {
@@ -216,11 +218,14 @@ struct PostView: View {
                         }, label: {
                             Text("저장")
                         })
+                        .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     }
                 }
+                
             },
             backgroundColor: .bgColor3
         )
+    
         .overlay( content: {
             if viewModel.loading {
                 LoadingView()

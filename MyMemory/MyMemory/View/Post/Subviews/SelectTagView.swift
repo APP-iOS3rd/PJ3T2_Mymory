@@ -123,7 +123,9 @@ struct SelectTagView: View {
                 .padding(.bottom , 60)
             }
         }
-        
+        .onAppear {
+            isShowingView = false
+        }
     }
     
     private func toggleTag(_ tag: TagType) {

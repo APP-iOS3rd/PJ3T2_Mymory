@@ -66,7 +66,7 @@ class PostViewModel: ObservableObject {
             }
         }
     }
-
+    
     func getAddress() async {
         guard userCoordinate != nil else { return }
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
@@ -100,7 +100,8 @@ class PostViewModel: ObservableObject {
         self.userCoordinate = locatioin.coordinate
     }
     
-    
+
+
     func saveMemo() {
         Task{@MainActor in
             
@@ -132,7 +133,6 @@ class PostViewModel: ObservableObject {
                     LoadingManager.shared.phase = .success
                 }
                 dismissPublisher.send(true)
-                resetMemoFields()
                 loading = false
                 LoadingManager.shared.phase = .success
             } catch {
@@ -141,7 +141,9 @@ class PostViewModel: ObservableObject {
                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
+            resetMemoFields()
         }
+     
     }
 
 
@@ -196,6 +198,7 @@ class PostViewModel: ObservableObject {
                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
+            resetMemoFields()
         }
     }
     
@@ -214,7 +217,7 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    private func resetMemoFields() {
+    func resetMemoFields() {
         // 메모 저장 후 필요한 필드 초기화를 여기에 추가하세요.
         memoTitle = ""
         memoContents = ""
@@ -223,6 +226,8 @@ class PostViewModel: ObservableObject {
         memoSelectedTags = []
         memoShare = false
         selectedItemsCounts = 0
+
+
     }
     
     
