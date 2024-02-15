@@ -13,6 +13,7 @@ struct MemoDetailView: View {
     @State private var isMyMemo:Bool = false
     @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
+    @State var isFromCo: Bool = false
     
 
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
@@ -26,7 +27,7 @@ struct MemoDetailView: View {
                         
                         if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                             
-                            if loc >= 50 && !isMyMemo {
+                            if loc >= 20 && !isMyMemo && !isFromCo{
                                 VStack(spacing: 10) {
                                     Image(systemName: "lock")
                                         .font(.largeTitle)

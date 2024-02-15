@@ -24,7 +24,7 @@ struct CommunityView: View {
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
                         ForEach($viewModel.memosOfTheWeek) { memo in
-                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek)
+                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek, isFromCo: true)
                                 .padding(.leading, 18)
                         }
                     })
