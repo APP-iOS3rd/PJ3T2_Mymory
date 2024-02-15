@@ -25,7 +25,7 @@ struct SettingView: View {
                             Text("일반")
                                 .font(.regular12)
                                 .opacity(0.3)
-                            SettingMenuCell(name: "로그인 정보")
+                            SettingMenuCell(name: "로그인 정보", page: "loginInfo")
                             Toggle("알림", isOn: $settingViewModel.isAblePushNotification)
                                 .disabled(true)
                                 .padding(.trailing, 3)
@@ -138,6 +138,8 @@ struct SettingView: View {
         .customNavigationBar(
             centerView: {
                 Text("내 정보")
+                    .font(.semibold16)
+                    .foregroundStyle(Color.textColor)
             },
             leftView: {
                 BackButton()

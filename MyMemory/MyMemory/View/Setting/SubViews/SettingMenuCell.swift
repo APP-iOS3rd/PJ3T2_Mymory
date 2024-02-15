@@ -35,6 +35,7 @@ struct SettingMenuCell: View {
         switch page {
         case "theme": ThemeView()
         case "login": LoginView()
+        case "loginInfo": ProfileEditView(isEdit: false, existingProfileImage: AuthService.shared.currentUser?.profilePicture)
         case "font": FontView()
         case "termsOfUse": TermsView(kindOfTerms: .use)
         case "termsOfPrivacy": TermsView(kindOfTerms: .privacy)
