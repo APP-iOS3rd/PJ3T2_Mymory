@@ -72,7 +72,6 @@
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
 		6452621A2B6A2776004FE5C7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262192B6A2776004FE5C7 /* DetailViewModel.swift */; };
 		6452621C2B6A27F9004FE5C7 /* MoveUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */; };
-		6463211B2B7DDB33009CBEB8 /* PostContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463211A2B7DDB33009CBEB8 /* PostContentView.swift */; };
 		6463211C2B7DDD49009CBEB8 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01E6A6422B4683090061F08C /* PostView.swift */; };
 		6468F2892B7D953C00C5B68B /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6468F2882B7D953C00C5B68B /* APIKEYS.xcconfig */; };
 		6468F28B2B7D96AF00C5B68B /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6468F28A2B7D96AF00C5B68B /* TermsView.swift */; };
@@ -98,7 +97,6 @@
 		6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */; };
 		6A7BA04B2B51055700BEE111 /* WithdrawalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */; };
 		6A7BA0502B51060300BEE111 /* MemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7BA04F2B51060300BEE111 /* MemoList.swift */; };
-		6A83F1FC2B7DD20200645EED /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6A83F1FB2B7DD20200645EED /* Settings.bundle */; };
 		6A92D5FB2B5D521200942ED6 /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A92D5FA2B5D521200942ED6 /* ProfileEditViewModel.swift */; };
 		6A9BB1CE2B6B39C900AD04F7 /* MenuTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BB1CD2B6B39C900AD04F7 /* MenuTabBar.swift */; };
 		6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */; };
@@ -269,7 +267,6 @@
 		6A7BA0472B51052E00BEE111 /* SettingMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCell.swift; sourceTree = "<group>"; };
 		6A7BA04A2B51055700BEE111 /* WithdrawalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawalView.swift; sourceTree = "<group>"; };
 		6A7BA04F2B51060300BEE111 /* MemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoList.swift; sourceTree = "<group>"; };
-		6A7F9AFF2B7D928C00E64C7D /* TermsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		6A83F1FB2B7DD20200645EED /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6A92D5FA2B5D521200942ED6 /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
 		6A9BB1CD2B6B39C900AD04F7 /* MenuTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTabBar.swift; sourceTree = "<group>"; };
@@ -1220,7 +1217,6 @@
 				6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */,
 				01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */,
 				280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */,
-				6463211B2B7DDB33009CBEB8 /* PostContentView.swift in Sources */,
 				28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */,
 				0133834D2B565F30004D4B8A /* OnboardingViewModel.swift in Sources */,
 				6A92D5FB2B5D521200942ED6 /* ProfileEditViewModel.swift in Sources */,
@@ -1439,7 +1435,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1459,7 +1455,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
@@ -1494,7 +1490,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
