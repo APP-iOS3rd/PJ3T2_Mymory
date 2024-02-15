@@ -20,6 +20,8 @@ final class AuthService: ObservableObject {
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
     
+    let storage = Storage.storage()
+    
     init() {
         if let session = Auth.auth().currentUser {
             self.userSession = session
@@ -174,6 +176,7 @@ final class AuthService: ObservableObject {
                 if let id = profile.id {
                     profile.memoCount = await self.fetchUserMemoCount(with: id)
                     profile.followerCount = await self.fetchUserFollowerCount(with: id)
+                    profile.pinCount = await self.pinnedCount()
                     profile.isFollowing = await self.followCheck(with: id)
                 }
                 return profile
@@ -471,6 +474,37 @@ final class AuthService: ObservableObject {
             try await COLLECTION_MEMOS.document(memoID).updateData(["isPinned": memo.isPinned])
         } catch {
             print(error.localizedDescription)
+        }
+    }
+    
+    /// 사용자의 프로필사진을 제거하는 메서드입니다.
+    /// - Parameters:
+    ///     - uid: 사용자의 UID값입니다.
+    /// - Returns: 삭제에 성공하거나, 삭제할 프로필 사진이 없는 경우 .success(true)값을 반환하고, 삭제에 실패할 경우 .failure(.deleteUserProfileImage)를 반환합니다.
+    func removeUserProfileImage(uid: String) async -> Result<Bool, ProfileEditErrorType> {
+        let userRef = COLLECTION_USERS.document(uid)
+        let storageRef = storage.reference()
+        var deleteImageURL: String?
+        
+        do {
+            let user = try await userRef.getDocument()
+            if user.exists {
+                deleteImageURL = user["profilePicture"] as? String
+            }
+            
+            if let deleteImage = deleteImageURL, !deleteImage.isEmpty {
+                let deleteImageRef = storageRef.child("profile_images/\(deleteImage.getProfileImageUID())")
+                do {
+                    try await deleteImageRef.delete()
+                    return .success(true)
+                } catch {
+                    return .failure(.deleteUserProfileImage)
+                }
+            }
+            // 삭제할 이미지가 없는 경우(프로필 사진을 설정하지 않았던 경우)
+            return .success(true)
+        } catch {
+            return .failure(.deleteUserProfileImage)
         }
     }
 }

@@ -56,6 +56,7 @@ struct RegisterView: View {
                             Text("이메일")
                                 .font(.system(size: 15))
                             TextField("example@example.com", text: $viewModel.email)
+                                .keyboardType(.emailAddress)
                                 .focused($focusedField, equals: .email)
                             
                             Divider()
@@ -245,6 +246,19 @@ struct RegisterView: View {
                 }
             }
         }
+        .customNavigationBar(
+            centerView: {
+                Text("회원가입")
+            },
+            leftView: {
+                EmptyView()
+            },
+            rightView: {
+                CloseButton()
+            },
+            backgroundColor: .bgColor3
+        )
+        .environmentObject(viewModel)
     }
 }
 

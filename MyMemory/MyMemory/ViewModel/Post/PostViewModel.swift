@@ -14,6 +14,7 @@ class PostViewModel: ObservableObject {
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""
+    @Published var memoAddressBuildingName: String? = nil
     @Published var tempAddressText: String = ""
     @Published var memoSelectedImageData: [Data] = []
     @Published var memoSelectedTags: [String] = []
@@ -50,7 +51,9 @@ class PostViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if let location = location {
                     print("User's current location - Latitude: \(location.latitude), Longitude: \(location.longitude)")
-                    self?.userCoordinate = location
+                    if self?.userCoordinate == nil {
+                        self?.userCoordinate = location
+                    }
                     // 주소 변환 로직이나 추가 작업을 여기에 구현
                     
                     // getUserCurrentLocation 작업이 완료되면 getAddress 호출
@@ -67,18 +70,21 @@ class PostViewModel: ObservableObject {
     func getAddress() async {
         guard userCoordinate != nil else { return }
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
-        
+        let buildingName = await GetAddress.shared.getBuildingStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
         DispatchQueue.main.async { [weak self] in
             self?.memoAddressText = addressText
+            self?.memoAddressBuildingName = buildingName
+
             print("주소 테스트 \(addressText)")
         }
     }
     func getAddress(with loc : Location) {
         Task{ @MainActor in
             let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
-            
+            let buildingName = await GetAddress.shared.getBuildingStr(location: .init(longitude: Double(loc.longitude), latitude: Double(loc.latitude)))
             DispatchQueue.main.async { [weak self] in
                 self?.tempAddressText = addressText
+                self?.memoAddressBuildingName = buildingName
                 print("주소 테스트 \(addressText)")
             }
         }
@@ -87,7 +93,11 @@ class PostViewModel: ObservableObject {
     func setAddress() {
         if !tempAddressText.isEmpty {
             self.memoAddressText = self.tempAddressText
+            
         }
+    }
+    func setLocation(locatioin: CLLocation) {
+        self.userCoordinate = locatioin.coordinate
     }
     
     
@@ -98,6 +108,7 @@ class PostViewModel: ObservableObject {
                 loading = true
                 guard let user = AuthService.shared.currentUser else {
                     loading = false
+                    LoadingManager.shared.phase = .fail(msg: "로그인 중이 아님")
                     return
                 }
                 let newMemo = PostMemoModel(
@@ -105,6 +116,7 @@ class PostViewModel: ObservableObject {
                     userCoordinateLatitude: Double(userCoordinate!.latitude),
                     userCoordinateLongitude: Double(userCoordinate!.longitude),
                     userAddress: memoAddressText,
+                    userAddressBuildingName: memoAddressBuildingName,
                     memoTitle: memoTitle,
                     memoContents: memoContents,
                     isPublic: !memoShare,
@@ -117,16 +129,16 @@ class PostViewModel: ObservableObject {
                 do {
                     try await MemoService.shared.uploadMemo(newMemo: newMemo)
                     loading = false
-                    
-                    
+                    LoadingManager.shared.phase = .success
                 }
                 dismissPublisher.send(true)
                 resetMemoFields()
                 loading = false
-                
+                LoadingManager.shared.phase = .success
             } catch {
                 // 오류 처리
                 loading = false
+                LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
         }
@@ -137,6 +149,7 @@ class PostViewModel: ObservableObject {
         self.memoTitle = memo.title
         self.memoContents = memo.description
         self.memoAddressText = memo.address
+        self.memoAddressBuildingName = memo.building
         self.memoSelectedImageData = memo.imagesURL.map{try! Data(contentsOf: URL(string: $0)!)}
         self.memoSelectedTags = memo.tags
         self.memoShare = memo.isPublic

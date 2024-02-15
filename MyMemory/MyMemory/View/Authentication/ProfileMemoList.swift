@@ -11,6 +11,8 @@ import SwiftUI
 struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
+    @State private var showsAlert = false
+    
     @State private var profile: Profile = {
         var profile = AuthService.shared.currentUser!.toProfile
         
@@ -25,44 +27,110 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                     MemoDetailView(memos: $viewModel.memoList, selectedMemoIndex: i)
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
-                    MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
-                        switch action {
-                        case .like:
-                            print("like")
-                        case .pinned(let success):
-                            if success {
-                                print("pinned")
-                            }
-                        default:
-                            break
-                        }
-                    }.frame(maxWidth: .infinity)
-                        .contentShape(Rectangle())
-                        .onAppear {
-                            Task {
-                                // 1. 로그인 되어있는지 체크
-                                // 2. 뷰모델에 따라 알맞은 로직을 실행
-                                if let userId = UserDefaults.standard.string(forKey: "userId") {
-                                    if i == viewModel.memoList.count - 1 {
-                                        if let mypageViewModel = viewModel as? MypageViewModel {
-                                            self.isLoadingFetchMemos = true
-                                            await mypageViewModel.pagenate(userID: userId)
-                                            self.isLoadingFetchMemos = false
-                                        } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
-                                            self.isLoadingFetchMemos = true
-                                            self.profile = otherUserViewModel.memoCreator.toProfile
-                                            let userId = otherUserViewModel.memoCreator.id?.description
-                                            await otherUserViewModel.pagenate(userID: userId ?? "")
-                                            self.isLoadingFetchMemos = false
+                    if let otherUserViewModel = viewModel as? OtherUserViewModel {
+                        if self.profile.id == otherUserViewModel.memoCreator.id {
+                            MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
+                                switch action {
+                                case .like:
+                                    print("like")
+                                case .pinned(let success):
+                                    if success {
+                                        print("pinned")
+                                    } else {
+                                        showsAlert.toggle()
+                                    }
+                                default:
+                                    break
+                                }
+                            }.frame(maxWidth: .infinity)
+                                .contentShape(Rectangle())
+                                .onAppear {
+                                    Task {
+                                        // 1. 로그인 되어있는지 체크
+                                        // 2. 뷰모델에 따라 알맞은 로직을 실행
+                                        if let userId = UserDefaults.standard.string(forKey: "userId") {
+                                            if i == viewModel.memoList.count - 1 {
+                                                if let mypageViewModel = viewModel as? MypageViewModel {
+                                                    self.isLoadingFetchMemos = true
+                                                    await mypageViewModel.pagenate(userID: userId)
+                                                    self.isLoadingFetchMemos = false
+                                                } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
+                                                    self.isLoadingFetchMemos = true
+                                                    let userId = otherUserViewModel.memoCreator.id?.description
+                                                    await otherUserViewModel.pagenate(userID: userId ?? "")
+                                                    self.isLoadingFetchMemos = false
+                                                }
+                                            }
                                         }
                                     }
+                                    
                                 }
-                            }
                         }
+                    } else {
+                        if self.profile.id == AuthService.shared.currentUser?.id {
+                            MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
+                                switch action {
+                                case .like:
+                                    print("like")
+                                case .pinned(let success):
+                                    if success {
+                                        print("pinned")
+                                    } else {
+                                        showsAlert.toggle()
+                                    }
+                                default:
+                                    break
+                                }
+                            }.frame(maxWidth: .infinity)
+                                .contentShape(Rectangle())
+                                .onAppear {
+                                    Task {
+                                        // 1. 로그인 되어있는지 체크
+                                        // 2. 뷰모델에 따라 알맞은 로직을 실행
+                                        if let userId = UserDefaults.standard.string(forKey: "userId") {
+                                            if i == viewModel.memoList.count - 1 {
+                                                if let mypageViewModel = viewModel as? MypageViewModel {
+                                                    self.isLoadingFetchMemos = true
+                                                    await mypageViewModel.pagenate(userID: userId)
+                                                    self.isLoadingFetchMemos = false
+                                                } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
+                                                    self.isLoadingFetchMemos = true
+                                                    let userId = otherUserViewModel.memoCreator.id?.description
+                                                    await otherUserViewModel.pagenate(userID: userId ?? "")
+                                                    self.isLoadingFetchMemos = false
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                        }
+                    }
+
                 }
                 .buttonStyle(.plain)
             }
             
+            
+        }
+        .moahAlert(isPresented: $showsAlert) {
+            MoahAlertView(title: "핀을 다 써버렸어요!", message: "5개까지만 고정할 수 있습니다.",firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $showsAlert, action: {
+                
+            }))
+        }
+        .onAppear {
+            Task {
+                if let otherUserViewModel = viewModel as? OtherUserViewModel {
+                    if let uid = otherUserViewModel.memoCreator.id {
+                        self.profile = await AuthService.shared.memoCreatorfetchProfile(uid: uid)!
+                    }
+                } else {
+                    if let uid = AuthService.shared.currentUser?.id {
+                        self.profile = await AuthService.shared.memoCreatorfetchProfile(uid: uid)!
+                    }
+                }
+                
+            }
         }
         if isLoadingFetchMemos {
             HStack {

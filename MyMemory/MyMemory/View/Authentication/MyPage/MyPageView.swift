@@ -14,18 +14,21 @@ struct MyPageView: View {
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     
     @State var selectedIndex = 0
-    
+    @State private var isRefreshing = false
+
     var body: some View {
         ScrollViewReader { proxy in
 
         ZStack(alignment: .top) {
             Color.bgColor
-            //                .ignoresSafeArea()
-                VStack {
+                .ignoresSafeArea()
+                
+            VStack {
                     ScrollView(.vertical, showsIndicators: false) {
-                        MypageTopView()
-                            .padding(.horizontal, 14)
-                        
+                         MypageTopView()
+                             .padding(.horizontal, 14)
+//                             .environmentObject(mypageViewModel)
+                             .id(0)
                         LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
                             // 로그인 되었다면 로직 실행
                             Section {
@@ -89,7 +92,7 @@ struct MyPageView: View {
                         Button{
                             withAnimation {
                                 proxy.scrollTo(0, anchor: .top)
-
+//                                self.scrollPosition = 0.0
                             }
                         }label: {
                             Image(.scrollTop)

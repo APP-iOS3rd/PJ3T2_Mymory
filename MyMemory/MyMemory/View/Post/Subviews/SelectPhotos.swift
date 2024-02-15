@@ -76,7 +76,7 @@ struct SelectPhotos: View {
             .onAppear {
                 // 해당 뷰가 업로드 될 때 권한 받기
                 checkPhotoLibraryPermission()
-                
+                self.memoSelectedImageItems = []
                 if isEdit {
                     // 수정 모드일 때 기존 이미지 데이터 설정
                     selectedItemsCounts = memoSelectedImageData.count

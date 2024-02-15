@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import Combine
 import MapKit
 import CoreLocation
@@ -16,6 +17,8 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     private var cameraDistance: Double? = nil
     private let locationManager = CLLocationManager()
     private var firstLocationUpdated = false
+    private var operationQueue = OperationQueue()
+
     private var addressOperation: Operation? = nil
     private var fetchOperation: Operation? = nil
     var firstLocation: CLLocation? {
@@ -108,7 +111,11 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             locationConfig()
         }
         self.addressOperation = BlockOperation(block: getCurrentAddress)
-        self.fetchOperation = BlockOperation(block: refreshMemos)
+        self.fetchOperation = BlockOperation(block: {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.refreshMemos()
+            }
+        })
         self.cluster.delegate = self
     }
     func refreshMemos() {
@@ -272,20 +279,27 @@ extension MainMapViewModel {
     ///   - memo : 선택된 Memo
     /// - Returns: void, 선택된 메모를 가지고 이 메모를 포함하는 클러스터 위치, 만약 그 클러스터가 현재 맵에 없다면, 메모의 위치로 카메라를 이동하는 함수
     func memoDidSelect(memo: Memo) {
-        self.selectedMemoId = memo.id
-        if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
-            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 2000))
-        } else {
-            let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
-            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 2000))
+        operationQueue.cancelAllOperations()
+        withAnimation {
+            self.selectedMemoId = memo.id
             
+            if let containing = clusters.first(where: {$0.memos.contains(where: {$0.id == memo.id})}) {
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: containing.center, distance: cameraDistance ?? 1000))
+            } else {
+                let memoCoord = CLLocationCoordinate2D(latitude: memo.location.latitude, longitude: memo.location.longitude)
+                self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: memoCoord, distance: cameraDistance ?? 1000))
+                
+            }
         }
     }
     func clusterDidSelected(cluster: MemoCluster) {
         let memo = cluster.memos.first!
         self.selectedMemoId = memo.id
-        
-        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 2000))
+        withAnimation {
+
+        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: cluster.center, distance: cameraDistance ?? 1000))
+        }
+
     }
     //MARK: - 주소 얻어오는 함수
     //특정 selected 위치 주소값
@@ -352,6 +366,7 @@ extension MainMapViewModel {
     /// 맵 좌하단에 버튼을 눌렀을 때 현재 위치로 최신화 하는 기능
     /// - Returns: void, 카메라를 현재 위치로 이동시킴
     func switchUserLocation() {
+//        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: location!.coordinate, distance: cameraDistance ?? 1000))
         mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
         if !self.isUserTracking {
             self.isUserTracking = true

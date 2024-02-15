@@ -20,72 +20,108 @@ struct OtherUserProfileView: View {
     
     @State var selectedIndex = 0
     @State var memoCreator: User
+
     // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
     init(memoCreator: User) {
         self.memoCreator = memoCreator
     }
     
     var body: some View {
-        ZStack(alignment: .top) {
-            Color.bgColor.edgesIgnoringSafeArea(.top)
+        ScrollViewReader { proxy in
             
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    // 로그인 되었다면 로직 실행
-                    if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                        let isCurrentUser = authViewModel.userSession?.uid == userId
-                        
-                        // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
-                        if  otherUserViewModel.memoCreator.isCurrentUser == false  {
-                            OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
-                            createHeader()
+            ZStack(alignment: .top) {
+                Color.bgColor.edgesIgnoringSafeArea(.top)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading) {
+                        // 로그인 되었다면 로직 실행
+                        if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+                            let isCurrentUser = authViewModel.userSession?.uid == userId
                             
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
+                            // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
+                            if  otherUserViewModel.memoCreator.isCurrentUser == false  {
+                                OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
+                                createHeader()
+                                ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
+                            }
+                            else {
+                                MypageTopView()
+                                
+                                createHeader()
+                                
+                                ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
+                            }
                         }
                         else {
-                            MypageTopView()
-                            createHeader()
-                            
-                            ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
+                            showLoginPrompt()
                         }
-                    }
-                    else {
-                        showLoginPrompt()
+                    }.id(0)
+                    
+                }
+                .refreshable {
+                    // Refresh logic
+                }
+                
+                .safeAreaInset(edge: .top) {
+                    Color.clear.frame(height: 0).background(Color.bgColor)
+                }
+                .safeAreaInset(edge: .bottom) {
+                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                }
+                
+                VStack{
+                    Spacer()
+                    
+                    HStack{
+                        Spacer()
+                        Button{
+                            withAnimation {
+                                proxy.scrollTo(0, anchor: .top)
+                            }
+                        }label: {
+                            Image(.scrollTop)
+                        }.padding([.trailing,.bottom] , 30)
                     }
                 }
                 
             }
-            .refreshable {
-                // Refresh logic
+            .onAppear {
+                
+                checkLoginStatus()
+                authViewModel.fetchUser()
+                otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
             }
-            .padding(.horizontal, 14)
-            .safeAreaInset(edge: .top) {
-                Color.clear.frame(height: 0).background(Color.bgColor)
+            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+                Button("로그인 하기", role: .destructive) {
+                    self.presentLoginView = true
+                }
+                Button("둘러보기", role: .cancel) {
+                    // Handle '둘러보기' case
+                }
             }
-            .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+            .fullScreenCover(isPresented: $presentLoginView) {
+                LoginView().environmentObject(AuthViewModel())
             }
-        }
-        .onAppear {
-            checkLoginStatus()
-            authViewModel.fetchUser()
-            otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
-        }
-        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-            Button("로그인 하기", role: .destructive) {
-                self.presentLoginView = true
+            .overlay {
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
             }
-            Button("둘러보기", role: .cancel) {
-                // Handle '둘러보기' case
-            }
-        }
-        .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
-        }
-        .overlay {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
+            
+            .customNavigationBar(
+                centerView: {
+                    Text(otherUserViewModel.memoCreator.name)
+                        .font(.semibold16)
+                        .foregroundStyle(Color.textColor)
+                },
+                leftView: {
+                    BackButton()
+                },
+                rightView: {
+                    EmptyView()
+                },
+                backgroundColor: Color.bgColor
+            )
         }
     }
     
@@ -112,6 +148,7 @@ struct OtherUserProfileView: View {
             }
         }
         .padding(.top, 38)
+        .padding(.horizontal, 14)
     }
 
     

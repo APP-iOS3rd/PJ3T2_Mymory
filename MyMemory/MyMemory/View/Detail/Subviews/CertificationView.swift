@@ -17,7 +17,8 @@ struct CertificationView: View {
     var body: some View {
         ZStack {
             
-            Color.bgColor 
+            Color.deepGray
+            
             VStack {
                 VStack {
                     VStack {
@@ -31,7 +32,7 @@ struct CertificationView: View {
                             .font(.regular24)
                     }
                     .frame(alignment: .center)
-                    .foregroundStyle(Color.textColor)
+                    .foregroundStyle(Color.white)
                     .padding(.top, 20)
                 }
                 
@@ -89,7 +90,7 @@ struct CertificationView: View {
             rightView: {
                 CloseButton()
             },
-            backgroundColor: .bgColor
+            backgroundColor: .deepGray
         )
     }
 }

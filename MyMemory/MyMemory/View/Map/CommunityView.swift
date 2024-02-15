@@ -10,6 +10,7 @@ import SwiftUI
 struct CommunityView: View {
     @StateObject var locationManager = LocationsHandler.shared
     @StateObject var viewModel: CommunityViewModel = .init()
+    @State var buildingInfo: [BuildingInfo] = []
     var body: some View {
         ScrollView {
             VStack {
@@ -27,8 +28,14 @@ struct CommunityView: View {
                                 .padding(.leading, 18)
                         }
                     })
-                }.padding(.top, 25)
+                    .scrollTargetLayout()
+                    
+                }
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                .padding(.top, 25)
 
+                
                 HStack {
                     Text("이번 주\n가장 핫한 지역")
                         .font(.bold24)
@@ -38,14 +45,14 @@ struct CommunityView: View {
                     .padding(.top, 60)
                     .padding(.bottom, 25)
                 LazyVStack(spacing: 15, content: {
-                    ForEach(1...10, id: \.self) { count in
+                    ForEach(buildingInfo, id: \.self) { building in
                         HStack{
                             VStack(alignment: .leading) {
-                                Text("호그와트 마법학교")
+                                Text("\(building.buildingName)")
                                     .font(.bold16)
                                     .foregroundStyle(Color.textColor)
                                     .padding(.bottom,5)
-                                Text("서울시 마포구 대흥동")
+                                Text("\(building.address)")
                                     .font(.regular12)
                                     .foregroundStyle(Color.textColor)
                             }
@@ -70,6 +77,14 @@ struct CommunityView: View {
 
                     }
                 }).padding(.horizontal, 25)
+            }
+        }
+        .onAppear {
+            Task{ @MainActor in
+                do {
+                    self.buildingInfo = try await MemoService.shared.buildingList()
+                    print(self.buildingInfo)
+                } catch {}
             }
         }
     }

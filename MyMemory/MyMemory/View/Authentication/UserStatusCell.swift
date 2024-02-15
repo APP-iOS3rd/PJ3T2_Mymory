@@ -9,11 +9,12 @@ import SwiftUI
 struct UserStatusCell: View {
     
     @ObservedObject var authViewModel: AuthService = .shared
-    
+    @State var uid: String
+    @State var memoCount: Int?
     var body: some View {
         HStack {
             VStack {
-                Text("0")
+                Text("\(memoCount ?? 0)")
                     .font(.bold16)
                 Text("메모")
                     .font(.light14)
@@ -42,11 +43,17 @@ struct UserStatusCell: View {
             .frame(maxWidth: .infinity)
             .padding(.leading, 10)
         }
+        .onAppear(perform: {
+            Task { @MainActor in
+                 
+                self.memoCount = await AuthService.shared.fetchUserMemoCount(with: uid)
+            }
+        })
         .frame(maxWidth: .infinity)
         .padding(.vertical,18)
     }
 }
 
-#Preview {
-    UserStatusCell()
-}
+//#Preview {
+//    UserStatusCell()
+//}

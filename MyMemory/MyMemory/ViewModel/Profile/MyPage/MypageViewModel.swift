@@ -27,6 +27,7 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
+    @Published var userProfile: Profile? = nil
     @Published var currentLocation: CLLocation?  = nil
     
     var lastDocument: QueryDocumentSnapshot? = nil // 초기화
@@ -56,6 +57,22 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         }
     }
     
+    func fetchUserMemo(){
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+                }
+            }
+        }
+    }
+    func fetchUserProfile() {
+        guard let id = user?.id else {return}
+        Task {
+            self.userProfile = await AuthService.shared.memoCreatorfetchProfile(uid: id)
+        }
+    }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in

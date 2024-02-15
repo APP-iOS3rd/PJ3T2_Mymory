@@ -23,7 +23,6 @@ struct MemoCard: View {
     @State var imgIndex: Int = 0
     @Binding var profile: Profile
     @State var isMyPage: Bool = false
-    @State private var pinnedCount: Int = 0
 
     var completion: (actionType) -> ()
     var body: some View {
@@ -38,7 +37,12 @@ struct MemoCard: View {
                             .resizable()
                             .frame(width: 15, height: 20)
                             .onTapGesture {
-                                if pinnedCount < 6 {
+                                if profile.pinCount < 6 {
+                                    if memo.isPinned {
+                                        profile.pinCount -= 1
+                                    } else {
+                                        profile.pinCount += 1
+                                    }
                                     memo.isPinned.toggle()
                                     
                                     Task{
@@ -65,6 +69,9 @@ struct MemoCard: View {
                         } label: {
                             KFImage(URL(string: url))
                                 .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .clipShape(.circle)
                                 .frame(width: 37,height: 37)
                                 .contentShape(Circle())
                                 .cornerRadius(19)
@@ -82,25 +89,27 @@ struct MemoCard: View {
                             .foregroundStyle(Color.textDeepColor)
                     }
                     Spacer()
-                    Button {
-                        if AuthService.shared.currentUser == nil {
-                            self.completion(.unAuthorized)
-                            return
-                        }
-                        if self.profile.isFollowing {
-                            AuthService.shared.userUnFollow(followUser: profile) { error in
-                                print(error?.localizedDescription)
+                    if !isMyPage {
+                        Button {
+                            if AuthService.shared.currentUser == nil {
+                                self.completion(.unAuthorized)
+                                return
                             }
-                        } else {
-                            AuthService.shared.userFollow(followUser: profile) { error in
-                                print(error?.localizedDescription)
+                            if self.profile.isFollowing {
+                                AuthService.shared.userUnFollow(followUser: profile) { error in
+                                    print(error?.localizedDescription)
+                                }
+                            } else {
+                                AuthService.shared.userFollow(followUser: profile) { error in
+                                    print(error?.localizedDescription)
+                                }
                             }
-                        }
-                        self.profile.isFollowing.toggle()
-                        self.completion(.follow)
-                    } label: {
-                        Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
-                    }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
+                            self.profile.isFollowing.toggle()
+                            self.completion(.follow)
+                        } label: {
+                            Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
+                        }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
+                    }
                 }.padding(.horizontal, 20)
             }
             if memo.imagesURL.count > 0 {
@@ -248,11 +257,6 @@ struct MemoCard: View {
             .background(Color.originColor)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
-            }
-            .onAppear {
-                Task {
-                    self.pinnedCount = await AuthService.shared.pinnedCount()
-                }
             }
     }
     

@@ -127,25 +127,13 @@ struct LoginView: View {
                 
                 NavigationLink {
                     RegisterView()
-                        .customNavigationBar(
-                            centerView: {
-                                Text("회원가입")
-                            },
-                            leftView: {
-                                EmptyView()
-                            },
-                            rightView: {
-                                CloseButton()
-                            },
-                            backgroundColor: .bgColor
-                        )
-                        .environmentObject(viewModel)
                 } label: {
                     Text("내모리가 처음이시라면 - 회원가입")
                         .underline()
                         .foregroundStyle(.gray)
                         .font(.regular14)
                 }
+                .padding(.vertical, 12)
                 
                 Spacer()
                 

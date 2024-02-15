@@ -18,56 +18,51 @@ struct SettingView: View {
     var body: some View {
         VStack(alignment: .leading) {
             ScrollView() {
-                VStack(alignment: .leading){
-                    Text("일반")
-                        .font(.semibold14)
-                        .padding(.top, 36)
-                        .padding(.bottom, 32)
-                    
-                    VStack(spacing: 12) {
+                VStack(spacing: 36) {
+                    VStack(alignment: .leading, spacing: 22) {
                         Group {
+                            Text("일반")
+                                .font(.regular12)
+                                .opacity(0.3)
                             SettingMenuCell(name: "로그인 정보")
-                            Divider()
                             SettingMenuCell(name: "알림")
-                            Divider()
-                            SettingMenuCell(name: "테마", page: "theme")
-                            Divider()
-                            SettingMenuCell(name: "폰트", page: "font")
-                            Divider()
-                            
                         }
-                    }.padding(.horizontal, 9)
+                    }
                     
-                    Text("앱 정보")
-                        .font(.semibold14)
-                        .padding(.bottom, 32)
-                        .padding(.top, 19)
-                    
-                    VStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 22) {
                         Group {
-                            SettingMenuCell(name: "개인정보 처리방침")
-                            Divider()
-                                .padding(.bottom, 20)
+                            Text("스타일")
+                                .font(.regular12)
+                                .opacity(0.3)
+                            SettingMenuCell(name: "테마", page: "theme")
+                            SettingMenuCell(name: "폰트", page: "font")
+                        }
+                    }
+                    
+                    
+                    VStack(alignment: .leading, spacing: 22) {
+                        Group {
+                            Text("앱 정보")
+                                .font(.regular12)
+                                .opacity(0.3)
+                            SettingMenuCell(name: "개인정보 처리방침", page: "termsOfPrivacy")
+                            SettingMenuCell(name: "이용약관", page: "termsOfUse")
                             SettingMenuCell(name: "오픈소스 라이센스")
-                            Divider()
-                                .padding(.bottom, 20)
                             HStack(alignment: .center) {
                                 Text("앱 버전")
-                                    .font(.regular18)
+                                    .font(.regular14)
                                 Spacer()
                                 Text(settingViewModel.version)
-                                    .foregroundStyle(Color(UIColor.systemGray))
+                                    .opacity(0.6)
                             }
                             .foregroundStyle(Color.textColor)
-                            
-                            Divider()
                         }
-                    }.padding(.horizontal, 9)
+                    }
                 }
             }
             
             if authViewModel.currentUser != nil {
-                VStack(alignment: .trailing) {
+                VStack(alignment: .trailing, spacing: 56) {
                     Button {
                         settingViewModel.isShowingLogoutAlert = true
                     } label: {
@@ -75,7 +70,7 @@ struct SettingView: View {
                             .foregroundStyle(.white)
                             .frame(height: 50)
                             .frame(maxWidth: .infinity)
-                            .background(.blue)
+                            .background(.accent)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .alert("로그아웃 하시겠습니까?", 
@@ -112,7 +107,19 @@ struct SettingView: View {
                 }
             }
         }
-        .padding(.horizontal, 12)
- 
+        .padding(.horizontal, 16)
+        .padding(.top, 34)
+        .customNavigationBar(
+            centerView: {
+                Text("내 정보")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                EmptyView()
+            },
+            backgroundColor: Color.bgColor3
+        )
     }
 }

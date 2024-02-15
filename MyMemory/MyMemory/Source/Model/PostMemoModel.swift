@@ -17,6 +17,7 @@ struct PostMemoModel: Identifiable {
     let userCoordinateLatitude: Double
     let userCoordinateLongitude: Double
     let userAddress: String
+    let userAddressBuildingName: String?
     let memoTitle: String
     let memoContents: String
     let isPublic: Bool
@@ -29,7 +30,7 @@ struct PostMemoModel: Identifiable {
     // Firestore 문서 ID를 사용하여 초기화 가능한 생성자 추가
     // id: String = UUID().uuidString 생성할때는 자동으로, 파베에서 불러서 넣어줄때는 생성했던 uid로 
     init(id: String = UUID().uuidString, userUid: String, userCoordinateLatitude: Double, userCoordinateLongitude: Double,
-         userAddress: String, memoTitle: String, memoContents: String, isPublic: Bool,
+         userAddress: String, userAddressBuildingName: String? = nil, memoTitle: String, memoContents: String, isPublic: Bool,
          memoTagList: [String], memoLikeCount: Int, memoSelectedImageData: [Data],
          memoCreatedAt: TimeInterval) {
         self.id = id
@@ -37,6 +38,7 @@ struct PostMemoModel: Identifiable {
         self.userCoordinateLatitude = userCoordinateLatitude
         self.userCoordinateLongitude = userCoordinateLongitude
         self.userAddress = userAddress
+        self.userAddressBuildingName = userAddressBuildingName
         self.memoTitle = memoTitle
         self.memoContents = memoContents
         self.isPinned = false

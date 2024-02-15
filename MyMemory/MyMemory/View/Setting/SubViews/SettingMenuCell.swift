@@ -18,8 +18,11 @@ struct SettingMenuCell: View {
         } label: {
             HStack(alignment: .center) {
                 Text(name)
-                    .font(.regular18)
+                    .font(.medium14)
                 Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 17))
+                    .opacity(0.3)
             }
             .foregroundStyle(Color.textColor)
         }
@@ -33,6 +36,8 @@ struct SettingMenuCell: View {
         case "theme": ThemeView()
         case "login": LoginView()
         case "font": FontView()
+        case "termsOfUse": TermsView(kindOfTerms: .use)
+        case "termsOfPrivacy": TermsView(kindOfTerms: .privacy)
         default: EmptyView()
         }
     }

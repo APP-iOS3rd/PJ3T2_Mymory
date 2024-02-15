@@ -12,7 +12,7 @@ import Kingfisher
 // 마이페이지 최상단의 프로필 및 닉네임 등을 표시하는 View입니다.
 struct MypageTopView: View {
     @ObservedObject var authViewModel : AuthService = .shared
-    
+//    @EnvironmentObject var viewModel: MypageViewModel
     var body: some View {
         VStack {
             HStack {
@@ -54,18 +54,7 @@ struct MypageTopView: View {
                                          isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState // 💁
                             )
                             
-                            .customNavigationBar(
-                                centerView: {
-                                    Text("내 정보")
-                                },
-                                leftView: {
-                                    EmptyView()
-                                },
-                                rightView: {
-                                    CloseButton()
-                                },
-                                backgroundColor: Color.bgColor
-                            )
+                  
                             
                         } label: {
                             Image(systemName: "gearshape")
@@ -81,16 +70,17 @@ struct MypageTopView: View {
                 }
                 
             }
-            
-            UserStatusCell()
+            if let uid = AuthService.shared.currentUser?.id {
+                UserStatusCell(uid: uid)
+            }
         }
         .onAppear {
             Task { // 로그인 안하면 실행 x
                 if let currentUser = authViewModel.currentUser {
                     await authViewModel.followAndFollowingCount(user: currentUser)
                 }
-                
             }
+//            viewModel.fetchUserProfile()
         }
     }
 }

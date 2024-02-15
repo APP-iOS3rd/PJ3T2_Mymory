@@ -72,9 +72,20 @@ struct ChangeLocationView: View {
                 RoundedRectangle(cornerRadius: 15)
                     .padding(.horizontal, 17)
                     .overlay(
-                        Text("\(viewModel.tempAddressText)")
-                            .foregroundStyle(Color.darkGray)
-                            .font(.bold16)
+                        VStack {
+                            if let buildingName = viewModel.memoAddressBuildingName {
+                                Text("\(buildingName)")
+                                    .foregroundStyle(Color.darkGray)
+                                    .font(.bold16)
+                                Text("\(viewModel.tempAddressText)")
+                                    .foregroundStyle(Color.deepGray)
+                                    .font(.regular12)
+                            } else {
+                                Text("\(viewModel.tempAddressText)")
+                                    .foregroundStyle(Color.darkGray)
+                                    .font(.bold16)
+                            }
+                        }
                     )
                     .foregroundStyle(Color.lightGrayBackground)
                     .frame(height: 50)
@@ -82,6 +93,9 @@ struct ChangeLocationView: View {
                 Button(action: {
                     if let _ = centerLoc {
                         viewModel.setAddress()
+                        if let loc = centerLoc {
+                            viewModel.setLocation(locatioin: loc)
+                        }
                     }
                     dismiss()
                 }, label: {

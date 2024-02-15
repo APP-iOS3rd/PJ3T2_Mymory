@@ -100,7 +100,6 @@ struct PostView: View {
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
-        .padding(.bottom, 25)
         .onAppear {
             if let useruid = UserDefaults.standard.string(forKey: "userId") {
                 AuthService.shared.fetchUser()

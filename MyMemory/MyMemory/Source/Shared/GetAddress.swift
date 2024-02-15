@@ -17,6 +17,12 @@ class GetAddress{
         let addressList = dto?.documents.map{$0.address}.first
         return roadAddressList??.addressName ?? (addressList?.addressName ?? "")
     }
+    func getBuildingStr(location: MapPoint) async -> String?{
+        let dto = await getUserLocation(location: location)
+        let roadAddressList = dto?.documents.map{$0.roadAddress}.first
+        let buildingName = roadAddressList??.buildingName
+        return buildingName
+    }
     func getUserLocation(location: MapPoint) async -> AdressDTO?{
         guard let key = restKey else { return nil}
         var failedData: Data? = nil

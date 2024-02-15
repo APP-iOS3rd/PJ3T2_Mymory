@@ -40,6 +40,7 @@ extension MemoService {
             "userCoordinateLatitude": newMemo.userCoordinateLatitude,
             "userCoordinateLongitude": newMemo.userCoordinateLongitude,
             "userAddress": newMemo.userAddress,
+            "buildingName": newMemo.userAddressBuildingName ?? "",
             "memoTitle": newMemo.memoTitle,
             "memoContents": newMemo.memoContents,
             "isPublic": newMemo.isPublic,
@@ -135,7 +136,7 @@ extension MemoService {
     }
     func fetchMemosOfWeek() async throws -> [Memo] {
         var memos: [Memo] = []
-        let week = Date().timeIntervalSince1970 - (3600 * 7)
+        let week = Date().timeIntervalSince1970 - (86400 * 7)
         do {
             let docs = try await COLLECTION_MEMOS
                 .whereField("createdAtTimeInterval", isGreaterThan: week)
@@ -170,6 +171,55 @@ extension MemoService {
             print(error.localizedDescription)
             return []
         }
+    }
+    func fetchBuildingMemos(of buildingName: String) async throws -> [Memo] {
+        var memos: [Memo] = []
+        let query = try await COLLECTION_MEMOS
+            .whereField("buildingName", isEqualTo: buildingName)
+            .getDocuments()
+        for document in query.documents.filter({doc in
+            //공개인지?
+            let isPublic = doc["isPublic"] as? Bool ?? true
+            let memoUid = doc["userUid"] as? String ?? ""
+            //내 메모인지?
+            let isMyMemo = memoUid == AuthService.shared.currentUser?.id
+            return isPublic || isMyMemo
+        }) {
+            let data = document.data()
+            
+            // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
+            if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                let likeCount = await likeMemoCount(memo: memo)
+                let memoLike = await checkLikedMemo(memo)
+                memo.likeCount = likeCount
+                memo.didLike = memoLike
+                memos.append(memo)
+            }
+        }
+        
+        return memos
+    }
+
+    func buildingList() async throws -> [BuildingInfo]{
+        var buildings: [BuildingInfo] = []
+        let query = try await COLLECTION_MEMOS
+            .order(by: "buildingName")
+            .getDocuments()
+        for document in query.documents {
+            if let name = document["buildingName"] as? String? ?? nil,
+            let address = document["userAddress"] as? String{
+                if let firstIndex = buildings.firstIndex(where: {$0.buildingName == name}) {
+                    let count = buildings[firstIndex].count
+                    buildings[firstIndex].count = count + 1
+                } else {
+                    let building = BuildingInfo(buildingName: name,
+                                                address: address,
+                                                count: 1)
+                    buildings.append(building)
+                }
+            }
+        }  
+        return buildings.sorted(by: {$0.count > $1.count})
     }
     // 영역 fetch
     func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
@@ -324,7 +374,50 @@ extension MemoService {
             return []
         }
     }
-    
+    /// 다른사용자가 작성한 메모만 불러오는 함수입니다.
+    /// - Parameters:
+    ///     - userID: 사용자의 UID
+    ///     - lastDocument: 불러온 Documents 중 가장 마지막 요소입니다. 이를 활용해 몇번째 메모까지 불렀는지 확인할 수 있습니다.
+    ///     - completion: 각 View에서 사용하는 lastDocument에 현재 불러온 lastDocument를 덮어씌우는 closure입니다.
+    /// - Returns: 사용자가 작성한 메모들을 lastDocument부터 사용자가 설정한 limits개의 documents를 Memo타입으로 변환하여 [Memo] 타입으로 반환합니다.
+    func fetchMemos(userID: String, lastDocument: QueryDocumentSnapshot?, completion: (QueryDocumentSnapshot?) -> Void) async -> [Memo] {
+        do {
+            let querySnapshot = await pagenate(
+                query: COLLECTION_MEMOS.whereField("userUid", isEqualTo: userID),
+                limit: 5,
+                lastDocument: lastDocument
+            )
+            
+            if querySnapshot.documents.isEmpty {
+                return []
+            }
+            
+            completion(querySnapshot.documents.last)
+            
+            var memos = [Memo]()
+            
+            // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
+            for document in querySnapshot.documents.filter({ doc in
+                let pinned = doc["isPinned"] as? Bool
+                return pinned == true
+            }) {
+                let data = document.data()
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
+                    memos.append(memo)
+                }
+            }
+            
+            return memos
+        } catch {
+            // Handle errors
+            print("Error signing in: \(error.localizedDescription)")
+            return []
+        }
+    }
     // 보고있는 메모의 작성자 uid와 로그인한 uid가 같다면 나의 메모 즉 수정, 삭제 가능
     func checkMyMemo(checkMemo: Memo) async -> Bool {
         do {
@@ -638,6 +731,7 @@ extension MemoService {
               let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
               let memoCreatedAt = data["createdAtTimeInterval"] as? Double else { return nil }
         let isPinned = data["isPinned"] as? Bool ?? false
+        let buildingName = data["buildingName"] as? String? ?? nil
         // Convert image URLs to Data asynchronously
         /*
          
@@ -673,6 +767,7 @@ extension MemoService {
             title: memoTitle,
             description: memoContents,
             address: userAddress,
+            building: buildingName,
             tags: memoTagList,
             imagesURL: memoSelectedImageURLs,
             isPublic: isPublic,
@@ -725,12 +820,16 @@ extension MemoService {
            Authentication - 사용자 인증 기록 지우기
          
          */
-        
-        self.removeMemoData(uid: uid)
-        self.removeUserLikes(uid: uid)
-        self.removeUserFollowingAndFollowData(uid: uid)
-        self.removeUser(uid: uid)
-        
+        Task {
+            self.removeMemoData(uid: uid)
+            self.removeUserLikes(uid: uid)
+            self.removeUserFollowingAndFollowData(uid: uid)
+            let deleteImageResult = await AuthService.shared.removeUserProfileImage(uid: uid)
+            if let _ = try? deleteImageResult.get() {
+                print("사진 삭제 성공")
+            }
+            self.removeUser(uid: uid)
+        }
         // Authentication 계정 삭제
         if let currentUser = Auth.auth().currentUser {
             currentUser.delete { error in

@@ -47,7 +47,7 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
             //.border(width: 1, edges: [.bottom], color: Color(hex: "D9D9D9"))
             
             .background(
-                Color.bgColor
+                Color.bgColor3
                   .ignoresSafeArea()
             )
            
