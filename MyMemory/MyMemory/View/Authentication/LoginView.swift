@@ -211,24 +211,20 @@ struct LoginView: View {
                                 default:
                                     break
                                 }
-                                print("시도중인 애플로그인 유저의 이메일입니다 \(self.viewModel.email)")
                                 Task {
                                     self.appleCredential = credential
+                                    let _ = await viewModel.getUserID(credential: credential)
                                     let isCheckNewUser = await viewModel.checkUserEmail(email: viewModel.email)
-                                    print("애플유저 이메일 : \(viewModel.email)")
-                                    if isCheckNewUser {
+                                    let isCheckNewUserID = await viewModel.checkUser()
+                                    if isCheckNewUserID{
+                                        AuthService.shared.signout()
                                         self.isNewAppleUser = true
-                                        print("신규 애플로그인 유저")
                                     } else {
-                                        self.viewModel.authenticate(credential: credential)
                                         presentationMode.wrappedValue.dismiss()
-                                        print("기존 애플로그인 유저")
                                     }
                                 }
                             case .failure(let error):
-                                print("무브값 입니다 애플 2\(isActive)")
                                 print(error.localizedDescription)
-                                print("error")
                             }
                         }
                     )
