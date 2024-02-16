@@ -37,7 +37,6 @@ struct LoginView: View {
     @State var appleCredential: ASAuthorizationAppleIDCredential?
     @State var googleCredential: AuthCredential?
     @State var isAppleUser: Bool = false
-    @FocusState private var isFocused: Bool
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
