@@ -16,7 +16,6 @@ struct PostView: View {
     @State var presentLoginAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var presentLocationAlert: Bool = false
-    @State var themeSheet: Bool = false
     @State var draw = true
     @StateObject var viewModel: PostViewModel = PostViewModel()
     
@@ -26,8 +25,7 @@ struct PostView: View {
     
     @State var isEdit: Bool = false
     @State var selectedItemsCounts: Int = 0
-    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false,isPinned: true, date: Date().timeIntervalSince1970 - 1300,  location : Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""])
-    
+    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false,isPinned: true, date: Date().timeIntervalSince1970 - 1300,  location : Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""], memoTheme: .atom)
     // 수정버튼 타고 왔을때 구분위한 Bool 타입
     
     // property
@@ -59,22 +57,7 @@ struct PostView: View {
                     .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
                     .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
                     .padding(.bottom, 20)
-                    
-                    // 메모지 선택 Sheet
-                    Group {
-                        Button {
-                            themeSheet.toggle()
-                        } label : {
-                            Text("메모지 선택")
-                        }
-                    }
-                    .sheet(isPresented: $themeSheet) {
-                        ThemeView()
-                    }
-                    .buttonStyle(RoundedRect.standard)
-                    .padding(.bottom, 20)
-                    .padding(.horizontal, 20)
-                    
+
                     // 💁 사진 선택 View
                     Group {
                         VStack(alignment: .leading, spacing: 10){

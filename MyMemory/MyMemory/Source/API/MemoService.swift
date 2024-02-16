@@ -33,6 +33,7 @@ extension MemoService {
         let memoDocumentRef = COLLECTION_MEMOS.document(newMemo.id) // 저장되는 아이디를 동일하게 맞춰주기
         
         let memoCreatedAtString = stringFromTimeInterval(newMemo.memoCreatedAt)
+ 
         
         // 생성된 참조에 데이터 저장
         try await memoDocumentRef.setData([
@@ -49,7 +50,8 @@ extension MemoService {
             "memoSelectedImageURLs": imageDownloadURLs,  // 이미지 URL 배열 저장
             "memoImageUUIDs" : memoImageUUIDs,  // 이미지 UUID 배열 저장
             "memoCreatedAt": memoCreatedAtString,
-            "createdAtTimeInterval": newMemo.memoCreatedAt
+            "createdAtTimeInterval": newMemo.memoCreatedAt,
+            "memoTheme": newMemo.memoTheme.rawValue
         ])
         
         print("Document added with ID: \(newMemo.id)")
@@ -457,6 +459,7 @@ extension MemoService {
         do {
             let memoDocumentRef = COLLECTION_MEMOS.document(documentID)
             let memoCreatedAtString = stringFromTimeInterval(updatedMemo.memoCreatedAt)
+            let memoThemeString = updatedMemo.memoTheme.rawValue
             
             try await memoDocumentRef.setData([
                 "userUid" : updatedMemo.userUid,
@@ -472,7 +475,8 @@ extension MemoService {
                 "memoSelectedImageURLs": imageDownloadURLs,
                 "memoImageUUIDs" : memoImageUUIDs,
                 "memoCreatedAt": memoCreatedAtString,
-                "createdAtTimeInterval": updatedMemo.memoCreatedAt
+                "createdAtTimeInterval": updatedMemo.memoCreatedAt,
+                "memoTheme": memoThemeString
             ], merge: true)
             
             print("Document updated with ID: \(documentID)")
@@ -733,8 +737,10 @@ extension MemoService {
               let memoSelectedImageURLs = data["memoSelectedImageURLs"] as? [String],
               let memoImageUUIDs = data["memoImageUUIDs"] as? [String],
               let memoCreatedAt = data["createdAtTimeInterval"] as? Double else { return nil }
+ 
         let isPinned = data["isPinned"] as? Bool ?? false
         let buildingName = data["buildingName"] as? String? ?? nil
+        let memoTheme = data["memoTheme"] as? ThemeType.RawValue ?? "System"
         // Convert image URLs to Data asynchronously
         /*
          
@@ -762,7 +768,7 @@ extension MemoService {
 //        }
         
         let location = Location(latitude: userCoordinateLatitude, longitude: userCoordinateLongitude)
-        
+        let memoThemefromString = ThemeType(rawValue: memoTheme) ?? .system
         return Memo(
             //  id: UUID(uuidString: documentID) ?? UUID(), // 해당 도큐먼트의 ID를 Memo 객체의 id로 설정
             id: documentID,
@@ -778,7 +784,8 @@ extension MemoService {
             date: memoCreatedAt,
             location: location,
             likeCount: memoLikeCount,
-            memoImageUUIDs: memoImageUUIDs
+            memoImageUUIDs: memoImageUUIDs,
+            memoTheme: memoThemefromString
         )
     }
     
