@@ -27,22 +27,23 @@ struct NavigationBarItems: View {
     @Binding var memo: Memo
     
     @State var likeCount = 0
-    
+    @State private var isPostViewActive: Bool = false
     var body: some View {
         HStack {
             // 내가 작성한 메모라면 수정 버튼 보여주기
             if isMyMemo {
-               
-                NavigationLink { // 버튼이랑 비슷함
-                    // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                    PostView(selected: .constant(1), isEdit: true, memo: memo)
-
-                } label: {
+                Button(action: {
+                    isPostViewActive = true
+                }) {
                     Image(systemName: "pencil")
                         .font(.semibold20)
                 }
-    
+                .fullScreenCover(isPresented: $isPostViewActive) {
+                    PostView(selected: .constant(1), isEdit: true, memo: memo)
+                        .navigationBarHidden(true)
+                }
             }
+
            
             VStack {
                 Button {

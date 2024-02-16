@@ -153,7 +153,7 @@ struct MemoCell: View {
     
             Task {
                 await fetchlikeCount()
-                isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
+                isMyMemo = await MemoService().checkMyMemo(checkMemo: memo) // 메모 다 지우면 오류남
             }
             
         }
