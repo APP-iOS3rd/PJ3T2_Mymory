@@ -202,7 +202,7 @@ struct MainMapView: View {
             })
             
             .sheet(isPresented: $fileterSheet, content: {
-                FileterListView(filteredList: $mainMapViewModel.filterList)
+                FilterListView(filteredList: $mainMapViewModel.filterList)
                     .background(Color.bgColor)
                     .presentationDetents([.medium])
             })
