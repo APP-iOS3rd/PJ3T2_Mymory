@@ -23,6 +23,7 @@ struct MainMapView: View {
             }
         }
     }
+    @Environment(\.scenePhase) var phase
     
     @ObservedObject var noti = PushNotification.shared
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
@@ -169,6 +170,7 @@ struct MainMapView: View {
                                     }
                                 }
                             }
+                            Spacer().frame(width: 12)
                         }
                         
                         .scrollTargetLayout()
@@ -214,6 +216,7 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
+
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())

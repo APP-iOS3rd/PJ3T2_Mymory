@@ -125,7 +125,7 @@
 		DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
-		DA461A342B7E386600C02203 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6B150B2B7D8E6500D4A5EF /* TermsView.swift */; };
+		DA461A342B7E386600C02203 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
 		DA58C2662B5CD74E005CB3B3 /* view+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */; };
@@ -651,7 +651,6 @@
 		6491CAA62B565B16004E0D62 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				280AE4AF2B7D96240010FC89 /* TermsView.swift */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1232,7 +1231,7 @@
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 				DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */,
-				DA461A342B7E386600C02203 /* TermsView.swift in Sources */,
+				DA461A342B7E386600C02203 /* (null) in Sources */,
 				DA2AD09C2B7339E90052F69C /* MypageTopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1432,7 +1431,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1487,7 +1486,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

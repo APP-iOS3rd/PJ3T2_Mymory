@@ -25,7 +25,7 @@ struct MapView: View {
                                     
                             }
                         }.mapOverlayLevel(level: .aboveLabels)
-                        MapCircle(center: loc.coordinate, radius: 500.0)
+                        MapCircle(center: loc.coordinate, radius: MemoService.shared.queryArea)
                             .foregroundStyle(Color(red: 0.98, green: 0.15, blue: 0.15).opacity(0.1))
 
 

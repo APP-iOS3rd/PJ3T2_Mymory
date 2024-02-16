@@ -338,42 +338,44 @@ struct ImageGridView: View {
                 }
             }
         default:
-            HStack(spacing: 2) {
-                KFImage(URL(string: imgs[0]))
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: width * 2/3.0)
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        touchEvent.toggle()
-                        imgIndex = 0
-                    }
-                VStack(spacing: 2){
-                    KFImage(URL(string: imgs[1]))
+            if !imgs.isEmpty{
+                HStack(spacing: 2) {
+                    KFImage(URL(string: imgs[0]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
+                        .frame(width: width * 2/3.0)
                         .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
-                            imgIndex = 1
+                            imgIndex = 0
                         }
-                    KFImage(URL(string: imgs[2]))
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
-                        .overlay(
-                            ZStack{
-                                Color.black.opacity(0.6)
-                                Text("+\(imgs.count-3)")
-                                    .font(.bold18)
-                                    .foregroundStyle(Color.white)
+                    VStack(spacing: 2){
+                        KFImage(URL(string: imgs[1]))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width * 1/3.0)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                touchEvent.toggle()
+                                imgIndex = 1
                             }
-                        )
-                        .onTapGesture {
-                            touchEvent.toggle()
-                            imgIndex = 2
-                        }
+                        KFImage(URL(string: imgs[2]))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: width * 1/3.0)
+                            .overlay(
+                                ZStack{
+                                    Color.black.opacity(0.6)
+                                    Text("+\(imgs.count-3)")
+                                        .font(.bold18)
+                                        .foregroundStyle(Color.white)
+                                }
+                            )
+                            .onTapGesture {
+                                touchEvent.toggle()
+                                imgIndex = 2
+                            }
+                    }
                 }
             }
         }

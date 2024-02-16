@@ -13,9 +13,12 @@ class GetAddress{
     private let restKey: String? = Bundle.main.object(forInfoDictionaryKey: "REST_API") as? String
     func getAddressStr(location: MapPoint) async -> String{
         let dto = await getUserLocation(location: location)
-        let roadAddressList = dto?.documents.map{$0.roadAddress}.first
+        let roadAddressList = dto?.documents.map{$0.roadAddress}.first ?? nil
         let addressList = dto?.documents.map{$0.address}.first
-        return roadAddressList??.addressName ?? (addressList?.addressName ?? "")
+        if roadAddressList?.addressName == nil && addressList?.addressName == nil {
+            
+        }
+        return roadAddressList?.addressName ?? (addressList?.addressName ?? "")
     }
     func getBuildingStr(location: MapPoint) async -> String?{
         let dto = await getUserLocation(location: location)
