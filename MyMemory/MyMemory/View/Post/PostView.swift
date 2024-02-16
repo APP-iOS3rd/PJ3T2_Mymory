@@ -33,70 +33,132 @@ struct PostView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        ZStack {
-            ScrollView{
-                VStack(alignment: .leading){
-                    //💁 메모하기 View, 사진 등록하기 View
-                    Group {
-                        addMemoSubView()
-                            .environmentObject(viewModel)
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom)
-                    
-                    // 💁 Tag 선택 View
-                    Group {
-                        SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(contentMode: .fit)
-                    }
-                    
-                    .padding(.bottom)
-                    .buttonStyle(.borderedProminent)
-                    .padding(.horizontal, 20)
-                    .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
-                    .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
-                    .padding(.bottom, 20)
-
-                    // 💁 사진 선택 View
-                    Group {
-                        VStack(alignment: .leading, spacing: 10){
-                            HStack {
-                                Text("사진 등록하기")
-                                    .font(.bold20)
-                                
-                                Spacer()
-                                
-                            } //:HSTACK
-                            SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
-                            
-                        }//:VSTACK
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 100)
-                    .onReceive(viewModel.dismissPublisher) { toggle in
-                        if toggle {
-                            dismiss()
+        NavigationView {
+            ZStack {
+                ScrollView{
+                    VStack(alignment: .leading){
+                        //💁 메모하기 View, 사진 등록하기 View
+                        Group {
+                            addMemoSubView()
+                                .environmentObject(viewModel)
                         }
-                    }
-                    Spacer()
+                        .padding(.horizontal, 20)
+                        .padding(.bottom)
+                        
+                        // 💁 Tag 선택 View
+                        Group {
+                            SelectTagView(memoSelectedTags: $viewModel.memoSelectedTags)
+                                .frame(maxWidth: .infinity)
+                                .aspectRatio(contentMode: .fit)
+                        }
+                        
+                        .padding(.bottom)
+                        .buttonStyle(.borderedProminent)
+                        .padding(.horizontal, 20)
+                        .tint(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty ? Color(.systemGray5) : Color.blue)
+                        .padding(.bottom, 20)
+                        
+                        // 💁 사진 선택 View
+                        Group {
+                            VStack(alignment: .leading, spacing: 10){
+                                HStack {
+                                    Text("사진 등록하기")
+                                        .font(.bold20)
+                                    
+                                    Spacer()
+                                    
+                                } //:HSTACK
+                                SelectPhotos(isEdit: $isEdit, memoSelectedImageData: $viewModel.memoSelectedImageData, selectedItemsCounts: $viewModel.selectedItemsCounts)
+                                
+                            }//:VSTACK
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 100)
+                        .onReceive(viewModel.dismissPublisher) { toggle in
+                            if toggle {
+                                dismiss()
+                            }
+                        }
+                        Spacer()
+                        
+                    } //:VSTACK
                     
-                } //:VSTACK
+                } //: ScrollView
                 
-            } //: ScrollView
+                // 주소찾기 View: 하단 고정
+                VStack {
+                    Spacer()
+                    PostViewFooter()
+                        .environmentObject(viewModel)
+                        .disabled(isEdit)
+                    
+                }
+               
+            } //: ZStack
+            //        .navigationBarHidden(false)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(isEdit ? "메모 수정" : "메모 등록")
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    if isEdit {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("뒤로")
+                            }
+                        }
+                        
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    if isEdit {
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                Task.init {
+                                    print("휴지통 버튼이 탭되었습니다!")
+                                    await viewModel.deleteMemo(memo: memo)
+                                    DispatchQueue.main.async {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                }
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                            }
+                            
+                            Button(action: {
+                                viewModel.loading = true
+                                LoadingManager.shared.phase = .loading
+                                viewModel.editMemo(memo: memo)
+                                isEdit = false
+                            }, label: {
+                                Text("수정")
+                            })
+                            .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
+                        }
+                    } else {
+                        Button(action: {
+                          if AuthService.shared.currentUser == nil {
+                                presentLoginAlert.toggle()
+                            } else {
+                                viewModel.loading = true
+                                LoadingManager.shared.phase = .loading
+                                // 수정 모드가 아닐 때는 saveMemo 호출
+                                viewModel.saveMemo()
+                            }
+                        }) {
+                            Text("저장")
+                        }
+                        .disabled(viewModel.memoTitle.isEmpty || viewModel.memoContents.isEmpty || viewModel.userCoordinate == nil)
+                    }
+                }
+            }
             
-            
-            // 주소찾기 View: 하단 고정
-            VStack {
-                Spacer()
-                PostViewFooter()
-                    .environmentObject(viewModel)
-                    .disabled(isEdit)
-                
-            }.edgesIgnoringSafeArea(.bottom)
-        } //: VStack
+        }
         
-        .toolbar(.hidden, for: .tabBar)
         .onTapGesture {
             UIApplication.shared.endEditing()
         }
@@ -159,81 +221,6 @@ struct PostView: View {
             }))
         })
         
-        .customNavigationBar(
-            centerView: {
-                Group {
-                    if isEdit {
-                        Text("메모 수정")
-                    } else {
-                        Text("메모 등록")
-                    }
-                }
-            },
-            leftView: {
-                Group {
-                    if isEdit {
-                        BackButton()
-                    } else {
-                        Button {
-                            self.selected = 0
-                        } label: {
-                            HStack(spacing: 0){
-                                Image(systemName: "chevron.left")
-                                    .font(.bold20)
-                                    .aspectRatio(contentMode: .fit)
-                            }
-                        }
-                    }
-                }
-            },
-            rightView: {
-                Group {
-                    if isEdit {
-                        HStack {
-                            Button(action: {
-                                Task.init {
-                                    // 휴지통 버튼을 눌렀을 때의 동작을 구현합니다
-                                    // 예: 삭제 확인 대화상자를 표시합니다
-                                    print("Trash button tapped!")
-                                    await viewModel.deleteMemo(memo: memo)
-                                    DispatchQueue.main.async {
-                                        presentationMode.wrappedValue.dismiss()
-                                    }
-                                }
-                            }) {
-                                Image(systemName: "trash")
-                                    .foregroundColor(.red)
-                            }
-                            
-                            Button(action: {
-                                viewModel.loading = true
-                                LoadingManager.shared.phase = .loading
-                                viewModel.editMemo(memo: memo)
-                                //                                    presentationMode.wrappedValue.dismiss()
-                            }, label: {
-                                Text("수정")
-                            })
-                        }
-                        
-                    } else {
-                        //Text("저장")
-                        Button(action: {
-                            if AuthService.shared.currentUser == nil {
-                                presentLoginAlert.toggle()
-                            } else {
-                                viewModel.loading = true
-                                LoadingManager.shared.phase = .loading
-                                // 수정 모드가 아닐 때는 saveMemo 호출
-                                viewModel.saveMemo()
-                            }
-                        }, label: {
-                            Text("저장")
-                        })
-                    }
-                }
-            },
-            backgroundColor: .bgColor3
-        )
         .overlay( content: {
             if viewModel.loading {
                 LoadingView()
@@ -244,9 +231,8 @@ struct PostView: View {
 
 
 
-
-struct MemoView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostView(selected: .constant(1))
-    }
-}
+//struct MemoView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostView(selected: .constant(1))
+//    }
+//}

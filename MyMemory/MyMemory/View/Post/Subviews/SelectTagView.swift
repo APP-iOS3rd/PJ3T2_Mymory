@@ -116,12 +116,15 @@ struct SelectTagView: View {
                             
                         } // VStack
                     } // ScrollView
-
+                    
                 } //:VSTACK
                 .transition(.move(edge: .bottom))
                 .animation(.easeInOut)
                 .padding(.bottom , 60)
             }
+        }
+        .onAppear {
+            isShowingView = false
         }
         
     }
