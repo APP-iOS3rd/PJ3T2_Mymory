@@ -41,6 +41,15 @@ struct MainMapView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .environmentObject(mainMapViewModel)
                 .ignoresSafeArea(edges: .top)
+                .onChange(of: phase) { oldValue, newValue in
+                    switch newValue {
+                    case .active:
+                        mainMapViewModel.refreshMemos()
+                    @unknown default:
+                        break
+                        
+                    }
+                }
             VStack {
                 TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
@@ -176,7 +185,7 @@ struct MainMapView: View {
                         .scrollTargetLayout()
                     }
                     .onChange(of: mainMapViewModel.selectedMemoId) { old, new in
-                            proxy.scrollTo(new, anchor: .center)
+                        proxy.scrollTo(new, anchor: .center)
                     }
                     .scrollIndicators(.hidden)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
@@ -216,12 +225,12 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
-
+            
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())
         }
-
+        
     }
 }
 
