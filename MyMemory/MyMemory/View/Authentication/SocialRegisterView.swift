@@ -144,15 +144,16 @@ struct SocialRegisterView: View {
                                 .font(.system(size: 13))
                             }
                             .padding(5)
-                            .overlay(
-                                Rectangle()
-                                    .stroke(Color.gray)
-                                    .frame(width: 360, height: 150)
-                                    .position(x: 180, y: 63)
-                            )
-                            //                                )
-                            //                        }
-                            .padding()
+                            .background(Rectangle().stroke())
+//                            .overlay(
+//                                Rectangle()
+//                                    .stroke(Color.gray)
+//                                    .frame(width: 360, height: 150)
+//                                    .position(x: 180, y: 63)
+//                            )
+//                            //                                )
+//                            //                        }
+//                            .padding()
                         }
                         Spacer(minLength: 32)
                         
