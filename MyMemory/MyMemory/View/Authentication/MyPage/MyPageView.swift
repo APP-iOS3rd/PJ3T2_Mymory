@@ -115,14 +115,16 @@ struct MyPageView: View {
                 checkLoginStatus()
                 authViewModel.fetchUser()
             }
-            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-                Button("로그인 하기", role: .destructive) {
-                    self.presentLoginView = true
-                }
-                Button("둘러보기", role: .cancel) {
-                    // Handle '둘러보기' case
-                }
-            }
+            .moahAlert(isPresented: $presentLoginAlert) {
+                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                      firstBtn: MoahAlertButtonView(type: .CANCEL, isPresented: $presentLoginAlert, action: {
+                            self.selected = 0
+                        }),
+                                      secondBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $presentLoginAlert, action: {
+                            self.presentLoginView = true
+                        })
+                        )
+                    }
             .fullScreenCover(isPresented: $presentLoginView) {
                 LoginView().environmentObject(AuthViewModel())
             }
