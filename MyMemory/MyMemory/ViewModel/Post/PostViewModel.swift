@@ -134,7 +134,6 @@ class PostViewModel: ObservableObject {
                     LoadingManager.shared.phase = .success
                 }
                 dismissPublisher.send(true)
-                resetMemoFields()
                 loading = false
                 LoadingManager.shared.phase = .success
             } catch {
@@ -143,6 +142,7 @@ class PostViewModel: ObservableObject {
                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
+            resetMemoFields()
         }
     }
 
@@ -189,7 +189,6 @@ class PostViewModel: ObservableObject {
                 // 버튼 눌리면  Firestore 기존 Storage에 이미지를 지우고 업데이트
                 MemoService.shared.deleteImage(deleteMemoImageUUIDS: beforeEditMemoImageUUIDs)
                 await MemoService.shared.updateMemo(documentID: documentID, updatedMemo: editMemo)
-                resetMemoFields()
                 LoadingManager.shared.phase = .success
                 loading = false
                 dismissPublisher.send(true)
@@ -200,6 +199,7 @@ class PostViewModel: ObservableObject {
                 LoadingManager.shared.phase = .fail(msg: error.localizedDescription)
                 print("Error signing in: \(error.localizedDescription)")
             }
+            resetMemoFields()
         }
     }
     
@@ -218,7 +218,7 @@ class PostViewModel: ObservableObject {
         }
     }
     
-    private func resetMemoFields() {
+    func resetMemoFields() {
         // 메모 저장 후 필요한 필드 초기화를 여기에 추가하세요.
         memoTitle = ""
         memoContents = ""

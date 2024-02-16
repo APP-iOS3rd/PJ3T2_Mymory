@@ -96,6 +96,22 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
             self.merkerMemoList = fetchedMemos
         }
     }
-
+    
+    // 마이페이지에서 수정, 삭제 에러나지 않도록
+    func refreshPagenate() async {
+        
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            self.memoList = []
+            self.merkerMemoList = []
+            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: nil) { last in
+                self.lastDocument = last
+            }
+            
+            await MainActor.run {
+                self.memoList += fetchedMemos
+                self.merkerMemoList = fetchedMemos
+            }
+        }
+    }
 
 }

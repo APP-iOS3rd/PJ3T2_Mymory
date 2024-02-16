@@ -193,18 +193,18 @@ struct MemoDetailView: View {
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
 
-        .customNavigationBar(
-            centerView: {
-                Text(" ")
-            },
-            leftView: {
-                BackButton()
-            },
-            rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
-            },
-            backgroundColor: .bgColor
-        )
+        .toolbar {
+    
+            ToolbarItem(placement: .principal) {
+                Text(" ") // 중앙 뷰
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
+                }
+            }
+        }
+
         
     }
     func didTapImage(img: Int) {

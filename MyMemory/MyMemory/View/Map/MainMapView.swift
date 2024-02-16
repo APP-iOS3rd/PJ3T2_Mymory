@@ -211,7 +211,7 @@ struct MainMapView: View {
                 LoadingView()
             }
         })
-        
+        //.toolbar(.hidden)
         .navigationDestination(item:$noti.memo,
                                destination: {memo in
             
