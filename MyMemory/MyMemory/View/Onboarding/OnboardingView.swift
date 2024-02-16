@@ -23,6 +23,7 @@ struct OnboardingView : View {
                     VStack(spacing: 30) {
                         Text(item.content)
                             .font(.bold20)
+                            .foregroundStyle(Color.black)
                             .multilineTextAlignment(.center)
                         
                             Image(item.image)

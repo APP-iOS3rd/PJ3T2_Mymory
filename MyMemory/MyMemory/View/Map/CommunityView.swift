@@ -11,6 +11,8 @@ struct CommunityView: View {
     @StateObject var locationManager = LocationsHandler.shared
     @StateObject var viewModel: CommunityViewModel = .init()
     @State var buildingInfo: [BuildingInfo] = []
+    var unAuthorized: (Bool) -> ()
+
     var body: some View {
         ScrollView {
             VStack {
@@ -24,7 +26,9 @@ struct CommunityView: View {
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
                         ForEach($viewModel.memosOfTheWeek) { memo in
-                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek, isFromCo: true)
+                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek, isFromCo: true) { res in
+                                unAuthorized(res)
+                            }
                                 .padding(.leading, 18)
                         }
                     })
@@ -90,5 +94,6 @@ struct CommunityView: View {
                 } catch {}
             }
         }
+        
     }
 }
