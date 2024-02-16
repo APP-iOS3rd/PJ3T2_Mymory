@@ -102,6 +102,7 @@ struct MemoCell: View {
                         Image(systemName: "location.fill")
                         if let loc = location {
                             Text("\(memo.location.distance(from: loc).distanceToMeters())")
+                                .lineLimit(1)
                         } else {
                             Text("\(-1)m")
                                 .lineLimit(1)
@@ -144,7 +145,7 @@ struct MemoCell: View {
         .cornerRadius(20)
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
-                if distance <= 20 {
+                if distance <= MemoService.shared.readableArea {
                     isVisible = true
                 } else {
                     isVisible = false
@@ -159,7 +160,7 @@ struct MemoCell: View {
         }
         .onChange(of: location) { oldValue, newValue in
             if let distance = newValue?.coordinate.distance(from: memo.location) {
-                if distance <= 20 {
+                if distance <= MemoService.shared.readableArea {
                     isVisible = true
                 } else {
                     isVisible = false

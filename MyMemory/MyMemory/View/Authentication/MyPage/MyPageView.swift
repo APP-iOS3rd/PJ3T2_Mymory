@@ -17,89 +17,103 @@ struct MyPageView: View {
     @State private var isRefreshing = false
 
     var body: some View {
-        ScrollViewReader { proxy in
+        if let _ = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+            ScrollViewReader { proxy in
 
-        ZStack(alignment: .top) {
-            Color.bgColor
-                .ignoresSafeArea()
-                
-            VStack {
-                    ScrollView(.vertical, showsIndicators: false) {
-                         MypageTopView()
-                             .padding(.horizontal, 14)
-//                             .environmentObject(mypageViewModel)
-                             .id(0)
-                        LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
-                            // 로그인 되었다면 로직 실행
-                            Section {
-                                
-                                if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                                    let isCurrentUser = authViewModel.userSession?.uid == userId
+            ZStack(alignment: .top) {
+                Color.bgColor
+                    .ignoresSafeArea()
+                    
+                VStack {
+                        ScrollView(.vertical, showsIndicators: false) {
+                             MypageTopView()
+                                 .padding(.horizontal, 14)
+    //                             .environmentObject(mypageViewModel)
+                                 .id(0)
+                            LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                                // 로그인 되었다면 로직 실행
+                                Section {
                                     
-                                    // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
-                                    
-                                    switch selectedIndex {
-                                    case 0:
-                                        createHeader()
-                                            .padding(.bottom)
-                                        if mypageViewModel.memoList.isEmpty {
-                                             MyPageEmptyView(selectedIndex: $selected)
+                                    if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+                                        let isCurrentUser = authViewModel.userSession?.uid == userId
+                                        
+                                        // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
+                                        
+                                        switch selectedIndex {
+                                        case 0:
+                                            createHeader()
+                                                .padding(.bottom)
+                                            if mypageViewModel.memoList.isEmpty {
+                                                 MyPageEmptyView(selectedIndex: $selected)
+                                                
+                                            } else {
+                                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                            }
+                                        default:
+                                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
                                             
-                                        } else {
-                                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
                                         }
-                                    default:
-                                        MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                                        
                                         
                                     }
                                     
-                                    
-                                }
-                                else {
-                                    showLoginPrompt()
+                                } header: {
+                                    MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                               selectedIndex: $selectedIndex,
+                                               fullWidth: UIScreen.main.bounds.width,
+                                               spacing: 50,
+                                               horizontalInset: 91.5)
+                                    .ignoresSafeArea(edges: .top)
+                                    .frame(maxWidth: .infinity)
                                 }
                                 
-                            } header: {
-                                MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                           selectedIndex: $selectedIndex,
-                                           fullWidth: UIScreen.main.bounds.width,
-                                           spacing: 50,
-                                           horizontalInset: 91.5)
-                                .ignoresSafeArea(edges: .top)
-                                .frame(maxWidth: .infinity)
                             }
-                            
-                        }
-                        .frame(maxWidth: .infinity)
-                        .refreshable {
-                            // Refresh logic
-                        }
-                        //                .safeAreaInset(edge: .top) {
-                        //                    Color.clear.frame(height: 0).background(Color.bgColor)
-                        //                }
-                        //                .safeAreaInset(edge: .bottom) {
-                        //                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
-                        //                }
-                    } //: scrollView
-                    .padding(.horizontal)
-                    .padding(.top)
-                }
-                VStack{
-                    Spacer()
-                    
-                    HStack{
+                            .frame(maxWidth: .infinity)
+                            .refreshable {
+                                // Refresh logic
+                            }
+                            //                .safeAreaInset(edge: .top) {
+                            //                    Color.clear.frame(height: 0).background(Color.bgColor)
+                            //                }
+                            //                .safeAreaInset(edge: .bottom) {
+                            //                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+                            //                }
+                        } //: scrollView
+                        .padding(.horizontal)
+                        .padding(.top)
+                    }
+                    VStack{
                         Spacer()
-                        Button{
-                            withAnimation {
-                                proxy.scrollTo(0, anchor: .top)
-//                                self.scrollPosition = 0.0
-                            }
-                        }label: {
-                            Image(.scrollTop)
-                        }.padding([.trailing,.bottom] , 30)
+                        
+                        HStack{
+                            Spacer()
+                            Button{
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+    //                                self.scrollPosition = 0.0
+                                }
+                            }label: {
+                                Image(.scrollTop)
+                            }.padding([.trailing,.bottom] , 30)
+                        }
                     }
                 }
+                
             }
+            .refreshable {
+                isRefreshing = true
+                
+                // 새로고침 로직 실행
+                
+                // 로직이 완료되면 isRefreshing을 false로 설정하여 새로고침 상태를 종료합니다.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    mypageViewModel.fetchUserMemo()
+                    isRefreshing = false
+                }
+            }
+            .onAppear {
+                checkLoginStatus()
+                authViewModel.fetchUser()
             
         }
         .onAppear {
@@ -117,17 +131,29 @@ struct MyPageView: View {
             Button("로그인 하기", role: .destructive) {
                 self.presentLoginView = true
             }
-            Button("둘러보기", role: .cancel) {
-                // Handle '둘러보기' case
+            .moahAlert(isPresented: $presentLoginAlert) {
+                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                      firstBtn: MoahAlertButtonView(type: .CANCEL, isPresented: $presentLoginAlert, action: {
+                            self.selected = 0
+                        }),
+                                      secondBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $presentLoginAlert, action: {
+                            self.presentLoginView = true
+                        })
+                        )
+                    }
+            .fullScreenCover(isPresented: $presentLoginView) {
+                LoginView().environmentObject(AuthViewModel())
             }
-        }
-        .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
-        }
-        .overlay {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
+            .overlay {
+                if LoadingManager.shared.phase == .loading {
+                    LoadingView()
+                }
             }
+        } else {
+            showLoginPrompt()
+                .fullScreenCover(isPresented: $presentLoginView) {
+                    LoginView().environmentObject(AuthViewModel())
+                }
         }
     }
     
@@ -169,7 +195,7 @@ struct MyPageView: View {
             }
             
             Spacer()
-        }
+        }.background(Color.bgColor)
     }
     
     private func checkLoginStatus() {

@@ -60,17 +60,12 @@ struct CommunityView: View {
                             .padding(.vertical, 15)
 
                             Spacer()
-                            Button{
-
-                            } label: {
-                                VStack {
-                                    
-                                    Text("\(building.count)개의 메모")
-                                        .font(.regular12)
-                                        .foregroundStyle(Color.textColor)
-                                        .padding()
-                                    Spacer()
-                                }
+                            VStack {
+                                Text("\(building.count)개의 메모")
+                                    .font(.regular12)
+                                    .foregroundStyle(Color.textColor)
+                                    .padding()
+                                Spacer()
                             }
                             .padding(.horizontal, 15)
                         }

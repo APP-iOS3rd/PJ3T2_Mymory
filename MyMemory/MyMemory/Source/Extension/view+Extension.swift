@@ -6,12 +6,33 @@
 //
 
 import SwiftUI
-// 화면 터치 시 키보드 숨기기
-extension View {
-    func endTextEditing() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+// TextField ClearButton
+struct ClearButton: ViewModifier {
+    @Binding var text: String
+    
+    func body(content: Content) -> some View {
+        ZStack(alignment: .trailing) {
+            content
+            
+            if !text.isEmpty {
+                Button {
+                    text = ""
+                } label: {
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundStyle(.gray)
+                }
+                .padding(.trailing, 8)
+            }
+        }
     }
 }
+
+extension View {
+    func clearButton(text: Binding<String>) -> some View {
+        modifier(ClearButton(text: text))
+    }
+}
+
 // flexible grid 위해서 view size read
 
 extension View {
@@ -23,6 +44,11 @@ extension View {
           }
         )
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    }
+}
+extension View {
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

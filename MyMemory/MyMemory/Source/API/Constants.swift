@@ -21,3 +21,6 @@ let COLLECTION_USER_Following = Firestore.firestore().collection("User-Following
 
 // 신고하기 기능
 let COLLECTION_MEMO_REPORT = Firestore.firestore().collection("Memo-Report")
+
+// 값 세팅
+let COLLECTION_SETTING_VALUE = Firestore.firestore().collection("Setting-Values")

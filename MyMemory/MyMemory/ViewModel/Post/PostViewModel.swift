@@ -10,7 +10,6 @@ class PostViewModel: ObservableObject {
     //Map 관련
     @Published var mapPosition: MapCameraPosition
     //view로 전달할 값 모음
-    @Published var radius:Double = 100.0
     @Published var memoTitle: String = ""
     @Published var memoContents: String = ""
     @Published var memoAddressText: String = ""

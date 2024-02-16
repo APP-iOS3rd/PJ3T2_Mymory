@@ -92,27 +92,27 @@ struct MainSectionsView: View {
                                                    selectedMemoIndex: index
                                         )
                                     } label: {
-                                        
-                                        MemoCard(memo: item,
-                                                 isVisible: true,
-                                                 profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
-                                        ) { actions in
-                                            switch actions {
-                                            case .follow:
-                                                viewModel.fetchMemoProfiles()
-                                            case .like:
-                                                viewModel.refreshMemos()
-                                                print("liked!")
-                                            case .unAuthorized:
-                                                presentLoginAlert.toggle()
-                                            case .navigate(profile: let profile): 
-                                                selectedUser = profile
-                                                print("Navigate to \(profile.name)'s profile")
-                                            default :
-                                                print("selected\(actions)")
-                                            }
-                                        }.frame(maxWidth: .infinity)
-                                        
+                                        if !viewModel.memoWriterList.isEmpty {
+                                            MemoCard(memo: item,
+                                                     isVisible: true,
+                                                     profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
+                                            ) { actions in
+                                                switch actions {
+                                                case .follow:
+                                                    viewModel.fetchMemoProfiles()
+                                                case .like:
+                                                    viewModel.refreshMemos()
+                                                    print("liked!")
+                                                case .unAuthorized:
+                                                    presentLoginAlert.toggle()
+                                                case .navigate(profile: let profile): 
+                                                    selectedUser = profile
+                                                    print("Navigate to \(profile.name)'s profile")
+                                                default :
+                                                    print("selected\(actions)")
+                                                }
+                                            }.frame(maxWidth: .infinity)
+                                        }
                                         
                                         
                                     }
@@ -128,7 +128,7 @@ struct MainSectionsView: View {
                         
                     }
                     .sheet(isPresented: $filterSheet, content: {
-                        FileterListView(filteredList: $viewModel.filterList)
+                        FilterListView(filteredList: $viewModel.filterList)
                             .presentationDetents([.medium])
                     })
                     .overlay(content: {

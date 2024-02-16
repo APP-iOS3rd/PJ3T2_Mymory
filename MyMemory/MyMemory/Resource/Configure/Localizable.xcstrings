@@ -706,7 +706,11 @@
         }
       }
     },
+    "어떤 주제를 선택해 볼까요?" : {
+
+    },
     "어떤 주제를 선택해볼래?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
