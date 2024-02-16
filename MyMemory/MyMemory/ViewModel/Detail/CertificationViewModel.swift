@@ -10,9 +10,8 @@ import CoreLocation
 import Combine
 import MapKit
 import KakaoMapsSDK
-final class CertificationViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+final class CertificationViewModel: NSObject, ObservableObject {
     
-    private let locationManager = CLLocationManager()
 
     //view로 전달할 값 모음
     @Published var myCurrentAddress: String? = nil
@@ -20,73 +19,18 @@ final class CertificationViewModel: NSObject, ObservableObject, CLLocationManage
     @Published var draw: Bool = true
     @Published var isUserTracking: Bool = true
     @Published var selectedAddress: String? = nil
-    @Published var location: CLLocation?
     
     override init() {
         super.init()
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedAlways:
-            print("authorizedAlways")
-            locationConfig()
-        case .notDetermined:
-            print("notDetermined")
-            locationConfig()
-        case .restricted:
-            print("restricted")
-            locationConfig()
-        case .denied:
-            print("denied")
-            locationConfig()
-        case .authorizedWhenInUse:
-            print("authorizedWhenInUse")
-            locationConfig()
-        @unknown default:
-            locationConfig()
-        }
+
         getCurrentAddress()
     }
 }
 
-//MARK: - 초기 Configuration
-extension CertificationViewModel {
-    private func locationConfig() {
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // 정확도 설정
-        self.locationManager.requestAlwaysAuthorization() // 권한 요청
-        self.locationManager.startUpdatingHeading()
-        self.locationManager.startUpdatingLocation() // 위치 업데이트 시작
-        self.locationManager.delegate = self
-    }
-}
+
 
 //MARK: - Location
 extension CertificationViewModel {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .notDetermined, .restricted, .denied:
-            locationManager.requestAlwaysAuthorization()
-        case .authorizedAlways, .authorizedWhenInUse:
-            print("넘어가기")
-        @unknown default:
-            locationManager.requestAlwaysAuthorization()
-        }
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let weakSelf = self else {return}
-            weakSelf.location = .init(latitude: location.coordinate.latitude,
-                                   longitude: location.coordinate.longitude)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        direction = newHeading.trueHeading * Double.pi / 180.0
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("failed")
-    }
     
     //MARK: - 주소 얻어오는 함수
     //특정 selected 위치 주소값
@@ -97,7 +41,7 @@ extension CertificationViewModel {
     }
     //user location주소값
     func getCurrentAddress() {
-        guard let loc = self.location else { return }
+        guard let loc = LocationsHandler.shared.location else { return }
         let point = MapPoint(longitude: loc.coordinate.longitude, latitude: loc.coordinate.latitude)
         Task{@MainActor in
             self.myCurrentAddress = await GetAddress.shared.getAddressStr(location: point)

@@ -229,6 +229,7 @@ struct LoginView: View {
                             }
                         }
                     )
+                    
                     .buttonStyle(RoundedRect.loginApple)
                     
                     .frame(height: 50)
@@ -310,7 +311,9 @@ struct LoginView: View {
             }
         }//: NAVISTACK
         .onTapGesture {
+            if isFocused {
                 isFocused = false
+            }
         }
         .moahAlert(isPresented: $isShowingLoginErrorAlert, moahAlert: {
             MoahAlertView(message: loginErrorAlertTitle, firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $isShowingLoginErrorAlert, action: {}))

@@ -12,7 +12,9 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
     @State private var isLoadingFetchMemos = false
     @State private var showsAlert = false
-    
+    @State private var presentLoginAlert = false
+    @State private var presentLoginView: Bool = false
+
     @State private var profile: Profile = {
         var profile = AuthService.shared.currentUser!.toProfile
         
@@ -39,6 +41,8 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                     } else {
                                         showsAlert.toggle()
                                     }
+                                case .unAuthorized:
+                                    presentLoginAlert.toggle()
                                 default:
                                     break
                                 }
@@ -78,6 +82,8 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                     } else {
                                         showsAlert.toggle()
                                     }
+                                case .unAuthorized:
+                                    presentLoginAlert.toggle()
                                 default:
                                     break
                                 }
@@ -118,6 +124,15 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 
             }))
         }
+        .moahAlert(isPresented: $presentLoginAlert) {
+                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                    }),
+                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                        self.presentLoginView = true
+                    })
+                    )
+                }
         .onAppear {
             Task {
                 if let otherUserViewModel = viewModel as? OtherUserViewModel {
@@ -131,6 +146,9 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 }
                 
             }
+        }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView().environmentObject(AuthViewModel())
         }
         if isLoadingFetchMemos {
             HStack {

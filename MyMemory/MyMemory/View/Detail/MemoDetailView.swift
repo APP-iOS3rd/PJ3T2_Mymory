@@ -11,6 +11,9 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
+    
+    @State private var presentLoginAlert: Bool = false
+    @State private var presentLoginView: Bool = false
     @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
     @State var isFromCo: Bool = false
@@ -187,7 +190,18 @@ struct MemoDetailView: View {
                 }
             }
         }
-        
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView().environmentObject(AuthViewModel())
+        }
+        .moahAlert(isPresented: $presentLoginAlert) {
+                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                    }),
+                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                        self.presentLoginView = true
+                    })
+                    )
+                }
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
@@ -201,7 +215,7 @@ struct MemoDetailView: View {
                 BackButton()
             },
             rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
+                NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             },
             backgroundColor: .bgColor
         )
