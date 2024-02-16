@@ -102,20 +102,16 @@ struct MyPageView: View {
             }
             
         }
-        .refreshable {
-            isRefreshing = true
-            
-            // 새로고침 로직 실행
-            
-            // 로직이 완료되면 isRefreshing을 false로 설정하여 새로고침 상태를 종료합니다.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                mypageViewModel.fetchUserMemo()
-                isRefreshing = false
-            }
-        }
         .onAppear {
             checkLoginStatus()
             authViewModel.fetchUser()
+            
+            // 메모, 작성, 삭제 이후 MyPage 반영을 위한 코드
+            DispatchQueue.main.async {
+                Task {
+                    await mypageViewModel.refreshPagenate()
+                }
+            }
         }
         .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             Button("로그인 하기", role: .destructive) {
