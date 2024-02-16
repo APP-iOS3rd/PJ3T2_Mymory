@@ -27,7 +27,7 @@ struct MemoDetailView: View {
                         
                         if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                             
-                            if loc >= 20 && !isMyMemo && !isFromCo{
+                            if loc >= 100 && !isMyMemo && !isFromCo{
                                 VStack(spacing: 10) {
                                     Image(systemName: "lock")
                                         .font(.largeTitle)
