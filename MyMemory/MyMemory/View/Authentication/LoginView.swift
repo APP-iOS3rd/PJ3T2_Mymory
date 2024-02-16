@@ -27,7 +27,6 @@ struct LoginView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
-    @State private var clearText: String = ""
     @State private var isActive: Bool = false
     @State private var isNewUser: Bool = false
     @State private var isNewGoogleUser: Bool = false
@@ -38,7 +37,6 @@ struct LoginView: View {
     @State var appleCredential: ASAuthorizationAppleIDCredential?
     @State var googleCredential: AuthCredential?
     @State var isAppleUser: Bool = false
-    @FocusState private var isFocused: Bool
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -64,7 +62,6 @@ struct LoginView: View {
                             .textInputAutocapitalization(.never)// 대문자x
                             .focused($focusedField, equals: .email)
                             .textContentType(.emailAddress)
-                            .focused($isFocused)
                             .clearButton(text: $email)
                         
                     }
@@ -79,11 +76,13 @@ struct LoginView: View {
                             .textInputAutocapitalization(.never)
                             .focused($focusedField, equals: .password)
                             .textContentType(.password)
-                            .focused($isFocused)
                             .clearButton(text: $password)
                         
                     }
                 } //:VSTACK - TextField
+                .onAppear {
+                    UIApplication.shared.hideKeyboard()
+                }
                 .onSubmit {
                     switch focusedField {
                     case .email:
@@ -309,9 +308,6 @@ struct LoginView: View {
                 }
             }
         }//: NAVISTACK
-        .onTapGesture {
-                isFocused = false
-        }
         .moahAlert(isPresented: $isShowingLoginErrorAlert, moahAlert: {
             MoahAlertView(message: loginErrorAlertTitle, firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $isShowingLoginErrorAlert, action: {}))
         })
