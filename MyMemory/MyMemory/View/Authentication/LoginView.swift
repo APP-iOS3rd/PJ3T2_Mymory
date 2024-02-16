@@ -27,6 +27,7 @@ struct LoginView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var clearText: String = ""
     @State private var isActive: Bool = false
     @State private var isNewUser: Bool = false
     @State private var isNewGoogleUser: Bool = false
@@ -37,6 +38,7 @@ struct LoginView: View {
     @State var appleCredential: ASAuthorizationAppleIDCredential?
     @State var googleCredential: AuthCredential?
     @State var isAppleUser: Bool = false
+    @FocusState private var isFocused: Bool
     @EnvironmentObject var viewModel: AuthViewModel
     @Environment(\.presentationMode) var presentationMode
     
@@ -62,6 +64,8 @@ struct LoginView: View {
                             .textInputAutocapitalization(.never)// 대문자x
                             .focused($focusedField, equals: .email)
                             .textContentType(.emailAddress)
+                            .focused($isFocused)
+                            .clearButton(text: $email)
                         
                     }
                     
@@ -75,6 +79,8 @@ struct LoginView: View {
                             .textInputAutocapitalization(.never)
                             .focused($focusedField, equals: .password)
                             .textContentType(.password)
+                            .focused($isFocused)
+                            .clearButton(text: $password)
                         
                     }
                 } //:VSTACK - TextField
@@ -85,10 +91,6 @@ struct LoginView: View {
                     default:
                         print("Done")
                     }
-                }
-                // 텍스트필드에 clear버튼 활성화
-                .onAppear {
-                    UITextField.appearance().clearButtonMode = .whileEditing
                 }
                 
                 if self.email.isEmpty || self.password.isEmpty {
@@ -116,13 +118,13 @@ struct LoginView: View {
                         Text("로그인")
                             .font(.regular18)
                             .frame(maxWidth: .infinity)
-                            
+                        
                     }
                     .buttonStyle(RoundedRect.loginBtn)
-                   // .buttonStyle(LoginButton(backgroundColor: Color.indigo))
-                    .alert(loginErrorAlertTitle, isPresented: $isShowingLoginErrorAlert) {
-                        Button("확인", role: .cancel) {}
-                    }
+                    // .buttonStyle(LoginButton(backgroundColor: Color.indigo))
+                    //                        .alert(loginErrorAlertTitle, isPresented: $isShowingLoginErrorAlert) {
+                    //                            Button("확인", role: .cancel) {}
+                    //                        }
                 }
                 
                 NavigationLink {
@@ -228,57 +230,57 @@ struct LoginView: View {
                         }
                     )
                     .buttonStyle(RoundedRect.loginApple)
-                  
-                    .frame(height: 50)
-    
                     
-              /*
-                    Button {
-                        if (UserApi.isKakaoTalkLoginAvailable()) {
-                            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
-                                if let error = error {
-                                    print("카카오로그인 에러입니다. \(error)")
-                                    return
-                                } else {
-                                    UserApi.shared.me { User, Error in
-                                        if let name = User?.kakaoAccount?.profile?.nickname {
-                                            print("제 닉네임은 \(name) 입니다")
-                                        }
-                                        
-                                        print("카카카오 결과입니다")
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Image("kakao")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 18, height: 20)
-                            Text("Kakao로 계속하기")
-                                .font(.regular16)
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(RoundedRect.loginKakao)
                     .frame(height: 50)
-            */
-                    } //: SNS 로그인
-                   // .padding(.vertical, 20)
+                    
+                    
+                    /*
+                     Button {
+                     if (UserApi.isKakaoTalkLoginAvailable()) {
+                     UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                     if let error = error {
+                     print("카카오로그인 에러입니다. \(error)")
+                     return
+                     } else {
+                     UserApi.shared.me { User, Error in
+                     if let name = User?.kakaoAccount?.profile?.nickname {
+                     print("제 닉네임은 \(name) 입니다")
+                     }
+                     
+                     print("카카카오 결과입니다")
+                     
+                     }
+                     }
+                     }
+                     }
+                     } label: {
+                     HStack {
+                     Image("kakao")
+                     .resizable()
+                     .scaledToFit()
+                     .frame(width: 18, height: 20)
+                     Text("Kakao로 계속하기")
+                     .font(.regular16)
+                     }
+                     .frame(maxWidth: .infinity)
+                     }
+                     .buttonStyle(RoundedRect.loginKakao)
+                     .frame(height: 50)
+                     */
+                } //: SNS 로그인
+                // .padding(.vertical, 20)
             } //: VSTACK
             
             .padding()
-//            .fullScreenCover(isPresented: $isActive) {
-//                MainTabView()
-//            }
+            //            .fullScreenCover(isPresented: $isActive) {
+            //                MainTabView()
+            //            }
             .fullScreenCover(isPresented: $isNewGoogleUser) {
                 GoogleSocialRegisterView(googleCredential: $googleCredential, isActive: $isActive)
             }
             .fullScreenCover(isPresented: $isNewAppleUser) {
                 SocialRegisterView(appleCredential: $appleCredential, isActive: $isActive)
-                    
+                
             }
             .customNavigationBar(
                 centerView: {
@@ -292,12 +294,12 @@ struct LoginView: View {
                 },
                 backgroundColor: .bgColor3
             )
-//            .navigationDestination(isPresented: $isNewGoogleUser) {
-//                GoogleSocialRegisterView(googleCredential: $googleCredential)
-//            }
-//            .navigationDestination(isPresented: $isNewAppleUser) {
-//                SocialRegisterView(appleCredential: $appleCredential)
-//            }
+            //            .navigationDestination(isPresented: $isNewGoogleUser) {
+            //                GoogleSocialRegisterView(googleCredential: $googleCredential)
+            //            }
+            //            .navigationDestination(isPresented: $isNewAppleUser) {
+            //                SocialRegisterView(appleCredential: $appleCredential)
+            //            }
             .onChange(of: isActive) { _ in
                 if isActive {
                     print("나와라")
@@ -306,10 +308,15 @@ struct LoginView: View {
                     print("나오지 마라")
                 }
             }
+        }//: NAVISTACK
+        .onTapGesture {
+                isFocused = false
         }
+        .moahAlert(isPresented: $isShowingLoginErrorAlert, moahAlert: {
+            MoahAlertView(message: loginErrorAlertTitle, firstBtn: MoahAlertButtonView(type: .CONFIRM, isPresented: $isShowingLoginErrorAlert, action: {}))
+        })
     }
 }
 
-#Preview {
-    LoginView()
-}
+
+
