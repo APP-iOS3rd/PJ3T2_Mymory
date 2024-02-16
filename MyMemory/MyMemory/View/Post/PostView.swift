@@ -85,7 +85,6 @@ struct PostView: View {
                     
                 } //: ScrollView
                 
-                
                 // 주소찾기 View: 하단 고정
                 VStack {
                     Spacer()
@@ -93,7 +92,8 @@ struct PostView: View {
                         .environmentObject(viewModel)
                         .disabled(isEdit)
                     
-                }.edgesIgnoringSafeArea(.bottom)
+                }
+               
             } //: ZStack
             //        .navigationBarHidden(false)
             .toolbar {
@@ -105,8 +105,12 @@ struct PostView: View {
                         Button(action: {
                             presentationMode.wrappedValue.dismiss()
                         }) {
-                            Text("Back")
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("뒤로")
+                            }
                         }
+                        
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
