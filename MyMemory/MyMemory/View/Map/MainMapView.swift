@@ -16,6 +16,7 @@ struct MainMapView: View {
     @State var showingAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
+    @State private var presentLoginAlert = false
     @State var currentAppearingMemo: Memo? = nil {
         didSet {
             if let memo = currentAppearingMemo {
@@ -143,7 +144,11 @@ struct MainMapView: View {
                                         selectedMemoIndex: index,
                                         memo: item,
                                         memos: mainMapViewModel.filterList.isEmpty ? $mainMapViewModel.memoList : $mainMapViewModel.filteredMemoList
-                                    )
+                                    ) { res in
+                                        if res {
+                                            presentLoginAlert.toggle()
+                                        }
+                                    }
                                     .id(item.id)
                                     .environmentObject(mainMapViewModel)
                                     .onTapGesture {
@@ -200,7 +205,15 @@ struct MainMapView: View {
                 }
                 .environmentObject(mainMapViewModel)
             })
-            
+            .moahAlert(isPresented: $presentLoginAlert) {
+                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                      firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                        }),
+                                      secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                            self.presentLoginView = true
+                        })
+                        )
+                    }
             .sheet(isPresented: $fileterSheet, content: {
                 FilterListView(filteredList: $mainMapViewModel.filterList)
                     .background(Color.bgColor)

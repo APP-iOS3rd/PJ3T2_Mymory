@@ -20,17 +20,23 @@ struct MemoCell: View {
     @State var likeCount = 0
     @State var isMyMemo: Bool = false
     @State var isFromCo: Bool = false
-    
+    var unAuthorized: (Bool) -> ()
+
     var body: some View {
         HStack(spacing: 16) {
             
             VStack{
                 if isVisible || isMyMemo || isFromCo {
                     Button {
-                        self.memo.didLike.toggle()
-                        Task {
-                            await MemoService.shared.likeMemo(memo: memo)
-                            await fetchlikeCount()
+                        if AuthService.shared.currentUser == nil {
+                            unAuthorized(true)
+                        } else {
+                            self.memo.didLike.toggle()
+                            Task {
+                                
+                                await MemoService.shared.likeMemo(memo: memo)
+                                await fetchlikeCount()
+                            }
                         }
                     } label: {
                         Image(systemName: "heart.fill")

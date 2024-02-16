@@ -141,9 +141,14 @@ struct PostView: View {
                         }
                     } else {
                         Button(action: {
-                            viewModel.loading = true
-                            LoadingManager.shared.phase = .loading
-                            viewModel.saveMemo()
+                          if AuthService.shared.currentUser == nil {
+                                presentLoginAlert.toggle()
+                            } else {
+                                viewModel.loading = true
+                                LoadingManager.shared.phase = .loading
+                                // 수정 모드가 아닐 때는 saveMemo 호출
+                                viewModel.saveMemo()
+                            }
                         }) {
                             Text("저장")
                         }
@@ -177,14 +182,24 @@ struct PostView: View {
             }
             
         }
-        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-            Button("로그인 하기", role: .destructive) {
-                self.presentLoginView = true
-            }
-            Button("둘러보기", role: .cancel) {
-                self.selected = 0
-            }
-        }
+        .moahAlert(isPresented: $presentLoginAlert) {
+                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                        self.selected = 0
+                    }),
+                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                        self.presentLoginView = true
+                    })
+                    )
+                }
+//        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+//            Button("로그인 하기", role: .destructive) {
+//                self.presentLoginView = true
+//            }
+//            Button("둘러보기", role: .cancel) {
+//                self.selected = 0
+//            }
+//        }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())
         }
@@ -205,8 +220,6 @@ struct PostView: View {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }))
         })
-        
-        
         
         .overlay( content: {
             if viewModel.loading {

@@ -228,6 +228,7 @@ struct LoginView: View {
                             }
                         }
                     )
+                    
                     .buttonStyle(RoundedRect.loginApple)
                     
                     .frame(height: 50)
