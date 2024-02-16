@@ -1,5 +1,5 @@
 //
-//  FileterListView.swift
+//  FilterListView.swift
 //  MyMemory
 //
 //  Created by 김태훈 on 1/18/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FileterListView: View {
+struct FilterListView: View {
     let data = ["데이트","맛집","핫플레이스","스타","이벤트","속닥속닥","게임","유머","패션뷰티","예술작품","그래피티","교육","사진","나만알고싶은곳","사진찍기좋은곳","인생샷"]
     @Binding var filteredList: Set<String>
     var body: some View {
@@ -19,7 +19,7 @@ struct FileterListView: View {
             .cornerRadius(3)
             .padding(.vertical, 10)
         
-        Text("어떤 주제를 선택해볼래?")
+        Text("어떤 주제를 선택해 볼까요?")
                 .font(.bold20)
                 .padding(.top, 30)
                 .foregroundColor(Color.textColor)
@@ -66,5 +66,5 @@ struct FileterListView: View {
 }
 
 #Preview {
-    FileterListView(filteredList: .constant([]))
+    FilterListView(filteredList: .constant([]))
 }

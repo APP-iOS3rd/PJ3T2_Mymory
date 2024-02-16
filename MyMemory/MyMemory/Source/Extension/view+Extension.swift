@@ -46,6 +46,11 @@ extension View {
         .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
     }
 }
+extension View {
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
 
 private struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero

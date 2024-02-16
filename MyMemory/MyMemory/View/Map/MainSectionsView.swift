@@ -128,7 +128,7 @@ struct MainSectionsView: View {
                         
                     }
                     .sheet(isPresented: $filterSheet, content: {
-                        FileterListView(filteredList: $viewModel.filterList)
+                        FilterListView(filteredList: $viewModel.filterList)
                             .presentationDetents([.medium])
                     })
                     .overlay(content: {
