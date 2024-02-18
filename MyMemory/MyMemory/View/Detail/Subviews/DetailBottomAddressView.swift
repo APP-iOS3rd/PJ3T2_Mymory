@@ -8,11 +8,30 @@
 import SwiftUI
 
 struct DetailBottomAddressView: View {
+    @EnvironmentObject var viewModel: DetailViewModel
+    var memo: Memo
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack {
+            VStack(alignment: .leading) {
+                if let buildingName = memo.building, !buildingName.isEmpty {
+                    Text(buildingName)
+                        .font(.bold16)
+                        .padding(.bottom, 5)
+                    
+                    Text(memo.address)
+                        .font(.regular12)
+                        .foregroundStyle(Color.textGray)
+                } else {
+                    Text(memo.address)
+                        .font(.bold16)
+                }
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 13)
+        .padding(.horizontal, 25)
+        .background(Color.cardColor)
     }
-}
-
-#Preview {
-    DetailBottomAddressView()
 }
