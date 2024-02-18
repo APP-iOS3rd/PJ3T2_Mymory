@@ -19,6 +19,7 @@ enum SortedMemoDetail: String, CaseIterable, Identifiable {
 struct NavigationBarItems: View {
    
     @Binding var isHeart: Bool
+    @Binding var unAuthorized: Bool
     @Binding var isBookmark: Bool
     @Binding var isShowingSheet: Bool
     @Binding var isReported: Bool
@@ -27,33 +28,38 @@ struct NavigationBarItems: View {
     @Binding var memo: Memo
     
     @State var likeCount = 0
-    
+    @State private var isPostViewActive: Bool = false
     var body: some View {
         HStack(spacing: 13) {
             // 내가 작성한 메모라면 수정 버튼 보여주기
             if isMyMemo {
-               
-                NavigationLink { // 버튼이랑 비슷함
-                    // destination : 목적지 -> 어디로 페이지 이동할꺼냐
-                    PostView(selected: .constant(1), isEdit: true, memo: memo)
-
-                } label: {
+                Button(action: {
+                    isPostViewActive = true
+                }) {
                     Image(systemName: "pencil")
                         .font(.semibold20)
                 }
                 .buttonStyle(PlainButtonStyle())
-    
+                .fullScreenCover(isPresented: $isPostViewActive) {
+                    PostView(selected: .constant(1), isEdit: true, memo: memo)
+                        .navigationBarHidden(true)
+                }
             }
+
            
             VStack {
                 Button {
                     print("memo.didLike\(memo.didLike)")
-                    self.memo.didLike.toggle()
-
-                    Task {
-                        await fetchlikeCount()
-                        await MemoService.shared.likeMemo(memo: memo)
-
+                    if AuthService.shared.currentUser == nil {
+                        unAuthorized = true
+                    } else {
+                        self.memo.didLike.toggle()
+                        
+                        Task {
+                            await fetchlikeCount()
+                            await MemoService.shared.likeMemo(memo: memo)
+                            
+                        }
                     }
                 } label: {
                     if memo.didLike {
@@ -98,6 +104,7 @@ struct NavigationBarItems: View {
                 }
                 .buttonStyle(.plain)
                 .confirmationDialog("",isPresented: $isShowingSheet){
+                    
                     ForEach(SortedMemoDetail.allCases, id: \.self) { type in
                         Button(type.rawValue){
                             if type.rawValue == "신고하기" {
