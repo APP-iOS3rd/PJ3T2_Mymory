@@ -29,7 +29,7 @@ struct NavigationBarItems: View {
     @State var likeCount = 0
     
     var body: some View {
-        HStack {
+        HStack(spacing: 13) {
             // 내가 작성한 메모라면 수정 버튼 보여주기
             if isMyMemo {
                
@@ -41,6 +41,7 @@ struct NavigationBarItems: View {
                     Image(systemName: "pencil")
                         .font(.semibold20)
                 }
+                .buttonStyle(PlainButtonStyle())
     
             }
            
