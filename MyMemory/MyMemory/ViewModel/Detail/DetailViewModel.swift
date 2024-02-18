@@ -16,6 +16,7 @@ class DetailViewModel: ObservableObject {
     @Published var user: User?
     @Published var memoCreator: User?
     @Published var isCurrentUserLoginState = false
+    @Published var isFollowingUser = false
     
     //  let db = Firestore.firestore()
     let memoService = MemoService.shared
@@ -57,5 +58,29 @@ class DetailViewModel: ObservableObject {
             return true
         }
         return false
+    }
+    
+    func fetchFollowAndUnfollowOtherUser(otherUser: User) {
+        Task { @MainActor in 
+            if isFollowingUser {
+                AuthService.shared.userUnFollow(followUser: otherUser) { error in
+                    if let error = error {
+                        print(error)
+                    }
+                }
+            } else {
+                AuthService.shared.userFollow(followUser: otherUser) { error in
+                    if let error = error {
+                        print(error)
+                    }
+                }
+            }
+            
+            if let userID = otherUser.id {
+                self.isFollowingUser = await AuthService.shared.checkUser(userID: userID)
+            } else {
+                print("좋아요 반영 실패")
+            }
+        }
     }
 }
