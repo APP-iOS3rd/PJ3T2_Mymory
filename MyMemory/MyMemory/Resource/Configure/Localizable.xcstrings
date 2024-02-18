@@ -75,6 +75,9 @@
         }
       }
     },
+    "%lld개의 메모" : {
+
+    },
     "+" : {
 
     },
@@ -303,6 +306,7 @@
       }
     },
     "둘러보기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -311,6 +315,9 @@
           }
         }
       }
+    },
+    "뒤로" : {
+
     },
     "뒤로가기" : {
       "localizations" : {
@@ -379,6 +386,7 @@
 
     },
     "로그인 하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -399,6 +407,7 @@
       }
     },
     "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -700,7 +709,11 @@
         }
       }
     },
+    "어떤 주제를 선택해 볼까요?" : {
+
+    },
     "어떤 주제를 선택해볼래?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

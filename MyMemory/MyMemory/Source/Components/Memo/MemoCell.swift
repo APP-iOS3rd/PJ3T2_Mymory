@@ -20,17 +20,23 @@ struct MemoCell: View {
     @State var likeCount = 0
     @State var isMyMemo: Bool = false
     @State var isFromCo: Bool = false
-    
+    var unAuthorized: (Bool) -> ()
+
     var body: some View {
         HStack(spacing: 16) {
             
             VStack{
                 if isVisible || isMyMemo || isFromCo {
                     Button {
-                        self.memo.didLike.toggle()
-                        Task {
-                            await MemoService.shared.likeMemo(memo: memo)
-                            await fetchlikeCount()
+                        if AuthService.shared.currentUser == nil {
+                            unAuthorized(true)
+                        } else {
+                            self.memo.didLike.toggle()
+                            Task {
+                                
+                                await MemoService.shared.likeMemo(memo: memo)
+                                await fetchlikeCount()
+                            }
                         }
                     } label: {
                         Image(systemName: "heart.fill")
@@ -102,6 +108,7 @@ struct MemoCell: View {
                         Image(systemName: "location.fill")
                         if let loc = location {
                             Text("\(memo.location.distance(from: loc).distanceToMeters())")
+                                .lineLimit(1)
                         } else {
                             Text("\(-1)m")
                                 .lineLimit(1)
@@ -144,7 +151,7 @@ struct MemoCell: View {
         .cornerRadius(20)
         .onAppear {
             if let distance = location?.coordinate.distance(from: memo.location) {
-                if distance <= 20 {
+                if distance <= MemoService.shared.readableArea {
                     isVisible = true
                 } else {
                     isVisible = false
@@ -153,13 +160,13 @@ struct MemoCell: View {
     
             Task {
                 await fetchlikeCount()
-                isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
+                isMyMemo = await MemoService().checkMyMemo(checkMemo: memo) // 메모 다 지우면 오류남
             }
             
         }
         .onChange(of: location) { oldValue, newValue in
             if let distance = newValue?.coordinate.distance(from: memo.location) {
-                if distance <= 20 {
+                if distance <= MemoService.shared.readableArea {
                     isVisible = true
                 } else {
                     isVisible = false

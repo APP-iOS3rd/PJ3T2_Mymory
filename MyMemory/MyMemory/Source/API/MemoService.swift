@@ -12,9 +12,33 @@ import FirebaseStorage
 import FirebaseAuth
 import CoreLocation
 import UIKit
-struct MemoService {
+final class MemoService {
     static let shared = MemoService()
     let storage = Storage.storage()
+    var queryArea: Double = 500.0
+    var readableArea: Double = 100.0
+    var notificateArea: Double = 50.0
+    init() {
+        Task {
+            let doc = try await COLLECTION_SETTING_VALUE.document("MapArea").getDocument()
+            await updateQueryArea(doc["QueryArea"] as? Double ?? 500.0)
+            await updateReadableArea(doc["ReadableArea"] as? Double ?? 100.0)
+            await updateNotificateArea(doc["NotificateArea"] as? Double ?? 50.0)
+
+        }
+    }
+    @MainActor
+    private func updateQueryArea(_ newValue: Double) {
+        self.queryArea = newValue
+    }
+    @MainActor
+    private func updateReadableArea(_ newValue: Double) {
+        self.readableArea = newValue
+    }
+    @MainActor
+    private func updateNotificateArea(_ newValue: Double) {
+        self.notificateArea = newValue
+    }
 }
 //MARK: - Create Memos
 extension MemoService {
@@ -227,9 +251,10 @@ extension MemoService {
         return buildings.sorted(by: {$0.count > $1.count})
     }
     // 영역 fetch
-    func fetchMemos(_ current: [Memo] = [],in location: CLLocation?, withRadius distanceInMeters: CLLocationDistance = 1000) async throws -> [Memo] {
+    func fetchMemos(_ current: [Memo] = [],in location: CLLocation?) async throws -> [Memo] {
         var memos: [Memo] = current
         var querySnapshot: QuerySnapshot
+        let distanceInMeters: CLLocationDistance = self.queryArea
         // "Memos" 컬렉션에서 문서들을 가져옴
         if let location = location {
             let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
@@ -303,9 +328,10 @@ extension MemoService {
         return memos
     }
     
-    func fetchPushMemo(_ current: [Memo] = [],in location: CLLocation, withRadius distanceInMeters: CLLocationDistance = 50) async throws -> Memo? {
+    func fetchPushMemo(_ current: [Memo] = [],in location: CLLocation) async throws -> Memo? {
         var memos: [Memo] = current
         var querySnapshot: QuerySnapshot
+        var distanceInMeters: CLLocationDistance = self.notificateArea
         // "Memos" 컬렉션에서 문서들을 가져옴
         let northEastCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude + (distanceInMeters / 111111), longitude: location.coordinate.longitude + (distanceInMeters / (111111 * cos(location.coordinate.latitude))))
         let southWestCoordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude - (distanceInMeters / 111111), longitude: location.coordinate.longitude - (distanceInMeters / (111111 * cos(location.coordinate.latitude))))

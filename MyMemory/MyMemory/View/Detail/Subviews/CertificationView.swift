@@ -11,6 +11,7 @@ import _MapKit_SwiftUI
 struct CertificationView: View {
     @State var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @Binding var memo: Memo
+    @StateObject var locationHandler = LocationsHandler.shared
     @State var draw:Bool = true
     @StateObject private var viewModel: CertificationViewModel = CertificationViewModel()
     
@@ -39,14 +40,14 @@ struct CertificationView: View {
                 Spacer()
                 Map(position: $mapPosition,
                     interactionModes: .all) {
-                    if let loc = viewModel.location{
+                    if let loc = locationHandler.location{
                         Annotation("", coordinate: loc.coordinate) {
                             ZStack {
                                 Image(.mapIcoMarker)
                                     .resizable()
                                     .frame(width: 20,height: 20)
                                     .shadow(radius: 5)
-
+                                
                             }
                         }.mapOverlayLevel(level: .aboveLabels)
                         
@@ -58,27 +59,35 @@ struct CertificationView: View {
                     .clipShape(.rect(cornerRadius: 10))
                     .frame(height: UIScreen.main.bounds.size.height * 0.45)
                     .padding()
-//                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
-//                        .onAppear {
-//                            DispatchQueue.main.async {
-//                                self.draw = true
-//                            }
-//                        }
-//                        .onDisappear {
-//                            self.draw = false
-//                        }
-//                        .environmentObject(viewModel)
-
-                    
-                    Spacer()
-                    
-                    ProgressBarView(memo: $memo, userLocation: $viewModel.location)
-                        .environmentObject(viewModel)
-                        .ignoresSafeArea()
-                    
+                //                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
+                //                        .onAppear {
+                //                            DispatchQueue.main.async {
+                //                                self.draw = true
+                //                            }
+                //                        }
+                //                        .onDisappear {
+                //                            self.draw = false
+                //                        }
+                //                        .environmentObject(viewModel)
+                
+                
+                Spacer()
+                
+                ProgressBarView(memo: $memo, userLocation: $locationHandler.location)
+                    .environmentObject(viewModel)
+                    .ignoresSafeArea()
+                
             }
             .edgesIgnoringSafeArea(.bottom)
             
+        }
+        .onAppear {
+            guard let current = LocationsHandler.shared.location else {return}
+            let dist = CLLocation(latitude: memo.location.latitude, longitude: memo.location.longitude).distance(from: current)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { withAnimation{
+                self.mapPosition = .camera(.init(centerCoordinate: current.coordinate, distance: dist * 5))
+            }
+            }
         }
         .customNavigationBar(
             centerView: {

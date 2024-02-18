@@ -16,6 +16,7 @@ struct MainMapView: View {
     @State var showingAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
+    @State private var presentLoginAlert = false
     @State var currentAppearingMemo: Memo? = nil {
         didSet {
             if let memo = currentAppearingMemo {
@@ -23,6 +24,7 @@ struct MainMapView: View {
             }
         }
     }
+    @Environment(\.scenePhase) var phase
     
     @ObservedObject var noti = PushNotification.shared
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
@@ -40,6 +42,15 @@ struct MainMapView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .environmentObject(mainMapViewModel)
                 .ignoresSafeArea(edges: .top)
+                .onChange(of: phase) { oldValue, newValue in
+                    switch newValue {
+                    case .active:
+                        mainMapViewModel.refreshMemos()
+                    @unknown default:
+                        break
+                        
+                    }
+                }
             VStack {
                 TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
@@ -133,7 +144,11 @@ struct MainMapView: View {
                                         selectedMemoIndex: index,
                                         memo: item,
                                         memos: mainMapViewModel.filterList.isEmpty ? $mainMapViewModel.memoList : $mainMapViewModel.filteredMemoList
-                                    )
+                                    ) { res in
+                                        if res {
+                                            presentLoginAlert.toggle()
+                                        }
+                                    }
                                     .id(item.id)
                                     .environmentObject(mainMapViewModel)
                                     .onTapGesture {
@@ -169,12 +184,13 @@ struct MainMapView: View {
                                     }
                                 }
                             }
+                            Spacer().frame(width: 12)
                         }
                         
                         .scrollTargetLayout()
                     }
                     .onChange(of: mainMapViewModel.selectedMemoId) { old, new in
-                            proxy.scrollTo(new, anchor: .center)
+                        proxy.scrollTo(new, anchor: .center)
                     }
                     .scrollIndicators(.hidden)
                     .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
@@ -189,9 +205,17 @@ struct MainMapView: View {
                 }
                 .environmentObject(mainMapViewModel)
             })
-            
+            .moahAlert(isPresented: $presentLoginAlert) {
+                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                      firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                        }),
+                                      secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                            self.presentLoginView = true
+                        })
+                        )
+                    }
             .sheet(isPresented: $fileterSheet, content: {
-                FileterListView(filteredList: $mainMapViewModel.filterList)
+                FilterListView(filteredList: $mainMapViewModel.filterList)
                     .background(Color.bgColor)
                     .presentationDetents([.medium])
             })
@@ -200,7 +224,7 @@ struct MainMapView: View {
                 LoadingView()
             }
         })
-        
+        //.toolbar(.hidden)
         .navigationDestination(item:$noti.memo,
                                destination: {memo in
             
@@ -214,11 +238,12 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
+            
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())
         }
-
+        
     }
 }
 

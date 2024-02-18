@@ -35,7 +35,10 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             if location != nil {
                 fetchOperation?.start()
             }
-            if !self.firstLocationUpdated {
+            if !self.firstLocationUpdated && self.location != nil {
+                if let coord = location?.coordinate {
+                    self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: coord, distance: MemoService.shared.queryArea * 5))
+                }
                 self.firstLocation = self.location
                 self.firstLocationUpdated = true
             } else {
@@ -367,7 +370,10 @@ extension MainMapViewModel {
     /// - Returns: void, 카메라를 현재 위치로 이동시킴
     func switchUserLocation() {
 //        self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: location!.coordinate, distance: cameraDistance ?? 1000))
-        mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
+//        mapPosition = MapCameraPosition.userLocation(followsHeading: false, fallback: .automatic)
+        if let coord = location?.coordinate {
+            self.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: coord, distance: cameraDistance ?? MemoService.shared.queryArea * 5))
+        }
         if !self.isUserTracking {
             self.isUserTracking = true
             
@@ -381,9 +387,6 @@ extension MainMapViewModel {
     /// - Returns: Void, 클러스터 오퍼레이션의 클러스터링을 수행하는 함수를 호출
     func updateCluster(mapRect: MKMapRect, zoomScale: Double) {
         cluster.clusterMemosWithMapRect(visibleMapRect: mapRect, zoomScale: zoomScale)
-    }
-    func clusterTest(mapRect: AreaRect, zoomScale: Int) {
-        //        cluster.clusterMemosWithMapRect(cameraRect: mapRect, zoomScale: zoomScale)
     }
 }
 extension CLLocationCoordinate2D: Equatable {
