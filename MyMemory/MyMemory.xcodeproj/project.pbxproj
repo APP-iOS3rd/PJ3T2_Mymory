@@ -100,6 +100,9 @@
 		6A9BB1CE2B6B39C900AD04F7 /* MenuTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BB1CD2B6B39C900AD04F7 /* MenuTabBar.swift */; };
 		6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */; };
 		6A9BB1D22B6B7DED00AD04F7 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9BB1D12B6B7DED00AD04F7 /* CommunityView.swift */; };
+		6AAE2AA32B7F36DD00FDB7BD /* DetailBottomAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA22B7F36DD00FDB7BD /* DetailBottomAddressView.swift */; };
+		6AAE2AA52B7F387700FDB7BD /* DetailViewMemoMoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA42B7F387700FDB7BD /* DetailViewMemoMoveButton.swift */; };
+		6AAE2AA72B7F3AE500FDB7BD /* DetailViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA62B7F3AE500FDB7BD /* DetailViewListCell.swift */; };
 		6AE132EA2B7EF62E0050585B /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F9AFF2B7D928C00E64C7D /* TermsView.swift */; };
 		6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0242B565EED008ABE05 /* ProfileMemoListCell.swift */; };
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
@@ -272,6 +275,9 @@
 		6A9BB1CD2B6B39C900AD04F7 /* MenuTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTabBar.swift; sourceTree = "<group>"; };
 		6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSectionsView.swift; sourceTree = "<group>"; };
 		6A9BB1D12B6B7DED00AD04F7 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		6AAE2AA22B7F36DD00FDB7BD /* DetailBottomAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBottomAddressView.swift; sourceTree = "<group>"; };
+		6AAE2AA42B7F387700FDB7BD /* DetailViewMemoMoveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewMemoMoveButton.swift; sourceTree = "<group>"; };
+		6AAE2AA62B7F3AE500FDB7BD /* DetailViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewListCell.swift; sourceTree = "<group>"; };
 		6AF0E0242B565EED008ABE05 /* ProfileMemoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMemoListCell.swift; sourceTree = "<group>"; };
 		6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMemoList.swift; sourceTree = "<group>"; };
 		6AF0E0282B565FF1008ABE05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -621,6 +627,9 @@
 				289BB2BC2B5A7C28007FEB63 /* Footer.swift */,
 				28BB13382B569075001A4C0C /* CertificationView.swift */,
 				6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */,
+				6AAE2AA22B7F36DD00FDB7BD /* DetailBottomAddressView.swift */,
+				6AAE2AA42B7F387700FDB7BD /* DetailViewMemoMoveButton.swift */,
+				6AAE2AA62B7F3AE500FDB7BD /* DetailViewListCell.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -1186,6 +1195,7 @@
 				64CD2FA32B70678100CF72CB /* UserStatusCell.swift in Sources */,
 				01D15FF22B5DEB37003F1BEF /* User.swift in Sources */,
 				01DA25DB2B7B495F009B9077 /* GoogleSocialRegisterView.swift in Sources */,
+				6AAE2AA32B7F36DD00FDB7BD /* DetailBottomAddressView.swift in Sources */,
 				014CB5762B46A2B50016DF70 /* Report.swift in Sources */,
 				28BB13372B56900B001A4C0C /* MemoDetailView.swift in Sources */,
 				28BB13352B568FE7001A4C0C /* ImgDetailView.swift in Sources */,
@@ -1212,6 +1222,7 @@
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				01A19D6D2B5D176C0031ABCB /* NavigationBar+Modifier.swift in Sources */,
+				6AAE2AA72B7F3AE500FDB7BD /* DetailViewListCell.swift in Sources */,
 				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
 				6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */,
 				01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */,
@@ -1230,6 +1241,7 @@
 				01700AAE2B553BD40096E1CA /* AddressViewModel.swift in Sources */,
 				01D15FF42B5DEB44003F1BEF /* ImageUploader.swift in Sources */,
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
+				6AAE2AA52B7F387700FDB7BD /* DetailViewMemoMoveButton.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 				DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */,
 				DA2AD09C2B7339E90052F69C /* MypageTopView.swift in Sources */,
@@ -1435,7 +1447,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = MyMemoryDev;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
