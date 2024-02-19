@@ -37,24 +37,30 @@
 
 </br>
 </br>
-
 </div>
 
 
 
 
 
-## 프로젝트 소개
-
-우리는 살아가며 소중한 순간들을 수 없이 마주하지만, 시간이 흐르면서 그 기억들은 점점 흐릿해지고 사라지게 됩니다. 특히 그 추억이 있던 장소가 정확히 어디였는지, 내가 그때 느꼈던 감정이 어땠는지는 얼마 지나지 않아 금방 희석되어버리고 맙니다. 모아MOAH는 소중한 추억들을 생생하게 기록하고 어디서나 볼 수 있는 일기장임과 동시에, 당신의 추억을 다른 사람들과 공유하고 소통할 수 있는 공간입니다.
 
 ## 목차
+* [프로젝트 소개](#프로젝트-소개)
 * [특징](#프로젝트-특징)
 * [사용 기술](#사용-기술)
 * [기대 효과](#기대-효과)
 * [디자인의 방항성](#디자인의-방향성)
 * [Firebase](#Firebase-데이터-다이어그램)
-* 
+* [프로젝트 구조](#프로젝트-구조)
+
+
+## 프로젝트 소개
+**우리는 살아가며 소중한 순간들을 수 없이 마주하지만, 시간이 흐르면서 그 기억들은 점점 흐릿해지고 사라지게 됩니다. 모아MOAH는 소중한 추억들을 생생하게 기록하고 어디서나 볼 수 있는 일기장임과 동시에, 당신의 추억을 다른 사람들과 공유하고 소통할 수 있는 공간입니다.**
+- 모아MOAH는 특정 위치에서의 추억을 기록하고 공유하는 SNS입니다.
+- 소중한 추억들을 언제 어디서든 쉽게 확인하고 되새길 수 있습니다.
+- 내 추억이 깃든 장소에 다른 사람들은 어떤 추억을 남겼는지 확인하고 소통할 수 있습니다.
+- 다양한 유저들을 팔로우하며 마음에 드는 게시글을 저장하거나 좋아요를 누를 수 있습니다.
+
 
 ## 프로젝트 특징
 
@@ -143,148 +149,8 @@
 
 ## 프로젝트 구조
 ```
-📦MyMemory
- ┣ 📂API
- ┃ ┣ 📜ImageUploader.swift
- ┃ ┗ 📜MemoService.swift
- ┣ 📂Cluster
- ┃ ┣ 📜ClusterBox.swift
- ┃ ┣ 📜Clustering.swift
- ┃ ┗ 📜QuadTree.swift
- ┣ 📂Model
- ┃ ┣ 📂Authentication
- ┃ ┃ ┗ 📜Report.swift
- ┃ ┣ 📜AddressData.swift
- ┃ ┣ 📜AddressModel.swift
- ┃ ┣ 📜Memo.swift
- ┃ ┗ 📜User.swift
- ┣ 📂Preview Content
- ┃ ┗ 📂Preview Assets.xcassets
- ┃ ┃ ┗ 📜Contents.json
- ┣ 📂Resource
- ┃ ┣ 📂Extension
- ┃ ┃ ┣ 📜Button+Extension.swift
- ┃ ┃ ┣ 📜CLLocation+Extension.swift
- ┃ ┃ ┣ 📜Color+Extension.swift
- ┃ ┃ ┣ 📜Fonts+Extension.swift
- ┃ ┃ ┣ 📜NavigationBar+Modifier.swift
- ┃ ┃ ┣ 📜String+Extension.swift
- ┃ ┃ ┗ 📜view+Extension.swift
- ┃ ┣ 📂Fonts
- ┃ ┃ ┣ 📜Pretendard-Black.otf
- ┃ ┃ ┣ 📜Pretendard-Bold.otf
- ┃ ┃ ┣ 📜Pretendard-ExtraBold.otf
- ┃ ┃ ┣ 📜Pretendard-ExtraLight.otf
- ┃ ┃ ┣ 📜Pretendard-Light.otf
- ┃ ┃ ┣ 📜Pretendard-Medium.otf
- ┃ ┃ ┣ 📜Pretendard-Regular.otf
- ┃ ┃ ┣ 📜Pretendard-SemiBold.otf
- ┃ ┃ ┗ 📜Pretendard-Thin.otf
- ┃ ┣ 📜Constants.swift
- ┃ ┗ 📜CornerShape.swift
- ┣ 📂Shared
- ┃ ┣ 📜GetAddress.swift
- ┃ ┣ 📜KakaoMapSimple.swift
- ┃ ┣ 📜LoadingManager.swift
- ┃ ┗ 📜LocationsHandler.swift
- ┣ 📂View
- ┃ ┣ 📂Authentication
- ┃ ┃ ┣ 📂Mypage
- ┃ ┃ ┃ ┣ 📜MypageMemoList.swift
- ┃ ┃ ┃ ┣ 📜MypageMemoListCell.swift
- ┃ ┃ ┃ ┣ 📜MypageTopView.swift
- ┃ ┃ ┃ ┣ 📜MypageView.swift
- ┃ ┃ ┃ ┗ 📜MypageViewModel.swift
- ┃ ┃ ┣ 📜LoginView.swift
- ┃ ┃ ┣ 📜LoginViewModel.swift
- ┃ ┃ ┣ 📜ProfileEditView.swift
- ┃ ┃ ┣ 📜ProfileEditViewModel.swift
- ┃ ┃ ┣ 📜RegisterView.swift
- ┃ ┃ ┣ 📜RegisterViewModel.swift
- ┃ ┃ ┗ 📜ReportView.swift
- ┃ ┣ 📂Components
- ┃ ┃ ┣ 📂Button
- ┃ ┃ ┃ ┣ 📜BackButton.swift
- ┃ ┃ ┃ ┣ 📜CloseButton.swift
- ┃ ┃ ┃ ┣ 📜CurrentSpotButton.swift
- ┃ ┃ ┃ ┗ 📜FilterButton.swift
- ┃ ┃ ┣ 📂Memo
- ┃ ┃ ┃ ┣ 📜MemoCell.swift
- ┃ ┃ ┃ ┣ 📜MemoList.swift
- ┃ ┃ ┃ ┗ 📜MemoListView.swift
- ┃ ┃ ┣ 📜FlexibleView.swift
- ┃ ┃ ┣ 📜LoadingView.swift
- ┃ ┃ ┣ 📜ReportMemoView.swift
- ┃ ┃ ┣ 📜SelectBox.swift
- ┃ ┃ ┣ 📜Textarea.swift
- ┃ ┃ ┗ 📜TopBarAddress.swift
- ┃ ┣ 📂Detail
- ┃ ┃ ┣ 📂DetailViewComponent
- ┃ ┃ ┃ ┣ 📜CertificationMap.swift
- ┃ ┃ ┃ ┣ 📜Footer.swift
- ┃ ┃ ┃ ┣ 📜GIFView.swift
- ┃ ┃ ┃ ┣ 📜ImgDetailView.swift
- ┃ ┃ ┃ ┣ 📜MiniMap.swift
- ┃ ┃ ┃ ┣ 📜NavigationBarItems.swift
- ┃ ┃ ┃ ┣ 📜ProgressBarView.swift
- ┃ ┃ ┃ ┗ 📜run4.gif
- ┃ ┃ ┣ 📜CertificationView.swift
- ┃ ┃ ┣ 📜CertificationViewModel.swift
- ┃ ┃ ┣ 📜DetailView.swift
- ┃ ┃ ┣ 📜MemoDetailView.swift
- ┃ ┃ ┗ 📜ReportView.swift
- ┃ ┣ 📂Main
- ┃ ┃ ┣ 📜ContentView.swift
- ┃ ┃ ┣ 📜MainTabView.swift
- ┃ ┃ ┣ 📜MainView.swift
- ┃ ┃ ┗ 📜MemoMapView.swift
- ┃ ┣ 📂Map
- ┃ ┃ ┣ 📂Subviews
- ┃ ┃ ┃ ┣ 📜ClusterSelectionView.swift
- ┃ ┃ ┃ ┣ 📜FileterListView.swift
- ┃ ┃ ┃ ┗ 📜MemoModel.swift
- ┃ ┃ ┣ 📜KakaoMap.swift
- ┃ ┃ ┣ 📜MainMapView.swift
- ┃ ┃ ┣ 📜MainMapViewModel.swift
- ┃ ┃ ┗ 📜MapViewRepresentable.swift
- ┃ ┣ 📂Onboarding
- ┃ ┃ ┣ 📜Onboarding.swift
- ┃ ┃ ┣ 📜OnboardingView.swift
- ┃ ┃ ┗ 📜OnboardingViewModel.swift
- ┃ ┣ 📂Post
- ┃ ┃ ┣ 📂Model
- ┃ ┃ ┃ ┗ 📜PostMemoModel.swift
- ┃ ┃ ┣ 📂PostViewComponent
- ┃ ┃ ┃ ┣ 📜FindAddressView.swift
- ┃ ┃ ┃ ┣ 📜PostViewFooter.swift
- ┃ ┃ ┃ ┣ 📜SelectPhotos.swift
- ┃ ┃ ┃ ┣ 📜SelectTagView.swift
- ┃ ┃ ┃ ┗ 📜addMemoSubView.swift
- ┃ ┃ ┣ 📂ViewModel
- ┃ ┃ ┃ ┗ 📜PostViewModel.swift
- ┃ ┃ ┣ 📜ChangeLocationView.swift
- ┃ ┃ ┣ 📜PostView.swift
- ┃ ┃ ┣ 📜PostView2.swift
- ┃ ┃ ┗ 📜PostViewModel.swift
- ┃ ┣ 📂Search
- ┃ ┃ ┣ 📜SearchBar.swift
- ┃ ┃ ┣ 📜SearchCell.swift
- ┃ ┃ ┗ 📜SearchView.swift
- ┃ ┗ 📂Setting
- ┃ ┃ ┣ 📂SettingMenu
- ┃ ┃ ┃ ┗ 📜WithdrawalView.swift
- ┃ ┃ ┣ 📜SettingMenuCell.swift
- ┃ ┃ ┣ 📜SettingView.swift
- ┃ ┃ ┗ 📜SettingViewModel.swift
- ┣ 📂ViewModel
- ┃ ┣ 📂Authentication
- ┃ ┃ ┗ 📜AuthViewModel.swift
- ┃ ┗ 📜AddressViewModel.swift
- ┣ 📜Launch Screen.storyboard
- ┣ 📜MyMemory.entitlements
- ┣ 📜MyMemoryApp.swift
- ┣ 📜SceneDelegate.swift
- ┗ 📜ViewRouter.swift
+MyMemory
+...
 ```
 
 
