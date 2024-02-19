@@ -12,6 +12,7 @@ struct MoveUserProfileButton: View {
 
     @ObservedObject var viewModel: DetailViewModel
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+    @Binding var presentLoginAlert: Bool
     
     var body: some View {
         HStack {
@@ -44,24 +45,32 @@ struct MoveUserProfileButton: View {
             
             Spacer()
             
-            Button {
-                if let otherUser = viewModel.memoCreator {
-                    self.viewModel.fetchFollowAndUnfollowOtherUser(otherUser: otherUser)
+            if AuthService.shared.currentUser?.id != viewModel.memoCreator?.id {
+                Button {
+                    if AuthService.shared.currentUser == nil {
+                        self.presentLoginAlert = true
+                    } else if let otherUser = viewModel.memoCreator {
+                        self.viewModel.fetchFollowAndUnfollowOtherUser(otherUser: otherUser)
+                    }
+                } label: {
+                    Text(viewModel.isFollowingUser ? "팔로잉" : "팔로우")
+                        .foregroundStyle(viewModel.isFollowingUser ? Color.textColor : Color.white)
+                        .font(.regular14)
+                        .frame(minWidth: 85)
+                        .frame(height: 30)
                 }
-            } label: {
-                Text(viewModel.isFollowingUser ? "팔로잉 해제" : "팔로우")
-                    .foregroundStyle(viewModel.isFollowingUser ? Color.textColor : Color.white)
-                    .font(.regular14)
-                    .frame(minWidth: 85)
-                    .frame(height: 30)
+                .background(viewModel.isFollowingUser ? Color(uiColor: UIColor.systemGray3) : Color.accentColor)
+                .cornerRadius(5, corners: .allCorners)
             }
-            .background(viewModel.isFollowingUser ? Color(uiColor: UIColor.systemGray3) : Color.accentColor)
-            .cornerRadius(5, corners: .allCorners)
         }
         .onAppear {
-            if let userId = viewModel.memoCreator?.id {
+            if let otherUser = viewModel.memoCreator {
                 Task {
-                    viewModel.isFollowingUser = await AuthService.shared.followCheck(with: userId)
+                    AuthService.shared.followCheck(followUser: otherUser, completion: { value in
+                        if let follwValue = value {
+                            self.viewModel.isFollowingUser = follwValue
+                        }
+                    })
                 }
             }
         }

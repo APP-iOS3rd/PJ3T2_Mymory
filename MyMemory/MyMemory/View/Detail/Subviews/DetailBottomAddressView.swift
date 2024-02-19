@@ -31,7 +31,5 @@ struct DetailBottomAddressView: View {
             Spacer()
         }
         .padding(.vertical, 13)
-        .padding(.horizontal, 25)
-        .background(Color.cardColor)
     }
 }

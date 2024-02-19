@@ -34,6 +34,7 @@ struct DetailViewListCell: View {
                 Spacer()
             }
             .padding(.horizontal, 25)
+            .padding(.top, 23)
             
             if !memo.tags.isEmpty {
                 ScrollView(.horizontal) {
@@ -78,6 +79,7 @@ struct DetailViewListCell: View {
                 .padding(.top, 20)
                 .font(.userMainTextFont(baseSize: 16))
                 .padding(.horizontal, 25)
+                .padding(.bottom, 20)
 
             Spacer()
         }

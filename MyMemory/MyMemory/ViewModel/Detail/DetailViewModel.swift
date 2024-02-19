@@ -62,22 +62,29 @@ class DetailViewModel: ObservableObject {
     
     func fetchFollowAndUnfollowOtherUser(otherUser: User) {
         Task { @MainActor in 
-            if isFollowingUser {
+            if self.isFollowingUser {
                 AuthService.shared.userUnFollow(followUser: otherUser) { error in
                     if let error = error {
-                        print(error)
+                        print(error.localizedDescription)
+                        print("언팔로잉 에러")
+                    } else {
+                        print("언팔로잉")
                     }
                 }
             } else {
                 AuthService.shared.userFollow(followUser: otherUser) { error in
                     if let error = error {
                         print(error)
+                        print("팔로잉 에러")
+                    } else {
+                        print("팔로잉")
                     }
                 }
             }
             
-            if let userID = otherUser.id {
-                self.isFollowingUser = await AuthService.shared.checkUser(userID: userID)
+            if let otherUserID = otherUser.id {
+                self.isFollowingUser = await AuthService.shared.followCheck(with: otherUserID)
+                print("좋아요 반영, \(otherUserID)")
             } else {
                 print("좋아요 반영 실패")
             }

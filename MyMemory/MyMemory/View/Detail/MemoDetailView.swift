@@ -39,7 +39,6 @@ struct MemoDetailView: View {
                                         .font(.regular18)
                                         .foregroundColor(Color.darkGray)
                                 }
-                                
                             } else {
                                 ScrollView {
                                     DetailViewListCell(selectedNum: $selectedNum,
@@ -66,21 +65,27 @@ struct MemoDetailView: View {
                             VStack {
                                 DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
                                 Divider()
-                                MoveUserProfileButton(viewModel: viewModel)
+                                MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
+                                DetailBottomAddressView(memo: memo)
+                                    .environmentObject(viewModel)
                             }
                             .padding(.horizontal, 25)
-                            .background(memo.memoTheme.bgColor)
+                            .background(Color.cardColor)
                             
-                            DetailBottomAddressView(memo: memo)
-                                .environmentObject(viewModel)
                         }
                         
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
-                    .background(memo.memoTheme.bgColor)
+                    .onAppear {
+                        Task {
+                            await checkMyMemo()
+                            viewModel.fetchMemoCreator(uid: memo.userUid)
+                        }
+                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
+            .background(Color.cardColor)
         } //:SCROLL
         .onAppear {
             Task {
@@ -102,31 +107,26 @@ struct MemoDetailView: View {
             LoginView().environmentObject(AuthViewModel())
         }
         .moahAlert(isPresented: $presentLoginAlert) {
-                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
-                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
-                    }),
-                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
-                        self.presentLoginView = true
-                    })
-                    )
-                }
+            MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                          firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+            }),
+                          secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                self.presentLoginView = true
+            })
+            )
+        }
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
-        .customNavigationBar(
-            centerView: {
-                Text(" ")
-            },
-            leftView: {
-                BackButton()
-            },
-            rightView: {
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
-            },
-            backgroundColor: .bgColor
-        )
-        
+            }
+        }
     }
    
     func checkMyMemo() async {
