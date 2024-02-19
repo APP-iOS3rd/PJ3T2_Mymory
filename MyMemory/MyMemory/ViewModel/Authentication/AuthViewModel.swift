@@ -125,26 +125,24 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func getUserID(credential: ASAuthorizationAppleIDCredential)async -> String{
-        guard let token = credential.identityToken else {
-            print("error with firebase")
-            return "error"
-        }
-        
-        guard let tokenString = String(data: token, encoding: .utf8) else {
-            print("error with token")
-            return "error"
-        }
-        
-        let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
-        Auth.auth().signIn(with: firebaseCredential) { [weak self] result, error in
-            if let error = error {
-                print("firebase auth error")
-                return
-            } else {
-                AuthService.shared.userSession = result!.user
-                AuthService.shared.fetchUser()
+    func getUserID(credential: ASAuthorizationAppleIDCredential)async -> String?{
+        do {
+            guard let token = credential.identityToken else {
+                print("error with firebase")
+                return "error"
             }
+            
+            guard let tokenString = String(data: token, encoding: .utf8) else {
+                print("error with token")
+                return "error"
+            }
+            
+            let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com", idToken: tokenString, rawNonce: nonce)
+            let signInResult = try await Auth.auth().signIn(with: firebaseCredential)
+            AuthService.shared.userSession = signInResult.user
+            AuthService.shared.fetchUser()
+        } catch {
+            return "fail"
         }
         return "success"
     }
@@ -167,7 +165,8 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func checkUser() async -> Bool {
+    func checkUser(credential: ASAuthorizationAppleIDCredential) async -> Bool {
+        let _ = await getUserID(credential: credential)
         do {
             let querySnapshot = try await Firestore.firestore().collection("users")
                 .whereField("id", isEqualTo: AuthService.shared.currentUser?.id ?? "no value").getDocuments()
