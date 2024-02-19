@@ -122,10 +122,10 @@ struct SelectPhotos: View {
         .onChange(of: memoSelectedImageData, { oldValue, newValue in
             self.selectedItemsCounts = newValue.count
         })
-        .onChange(of: memoSelectedImageItems) { newValue in
+        .onChange(of: memoSelectedImageItems) { oldValue,newValue in
             // 이미지 아이템이 변경되었을 때의 로직
             DispatchQueue.main.async {
-                for val in newValue {
+                for val in oldValue {
                     memoSelectedImageData.removeValue(forKey: val.localIdentifier)
 //                    selectedItemsCounts -= 1
                 }
