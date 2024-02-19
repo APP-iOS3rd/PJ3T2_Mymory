@@ -80,9 +80,9 @@ struct LoginView: View {
                         
                     }
                 } //:VSTACK - TextField
-                .onAppear {
-                    UIApplication.shared.hideKeyboard()
-                }
+//                .onAppear {
+//                    UIApplication.shared.hideKeyboard()
+//                }
                 .onSubmit {
                     switch focusedField {
                     case .email:

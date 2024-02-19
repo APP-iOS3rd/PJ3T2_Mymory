@@ -11,6 +11,7 @@ struct UserStatusCell: View {
     @ObservedObject var authViewModel: AuthService = .shared
     @State var uid: String
     @State var memoCount: Int?
+    @State private var isFollowFollowingListActive = false
     var body: some View {
         HStack {
             VStack {
@@ -22,7 +23,6 @@ struct UserStatusCell: View {
             .frame(maxWidth: .infinity)
             Divider()
             
-            
             VStack {
                 Text("\(authViewModel.followerCount)")
                     .font(.bold16)
@@ -30,7 +30,14 @@ struct UserStatusCell: View {
                     .font(.light14)
             }
             .frame(maxWidth: .infinity)
-      
+            .onTapGesture {
+                isFollowFollowingListActive = true
+            }
+            .fullScreenCover(isPresented: $isFollowFollowingListActive) {
+                FollowFollowingList(authViewModel: authViewModel)
+                    .navigationBarHidden(true)
+            }
+               
             
             Divider()
             
@@ -42,6 +49,14 @@ struct UserStatusCell: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.leading, 10)
+            .onTapGesture {
+                isFollowFollowingListActive = true
+            }
+            .fullScreenCover(isPresented: $isFollowFollowingListActive) {
+                FollowFollowingList(authViewModel: authViewModel)
+                    .navigationBarHidden(true)
+            }
+            
         }
         .onAppear(perform: {
             Task { @MainActor in
