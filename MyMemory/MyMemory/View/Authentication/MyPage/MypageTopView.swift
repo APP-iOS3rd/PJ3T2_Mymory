@@ -70,6 +70,7 @@ struct MypageTopView: View {
                 }
                 
             }
+            .padding(.horizontal)
             if let uid = AuthService.shared.currentUser?.id {
                 UserStatusCell(uid: uid)
             }
