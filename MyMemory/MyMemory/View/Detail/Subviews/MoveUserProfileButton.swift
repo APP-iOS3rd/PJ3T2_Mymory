@@ -30,6 +30,7 @@ struct MoveUserProfileButton: View {
 //                        backgroundColor: Color.bgColor3
 //                    )
                     .environmentObject(otherUserViewModel)
+                
             } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)

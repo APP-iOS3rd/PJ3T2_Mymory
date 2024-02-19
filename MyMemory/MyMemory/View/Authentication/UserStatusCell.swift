@@ -9,6 +9,7 @@ import SwiftUI
 struct UserStatusCell: View {
     
     @ObservedObject var authViewModel: AuthService = .shared
+    @StateObject var followerFollowingViewModel: FollowerFollowingViewModel = FollowerFollowingViewModel()
     @State var uid: String
     @State var memoCount: Int?
     @State private var isFollowFollowingListActive = false
@@ -23,45 +24,43 @@ struct UserStatusCell: View {
             .frame(maxWidth: .infinity)
             Divider()
             
-            VStack {
-                Text("\(authViewModel.followerCount)")
-                    .font(.bold16)
-                Text("팔로워")
-                    .font(.light14)
+            
+            
+            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid)) {
+                VStack {
+                    Text("\(authViewModel.followerCount)")
+                        .font(.bold16)
+                    Text("팔로워")
+                        .font(.light14)
+                }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
-            .onTapGesture {
-                isFollowFollowingListActive = true
-            }
-            .fullScreenCover(isPresented: $isFollowFollowingListActive) {
-                FollowFollowingList(authViewModel: authViewModel)
-                    .navigationBarHidden(true)
-            }
-               
+  
             
             Divider()
+
+            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid)) {
+                VStack {
+                    Text("\(authViewModel.followingCount)")
+                        .font(.bold16)
+                    Text("팔로잉")
+                        .font(.light14)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.leading, 10)
+            }
+            .environmentObject(followerFollowingViewModel)
             
-            VStack {
-                Text("\(authViewModel.followingCount)")
-                    .font(.bold16)
-                Text("팔로잉")
-                    .font(.light14)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.leading, 10)
-            .onTapGesture {
-                isFollowFollowingListActive = true
-            }
-            .fullScreenCover(isPresented: $isFollowFollowingListActive) {
-                FollowFollowingList(authViewModel: authViewModel)
-                    .navigationBarHidden(true)
-            }
+            
             
         }
         .onAppear(perform: {
             Task { @MainActor in
                  
                 self.memoCount = await AuthService.shared.fetchUserMemoCount(with: uid)
+                
+                await followerFollowingViewModel.fetchFollowingUserList(with: uid)
+                await followerFollowingViewModel.fetchFollowerUserList(with: uid)
             }
         })
         .frame(maxWidth: .infinity)
