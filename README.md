@@ -1,8 +1,49 @@
-# 프로젝트 명 : 나만의 메모리 내모리(가제)
+<div align="center">
+    <h1>
+      <img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/16de6427-3cab-4015-af87-2f2a0e98d8aa" height=30 width=30> 모아MOAH
+    </h1>
+    <h3><b>당신의 추억, 세상과 함께 빛나다</b></h3>
+    <h4>
+        <a href="#테스트플라이트">테스트플라이트</a>
+        •
+        <a href="#사용-기술">사용 기술</a>
+        •
+        <a href="#프로젝트-구조">프로젝트 구조</a>
+        •
+        <a href="#프로젝트-특징">프로젝트 특징</a>
+        •
+        <a href="#copyright">Copyright</a>
+    </h4>
+    <h3>
+        <a>
+           <img src="https://img.shields.io/badge/language-swift-orange">
+        </a>
+        <a>
+           <img src="https://img.shields.io/badge/launched-febuary%202024-teal">
+        </a>
+        <a href="https://apps.apple.com/kr/app/%EB%AA%A8%EC%95%84-moah/id6475282904">
+            <img alt="iTunes App Store" src="https://img.shields.io/itunes/v/6475282904?label=version">
+        </a>
+        <a href="#copyright">
+            <img src="https://img.shields.io/badge/licence-%C2%A9-crimson">
+        </a>
+    </h3>
+</div>
 
-> 나의 추억을 그 장소에 남겨보아요
+<div align="center">
+<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/04e4bac9-ac01-4890-a5f7-75ef23918f34">
 
-[베타 앱](https://testflight.apple.com/join/gjLRpOwK)
+
+</div>
+
+
+
+
+
+# 프로젝트 소개
+
+우리는 살아가며 소중한 순간들을 수 없이 마주하지만, 시간이 흐르면서 그 기억들은 점점 흐릿해지고 사라지게 됩니다. 특히 그 추억이 있던 장소가 정확히 어디였는지, 내가 그때 느꼈던 감정이 어땠는지는 얼마 지나지 않아 금방 희석되어버리고 맙니다. 모아MOAH는 소중한 추억들을 생생하게 기록하고 어디서나 볼 수 있는 일기장임과 동시에, 당신의 추억을 다른 사람들과 공유하고 소통할 수 있는 공간입니다.
+
 ## 프로젝트 필요성: 내모리를 써야 하는 이유!
 
 1. 내 추억을 되살릴 수 있어요
