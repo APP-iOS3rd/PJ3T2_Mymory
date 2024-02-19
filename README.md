@@ -3,17 +3,6 @@
       <img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/16de6427-3cab-4015-af87-2f2a0e98d8aa" height=30 width=30> 모아MOAH
     </h1>
     <h3><b>당신의 추억, 세상과 함께 빛나다</b></h3>
-    <h4>
-        <a href="#프로젝트-소개">소개</a>
-        •
-        <a href="#사용-기술">사용 기술</a>
-        •
-        <a href="#프로젝트-구조">프로젝트 구조</a>
-        •
-        <a href="#프로젝트-특징">프로젝트 특징</a>
-        •
-        <a href="#copyright">Copyright</a>
-    </h4>
     <h3>
         <a>
            <img src="https://img.shields.io/badge/language-swift-orange">
@@ -38,8 +27,6 @@
 </br>
 </br>
 </div>
-
-
 
 
 
