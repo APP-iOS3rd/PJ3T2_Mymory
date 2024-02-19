@@ -204,6 +204,7 @@ struct LoginView: View {
                                     print("error with firebase")
                                     return
                                 }
+                                self.appleCredential = credential
                                 switch authResults.credential {
                                 case let appleIDCredential as ASAuthorizationAppleIDCredential:
                                     let fullName = appleIDCredential.fullName
@@ -213,15 +214,13 @@ struct LoginView: View {
                                     break
                                 }
                                 Task {
-                                    self.appleCredential = credential
-                                    let _ = await viewModel.getUserID(credential: credential)
-                                    isNewUser = await viewModel.checkUser()
-                                }
-                                if isNewUser{
-                                    AuthService.shared.signout()
-                                    self.isNewAppleUser = true
-                                } else {
-                                    presentationMode.wrappedValue.dismiss()
+                                    if await viewModel.checkUser(credential: credential ){
+                                                print("새로운 유저 입니다")
+                                                AuthService.shared.signout()
+                                                self.isNewAppleUser = true
+                                            } else {
+                                                presentationMode.wrappedValue.dismiss()
+                                            }
                                 }
                             case .failure(let error):
                                 print(error.localizedDescription)
