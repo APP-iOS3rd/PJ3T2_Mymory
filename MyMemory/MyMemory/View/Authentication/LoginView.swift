@@ -81,11 +81,7 @@ struct LoginView: View {
                     }
                 } //:VSTACK - TextField
                 .onAppear {
-<<<<<<< HEAD
-//                    UIApplication.shared.hideKeyboard()
-=======
                     UIApplication.shared.hideKeyboard()
->>>>>>> develop
                 }
                 .onSubmit {
                     switch focusedField {
