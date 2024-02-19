@@ -33,7 +33,7 @@
 <div align="center">
 <img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/04e4bac9-ac01-4890-a5f7-75ef23918f34">
 
-앱스토어: https://shorturl.at/DHYZ9
+앱스토어: https://shorturl.at/qFMZ8
 
 </br>
 </br>
