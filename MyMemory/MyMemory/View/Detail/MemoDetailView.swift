@@ -1,7 +1,4 @@
 import SwiftUI
-import Kingfisher
-
-
 
 struct MemoDetailView: View {
     @State private var selectedNum: Int = 0
@@ -18,16 +15,15 @@ struct MemoDetailView: View {
     @State var selectedMemoIndex: Int?
     @State var isFromCo: Bool = false
     
-
+    
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
-
-
+    
+    
     var body: some View {
         ScrollView(.horizontal) {
             LazyHStack(spacing: 10) {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                     ZStack {
-                        
                         if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                             
                             if loc >= MemoService.shared.readableArea && !isMyMemo && !isFromCo{
@@ -43,84 +39,13 @@ struct MemoDetailView: View {
                                         .font(.regular18)
                                         .foregroundColor(Color.darkGray)
                                 }
- 
                             } else {
                                 ScrollView {
-                                    VStack(alignment: .leading) {
-                                        ScrollView(.horizontal) {
-                                            LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
-                                                ForEach(memo.tags, id: \.self) { tag in
-                                                    Text("#\(tag)")
-                                                        .font(.semibold12)
-                                                        .padding(.horizontal, 13)
-                                                        .padding(.vertical, 6)
-                                                        .foregroundColor(.textColor)
-                                                        .background(
-                                                            Capsule()
-                                                                .foregroundColor(.peach)
-                                                        )
-                                                    
-                                                }
-                                            }
-                                        }
-                                        .scrollDisabled(false)
-                                        .frame(maxWidth: .infinity)
-                                        .aspectRatio(contentMode: .fit)
-                                        .padding(.leading, 25)
- 
-                                        
-                                        HStack{
-                                            VStack(alignment: .leading, spacing: 6) {
-                                                Text(memo.title)
-                                                    .font(.userMainTextFont(baseSize: 20))
-                                                Text(memo.address)
-                                                    .font(.regular14)
-                                                    .foregroundStyle(Color.textGray)
-                                                
-                                                Text("등록 수정일 : \(memo.date.createdAtTimeYYMMDD)")
-                                                    .font(.regular14)
-                                                    .foregroundStyle(Color.textGray)
-                                            }
-                                            Spacer()
-                                        }.padding(.leading, 25)
-                                        
-                                        
-                                        
-                                        ScrollView(.horizontal) {
-                                            HStack{
-                                                ForEach(memo.imagesURL.indices, id: \.self) { i in
-                                                KFImage(URL(string: memo.imagesURL[i]))
-                                                .resizable()
-                                                //.scaledToFit()
-                                                    .frame(width: 90, height: 90)
-                                                    .scaledToFill()
-                                                    .onTapGesture {
-                                                        didTapImage(img: i)
-                                                    }
-                                                    .fullScreenCover(isPresented: self.$isShowingImgSheet) {
-                                                        ImgDetailView(selectedImage: $selectedNum, images: memo.imagesURL)
-                                                    }
-                                                }
-                                            }                                        }
-                                        .scrollDisabled(false)
-                                        .padding(.top, 25)
-                                        .padding(.leading, 25)
-                                        
-                                        Text(memo.description)
-                                            .multilineTextAlignment(.leading)
-                                            .padding(.top, 25)
-                                            .font(.userMainTextFont(baseSize: 16))
-                                            .padding(.horizontal, 25)
-                                            .padding(.bottom, 70)
-                                        Spacer()
-                                    }
-                                   
-                                    .foregroundStyle(memo.memoTheme.textColor)
-                                    .background(memo.memoTheme.bgColor)
-                                    //.padding(.top, 50)
-                                    
+                                    DetailViewListCell(selectedNum: $selectedNum,
+                                                       isShowingImgSheet: $isShowingImgSheet,
+                                                       memo: memo)
                                 }
-                                .padding()
+                                .padding(.top, 30)
                                 .refreshable {
                                     Task { @MainActor in
                                         let memo = self.memos[selectedMemoIndex!]
@@ -134,45 +59,33 @@ struct MemoDetailView: View {
                             }
                         }
                         
- 
+                        
                         VStack {
                             Spacer()
-                            
-                            HStack {
-                                if selectedMemoIndex != memos.startIndex {
-                                    
-                                    Text("이전 글...")
-                                        .font(.regular16)
-                                        .frame(width: 100, height: 60)
-                                        .onTapGesture {
-                                            if selectedMemoIndex != memos.startIndex {
-                                                preButton()
-                                            }
-                                        }
- 
-                                }
-                                Spacer()
-                                if selectedMemoIndex != memos.endIndex - 1 {
-                                    
-                                    Text("다음 글...")
-                                        .font(.regular16)
-                                        .frame(width: 100, height: 60)
-                                        .onTapGesture {
-                                            if selectedMemoIndex != memos.endIndex - 1 {
-                                                nextButton()
-                                            }
-                                        }
-                                }
+                            VStack {
+                                DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
+                                Divider()
+                                MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
+                                DetailBottomAddressView(memo: memo)
+                                    .environmentObject(viewModel)
                             }
-                            .padding(.horizontal, 20)
+                            .padding(.horizontal, 25)
+                            .background(Color.cardColor)
                             
-                            MoveUserProfileButton(viewModel: viewModel)
                         }
+                        
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
+                    .onAppear {
+                        Task {
+                            await checkMyMemo()
+                            viewModel.fetchMemoCreator(uid: memo.userUid)
+                        }
+                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
+            .background(Color.cardColor)
         } //:SCROLL
         .onAppear {
             Task {
@@ -194,59 +107,30 @@ struct MemoDetailView: View {
             LoginView().environmentObject(AuthViewModel())
         }
         .moahAlert(isPresented: $presentLoginAlert) {
-                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
-                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
-                    }),
-                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
-                        self.presentLoginView = true
-                    })
-                    )
-                }
+            MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                          firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+            }),
+                          secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                self.presentLoginView = true
+            })
+            )
+        }
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
-
-        .customNavigationBar(
-            centerView: {
-                Text(" ")
-            },
-            leftView: {
-                BackButton()
-            },
-            rightView: {
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("")
+            }
+            ToolbarItem(placement: .topBarTrailing) {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
-            },
-            backgroundColor: .bgColor
-        )
-        
+            }
+        }
     }
-    func didTapImage(img: Int) {
-        selectedNum = img
-        isShowingImgSheet.toggle()
-    }
-    
+   
     func checkMyMemo() async {
         let memo = memos[selectedMemoIndex!]
         isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
     }
-    
-    func preButton() {
-        if var value = selectedMemoIndex {
-            value -= 1
-            withAnimation(.default) {
-                selectedMemoIndex = value
-            }
-        }
-    }
-    
-    func nextButton() {
-        if var value = selectedMemoIndex {
-            value += 1
-            withAnimation(.default) {
-                selectedMemoIndex = value
-            }
-        }
-    }
-    
 }
