@@ -107,6 +107,7 @@ struct MemoDetailView: View {
             LoginView().environmentObject(AuthViewModel())
         }
         .moahAlert(isPresented: $presentLoginAlert) {
+<<<<<<< HEAD
             MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
                           firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
             }),
@@ -115,10 +116,21 @@ struct MemoDetailView: View {
             })
             )
         }
+=======
+                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                    }),
+                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                        self.presentLoginView = true
+                    })
+                    )
+                }
+>>>>>>> df50581e22e87ab5ff606d3b5d638d527532b54b
         .scrollDisabled(true)
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
+<<<<<<< HEAD
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("")
@@ -127,6 +139,21 @@ struct MemoDetailView: View {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             }
         }
+=======
+        .customNavigationBar(
+            centerView: {
+                Text(" ")
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
+                NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
+            },
+            backgroundColor: .bgColor
+        )
+        
+>>>>>>> df50581e22e87ab5ff606d3b5d638d527532b54b
     }
    
     func checkMyMemo() async {
