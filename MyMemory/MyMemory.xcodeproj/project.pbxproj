@@ -76,7 +76,6 @@
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
 		6452621A2B6A2776004FE5C7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262192B6A2776004FE5C7 /* DetailViewModel.swift */; };
 		6452621C2B6A27F9004FE5C7 /* MoveUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */; };
-		6463211E2B7EEE72009CBEB8 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6463211D2B7EEE72009CBEB8 /* APIKEYS.xcconfig */; };
 		6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */; };
 		6484A2F32B7B100A000EEE99 /* MyPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2AD0A02B733DDC0052F69C /* MyPageEmptyView.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
@@ -126,6 +125,7 @@
 		DA3325BD2B6B4FB500DC9452 /* PushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */; };
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
+		DA4FFD072B7F5D110027F5CD /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
 		DA58C2662B5CD74E005CB3B3 /* view+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */; };
@@ -247,7 +247,6 @@
 		645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extensions.swift"; sourceTree = "<group>"; };
 		645262192B6A2776004FE5C7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileButton.swift; sourceTree = "<group>"; };
-		6463211D2B7EEE72009CBEB8 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
 		6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewFooter.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
@@ -292,6 +291,7 @@
 		DA2AD0A02B733DDC0052F69C /* MyPageEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPageEmptyView.swift; sourceTree = "<group>"; };
 		DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
+		DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
 		DA52B5DD2B560E83003F5E59 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "view+Extension.swift"; sourceTree = "<group>"; };
@@ -444,6 +444,7 @@
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 				645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */,
 				DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */,
+				DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1232,6 +1233,7 @@
 				01E6A6432B4683090061F08C /* PostView.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 				DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */,
+				DA4FFD072B7F5D110027F5CD /* UIApplication+Extesions.swift in Sources */,
 				DA2AD09C2B7339E90052F69C /* MypageTopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1402,7 +1404,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1457,7 +1459,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1490,7 +1492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1510,7 +1512,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1535,7 +1537,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1559,7 +1561,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1582,7 +1584,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
