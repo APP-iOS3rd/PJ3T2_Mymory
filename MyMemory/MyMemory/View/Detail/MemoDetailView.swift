@@ -119,7 +119,6 @@ struct MemoDetailView: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
-<<<<<<< HEAD
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Text("")
@@ -128,21 +127,6 @@ struct MemoDetailView: View {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             }
         }
-=======
-        .customNavigationBar(
-            centerView: {
-                Text(" ")
-            },
-            leftView: {
-                BackButton()
-            },
-            rightView: {
-                NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
-            },
-            backgroundColor: .bgColor
-        )
-        
->>>>>>> df50581e22e87ab5ff606d3b5d638d527532b54b
     }
    
     func checkMyMemo() async {
