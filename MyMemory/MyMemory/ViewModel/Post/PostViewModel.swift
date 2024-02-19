@@ -15,7 +15,7 @@ class PostViewModel: ObservableObject {
     @Published var memoAddressText: String = ""
     @Published var memoAddressBuildingName: String? = nil
     @Published var tempAddressText: String = ""
-    @Published var memoSelectedImageData: [Data] = []
+    @Published var memoSelectedImageData: [String:Data] = [:]
     @Published var memoSelectedTags: [String] = []
     @Published var memoShare: Bool = false
     @Published var beforeEditMemoImageUUIDs: [String] = [] // 이미지 수정 하면  Firestore 기존 Storage에 이미지를 지우고 업데이트
@@ -123,7 +123,7 @@ class PostViewModel: ObservableObject {
                     isPublic: !memoShare,
                     memoTagList: memoSelectedTags,
                     memoLikeCount: 0,
-                    memoSelectedImageData: memoSelectedImageData,
+                    memoSelectedImageData: Array(memoSelectedImageData.values),
                     memoCreatedAt: Date().timeIntervalSince1970,
                     memoTheme: memoTheme
                 )
@@ -152,11 +152,18 @@ class PostViewModel: ObservableObject {
         self.memoContents = memo.description
         self.memoAddressText = memo.address
         self.memoAddressBuildingName = memo.building
-        self.memoSelectedImageData = memo.imagesURL.map{try! Data(contentsOf: URL(string: $0)!)}
         self.memoSelectedTags = memo.tags
         self.memoShare = memo.isPublic
         self.beforeEditMemoImageUUIDs = memo.memoImageUUIDs
         self.memoTheme = memo.memoTheme
+        let temp =  memo.imagesURL.map{
+            let data = try! Data(contentsOf: URL(string: $0)!)
+            let key = UUID().uuidString
+            return (key,data)
+        }
+        for t in temp {
+            self.memoSelectedImageData[t.0] = t.1
+        }
         // memo.location
     }
  
@@ -182,7 +189,7 @@ class PostViewModel: ObservableObject {
                     isPublic: memoShare,
                     memoTagList: memoSelectedTags,
                     memoLikeCount: memo.likeCount,
-                    memoSelectedImageData: memoSelectedImageData,
+                    memoSelectedImageData: Array(memoSelectedImageData.values),
                     memoCreatedAt: Date().timeIntervalSince1970,
                     memoTheme: memoTheme  
                 )
@@ -223,7 +230,7 @@ class PostViewModel: ObservableObject {
         memoTitle = ""
         memoContents = ""
         memoAddressText = ""
-        memoSelectedImageData = []
+        memoSelectedImageData = [:]
         memoSelectedTags = []
         memoShare = false
         selectedItemsCounts = 0
