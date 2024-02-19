@@ -57,7 +57,7 @@ struct CertificationView: View {
                     }
                 }
                     .clipShape(.rect(cornerRadius: 10))
-                    .frame(height: UIScreen.main.bounds.size.height * 0.55)
+                    .frame(height: UIScreen.main.bounds.size.height * 0.45)
                     .padding()
                 //                CertificationMap(memo: $memo, draw: $viewModel.draw, isUserTracking: $viewModel.isUserTracking, userLocation: $viewModel.location, userDirection: $viewModel.direction)
                 //                        .onAppear {
