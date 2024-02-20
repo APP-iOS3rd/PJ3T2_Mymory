@@ -33,7 +33,6 @@
 
 ## 목차
 * [프로젝트 소개](#프로젝트-소개)
-* [특징](#프로젝트-특징)
 * [사용 기술](#사용-기술)
 * [기대 효과](#기대-효과)
 * [디자인의 방항성](#디자인의-방향성)
@@ -42,34 +41,11 @@
 
 
 ## 프로젝트 소개
+
 - 모아MOAH는 특정 위치에서의 추억을 기록하고 공유하는 SNS입니다.
 - 소중한 추억들을 언제 어디서든 쉽게 확인하고 되새길 수 있습니다.
 - 내 추억이 깃든 장소에 다른 사람들은 어떤 추억을 남겼는지 확인하고 소통할 수 있습니다.
 - 다양한 유저들을 팔로우하며 마음에 드는 게시글을 저장하거나 좋아요를 누를 수 있습니다.
-
-
-## 프로젝트 특징
-
-#### 1. 위치 기반으로 메모를 작성하기
-
-- 위치정보를 토대로 그 위치에 메모를 남깁니다.
-- 사진과 함께 그 날의 추억을 작성해보아요!
-- 여러 가지 태그를 통해 다양한 종류의 추억을 남겨 보아요
-
-#### 2. 게시판 CRUD
-
-- 메모리(게시글)을 관리하고, 태그를 통해 필터링 및 관리 하는 기능을 사용해 보아요!
-- 부적절한 메모리(게시글)을 신고 할 수 있어요
-
-#### 3. 추억 되살리고 공유하기
-
-- 특정 시간이 지나고, 메모리를 남긴 장소에 우연히 다가간다면 알림으로 알려줘요!
-- 다른 SNS에 공유해서 나의 추억을 되살려 볼 수 있어요
-
-#### 4. 지도 기능 중심 활용
-
-- 다양한 태그별 마크를 지도에 띄워 보아요
-- 내 주변에 다른 사람이 남긴 메모리를 보는 등, 지도와 위치 기반 기능들을 사용해요
 
 ## 사용 기술
 
@@ -136,7 +112,283 @@
 ## 프로젝트 구조
 ```
 MyMemory
-...
+ ┣ API
+ ┃ ┣ ImageUploader.swift
+ ┃ ┗ MemoService.swift
+ ┣ Assets.xcassets
+ ┃ ┗ Contents.json
+ ┣ Cluster
+ ┃ ┣ ClusterBox.swift
+ ┃ ┣ Clustering.swift
+ ┃ ┗ QuadTree.swift
+ ┣ Model
+ ┃ ┣ Authentication
+ ┃ ┃ ┗ Report.swift
+ ┃ ┣ AddressData.swift
+ ┃ ┣ AddressModel.swift
+ ┃ ┗ User.swift
+ ┣ Preview Content
+ ┃ ┗ Preview Assets.xcassets
+ ┃ ┃ ┗ Contents.json
+ ┣ Resource
+ ┃ ┣ Animation
+ ┃ ┃ ┗ run4.gif
+ ┃ ┣ Configure
+ ┃ ┃ ┣ GoogleService-Info.plist
+ ┃ ┃ ┣ Info.plist
+ ┃ ┃ ┣ Localizable.xcstrings
+ ┃ ┃ ┗ MyMemory.entitlements
+ ┃ ┣ Extension
+ ┃ ┃ ┣ Button+Extension.swift
+ ┃ ┃ ┣ CLLocation+Extension.swift
+ ┃ ┃ ┣ Color+Extension.swift
+ ┃ ┃ ┣ NavigationBar+Modifier.swift
+ ┃ ┃ ┣ String+Extension.swift
+ ┃ ┃ ┗ view+Extension.swift
+ ┃ ┣ Fonts
+ ┃ ┃ ┣ Pretendard
+ ┃ ┃ ┃ ┣ Pretendard-Black.otf
+ ┃ ┃ ┃ ┣ Pretendard-Bold.otf
+ ┃ ┃ ┃ ┣ Pretendard-ExtraBold.otf
+ ┃ ┃ ┃ ┣ Pretendard-ExtraLight.otf
+ ┃ ┃ ┃ ┣ Pretendard-Light.otf
+ ┃ ┃ ┃ ┣ Pretendard-Medium.otf
+ ┃ ┃ ┃ ┣ Pretendard-Regular.otf
+ ┃ ┃ ┃ ┣ Pretendard-SemiBold.otf
+ ┃ ┃ ┃ ┗ Pretendard-Thin.otf
+ ┃ ┃ ┣ NeoDunggeunmo-Regular.ttf
+ ┃ ┃ ┣ OwnglyphEuiyeonChae.ttf
+ ┃ ┃ ┗ Yeongdeok Sea.otf
+ ┃ ┣ Storyboard
+ ┃ ┃ ┗ Launch Screen.storyboard
+ ┃ ┣ Constants.swift
+ ┃ ┗ CornerShape.swift
+ ┣ Shared
+ ┃ ┣ GetAddress.swift
+ ┃ ┣ KakaoMapSimple.swift
+ ┃ ┣ LoadingManager.swift
+ ┃ ┗ LocationsHandler.swift
+ ┣ Source
+ ┃ ┣ API
+ ┃ ┃ ┣ AuthService.swift
+ ┃ ┃ ┣ Constants.swift
+ ┃ ┃ ┣ FirebaseProtocol.swift
+ ┃ ┃ ┣ ImageUploader.swift
+ ┃ ┃ ┗ MemoService.swift
+ ┃ ┣ Cluster
+ ┃ ┃ ┣ ClusterBox.swift
+ ┃ ┃ ┣ Clustering.swift
+ ┃ ┃ ┗ QuadTree.swift
+ ┃ ┣ Components
+ ┃ ┃ ┣ Alert
+ ┃ ┃ ┃ ┣ AlertButtonView.swift
+ ┃ ┃ ┃ ┗ AlertView.swift
+ ┃ ┃ ┣ Button
+ ┃ ┃ ┃ ┣ BackButton.swift
+ ┃ ┃ ┃ ┣ CloseButton.swift
+ ┃ ┃ ┃ ┣ CurrentSpotButton.swift
+ ┃ ┃ ┃ ┗ FilterButton.swift
+ ┃ ┃ ┣ Memo
+ ┃ ┃ ┃ ┣ MemoCard.swift
+ ┃ ┃ ┃ ┣ MemoCell.swift
+ ┃ ┃ ┃ ┗ MemoList.swift
+ ┃ ┃ ┣ FlexibleView.swift
+ ┃ ┃ ┣ LoadingView.swift
+ ┃ ┃ ┣ MenuTabBar.swift
+ ┃ ┃ ┣ ReportMemoView.swift
+ ┃ ┃ ┣ SelectBox.swift
+ ┃ ┃ ┣ Textarea.swift
+ ┃ ┃ ┗ TopBarAddress.swift
+ ┃ ┣ Extension
+ ┃ ┃ ┣ Button+Extension.swift
+ ┃ ┃ ┣ CLLocation+Extension.swift
+ ┃ ┃ ┣ Color+Extension.swift
+ ┃ ┃ ┣ CornerShape.swift
+ ┃ ┃ ┣ Fonts+Extensions.swift
+ ┃ ┃ ┣ NavigationBar+Modifier.swift
+ ┃ ┃ ┣ String+Extension.swift
+ ┃ ┃ ┣ Time+Extensions.swift
+ ┃ ┃ ┣ UIApplication+Extesions.swift
+ ┃ ┃ ┗ view+Extension.swift
+ ┃ ┣ Model
+ ┃ ┃ ┣ Authentication
+ ┃ ┃ ┃ ┗ Report.swift
+ ┃ ┃ ┣ AddressData.swift
+ ┃ ┃ ┣ AddressModel.swift
+ ┃ ┃ ┣ Memo.swift
+ ┃ ┃ ┣ PostMemoModel.swift
+ ┃ ┃ ┗ User.swift
+ ┃ ┗ Shared
+ ┃ ┃ ┣ FontManager.swift
+ ┃ ┃ ┣ GetAddress.swift
+ ┃ ┃ ┣ ImagePicker.swift
+ ┃ ┃ ┣ LoadingManager.swift
+ ┃ ┃ ┣ LocationsHandler.swift
+ ┃ ┃ ┣ PushNotification.swift
+ ┃ ┃ ┗ ThemeManager.swift
+ ┣ View
+ ┃ ┣ Authentication
+ ┃ ┃ ┣ MyPage
+ ┃ ┃ ┃ ┣ MapImageMarkerView.swift
+ ┃ ┃ ┃ ┣ MyPageView.swift
+ ┃ ┃ ┃ ┣ MypageTopView.swift
+ ┃ ┃ ┃ ┗ ProfileEditView.swift
+ ┃ ┃ ┣ OtherUser
+ ┃ ┃ ┃ ┣ OtherUserProfileView.swift
+ ┃ ┃ ┃ ┗ OtherUserTopView.swift
+ ┃ ┃ ┣ GoogleSocialRegisterView.swift
+ ┃ ┃ ┣ LoginView.swift
+ ┃ ┃ ┣ LoginViewModel.swift
+ ┃ ┃ ┣ MapImageMarkerView.swift
+ ┃ ┃ ┣ MyPageEmptyView.swift
+ ┃ ┃ ┣ ProfileEditViewModel.swift
+ ┃ ┃ ┣ ProfileMemoList.swift
+ ┃ ┃ ┣ ProfileMemoListCell.swift
+ ┃ ┃ ┣ RegisterView.swift
+ ┃ ┃ ┣ RegisterViewModel.swift
+ ┃ ┃ ┣ ReportView.swift
+ ┃ ┃ ┣ SocialRegisterView.swift
+ ┃ ┃ ┗ UserStatusCell.swift
+ ┃ ┣ Components
+ ┃ ┃ ┣ Button
+ ┃ ┃ ┃ ┣ BackButton.swift
+ ┃ ┃ ┃ ┣ CloseButton.swift
+ ┃ ┃ ┃ ┣ CurrentSpotButton.swift
+ ┃ ┃ ┃ ┗ FilterButton.swift
+ ┃ ┃ ┣ Memo
+ ┃ ┃ ┃ ┣ MemoCell.swift
+ ┃ ┃ ┃ ┣ MemoList.swift
+ ┃ ┃ ┃ ┗ MemoListView.swift
+ ┃ ┃ ┣ FlexibleView.swift
+ ┃ ┃ ┣ LoadingView.swift
+ ┃ ┃ ┣ SelectBox.swift
+ ┃ ┃ ┣ Textarea.swift
+ ┃ ┃ ┗ TopBarAddress.swift
+ ┃ ┣ Detail
+ ┃ ┃ ┣ DetailViewComponent
+ ┃ ┃ ┃ ┣ CertificationMap.swift
+ ┃ ┃ ┃ ┣ Footer.swift
+ ┃ ┃ ┃ ┣ GIFView.swift
+ ┃ ┃ ┃ ┣ ImgDetailView.swift
+ ┃ ┃ ┃ ┣ MiniMap.swift
+ ┃ ┃ ┃ ┣ NavigationBarItems.swift
+ ┃ ┃ ┃ ┣ ProgressBarView.swift
+ ┃ ┃ ┣ Subviews
+ ┃ ┃ ┃ ┣ CertificationView.swift
+ ┃ ┃ ┃ ┣ DetailBottomAddressView.swift
+ ┃ ┃ ┃ ┣ DetailLockView.swift
+ ┃ ┃ ┃ ┣ DetailViewListCell.swift
+ ┃ ┃ ┃ ┣ DetailViewMemoMoveButton.swift
+ ┃ ┃ ┃ ┣ Footer.swift
+ ┃ ┃ ┃ ┣ GIFView.swift
+ ┃ ┃ ┃ ┣ ImgDetailView.swift
+ ┃ ┃ ┃ ┣ MiniMap.swift
+ ┃ ┃ ┃ ┣ MoveUserProfileButton.swift
+ ┃ ┃ ┃ ┣ NavigationBarItems.swift
+ ┃ ┃ ┃ ┗ ProgressBarView.swift
+ ┃ ┃ ┣ CertificationView.swift
+ ┃ ┃ ┣ CertificationViewModel.swift
+ ┃ ┃ ┣ DetailView.swift
+ ┃ ┃ ┣ MemoDetailView.swift
+ ┃ ┃ ┣ MoveUserProfileButton.swift
+ ┃ ┃ ┗ ReportView.swift
+ ┃ ┣ Main
+ ┃ ┃ ┣ ContentView.swift
+ ┃ ┃ ┣ MainTabView.swift
+ ┃ ┃ ┣ MainView.swift
+ ┃ ┃ ┗ MemoMapView.swift
+ ┃ ┣ Map
+ ┃ ┃ ┣ Subviews
+ ┃ ┃ ┃ ┣ ClusterSelectionView.swift
+ ┃ ┃ ┃ ┣ FileterListView.swift
+ ┃ ┃ ┃ ┣ MapView.swift
+ ┃ ┃ ┃ ┗ MemoModel.swift
+ ┃ ┃ ┣ CommunityView.swift
+ ┃ ┃ ┣ KakaoMap.swift
+ ┃ ┃ ┣ MainMapView.swift
+ ┃ ┃ ┣ MainMapViewModel.swift
+ ┃ ┃ ┣ MainSectionsView.swift
+ ┃ ┃ ┗ MapViewRepresentable.swift
+ ┃ ┣ Onboarding
+ ┃ ┃ ┣ Subviews
+ ┃ ┃ ┃ ┗ IndexView.swift
+ ┃ ┃ ┣ Onboarding.swift
+ ┃ ┃ ┣ OnboardingView.swift
+ ┃ ┃ ┗ OnboardingViewModel.swift
+ ┃ ┣ Post
+ ┃ ┃ ┣ Model
+ ┃ ┃ ┃ ┗ PostMemoModel.swift
+ ┃ ┃ ┣ PostViewComponent
+ ┃ ┃ ┃ ┣ FindAddressView.swift
+ ┃ ┃ ┃ ┣ SelectPhotos.swift
+ ┃ ┃ ┃ ┗ SelectTagView.swift
+ ┃ ┃ ┣ Subviews
+ ┃ ┃ ┃ ┣ CustomPhotosPicker.swift
+ ┃ ┃ ┃ ┣ FindAddressView.swift
+ ┃ ┃ ┃ ┣ PostViewFooter.swift
+ ┃ ┃ ┃ ┣ SelectPhotos.swift
+ ┃ ┃ ┃ ┣ SelectTagView.swift
+ ┃ ┃ ┃ ┗ addMemoSubView.swift
+ ┃ ┃ ┣ ViewModel
+ ┃ ┃ ┃ ┗ PostViewModel.swift
+ ┃ ┃ ┣ ChangeLocationView.swift
+ ┃ ┃ ┣ PostView.swift
+ ┃ ┃ ┣ PostView2.swift
+ ┃ ┃ ┗ PostViewModel.swift
+ ┃ ┣ Search
+ ┃ ┃ ┣ SearchBar.swift
+ ┃ ┃ ┣ SearchCell.swift
+ ┃ ┃ ┗ SearchView.swift
+ ┃ ┗ Setting
+ ┃ ┃ ┣ SettingMenu
+ ┃ ┃ ┃ ┗ WithdrawalView.swift
+ ┃ ┃ ┣ Style
+ ┃ ┃ ┃ ┣ FontView.swift
+ ┃ ┃ ┃ ┣ MemoThemeView.swift
+ ┃ ┃ ┃ ┗ ThemeView.swift
+ ┃ ┃ ┣ SubViews
+ ┃ ┃ ┃ ┣ SettingMenuCell.swift
+ ┃ ┃ ┃ ┗ TermsView.swift
+ ┃ ┃ ┣ SettingMenuCell.swift
+ ┃ ┃ ┣ SettingView.swift
+ ┃ ┃ ┗ SettingViewModel.swift
+ ┣ ViewModel
+ ┃ ┣ Authentication
+ ┃ ┃ ┣ AuthViewModel.swift
+ ┃ ┃ ┣ LoginViewModel.swift
+ ┃ ┃ ┣ ProfileEditViewModel.swift
+ ┃ ┃ ┗ RegisterViewModel.swift
+ ┃ ┣ Detail
+ ┃ ┃ ┣ CertificationViewModel.swift
+ ┃ ┃ ┣ DetailViewModel.swift
+ ┃ ┃ ┗ ReportViewModel.swift
+ ┃ ┣ Map
+ ┃ ┃ ┣ AddressViewModel.swift
+ ┃ ┃ ┣ CommunityViewModel.swift
+ ┃ ┃ ┗ MainMapViewModel.swift
+ ┃ ┣ Onboarding
+ ┃ ┃ ┗ OnboardingViewModel.swift
+ ┃ ┣ Post
+ ┃ ┃ ┣ PhotosViewModel.swift
+ ┃ ┃ ┗ PostViewModel.swift
+ ┃ ┣ Profile
+ ┃ ┃ ┣ MyPage
+ ┃ ┃ ┃ ┗ MypageViewModel.swift
+ ┃ ┃ ┣ MyProfile
+ ┃ ┃ ┃ ┗ MypageViewModel.swift
+ ┃ ┃ ┣ OtherUser
+ ┃ ┃ ┃ ┗ OtherUserViewModel.swift
+ ┃ ┃ ┗ ProfileViewModelProtocol.swift
+ ┃ ┣ Setting
+ ┃ ┃ ┣ SettingViewModel.swift
+ ┃ ┃ ┗ ThemeViewModel.swift
+ ┃ ┗ AddressViewModel.swift
+ ┣ Launch Screen.storyboard
+ ┣ MyMemory.entitlements
+ ┣ MyMemoryApp.swift
+ ┣ MyMemoryDebug.entitlements
+ ┣ SceneDelegate.swift
+ ┗ ViewRouter.swift
 ```
 
 
