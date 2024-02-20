@@ -60,12 +60,19 @@ struct MemoDetailView: View {
                         }
                         
                         
-                        VStack {
+                        VStack(spacing:0) {
                             Spacer()
+                            DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color.cardColor.opacity(0),
+                                                                                       Color.cardColor.opacity(0.7),
+                                                                                       Color.cardColor.opacity(1)]),
+                                                           startPoint: .top,
+                                                           endPoint: .bottom))
+                            Divider()
                             VStack {
-                                DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
-                                Divider()
+
                                 MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
+                                
                                 DetailBottomAddressView(memo: memo)
                                     .environmentObject(viewModel)
                             }

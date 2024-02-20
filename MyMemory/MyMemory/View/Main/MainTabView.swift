@@ -15,7 +15,7 @@ struct MainTabView: View {
     @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedIndex){
                 Group {
                     MainMapView()

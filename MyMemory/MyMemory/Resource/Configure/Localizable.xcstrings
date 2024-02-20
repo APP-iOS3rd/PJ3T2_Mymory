@@ -11,10 +11,24 @@
 
     },
     "﹒  %lld개의 메모" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Memos"
+          }
+        }
+      }
     },
     "﹒  %lld개의 사진" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld Pictures"
+          }
+        }
+      }
     },
     "﹒  구매한 폰트, 마커, 메모지" : {
 
@@ -115,7 +129,14 @@
 
     },
     "Google로 계속하기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue with Google"
+          }
+        }
+      }
     },
     "Kakao로 계속하기" : {
       "extractionState" : "stale",
@@ -175,7 +196,14 @@
       }
     },
     "거리가 멀어서 볼 수 없어요." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Too far to read Memo!"
+          }
+        }
+      }
     },
     "거리순보기" : {
       "extractionState" : "stale",
@@ -284,7 +312,18 @@
     "다음" : {
 
     },
+    "다음 글" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        }
+      }
+    },
     "다음 글..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -306,7 +345,14 @@
       }
     },
     "닫기" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
     },
     "둘러보기" : {
       "extractionState" : "stale",
@@ -333,6 +379,7 @@
       }
     },
     "등록 수정일 : %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -341,6 +388,9 @@
           }
         }
       }
+    },
+    "등록일 : %@" : {
+
     },
     "등록하기" : {
       "localizations" : {
@@ -825,7 +875,11 @@
         }
       }
     },
+    "이전 글" : {
+
+    },
     "이전 글..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

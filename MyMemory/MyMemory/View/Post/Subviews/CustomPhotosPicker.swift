@@ -15,6 +15,7 @@ struct CustomPhotosPicker: View {
     @State private var showsAlert: Bool = false
     @ObservedObject var viewModel: PhotosViewModel = .init()
     @Binding var selected: [PHAsset]
+    
     @State var selectedValue: [PHAsset] = []
     @Environment(\.dismiss) var dismiss
     @State var maxImage = 5
