@@ -1,4 +1,3 @@
-
 import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
@@ -21,22 +20,20 @@ struct OtherUserProfileView: View {
     @State var selectedIndex = 0
     @State var memoCreator: User
     @Environment(\.dismiss) var dismiss
-    // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
-    //    init(memoCreator: User) {
-    //        self.memoCreator = memoCreator
-    //    }
     
     var body: some View {
         ScrollViewReader { proxy in
             ZStack(alignment: .top) {
                 Color.bgColor
                     .ignoresSafeArea()
+                
                 VStack {
                     ScrollView(.vertical, showsIndicators: false) {
                         OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
                             .padding(.horizontal, 14)
                             .padding(.top, 30)
                             .id(0)
+                        
                         if otherUserViewModel.memoList.isEmpty {
                             Spacer()
                             OtherUserEmptyView(userName: otherUserViewModel.memoCreator.name)
@@ -51,14 +48,15 @@ struct OtherUserProfileView: View {
                                             .padding(.bottom)
                                         ProfileMemoList<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
-                                        
                                     default:
                                         MapImageMarkerView<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
                                     }
                                 } header: {
-                                    MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                               selectedIndex: $selectedIndex,
+                                    MenuTabBar(menus: [
+                                        MenuTabModel(index: 0, image: "list.bullet.below.rectangle"),
+                                        MenuTabModel(index: 1, image: "newspaper")
+                                    ], selectedIndex: $selectedIndex,
                                                fullWidth: UIScreen.main.bounds.width,
                                                spacing: 50,
                                                horizontalInset: 91.5)
@@ -70,10 +68,11 @@ struct OtherUserProfileView: View {
                                     // Refresh logic
                                 }
                                 .padding(.horizontal)
-                            }
+                            } // Lazy
                         }
                     }
                 }
+                
                 if !otherUserViewModel.memoList.isEmpty {
                     VStack {
                         Spacer()
@@ -91,19 +90,20 @@ struct OtherUserProfileView: View {
                     }
                 }
             }
-            .onAppear {
-                checkLoginStatus()
-                authViewModel.fetchUser()
-
-                Task {
-                    await otherUserViewModel.fetchMemoCreatorProfile(memoCreator: memoCreator)
-                }
+        }
+        .onAppear {
+            checkLoginStatus()
+            authViewModel.fetchUser()
+            
+            Task {
+                await otherUserViewModel.fetchMemoCreatorProfile(memoCreator: memoCreator)
+            }
+        }
         .moahAlert(isPresented: $presentLoginAlert) {
             MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
                           firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
                 self.dismiss()
             }),
-                
                           secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
                 self.presentLoginView = true
             })
@@ -115,13 +115,13 @@ struct OtherUserProfileView: View {
         .overlay {
             if LoadingManager.shared.phase == .loading {
                 LoadingView()
-            }
                     .foregroundStyle(Color.textColor)
                     .font(.semibold16)
-                Text(otherUserViewModel.memoCreator.name)
-            ToolbarItem(placement: .principal) {
-        .toolbar {
+            }
         }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(otherUserViewModel.memoCreator.name)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 EmptyView()
@@ -129,7 +129,6 @@ struct OtherUserProfileView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
     }
-    
     
     private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
@@ -155,7 +154,6 @@ struct OtherUserProfileView: View {
         }
         .padding(.top, 38)
     }
-    
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {

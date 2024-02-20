@@ -95,35 +95,12 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
+        //        if self.user?.id != userID {
         let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
             self.lastDocument = last
-            }
-                //self.merkerMemoList = fetchedMemos
-                //self.memoList += fetchedMemos
-            await MainActor.run {
-            }
-                self.lastDocument = last
-            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
-        } else {
-            
-            }
-                //self.merkerMemoList = fetchedMemos
-                //self.memoList += fetchedMemos
-            await MainActor.run {
         }
         await MainActor.run {
             self.memoList += fetchedMemos
-            self.merkerMemoList = fetchedMemos
         }
-//        } else {
-//            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
-//                self.lastDocument = last
-//            }
-//            await MainActor.run {
-//                self.memoList += fetchedMemos
-//                self.merkerMemoList = fetchedMemos
-//            }
-//        }
-
     }
 }
