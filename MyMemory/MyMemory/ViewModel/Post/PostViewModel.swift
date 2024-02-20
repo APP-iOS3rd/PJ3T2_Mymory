@@ -42,7 +42,7 @@ class PostViewModel: ObservableObject {
             }
         }
         getUserCurrentLocation()
-
+        
     }
     func getUserCurrentLocation() {
         if let loc = locationsHandler.location {
@@ -67,7 +67,7 @@ class PostViewModel: ObservableObject {
             }
         }
     }
-
+    
     func getAddress() async {
         guard userCoordinate != nil else { return }
         let addressText = await GetAddress.shared.getAddressStr(location: .init(longitude: Double(userCoordinate!.longitude), latitude: Double(userCoordinate!.latitude)))
@@ -75,7 +75,7 @@ class PostViewModel: ObservableObject {
         DispatchQueue.main.async { [weak self] in
             self?.memoAddressText = addressText
             self?.memoAddressBuildingName = buildingName
-
+            
             print("주소 테스트 \(addressText)")
         }
     }
@@ -145,8 +145,8 @@ class PostViewModel: ObservableObject {
             resetMemoFields()
         }
     }
-
-
+    
+    
     func fetchEditMemo(memo: Memo)  {
         self.memoTitle = memo.title
         self.memoContents = memo.description
@@ -156,17 +156,24 @@ class PostViewModel: ObservableObject {
         self.memoShare = memo.isPublic
         self.beforeEditMemoImageUUIDs = memo.memoImageUUIDs
         self.memoTheme = memo.memoTheme
-        let temp =  memo.imagesURL.map{
-            let data = try! Data(contentsOf: URL(string: $0)!)
-            let key = UUID().uuidString
-            return (key,data)
-        }
-        for t in temp {
-            self.memoSelectedImageData[t.0] = t.1
+        Task{@MainActor in
+            for imageURL in memo.imagesURL {
+                guard let url = URL(string: imageURL) else {
+                    continue
+                }
+                do {
+                    let (data, _) = try await URLSession.shared.data(from: url)
+                    
+                    let key = UUID().uuidString
+                    self.memoSelectedImageData[key] = data
+                } catch {
+                    print("Failed to load image data: \(error)")
+                }
+            }
         }
         // memo.location
     }
- 
+    
     func editMemo(memo: Memo) {
         Task{ @MainActor in
             
@@ -191,7 +198,7 @@ class PostViewModel: ObservableObject {
                     memoLikeCount: memo.likeCount,
                     memoSelectedImageData: Array(memoSelectedImageData.values),
                     memoCreatedAt: Date().timeIntervalSince1970,
-                    memoTheme: memoTheme  
+                    memoTheme: memoTheme
                 )
                 // 버튼 눌리면  Firestore 기존 Storage에 이미지를 지우고 업데이트
                 MemoService.shared.deleteImage(deleteMemoImageUUIDS: beforeEditMemoImageUUIDs)
@@ -213,10 +220,10 @@ class PostViewModel: ObservableObject {
     func deleteMemo(memo: Memo) async {
         do{
             //1. UUID를 String으로 변환 해당 값으로 메모를 삭제
-            //2. deleteMemo를 굳이 만든 이유 Storage안에 저장 되어있는 메모 이미지를 삭제하기 위함 
+            //2. deleteMemo를 굳이 만든 이유 Storage안에 저장 되어있는 메모 이미지를 삭제하기 위함
             guard let documentID = memo.id else { return }
             //.uuidString
- 
+            
             await MemoService.shared.deleteMemo(documentID: documentID, deleteMemo: memo)
         }
         catch {
@@ -238,7 +245,7 @@ class PostViewModel: ObservableObject {
     }
     
     
-
     
-
+    
+    
 }
