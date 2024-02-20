@@ -70,7 +70,7 @@ struct MemoDetailView: View {
                                     .environmentObject(viewModel)
                             }
                             .padding(.horizontal, 25)
-                            .background(Color.cardColor)
+                            .background(Color.bgColor)
                             
                         }
                         
@@ -82,10 +82,13 @@ struct MemoDetailView: View {
                             viewModel.fetchMemoCreator(uid: memo.userUid)
                         }
                     }
+                    .fullScreenCover(isPresented: $isShowingImgSheet) {
+                        ImgDetailView(selectedImage: $selectedNum, images: memo.imagesURL)
+                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
-            .background(Color.cardColor)
+            .background(Color.bgColor)
         } //:SCROLL
         .onAppear {
             Task {
@@ -103,6 +106,7 @@ struct MemoDetailView: View {
                 }
             }
         }
+        .background(Color.bgColor)
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())
         }
@@ -127,6 +131,7 @@ struct MemoDetailView: View {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
     }
    
     func checkMyMemo() async {

@@ -12,6 +12,7 @@ struct MoveUserProfileButton: View {
 
     @ObservedObject var viewModel: DetailViewModel
     @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+    @ObservedObject var authService: AuthService = .init()
     @Binding var presentLoginAlert: Bool
     
     var body: some View {
@@ -34,7 +35,6 @@ struct MoveUserProfileButton: View {
                         .foregroundStyle(Color.darkGray)
                 }
                 
-            
                 VStack(alignment: .leading) {
                     Text(viewModel.memoCreator?.name ?? "")
                         .foregroundStyle(Color.textColor)
@@ -61,16 +61,12 @@ struct MoveUserProfileButton: View {
                 }
                 .background(viewModel.isFollowingUser ? Color(uiColor: UIColor.systemGray3) : Color.accentColor)
                 .cornerRadius(5, corners: .allCorners)
-            }
-        }
-        .onAppear {
-            if let otherUser = viewModel.memoCreator {
-                Task {
-                    AuthService.shared.followCheck(followUser: otherUser, completion: { value in
-                        if let follwValue = value {
-                            self.viewModel.isFollowingUser = follwValue
+                .onAppear {
+                    if let otherUserId = self.viewModel.memoCreator?.id {
+                        Task {
+                            self.viewModel.isFollowingUser = await AuthService.shared.followCheck(with: otherUserId)
                         }
-                    })
+                    }
                 }
             }
         }
