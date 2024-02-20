@@ -31,14 +31,10 @@
 
 
 
-## 목차
-* [프로젝트 소개](#프로젝트-소개)
-* [사용 기술](#사용-기술)
-* [기대 효과](#기대-효과)
-* [디자인의 방항성](#디자인의-방향성)
-* [Firebase](#Firebase-데이터-다이어그램)
-* [프로젝트 구조](#프로젝트-구조)
-
+## 팀원
+|[김태훈](https://github.com/iAmSomething)|[김소혜](https://github.com/xohxe)|[김성엽](https://github.com/RapidSloth)|[이명섭](https://github.com/Seobe95)|[여현서](https://github.com/Ahario)|[정정욱](https://github.com/jeonguk29)|
+|-----------|-----------|-----------|------------|------------|------------|
+|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/572e6153-d68c-406e-aed8-70c4a661bc4b" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/2eaa3cc6-8db4-4428-8a23-41e4d397c416" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/a8f1fffb-aad3-47b4-90df-61b4dd90c7ec" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/9392566f-44dd-4724-9bfb-c2abe197d9e8" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/f128b3a2-1ceb-43a1-ab61-a5111dccc44c" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/c8ce0a8d-297e-4aac-ad22-8018b2115216" width="100">|
 
 ## 프로젝트 소개
 
@@ -47,26 +43,13 @@
 - 내 추억이 깃든 장소에 다른 사람들은 어떤 추억을 남겼는지 확인하고 소통할 수 있습니다.
 - 다양한 유저들을 팔로우하며 마음에 드는 게시글을 저장하거나 좋아요를 누를 수 있습니다.
 
-## 사용 기술
+## 기술 스택
 
-- 맵킷 혹은 NaverMap/ Kakao map
-- SwiftUI
-- Firebase
-  - auth - 계정 관리
-  - storage - 사진 관리
-  - db - 게시글 관리
-## 기대 효과
+### Environment
+### Config
+### Development
+### Communication
 
-#### 1. 사용자의 메모데이터를 활용
-
-- 메모를 작성한 위치 정보를 토대로 핫플레이스를 유추할 수 있습니다.
-- 포함된 정보를 토대로 새로운 데이터를 창출해낼 수 있습니다.(예를 들어 지역별 키워드)
-- 게시판 CRUD 기능을 구현해 볼 수 있습니다.
-- 위치 기반 서비스 개발 경험을 얻을 수 있습니다.
-
-#### 2. 앱 출시 경험
-
-- 앱 출시를 할 수 있습니다.
 
 ## 디자인의 방항성
 [피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
@@ -147,15 +130,6 @@ MyMemory
  ┃ ┃ ┗ view+Extension.swift
  ┃ ┣ Fonts
  ┃ ┃ ┣ Pretendard
- ┃ ┃ ┃ ┣ Pretendard-Black.otf
- ┃ ┃ ┃ ┣ Pretendard-Bold.otf
- ┃ ┃ ┃ ┣ Pretendard-ExtraBold.otf
- ┃ ┃ ┃ ┣ Pretendard-ExtraLight.otf
- ┃ ┃ ┃ ┣ Pretendard-Light.otf
- ┃ ┃ ┃ ┣ Pretendard-Medium.otf
- ┃ ┃ ┃ ┣ Pretendard-Regular.otf
- ┃ ┃ ┃ ┣ Pretendard-SemiBold.otf
- ┃ ┃ ┃ ┗ Pretendard-Thin.otf
  ┃ ┃ ┣ NeoDunggeunmo-Regular.ttf
  ┃ ┃ ┣ OwnglyphEuiyeonChae.ttf
  ┃ ┃ ┗ Yeongdeok Sea.otf
