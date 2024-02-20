@@ -31,15 +31,12 @@
 </br>
 </div>
 
-
-
-
-## 팀원
+# 팀원
 |[김태훈](https://github.com/iAmSomething)|[김소혜](https://github.com/xohxe)|[김성엽](https://github.com/RapidSloth)|[이명섭](https://github.com/Seobe95)|[여현서](https://github.com/Ahario)|[정정욱](https://github.com/jeonguk29)|
 |-----------|-----------|-----------|------------|------------|------------|
 |<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/572e6153-d68c-406e-aed8-70c4a661bc4b" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/2eaa3cc6-8db4-4428-8a23-41e4d397c416" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/a8f1fffb-aad3-47b4-90df-61b4dd90c7ec" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/9392566f-44dd-4724-9bfb-c2abe197d9e8" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/f128b3a2-1ceb-43a1-ab61-a5111dccc44c" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/c8ce0a8d-297e-4aac-ad22-8018b2115216" width="100">|
 
-## 프로젝트 소개
+# 프로젝트 소개
 [피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
 
 - 모아MOAH는 특정 위치에서의 추억을 기록하고 공유하는 SNS입니다.
@@ -47,7 +44,7 @@
 - 내 추억이 깃든 장소에 다른 사람들은 어떤 추억을 남겼는지 확인하고 소통할 수 있습니다.
 - 다양한 유저들을 팔로우하며 마음에 드는 게시글을 저장하거나 좋아요를 누를 수 있습니다.
 
-## 기술 스택
+# 기술 스택
 
 ### Environment
 ![Static Badge](https://img.shields.io/badge/xcode-%23147EFB?style=for-the-badge&logo=xcode&logoColor=white)  ![Static Badge](https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github&logoColor=white)
@@ -64,45 +61,14 @@
 [![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)](https://github.com/Alamofire/Alamofire)
 [![FLAnimatedImage](https://img.shields.io/badge/FLAnimatedImage-1.0.17-orange)](https://github.com/Flipboard/FLAnimatedImage)
 
+# 화면 구성/API
 
-## Firebase 데이터 다이어그램
-### User
+# 주요 기능
 
-| 필드명 | Dtype | Nullable | 설명 |
-| --- | --- | --- | --- |
-| uid | string |  | user ID |
-| name | string |  | user 이름 |
-| email | string |  | email |
-| profilePicture | string |  | Url 값 |
-| isCurrentUser |  |  | 현재 로그인한 유저 확인 |
-|  |  |  |  |
+# 아키텍쳐
 
-### User-Memo
+## Tree
 
-| 필드명 | Dtype | Nullable | 설명 |
-| --- | --- | --- | --- |
-| memolist | [UUID] |  | 내가 작성한 메모 id들 |
-
-### Memo
-
-| 필드명 | Dtype | Nullable | 설명 |
-| --- | --- | --- | --- |
-| uid | UUID |  | Memo 구분 Uid |
-| userCoordinateLatitude | Double |  | Memo 작성 위도 |
-| userCoordinateLongitude | Double |  | Memo 작성 경도 |
-| userAddress | String |  | 작성 주소 |
-| memoTitle | String |  | 제목 |
-| memoContents | String |  | 내용 |
-| isPublic | Bool |  | 메모 공개여부 |
-| memoTagList | [String] |  | 태그 목록 |
-| memoLikeCount | Int |  | 좋아요 수 |
-| memoSelectedImageData | [Data] |  | 메모 첨부 사진 |
-| memoCreatedAt | TimeInterval |  | 작성 시간 |
-| userId | string |  | 작성자 UUID |
-|  |  |  |  |
-
-
-## 프로젝트 구조
 ```
 MyMemory
  ┣ API
@@ -375,4 +341,43 @@ MyMemory
  ┗ ViewRouter.swift
 ```
 
+
+## Firebase 데이터 다이어그램
+### User
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| uid | string |  | user ID |
+| name | string |  | user 이름 |
+| email | string |  | email |
+| profilePicture | string |  | Url 값 |
+| isCurrentUser |  |  | 현재 로그인한 유저 확인 |
+|  |  |  |  |
+
+### User-Memo
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| memolist | [UUID] |  | 내가 작성한 메모 id들 |
+
+### Memo
+
+| 필드명 | Dtype | Nullable | 설명 |
+| --- | --- | --- | --- |
+| uid | UUID |  | Memo 구분 Uid |
+| userCoordinateLatitude | Double |  | Memo 작성 위도 |
+| userCoordinateLongitude | Double |  | Memo 작성 경도 |
+| userAddress | String |  | 작성 주소 |
+| memoTitle | String |  | 제목 |
+| memoContents | String |  | 내용 |
+| isPublic | Bool |  | 메모 공개여부 |
+| memoTagList | [String] |  | 태그 목록 |
+| memoLikeCount | Int |  | 좋아요 수 |
+| memoSelectedImageData | [Data] |  | 메모 첨부 사진 |
+| memoCreatedAt | TimeInterval |  | 작성 시간 |
+| userId | string |  | 작성자 UUID |
+|  |  |  |  |
+
+
+# 기타
 
