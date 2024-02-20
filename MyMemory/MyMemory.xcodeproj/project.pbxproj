@@ -107,7 +107,6 @@
 		6AAE2AA32B7F36DD00FDB7BD /* DetailBottomAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA22B7F36DD00FDB7BD /* DetailBottomAddressView.swift */; };
 		6AAE2AA52B7F387700FDB7BD /* DetailViewMemoMoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA42B7F387700FDB7BD /* DetailViewMemoMoveButton.swift */; };
 		6AAE2AA72B7F3AE500FDB7BD /* DetailViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA62B7F3AE500FDB7BD /* DetailViewListCell.swift */; };
-		6AE132EA2B7EF62E0050585B /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F9AFF2B7D928C00E64C7D /* TermsView.swift */; };
 		6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0242B565EED008ABE05 /* ProfileMemoListCell.swift */; };
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
 		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
@@ -1525,7 +1524,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

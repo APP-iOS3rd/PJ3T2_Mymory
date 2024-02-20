@@ -365,7 +365,10 @@ extension MemoService {
         return memos.sorted(by: {$0.date > $1.date}).first
     }
     
-    
+    /// userID로 작성한 메모들을 모두 가져오는 메서드입니다.
+    /// - Parameters:
+    ///   - userID : 작성 메모를 모두 가져올 userID
+    /// - Returns: [Memo] => userID가 작성한 모든 메모
     func fetchProfileMemos(userID: String) async -> [Memo] {
         do {
             // Memos 컬렉션에서 해당 userID와 일치하는 메모를 쿼리합니다.
