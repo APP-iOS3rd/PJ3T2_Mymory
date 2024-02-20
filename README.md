@@ -13,6 +13,9 @@
         <a href="https://apps.apple.com/kr/app/%EB%AA%A8%EC%95%84-moah/id6475282904">
             <img alt="iTunes App Store" src="https://img.shields.io/itunes/v/6475282904?label=version">
         </a>
+        <a href="https://hits.seeyoufarm.com">
+            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FAPPiOS3rd%2FPJ3T2_Mymory&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
+        </a>
         <a href="#copyright">
             <img src="https://img.shields.io/badge/licence-%C2%A9-crimson">
         </a>
@@ -37,6 +40,7 @@
 |<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/572e6153-d68c-406e-aed8-70c4a661bc4b" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/2eaa3cc6-8db4-4428-8a23-41e4d397c416" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/a8f1fffb-aad3-47b4-90df-61b4dd90c7ec" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/9392566f-44dd-4724-9bfb-c2abe197d9e8" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/f128b3a2-1ceb-43a1-ab61-a5111dccc44c" width="100">|<img src="https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/c8ce0a8d-297e-4aac-ad22-8018b2115216" width="100">|
 
 ## 프로젝트 소개
+[피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
 
 - 모아MOAH는 특정 위치에서의 추억을 기록하고 공유하는 SNS입니다.
 - 소중한 추억들을 언제 어디서든 쉽게 확인하고 되새길 수 있습니다.
@@ -56,13 +60,9 @@
 ![Static Badge](https://img.shields.io/badge/Notion-white?style=for-the-badge&logo=notion&logoColor=%23000000)    ![Static Badge](https://img.shields.io/badge/discord-%235865F2?style=for-the-badge&logo=discord&logoColor=white)   ![Static Badge](https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 ### Library
-[![Kingfisher](https://img.shields.io/badge/Kingfisher-7.10.2-green)]()
-[![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)]()
-
-
-
-## 디자인의 방항성
-[피그마](https://www.figma.com/file/oAlKu3L9x2IlJhmBOGSeVo/%EB%82%B4%EB%AA%A8%EB%A6%AC-%EB%A9%94%EB%AA%BD?type=design&node-id=92%3A3058&mode=design&t=C8ZGjn458Y2uW9zI-1)
+[![Kingfisher](https://img.shields.io/badge/Kingfisher-7.10.2-green)](https://github.com/onevcat/Kingfisher)
+[![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)](https://github.com/Alamofire/Alamofire)
+[![FLAnimatedImage](https://img.shields.io/badge/FLAnimatedImage-1.0.17-orange)](https://github.com/Flipboard/FLAnimatedImage)
 
 
 ## Firebase 데이터 다이어그램
