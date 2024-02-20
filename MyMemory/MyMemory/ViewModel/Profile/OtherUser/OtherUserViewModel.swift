@@ -55,10 +55,15 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
 
         // 백그라운드에서 데이터 가져오기
         self.memoList = await self.memoService.fetchProfileMemos(userID: memoCreator.id ?? "")
-
-        // 메인 스레드에서 UI 업데이트
-        await Task.runDetached {
-            await self.pagenate(userID: memoCreator.id ?? "")
+        DispatchQueue.main.async {
+            Task {[weak self] in
+                guard let self = self else { return }
+                guard let userId = self.memoCreator.id else { 
+                    print("ID 없음")
+                    return
+                }
+                await self.pagenate(userID: userId)
+            }
         }
 
         fetchCurrentUserLocation { location in
@@ -70,8 +75,6 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
             }
         }
     }
-
-    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
@@ -92,25 +95,35 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
-        
-        if self.user?.id != userID {
-            let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
-                self.lastDocument = last
+        let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
+            self.lastDocument = last
             }
-            await MainActor.run {
-                //self.memoList += fetchedMemos
                 //self.merkerMemoList = fetchedMemos
+                //self.memoList += fetchedMemos
+            await MainActor.run {
             }
-            
-        } else {
+                self.lastDocument = last
             let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
-                self.lastDocument = last
+        } else {
+            
             }
-            await MainActor.run {
-                //self.memoList += fetchedMemos
                 //self.merkerMemoList = fetchedMemos
-            }
+                //self.memoList += fetchedMemos
+            await MainActor.run {
         }
+        await MainActor.run {
+            self.memoList += fetchedMemos
+            self.merkerMemoList = fetchedMemos
+        }
+//        } else {
+//            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
+//                self.lastDocument = last
+//            }
+//            await MainActor.run {
+//                self.memoList += fetchedMemos
+//                self.merkerMemoList = fetchedMemos
+//            }
+//        }
 
     }
 }

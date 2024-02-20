@@ -59,6 +59,9 @@ class DetailViewModel: ObservableObject {
         }
         return false
     }
+    func fetchFollowState(userId: String) async {
+        self.isFollowingUser = await AuthService.shared.followCheck(with: userId)
+    }
     
     func fetchFollowAndUnfollowOtherUser(otherUser: User) {
         Task { @MainActor in 
