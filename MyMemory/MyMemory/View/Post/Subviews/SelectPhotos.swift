@@ -113,7 +113,7 @@ struct SelectPhotos: View {
             }
         }
         .onChange(of: self.fromCamera, { oldValue, newValue in
-            if let data = newValue?.jpegData(compressionQuality: 0.2){
+            if let data = newValue?.jpegData(compressionQuality: 1.0){
                 let temp = UUID().uuidString
                 self.memoSelectedImageData[temp] = data
 //                self.selectedItemsCounts += 1
@@ -136,7 +136,7 @@ struct SelectPhotos: View {
                 Task {
                     if let image = await item.convertPHAssetToImage() {
                         DispatchQueue.main.async {
-                            let data = image.0.jpegData(compressionQuality: 0.2)
+                            let data = image.0.jpegData(compressionQuality: 1.0)
                             
                             memoSelectedImageData[image.1] = data!
                             print("사진 \(index+1) 업로드 완료, \(data)")
