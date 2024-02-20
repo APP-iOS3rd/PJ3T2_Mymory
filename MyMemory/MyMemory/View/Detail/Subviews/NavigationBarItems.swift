@@ -30,15 +30,16 @@ struct NavigationBarItems: View {
     @State var likeCount = 0
     @State private var isPostViewActive: Bool = false
     var body: some View {
-        HStack {
+        HStack(spacing: 13) {
             // 내가 작성한 메모라면 수정 버튼 보여주기
             if isMyMemo {
                 Button(action: {
                     isPostViewActive = true
                 }) {
                     Image(systemName: "pencil")
-                        .font(.semibold20)
+                        .font(.semibold16)
                 }
+                .buttonStyle(PlainButtonStyle())
                 .fullScreenCover(isPresented: $isPostViewActive) {
                     PostView(selected: .constant(1), isEdit: true, memo: memo)
                         .navigationBarHidden(true)
@@ -63,10 +64,10 @@ struct NavigationBarItems: View {
                 } label: {
                     if memo.didLike {
                         Image(systemName: "suit.heart.fill")
-                            .font(.semibold20)
+                            .font(.semibold16)
                     } else {
                         Image(systemName: "suit.heart")
-                            .font(.semibold20)
+                            .font(.semibold16)
                     }
                 }
                 .buttonStyle(.plain)
@@ -81,10 +82,10 @@ struct NavigationBarItems: View {
                 } label: {
                     if isBookmark {
                         Image(systemName: "bookmark.fill")
-                            .font(.semibold20)
+                            .font(.semibold16)
                     } else {
                         Image(systemName: "bookmark")
-                            .font(.semibold20)
+                            .font(.semibold16)
                     }
                 }
                 .buttonStyle(.plain)
@@ -98,7 +99,7 @@ struct NavigationBarItems: View {
                     isShowingSheet.toggle()
                 } label: {
                     Image(systemName: "ellipsis")
-                        .font(.semibold20)
+                        .font(.semibold16)
                     
                 }
                 .buttonStyle(.plain)

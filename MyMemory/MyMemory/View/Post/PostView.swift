@@ -236,3 +236,9 @@ struct PostView: View {
 //        PostView(selected: .constant(1))
 //    }
 //}
+enum AddPhotoSelection: String, CaseIterable, Identifiable {
+    var id: AddPhotoSelection {self}
+    
+    case camera = "카메라"
+    case lib = "사진"
+}
