@@ -86,11 +86,14 @@ struct OtherUserProfileView: View {
                 
             }
             .onAppear {
-                
                 checkLoginStatus()
                 authViewModel.fetchUser()
-                otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
+
+                Task {
+                    await otherUserViewModel.fetchMemoCreatorProfile(memoCreator: memoCreator)
+                }
             }
+
 //            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
 //                Button("로그인 하기", role: .destructive) {
 //                    self.presentLoginView = true
@@ -135,6 +138,7 @@ struct OtherUserProfileView: View {
                 backgroundColor: Color.bgColor
             )
         }
+        
     }
     
     private func createHeader() -> some View {

@@ -12,7 +12,6 @@ class FollowerFollowingViewModel: ObservableObject {
     @Published var followerUserList: [User] = []
     @Published var followingUserList: [User] = []
     
-    
     init() {}
     
     

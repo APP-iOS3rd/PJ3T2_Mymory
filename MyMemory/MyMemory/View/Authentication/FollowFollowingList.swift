@@ -10,108 +10,80 @@ import Kingfisher
 
 struct FollowFollowingList: View {
     
-    @ObservedObject var followerFollowingViewModel : FollowerFollowingViewModel
-    @StateObject var otherUserViewModel: OtherUserViewModel = OtherUserViewModel()
-    
+    @ObservedObject var followerFollowingViewModel: FollowerFollowingViewModel
+    @StateObject var otherUserViewModel = OtherUserViewModel()
     @Environment(\.presentationMode) var presentationMode
     @State private var goingUserProfile = false
     @Binding var uid: String
-    /*
-     @ObservedObject var viewModel: DetailViewModel
-     
-     var body: some View {
-     
-     HStack {
-     NavigationLink {
-     OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-     //                    .customNavigationBar(
-     //                        centerView: {
-     //                            Text(viewModel.memoCreator?.name ?? "")
-     //                        },
-     //                        leftView: {
-     //                            BackButton()
-     //                        },
-     //                        rightView: {
-     //                            EmptyView()
-     //                        },
-     //                        backgroundColor: Color.bgColor3
-     //                    )
-     .environmentObject(otherUserViewModel)
-     */
+    @State var choiceTab: Int
+    
     var body: some View {
         
-            List {
-                ForEach(followerFollowingViewModel.followingUserList.indices, id: \.self) { index in
-                    let user = followerFollowingViewModel.followingUserList[index]
+        List {
+            if choiceTab == 0 {
+                ForEach(followerFollowingViewModel.followerUserList, id: \.id) { user in
                     NavigationLink {
-                        OtherUserProfileView(memoCreator:user)
-                            .navigationBarHidden(true)
+                        OtherUserProfileView(memoCreator: user)
+                            .padding(.horizontal)
                             .environmentObject(otherUserViewModel)
                     } label: {
-                        HStack {
-                            if let imageUrl = user.profilePicture, let url = URL(string: imageUrl) {
-                                KFImage(url)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .clipShape(.circle)
-                                    .frame(width: 45, height: 45)
-                            } else {
-                                Circle()
-                                    .frame(width: 45, height: 45)
-                                    .foregroundStyle(Color(hex: "d9d9d9"))
-                            }
-                            
-                            Text(user.name)
-                                .font(.body)
-                                .foregroundColor(.black)
-                                .padding(.vertical)
-                        }
+                        UserListRow(user: user)
                     }
-
                 }
-                //.onDelete(perform: delete)
                 .onMove(perform: move)
-            
+            } else {
+                ForEach(followerFollowingViewModel.followingUserList, id: \.id) { user in
+                    NavigationLink {
+                        OtherUserProfileView(memoCreator: user)
+                            .padding(.horizontal)
+                            .environmentObject(otherUserViewModel)
+                    } label: {
+                        UserListRow(user: user)
+                    }
+                }
+                .onMove(perform: move)
+            }
+   
         }
-      
-//                .onAppear(perform: {
-//            Task { @MainActor in
-//                
-//                
-//                await AuthService.shared.fetchFollowingUserList(with: uid)
-//                await AuthService.shared.fetchFollowerUserList(with: uid)
-//            }
-//        })
-        
-//        .toolbar {
-//            ToolbarItem(placement: .principal) {
-//                Text("팔로잉")
-//            }
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                
-//                Button(action: {
-//                    presentationMode.wrappedValue.dismiss()
-//                }) {
-//                    HStack {
-//                        Image(systemName: "chevron.backward")
-//                        Text("뒤로")
-//                    }
-//                }
-//                
-//                
-//            }
-//            
-//            
-//        }
-        
-    }
-       
-    func move(indices: IndexSet, newOffset: Int) {
-        followerFollowingViewModel.followingUserList.move(fromOffsets: indices, toOffset: newOffset)
+        .navigationTitle(Text(choiceTab == 0 ? "팔로워" : "팔로잉"))
     }
     
+    func move(indices: IndexSet, newOffset: Int) {
+        if choiceTab == 0 {
+            followerFollowingViewModel.followerUserList.move(fromOffsets: indices, toOffset: newOffset)
+        } else {
+            followerFollowingViewModel.followingUserList.move(fromOffsets: indices, toOffset: newOffset)
+        }
+    }
 }
+
+struct UserListRow: View {
+    let user: User
+    
+    var body: some View {
+        HStack {
+            if let imageUrl = user.profilePicture, let url = URL(string: imageUrl) {
+                KFImage(url)
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+                    .clipShape(.circle)
+                    .frame(width: 45, height: 45)
+            } else {
+                Circle()
+                    .frame(width: 45, height: 45)
+                    .foregroundStyle(Color(hex: "d9d9d9"))
+            }
+            
+            Text(user.name)
+                .font(.body)
+                .foregroundColor(.black)
+                .padding(.vertical)
+        }
+    }
+}
+
+
 //    mutating func delete(indexSet: IndexSet) {
 //        authViewModel.followingUserList.remove(atOffsets: indexSet)
 //    }

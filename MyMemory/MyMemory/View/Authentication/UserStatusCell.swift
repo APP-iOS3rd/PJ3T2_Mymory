@@ -26,7 +26,7 @@ struct UserStatusCell: View {
             
             
             
-            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid)) {
+            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid, choiceTab: 0)) {
                 VStack {
                     Text("\(authViewModel.followerCount)")
                         .font(.bold16)
@@ -35,11 +35,12 @@ struct UserStatusCell: View {
                 }
                 .frame(maxWidth: .infinity)
             }
-  
+            .environmentObject(followerFollowingViewModel)
+            
             
             Divider()
 
-            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid)) {
+            NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid, choiceTab: 1)) {
                 VStack {
                     Text("\(authViewModel.followingCount)")
                         .font(.bold16)
