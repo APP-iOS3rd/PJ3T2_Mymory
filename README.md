@@ -46,9 +46,19 @@
 ## 기술 스택
 
 ### Environment
-### Config
+![Static Badge](https://img.shields.io/badge/xcode-%23147EFB?style=for-the-badge&logo=xcode&logoColor=white)  ![Static Badge](https://img.shields.io/badge/github-%23181717?style=for-the-badge&logo=github&logoColor=white)
+
 ### Development
+![Static Badge](https://img.shields.io/badge/swift-%23F05138?style=for-the-badge&logo=swift&logoColor=white)   ![Static Badge](https://img.shields.io/badge/firebase-%23FFCA28?style=for-the-badge&logo=firebase&logoColor=white)
+
+
 ### Communication
+![Static Badge](https://img.shields.io/badge/Notion-white?style=for-the-badge&logo=notion&logoColor=%23000000)    ![Static Badge](https://img.shields.io/badge/discord-%235865F2?style=for-the-badge&logo=discord&logoColor=white)   ![Static Badge](https://img.shields.io/badge/figma-%23F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
+### Library
+[![Kingfisher](https://img.shields.io/badge/Kingfisher-7.10.2-green)]()
+[![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)]()
+
 
 
 ## 디자인의 방항성
