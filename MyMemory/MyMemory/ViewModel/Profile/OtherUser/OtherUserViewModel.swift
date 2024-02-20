@@ -47,16 +47,19 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
-    func fetchMemoCreatorProfile(memoCreator: User){
+    func fetchMemoCreatorProfile(memoCreator: User) {
         self.memoList = []
         self.memoCreator = memoCreator
-        
-        
+
         fetchUserState()
         DispatchQueue.main.async {
             Task {[weak self] in
-                guard let self = self else {return}
-                await self.pagenate(userID: memoCreator.id ?? "")
+                guard let self = self else { return }
+                guard let userId = self.memoCreator.id else { 
+                    print("ID 없음")
+                    return
+                }
+                await self.pagenate(userID: userId)
             }
         }
         
@@ -65,9 +68,8 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
                 self.currentLocation = location
             }
         }
-        
-        
     }
+    
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
             DispatchQueue.main.async {
@@ -88,25 +90,23 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
-        
-        if self.user?.id != userID {
-            let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
-                self.lastDocument = last
-            }
-            await MainActor.run {
-                self.memoList += fetchedMemos
-                self.merkerMemoList = fetchedMemos
-            }
-            
-        } else {
-            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
-                self.lastDocument = last
-            }
-            await MainActor.run {
-                self.memoList += fetchedMemos
-                self.merkerMemoList = fetchedMemos
-            }
+//        if self.user?.id != userID {
+        let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
+            self.lastDocument = last
         }
+        await MainActor.run {
+            self.memoList += fetchedMemos
+            self.merkerMemoList = fetchedMemos
+        }
+//        } else {
+//            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
+//                self.lastDocument = last
+//            }
+//            await MainActor.run {
+//                self.memoList += fetchedMemos
+//                self.merkerMemoList = fetchedMemos
+//            }
+//        }
 
     }
 }

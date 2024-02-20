@@ -46,6 +46,7 @@ struct DetailViewMemoMoveButton: View {
             }
         }
     }
+    
     func preButton() {
         if var value = selectedMemoIndex {
             value -= 1
