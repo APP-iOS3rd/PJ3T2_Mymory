@@ -66,6 +66,7 @@ struct SelectTagView: View {
                                     .background(
                                         Capsule()
                                             .foregroundColor(.accentColor)
+
                                     )
                             }
                         }
