@@ -61,20 +61,6 @@
 [![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)](https://github.com/Alamofire/Alamofire)
 [![FLAnimatedImage](https://img.shields.io/badge/FLAnimatedImage-1.0.17-orange)](https://github.com/Flipboard/FLAnimatedImage)
 
-# 화면 구성
-### [시작 화면]
-서비스에 접속하면 첫 실행여부를 판단합니다.
-첫 번째 실행인 경우 온보딩 화면을 띄우고, 위치 권한과 푸시 알람 권한 동의를 요청합니다.
-
-첫 번째 실행이 아니면 권한을 요청하지 않습니다.
-
-![000](https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/871eb8eb-20a3-404d-843f-bb5069fca7e8)
-|메모 디테일|메모 작성|
-|-----------|-----------|
-|![004](https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/89fa1523-6eba-41dc-a427-80d69cbbc793)|![007](https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/cffff1b3-83cb-497d-8709-3cebd828b607)|
-
-# 주요 기능
-
 # 아키텍쳐
 
 ## Tree
