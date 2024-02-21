@@ -24,3 +24,5 @@ let COLLECTION_MEMO_REPORT = Firestore.firestore().collection("Memo-Report")
 
 // 값 세팅
 let COLLECTION_SETTING_VALUE = Firestore.firestore().collection("Setting-Values")
+// Tag
+let COLLECTION_TAG = Firestore.firestore().collection("TagCount")

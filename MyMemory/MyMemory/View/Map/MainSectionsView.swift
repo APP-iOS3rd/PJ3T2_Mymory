@@ -99,7 +99,7 @@ struct MainSectionsView: View {
                                             ) { actions in
                                                 switch actions {
                                                 case .follow:
-                                                    viewModel.fetchMemoProfiles()
+                                                    viewModel.refreshMemoProfiles()
                                                 case .like:
                                                     viewModel.refreshMemos()
                                                     print("liked!")
@@ -171,7 +171,7 @@ struct MainSectionsView: View {
             }
             .onAppear{
                 AuthService.shared.fetchUser()
-                viewModel.fetchMemoProfiles()
+                viewModel.refreshMemoProfiles()
             }
             //            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
             //                Button("로그인 하기", role: .destructive) {

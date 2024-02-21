@@ -50,7 +50,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
         self.memoCreator = memoCreator
 
         // memoList memoCreator메모 가져오기
-        self.memoList = []
+//        self.memoList = []
         fetchUserState()
 
         // 백그라운드에서 데이터 가져오기
