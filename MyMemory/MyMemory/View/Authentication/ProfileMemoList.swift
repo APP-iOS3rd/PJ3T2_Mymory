@@ -148,7 +148,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
             }
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
         if isLoadingFetchMemos {
             HStack {

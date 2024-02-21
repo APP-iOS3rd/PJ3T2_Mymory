@@ -243,7 +243,7 @@ struct MainMapView: View {
             
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
         
     }

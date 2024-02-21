@@ -201,7 +201,7 @@ struct PostView: View {
 //            }
 //        }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
         .onReceive(viewModel.dismissPublisher) { toggle in
             if toggle {
