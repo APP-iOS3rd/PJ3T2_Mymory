@@ -285,7 +285,8 @@ struct ImageGridView: View {
                 KFImage(URL(string: imgs[0]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: width/2.0)
+                    .frame(width: width * 1/2, height: width * 1/2)
+                    .clipped()
                     .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
@@ -294,8 +295,9 @@ struct ImageGridView: View {
                 KFImage(URL(string: imgs[1]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: width/2.0)
+                    .frame(width: width * 1/2, height: width * 1/2)
                     .contentShape(Rectangle())
+                    .clipped()
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 1
@@ -307,6 +309,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
+                    .clipped()
                     .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
@@ -316,7 +319,8 @@ struct ImageGridView: View {
                     KFImage(URL(string: imgs[1]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
+                        .frame(width: width * 1/3, height: width * 1/3)
+                        .clipped()
                         .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
@@ -325,7 +329,8 @@ struct ImageGridView: View {
                     KFImage(URL(string: imgs[2]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
+                        .frame(width: width * 1/3, height: width * 1/3)
+                        .clipped()
                         .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()

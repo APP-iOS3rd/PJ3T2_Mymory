@@ -13,6 +13,9 @@ struct DetailViewListCell: View {
     @Binding var isShowingImgSheet: Bool
     @State var memo: Memo
     @State var imgCount = 0
+    @State private var presentLoginAlert: Bool = false
+    
+    @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
     init(selectedNum: Binding<Int>, isShowingImgSheet: Binding<Bool>, memo: Memo) {
         self._selectedNum = selectedNum
@@ -22,19 +25,22 @@ struct DetailViewListCell: View {
     
     var body: some View {
         VStack(alignment: .leading) {
+     
+            MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
+            
             HStack{
                 VStack(alignment: .leading, spacing: 6) {
                     Text(memo.title)
                         .font(.userMainTextFont(baseSize: 20))
                     
-                    Text("등록일 : \(memo.date.createdAtTimeYYMMDD)")
+                    Text("\(memo.date.createdAtTimeYYMMDD)")
                         .font(.regular14)
                         .foregroundStyle(Color.textGray)
                 }
                 Spacer()
             }
             .padding(.horizontal, 25)
-            .padding(.top, 23)
+            .padding(.vertical, 8)
             
             if !memo.tags.isEmpty {
                 ScrollView(.horizontal) {
@@ -43,7 +49,7 @@ struct DetailViewListCell: View {
                             Text("#\(tag)")
                                 .font(.semibold12)
                                 .padding(.horizontal, 13)
-                                .padding(.vertical, 6)
+                                .padding(.vertical, 8)
                                 .foregroundColor(.textColor)
                                 .background(
                                     Capsule()
@@ -57,21 +63,25 @@ struct DetailViewListCell: View {
                 .frame(maxWidth: .infinity)
 //                .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 25)
-                .padding(.top, 15)
             }
             
             if !memo.imagesURL.isEmpty {
-                ImageGridView(width: UIScreen.main.bounds.width - 50,
-                              touchEvent: $isShowingImgSheet,
-                              imgIndex: $imgCount,
-                              imgs: $memo.imagesURL)
-                .frame(maxWidth: UIScreen.main.bounds.width - 50, maxHeight: (UIScreen.main.bounds.width - 50) * 1/2)
-                .contentShape(Rectangle())
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(10)
-                .foregroundColor(.clear)
-                .background(memo.memoTheme.bgColor)
-                .padding(.horizontal, 25)
+                
+                GeometryReader { geo in
+                    ImageGridView(width: geo.size.width - 50,
+                                  touchEvent: $isShowingImgSheet,
+                                  imgIndex: $imgCount,
+                                  imgs: $memo.imagesURL)
+                    .frame(maxWidth:geo.size.width - 50,maxHeight: (geo.size.width - 50) * 1/2)
+                    .contentShape(Rectangle())
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .foregroundColor(.clear)
+                    .background(memo.memoTheme.bgColor)
+                    .padding(.horizontal, 25)
+                }
+                .frame(height: (UIScreen.main.bounds.width * 1/3))
+                
             }
             
             Text(memo.description)
@@ -82,9 +92,16 @@ struct DetailViewListCell: View {
                 .padding(.bottom, 20)
 
             Spacer()
+            
+            DetailBottomAddressView(memo: memo)
+                .padding(.horizontal, 10)
+             //   .environmentObject(viewModel)
         }
+        .border(Color.white, width: 1)
+        .padding()
         .foregroundStyle(memo.memoTheme.textColor)
         .background(memo.memoTheme.bgColor)
+        .shadow(radius: 1)
     }
     
     func didTapImage(img: Int) {
