@@ -23,7 +23,7 @@ class PostViewModel: ObservableObject {
     @Published var loading: Bool = false
     @Published var uploaded: Bool = false
     @Published var memoTheme: ThemeType = .system
-    
+    @Published var scrollTag: Int = 0
     let dismissPublisher = PassthroughSubject<Bool, Never>()
     var userCoordinate: CLLocationCoordinate2D? = nil
     
