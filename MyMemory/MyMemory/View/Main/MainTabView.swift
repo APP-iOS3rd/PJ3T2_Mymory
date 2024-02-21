@@ -14,7 +14,7 @@ struct MainTabView: View {
     @State private var selectedIndex = 0
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             TabView(selection: $selectedIndex){
                 Group {
                     MainMapView()

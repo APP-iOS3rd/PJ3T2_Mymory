@@ -19,6 +19,7 @@ final class AuthService: ObservableObject {
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
+ 
     
     let storage = Storage.storage()
     
@@ -78,6 +79,7 @@ final class AuthService: ObservableObject {
             // print(user)
         }
     }
+    
     func fetchUser(completion: @escaping (User?) -> Void) {
         guard let uid = userSession?.uid else {
             completion(nil)
@@ -220,6 +222,10 @@ final class AuthService: ObservableObject {
             return 0
         }
     }
+    
+    
+
+    
     // 팔로우, 팔로잉을 카운트 하는 함수
     // - Parameters:
     //   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.

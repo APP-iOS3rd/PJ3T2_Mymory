@@ -1,4 +1,3 @@
-
 import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
@@ -16,125 +15,119 @@ struct OtherUserProfileView: View {
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthService = .shared
-    @EnvironmentObject var otherUserViewModel: OtherUserViewModel
+    @StateObject var otherUserViewModel: OtherUserViewModel = .init()
     
     @State var selectedIndex = 0
     @State var memoCreator: User
     @Environment(\.dismiss) var dismiss
-    // 생성자를 통해 @State를 만들수 있도록 fromDetail true면 상대방 프로필 가져오기
-//    init(memoCreator: User) {
-//        self.memoCreator = memoCreator
-//    }
     
     var body: some View {
         ScrollViewReader { proxy in
-            
             ZStack(alignment: .top) {
-                Color.bgColor.edgesIgnoringSafeArea(.top)
+                Color.bgColor
+                    .ignoresSafeArea()
                 
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        // 로그인 되었다면 로직 실행
-                        if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                            let isCurrentUser = authViewModel.userSession?.uid == userId
-                            
-                            // 상대방 프로필을 표시할 때는 제네릭을 사용하여 OtherUserViewModel을 전달 MyPage를 표시할 때는 MypageViewModel 전달
-                            if  otherUserViewModel.memoCreator.isCurrentUser == false  {
-                                OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
-                                createHeader()
-                                ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                            }
-                            else {
-                                MypageTopView()
-                                
-                                createHeader()
-                                
-                                ProfileMemoList<OtherUserViewModel>().environmentObject(otherUserViewModel)
-                            }
+                VStack {
+                    ScrollView(.vertical, showsIndicators: false) {
+                        OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
+                            .padding(.horizontal, 14)
+                            .padding(.top, 30)
+                            .id(0)
+                        
+                        if otherUserViewModel.memoList.isEmpty {
+                            Spacer()
+                            OtherUserEmptyView(userName: otherUserViewModel.memoCreator.name)
+                                .padding(.top, 30)
+                            Spacer()
+                        } else {
+                            LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                                Section {
+                                    switch selectedIndex {
+                                    case 0:
+                                        createHeader()
+                                            .padding(.bottom)
+                                        ProfileMemoList<OtherUserViewModel>()
+                                            .environmentObject(otherUserViewModel)
+                                    default:
+                                        MapImageMarkerView<OtherUserViewModel>()
+                                            .environmentObject(otherUserViewModel)
+                                    }
+                                } header: {
+                                    MenuTabBar(menus: [
+                                        MenuTabModel(index: 0, image: "list.bullet.below.rectangle"),
+                                        MenuTabModel(index: 1, image: "newspaper")
+                                    ], selectedIndex: $selectedIndex,
+                                               fullWidth: UIScreen.main.bounds.width,
+                                               spacing: 50,
+                                               horizontalInset: 91.5)
+                                    .ignoresSafeArea(edges: .top)
+                                    .frame(maxWidth: .infinity)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .refreshable {
+                                    // Refresh logic
+                                }
+                                .padding(.horizontal)
+                            } // Lazy
                         }
-                        else {
-                            showLoginPrompt()
-                        }
-                    }.id(0)
-                    
-                }
-                .refreshable {
-                    // Refresh logic
+                    }
                 }
                 
-                .safeAreaInset(edge: .top) {
-                    Color.clear.frame(height: 0).background(Color.bgColor)
-                }
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
-                }
-                
-                VStack{
-                    Spacer()
-                    
-                    HStack{
+                if !otherUserViewModel.memoList.isEmpty {
+                    VStack {
                         Spacer()
-                        Button{
-                            withAnimation {
-                                proxy.scrollTo(0, anchor: .top)
-                            }
-                        }label: {
-                            Image(.scrollTop)
-                        }.padding([.trailing,.bottom] , 30)
+                        
+                        HStack{
+                            Spacer()
+                            Button{
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+                                }
+                            }label: {
+                                Image(.scrollTop)
+                            }.padding([.trailing,.bottom] , 30)
+                        }
                     }
                 }
-                
             }
-            .onAppear {
-                
-                checkLoginStatus()
-                authViewModel.fetchUser()
-                otherUserViewModel.fetchMemoCreatorProfile( memoCreator: memoCreator)
-            }
-//            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-//                Button("로그인 하기", role: .destructive) {
-//                    self.presentLoginView = true
-//                }
-//                Button("둘러보기", role: .cancel) {
-//                    // Handle '둘러보기' case
-//                }
-//            }
-            .moahAlert(isPresented: $presentLoginAlert) {
-                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
-                                      firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
-                            //
-                            self.dismiss()
-                            
-                        }),
-                                      secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
-                            self.presentLoginView = true
-                        })
-                        )
-                    }
-            .fullScreenCover(isPresented: $presentLoginView) {
-                LoginView().environmentObject(AuthViewModel())
-            }
-            .overlay {
-                if LoadingManager.shared.phase == .loading {
-                    LoadingView()
-                }
-            }
+        }
+        .onAppear {
+            checkLoginStatus()
+            authViewModel.fetchUser()
             
-            .customNavigationBar(
-                centerView: {
-                    Text(otherUserViewModel.memoCreator.name)
-                        .font(.semibold16)
-                        .foregroundStyle(Color.textColor)
-                },
-                leftView: {
-                    BackButton()
-                },
-                rightView: {
-                    EmptyView()
-                },
-                backgroundColor: Color.bgColor
+            Task {
+                await otherUserViewModel.fetchMemoCreatorProfile(memoCreator: memoCreator)
+            }
+        }
+        .moahAlert(isPresented: $presentLoginAlert) {
+            MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                          firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                self.dismiss()
+            }),
+                          secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                self.presentLoginView = true
+            })
             )
         }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView().environmentObject(AuthViewModel())
+        }
+        .overlay {
+            if LoadingManager.shared.phase == .loading {
+                LoadingView()
+                    .foregroundStyle(Color.textColor)
+                    .font(.semibold16)
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text(otherUserViewModel.memoCreator.name)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                EmptyView()
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     private func createHeader() -> some View {
@@ -160,9 +153,7 @@ struct OtherUserProfileView: View {
             }
         }
         .padding(.top, 38)
-        .padding(.horizontal, 14)
     }
-
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {

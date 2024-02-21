@@ -364,6 +364,43 @@ extension MemoService {
         
         return memos.sorted(by: {$0.date > $1.date}).first
     }
+    
+    /// userID로 작성한 메모들을 모두 가져오는 메서드입니다.
+    /// - Parameters:
+    ///   - userID : 작성 메모를 모두 가져올 userID
+    /// - Returns: [Memo] => userID가 작성한 모든 메모
+    func fetchProfileMemos(userID: String) async -> [Memo] {
+        do {
+            // Memos 컬렉션에서 해당 userID와 일치하는 메모를 쿼리합니다.
+            let querySnapshot = try await Firestore.firestore().collection("Memos").whereField("userUid", isEqualTo: userID).getDocuments()
+            
+            if querySnapshot.documents.isEmpty {
+                return []
+            }
+            
+            var memos = [Memo]()
+            
+            // 각 문서를 돌면서 필요한 정보를 추출해 memos 배열에 추가합니다.
+            for document in querySnapshot.documents {
+                let data = document.data()
+                if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
+                    let likeCount = await likeMemoCount(memo: memo)
+                    let memoLike = await checkLikedMemo(memo)
+                    memo.likeCount = likeCount
+                    memo.didLike = memoLike
+                    memos.append(memo)
+                }
+            }
+            
+            return memos
+        } catch {
+            // 오류 처리
+            print("Error fetching profile memos: \(error.localizedDescription)")
+            return []
+        }
+    }
+
+    
     /// 사용자가 작성한 메모만 불러오는 함수입니다.
     /// - Parameters:
     ///     - userID: 사용자의 UID

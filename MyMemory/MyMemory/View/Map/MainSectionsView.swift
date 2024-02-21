@@ -18,7 +18,7 @@ struct MainSectionsView: View {
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
     @State var selectedUser: Profile? = nil
-    @ObservedObject var otherUserViewModel: OtherUserViewModel
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel
     
     let unAuthorized: (Bool) -> ()
     
@@ -166,7 +166,7 @@ struct MainSectionsView: View {
                 let user = profile.toUser
                 if isFirst {
                     OtherUserProfileView(memoCreator: user)
-                        .environmentObject(otherUserViewModel)
+//                        .environmentObject(otherUserViewModel)
                 }
             }
             .onAppear{

@@ -74,7 +74,7 @@ struct OtherUserTopView: View {
                             Image(systemName: "chevron.down")
                         }
                         .foregroundStyle(Color.white)
-                      //  .foregroundColor(.accentColor)
+
                     }
                     .buttonStyle(RoundedRect.follow)
                     .confirmationDialog("", isPresented: $isShowingOption) {
@@ -108,16 +108,9 @@ struct OtherUserTopView: View {
                     print("didFollow \(didFollow)")
                     isFollow = didFollow ?? false
                 }
-                
                 await authViewModel.followAndFollowingCount(user: memoCreator)
                 // 이제 counts를 사용할 수 있습니다.
             }
         }
-        
-        
-        
-        
     }
-    
-    
 }

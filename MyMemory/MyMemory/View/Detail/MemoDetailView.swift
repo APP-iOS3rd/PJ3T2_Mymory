@@ -42,6 +42,13 @@ struct MemoDetailView: View {
                             } else {
                                 ScrollView {
                                     DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
+                                     .background(LinearGradient(gradient: 
+                                                                Gradient(colors: [Color.cardColor.opacity(0),
+                                                                                       Color.cardColor.opacity(0.7),
+                                                                                       Color.cardColor.opacity(1)]),
+                                                                startPoint: .top,
+                                                                endPoint: .bottom)
+                                                )
                                     DetailViewListCell(
                                         selectedNum: $selectedNum,
                                         isShowingImgSheet: $isShowingImgSheet,
@@ -65,7 +72,7 @@ struct MemoDetailView: View {
                                 }
                             }
                         }
-
+ 
                         
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
@@ -75,10 +82,14 @@ struct MemoDetailView: View {
                             viewModel.fetchMemoCreator(uid: memo.userUid)
                         }
                     }
+                    .fullScreenCover(isPresented: $isShowingImgSheet) {
+                        ImgDetailView(selectedImage: $selectedNum, images: memo.imagesURL)
+                    }
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
             .background(Color.bgColor3)
+
         } //:SCROLL
         .onAppear {
             Task {
@@ -96,6 +107,7 @@ struct MemoDetailView: View {
                 }
             }
         }
+        .background(Color.bgColor)
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView().environmentObject(AuthViewModel())
         }
@@ -124,6 +136,10 @@ struct MemoDetailView: View {
             },
             backgroundColor: .bgColor3
         )
+
+            }
+        }
+       
     }
    
     func checkMyMemo() async {
