@@ -25,7 +25,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
     @Published var memoCreator: User = User(email: "", name: "")
-
+    @Published var isEmptyView = false
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -55,6 +55,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
 
         // 백그라운드에서 데이터 가져오기
         self.memoList = await self.memoService.fetchProfileMemos(userID: memoCreator.id ?? "")
+        self.isEmptyView = self.memoList.isEmpty
         DispatchQueue.main.async {
             Task {[weak self] in
                 guard let self = self else { return }
@@ -62,7 +63,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
                     print("ID 없음")
                     return
                 }
-                await self.pagenate(userID: userId)
+//                await self.pagenate(userID: userId)
             }
         }
 
@@ -96,11 +97,11 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
         //        if self.user?.id != userID {
-        let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
-            self.lastDocument = last
-        }
-        await MainActor.run {
-            self.memoList += fetchedMemos
-        }
+//        let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
+//            self.lastDocument = last
+//        }
+//        await MainActor.run {
+//            self.memoList += fetchedMemos
+//        }
     }
 }

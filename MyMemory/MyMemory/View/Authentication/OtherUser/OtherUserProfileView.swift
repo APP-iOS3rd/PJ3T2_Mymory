@@ -36,8 +36,13 @@ struct OtherUserProfileView: View {
                         
                         if otherUserViewModel.memoList.isEmpty {
                             Spacer()
-                            OtherUserEmptyView(userName: otherUserViewModel.memoCreator.name)
-                                .padding(.top, 30)
+                            // Fetch 한 결과도 empty일때 emptyview 보여줘야함
+                            if otherUserViewModel.isEmptyView {
+                                OtherUserEmptyView(userName: otherUserViewModel.memoCreator.name)
+                                    .padding(.top, 30)
+                            } else {
+                                ProgressView()
+                            }
                             Spacer()
                         } else {
                             LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
@@ -71,6 +76,11 @@ struct OtherUserProfileView: View {
                                     // Refresh logic
                                 }
                             } // Lazy
+                        }
+                    }
+                    .refreshable {
+                        Task {
+                            await otherUserViewModel.fetchMemoCreatorProfile(memoCreator: memoCreator)
                         }
                     }
                 }
@@ -134,9 +144,15 @@ struct OtherUserProfileView: View {
     
     private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
-            Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
-                .font(.semibold20)
-                .foregroundStyle(Color.textColor)
+            VStack(alignment: .leading) {
+                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
+                    .font(.semibold20)
+                    .foregroundStyle(Color.textColor)
+                Text("\(otherUserViewModel.memoCreator.name)님이 선택한 메모만 보여줘요!")
+                    .font(.regular14)
+                    .foregroundStyle(Color.textDeepColor)
+            }
+
             Spacer()
             
             Button {

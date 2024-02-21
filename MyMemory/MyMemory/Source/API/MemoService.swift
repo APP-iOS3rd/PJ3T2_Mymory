@@ -379,9 +379,15 @@ extension MemoService {
             }
             
             var memos = [Memo]()
-            
+            let documents = querySnapshot.documents.filter({doc in
+                //사용자가 지정한 메모들인지?
+                let isPinned = doc["isPinned"] as? Bool ?? false
+                //내 메모인지?
+                let isMyMemo = userID == AuthService.shared.currentUser?.id
+                return isPinned || isMyMemo
+            })
             // 각 문서를 돌면서 필요한 정보를 추출해 memos 배열에 추가합니다.
-            for document in querySnapshot.documents {
+            for document in documents{
                 let data = document.data()
                 if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
                     let likeCount = await likeMemoCount(memo: memo)
@@ -463,12 +469,15 @@ extension MemoService {
             completion(querySnapshot.documents.last)
             
             var memos = [Memo]()
-            
+            let documents = querySnapshot.documents.filter({doc in
+                //사용자가 지정한 메모들인지?
+                let isPinned = doc["isPinned"] as? Bool ?? false
+                //내 메모인지?
+                let isMyMemo = userID == AuthService.shared.currentUser?.id
+                return isPinned || isMyMemo
+            })
             // 모든 메모를 돌면서 현제 로그인 한 사용자의 uid와 작성자 uid가 같은 것만을 추출해 담아 반환
-            for document in querySnapshot.documents.filter({ doc in
-                let pinned = doc["isPinned"] as? Bool
-                return pinned == true
-            }) {
+            for document in documents {
                 let data = document.data()
                 if var memo = try await fetchMemoFromDocument(documentID: document.documentID, data: data) {
                     let likeCount = await likeMemoCount(memo: memo)

@@ -92,6 +92,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var myCurrentAddress: String? = nil
     @Published var isLoading = false
     @Published var selectedAddress: String? = nil
+    @Published var unAuthorized: Bool = false
     override init() {
         super.init()
         switch CLLocationManager.authorizationStatus() {
@@ -137,7 +138,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 // 👍 좋아요 누른 메모 체크
                 for (index, memo) in memoList.enumerated() {
                     MemoService.shared.checkLikedMemo(memo) { didLike in
-                        print("didLike \(didLike)")
                         self.memoList[index].didLike = didLike
                     }
                 }
@@ -167,7 +167,6 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
                 // 👍 좋아요 누른 메모 체크
                 for (index, memo) in memoList.enumerated() {
                     MemoService.shared.checkLikedMemo(memo) { didLike in
-                        print("didLike \(didLike)")
                         self.memoList[index].didLike = didLike
                     }
                 }

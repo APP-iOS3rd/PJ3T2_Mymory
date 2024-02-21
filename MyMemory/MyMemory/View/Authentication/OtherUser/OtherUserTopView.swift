@@ -48,52 +48,53 @@ struct OtherUserTopView: View {
                 
                 
                 Spacer()
-                if authViewModel.isFollow == false {
-                    Button {
-                        Task {
-                            await authViewModel.userFollow(followUser: memoCreator) { err in
-                                guard err == nil else {
-                                    return
-                                }
-                            }
-                            await authViewModel.followAndFollowingCount(user: memoCreator)
-                        }
-                    } label: {
-                        HStack {
-                            Text("팔로우")
-                        }
-                    }
-                    .buttonStyle(RoundedRect.follow)
-                    
-                } else {
-                    Button {
-                        isShowingOption.toggle()
-                    } label: {
-                        HStack {
-                            Text("팔로잉")
-                            Image(systemName: "chevron.down")
-                        }
-                        .foregroundStyle(Color.white)
-
-                    }
-                    .buttonStyle(RoundedRect.follow)
-                    .confirmationDialog("", isPresented: $isShowingOption) {
-                        ForEach(SortedFollow.allCases, id: \.id) { type in
-                            Button(type.rawValue) {
-                                if type.rawValue == "팔로우 취소" {
-                                    Task {
-                                        await authViewModel.userUnFollow(followUser: memoCreator) { err in
-                                            guard err == nil else {
-                                                return
-                                            }
-                                        }
-                                        await authViewModel.followAndFollowingCount(user: memoCreator)
+                if !memoCreator.isCurrentUser {
+                    if authViewModel.isFollow == false {
+                        Button {
+                            Task {
+                                await authViewModel.userFollow(followUser: memoCreator) { err in
+                                    guard err == nil else {
+                                        return
                                     }
                                 }
+                                await authViewModel.followAndFollowingCount(user: memoCreator)
+                            }
+                        } label: {
+                            HStack {
+                                Text("팔로우")
+                            }
+                        }
+                        .buttonStyle(RoundedRect.follow)
+                        
+                    } else {
+                        Button {
+                            isShowingOption.toggle()
+                        } label: {
+                            HStack {
+                                Text("팔로잉")
+                                Image(systemName: "chevron.down")
+                            }
+                            .foregroundColor(.white)
+                        }
+                        .buttonStyle(RoundedRect.follow)
+                        .confirmationDialog("", isPresented: $isShowingOption) {
+                            ForEach(SortedFollow.allCases, id: \.id) { type in
+                                Button(type.rawValue) {
+                                    if type.rawValue == "팔로우 취소" {
+                                        Task {
+                                            await authViewModel.userUnFollow(followUser: memoCreator) { err in
+                                                guard err == nil else {
+                                                    return
+                                                }
+                                            }
+                                            await authViewModel.followAndFollowingCount(user: memoCreator)
+                                        }
+                                    }
+                                }
+                                
                             }
                             
                         }
-                        
                     }
                 }
             }

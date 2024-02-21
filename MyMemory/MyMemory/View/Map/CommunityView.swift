@@ -29,16 +29,16 @@ struct CommunityView: View {
                             MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek, isFromCo: true) { res in
                                 unAuthorized(res)
                             }
-                                .padding(.leading, 18)
+                            .padding(.leading, 18)
                         }
                     })
                     .scrollTargetLayout()
                     
                 }
+
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                 .padding(.top, 25)
-
                 
                 HStack {
                     Text("이번 주\n가장 핫한 지역")

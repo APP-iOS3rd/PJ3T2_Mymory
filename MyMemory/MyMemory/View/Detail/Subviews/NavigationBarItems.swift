@@ -49,7 +49,6 @@ struct NavigationBarItems: View {
            
             VStack {
                 Button {
-                    print("memo.didLike\(memo.didLike)")
                     if AuthService.shared.currentUser == nil {
                         unAuthorized = true
                     } else {
