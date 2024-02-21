@@ -38,6 +38,7 @@ struct UserStatusCell: View {
                 .frame(maxWidth: .infinity)
             }
             .environmentObject(followerFollowingViewModel)
+            .buttonStyle(.plain)
             
             
             Divider()
@@ -53,6 +54,7 @@ struct UserStatusCell: View {
                 .padding(.leading, 10)
             }
             .environmentObject(followerFollowingViewModel)
+            .buttonStyle(.plain)
             
             
             

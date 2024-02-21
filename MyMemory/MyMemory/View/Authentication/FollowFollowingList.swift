@@ -24,7 +24,7 @@ struct FollowFollowingList: View {
                 ForEach(followerFollowingViewModel.followerUserList, id: \.id) { user in
                     NavigationLink {
                         OtherUserProfileView(memoCreator: user)
-                            .padding(.horizontal)
+//                            .padding(.horizontal)
                             .environmentObject(otherUserViewModel)
                     } label: {
                         UserListRow(user: user)
@@ -35,7 +35,7 @@ struct FollowFollowingList: View {
                 ForEach(followerFollowingViewModel.followingUserList, id: \.id) { user in
                     NavigationLink {
                         OtherUserProfileView(memoCreator: user)
-                            .padding(.horizontal)
+//                            .padding(.horizontal)
                             .environmentObject(otherUserViewModel)
                     } label: {
                         UserListRow(user: user)
@@ -77,7 +77,7 @@ struct UserListRow: View {
             
             Text(user.name)
                 .font(.body)
-                .foregroundColor(.black)
+                .foregroundColor(Color.textColor)
                 .padding(.vertical)
         }
     }

@@ -46,11 +46,14 @@ struct OtherUserProfileView: View {
                                     case 0:
                                         createHeader()
                                             .padding(.bottom)
+                                            .padding(.horizontal)
                                         ProfileMemoList<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
+                                            .padding(.horizontal)
                                     default:
                                         MapImageMarkerView<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
+                                            .padding(.horizontal)
                                     }
                                 } header: {
                                     MenuTabBar(menus: [
@@ -67,7 +70,6 @@ struct OtherUserProfileView: View {
                                 .refreshable {
                                     // Refresh logic
                                 }
-                                .padding(.horizontal)
                             } // Lazy
                         }
                     }
