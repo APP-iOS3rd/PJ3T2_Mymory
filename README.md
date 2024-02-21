@@ -61,7 +61,7 @@
 [![Alamofire](https://img.shields.io/badge/Alamofire-5.8.1-red)](https://github.com/Alamofire/Alamofire)
 [![FLAnimatedImage](https://img.shields.io/badge/FLAnimatedImage-1.0.17-orange)](https://github.com/Flipboard/FLAnimatedImage)
 
-# 화면 구성/API
+# 화면 구성
 
 # 주요 기능
 
