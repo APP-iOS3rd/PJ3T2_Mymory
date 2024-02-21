@@ -121,9 +121,9 @@ struct MemoCard: View {
                 .contentShape(Rectangle())
                 .aspectRatio(contentMode: .fit)
                 .cornerRadius(10)
-                .background(Color.originColor)
+                //.background(Color.originColor)
                 .foregroundColor(.clear)
-                .background(Color.deepGray)
+                //.background(Color.deepGray)
                 .padding(.top, 13)
                 .padding(.horizontal, 20)
                 
@@ -225,7 +225,7 @@ struct MemoCard: View {
                 .padding(.top, 15)
             HStack {
                 VStack(alignment:.leading) {
-                    Text("\(memo.title)")
+                    Text("\(memo.building ?? "")")
                         .font(.bold16)
                         .foregroundStyle(Color.textColor)
                     Text("\(memo.address)")
@@ -238,10 +238,6 @@ struct MemoCard: View {
                 } label: {
                     VStack{
                         Image(systemName: false ?  "bookmark" : "bookmark.fill")
-                            .padding(.bottom, 5)
-                        Text("저장")
-                            .font(.medium12)
-                            .foregroundStyle(false ? Color.textGray : Color.accentColor)
                     }
                 }
                 
@@ -250,11 +246,11 @@ struct MemoCard: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke()
-                    .foregroundStyle(Color(hex: "#E9E9E9"))
+                    .foregroundStyle(Color.borderColor)
             ).padding(.horizontal, 20)
             
         }.padding(20)
-            .background(Color.originColor)
+            .background(Color.bgColor3)
             .fullScreenCover(isPresented: $showImageViewer) {
                 ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
             }
@@ -289,7 +285,8 @@ struct ImageGridView: View {
                 KFImage(URL(string: imgs[0]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: width/2.0)
+                    .frame(width: width * 1/2, height: width * 1/2)
+                    .clipped()
                     .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
@@ -298,8 +295,9 @@ struct ImageGridView: View {
                 KFImage(URL(string: imgs[1]))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: width/2.0)
+                    .frame(width: width * 1/2, height: width * 1/2)
                     .contentShape(Rectangle())
+                    .clipped()
                     .onTapGesture {
                         touchEvent.toggle()
                         imgIndex = 1
@@ -311,6 +309,7 @@ struct ImageGridView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: width * 2/3.0)
+                    .clipped()
                     .contentShape(Rectangle())
                     .onTapGesture {
                         touchEvent.toggle()
@@ -320,7 +319,8 @@ struct ImageGridView: View {
                     KFImage(URL(string: imgs[1]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
+                        .frame(width: width * 1/3, height: width * 1/3)
+                        .clipped()
                         .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()
@@ -329,7 +329,8 @@ struct ImageGridView: View {
                     KFImage(URL(string: imgs[2]))
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: width * 1/3.0)
+                        .frame(width: width * 1/3, height: width * 1/3)
+                        .clipped()
                         .contentShape(Rectangle())
                         .onTapGesture {
                             touchEvent.toggle()

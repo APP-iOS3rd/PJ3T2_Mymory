@@ -35,6 +35,7 @@ struct MyPageView: View {
                                         case 0:
                                             createHeader()
                                                 .padding(.bottom)
+                                                .padding(.horizontal)
                                             if mypageViewModel.memoList.isEmpty {
                                                 MyPageEmptyView(selectedIndex: $selected)
                                             } else {
@@ -63,7 +64,7 @@ struct MyPageView: View {
                                 }
                             }
                         } //: ScrollView
-                        .padding(.horizontal)
+                      //  .padding(.horizontal)
                         .padding(.top)
                     }
                     

@@ -23,13 +23,38 @@ struct DetailBottomAddressView: View {
                         .font(.regular12)
                         .foregroundStyle(Color.textGray)
                 } else {
-                    Text(memo.address)
+                    
+                    Text(lastStr)
                         .font(.bold16)
+                    
+                    Text(memo.address)
+                        .font(.regular12)
+                        .foregroundStyle(Color.textGray)
                 }
             }
             
             Spacer()
         }
+        .padding()
+        .border(Color.lightGray, width: 1) // 테마에 따라 border컬러 변경예정
+        .frame(maxWidth: .infinity)
         .padding(.vertical, 13)
     }
+    
+    
+    var lastStr: String{
+        
+        // 공백으로 문자열 분할
+        let components = self.memo.address.components(separatedBy: " ")
+        // 마지막 요소 접근
+        if let lastComponent = components.last {
+            return lastComponent
+        } else {
+            return ""
+        }
+        
+       
+    }
+    
+     
 }

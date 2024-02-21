@@ -61,15 +61,18 @@ struct MoveUserProfileButton: View {
                 }
                 .background(viewModel.isFollowingUser ? Color(uiColor: UIColor.systemGray3) : Color.accentColor)
                 .cornerRadius(5, corners: .allCorners)
+
                 .onAppear {
                     if let otherUserId = self.viewModel.memoCreator?.id {
                         Task {
                             self.viewModel.isFollowingUser = await AuthService.shared.followCheck(with: otherUserId)
+ 
                         }
                     }
                 }
             }
         }
+        .padding()
     }
 }
 

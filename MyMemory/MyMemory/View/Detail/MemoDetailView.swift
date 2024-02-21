@@ -41,11 +41,25 @@ struct MemoDetailView: View {
                                 }
                             } else {
                                 ScrollView {
-                                    DetailViewListCell(selectedNum: $selectedNum,
-                                                       isShowingImgSheet: $isShowingImgSheet,
-                                                       memo: memo)
+                                    DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
+                                     .background(LinearGradient(gradient: 
+                                                                Gradient(colors: [Color.cardColor.opacity(0),
+                                                                                       Color.cardColor.opacity(0.7),
+                                                                                       Color.cardColor.opacity(1)]),
+                                                                startPoint: .top,
+                                                                endPoint: .bottom)
+                                                )
+                                    DetailViewListCell(
+                                        selectedNum: $selectedNum,
+                                        isShowingImgSheet: $isShowingImgSheet,
+                                        memo: memo 
+                                    )
+                                    
+                                    .padding()
+                                    Spacer()
+                                  
                                 }
-                                .padding(.top, 30)
+                               // .padding(.top, 30)
                                 .refreshable {
                                     Task { @MainActor in
                                         let memo = self.memos[selectedMemoIndex!]
@@ -58,29 +72,8 @@ struct MemoDetailView: View {
                                 }
                             }
                         }
-                        
-                        
-                        VStack(spacing:0) {
-                            Spacer()
-                            DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
-                                .background(LinearGradient(gradient: Gradient(colors: [Color.cardColor.opacity(0),
-                                                                                       Color.cardColor.opacity(0.7),
-                                                                                       Color.cardColor.opacity(1)]),
-                                                           startPoint: .top,
-                                                           endPoint: .bottom))
-                            Divider()
-                            VStack {
 
-                                MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
-                                
-                                DetailBottomAddressView(memo: memo)
-                                    .environmentObject(viewModel)
-                            }
-                            .padding(.horizontal, 25)
-                            .padding(.top, 15)
-                            .background(Color.bgColor)
-                            
-                        }
+
                         
                     }//: 내부 ZSTACK
                     .frame(width: UIScreen.main.bounds.size.width)
@@ -96,7 +89,8 @@ struct MemoDetailView: View {
                 }
             }//LazyHSTACK
             .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
-            .background(Color.bgColor)
+            .background(Color.bgColor3)
+
         } //:SCROLL
         .onAppear {
             Task {
@@ -131,15 +125,18 @@ struct MemoDetailView: View {
         .scrollTargetBehavior(.viewAligned)
         .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         .scrollPosition(id: $selectedMemoIndex)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
+        .customNavigationBar(
+            centerView: {
                 Text("")
-            }
-            ToolbarItem(placement: .topBarTrailing) {
+            },
+            leftView: {
+                BackButton()
+            },
+            rightView: {
                 NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
-            }
-        }
-        .navigationBarTitleDisplayMode(.inline)
+            },
+            backgroundColor: .bgColor3
+        )
     }
    
     func checkMyMemo() async {

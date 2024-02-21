@@ -109,7 +109,7 @@ struct SocialRegisterView: View {
                                         Image(systemName: "chevron.forward")
                                             .foregroundStyle(Color.gray)
                                             .font(.system(size: 15))
-                                            .padding(.trailing, 20)
+                                           // .padding(.trailing, 20)
                                     }
                                     .sheet(isPresented: $viewModel.showPrivacyPolicy) {
                                         RegisterViewModel.SafariView(url:URL(string: viewModel.privacyPolicyUrlString)!)
@@ -134,7 +134,7 @@ struct SocialRegisterView: View {
                                         Image(systemName: "chevron.forward")
                                             .foregroundStyle(Color.gray)
                                             .font(.system(size: 15))
-                                            .padding(.trailing, 20)
+                                          //  .padding(.trailing, 20)
                                     }
                                     .sheet(isPresented: $viewModel.showTermsOfUse) {
                                         RegisterViewModel.SafariView(url:URL(string: viewModel.termsOfUseUrlString)!)
@@ -143,18 +143,15 @@ struct SocialRegisterView: View {
                                 }
                                 .font(.system(size: 13))
                             }
-                            .padding(5)
-                            .background(Rectangle().stroke())
-//                            .overlay(
-//                                Rectangle()
-//                                    .stroke(Color.gray)
-//                                    .frame(width: 360, height: 150)
-//                                    .position(x: 180, y: 63)
-//                            )
-//                            //                                )
-//                            //                        }
-//                            .padding()
+                            .padding(12)
+                            .background(
+                                Rectangle()
+                                    .stroke(Color.borderColor)
+                            )
+                            .padding()
                         }
+                        
+                        
                         Spacer(minLength: 32)
                         
                         SignInWithAppleButton(
@@ -181,14 +178,14 @@ struct SocialRegisterView: View {
                             }
                         )
                         .buttonStyle(RoundedRect.loginApple)
-                      
+                        .padding(.horizontal)
                         .frame(height: 50)
-                                            .alert("로그인 완료.", isPresented: $isNewUser) {
-                                                Button("확인", role: .cancel) {
-                                                    self.isActive = true
-                                                    presentationMode.wrappedValue.dismiss()
-                                                }
-                                            }
+                        .alert("로그인 완료.", isPresented: $isNewUser) {
+                            Button("확인", role: .cancel) {
+                                self.isActive = true
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        }
                     }
                     //                .fullScreenCover(isPresented: $isItActive) {
                     //                    MainTabView()

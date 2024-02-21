@@ -17,13 +17,13 @@ struct OnboardingView : View {
         TabView(selection: $currentIndex.animation()) { // 1
             ForEach(Array(zip(viewModel.onboardingList.indices, viewModel.onboardingList)), id: \.0) { index, item in
                 ZStack {
-                    Color.white
+                    Color.bgColor
                         .ignoresSafeArea()
                         
                     VStack(spacing: 30) {
                         Text(item.content)
                             .font(.bold20)
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.textColor)
                             .multilineTextAlignment(.center)
                         
                             Image(item.image)

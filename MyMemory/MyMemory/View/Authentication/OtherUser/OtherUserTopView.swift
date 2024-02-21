@@ -73,7 +73,8 @@ struct OtherUserTopView: View {
                             Text("팔로잉")
                             Image(systemName: "chevron.down")
                         }
-                        .foregroundColor(.white)
+                        .foregroundStyle(Color.white)
+
                     }
                     .buttonStyle(RoundedRect.follow)
                     .confirmationDialog("", isPresented: $isShowingOption) {
@@ -96,6 +97,7 @@ struct OtherUserTopView: View {
                     }
                 }
             }
+            .padding(.horizontal)
             if let uid = memoCreator.id {
                 UserStatusCell(uid: uid)
             }
