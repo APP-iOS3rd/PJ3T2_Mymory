@@ -19,6 +19,7 @@
 		014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56D2B468A3B0016DF70 /* BackButton.swift */; };
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
+		015BD4A32B85812900AB5D47 /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -76,7 +77,6 @@
 		641A8B3F2B57CBD500A942A1 /* MemoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641A8B3E2B57CBD500A942A1 /* MemoService.swift */; };
 		6452621A2B6A2776004FE5C7 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645262192B6A2776004FE5C7 /* DetailViewModel.swift */; };
 		6452621C2B6A27F9004FE5C7 /* MoveUserProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */; };
-		6463211E2B7EEE72009CBEB8 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6463211D2B7EEE72009CBEB8 /* APIKEYS.xcconfig */; };
 		6472E6AF2B5E301E000FA0D6 /* PostViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */; };
 		6484A2F32B7B100A000EEE99 /* MyPageEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA2AD0A02B733DDC0052F69C /* MyPageEmptyView.swift */; };
 		649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649128EF2B550C0A0034F567 /* SelectPhotos.swift */; };
@@ -105,7 +105,6 @@
 		6AAE2AA32B7F36DD00FDB7BD /* DetailBottomAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA22B7F36DD00FDB7BD /* DetailBottomAddressView.swift */; };
 		6AAE2AA52B7F387700FDB7BD /* DetailViewMemoMoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA42B7F387700FDB7BD /* DetailViewMemoMoveButton.swift */; };
 		6AAE2AA72B7F3AE500FDB7BD /* DetailViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE2AA62B7F3AE500FDB7BD /* DetailViewListCell.swift */; };
-		6AE132EA2B7EF62E0050585B /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F9AFF2B7D928C00E64C7D /* TermsView.swift */; };
 		6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0242B565EED008ABE05 /* ProfileMemoListCell.swift */; };
 		6AF0E0272B565F46008ABE05 /* ProfileMemoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0262B565F46008ABE05 /* ProfileMemoList.swift */; };
 		6AF0E0292B565FF1008ABE05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF0E0282B565FF1008ABE05 /* String+Extension.swift */; };
@@ -206,6 +205,7 @@
 		014CB56D2B468A3B0016DF70 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -251,7 +251,6 @@
 		645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Extensions.swift"; sourceTree = "<group>"; };
 		645262192B6A2776004FE5C7 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		6452621B2B6A27F9004FE5C7 /* MoveUserProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileButton.swift; sourceTree = "<group>"; };
-		6463211D2B7EEE72009CBEB8 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = SOURCE_ROOT; };
 		6472E6AE2B5E301E000FA0D6 /* PostViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewFooter.swift; sourceTree = "<group>"; };
 		649128EF2B550C0A0034F567 /* SelectPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotos.swift; sourceTree = "<group>"; };
 		649128F12B550C200034F567 /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
@@ -444,6 +443,7 @@
 			children = (
 				01700A922B550B820096E1CA /* Button+Extension.swift */,
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
+				015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */,
 				6AF0E0282B565FF1008ABE05 /* String+Extension.swift */,
 				DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */,
 				01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */,
@@ -1146,6 +1146,7 @@
 				6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */,
 				DAB8BF142B7AF7AC00A27A58 /* CommunityViewModel.swift in Sources */,
 				64DA7C672B720C1D00A403B7 /* OtherUserViewModel.swift in Sources */,
+				015BD4A32B85812900AB5D47 /* UIApplication+Extesions.swift in Sources */,
 				DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */,
 				01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */,
 				01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */,

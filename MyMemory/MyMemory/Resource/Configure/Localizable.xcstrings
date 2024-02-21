@@ -284,7 +284,11 @@
     "다음" : {
 
     },
+    "다음 글" : {
+
+    },
     "다음 글..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -330,6 +334,7 @@
       }
     },
     "등록 수정일 : %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -816,7 +821,11 @@
         }
       }
     },
+    "이전 글" : {
+
+    },
     "이전 글..." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
