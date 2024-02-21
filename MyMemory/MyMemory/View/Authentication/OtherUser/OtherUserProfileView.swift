@@ -110,7 +110,7 @@ struct OtherUserProfileView: View {
             )
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
         .overlay {
             if LoadingManager.shared.phase == .loading {

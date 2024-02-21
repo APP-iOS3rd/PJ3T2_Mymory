@@ -100,7 +100,7 @@ struct MyPageView: View {
         } else {
             showLoginPrompt()
                 .fullScreenCover(isPresented: $presentLoginView) {
-                    LoginView().environmentObject(AuthViewModel())
+                    LoginView()
                 }
         }
     }

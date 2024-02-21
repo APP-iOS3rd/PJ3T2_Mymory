@@ -222,15 +222,37 @@ final class AuthService: ObservableObject {
             return 0
         }
     }
-    
-    
-
-    
-    // 팔로우, 팔로잉을 카운트 하는 함수
-    // - Parameters:
-    //   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.
-    // - Returns: 반환 값은 따로 없으며 카운트된 숫자를 @Published로
-    //            View에 연결하여 각각의 사용자의 following, follower 숫자를 바로바로 표시할 수 있습니다.
+    func followerCheck(uid: String) async -> Int {
+        var count = 0
+        do {
+            let document = try await COLLECTION_USER_Followers.document(uid).getDocument()
+            
+            if document.exists {
+                count = document.data()?.count ?? 0
+            }
+            return count
+        } catch {
+            return 0
+        }
+    }
+    func followingCheck(uid: String) async -> Int {
+        var count = 0
+        do {
+            let document = try await COLLECTION_USER_Following.document(uid).getDocument()
+            
+            if document.exists {
+                count = document.data()?.count ?? 0
+            }
+            return count
+        } catch {
+            return 0
+        }
+    }
+    /// 팔로우, 팔로잉을 카운트 하는 함수
+    /// - Parameters:
+    ///   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.
+    /// - Returns: 반환 값은 따로 없으며 카운트된 숫자를 @Published로
+    ///            View에 연결하여 각각의 사용자의 following, follower 숫자를 바로바로 표시할 수 있습니다.
     func followAndFollowingCount(user: User) async -> Void {
         guard let userID = user.id else { return }
         // 메인 스레드에서 UI 업데이트

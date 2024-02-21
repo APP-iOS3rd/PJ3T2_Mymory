@@ -77,6 +77,7 @@ struct MemoDetailView: View {
                                     .environmentObject(viewModel)
                             }
                             .padding(.horizontal, 25)
+                            .padding(.top, 15)
                             .background(Color.bgColor)
                             
                         }
@@ -115,7 +116,7 @@ struct MemoDetailView: View {
         }
         .background(Color.bgColor)
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
         .moahAlert(isPresented: $presentLoginAlert) {
             MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
