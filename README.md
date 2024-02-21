@@ -62,6 +62,7 @@
 [![FLAnimatedImage](https://img.shields.io/badge/FLAnimatedImage-1.0.17-orange)](https://github.com/Flipboard/FLAnimatedImage)
 
 # 화면 구성
+![01](https://github.com/APP-iOS3rd/PJ3T2_Mymory/assets/144765545/2cc5db5a-fb3d-48f4-9e54-1e0219a911e1)
 
 # 주요 기능
 
