@@ -8,23 +8,13 @@
 import SwiftUI
 
 struct MainView: View {
+    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     
-//    @ObservedObject var viewRouter: ViewRouter
-//    @EnvironmentObject var viewModel: AuthViewModel
-
     var body: some View {
         MainTabView()
-//
-//        if viewRouter.currentPage == "onboardingView" {
-//            OnboardingView(viewRouter: viewRouter)
-//        }
-//        else if viewRouter.currentPage == "mainView" {
-////            MainTabView(viewRouter: viewRouter)
-//        }
-        
+            .fullScreenCover(isPresented: $isFirstLaunching) {
+                OnboardingView(isFirstLaunching: $isFirstLaunching)
+            }
     }
 }
-
-//#Preview {
-//    MainView(viewRouter: ViewRouter(), memo: <#Memo#>)
-//}
+ 

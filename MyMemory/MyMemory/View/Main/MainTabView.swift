@@ -12,7 +12,6 @@ import Combine
 struct MainTabView: View {
     
     @State private var selectedIndex = 0
-    @AppStorage("_isFirstLaunching") var isFirstLaunching: Bool = true
     
     var body: some View {
         NavigationView {
@@ -52,9 +51,7 @@ struct MainTabView: View {
         .onAppear {
             AuthService.shared.fetchUser()
         }
-        .fullScreenCover(isPresented: $isFirstLaunching) {
-            OnboardingView(isFirstLaunching: $isFirstLaunching)
-        }
+    
     }
 }
 
