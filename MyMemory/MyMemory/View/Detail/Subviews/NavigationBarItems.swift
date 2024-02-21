@@ -37,7 +37,7 @@ struct NavigationBarItems: View {
                     isPostViewActive = true
                 }) {
                     Image(systemName: "pencil")
-                        .font(.semibold16)
+                        .font(.semibold22)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .fullScreenCover(isPresented: $isPostViewActive) {
@@ -64,10 +64,11 @@ struct NavigationBarItems: View {
                 } label: {
                     if memo.didLike {
                         Image(systemName: "suit.heart.fill")
-                            .font(.semibold16)
+                            .font(.semibold22)
+                            .foregroundColor(.red)
                     } else {
                         Image(systemName: "suit.heart")
-                            .font(.semibold16)
+                            .font(.semibold22)
                     }
                 }
                 .buttonStyle(.plain)
@@ -82,10 +83,10 @@ struct NavigationBarItems: View {
                 } label: {
                     if isBookmark {
                         Image(systemName: "bookmark.fill")
-                            .font(.semibold16)
+                            .font(.semibold22)
                     } else {
                         Image(systemName: "bookmark")
-                            .font(.semibold16)
+                            .font(.semibold22)
                     }
                 }
                 .buttonStyle(.plain)
@@ -99,7 +100,7 @@ struct NavigationBarItems: View {
                     isShowingSheet.toggle()
                 } label: {
                     Image(systemName: "ellipsis")
-                        .font(.semibold16)
+                        .font(.semibold22)
                     
                 }
                 .buttonStyle(.plain)
