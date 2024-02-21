@@ -11,7 +11,7 @@ import Kingfisher
 struct MoveUserProfileButton: View {
 
     @ObservedObject var viewModel: DetailViewModel
-    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     @ObservedObject var authService: AuthService = .init()
     @Binding var presentLoginAlert: Bool
     
@@ -19,8 +19,7 @@ struct MoveUserProfileButton: View {
         HStack {
             NavigationLink {
                 OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                    .environmentObject(otherUserViewModel)
-                
+//                    .environmentObject(otherUserViewModel)
             } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)

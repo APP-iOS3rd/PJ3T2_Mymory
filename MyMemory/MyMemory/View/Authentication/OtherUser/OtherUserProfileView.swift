@@ -15,7 +15,7 @@ struct OtherUserProfileView: View {
     @State private var presentLoginView = false
     
     @ObservedObject var authViewModel: AuthService = .shared
-    @EnvironmentObject var otherUserViewModel: OtherUserViewModel
+    @StateObject var otherUserViewModel: OtherUserViewModel = .init()
     
     @State var selectedIndex = 0
     @State var memoCreator: User

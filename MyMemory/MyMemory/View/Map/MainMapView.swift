@@ -27,7 +27,7 @@ struct MainMapView: View {
     @Environment(\.scenePhase) var phase
     
     @ObservedObject var noti = PushNotification.shared
-    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
@@ -198,7 +198,9 @@ struct MainMapView: View {
                 }
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance, otherUserViewModel: otherUserViewModel) { logout in
+                MainSectionsView(sortDistance: $sortDistance
+//                                 ,otherUserViewModel: otherUserViewModel
+                ) { logout in
                     if logout {
                         self.presentLoginView = true
                     }
