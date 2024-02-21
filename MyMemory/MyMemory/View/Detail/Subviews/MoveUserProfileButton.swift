@@ -72,6 +72,7 @@ struct MoveUserProfileButton: View {
                 }
             }
         }
+        .padding()
     }
 }
 

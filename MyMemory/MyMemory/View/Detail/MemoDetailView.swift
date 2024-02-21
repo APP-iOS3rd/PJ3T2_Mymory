@@ -136,10 +136,6 @@ struct MemoDetailView: View {
             },
             backgroundColor: .bgColor3
         )
-
-            }
-        }
-       
     }
    
     func checkMyMemo() async {
