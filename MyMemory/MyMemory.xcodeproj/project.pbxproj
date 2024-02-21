@@ -20,6 +20,8 @@
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
 		015BD4A32B85812900AB5D47 /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */; };
+		015BD4A72B85C35C00AB5D47 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BD4A62B85C35C00AB5D47 /* PlaceView.swift */; };
+		015BD4AB2B85C3DD00AB5D47 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BD4AA2B85C3DD00AB5D47 /* PlaceViewModel.swift */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -213,6 +215,8 @@
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
+		015BD4A62B85C35C00AB5D47 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
+		015BD4AA2B85C3DD00AB5D47 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -409,6 +413,7 @@
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				015BD4A92B85C39000AB5D47 /* Place */,
 				013383492B565EE2004D4B8A /* Onboarding */,
 				01E6A6372B4681210061F08C /* Authentication */,
 				01700AB22B5584EF0096E1CA /* Search */,
@@ -450,6 +455,15 @@
 				014CB5752B46A2B50016DF70 /* Report.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		015BD4A92B85C39000AB5D47 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				015BD4A62B85C35C00AB5D47 /* PlaceView.swift */,
+				015BD4AA2B85C3DD00AB5D47 /* PlaceViewModel.swift */,
+			);
+			path = Place;
 			sourceTree = "<group>";
 		};
 		01700A912B550B5C0096E1CA /* Extension */ = {
@@ -1180,6 +1194,7 @@
 				01CCB0CC2B71F7ED00D6112E /* AuthService.swift in Sources */,
 				01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
+				015BD4A72B85C35C00AB5D47 /* PlaceView.swift in Sources */,
 				64DA7C722B720CC300A403B7 /* OtherUserTopView.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */,
@@ -1256,6 +1271,7 @@
 				01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */,
 				6A6F9A182B8340090049D06B /* OtherUserEmptyView.swift in Sources */,
 				280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */,
+				015BD4AB2B85C3DD00AB5D47 /* PlaceViewModel.swift in Sources */,
 				0117B8422B7D9897002C848D /* MemoThemeView.swift in Sources */,
 				28AD063B2B5FB42800F567F4 /* DetailView.swift in Sources */,
 				0133834D2B565F30004D4B8A /* OnboardingViewModel.swift in Sources */,
