@@ -20,6 +20,7 @@ struct MoveUserProfileButton: View {
             NavigationLink {
                 OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
                     .environmentObject(otherUserViewModel)
+                
             } label: {
                 if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
