@@ -111,7 +111,7 @@ struct GoogleSocialRegisterView: View {
                                         Image(systemName: "chevron.forward")
                                             .foregroundStyle(Color.gray)
                                             .font(.system(size: 15))
-                                            .padding(.trailing, 20)
+                                            //.padding(.trailing, 20)
                                     }
                                     .sheet(isPresented: $viewModel.showPrivacyPolicy) {
                                         RegisterViewModel.SafariView(url:URL(string: viewModel.privacyPolicyUrlString)!)
@@ -136,7 +136,7 @@ struct GoogleSocialRegisterView: View {
                                         Image(systemName: "chevron.forward")
                                             .foregroundStyle(Color.gray)
                                             .font(.system(size: 15))
-                                            .padding(.trailing, 20)
+                                          //  .padding(.trailing, 20)
                                     }
                                     .sheet(isPresented: $viewModel.showTermsOfUse) {
                                         RegisterViewModel.SafariView(url:URL(string: viewModel.termsOfUseUrlString)!)
@@ -145,17 +145,13 @@ struct GoogleSocialRegisterView: View {
                                 }
                                 .font(.system(size: 13))
                             }
-                            .padding(5)
-                            .background(Rectangle().stroke())
-//                            .overlay(
-//                                Rectangle()
-//                                    .stroke(Color.gray)
-//                                    .frame(width: 360, height: 150)
-//                                    .position(x: 180, y: 63)
-//                            )
-//                            //                                )
-//                            //                        }
-//                            .padding()
+                            .padding(12)
+                            
+                            .background(
+                                Rectangle()
+                                    .stroke(Color.borderColor)
+                            )
+                            .padding()
                         }
                         Spacer(minLength: 32)
                         Button(action: {
@@ -220,7 +216,7 @@ struct GoogleSocialRegisterView: View {
     }
 }
 
-
+//
 //#Preview {
 //    GoogleSocialRegisterView()
 //}

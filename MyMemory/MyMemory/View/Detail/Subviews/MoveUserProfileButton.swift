@@ -63,6 +63,7 @@ struct MoveUserProfileButton: View {
                 .cornerRadius(5, corners: .allCorners)
             }
         }
+        .padding()
         .onAppear {
             if let otherUser = viewModel.memoCreator {
                 Task {
