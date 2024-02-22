@@ -55,11 +55,11 @@ struct OtherUserProfileView: View {
                                             .padding(.horizontal)
                                         ProfileMemoList<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
-                                            .padding(.horizontal)
+                                           
                                     default:
                                         MapImageMarkerView<OtherUserViewModel>()
                                             .environmentObject(otherUserViewModel)
-                                            .padding(.horizontal)
+                                         
                                     }
                                 } header: {
                                     MenuTabBar(menus: [

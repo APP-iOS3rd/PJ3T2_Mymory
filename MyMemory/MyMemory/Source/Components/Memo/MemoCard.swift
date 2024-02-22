@@ -257,7 +257,8 @@ struct MemoCard: View {
             
         }
         .padding(24)
-        .background(Color.cardColor)
+        .background(Color.bgColor3)
+        .border(width: 1, edges: [.bottom], color: .borderColor)
         .fullScreenCover(isPresented: $showImageViewer) {
             ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
         }

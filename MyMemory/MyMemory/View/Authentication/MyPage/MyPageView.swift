@@ -72,7 +72,6 @@ struct MyPageView: View {
                                 }
                             }
                         } //: ScrollView
-                      //  .padding(.horizontal)
                         .padding(.top)
                     }
                     
