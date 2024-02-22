@@ -417,7 +417,6 @@
 		013127232B461B0D00483E9F /* View */ = {
 			isa = PBXGroup;
 			children = (
-				015BD4A92B85C39000AB5D47 /* Place */,
 				013383492B565EE2004D4B8A /* Onboarding */,
 				01E6A6372B4681210061F08C /* Authentication */,
 				01700AB22B5584EF0096E1CA /* Search */,
@@ -459,15 +458,6 @@
 				014CB5752B46A2B50016DF70 /* Report.swift */,
 			);
 			path = Authentication;
-			sourceTree = "<group>";
-		};
-		015BD4A92B85C39000AB5D47 /* Place */ = {
-			isa = PBXGroup;
-			children = (
-				015BD4A62B85C35C00AB5D47 /* PlaceView.swift */,
-				015BD4AA2B85C3DD00AB5D47 /* PlaceViewModel.swift */,
-			);
-			path = Place;
 			sourceTree = "<group>";
 		};
 		01700A912B550B5C0096E1CA /* Extension */ = {
@@ -579,6 +569,7 @@
 				DA78940A2B44090400DC3771 /* MainMapView.swift */,
 				6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */,
 				6A9BB1D12B6B7DED00AD04F7 /* CommunityView.swift */,
+				015BD4A62B85C35C00AB5D47 /* PlaceView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -949,6 +940,7 @@
 			isa = PBXGroup;
 			children = (
 				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
+				015BD4AA2B85C3DD00AB5D47 /* PlaceViewModel.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
 				DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */,
 			);
