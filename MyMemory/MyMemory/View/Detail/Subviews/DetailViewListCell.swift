@@ -56,7 +56,7 @@ struct DetailViewListCell: View {
                                 .foregroundColor(.textColor)
                                 .background(
                                     Capsule()
-                                        .foregroundColor(.peach)
+                                        .foregroundColor(.accentColor)
                                 )
                             
                         }

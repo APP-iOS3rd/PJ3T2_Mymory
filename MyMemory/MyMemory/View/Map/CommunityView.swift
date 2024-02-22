@@ -80,10 +80,10 @@ struct CommunityView: View {
                             .padding()
                             .background(Color.cardColor)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.borderColor)
-                            )
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .stroke(Color.borderColor)
+//                            )
                         }
 
                     }
