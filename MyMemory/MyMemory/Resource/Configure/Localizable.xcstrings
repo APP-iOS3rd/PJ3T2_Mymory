@@ -67,6 +67,19 @@
     "%@님이 작성한 메모가 없어요!" : {
 
     },
+    "%@에 쌓인 메모" : {
+
+    },
+    "%lf%lf" : {
+      "localizations" : {
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lf%2$lf"
+          }
+        }
+      }
+    },
     "%lld" : {
 
     },
@@ -319,7 +332,6 @@
 
     },
     "다음 글" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -384,9 +396,6 @@
           }
         }
       }
-    },
-    "등록일 : %@" : {
-
     },
     "등록하기" : {
       "localizations" : {
