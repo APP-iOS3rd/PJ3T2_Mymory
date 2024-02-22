@@ -84,7 +84,7 @@ final class PlaceViewModel: NSObject, ObservableObject, CLLocationManagerDelegat
         self.isLoading = true
         Task { @MainActor in
             self.memoWriterList = await AuthService.shared.memoCreatorfetchProfiles(memos: memoList)
-            print("이지역 작성자\(memoWriterList)")
+           // print("이지역 작성자\(memoWriterList)")
             self.isLoading = false
         }
     }
