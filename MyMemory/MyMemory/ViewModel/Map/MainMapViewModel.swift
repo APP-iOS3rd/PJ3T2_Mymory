@@ -31,6 +31,7 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
     @Published var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @Published var location: CLLocation? {
         didSet {
+
             //처음 한번 로케이션 불러오기
             if location != nil {
                 fetchOperation?.start()

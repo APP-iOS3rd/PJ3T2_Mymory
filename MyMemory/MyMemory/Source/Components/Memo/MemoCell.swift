@@ -21,38 +21,45 @@ struct MemoCell: View {
     @State var isMyMemo: Bool = false
     @State var isFromCo: Bool = false
     var unAuthorized: (Bool) -> ()
-
+    
     var body: some View {
         HStack(spacing: 16) {
             
             VStack{
-                if isVisible || isMyMemo || isFromCo {
-                    Button {
-                        if AuthService.shared.currentUser == nil {
-                            unAuthorized(true)
-                        } else {
-                            self.memo.didLike.toggle()
-                            Task {
-                                
-                                await MemoService.shared.likeMemo(memo: memo)
-                                await fetchlikeCount()
+                if let loc = location, selectedMemoIndex < memos.count {
+                    if (memos[selectedMemoIndex].location.distance(from: loc) <= MemoService.shared.readableArea) || isMyMemo || isFromCo {
+                        Button {
+                            if AuthService.shared.currentUser == nil {
+                                unAuthorized(true)
+                            } else {
+                                self.memo.didLike.toggle()
+                                Task {
+                                    
+                                    await MemoService.shared.likeMemo(memo: memo)
+                                    await fetchlikeCount()
+                                }
                             }
+                        } label: {
+                            Image(systemName: "heart.fill")
+                                .foregroundColor(memo.didLike ? .red : .gray)
+                                .frame(width: 46, height: 46)
+                                .background(Color.bgColor)
+                                .clipShape(Circle())
+                                .onAppear{
+                                    self.isVisible = true
+                                }
                         }
-                    } label: {
-                        Image(systemName: "heart.fill")
-                            .foregroundColor(memo.didLike ? .red : .gray)
+                    } else {
+                        Image(systemName: "lock")
+                            .foregroundColor(.gray)
                             .frame(width: 46, height: 46)
                             .background(Color.bgColor)
                             .clipShape(Circle())
+                            .onAppear{
+                                self.isVisible = false
+                            }
                     }
-                } else {
-                    Image(systemName: "lock")
-                    .foregroundColor(.gray)
-                    .frame(width: 46, height: 46)
-                    .background(Color.bgColor)
-                    .clipShape(Circle())
                 }
-                
                 Spacer()
             }
             
@@ -80,20 +87,22 @@ struct MemoCell: View {
                         .font(.black20)
                         .foregroundStyle(Color.textColor)
                 } else {
-                    Text(isVisible || isMyMemo ? memo.title : "거리가 멀어서 볼 수 없어요.")
-                        .lineLimit(1)
-                        .font(.black20)
-                        .foregroundStyle(Color.textColor)
+                    if let loc = location, selectedMemoIndex < memos.count {
+                        
+                        Text((memos[selectedMemoIndex].location.distance(from: loc) <= MemoService.shared.readableArea)  || isMyMemo ? memo.title : "거리가 멀어서 볼 수 없어요.")
+                            .lineLimit(1)
+                            .font(.black20)
+                            .foregroundStyle(Color.textColor)
+                    }
+                    //                Button {
+                    //                    // 메모 정보 확인
+                    //                    // 추후 디테일뷰 연결해서 메모 전달 해주면 될거같음
+                    //                } label: {
+                    //                    Text("\(memo.building ?? "해당 장소 메모보기")")
+                    //                }
+                    //                .buttonStyle(Pill.deepGray)
+                    //.buttonStyle(isDark ? Pill.deepGray : Pill.lightGray)
                 }
-//                Button {
-//                    // 메모 정보 확인
-//                    // 추후 디테일뷰 연결해서 메모 전달 해주면 될거같음
-//                } label: {
-//                    Text("\(memo.building ?? "해당 장소 메모보기")")
-//                }
-//                .buttonStyle(Pill.deepGray)
-                //.buttonStyle(isDark ? Pill.deepGray : Pill.lightGray)
-                
                 Spacer()
                     .padding(.bottom, 12)
                 
@@ -123,7 +132,7 @@ struct MemoCell: View {
                     
                     NavigationLink { // 버튼이랑 비슷함
                         if isFromCo {
-                            MemoDetailView(memos: $memos, selectedMemoIndex: selectedMemoIndex, isFromCo: isFromCo)
+                            MemoDetailView(memos: $memos,selectedMemoIndex: selectedMemoIndex, isFromCo: isFromCo)
                         } else {
                             DetailView(memo: $memo, isVisble: $isVisible, memos: $memos, selectedMemoIndex: selectedMemoIndex, isMyMemo: isMyMemo)
                         }
@@ -157,7 +166,7 @@ struct MemoCell: View {
                     isVisible = false
                 }
             }
-    
+            
             Task {
                 await fetchlikeCount()
                 isMyMemo = await MemoService().checkMyMemo(checkMemo: memo) // 메모 다 지우면 오류남
@@ -167,20 +176,21 @@ struct MemoCell: View {
         .onChange(of: location) { oldValue, newValue in
             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { t in
                 
-                
-                if let distance = newValue?.coordinate.distance(from: memo.location) {
-                    if distance <= MemoService.shared.readableArea {
-                        self.isVisible = true
-                    } else {
-                        self.isVisible = false
-                    }
-                }
+//                if let loc = newValue{
+//                    print("새값 : \(loc.coordinate)")
+//                    let dist = memos[selectedMemoIndex].location.distance(from: loc)
+//                    if dist <= MemoService.shared.readableArea {
+//                        self.isVisible = true
+//                    } else {
+//                        self.isVisible = false
+//                    }
+//                }
             }
         }
     }
     
     func fetchlikeCount() async{
-            likeCount = await MemoService.shared.likeMemoCount(memo: memo)
+        likeCount = await MemoService.shared.likeMemoCount(memo: memo)
     }
 }
 

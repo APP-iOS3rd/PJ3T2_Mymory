@@ -10,6 +10,7 @@ import _MapKit_SwiftUI
 
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
+    
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
@@ -137,9 +138,7 @@ struct MainMapView: View {
                             ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, $mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, $mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
                                 VStack{
                                     //                                Text("\(String(item.didLike))")
-                                    MemoCell(
-                                        isVisible: true,
-                                        
+                                    MemoCell(                                        
                                         location: $mainMapViewModel.location,
                                         selectedMemoIndex: index,
                                         memo: item,

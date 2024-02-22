@@ -10,7 +10,7 @@ import CoreLocation
 import Combine
 import UserNotifications
 // 💁 사용자 위치추적 및 권한허용 싱글톤 구현 위치 임시지정
-class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
+final class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
     static let shared = LocationsHandler()
     private let locationManager = CLLocationManager()
     @Published var location: CLLocation? = nil
@@ -77,8 +77,9 @@ class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
         }
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
+        if let location = locations.last {
             self.location = location
+
             completion?(location.coordinate)
         }
         // 서버에 쿼리 날리기 30초에 한번?

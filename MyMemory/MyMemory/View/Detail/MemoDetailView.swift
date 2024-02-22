@@ -24,7 +24,6 @@ struct MemoDetailView: View {
             
             DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
             
-            
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 10) {
                     ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
