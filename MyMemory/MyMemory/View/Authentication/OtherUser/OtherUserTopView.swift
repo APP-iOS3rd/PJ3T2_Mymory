@@ -19,16 +19,15 @@ enum SortedFollow: String, CaseIterable, Identifiable {
 }
 
 struct OtherUserTopView: View {
-    @Binding var memoCreator: User
-    @ObservedObject var viewModel: OtherUserViewModel
-    @ObservedObject var authViewModel : AuthService = .shared
+    @Binding var memoCreator: Profile?
+    @StateObject var authViewModel : AuthService = .shared
     @State var isFollow: Bool = false
     @State var isShowingOption:Bool = false
     
     var body: some View {
         VStack {
             HStack {
-                if let imageUrl = memoCreator.profilePicture, let url = URL(string: imageUrl) {
+                if let imageUrl = memoCreator?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()
                         .scaledToFill()
@@ -41,23 +40,26 @@ struct OtherUserTopView: View {
                         .foregroundStyle(Color(hex: "d9d9d9"))
                 }
                 
-                Text(memoCreator.name ?? "김메모")
+                Text(memoCreator?.name ?? "김메모")
                     .font(.semibold20)
                     .foregroundStyle(Color.textColor)
                     .padding(.leading, 10)
                 
                 
                 Spacer()
-                if !memoCreator.isCurrentUser {
-                    if authViewModel.isFollow == false {
+                if !(memoCreator?.isCurrentUser  == true){
+                    if memoCreator?.isFollowing == false {
                         Button {
                             Task {
-                                await authViewModel.userFollow(followUser: memoCreator) { err in
-                                    guard err == nil else {
-                                        return
+                                if let user = memoCreator?.toUser {
+                                    
+                                    await authViewModel.userFollow(followUser: user) { err in
+                                        guard err == nil else {
+                                            return
+                                        }
                                     }
+                                    await authViewModel.followAndFollowingCount(user: user)
                                 }
-                                await authViewModel.followAndFollowingCount(user: memoCreator)
                             }
                         } label: {
                             HStack {
@@ -82,12 +84,14 @@ struct OtherUserTopView: View {
                                 Button(type.rawValue) {
                                     if type.rawValue == "팔로우 취소" {
                                         Task {
-                                            await authViewModel.userUnFollow(followUser: memoCreator) { err in
-                                                guard err == nil else {
-                                                    return
+                                            if let user = memoCreator?.toUser {
+                                                await authViewModel.userUnFollow(followUser: user) { err in
+                                                    guard err == nil else {
+                                                        return
+                                                    }
                                                 }
+                                                await authViewModel.followAndFollowingCount(user: user)
                                             }
-                                            await authViewModel.followAndFollowingCount(user: memoCreator)
                                         }
                                     }
                                 }
@@ -99,18 +103,21 @@ struct OtherUserTopView: View {
                 }
             }
             .padding(.horizontal)
-            if let uid = memoCreator.id {
-                UserStatusCell(uid: uid)
+            if let uid = memoCreator?.id {
+                UserStatusCell(uid: uid, memoCount: memoCreator?.memoCount, followerCount: memoCreator?.followerCount ?? 0 , followingCount: memoCreator?.followingCount ?? 0)
             }
         }
         .onAppear {
             Task {
-                await authViewModel.followCheck(followUser: memoCreator) { didFollow in
-                    print("didFollow \(didFollow)")
-                    isFollow = didFollow ?? false
+                if let user = memoCreator?.toUser {
+                    
+                    await authViewModel.followCheck(followUser: user) { didFollow in
+                        print("didFollow \(didFollow)")
+                        isFollow = didFollow ?? false
+                    }
+                    await authViewModel.followAndFollowingCount(user: user)
+                    // 이제 counts를 사용할 수 있습니다.
                 }
-                await authViewModel.followAndFollowingCount(user: memoCreator)
-                // 이제 counts를 사용할 수 있습니다.
             }
         }
     }

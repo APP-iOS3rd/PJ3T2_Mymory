@@ -29,7 +29,8 @@ struct OtherUserProfileView: View {
                 
                 VStack {
                     ScrollView(.vertical, showsIndicators: false) {
-                        OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator, viewModel: otherUserViewModel)
+                        OtherUserTopView(memoCreator: $otherUserViewModel.memoCreator)
+                        
                             .padding(.horizontal, 14)
                             .padding(.top, 30)
                             .id(0)
@@ -38,7 +39,7 @@ struct OtherUserProfileView: View {
                             Spacer()
                             // Fetch 한 결과도 empty일때 emptyview 보여줘야함
                             if otherUserViewModel.isEmptyView {
-                                OtherUserEmptyView(userName: otherUserViewModel.memoCreator.name)
+                                OtherUserEmptyView(userName: otherUserViewModel.memoCreator?.name ?? "")
                                     .padding(.top, 30)
                             } else {
                                 ProgressView()
@@ -133,7 +134,7 @@ struct OtherUserProfileView: View {
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text(otherUserViewModel.memoCreator.name)
+                Text(otherUserViewModel.memoCreator?.name ?? "")
             }
             ToolbarItem(placement: .topBarTrailing) {
                 EmptyView()
@@ -145,10 +146,10 @@ struct OtherUserProfileView: View {
     private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
             VStack(alignment: .leading) {
-                Text("\(otherUserViewModel.memoCreator.name)님이 작성한 메모")
+                Text("\(otherUserViewModel.memoCreator?.name ?? "")님이 작성한 메모")
                     .font(.semibold20)
                     .foregroundStyle(Color.textColor)
-                Text("\(otherUserViewModel.memoCreator.name)님이 선택한 메모만 보여줘요!")
+                Text("\(otherUserViewModel.memoCreator?.name ?? "")님이 선택한 메모만 보여줘요!")
                     .font(.regular14)
                     .foregroundStyle(Color.textDeepColor)
             }

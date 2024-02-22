@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FilterListView: View {
-    let data = ["데이트","맛집","핫플레이스","스타","이벤트","속닥속닥","게임","유머","패션뷰티","예술작품","그래피티","교육","사진","나만알고싶은곳","사진찍기좋은곳","인생샷"]
     @Binding var filteredList: Set<String>
+    @ObservedObject var tagService = TagService.shared
     var body: some View {
         VStack(spacing: 0){
             
@@ -29,7 +29,7 @@ struct FilterListView: View {
                     Spacer().frame(height: 20)
                     GeometryReader { GeometryProxy in
                         FlexibleView(availableWidth: GeometryProxy.size.width,
-                                     data: data,
+                                     data: tagService.tagList,
                                      spacing: 15,
                                      alignment: .center) { item in
                             Button(action: {

@@ -19,6 +19,7 @@ final class MemoService {
     var readableArea: Double = 100.0
     var notificateArea: Double = 50.0
     init() {
+        
         Task {
             let doc = try await COLLECTION_SETTING_VALUE.document("MapArea").getDocument()
             await updateQueryArea(doc["QueryArea"] as? Double ?? 500.0)
@@ -122,7 +123,7 @@ extension MemoService {
         // "Memos" 컬렉션에서 문서들을 가져옴
         let querySnapshot = try await COLLECTION_MEMOS
                                             .whereField("reportCount", isLessThan: 5)
-                                            .getDocuments()
+                                            .getDocuments(source: .cache)
         
         // 각 문서를 PostMemoModel로 변환하여 배열에 추가
         for document in querySnapshot.documents.filter({doc in
@@ -148,7 +149,7 @@ extension MemoService {
         return memos
     }
     func fetchMemo(id: String) async throws -> Memo? {
-        let querySnapshot = try await COLLECTION_MEMOS.document(id).getDocument()
+        let querySnapshot = try await COLLECTION_MEMOS.document(id).getDocument(source: .cache)
         guard let data = querySnapshot.data() else { return nil }
         
         // 문서의 ID를 가져와서 fetchMemoFromDocument 호출
@@ -167,12 +168,13 @@ extension MemoService {
             let docs = try await COLLECTION_MEMOS
                 .whereField("createdAtTimeInterval", isGreaterThan: week)
 //                .order(by: "memoLikeCount", descending: true)
-                .getDocuments()
+                .getDocuments(source: .cache)
             let filteredDocs = docs.documents.sorted(by: {first, second in
                 let firstCount = first["memoLikeCount"] as? Int ?? 0
                 let secondCount = second["memoLikeCount"] as? Int ?? 0
                 return firstCount > secondCount
             })
+            
             for doc in filteredDocs {
                 if doc.exists {
                     let data = doc.data()
@@ -191,6 +193,7 @@ extension MemoService {
                     }
                 }
             }
+            
             return memos
         }
         catch {
@@ -202,7 +205,7 @@ extension MemoService {
         var memos: [Memo] = []
         let query = try await COLLECTION_MEMOS
             .whereField("buildingName", isEqualTo: buildingName)
-            .getDocuments()
+            .getDocuments(source: .cache)
         for document in query.documents.filter({doc in
             //공개인지?
             let isPublic = doc["isPublic"] as? Bool ?? true
@@ -230,7 +233,7 @@ extension MemoService {
         var buildings: [BuildingInfo] = []
         let query = try await COLLECTION_MEMOS
             .order(by: "buildingName")
-            .getDocuments()
+            .getDocuments(source: .cache)
         for document in query.documents {
             if let name = document["buildingName"] as? String? ?? nil,
             let address = document["userAddress"] as? String{
@@ -264,7 +267,7 @@ extension MemoService {
                 .whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
                 .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
             
-            querySnapshot = try await query.getDocuments()
+            querySnapshot = try await query.getDocuments(source: .cache)
             
             let filteredDocuments = querySnapshot.documents.filter { document in
                 let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
@@ -340,9 +343,9 @@ extension MemoService {
             .whereField("userCoordinateLatitude", isGreaterThanOrEqualTo: southWestCoordinate.latitude)
             .whereField("userCoordinateLatitude", isLessThanOrEqualTo: northEastCoordinate.latitude)
         
-        querySnapshot = try await query.getDocuments()
+        querySnapshot = try await query.getDocuments(source: .cache)
         
-        let filteredDocuments = querySnapshot.documents.filter { document in
+        let filteredDocuments = querySnapshot.documents.filter { [weak self]  document in
             let longitude = document["userCoordinateLongitude"] as? Double ?? 0.0
             let reportCount = document["reportCount"] as? Int ?? 0
             // Firestore 쿼리는 부등식 쿼리가 단일 필드에서만 가능하다고 해서, filter 내부에 조건을 추가했습니다.
@@ -372,7 +375,7 @@ extension MemoService {
     func fetchProfileMemos(userID: String) async -> [Memo] {
         do {
             // Memos 컬렉션에서 해당 userID와 일치하는 메모를 쿼리합니다.
-            let querySnapshot = try await Firestore.firestore().collection("Memos").whereField("userUid", isEqualTo: userID).getDocuments()
+            let querySnapshot = try await Firestore.firestore().collection("Memos").whereField("userUid", isEqualTo: userID).getDocuments(source: .cache)
             
             if querySnapshot.documents.isEmpty {
                 return []
@@ -878,7 +881,7 @@ extension MemoService {
                 query = query.start(afterDocument: lastDocument)
             }
             
-            let querySnapshot = try await query.getDocuments()
+            let querySnapshot = try await query.getDocuments(source: .cache)
             
             return querySnapshot
         } catch {

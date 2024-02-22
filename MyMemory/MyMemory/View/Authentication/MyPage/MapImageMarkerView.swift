@@ -11,7 +11,7 @@ import Kingfisher
 
 struct MapImageMarkerView<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
-    @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
+    @State private var position: MapCameraPosition = .userLocation(followsHeading: false, fallback: .automatic)
     
     var body: some View {
         VStack {
