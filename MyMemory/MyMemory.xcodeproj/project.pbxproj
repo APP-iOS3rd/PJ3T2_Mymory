@@ -179,6 +179,8 @@
 		DADCD0002B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADCD0012B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADF03F12B86DEA900852BBA /* MoveUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */; };
+		DAE630BD2B87456200DC07AB /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE630BC2B87456200DC07AB /* PlaceViewModel.swift */; };
+		DAE630BF2B87459200DC07AB /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE630BE2B87459200DC07AB /* PlaceView.swift */; };
 		DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF026152B5E31130092A3B3 /* LoadingManager.swift */; };
 		DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAFBC45A2B72063700180E18 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
@@ -354,6 +356,8 @@
 		DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeoDunggeunmo-Regular.ttf"; sourceTree = "<group>"; };
 		DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileViewModel.swift; sourceTree = "<group>"; };
+		DAE630BC2B87456200DC07AB /* PlaceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
+		DAE630BE2B87459200DC07AB /* PlaceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
 		DAF026142B5E25620092A3B3 /* MyMemory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMemory.entitlements; sourceTree = "<group>"; };
 		DAF026152B5E31130092A3B3 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		DAFBC45A2B72063700180E18 /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -565,6 +569,7 @@
 				DA78940A2B44090400DC3771 /* MainMapView.swift */,
 				6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */,
 				6A9BB1D12B6B7DED00AD04F7 /* CommunityView.swift */,
+				DAE630BE2B87459200DC07AB /* PlaceView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -937,6 +942,7 @@
 				01700AAD2B553BD40096E1CA /* AddressViewModel.swift */,
 				DA78940C2B44094700DC3771 /* MainMapViewModel.swift */,
 				DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */,
+				DAE630BC2B87456200DC07AB /* PlaceViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1252,8 +1258,10 @@
 				DADF03F12B86DEA900852BBA /* MoveUserProfileViewModel.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
+				DAE630BD2B87456200DC07AB /* PlaceViewModel.swift in Sources */,
 				64DA7C792B720E2800A403B7 /* MapImageMarkerView.swift in Sources */,
 				289BB2B92B5A7BCF007FEB63 /* CertificationViewModel.swift in Sources */,
+				DAE630BF2B87459200DC07AB /* PlaceView.swift in Sources */,
 				01700AA62B5530F60096E1CA /* FilterButton.swift in Sources */,
 				DA78940D2B44094700DC3771 /* MainMapViewModel.swift in Sources */,
 				01A19D6D2B5D176C0031ABCB /* NavigationBar+Modifier.swift in Sources */,
@@ -1452,7 +1460,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1507,7 +1515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1560,7 +1568,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1585,7 +1593,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1609,7 +1617,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1632,7 +1640,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
