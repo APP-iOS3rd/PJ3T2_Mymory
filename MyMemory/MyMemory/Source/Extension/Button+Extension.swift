@@ -80,7 +80,7 @@ struct RoundedRect: ButtonStyle {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
     }
     static var selected: RoundedRect {
-        return RoundedRect(backgroundColor: .lightPeach, titleColor: .peach, setFont: .bold14)
+        return RoundedRect(backgroundColor: .bgColor3, titleColor: .accentColor, setFont: .bold14)
     }
     static var primary: RoundedRect {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)

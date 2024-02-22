@@ -46,6 +46,8 @@ struct BuildingInfo: Equatable, Hashable {
     let buildingName: String
     let address: String
     var count: Int
+    let location: Location
+    
     static func == (lhs: BuildingInfo, rhs: BuildingInfo) -> Bool {
         lhs.buildingName == rhs.buildingName
     }
