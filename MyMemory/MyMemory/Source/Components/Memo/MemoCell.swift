@@ -165,11 +165,15 @@ struct MemoCell: View {
             
         }
         .onChange(of: location) { oldValue, newValue in
-            if let distance = newValue?.coordinate.distance(from: memo.location) {
-                if distance <= MemoService.shared.readableArea {
-                    isVisible = true
-                } else {
-                    isVisible = false
+            let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { t in
+                
+                
+                if let distance = newValue?.coordinate.distance(from: memo.location) {
+                    if distance <= MemoService.shared.readableArea {
+                        self.isVisible = true
+                    } else {
+                        self.isVisible = false
+                    }
                 }
             }
         }

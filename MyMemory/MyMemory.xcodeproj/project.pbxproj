@@ -178,6 +178,7 @@
 		DADCCFFF2B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADCD0002B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADCD0012B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
+		DADF03F12B86DEA900852BBA /* MoveUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */; };
 		DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF026152B5E31130092A3B3 /* LoadingManager.swift */; };
 		DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = DAFBC45A2B72063700180E18 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
@@ -352,6 +353,7 @@
 		DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Yeongdeok Sea.otf"; sourceTree = "<group>"; };
 		DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeoDunggeunmo-Regular.ttf"; sourceTree = "<group>"; };
 		DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
+		DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileViewModel.swift; sourceTree = "<group>"; };
 		DAF026142B5E25620092A3B3 /* MyMemory.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MyMemory.entitlements; sourceTree = "<group>"; };
 		DAF026152B5E31130092A3B3 /* LoadingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingManager.swift; sourceTree = "<group>"; };
 		DAFBC45A2B72063700180E18 /* Localizable.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -953,6 +955,7 @@
 				289BB2B82B5A7BCF007FEB63 /* CertificationViewModel.swift */,
 				645262192B6A2776004FE5C7 /* DetailViewModel.swift */,
 				6A0678BC2B71D0CF00CBD62A /* ReportViewModel.swift */,
+				DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -1246,6 +1249,7 @@
 				6494277C2B5527DA0079481D /* PostViewModel.swift in Sources */,
 				DA78940B2B44090400DC3771 /* MainMapView.swift in Sources */,
 				DA131A482B4AB19700743FD0 /* MemoModel.swift in Sources */,
+				DADF03F12B86DEA900852BBA /* MoveUserProfileViewModel.swift in Sources */,
 				DA131A4E2B4BE0ED00743FD0 /* CornerShape.swift in Sources */,
 				DA12ABC42B58EA4F0093229C /* FileterListView.swift in Sources */,
 				64DA7C792B720E2800A403B7 /* MapImageMarkerView.swift in Sources */,

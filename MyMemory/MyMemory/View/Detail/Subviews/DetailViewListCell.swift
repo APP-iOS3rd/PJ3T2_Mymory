@@ -11,22 +11,25 @@ import Kingfisher
 struct DetailViewListCell: View {
     @Binding var selectedNum: Int
     @Binding var isShowingImgSheet: Bool
-    @State var memo: Memo
+    @Binding var memo: Memo
     @State var imgCount = 0
     @State private var presentLoginAlert: Bool = false
+    @State private var geoMinimumWidth: Int = 0
+
+    @EnvironmentObject var viewModel: DetailViewModel
     
-    @StateObject var viewModel: DetailViewModel = DetailViewModel()
-    
-    init(selectedNum: Binding<Int>, isShowingImgSheet: Binding<Bool>, memo: Memo) {
-        self._selectedNum = selectedNum
-        self._isShowingImgSheet = isShowingImgSheet
-        self._memo = State(initialValue: memo)
-    }
+//    init(selectedNum: Binding<Int>, isShowingImgSheet: Binding<Bool>, memo: Memo) {
+//        self._selectedNum = selectedNum
+//        self._isShowingImgSheet = isShowingImgSheet
+//        self._memo = State(initialValue: memo)
+//    }
     
     var body: some View {
         VStack(alignment: .leading) {
-     
-            MoveUserProfileButton(viewModel: viewModel, presentLoginAlert: $presentLoginAlert)
+            //profile fetch를 여기서 Init해서 좀더 자연스럽게
+            MoveUserProfileButton(viewModel: .init(userId: memo.userUid),
+                                  presentLoginAlert: $presentLoginAlert,
+                                  memo: $memo)
             
             HStack{
                 VStack(alignment: .leading, spacing: 6) {
@@ -66,19 +69,20 @@ struct DetailViewListCell: View {
             }
             
             if !memo.imagesURL.isEmpty {
-                
                 GeometryReader { geo in
-                    ImageGridView(width: geo.size.width - 50,
-                                  touchEvent: $isShowingImgSheet,
-                                  imgIndex: $imgCount,
-                                  imgs: $memo.imagesURL)
-                    .frame(maxWidth:geo.size.width - 50,maxHeight: (geo.size.width - 50) * 1/2)
-                    .contentShape(Rectangle())
-                    .aspectRatio(contentMode: .fit)
-                    .cornerRadius(10)
-                    .foregroundColor(.clear)
-                    .background(memo.memoTheme.bgColor)
-                    .padding(.horizontal, 25)
+                    if geo.size.width != 0 {
+                        ImageGridView(width: abs(geo.size.width - 50),
+                                      touchEvent: $isShowingImgSheet,
+                                      imgIndex: $imgCount,
+                                      imgs: $memo.imagesURL)
+                        .frame(maxWidth:abs(geo.size.width - 50),maxHeight: abs(geo.size.width - 50) * 1/2)
+                        .contentShape(RoundedRectangle(cornerRadius: 10))
+                        .aspectRatio(contentMode: .fit)
+                        .cornerRadius(10)
+                        .foregroundColor(.clear)
+                        .background(memo.memoTheme.bgColor)
+                        .padding(.horizontal, 25)
+                    }
                 }
                 .frame(height: (UIScreen.main.bounds.width * 1/3))
                 

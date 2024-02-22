@@ -42,9 +42,9 @@ class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
     /// - Returns: void, 메모 성공하면 push 를 보냅니다.
     func sendQueryToServer(with location: CLLocation) {
         let content = UNMutableNotificationContent()
-        Task{
+        Task{ 
             do {
-                if let memo = try await MemoService.shared.fetchPushMemo(in: location) {
+                if let memo = try await MemoService.shared.fetchPushMemo(in: location) { 
                     var pushed: [String] = []
                     if UserDefaults.standard.stringArray(forKey: "PushedMemo") != nil {
                         pushed = UserDefaults.standard.stringArray(forKey: "PushedMemo")!
@@ -81,14 +81,11 @@ class LocationsHandler: NSObject, CLLocationManagerDelegate, ObservableObject {
             self.location = location
             completion?(location.coordinate)
         }
-        completion?(nil)
         // 서버에 쿼리 날리기 30초에 한번?
-        #if DEBUG
         let timer = Timer.scheduledTimer(withTimeInterval: 300, repeats: true) { [weak self] t in
             guard let loc = self?.location else { return }
             self?.sendQueryToServer(with: loc)
         }
-        #endif
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         self.heading = newHeading.trueHeading

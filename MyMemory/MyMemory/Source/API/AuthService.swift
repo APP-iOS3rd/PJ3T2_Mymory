@@ -169,7 +169,7 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfile(uid: String) async -> Profile?  {
         do {
-            let document = try await COLLECTION_USERS.document(uid).getDocument()
+            let document = try await COLLECTION_USERS.document(uid).getDocument(source: .cache)
             if document.exists {
                 guard let memoCreator = try? document.data(as: User.self) else {
                     return nil
@@ -178,6 +178,7 @@ final class AuthService: ObservableObject {
                 if let id = profile.id {
                     profile.memoCount = await self.fetchUserMemoCount(with: id)
                     profile.followerCount = await self.fetchUserFollowerCount(with: id)
+                    profile.followingCount = await self.fetchUserFollowingCount(with: id)
                     profile.pinCount = await self.pinnedCount()
                     profile.isFollowing = await self.followCheck(with: id)
                 }
@@ -202,7 +203,20 @@ final class AuthService: ObservableObject {
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
-            let document = try await COLLECTION_USER_Followers.document(id).getDocument()
+            let document = try await COLLECTION_USER_Followers.document(id).getDocument(source: .cache)
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                return fieldCount
+            } else { return 0 }
+        } catch {
+            print("에러 발생: \(error)")
+            return 0
+        }
+    }
+    func fetchUserFollowingCount(with id: String) async -> Int {
+        do {
+            let document = try await COLLECTION_USER_Following.document(id).getDocument(source: .cache)
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
@@ -215,7 +229,7 @@ final class AuthService: ObservableObject {
     }
     func fetchUserMemoCount(with id: String) async -> Int {
         do {
-            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments()
+            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments(source: .cache)
             return documents.documents.count
         } catch {
             print("에러 발생: \(error)")
