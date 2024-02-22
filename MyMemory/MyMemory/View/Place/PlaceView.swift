@@ -80,8 +80,12 @@ struct PlaceView: View {
         .onAppear {
           
             viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
-            viewModel.fetchMemoProfiles()
-            viewModel.fetchMemos()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                viewModel.fetchMemos()
+                viewModel.fetchMemoProfiles()
+            }
+           
+             
             
         }
         .customNavigationBar(
