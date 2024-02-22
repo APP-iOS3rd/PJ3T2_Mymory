@@ -26,41 +26,49 @@ struct MyPageView: View {
                             MypageTopView()
                                 .padding(.horizontal, 14)
                                 .id(0)
-                            LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
-                                Section {
-                                    if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                                        let isCurrentUser = authViewModel.userSession?.uid == userId
-                                        
-                                        switch selectedIndex {
-                                        case 0:
-                                            createHeader()
-                                                .padding(.bottom)
-                                                .padding(.horizontal)
-                                            if mypageViewModel.memoList.isEmpty {
-                                                MyPageEmptyView(selectedIndex: $selected)
-                                            } else {
-                                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
-                                            }
-                                        default:
-                                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
-                                        }
-                                    }
-                                } header: {
-                                    MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                               selectedIndex: $selectedIndex,
-                                               fullWidth: UIScreen.main.bounds.width,
-                                               spacing: 50,
-                                               horizontalInset: 91.5)
-                                    .ignoresSafeArea(edges: .top)
-                                    .frame(maxWidth: .infinity)
+                            if mypageViewModel.memoList.isEmpty {
+                                Spacer()
+                                // Fetch 한 결과도 empty일때 emptyview 보여줘야함
+                                if mypageViewModel.isEmptyView {
+                                    MyPageEmptyView(selectedIndex: $selected)
+
+                                } else {
+                                    ProgressView()
                                 }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .refreshable {
-                                isRefreshing = true
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    mypageViewModel.fetchUserMemo()
-                                    isRefreshing = false
+                                Spacer()
+                            } else {
+                                LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                                    Section {
+                                        if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+                                            let isCurrentUser = authViewModel.userSession?.uid == userId
+                                            
+                                            switch selectedIndex {
+                                            case 0:
+                                                createHeader()
+                                                    .padding(.bottom)
+                                                    .padding(.horizontal)
+                                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                            default:
+                                                MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                                            }
+                                        }
+                                    } header: {
+                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                                   selectedIndex: $selectedIndex,
+                                                   fullWidth: UIScreen.main.bounds.width,
+                                                   spacing: 50,
+                                                   horizontalInset: 91.5)
+                                        .ignoresSafeArea(edges: .top)
+                                        .frame(maxWidth: .infinity)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                                .refreshable {
+                                    isRefreshing = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        mypageViewModel.fetchUserMemo()
+                                        isRefreshing = false
+                                    }
                                 }
                             }
                         } //: ScrollView
@@ -95,6 +103,8 @@ struct MyPageView: View {
             .onAppear {
                 checkLoginStatus()
                 authViewModel.fetchUser()
+                mypageViewModel.fetchUserMemo()
+
                 // Add your other onAppear logic here
             }
             // Add your other onAppear and alert code here

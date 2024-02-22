@@ -128,6 +128,7 @@ struct LoginView: View {
                 
                 NavigationLink {
                     RegisterView()
+                        .environmentObject(viewModel)
                 } label: {
                     Text("내모리가 처음이시라면 - 회원가입")
                         .underline()

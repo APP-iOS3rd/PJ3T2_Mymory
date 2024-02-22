@@ -55,10 +55,15 @@ struct OtherUserTopView: View {
                                     
                                     await authViewModel.userFollow(followUser: user) { err in
                                         guard err == nil else {
+                                            memoCreator?.isFollowing = false
+
                                             return
                                         }
                                     }
                                     await authViewModel.followAndFollowingCount(user: user)
+                                    memoCreator?.isFollowing = true
+                                    memoCreator?.followerCount += 1
+
                                 }
                             }
                         } label: {
@@ -86,10 +91,14 @@ struct OtherUserTopView: View {
                                         Task {
                                             if let user = memoCreator?.toUser {
                                                 await authViewModel.userUnFollow(followUser: user) { err in
+                                                    memoCreator?.isFollowing = true
+
                                                     guard err == nil else {
                                                         return
                                                     }
                                                 }
+                                                memoCreator?.isFollowing = false
+                                                memoCreator?.followerCount -= 1
                                                 await authViewModel.followAndFollowingCount(user: user)
                                             }
                                         }
@@ -104,7 +113,7 @@ struct OtherUserTopView: View {
             }
             .padding(.horizontal)
             if let uid = memoCreator?.id {
-                UserStatusCell(uid: uid, memoCount: memoCreator?.memoCount, followerCount: memoCreator?.followerCount ?? 0 , followingCount: memoCreator?.followingCount ?? 0)
+                UserStatusCell(uid: uid, memoCount: memoCreator?.memoCount,memoCreator: $memoCreator)
             }
         }
         .onAppear {
