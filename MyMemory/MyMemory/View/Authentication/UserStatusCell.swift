@@ -12,8 +12,7 @@ struct UserStatusCell: View {
     @StateObject var followerFollowingViewModel: FollowerFollowingViewModel = FollowerFollowingViewModel()
     @State var uid: String
     @State var memoCount: Int?
-    @State var followerCount: Int = 0
-    @State var followingCount: Int = 0
+    @Binding var memoCreator: Profile?
     @State private var isFollowFollowingListActive = false
     var body: some View {
         HStack {
@@ -30,7 +29,7 @@ struct UserStatusCell: View {
             
             NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid, choiceTab: 0)) {
                 VStack {
-                    Text("\(followerCount)")
+                    Text("\(memoCreator?.followerCount ?? 0)")
                         .font(.bold16)
                     Text("팔로워")
                         .font(.light14)
@@ -45,7 +44,7 @@ struct UserStatusCell: View {
 
             NavigationLink(destination: FollowFollowingList(followerFollowingViewModel: followerFollowingViewModel, uid: $uid, choiceTab: 1)) {
                 VStack {
-                    Text("\(followingCount)")
+                    Text("\(memoCreator?.followingCount ?? 0)")
                         .font(.bold16)
                     Text("팔로잉")
                         .font(.light14)
@@ -63,8 +62,6 @@ struct UserStatusCell: View {
             Task { @MainActor in
                  
                 self.memoCount = await AuthService.shared.fetchUserMemoCount(with: uid)
-                self.followerCount = await authViewModel.followerCheck(uid: uid)
-                self.followingCount = await authViewModel.followingCheck(uid: uid)
                 await followerFollowingViewModel.fetchFollowingUserList(with: uid)
                 await followerFollowingViewModel.fetchFollowerUserList(with: uid)
             }

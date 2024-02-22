@@ -25,7 +25,11 @@ class FollowerFollowingViewModel: ObservableObject {
                 
                 for (documentID, userData) in document.data() ?? [:] {
                     // 문서 ID 값을 이용하여 users 컬렉션에서 해당 사용자의 데이터 가져오기
-                    let userDocument = try await COLLECTION_USERS.document(documentID).getDocument()
+                    let userDocument = try await COLLECTION_USERS.document(documentID)
+                        
+                        
+                        .getDocument()
+                        
                     
                     if let userData = userDocument.data() {
                         // User 객체 생성 및 데이터 매핑

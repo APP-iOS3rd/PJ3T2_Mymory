@@ -46,6 +46,12 @@ struct FollowFollowingList: View {
    
         }
         .navigationTitle(Text(choiceTab == 0 ? "팔로워" : "팔로잉"))
+        .onAppear {
+            Task {@MainActor in
+                await followerFollowingViewModel.fetchFollowingUserList(with: uid)
+                await followerFollowingViewModel.fetchFollowerUserList(with: uid)
+            }
+        }
     }
     
     func move(indices: IndexSet, newOffset: Int) {

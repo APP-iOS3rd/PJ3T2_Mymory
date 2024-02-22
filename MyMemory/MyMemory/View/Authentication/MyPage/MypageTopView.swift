@@ -13,6 +13,7 @@ import Kingfisher
 struct MypageTopView: View {
     @ObservedObject var authViewModel : AuthService = .shared
 //    @EnvironmentObject var viewModel: MypageViewModel
+    @State var profile: Profile? = nil
     var body: some View {
         VStack {
             HStack {
@@ -72,13 +73,14 @@ struct MypageTopView: View {
             }
             .padding(.horizontal)
             if let uid = AuthService.shared.currentUser?.id {
-                UserStatusCell(uid: uid)
+                UserStatusCell(uid: uid, memoCreator: $profile)
             }
         }
         .onAppear {
             Task { // 로그인 안하면 실행 x
                 if let currentUser = authViewModel.currentUser {
                     await authViewModel.followAndFollowingCount(user: currentUser)
+                    self.profile = await authViewModel.memoCreatorfetchProfile(uid: currentUser.id!)
                 }
             }
 //            viewModel.fetchUserProfile()
