@@ -55,30 +55,25 @@ struct CommunityView: View {
                             PlaceView(location: building.location, buildingName: building.buildingName, address: building.address)
                             //    .environmentObject(placeViewModel)
                         } label: {
-                            HStack{
-                                VStack(alignment: .leading) {
+                             
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack {
                                     Text("\(building.buildingName)")
                                         .font(.bold16)
                                         .foregroundStyle(Color.textColor)
-                                        .padding(.bottom,5)
-                                    Text("\(building.address)")
-                                        .font(.regular12)
-                                        .foregroundStyle(Color.textColor)
-                                }
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 15)
-
-                                Spacer()
-                                VStack {
+                                         
+                                    Spacer()
                                     Text("\(building.count)개의 메모")
                                         .font(.regular12)
                                         .foregroundStyle(Color.textColor)
-                                        .padding()
-                                    Spacer()
+                                        
                                 }
-                                .padding(.horizontal, 15)
+                                Text("\(building.address)")
+                                    .font(.regular12)
+                                    .foregroundStyle(Color.textColor)
+                                    .lineLimit(1)
                             }
-
+                            .padding()
                             .background(Color.cardColor)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .overlay(
@@ -88,7 +83,8 @@ struct CommunityView: View {
                         }
 
                     }
-                }).padding(.horizontal, 25)
+                })
+                .padding(.horizontal, 25)
             }
         }
         .onAppear {

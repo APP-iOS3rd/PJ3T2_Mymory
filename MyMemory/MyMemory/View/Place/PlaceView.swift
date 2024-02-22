@@ -23,7 +23,7 @@ struct PlaceView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical){            
+        ScrollView(.vertical, showsIndicators: false){
             Map(initialPosition: .region(MKCoordinateRegion(center: coordinate, span: (MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005))))) {
                 Annotation("", coordinate: .init(latitude: location.latitude, longitude: location.longitude)) {
                     Image(.makerMineSelected)
@@ -33,60 +33,56 @@ struct PlaceView: View {
             .frame(height: UIScreen.main.bounds.size.width * 0.5)
             .padding()
            
-            ScrollView(.vertical, showsIndicators: false){
-                LazyVStack(spacing: 12) {
-                    ForEach(Array(zip($viewModel.memoList.indices, $viewModel.memoList)), id:\.0) { index, item in
+       
+            LazyVStack(spacing: 12) {
+                ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id:\.0) { index, item in
+                    
+                    NavigationLink {
                         
-                        NavigationLink {
-                            
-                            DetailView(memo: item,
-                                       isVisble: .constant(true),
-                                       memos: $viewModel.memoList,
-                                       selectedMemoIndex: index
-                            )
-                            
-                        } label: {
-                            if !viewModel.memoWriterList.isEmpty {
-                                MemoCard(memo: item,
-                                         isVisible: true,
-                                         profile: $viewModel.memoWriterList[index]) { actions in
-                                    switch actions {
-                                    case .follow:
-                                        print("follow!")
-                                        viewModel.fetchMemoProfiles()
-                                    case .like:
-                                        print("liked!")
-                                    case .unAuthorized:
-                                        presentLoginAlert.toggle()
-                                    case .navigate(profile: let profile):
-                                        selectedUser = profile
-                                        print("Navigate to \(profile.name)'s profile")
-                                    default :
-                                        print("selected\(actions)")
-                                    }
+                        DetailView(memo: item,
+                                   isVisble: .constant(true),
+                                   memos:viewModel.filterList.isEmpty ? $viewModel.memoList: $viewModel.filteredMemoList,
+                                   selectedMemoIndex: index
+                        )
+                        
+                    } label: {
+                        if !viewModel.memoWriterList.isEmpty {
+                            MemoCard(memo: item,
+                                     isVisible: true,
+                                     profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] :
+                                        $viewModel.filteredProfileList[index]
+                            ) { actions in
+                                switch actions {
+                                case .follow:
+                                    print("follow!")
+                                    viewModel.fetchMemoProfiles()
+                                case .like:
+                                    print("liked!")
+                                case .unAuthorized:
+                                    presentLoginAlert.toggle()
+                                case .navigate(profile: let profile):
+                                    selectedUser = profile
+                                    print("Navigate to \(profile.name)'s profile")
+                                default :
+                                    print("selected\(actions)")
                                 }
                             }
                         }
                     }
                 }
-                .refreshable {
-                    viewModel.fetchMemos()
-                    viewModel.fetchMemoProfiles()
-                }
-                .frame(maxWidth: .infinity)
             }
-             
-        }
-        .onAppear {
-          
-            viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            .refreshable {
                 viewModel.fetchMemos()
                 viewModel.fetchMemoProfiles()
             }
-           
+            .frame(maxWidth: .infinity)
+          
              
-            
+        }
+        .onAppear {
+            viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
+            viewModel.fetchMemos()
+            viewModel.fetchMemoProfiles()
         }
         .customNavigationBar(
             centerView: {
@@ -99,7 +95,7 @@ struct PlaceView: View {
             rightView: {
                 EmptyView()
             },
-            backgroundColor: .bgColor3
+            backgroundColor: .bgColor
         )
          
     }
