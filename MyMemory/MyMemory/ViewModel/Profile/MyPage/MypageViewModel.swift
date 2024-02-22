@@ -29,7 +29,8 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     @Published var user: User?
     @Published var userProfile: Profile? = nil
     @Published var currentLocation: CLLocation?  = nil
-    
+    @Published var isEmptyView = false
+
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -94,6 +95,9 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         await MainActor.run {
             self.memoList += fetchedMemos
             self.merkerMemoList = fetchedMemos
+            
+            self.isEmptyView = self.memoList.isEmpty
+
         }
     }
     
