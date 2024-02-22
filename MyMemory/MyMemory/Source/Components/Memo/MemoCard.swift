@@ -23,6 +23,7 @@ struct MemoCard: View {
     @State var imgIndex: Int = 0
     @Binding var profile: Profile
     @State var isMyPage: Bool = false
+    @State var isPlacePage: Bool = false
 
     var completion: (actionType) -> ()
     var body: some View {
@@ -223,31 +224,33 @@ struct MemoCard: View {
                     .padding(.leading,5)
             }.padding(.horizontal, 20)
                 .padding(.top, 15)
-            HStack {
-                VStack(alignment:.leading) {
-                    Text("\(memo.building ?? "")")
-                        .font(.bold16)
-                        .foregroundStyle(Color.textColor)
-                    Text("\(memo.address)")
-                        .font(.regular12)
-                        .foregroundStyle(Color.textColor)
-                }
-                Spacer()
-                Button {
-                    
-                } label: {
-                    VStack{
-                        Image(systemName: false ?  "bookmark" : "bookmark.fill")
+            if !isPlacePage {
+                HStack {
+                    VStack(alignment:.leading) {
+                        Text("\(memo.building ?? "")")
+                            .font(.bold16)
+                            .foregroundStyle(Color.textColor)
+                        Text("\(memo.address)")
+                            .font(.regular12)
+                            .foregroundStyle(Color.textColor)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        VStack{
+                            Image(systemName: false ?  "bookmark" : "bookmark.fill")
+                        }
                     }
                 }
                 
+                .padding(13)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke()
+                        .foregroundStyle(Color.borderColor)
+                ).padding(.horizontal, 20)
             }
-            .padding(13)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke()
-                    .foregroundStyle(Color.borderColor)
-            ).padding(.horizontal, 20)
             
         }.padding(20)
             .background(Color.bgColor3)

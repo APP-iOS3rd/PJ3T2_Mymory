@@ -11,6 +11,7 @@ struct CommunityView: View {
     @StateObject var locationManager = LocationsHandler.shared
     @StateObject var viewModel: CommunityViewModel = .init()
     @State var buildingInfo: [BuildingInfo] = []
+    @StateObject var placeViewModel: PlaceViewModel = PlaceViewModel()
     var unAuthorized: (Bool) -> ()
 
     var body: some View {
@@ -50,36 +51,44 @@ struct CommunityView: View {
                     .padding(.bottom, 25)
                 LazyVStack(spacing: 15, content: {
                     ForEach(buildingInfo, id: \.self) { building in
-                        HStack{
-                            VStack(alignment: .leading) {
-                                Text("\(building.buildingName)")
-                                    .font(.bold16)
-                                    .foregroundStyle(Color.textColor)
-                                    .padding(.bottom,5)
-                                Text("\(building.address)")
-                                    .font(.regular12)
-                                    .foregroundStyle(Color.textColor)
-                            }
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 15)
+                        NavigationLink{
+                            PlaceView(location: building.location, buildingName: building.buildingName, address: building.address)
+                            //    .environmentObject(placeViewModel)
+                        } label: {
+                            HStack{
+                                VStack(alignment: .leading) {
+                                    Text("\(building.buildingName)")
+                                        .font(.bold16)
+                                        .foregroundStyle(Color.textColor)
+                                        .padding(.bottom,5)
+                                    Text("\(building.address)")
+                                        .font(.regular12)
+                                        .foregroundStyle(Color.textColor)
+                                    Text("\(building.location.latitude)\(building.location.longitude)")
+                                        .font(.regular12)
+                                        .foregroundStyle(Color.textColor)
+                                }
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 15)
 
-                            Spacer()
-                            VStack {
-                                Text("\(building.count)개의 메모")
-                                    .font(.regular12)
-                                    .foregroundStyle(Color.textColor)
-                                    .padding()
                                 Spacer()
+                                VStack {
+                                    Text("\(building.count)개의 메모")
+                                        .font(.regular12)
+                                        .foregroundStyle(Color.textColor)
+                                        .padding()
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 15)
                             }
-                            .padding(.horizontal, 15)
-                        }
 
-                        .background(Color.cardColor)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.borderColor)
-                        )
+                            .background(Color.cardColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.borderColor)
+                            )
+                        }
 
                     }
                 }).padding(.horizontal, 25)
@@ -96,4 +105,7 @@ struct CommunityView: View {
         }
         
     }
+    
+    
+    
 }
