@@ -46,11 +46,11 @@ struct SelectTagView: View {
                                 Text("#\(tag)")
                                     .font(.bold14)
                                     .padding(5)
-                                    .foregroundColor(.lightPeach)
+                                    .foregroundColor(Color.bgColor3)
                                     .padding(.horizontal, 8)
                                     .background(
                                         Capsule()
-                                            .foregroundColor(Color.peach)
+                                            .foregroundColor(.accentColor)
                                     )
                                     .onTapGesture {
                                         memoSelectedTags.removeAll(where: {$0 == tag})
@@ -61,11 +61,11 @@ struct SelectTagView: View {
                                 TextField("#태그", text: $newTag, onCommit: edited)
                                     .font(.bold14)
                                     .padding(5)
-                                    .foregroundColor(.lightPeach)
+                                    .foregroundColor(Color.bgColor3)
                                     .padding(.horizontal, 8)
                                     .background(
                                         Capsule()
-                                            .foregroundColor(Color.peach)
+                                            .foregroundColor(.accentColor)
                                     )
                             }
                         }

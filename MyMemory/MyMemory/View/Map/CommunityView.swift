@@ -11,6 +11,7 @@ struct CommunityView: View {
     @StateObject var locationManager = LocationsHandler.shared
     @StateObject var viewModel: CommunityViewModel = .init()
     @State var buildingInfo: [BuildingInfo] = []
+    @StateObject var placeViewModel: PlaceViewModel = PlaceViewModel()
     var unAuthorized: (Bool) -> ()
 
     var body: some View {
@@ -54,39 +55,40 @@ struct CommunityView: View {
                     .padding(.bottom, 25)
                 LazyVStack(spacing: 15, content: {
                     ForEach(buildingInfo, id: \.self) { building in
-                        HStack{
-                            VStack(alignment: .leading) {
-                                Text("\(building.buildingName)")
-                                    .font(.bold16)
-                                    .foregroundStyle(Color.textColor)
-                                    .padding(.bottom,5)
+                        NavigationLink{
+                            PlaceView(location: building.location, buildingName: building.buildingName, address: building.address)
+                            //    .environmentObject(placeViewModel)
+                        } label: {
+                             
+                            VStack(alignment: .leading, spacing: 5) {
+                                HStack {
+                                    Text("\(building.buildingName)")
+                                        .font(.bold16)
+                                        .foregroundStyle(Color.textColor)
+                                         
+                                    Spacer()
+                                    Text("\(building.count)개의 메모")
+                                        .font(.regular12)
+                                        .foregroundStyle(Color.textColor)
+                                        
+                                }
                                 Text("\(building.address)")
                                     .font(.regular12)
                                     .foregroundStyle(Color.textColor)
+                                    .lineLimit(1)
                             }
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 15)
-
-                            Spacer()
-                            VStack {
-                                Text("\(building.count)개의 메모")
-                                    .font(.regular12)
-                                    .foregroundStyle(Color.textColor)
-                                    .padding()
-                                Spacer()
-                            }
-                            .padding(.horizontal, 15)
+                            .padding()
+                            .background(Color.cardColor)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 10)
+//                                    .stroke(Color.borderColor)
+//                            )
                         }
 
-                        .background(Color.cardColor)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.borderColor)
-                        )
-
                     }
-                }).padding(.horizontal, 25)
+                })
+                .padding(.horizontal, 25)
             }
         }
         .onAppear {
@@ -100,4 +102,7 @@ struct CommunityView: View {
         }
         
     }
+    
+    
+    
 }

@@ -23,7 +23,6 @@ struct MemoDetailView: View {
         VStack {
             
             DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
-
             
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 10) {
