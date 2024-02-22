@@ -64,9 +64,6 @@ struct CommunityView: View {
                                     Text("\(building.address)")
                                         .font(.regular12)
                                         .foregroundStyle(Color.textColor)
-                                    Text("\(building.location.latitude)\(building.location.longitude)")
-                                        .font(.regular12)
-                                        .foregroundStyle(Color.textColor)
                                 }
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 15)
