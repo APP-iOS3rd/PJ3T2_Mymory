@@ -56,7 +56,7 @@ struct DetailViewListCell: View {
                                 .foregroundColor(.textColor)
                                 .background(
                                     Capsule()
-                                        .foregroundColor(.peach)
+                                        .foregroundColor(.accentColor)
                                 )
                             
                         }
@@ -105,7 +105,7 @@ struct DetailViewListCell: View {
         .padding()
         .foregroundStyle(memo.memoTheme.textColor)
         .background(memo.memoTheme.bgColor)
-        .shadow(radius: 1)
+      
     }
     
     func didTapImage(img: Int) {

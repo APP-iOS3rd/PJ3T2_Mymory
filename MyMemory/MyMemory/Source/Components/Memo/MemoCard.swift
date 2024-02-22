@@ -23,6 +23,7 @@ struct MemoCard: View {
     @State var imgIndex: Int = 0
     @Binding var profile: Profile
     @State var isMyPage: Bool = false
+    @State var isPlacePage: Bool = false
 
     var completion: (actionType) -> ()
     var body: some View {
@@ -110,23 +111,24 @@ struct MemoCard: View {
                             Text(self.profile.isFollowing ? "팔로잉" : "팔로우")
                         }.buttonStyle(self.profile.isFollowing ? RoundedRect.standard : RoundedRect.follow)
                     }
-                }.padding(.horizontal, 20)
+                }
+                
             }
             if memo.imagesURL.count > 0 {
-                ImageGridView(width: UIScreen.main.bounds.width - 40,
-                              touchEvent:$showImageViewer,
-                              imgIndex: $imgIndex,
-                              imgs: $memo.imagesURL)
-                .frame(maxWidth: UIScreen.main.bounds.width - 40, maxHeight: (UIScreen.main.bounds.width - 40) * 1/2)
-                .contentShape(Rectangle())
-                .aspectRatio(contentMode: .fit)
-                .cornerRadius(10)
-                //.background(Color.originColor)
-                .foregroundColor(.clear)
-                //.background(Color.deepGray)
-                .padding(.top, 13)
-                .padding(.horizontal, 20)
-                
+                GeometryReader { geo in
+                    ImageGridView(width: geo.size.width,
+                                  touchEvent:$showImageViewer,
+                                  imgIndex: $imgIndex,
+                                  imgs: $memo.imagesURL)
+                    .frame(maxWidth: geo.size.width, maxHeight: (geo.size.width) * 1/2)
+                    .contentShape(Rectangle())
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(10)
+                    .foregroundColor(.clear)
+                    .padding(.top, 13)
+                   
+                }
+                .frame(height: (UIScreen.main.bounds.width * 3/5))
             }
             HStack {
                 Text("\(memo.description)")
@@ -137,7 +139,7 @@ struct MemoCard: View {
                 Spacer()
             }
             .padding(.top, 15)
-            .padding(.horizontal, 20)
+           // .padding(.horizontal, 20)
             HStack {
                 if self.isTagExpended {
                     ForEach(memo.tags, id: \.self) { id in
@@ -174,8 +176,8 @@ struct MemoCard: View {
                 }
             }
             .padding(.top, 15)
-            .padding(.horizontal, 20)
-
+            
+            
             HStack {
                 Button {
                     if AuthService.shared.currentUser == nil {
@@ -221,39 +223,45 @@ struct MemoCard: View {
                     .foregroundStyle(Color.textDeepColor)
                     .font(.medium12)
                     .padding(.leading,5)
-            }.padding(.horizontal, 20)
-                .padding(.top, 15)
-            HStack {
-                VStack(alignment:.leading) {
-                    Text("\(memo.building ?? "")")
-                        .font(.bold16)
-                        .foregroundStyle(Color.textColor)
-                    Text("\(memo.address)")
-                        .font(.regular12)
-                        .foregroundStyle(Color.textColor)
-                }
-                Spacer()
-                Button {
-                    
-                } label: {
-                    VStack{
-                        Image(systemName: false ?  "bookmark" : "bookmark.fill")
+            }
+            .padding(.top, 15)
+            
+            if !isPlacePage {
+                HStack {
+                    VStack(alignment:.leading) {
+                        Text("\(memo.building ?? "")")
+                            .font(.bold16)
+                            .foregroundStyle(Color.textColor)
+                        Text("\(memo.address)")
+                            .font(.regular12)
+                            .foregroundStyle(Color.textColor)
+                    }
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        VStack{
+                            Image(systemName: false ?  "bookmark" : "bookmark.fill")
+                        }
                     }
                 }
                 
+                .padding(13)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke()
+                        .foregroundStyle(Color.borderColor)
+                )
+              
             }
-            .padding(13)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke()
-                    .foregroundStyle(Color.borderColor)
-            ).padding(.horizontal, 20)
             
-        }.padding(20)
-            .background(Color.bgColor3)
-            .fullScreenCover(isPresented: $showImageViewer) {
-                ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
-            }
+        }
+        .padding(24)
+        .background(Color.cardColor)
+        .fullScreenCover(isPresented: $showImageViewer) {
+            ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
+        }
+       
     }
     
 }

@@ -235,7 +235,9 @@ extension MemoService {
             .order(by: "buildingName")
             .getDocuments(source: .cache)
         for document in query.documents {
-            if let name = document["buildingName"] as? String? ?? nil,
+            if let lat =  document["userCoordinateLatitude"] as? Double? ?? nil,
+            let lon = document["userCoordinateLongitude"] as? Double? ?? nil,
+            let name = document["buildingName"] as? String? ?? nil,
             let address = document["userAddress"] as? String{
                 if let firstIndex = buildings.firstIndex(where: {$0.buildingName == name}) {
                     let count = buildings[firstIndex].count
@@ -243,7 +245,9 @@ extension MemoService {
                 } else {
                     let building = BuildingInfo(buildingName: name,
                                                 address: address,
-                                                count: 1)
+                                                count: 1,
+                                                location: Location(latitude: lat, longitude: lon))
+                   
                     buildings.append(building)
                     if buildings.count > 9 {
                         return buildings
