@@ -53,19 +53,28 @@ enum ThemeType: String, CaseIterable, Codable {
           }
       }
       
-      var bgColor: Color {
-          // 테마별 배경 색상 설정
-          switch self {
-          case .system:
-              return Color.bgColor // 기본 색상이나 시스템 색상 사용
-          case .light:
-              return Color.white
-          case .dark:
-              return Color.black
-          case .atom:
-              return Color.atomBgColor
-          }
-      }
+    var bgColor: Color {
+        // 테마별 배경 색상 설정
+        switch self {
+        case .system:
+            return Color.bgColor // 기본 색상이나 시스템 색상 사용
+        case .light:
+            return Color.white
+        case .dark:
+            return Color.black
+        case .atom:
+            return Color.atomBgColor
+        }
+    }
+    
+    var borderColor: Color {
+        switch self {
+        case .light:
+            return Color.lightGray2
+        default:
+            return Color.lightGray
+        }
+    }
       
       // 필요에 따라 더 많은 속성이나 메소드를 추가할 수 있음
     

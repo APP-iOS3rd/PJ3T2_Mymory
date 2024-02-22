@@ -37,7 +37,7 @@ struct DetailViewListCell: View {
                         .font(.userMainTextFont(baseSize: 20))
                     
                     Text("\(memo.date.createdAtTimeYYMMDD)")
-                        .font(.regular14)
+                        .font(.userMainTextFont(baseSize: 14))
                         .foregroundStyle(Color.textGray)
                 }
                 Spacer()

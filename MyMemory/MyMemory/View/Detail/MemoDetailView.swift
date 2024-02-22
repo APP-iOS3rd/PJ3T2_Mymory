@@ -58,7 +58,6 @@ struct MemoDetailView: View {
                                         Spacer()
                                         
                                     }
-                                    // .padding(.top, 30)
                                     .refreshable {
                                         Task { @MainActor in
                                             let memo = self.memos[selectedMemoIndex!]

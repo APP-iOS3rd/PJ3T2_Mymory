@@ -16,19 +16,19 @@ struct DetailBottomAddressView: View {
             VStack(alignment: .leading) {
                 if let buildingName = memo.building, !buildingName.isEmpty {
                     Text(buildingName)
-                        .font(.bold16)
+                        .font(.userMainTextFont(baseSize: 16))
                         .padding(.bottom, 5)
                     
                     Text(memo.address)
-                        .font(.regular12)
+                        .font(.userMainTextFont(baseSize: 12))
                         .foregroundStyle(Color.textGray)
                 } else {
                     
                     Text(lastStr)
-                        .font(.bold16)
+                        .font(.userMainTextFont(baseSize: 16))
                     
                     Text(memo.address)
-                        .font(.regular12)
+                        .font(.userMainTextFont(baseSize: 12))
                         .foregroundStyle(Color.textGray)
                 }
             }
