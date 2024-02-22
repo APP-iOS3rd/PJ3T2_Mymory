@@ -23,13 +23,7 @@ struct MemoDetailView: View {
         VStack {
             
             DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
-//                .background(LinearGradient(gradient:
-//                                            Gradient(colors: [Color.cardColor.opacity(1),
-//                                                              Color.cardColor.opacity(0.3),
-//                                                              Color.cardColor.opacity(0)]),
-//                                           startPoint: .top,
-//                                           endPoint: .bottom)
-//                )
+
             
             ScrollView(.horizontal) {
                 LazyHStack(spacing: 10) {

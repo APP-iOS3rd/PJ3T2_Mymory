@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseCore
-import FirebaseFirestore
+import FirebaseFirestore 
 import FirebaseStorage
 import FirebaseAuth
 import CoreLocation

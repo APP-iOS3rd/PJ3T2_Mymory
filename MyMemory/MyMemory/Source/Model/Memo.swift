@@ -37,7 +37,9 @@ struct Location: Hashable, Codable {
     var longitude: Double
     func distance(from loc: CLLocation) -> Double {
         let clloc = CLLocation(latitude: latitude, longitude: longitude)
-        return clloc.distance(from: loc)
+        let dist = clloc.distance(from: loc)
+            
+        return dist
     }
 }
 struct BuildingInfo: Equatable, Hashable {

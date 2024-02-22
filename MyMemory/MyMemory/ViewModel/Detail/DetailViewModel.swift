@@ -22,7 +22,7 @@ class DetailViewModel: ObservableObject {
     let memoService = MemoService.shared
     
     @Published var currentLocation: CLLocation?  = nil
-    var locationsHandler = LocationsHandler.shared
+    @Published var locationsHandler = LocationsHandler.shared
     
     init() {
         // fetchUserState()
