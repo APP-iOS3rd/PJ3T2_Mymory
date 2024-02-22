@@ -50,7 +50,8 @@ struct PlaceView: View {
                             MemoCard(memo: item,
                                      isVisible: true,
                                      profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] :
-                                        $viewModel.filteredProfileList[index]
+                                        $viewModel.filteredProfileList[index],
+                                     isPlacePage: true
                             ) { actions in
                                 switch actions {
                                 case .follow:
