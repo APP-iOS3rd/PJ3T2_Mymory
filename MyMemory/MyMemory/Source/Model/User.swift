@@ -19,11 +19,19 @@ struct User: Identifiable, Decodable, Equatable {
         return AuthService.shared.userSession?.uid == id
     }
     var toProfile: Profile {
+        Task {
+            if let id = self.id {
+                var followerCount = await AuthService.shared.fetchUserFollowerCount(with: id)
+                var memoCount = await AuthService.shared.fetchUserMemoCount(with: id)
+                var followingCount = await AuthService.shared.fetchUserFollowingCount(with: id)
+                
+            }
+        }
         return Profile(email: self.email,
                        id: self.id,
                        name: self.name,
                        profilePicture: self.profilePicture,
-                       followerCount: 0,
+                       followerCount: 0, followingCount: 0,
                        memoCount: 0, pinCount: 0,
                        isFollowing: false)
     }
@@ -43,6 +51,7 @@ struct Profile: Identifiable, Decodable, Hashable {
     let name: String
     var profilePicture: String?
     var followerCount: Int
+    var followingCount: Int
     var memoCount: Int
     var pinCount: Int
     var isFollowing: Bool

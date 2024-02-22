@@ -187,6 +187,13 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
             self.isLoading = false
         }
     }
+    func refreshMemoProfiles() {
+//        self.isLoading = true
+        Task { @MainActor in
+            self.memoWriterList = await AuthService.shared.memoCreatorfetchProfiles(memos: memoList)
+//            self.isLoading = false
+        }
+    }
 }
 //MARK: - 초기 Configuration
 extension MainMapViewModel {

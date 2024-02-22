@@ -30,7 +30,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                 } label: {
                     //ProfileMemoListCell(memo: memo, viewModel: viewModel)
                     if let otherUserViewModel = viewModel as? OtherUserViewModel {
-                        if self.profile.id == otherUserViewModel.memoCreator.id {
+                        if self.profile.id == otherUserViewModel.memoCreator?.id {
                             MemoCard(memo: $viewModel.memoList[i], profile:$profile, isMyPage: true) { action in
                                 switch action {
                                 case .like:
@@ -60,7 +60,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                                     self.isLoadingFetchMemos = false
                                                 } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
                                                     self.isLoadingFetchMemos = true
-                                                    let userId = otherUserViewModel.memoCreator.id?.description
+                                                    let userId = otherUserViewModel.memoCreator?.id?.description
                                                     await otherUserViewModel.pagenate(userID: userId ?? "")
                                                     self.isLoadingFetchMemos = false
                                                 }
@@ -101,7 +101,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
                                                     self.isLoadingFetchMemos = false
                                                 } else if let otherUserViewModel = viewModel as? OtherUserViewModel {
                                                     self.isLoadingFetchMemos = true
-                                                    let userId = otherUserViewModel.memoCreator.id?.description
+                                                    let userId = otherUserViewModel.memoCreator?.id?.description
                                                     await otherUserViewModel.pagenate(userID: userId ?? "")
                                                     self.isLoadingFetchMemos = false
                                                 }
@@ -136,7 +136,7 @@ struct ProfileMemoList<ViewModel: ProfileViewModelProtocol>: View {
         .onAppear {
             Task {
                 if let otherUserViewModel = viewModel as? OtherUserViewModel {
-                    if let uid = otherUserViewModel.memoCreator.id {
+                    if let uid = otherUserViewModel.memoCreator?.id {
                         self.profile = await AuthService.shared.memoCreatorfetchProfile(uid: uid)!
                     }
                 } else {

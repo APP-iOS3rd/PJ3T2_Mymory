@@ -26,8 +26,12 @@ struct CommunityView: View {
                     .padding(.top, 25)
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
-                        ForEach($viewModel.memosOfTheWeek) { memo in
-                            MemoCell(location: $locationManager.location,memo: memo, memos: $viewModel.memosOfTheWeek, isFromCo: true) { res in
+                        ForEach($viewModel.memosOfTheWeek.indices, id:\.self) { index in
+                            MemoCell(location: $locationManager.location,
+                                     selectedMemoIndex: index,
+                                     memo: $viewModel.memosOfTheWeek[index],
+                                     memos: $viewModel.memosOfTheWeek,
+                                     isFromCo: true) { res in
                                 unAuthorized(res)
                             }
                             .padding(.leading, 18)

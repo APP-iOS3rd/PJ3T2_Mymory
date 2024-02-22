@@ -24,7 +24,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
-    @Published var memoCreator: User = User(email: "", name: "")
+    @Published var memoCreator: Profile? = nil
     @Published var isEmptyView = false
     var lastDocument: QueryDocumentSnapshot? = nil
     
@@ -47,10 +47,10 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
     func fetchMemoCreatorProfile(memoCreator: User) async {
-        self.memoCreator = memoCreator
+        self.memoCreator = await AuthService.shared.memoCreatorfetchProfile(uid: memoCreator.id ?? "")
 
         // memoList memoCreator메모 가져오기
-        self.memoList = []
+//        self.memoList = []
         fetchUserState()
 
         // 백그라운드에서 데이터 가져오기
@@ -59,7 +59,7 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
         DispatchQueue.main.async {
             Task {[weak self] in
                 guard let self = self else { return }
-                guard let userId = self.memoCreator.id else { 
+                guard let userId = self.memoCreator?.id else { 
                     print("ID 없음")
                     return
                 }
