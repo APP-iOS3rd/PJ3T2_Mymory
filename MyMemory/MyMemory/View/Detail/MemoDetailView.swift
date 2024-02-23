@@ -1,5 +1,5 @@
 import SwiftUI
-import Kingfisher
+
 struct MemoDetailView: View {
     @State private var selectedNum: Int = 0
     @State private var isHeart: Bool = false
@@ -8,201 +8,140 @@ struct MemoDetailView: View {
     @State private var isReported: Bool = false
     @State private var isShowingImgSheet: Bool = false
     @State private var isMyMemo:Bool = false
+    
+    @State private var presentLoginAlert: Bool = false
+    @State private var presentLoginView: Bool = false
     @Binding var memos: [Memo]
     @State var selectedMemoIndex: Int?
-    @State var filteredMemos: [Memo]?
-    @State private var scrollIndex: Int?
+    @State var isFromCo: Bool = false
+    
+    
     @StateObject var viewModel: DetailViewModel = DetailViewModel()
     
+    
     var body: some View {
-        ScrollView(.horizontal) {
-            LazyHStack(spacing: 10) {
-                ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
-                    ZStack {
-                        ScrollView {
-                            VStack(alignment: .leading) {
-                                ScrollView(.horizontal) {
-                                    LazyHGrid(rows: [.init(.flexible())], spacing: 5) {
-                                        ForEach(memo.tags, id: \.self) { tag in
-                                            Text("#\(tag)")
-                                                .font(.semibold12)
-                                                .padding(.horizontal, 13)
-                                                .padding(.vertical, 6)
-                                                .foregroundColor(.textColor)
-                                                .background(
-                                                    Capsule()
-                                                        .foregroundColor(.peach)
-                                                )
-                                            
-                                        }
-                                    }
-                                }
-                                .scrollDisabled(false)
-                                .frame(maxWidth: .infinity)
-                                .aspectRatio(contentMode: .fit)
-                                .padding(.leading, 25)
+        VStack {
+            
+            DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
+            
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 10) {
+                    ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
+                        ZStack {
+                            if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                                 
-                                
-                                HStack{
-                                    VStack(alignment: .leading, spacing: 6) {
-                                        Text(memo.title)
-                                            .font(.bold20)
-                                        Text(memo.address)
-                                            .font(.regular14)
-                                            .foregroundStyle(Color.textGray)
+                                if loc >= MemoService.shared.readableArea && !isMyMemo && !isFromCo{
+                                    VStack(spacing: 10) {
+                                        Image(systemName: "lock")
+                                            .font(.largeTitle)
+                                            .foregroundColor(.gray)
+                                            .frame(width: 60, height: 60)
+                                            .background(Color.bgColor2)
+                                            .clipShape(Circle())
                                         
-                                        Text("등록 수정일 : \(memo.date.createdAtTimeYYMMDD)")
-                                            .font(.regular14)
-                                            .foregroundStyle(Color.textGray)
+                                        Text("거리가 멀어서 볼 수 없어요.")
+                                            .font(.regular18)
+                                            .foregroundColor(Color.darkGray)
                                     }
-                                    Spacer()
-                                }.padding(.leading, 25)
-                                
-                                
-                                
-                                ScrollView(.horizontal) {
-                                    HStack{
-                                        ForEach(memo.images.indices, id: \.self) { i in
-                                            if let uiimage =  UIImage(data: memo.images[i]) {
-                                                Image(uiImage: uiimage)
-                                                    .resizable()
-                                                //.scaledToFit()
-                                                    .scaledToFill()
-                                                    .frame(width: 90, height: 90)
-                                                    .onTapGesture {
-                                                        didTapImage(img: i)
-                                                    }
-                                                    .fullScreenCover(isPresented: self.$isShowingImgSheet) {
-                                                        ImgDetailView(selectedImage: $selectedNum, images: memo.images)
-                                                    }
-                                            }
+                                } else {
+                                    
+                                    
+                                    ScrollView {
+                                        
+                                        DetailViewListCell(
+                                            selectedNum: $selectedNum,
+                                            isShowingImgSheet: $isShowingImgSheet,
+                                            memo: $memos[index]
+                                        ).environmentObject(viewModel)
+                                        
+                                            .padding()
+                                        Spacer()
+                                        
+                                    }
+                                    .refreshable {
+                                        Task { @MainActor in
+                                            let memo = self.memos[selectedMemoIndex!]
+                                            do {
+                                                if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!) {
+                                                    self.memos[selectedMemoIndex!] = newMemo
+                                                }
+                                            } catch {}
                                         }
                                     }
                                 }
-                                .scrollDisabled(false)
-                                .padding(.top, 25)
-                                .padding(.leading, 25)
-                                
-                                Text(memo.description)
-                                    .multilineTextAlignment(.leading)
-                                    .padding(.top, 25)
-                                
-                                    .padding(.horizontal, 25)
-                                    .padding(.bottom, 70)
-                                Spacer()
                             }
-                            //.padding(.top, 50)
                             
-                        }
-                        VStack {
-                            Spacer()
                             
-                            HStack {
-                                Text("이전 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.startIndex {
-                                            preButton()
-                                        }
-                                    }
-                                
-                                Spacer()
-                                
-                                Text("다음 글...")
-                                    .font(.regular16)
-                                    .frame(width: 100, height: 60)
-                                    .onTapGesture {
-                                        if selectedMemoIndex != memos.endIndex - 1 {
-                                            nextButton()
-                                        }
-                                    }
-                            }
-                            .padding(.horizontal, 20)
                             
-                            MoveUserProfileButton(viewModel: viewModel)
-                        }
+                        }//: 내부 ZSTACK
+                        .frame(width: UIScreen.main.bounds.size.width)
                         .onAppear {
                             Task {
-                                do {
-                                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                                    isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
-                                } catch {
-                                    // 에러 처리
-                                    print("Error checking my memo: \(error.localizedDescription)")
-                                }
+                                await checkMyMemo()
+                                viewModel.fetchMemoCreator(uid: memo.userUid)
                             }
                         }
+                        .fullScreenCover(isPresented: $isShowingImgSheet) {
+                            ImgDetailView(selectedImage: $selectedNum, images: memo.imagesURL)
+                        }
+                    }
+                }//LazyHSTACK
+                .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
+                .background(Color.bgColor3)
+                
+            } //:SCROLL
+            .onAppear {
+                Task {
+                    do {
+                        let memo = memos[selectedMemoIndex!]
                         
-                    }//: 내부 ZSTACK
-                    .frame(width: UIScreen.main.bounds.size.width)
+                        isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
+                        if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
+                            self.memos[selectedMemoIndex!] = newMemo
+                        }
+                        viewModel.fetchMemoCreator(uid: memo.userUid)
+                    } catch {
+                        // 에러 처리
+                        print("Error checking my memo: \(error.localizedDescription)")
+                    }
                 }
-            }//LazyHSTACK
-            .scrollTargetLayout() // 기본값 true, 스크롤 시 개별 뷰로 오프셋 정렬
-        } //:SCROLL
-        
-       .onAppear {
-           Task {
-               do {
-                   let memo = memos[selectedMemoIndex!]
-
-                   isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
-                   if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
-                       self.memos[selectedMemoIndex!] = newMemo
-                   }
-                   viewModel.fetchMemoCreator(uid: memo.userUid)
-               } catch {
-                   // 에러 처리
-                   print("Error checking my memo: \(error.localizedDescription)")
-               }
-           }
+            }
+            .background(Color.bgColor)
+            .fullScreenCover(isPresented: $presentLoginView) {
+                LoginView()
+            }
+            .moahAlert(isPresented: $presentLoginAlert) {
+                MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                              firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                }),
+                              secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                    self.presentLoginView = true
+                })
+                )
+            }
+//            .scrollDisabled(true)
+            
+            .scrollTargetBehavior(.viewAligned)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+            .scrollPosition(id: $selectedMemoIndex)
+            .scrollIndicators(.hidden)
         }
-                   
-        .scrollDisabled(true)
-        .scrollTargetBehavior(.viewAligned)
-        .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
-        .scrollPosition(id: $selectedMemoIndex)
- 
         .customNavigationBar(
             centerView: {
-                Text(" ")
+                Text("")
             },
             leftView: {
                 BackButton()
             },
             rightView: {
-                NavigationBarItems(isHeart: $isHeart, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
+                NavigationBarItems(isHeart: $isHeart, unAuthorized: $presentLoginAlert, isBookmark: $isBookmark, isShowingSheet: $isShowingSheet, isReported: $isReported, isShowingImgSheet: $isShowingSheet, isMyMemo: $isMyMemo, memo: $memos[selectedMemoIndex!])
             },
-            backgroundColor: .bgColor
+            backgroundColor: .bgColor3
         )
-
-    }
-    func didTapImage(img: Int) {
-        selectedNum = img
-        isShowingImgSheet.toggle()
     }
     
     func checkMyMemo() async {
         let memo = memos[selectedMemoIndex!]
         isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
     }
-    
-    func preButton() {
-        if var value = selectedMemoIndex {
-            value -= 1
-            withAnimation(.default) {
-            selectedMemoIndex = value
-        }
-    }
-    }
-    
-    func nextButton() {
-        if var value = selectedMemoIndex {
-            value += 1
-            withAnimation(.default) {
-                selectedMemoIndex = value
-            }
-        }
-    }
-    
 }

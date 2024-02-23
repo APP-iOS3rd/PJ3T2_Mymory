@@ -17,32 +17,38 @@ struct PostMemoModel: Identifiable {
     let userCoordinateLatitude: Double
     let userCoordinateLongitude: Double
     let userAddress: String
+    let userAddressBuildingName: String?
     let memoTitle: String
     let memoContents: String
-    let isPublic:Bool
+    let isPublic: Bool
+    let isPinned: Bool
     let memoTagList: [String]
     let memoLikeCount: Int
     let memoSelectedImageData: [Data]
     let memoCreatedAt: TimeInterval
+    let memoTheme: ThemeType
     
     // Firestore 문서 ID를 사용하여 초기화 가능한 생성자 추가
     // id: String = UUID().uuidString 생성할때는 자동으로, 파베에서 불러서 넣어줄때는 생성했던 uid로 
     init(id: String = UUID().uuidString, userUid: String, userCoordinateLatitude: Double, userCoordinateLongitude: Double,
-         userAddress: String, memoTitle: String, memoContents: String, isPublic: Bool,
+         userAddress: String, userAddressBuildingName: String? = nil, memoTitle: String, memoContents: String, isPublic: Bool,
          memoTagList: [String], memoLikeCount: Int, memoSelectedImageData: [Data],
-         memoCreatedAt: TimeInterval) {
+         memoCreatedAt: TimeInterval, memoTheme: ThemeType) {
         self.id = id
         self.userUid = userUid
         self.userCoordinateLatitude = userCoordinateLatitude
         self.userCoordinateLongitude = userCoordinateLongitude
         self.userAddress = userAddress
+        self.userAddressBuildingName = userAddressBuildingName
         self.memoTitle = memoTitle
         self.memoContents = memoContents
+        self.isPinned = false
         self.isPublic = isPublic
         self.memoTagList = memoTagList
         self.memoLikeCount = memoLikeCount
         self.memoSelectedImageData = memoSelectedImageData
         self.memoCreatedAt = memoCreatedAt
+        self.memoTheme = memoTheme
     }
 
     

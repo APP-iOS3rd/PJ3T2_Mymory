@@ -12,6 +12,7 @@ public enum MoahAlertButtonType {
     case CONFIRM
     case CANCEL
     case SETTING
+    case CUSTOM(msg: String, color: Color = .blue)
 }
 
 // MARK: - AlertButtonView
@@ -44,6 +45,9 @@ public struct MoahAlertButtonView: View {
         case .SETTING:
             self.btnTitle = "설정"
             self.btnColor = .blue
+        case .CUSTOM(msg: let msg, color: let color) :
+            self.btnTitle = msg
+            self.btnColor = color
         }
         self.action = action
         self.type = type

@@ -30,6 +30,7 @@ extension Font {
     static let semibold12: Font = .custom(FontType.SemiBold.rawValue, size: 12)
     static let semibold14: Font = .custom(FontType.SemiBold.rawValue, size: 14)
     static let semibold16: Font = .custom(FontType.SemiBold.rawValue, size: 16)
+    static let semibold17: Font = .custom(FontType.SemiBold.rawValue, size: 17)
     static let semibold20: Font = .custom(FontType.SemiBold.rawValue, size: 20)
     static let semibold22: Font = .custom(FontType.SemiBold.rawValue, size: 22)
     static let semibold24: Font = .custom(FontType.SemiBold.rawValue, size: 24)
@@ -55,13 +56,22 @@ extension Font {
 
     // Thin
     static let thin32: Font = .custom(FontType.Thin.rawValue, size: 32)
-    //appFont
+     
     static func appFont(for type : FontType, size: CGFloat) -> Font? {
         self.custom(type.rawValue, size: size)
     }
-}
-enum FontType: String {
     
+    
+    // 사용자의 메인 텍스트 폰트를 반환하는 메서드
+    static func userMainTextFont(baseSize: CGFloat = 16) -> Font {
+        let fontType = FontManager.shared.fontPreference
+        let adjustedSize = FontManager.shared.fontSize(for: fontType, baseSize: baseSize)
+        return .custom(fontType.rawValue, size: adjustedSize)
+    }
+
+}
+
+enum FontType: String {
     // Pretendard
     case Black = "Pretendard-Black"
     case ExtraBold = "Pretendard-ExtraBold"
@@ -73,5 +83,8 @@ enum FontType: String {
     case ExtraLight = "Pretendard-ExtraLight"
     case Thin = "Pretendard-Thin"
     
-    case OwnglyphEuiyeon = "Ownglyph-Euiyeon"
+    // 추가 폰트
+    case OwnglyphEuiyeon = "OwnglyphEuiyeonChae"
+    case NeoDunggeunmo = "NeoDunggeunmo-Regular"
+    case YeongdeokSea = "Yeongdeok Sea"
 }

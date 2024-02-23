@@ -43,12 +43,11 @@ struct Pill: ButtonStyle {
         return Pill(backgroundColor: .accentColor, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
     static var deepGray: Pill {
-        return Pill(backgroundColor: .deepGray, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+        return Pill(backgroundColor: .bgColor4, titleColor: .white, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
     static var secondary: Pill {
         return Pill(backgroundColor: .deepGray, titleColor: .white, setFont: .bold14)
     }
-    
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -81,7 +80,7 @@ struct RoundedRect: ButtonStyle {
         return RoundedRect(backgroundColor: .white, titleColor: .darkGray, setFont: .bold16, paddingVertical: 12, paddingHorzontal: 12)
     }
     static var selected: RoundedRect {
-        return RoundedRect(backgroundColor: .lightPeach, titleColor: .peach, setFont: .bold14)
+        return RoundedRect(backgroundColor: .bgColor3, titleColor: .accentColor, setFont: .bold14)
     }
     static var primary: RoundedRect {
         return RoundedRect(backgroundColor: .accentColor, titleColor: .white, setFont: .bold14, paddingVertical: 10, paddingHorzontal: 12, borderColor: .accentColor)
@@ -102,7 +101,7 @@ struct RoundedRect: ButtonStyle {
     }
     
     static var loginBtn: RoundedRect {
-        return RoundedRect(backgroundColor: .accentColor, titleColor: .black, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
+        return RoundedRect(backgroundColor: .accentColor, titleColor: .textColor, setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .accentColor)
     }
     static var loginBtnDisabled: RoundedRect {
         return RoundedRect(backgroundColor: .gray, titleColor: .darkGray , setFont: .bold14, paddingVertical: 14, paddingHorzontal: 12, borderColor: .gray)

@@ -15,12 +15,12 @@ import FirebaseFirestore
 
 protocol ProfileViewModelProtocol: ObservableObject {
     
-    var merkerMemoList: [Memo] { get set } 
     var memoList: [Memo] { get set }
     var selectedFilter: SortedTypeOfMemo { get set }
     var isShowingOptions: Bool { get set }
     var isCurrentUserLoginState: Bool { get set }
     var user: User? { get set }
+    
     var currentLocation: CLLocation? { get set }
     var lastDocument: QueryDocumentSnapshot? { get set }
 

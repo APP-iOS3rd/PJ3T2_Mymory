@@ -22,7 +22,7 @@ struct TopBarAddress: View {
                     .foregroundStyle(.black)
                 Spacer()
                 Image(systemName: "arrow.circlepath")
-                    .foregroundColor(.iconColor)
+                    .foregroundColor(.darkGray)
             }
         }
         .frame(maxWidth: .infinity)

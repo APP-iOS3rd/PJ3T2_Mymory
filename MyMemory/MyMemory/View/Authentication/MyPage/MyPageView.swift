@@ -1,11 +1,10 @@
-
 import SwiftUI
 import FirebaseAuth
 import AuthenticationServices
 
 
 struct MyPageView: View {
-    @State var selected: Int = 2
+    @Binding var selected: Int
     @State private var presentLoginAlert = false
     @State private var presentLoginView = false
     
@@ -14,79 +13,108 @@ struct MyPageView: View {
     @ObservedObject var mypageViewModel: MypageViewModel = .init()
     
     @State var selectedIndex = 0
-    
-    
+    @State private var isRefreshing = false
     var body: some View {
-        ZStack(alignment: .top) {
-            Color.bgColor.edgesIgnoringSafeArea(.top)
-            
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading) {
-                    // 로그인 되었다면 로직 실행
-                    if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
-                        let isCurrentUser = authViewModel.userSession?.uid == userId
-                        
-                        MypageTopView()
-                        // 하나씩 추가해서 탭 추가, spacin......g, horizontalInset 늘어나면 값 수정 필요
-                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
-                                   selectedIndex: $selectedIndex,
-                                   fullWidth: UIScreen.main.bounds.width,
-                                   spacing: 50,
-                                   horizontalInset: 91.5)
-                        .padding(.horizontal)
-                        switch selectedIndex {
-                        case 0:
-                            createHeader()
-                            ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+        if let _ = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+            ScrollViewReader { proxy in
+                ZStack(alignment: .top) {
+                    Color.bgColor
+                        .ignoresSafeArea()
+                    
+                    VStack {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            MypageTopView()
+                                .padding(.horizontal, 14)
+                                .id(0)
+                            if mypageViewModel.memoList.isEmpty {
+                                Spacer()
+                                // Fetch 한 결과도 empty일때 emptyview 보여줘야함
+                                if mypageViewModel.isEmptyView {
+                                    MyPageEmptyView(selectedIndex: $selected)
 
-                        default:
-                            MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
-                            
+                                } else {
+                                    ProgressView()
+                                }
+                                Spacer()
+                            } else {
+                                LazyVStack(alignment: .leading, pinnedViews: .sectionHeaders) {
+                                    Section {
+                                        if let currentUser = authViewModel.currentUser, let userId = UserDefaults.standard.string(forKey: "userId") {
+                                            let isCurrentUser = authViewModel.userSession?.uid == userId
+                                            
+                                            switch selectedIndex {
+                                            case 0:
+                                                createHeader()
+                                                    .padding(.bottom)
+                                                    .padding(.horizontal)
+                                                    .border(width: 1, edges: [.bottom], color: .borderColor)
+                                                ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
+                                            default:
+                                                MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
+                                            }
+                                        }
+                                    } header: {
+                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                                   selectedIndex: $selectedIndex,
+                                                   fullWidth: UIScreen.main.bounds.width,
+                                                   spacing: 50,
+                                                   horizontalInset: 91.5)
+                                        .ignoresSafeArea(edges: .top)
+                                        .frame(maxWidth: .infinity)
+                                    }
+                                }
+                                .frame(maxWidth: .infinity)
+                                .refreshable {
+                                    isRefreshing = true
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        mypageViewModel.fetchUserMemo()
+                                        isRefreshing = false
+                                    }
+                                }
+                            }
+                        } //: ScrollView
+                        .padding(.top)
+                    }
+                    
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button {
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+                                }
+                            } label: {
+                                Image(.scrollTop)
+                            }
+                            .padding([.trailing, .bottom], 30)
                         }
-                        
-                        
-                    }
-                    else {
-                        showLoginPrompt()
                     }
                 }
-                
-                
-                .refreshable {
-                    // Refresh logic
-                }
-                .padding(.horizontal, 14)
-                .safeAreaInset(edge: .top) {
-                    Color.clear.frame(height: 0).background(Color.bgColor)
-                }
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 0).background(Color.bgColor).border(Color.black)
+            }
+            .refreshable {
+                // Refresh logic
+                isRefreshing = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    mypageViewModel.fetchUserMemo()
+                    isRefreshing = false
                 }
             }
-        }
-        .onAppear {
-            checkLoginStatus()
-            authViewModel.fetchUser()
-            
-        }
-        .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-            Button("로그인 하기", role: .destructive) {
-                self.presentLoginView = true
+            .onAppear {
+                checkLoginStatus()
+                authViewModel.fetchUser()
+                mypageViewModel.fetchUserMemo()
+
+                // Add your other onAppear logic here
             }
-            Button("둘러보기", role: .cancel) {
-                // Handle '둘러보기' case
-            }
-        }
-        .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(authViewModel)
-        }
-        .overlay {
-            if LoadingManager.shared.phase == .loading {
-                LoadingView()
-            }
+            // Add your other onAppear and alert code here
+        } else {
+            showLoginPrompt()
+                .fullScreenCover(isPresented: $presentLoginView) {
+                    LoginView()
+                }
         }
     }
-    
     private func createHeader() -> some View {
         HStack(alignment: .lastTextBaseline) {
             Spacer()
@@ -106,7 +134,7 @@ struct MyPageView: View {
         }
         .padding(.top, 38)
     }
-
+    
     
     private func showLoginPrompt() -> some View {
         VStack(alignment: .center) {
@@ -125,7 +153,7 @@ struct MyPageView: View {
             }
             
             Spacer()
-        }
+        }.background(Color.bgColor)
     }
     
     private func checkLoginStatus() {
@@ -138,5 +166,4 @@ struct MyPageView: View {
         }
     }
 }
-
 

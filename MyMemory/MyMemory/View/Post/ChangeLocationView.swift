@@ -19,7 +19,7 @@ struct ChangeLocationView: View {
                 viewModel.getAddress(with: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude))
                 
                 if let currentloc = handler.location {
-                    if loc.distance(from: currentloc) > viewModel.radius {
+                    if loc.distance(from: currentloc) > MemoService.shared.readableArea {
                         distanceAlert.toggle()
 
                     }
@@ -45,7 +45,7 @@ struct ChangeLocationView: View {
                                 
                             }
                         }.mapOverlayLevel(level: .aboveLabels)
-                        MapCircle(center: loc.coordinate, radius: viewModel.radius)
+                        MapCircle(center: loc.coordinate, radius: MemoService.shared.readableArea)
                             .foregroundStyle(Color(red: 0.98, green: 0.15, blue: 0.15).opacity(0.1))
                     }
                 }.onMapCameraChange { context in
@@ -72,9 +72,20 @@ struct ChangeLocationView: View {
                 RoundedRectangle(cornerRadius: 15)
                     .padding(.horizontal, 17)
                     .overlay(
-                        Text("\(viewModel.tempAddressText)")
-                            .foregroundStyle(Color.darkGray)
-                            .font(.bold16)
+                        VStack {
+                            if let buildingName = viewModel.memoAddressBuildingName {
+                                Text("\(buildingName)")
+                                    .foregroundStyle(Color.darkGray)
+                                    .font(.bold16)
+                                Text("\(viewModel.tempAddressText)")
+                                    .foregroundStyle(Color.deepGray)
+                                    .font(.regular12)
+                            } else {
+                                Text("\(viewModel.tempAddressText)")
+                                    .foregroundStyle(Color.darkGray)
+                                    .font(.bold16)
+                            }
+                        }
                     )
                     .foregroundStyle(Color.lightGrayBackground)
                     .frame(height: 50)
@@ -82,6 +93,9 @@ struct ChangeLocationView: View {
                 Button(action: {
                     if let _ = centerLoc {
                         viewModel.setAddress()
+                        if let loc = centerLoc {
+                            viewModel.setLocation(locatioin: loc)
+                        }
                     }
                     dismiss()
                 }, label: {
@@ -110,7 +124,7 @@ struct ChangeLocationView: View {
             },
             backgroundColor: .bgColor
         ).moahAlert(isPresented: $distanceAlert) {
-            MoahAlertView(title: "너무 먼 곳은 안돼요!",message: "\(Int(viewModel.radius))M 이내에만 등록 가능합니다.", firstBtn: .init(type: .CONFIRM, isPresented: $distanceAlert, action: {
+            MoahAlertView(title: "너무 먼 곳은 안돼요!",message: "\(Int(MemoService.shared.readableArea))M 이내에만 등록 가능합니다.", firstBtn: .init(type: .CONFIRM, isPresented: $distanceAlert, action: {
                 guard let loc = handler.location else {return}
                 viewModel.mapPosition = MapCameraPosition.camera(.init(centerCoordinate: .init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude), distance: 500))
             }))

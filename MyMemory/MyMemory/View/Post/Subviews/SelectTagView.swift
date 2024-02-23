@@ -6,33 +6,12 @@
 //
 
 import SwiftUI
-
-enum TagType: String, CaseIterable {
-    case date = "데이트"
-    case restaurant = "맛집"
-    case hotPlace = "핫플레이스"
-    case star = "스타"
-    case event = "이벤트"
-    case whisper = "속닥속닥"
-    case game = "게임"
-    case humor = "유머"
-    case fashionBeauty = "패션뷰티"
-    case artWork = "예술작품"
-    case graffiti = "그래피티"
-    case education = "교육"
-    case photo = "사진"
-    case secretPlace = "나만알고싶은곳"
-    case instagrammablePlace = "사진찍기좋은곳"
-    case lifeShot = "인생샷"
-}
-
-
-
 struct SelectTagView: View {
     @State private var isShowingView: Bool = false
     @Binding var memoSelectedTags: [String]
+    @State var newTag: String = ""
     @Namespace private var customNamespace // 추가된 네임스페이스
-    
+    @StateObject var tagService = TagService.shared
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10){
@@ -67,19 +46,33 @@ struct SelectTagView: View {
                                 Text("#\(tag)")
                                     .font(.bold14)
                                     .padding(5)
-                                    .foregroundColor(.lightPeach)
+                                    .foregroundColor(Color.bgColor3)
                                     .padding(.horizontal, 8)
                                     .background(
                                         Capsule()
-                                            .foregroundColor(Color.peach)
+                                            .foregroundColor(.accentColor)
                                     )
                                     .onTapGesture {
                                         memoSelectedTags.removeAll(where: {$0 == tag})
                                     }
+ 
+                            }
+                            if memoSelectedTags.count < 5 {
+                                TextField("#태그", text: $newTag, onCommit: edited)
+                                    .font(.bold14)
+                                    .padding(5)
+                                    .foregroundColor(Color.bgColor3)
+                                    .padding(.horizontal, 8)
+                                    .background(
+                                        Capsule()
+                                            .foregroundColor(.accentColor)
+
+                                    )
                             }
                         }
                         .padding(5)
                     }
+                        .scrollIndicators(.hidden)
                 )
                 .onTapGesture {
                     if isShowingView == false {
@@ -100,15 +93,15 @@ struct SelectTagView: View {
                     VStack {
                         GeometryReader { GeometryProxy in
                             FlexibleView(availableWidth: GeometryProxy.size.width,
-                                         data: TagType.allCases,
+                                         data: tagService.tagList,
                                          spacing: 15,
                                          alignment: .center) { item in
                                 Button(action: {
                                     toggleTag(item)
                                 }, label: {
-                                    Text("#\(item.rawValue)")
+                                    Text("#\(item)")
                                 }).buttonStyle(
-                                    memoSelectedTags.contains(item.rawValue) ?                     Pill.selected : Pill.lightGray
+                                    memoSelectedTags.contains(item) ?                     Pill.selected : Pill.lightGray
                                 )
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .aspectRatio(contentMode: .fit)
@@ -116,34 +109,44 @@ struct SelectTagView: View {
                             
                         } // VStack
                     } // ScrollView
-
+                    
                 } //:VSTACK
                 .transition(.move(edge: .bottom))
                 .animation(.easeInOut)
                 .padding(.bottom , 60)
             }
         }
+        .onAppear {
+            isShowingView = false
+        }
         
     }
     
-    private func toggleTag(_ tag: TagType) {
-        // tag를 문자열로 변환하여 tagString 상수에 저장
-        let tagString = tag.rawValue
-        
+    private func toggleTag(_ tag: String) {
         // 이미 선택된 태그인지 확인
-        let isTagSelected = memoSelectedTags.contains(tagString)
+        let isTagSelected = memoSelectedTags.contains(tag)
         
         if isTagSelected {
             // 이미 선택된 경우, 해당 태그를 제거
-            memoSelectedTags.removeAll { $0 == tagString }
+            memoSelectedTags.removeAll { $0 == tag }
+            Task {
+                await tagService.deleteTag(tag)
+                self.newTag = ""
+            }
         } else {
             // 선택되지 않은 경우, 최대 5개까지만 추가
             if memoSelectedTags.count < 5 {
-                memoSelectedTags.append(tagString)
+                memoSelectedTags.append(tag)
+                Task {
+                    await tagService.addNewTag(tag)
+                    self.newTag = ""
+                }
             }
         }
     }
-    
+    private func edited() {
+        toggleTag(self.newTag)
+    }
     
 }
 #Preview {

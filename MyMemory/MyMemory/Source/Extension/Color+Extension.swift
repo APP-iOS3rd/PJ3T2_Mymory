@@ -24,8 +24,9 @@ extension Color {
     static let deepGray = Color(hex: "2E2E2E")
     static let lightPrimary = Color(hex: "DAD4FF")
     static let lightGrayBackground = Color(hex: "E7E7E7")
-   
     
+    static let atomBgColor = Color(hex:"1d1f21")
+    static let atomTextColor = Color(hex:"86CDFF")
     // 테마에 따라 Color Change
     static let textGray = Color.adaptive(light: UIColor(Color(hex:"949494")), dark: UIColor(Color(hex:"949494")))
     
@@ -35,7 +36,8 @@ extension Color {
     
     static let originColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
     
-    static let borderColor = Color.adaptive(light: UIColor(Color.lightGray), dark: UIColor(Color(hex: "555459")))
+    static let borderColor = Color.adaptive(light: UIColor(Color(hex:"CECECE")), dark: UIColor(Color(hex: "555459")))
+    static let borderColor2 = Color.adaptive(light: UIColor.systemGray3, dark: UIColor(Color(hex: "555459")))
     
     static let iconColor = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.lightGray))
     
@@ -44,6 +46,8 @@ extension Color {
     static let bgColor2 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.lightGray))
     
     static let bgColor3 = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.deepGray))
+    
+    static let bgColor4 = Color.adaptive(light: UIColor(Color.darkGray), dark: UIColor(Color.deepGray))
     
     static let cardColor = Color.adaptive(light: UIColor(Color.white), dark: UIColor(Color.black))
     

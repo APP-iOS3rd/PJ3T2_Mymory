@@ -27,23 +27,17 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
     let memoService = MemoService.shared
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
+    @Published var userProfile: Profile? = nil
     @Published var currentLocation: CLLocation?  = nil
-    
+    @Published var isEmptyView = false
+
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
         fetchUserState()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
-        
-        if let userID = UserDefaults.standard.string(forKey: "userId") {
-            DispatchQueue.main.async {
-                Task {[weak self] in
-                    guard let self = self else {return}
-                    await self.pagenate(userID: userID)
-//                    self.memoList = await self.memoService.fetchMyMemos(userID: userID)
-                }
-            }
-        }
+        fetchUserMemo()
+
         
         // 해당 코드 블럭 로그인 이후 재 호출필요
         user = AuthService.shared.currentUser
@@ -57,6 +51,22 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         }
     }
     
+    func fetchUserMemo(){
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            DispatchQueue.main.async {
+                Task {[weak self] in
+                    guard let self = self else {return}
+                    await self.pagenate(userID: userID)
+                }
+            }
+        }
+    }
+    func fetchUserProfile() {
+        guard let id = user?.id else {return}
+        Task {
+            self.userProfile = await AuthService.shared.memoCreatorfetchProfile(uid: id)
+        }
+    }
     
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
@@ -85,8 +95,27 @@ class MypageViewModel: ObservableObject, ProfileViewModelProtocol {
         await MainActor.run {
             self.memoList += fetchedMemos
             self.merkerMemoList = fetchedMemos
+            
+            self.isEmptyView = self.memoList.isEmpty
+
         }
     }
-
+    
+    // 마이페이지에서 수정, 삭제 에러나지 않도록
+    func refreshPagenate() async {
+        
+        if let userID = UserDefaults.standard.string(forKey: "userId") {
+            self.memoList = []
+            self.merkerMemoList = []
+            let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: nil) { last in
+                self.lastDocument = last
+            }
+            
+            await MainActor.run {
+                self.memoList += fetchedMemos
+                self.merkerMemoList = fetchedMemos
+            }
+        }
+    }
 
 }

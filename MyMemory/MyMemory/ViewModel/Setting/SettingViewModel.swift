@@ -9,18 +9,23 @@ import Foundation
 import FirebaseAuth
 import FirebaseCore
 import FirebaseFirestore
+import UserNotifications
 
 class SettingViewModel: ObservableObject {
     @Published var version: String = "1.0.0"
     @Published var isCurrentUserLoginState: Bool = false
     @Published var isShowingLogoutAlert = false
     @Published var isShowingWithdrawalAlert = false
+    @Published var isAblePushNotification: Bool = false
     
     let db = Firestore.firestore()
     
     init() {
         self.version = fetchCurrentAppVersion()
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
+        Task {
+            await self.changeToggleState()
+        }
     }
     
     func fetchCurrentAppVersion() -> String {
@@ -75,6 +80,34 @@ class SettingViewModel: ObservableObject {
             }
         } else {
             print("로그인 상태가 아님")
+        }
+    }
+    
+    func checkNotificationPermission() async -> Bool {
+        let center = UNUserNotificationCenter.current()
+        let settings = await center.notificationSettings()
+        
+        switch settings.authorizationStatus {
+            case .authorized: return true
+            case .provisional: return true
+            case .ephemeral: return true
+            default: return false
+        }
+    }
+    
+    func changeToggleState() async {
+        self.isAblePushNotification = await self.checkNotificationPermission()
+    }
+    
+    func moveToNotificationSetting() {
+        if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+    }
+    
+    func moveToOpenSourceLicenseMenu() {
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
         }
     }
 }

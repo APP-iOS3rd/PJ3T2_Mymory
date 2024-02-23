@@ -15,7 +15,6 @@ import CoreLocation
 
 class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     
-    @Published var merkerMemoList: [Memo] = []
     @Published var memoList: [Memo] = []
     @Published var selectedFilter = SortedTypeOfMemo.last
     @Published var isShowingOptions = false
@@ -25,9 +24,8 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     let locationHandler = LocationsHandler.shared
     @Published var user: User?
     @Published var currentLocation: CLLocation?  = nil
-    
-    @Published var memoCreator: User = User(email: "", name: "")
-
+    @Published var memoCreator: Profile? = nil
+    @Published var isEmptyView = false
     var lastDocument: QueryDocumentSnapshot? = nil
     
     init() {
@@ -48,26 +46,35 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     }
     
     // 여기 이동 프로필 사용자 메모만 볼 수 있게 구현하기
-    func fetchMemoCreatorProfile(memoCreator: User){
-        self.memoList = []
-        self.memoCreator = memoCreator
-        
-        
+    func fetchMemoCreatorProfile(memoCreator: User) async {
+        self.memoCreator = await AuthService.shared.memoCreatorfetchProfile(uid: memoCreator.id ?? "")
+
+        // memoList memoCreator메모 가져오기
+//        self.memoList = []
         fetchUserState()
+
+        // 백그라운드에서 데이터 가져오기
+        self.memoList = await self.memoService.fetchProfileMemos(userID: memoCreator.id ?? "")
+        self.isEmptyView = self.memoList.isEmpty
         DispatchQueue.main.async {
             Task {[weak self] in
-                guard let self = self else {return}
-                await self.pagenate(userID: memoCreator.id ?? "")
+                guard let self = self else { return }
+                guard let userId = self.memoCreator?.id else { 
+                    print("ID 없음")
+                    return
+                }
+//                await self.pagenate(userID: userId)
             }
         }
-        
+
         fetchCurrentUserLocation { location in
             if let location = location {
-                self.currentLocation = location
+                // 메인 스레드에서 UI 업데이트
+                DispatchQueue.main.async {
+                    self.currentLocation = location
+                }
             }
         }
-        
-        
     }
     func fetchCurrentUserLocation(returnCompletion: @escaping (CLLocation?) -> Void) {
         locationHandler.getCurrentLocation { [weak self] location in
@@ -89,13 +96,12 @@ class OtherUserViewModel: ObservableObject, ProfileViewModelProtocol {
     /// - Parameters:
     ///     - userID: 사용자 UID
     func pagenate(userID: String) async {
-        let fetchedMemos = await self.memoService.fetchMyMemos(userID: userID, lastDocument: self.lastDocument) { last in
-            self.lastDocument = last
-        }
-        
-        await MainActor.run {
-            self.memoList += fetchedMemos
-            self.merkerMemoList = fetchedMemos
-        }
+        //        if self.user?.id != userID {
+//        let fetchedMemos = await self.memoService.fetchMemos(userID: userID, lastDocument: self.lastDocument) { last in
+//            self.lastDocument = last
+//        }
+//        await MainActor.run {
+//            self.memoList += fetchedMemos
+//        }
     }
 }

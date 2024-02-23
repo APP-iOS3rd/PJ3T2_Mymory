@@ -19,7 +19,10 @@ final class AuthService: ObservableObject {
     @Published var followerCount: Int = 0
     @Published var followingCount: Int = 0
     @Published var isFollow: Bool = false
-
+ 
+    
+    let storage = Storage.storage()
+    
     init() {
         if let session = Auth.auth().currentUser {
             self.userSession = session
@@ -76,13 +79,13 @@ final class AuthService: ObservableObject {
             // print(user)
         }
     }
+    
     func fetchUser(completion: @escaping (User?) -> Void) {
         guard let uid = userSession?.uid else {
             completion(nil)
             return
         }
-        
-        print("현재 로그인 상태: uid \(uid)")
+        print("AuthService : 현재 로그인 상태: uid \(uid)")
         
         COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             guard let snapshot = snapshot, snapshot.exists else {
@@ -101,6 +104,43 @@ final class AuthService: ObservableObject {
         }
     }
     
+    
+    /// 사용자의 메모 개수, 사진 개수를 가져오는 메서드 입니다.
+    /// - Parameters:
+    ///   - uid : 메모 개수, 사진 개수를 가져올 사용자의 uid
+    /// - Returns: (Int, Int) : 메모 개수, 사진 개수
+    func countUserData(uid: String) async -> (Int, Int) {
+        var memoCount = 0
+        var imageCount = 0
+        
+        do {
+            let snapshot = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: uid).getDocuments()
+            let documents = snapshot.documents
+            
+            if documents.isEmpty {
+                print("documents.isEmpty \(documents.count)")
+            }
+            
+            memoCount = documents.count
+            
+            print("Number of documents: \(documents.count)")
+            
+            var totalImageUUIDCount = 0
+            for document in documents {
+                if let memoImageUUIDs = document["memoImageUUIDs"] as? [String] {
+                    totalImageUUIDCount += memoImageUUIDs.count
+                }
+            }
+            
+            imageCount = totalImageUUIDCount
+        } catch {
+            print("Memo 이미지 UUID 개수를 계산하는 중에 오류가 발생했습니다: \(error)")
+        }
+        
+        return (memoCount, imageCount)
+    }
+
+    
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
     ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
@@ -108,7 +148,7 @@ final class AuthService: ObservableObject {
     func memoCreatorfetchUser(uid: String, completion: @escaping (User?) -> Void) {
         print("현재 메모 작성자: uid \(uid)")
         
-        COLLECTION_USERS.document(uid).getDocument { [weak self] snapshot, error in
+        COLLECTION_USERS.document(uid).getDocument { snapshot, error in
             if let error = error {
                 print("Error fetching user: \(error.localizedDescription)")
                 completion(nil)
@@ -129,7 +169,7 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfile(uid: String) async -> Profile?  {
         do {
-            let document = try await COLLECTION_USERS.document(uid).getDocument()
+            let document = try await COLLECTION_USERS.document(uid).getDocument(source: .cache)
             if document.exists {
                 guard let memoCreator = try? document.data(as: User.self) else {
                     return nil
@@ -138,6 +178,8 @@ final class AuthService: ObservableObject {
                 if let id = profile.id {
                     profile.memoCount = await self.fetchUserMemoCount(with: id)
                     profile.followerCount = await self.fetchUserFollowerCount(with: id)
+                    profile.followingCount = await self.fetchUserFollowingCount(with: id)
+                    profile.pinCount = await self.pinnedCount()
                     profile.isFollowing = await self.followCheck(with: id)
                 }
                 return profile
@@ -152,16 +194,29 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfiles(memos: [Memo]) async -> [Profile]  {
         var profileList: [Profile] = []
-            for id in memos.map({$0.userUid}) {
-                if let profile = await memoCreatorfetchProfile(uid: id) {
-                    profileList.append(profile)
-                }
+        for id in memos.map({$0.userUid}) {
+            if let profile = await memoCreatorfetchProfile(uid: id) {
+                profileList.append(profile)
             }
-            return profileList
+        }
+        return profileList
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
-            let document = try await COLLECTION_USER_Followers.document(id).getDocument()
+            let document = try await COLLECTION_USER_Followers.document(id).getDocument(source: .cache)
+            
+            if document.exists {
+                let fieldCount = document.data()?.count ?? 0
+                return fieldCount
+            } else { return 0 }
+        } catch {
+            print("에러 발생: \(error)")
+            return 0
+        }
+    }
+    func fetchUserFollowingCount(with id: String) async -> Int {
+        do {
+            let document = try await COLLECTION_USER_Following.document(id).getDocument(source: .cache)
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
@@ -174,18 +229,44 @@ final class AuthService: ObservableObject {
     }
     func fetchUserMemoCount(with id: String) async -> Int {
         do {
-            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments()
+            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments(source: .cache)
             return documents.documents.count
         } catch {
             print("에러 발생: \(error)")
             return 0
         }
     }
-    // 팔로우, 팔로잉을 카운트 하는 함수
-    // - Parameters:
-    //   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.
-    // - Returns: 반환 값은 따로 없으며 카운트된 숫자를 @Published로
-    //            View에 연결하여 각각의 사용자의 following, follower 숫자를 바로바로 표시할 수 있습니다.
+    func followerCheck(uid: String) async -> Int {
+        var count = 0
+        do {
+            let document = try await COLLECTION_USER_Followers.document(uid).getDocument()
+            
+            if document.exists {
+                count = document.data()?.count ?? 0
+            }
+            return count
+        } catch {
+            return 0
+        }
+    }
+    func followingCheck(uid: String) async -> Int {
+        var count = 0
+        do {
+            let document = try await COLLECTION_USER_Following.document(uid).getDocument()
+            
+            if document.exists {
+                count = document.data()?.count ?? 0
+            }
+            return count
+        } catch {
+            return 0
+        }
+    }
+    /// 팔로우, 팔로잉을 카운트 하는 함수
+    /// - Parameters:
+    ///   - user : following, follower 숫자를 알고 싶은 사용자를 넣어줍니다.
+    /// - Returns: 반환 값은 따로 없으며 카운트된 숫자를 @Published로
+    ///            View에 연결하여 각각의 사용자의 following, follower 숫자를 바로바로 표시할 수 있습니다.
     func followAndFollowingCount(user: User) async -> Void {
         guard let userID = user.id else { return }
         // 메인 스레드에서 UI 업데이트
@@ -413,5 +494,59 @@ final class AuthService: ObservableObject {
             self.isFollow = false
         }
     }
+    func pinnedCount() async -> Int {
+        guard let user = self.currentUser else { return 0}
+        
+        var count = 0
+        do {
+            let document = try await COLLECTION_MEMOS
+                .whereField("userUid", isEqualTo: user.id)
+                .getDocuments()
+            count = document.documents.filter{doc in
+                doc["isPinned"] as? Bool ?? false
+            }.count
+        } catch {
+            return 0
+        }
+        return count
+    }
+    func pinMyMemo(with memo: Memo) async {
+        guard let memoID = memo.id else {return}
+        do {
+            try await COLLECTION_MEMOS.document(memoID).updateData(["isPinned": memo.isPinned])
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
+    /// 사용자의 프로필사진을 제거하는 메서드입니다.
+    /// - Parameters:
+    ///     - uid: 사용자의 UID값입니다.
+    /// - Returns: 삭제에 성공하거나, 삭제할 프로필 사진이 없는 경우 .success(true)값을 반환하고, 삭제에 실패할 경우 .failure(.deleteUserProfileImage)를 반환합니다.
+    func removeUserProfileImage(uid: String) async -> Result<Bool, ProfileEditErrorType> {
+        let userRef = COLLECTION_USERS.document(uid)
+        let storageRef = storage.reference()
+        var deleteImageURL: String?
+        
+        do {
+            let user = try await userRef.getDocument()
+            if user.exists {
+                deleteImageURL = user["profilePicture"] as? String
+            }
+            
+            if let deleteImage = deleteImageURL, !deleteImage.isEmpty {
+                let deleteImageRef = storageRef.child("profile_images/\(deleteImage.getProfileImageUID())")
+                do {
+                    try await deleteImageRef.delete()
+                    return .success(true)
+                } catch {
+                    return .failure(.deleteUserProfileImage)
+                }
+            }
+            // 삭제할 이미지가 없는 경우(프로필 사진을 설정하지 않았던 경우)
+            return .success(true)
+        } catch {
+            return .failure(.deleteUserProfileImage)
+        }
+    }
 }

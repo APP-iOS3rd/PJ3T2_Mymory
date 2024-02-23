@@ -13,11 +13,15 @@ struct MainSectionsView: View {
     @Environment(\.dismiss) private var dismiss
     @State var presentLoginAlert: Bool = false
     @State var filterSheet: Bool = false
-    
+    @State var isFirst = true
     @State var selectedIndex = 0
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
+    @State var selectedUser: Profile? = nil
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel
+    
     let unAuthorized: (Bool) -> ()
+    
     private var swipe: some Gesture {
         DragGesture()
             .updating($translation) { value, state, _ in
@@ -79,7 +83,7 @@ struct MainSectionsView: View {
                             Spacer()
                         }.padding(.top, 20)
                         ScrollView(.vertical, showsIndicators: false){
-                            VStack(spacing: 12) {
+                            LazyVStack(spacing: 12) {
                                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in
                                     NavigationLink {
                                         DetailView(memo: item,
@@ -88,38 +92,43 @@ struct MainSectionsView: View {
                                                    selectedMemoIndex: index
                                         )
                                     } label: {
-                                        
-                                        MemoCard(memo: item,
-                                                 isVisible: true,
-                                                 profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
-                                        ) { actions in
-                                            switch actions {
-                                            case .follow:
-                                                viewModel.fetchMemoProfiles()
-                                            case .like:
-                                                viewModel.refreshMemos()
-                                                print("liked!")
-                                            case .unAuthorized:
-                                                presentLoginAlert.toggle()
-                                            }
+                                        if !viewModel.memoWriterList.isEmpty {
+                                            MemoCard(memo: item,
+                                                     isVisible: true,
+                                                     profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
+                                            ) { actions in
+                                                switch actions {
+                                                case .follow:
+                                                    viewModel.refreshMemoProfiles()
+                                                case .like:
+                                                    viewModel.refreshMemos()
+                                                    print("liked!")
+                                                case .unAuthorized:
+                                                    presentLoginAlert.toggle()
+                                                case .navigate(profile: let profile):
+                                                    selectedUser = profile
+                                                    print("Navigate to \(profile.name)'s profile")
+                                                default :
+                                                    print("selected\(actions)")
+                                                }
+                                            }.frame(maxWidth: .infinity)
                                         }
                                         
                                         
                                     }
                                     
-                                }.frame(maxWidth: .infinity)
+                                }
                                 
                             }.refreshable {
                                 viewModel.fetchMemos()
                                 viewModel.fetchMemoProfiles()
-                            }
-                            .padding(.horizontal, 20)
-                            
+                            }.frame(maxWidth: .infinity)
+                                .gesture(swipe)
                         }
                         
                     }
                     .sheet(isPresented: $filterSheet, content: {
-                        FileterListView(filteredList: $viewModel.filterList)
+                        FilterListView(filteredList: $viewModel.filterList)
                             .presentationDetents([.medium])
                     })
                     .overlay(content: {
@@ -130,38 +139,60 @@ struct MainSectionsView: View {
                     //.padding()
                     
                 default:
-                    CommunityView()
+                    CommunityView() { unauth in
+                        if unauth {
+                            presentLoginAlert.toggle()
+                        }
+                    }
                         .gesture(swipe)
                 }
             }
             .overlay(
-                            Button {
-                                dismiss()
-                            } label: {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "map")
-                                    Text("지도뷰")
-                                }
-                            }
-                                .buttonStyle(Pill.secondary)
-                                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-                                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-
-                        )
+                Button {
+                    dismiss()
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "map")
+                        Text("지도뷰")
+                    }
+                }
+                    .buttonStyle(Pill.secondary)
+                    .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
+                    .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                
+            )
             .background(Color.bgColor)
+            .navigationDestination(item: $selectedUser){ profile in
+                let user = profile.toUser
+                if isFirst {
+                    OtherUserProfileView(memoCreator: user)
+//                        .environmentObject(otherUserViewModel)
+                }
+            }
             .onAppear{
                 AuthService.shared.fetchUser()
-                viewModel.fetchMemoProfiles()
+                viewModel.refreshMemoProfiles()
             }
-            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
-                Button("로그인 하기", role: .destructive) {
+            //            .alert("로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?", isPresented: $presentLoginAlert) {
+            //                Button("로그인 하기", role: .destructive) {
+            //                    self.dismiss()
+            //
+            //                    unAuthorized(true)
+            //
+            //                }
+            //                Button("둘러보기", role: .cancel) {
+            //                }
+            //            }
+            .moahAlert(isPresented: $presentLoginAlert) {
+                MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                              firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                }),
+                              secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
                     self.dismiss()
-
+                    
                     unAuthorized(true)
-
-                }
-                Button("둘러보기", role: .cancel) {
-                }
+                })
+                )
             }
         }
     }

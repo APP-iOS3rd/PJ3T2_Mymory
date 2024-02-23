@@ -8,51 +8,51 @@
 import SwiftUI
 import Combine
 
+
 struct MainTabView: View {
     
-    //    @ObservedObject var viewRouter: ViewRouter
     @State private var selectedIndex = 0
     
     var body: some View {
-        
-        NavigationStack  {
+        NavigationStack {
             TabView(selection: $selectedIndex){
-                
-                MainMapView()
-                    .onTapGesture{
-                        selectedIndex = 0
-                    }
-                    .tabItem {
-                        Image(systemName: "map.fill")
-                        Text("지도")
-                    }.tag(0)
-                
-                PostView(selected: $selectedIndex)
-                    .onTapGesture {
-                        selectedIndex = 1
-                    }
-                    .tabItem {
-                        Image(systemName: "pencil")
-                        Text("메모하기")
-                    }
-                    .tag(1)
-                MyPageView()
-                    .onTapGesture{
-                        selectedIndex = 2
-                    }
-                    .tabItem {
-                        Image(systemName: "person")
-                        Text("마이")
-                    }
-                    .tag(2)
+                Group {
+                    MainMapView()
+                        //.navigationBarHidden(true)
+                        .onTapGesture{
+                            selectedIndex = 0
+                        }
+                        .tabItem {
+                            Image(systemName: "map")
+                            Text("지도")
+                        }.tag(0)
+                    
+                    PostView(selected: $selectedIndex, isEdit: false)
+                        .tabItem {
+                            Image(systemName: "pencil")
+                            Text("메모하기")
+                        }
+                        .tag(1)
+                      
+                    MyPageView(selected: $selectedIndex)
+                        .onTapGesture{
+                            selectedIndex = 2
+                        }
+                        .tabItem {
+                            Image(systemName: "person")
+                            Text("마이")
+                        }
+                        .tag(2)
+                }
+                .toolbarBackground(.visible, for: .tabBar)
             }
-        }.onAppear {
+            .background(Color.bgColor)
+        }
+        .onAppear {
             AuthService.shared.fetchUser()
         }
-        
+    
     }
-    
-    
 }
 
 

@@ -10,16 +10,29 @@ import _MapKit_SwiftUI
 
 struct MainMapView: View {
     @StateObject var mainMapViewModel: MainMapViewModel = MainMapViewModel()
+    
     @State var draw = true
     @State var sortDistance: Bool = true
     @State var showingSheet: Bool = false
     @State var showingAlert: Bool = false
     @State var presentLoginView: Bool = false
     @State var fileterSheet: Bool = false
-    @StateObject var noti = PushNotification.shared
+    @State private var presentLoginAlert = false
+    @State var currentAppearingMemo: Memo? = nil {
+        didSet {
+            if let memo = currentAppearingMemo {
+                mainMapViewModel.memoDidSelect(memo: memo)
+            }
+        }
+    }
+    @Environment(\.scenePhase) var phase
+    
+    @ObservedObject var noti = PushNotification.shared
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
     let layout: [GridItem] = [
         GridItem(.flexible(maximum: 80)),
     ]
+    private var operationQueue = OperationQueue()
     
     let memoList: [String] = Array(1...10).map {"메모 \($0)"}
     @State var isClicked: Bool = false
@@ -27,14 +40,29 @@ struct MainMapView: View {
     var body: some View {
         ZStack {
             MapView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .environmentObject(mainMapViewModel)
-            .ignoresSafeArea(edges: .top)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .environmentObject(mainMapViewModel)
+                .ignoresSafeArea(edges: .top)
+                .onChange(of: phase) { oldValue, newValue in
+                    switch newValue {
+                    case .active:
+                        mainMapViewModel.refreshMemos()
+                    @unknown default:
+                        break
+                        
+                    }
+                }
             VStack {
                 TopBarAddress(currentAddress: $mainMapViewModel.myCurrentAddress, mainMapViewModel: mainMapViewModel)
                     .padding(.horizontal, 12)
                     .onAppear(){
-                        mainMapViewModel.getCurrentAddress()
+                        //10초에 한번
+                        Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { t in
+                            // 50미터 밖일 때
+                            if mainMapViewModel.dist > 50 {
+                                mainMapViewModel.getCurrentAddress()
+                            }
+                        }
                     }
                 HStack{
                     
@@ -72,19 +100,19 @@ struct MainMapView: View {
                 }
                 Spacer()
                 HStack {
-                        // 현 위치 버튼
-                        Button {
-                            switch CLLocationManager.authorizationStatus() {
-                            case .authorizedAlways, .authorizedWhenInUse:
-                                mainMapViewModel.switchUserLocation()
-                            case .notDetermined, .restricted, .denied:
-                                showingAlert.toggle()
-                            @unknown default:
-                                mainMapViewModel.switchUserLocation()
-                            }
-                        } label: {
-                            CurrentSpotButton()
+                    // 현 위치 버튼
+                    Button {
+                        switch CLLocationManager.authorizationStatus() {
+                        case .authorizedAlways, .authorizedWhenInUse:
+                            mainMapViewModel.switchUserLocation()
+                        case .notDetermined, .restricted, .denied:
+                            showingAlert.toggle()
+                        @unknown default:
+                            mainMapViewModel.switchUserLocation()
                         }
+                    } label: {
+                        CurrentSpotButton()
+                    }
                     
                     Spacer()
                     
@@ -103,46 +131,92 @@ struct MainMapView: View {
                     
                 }
                 .padding(.horizontal, 16)
-                
-                //선택한 경우
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 20) {
-                        ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
-                            VStack{
-//                                Text("\(String(item.didLike))")
-                                MemoCell(
-                                    isVisible: true,
-                                
-                                    location: $mainMapViewModel.location,
-                                    selectedMemoIndex: index,
-                                    memo: item,
-                                    memos: mainMapViewModel.filterList.isEmpty ? mainMapViewModel.memoList : mainMapViewModel.filteredMemoList
-                                )
-                                .environmentObject(mainMapViewModel)
-                                .onTapGesture {
-                                    mainMapViewModel.memoDidSelect(memo: item)
+                ScrollViewReader { proxy in
+                    //선택한 경우
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 20) {
+                            ForEach(mainMapViewModel.filterList.isEmpty ? Array(zip(mainMapViewModel.memoList.indices, $mainMapViewModel.memoList)) : Array(zip(mainMapViewModel.filteredMemoList.indices, $mainMapViewModel.filteredMemoList)), id: \.0) { index, item  in
+                                VStack{
+                                    //                                Text("\(String(item.didLike))")
+                                    MemoCell(                                        
+                                        location: $mainMapViewModel.location,
+                                        selectedMemoIndex: index,
+                                        memo: item,
+                                        memos: mainMapViewModel.filterList.isEmpty ? $mainMapViewModel.memoList : $mainMapViewModel.filteredMemoList
+                                    ) { res in
+                                        if res {
+                                            presentLoginAlert.toggle()
+                                        }
+                                    }
+                                    .id(item.id)
+                                    .environmentObject(mainMapViewModel)
+                                    .onTapGesture {
+                                        mainMapViewModel.memoDidSelect(memo: item.wrappedValue)
+                                    }
+                                    .frame(width: UIScreen.main.bounds.size.width * 0.84)
+                                    .padding(.leading, 12)
+                                    .padding(.bottom, 12)
+                                    .background {
+                                        GeometryReader { geometry in
+                                            Color.clear
+                                                .onAppear {
+                                                    let minx = geometry.frame(in: .global).minX
+                                                    let scrollViewWidth = geometry.frame(in: .global).width
+                                                    let contentsWidth = geometry.frame(in: .local).width
+                                                    var idx = index
+                                                    let oldid = mainMapViewModel.selectedMemoId
+                                                    let newid = item.id
+                                                }
+                                                .onChange(of: geometry.frame(in: .global).minX) { old, minX in
+                                                    if minX < 180 && minX > -10 {
+                                                        operationQueue.cancelAllOperations()
+                                                        operationQueue.addOperation{
+                                                            DispatchQueue.main.async{
+                                                                if item.id != currentAppearingMemo?.id {
+                                                                    currentAppearingMemo = item.wrappedValue
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                        }
+                                    }
                                 }
-                                .frame(width: UIScreen.main.bounds.size.width * 0.84)
-                                .padding(.leading, 12)
-                                .padding(.bottom, 12)
                             }
+                            Spacer().frame(width: 12)
                         }
+                        
+                        .scrollTargetLayout()
                     }
+                    .onChange(of: mainMapViewModel.selectedMemoId) { old, new in
+                        proxy.scrollTo(new, anchor: .center)
+                    }
+                    .scrollIndicators(.hidden)
+                    .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
+                    .fixedSize(horizontal: false, vertical: true)
                 }
-
-                .fixedSize(horizontal: false, vertical: true)
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance) { logout in
+                MainSectionsView(sortDistance: $sortDistance
+//                                 ,otherUserViewModel: otherUserViewModel
+                ) { logout in
                     if logout {
                         self.presentLoginView = true
                     }
                 }
-                    .environmentObject(mainMapViewModel)
+                .environmentObject(mainMapViewModel)
             })
-            
+            .moahAlert(isPresented: $presentLoginAlert) {
+                        MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                      firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                        }),
+                                      secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                            self.presentLoginView = true
+                        })
+                        )
+                    }
             .sheet(isPresented: $fileterSheet, content: {
-                FileterListView(filteredList: $mainMapViewModel.filterList)
+                FilterListView(filteredList: $mainMapViewModel.filterList)
                     .background(Color.bgColor)
                     .presentationDetents([.medium])
             })
@@ -151,6 +225,7 @@ struct MainMapView: View {
                 LoadingView()
             }
         })
+        //.toolbar(.hidden)
         .navigationDestination(item:$noti.memo,
                                destination: {memo in
             
@@ -164,10 +239,12 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
+            
         }
         .fullScreenCover(isPresented: $presentLoginView) {
-            LoginView().environmentObject(AuthViewModel())
+            LoginView()
         }
+        
     }
 }
 

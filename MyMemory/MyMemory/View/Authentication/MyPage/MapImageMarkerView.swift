@@ -7,11 +7,11 @@
 
 import SwiftUI
 import MapKit
-
+import Kingfisher
 
 struct MapImageMarkerView<ViewModel: ProfileViewModelProtocol>: View {
     @EnvironmentObject var viewModel: ViewModel
-    @State private var position: MapCameraPosition = .userLocation(followsHeading: true, fallback: .automatic)
+    @State private var position: MapCameraPosition = .userLocation(followsHeading: false, fallback: .automatic)
     
     var body: some View {
         VStack {
@@ -29,12 +29,13 @@ struct MapImageMarkerView<ViewModel: ProfileViewModelProtocol>: View {
                                 .fill(.background)
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(.secondary, lineWidth: 5)
-                            Image(uiImage: UIImage(data: memo.images.first?.wrappedValue ?? Data()) ?? UIImage())
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 50)
-                                .padding(5)
-                            
+                            if memo.imagesURL.count > 0 {
+                                KFImage(URL(string: memo.imagesURL.first!.wrappedValue))
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 50, height: 50)
+                                    .padding(5)
+                            }
                         }
                         
                         

@@ -10,27 +10,18 @@ import Kingfisher
 
 struct MoveUserProfileButton: View {
 
-    @ObservedObject var viewModel: DetailViewModel
-    
+    @StateObject var viewModel: MoveUserProfileViewModel
+//    @ObservedObject var otherUserViewModel: OtherUserViewModel = .init()
+    @ObservedObject var authService: AuthService = .shared
+    @Binding var presentLoginAlert: Bool
+    @Binding var memo: Memo
     var body: some View {
-     
         HStack {
             NavigationLink {
-                OtherUserProfileView(memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                    .customNavigationBar(
-                        centerView: {
-                            Text(viewModel.memoCreator?.name ?? "")
-                        },
-                        leftView: {
-                            BackButton()
-                        },
-                        rightView: {
-                            EmptyView()
-                        },
-                        backgroundColor: Color.bgColor3
-                    )
+                OtherUserProfileView(memoCreator: viewModel.userProfile?.toUser ?? User(email: "", name: ""))
+//                    .environmentObject(otherUserViewModel)
             } label: {
-                if let imageUrl = viewModel.memoCreator?.profilePicture, let url = URL(string: imageUrl) {
+                if let imageUrl = viewModel.userProfile?.profilePicture, let url = URL(string: imageUrl) {
                     KFImage(url)
                         .resizable()
                         .scaledToFill()
@@ -44,30 +35,50 @@ struct MoveUserProfileButton: View {
                         .foregroundStyle(Color.darkGray)
                 }
                 
-            
                 VStack(alignment: .leading) {
-                    Text(viewModel.memoCreator?.name ?? "")
-                        .foregroundStyle(Color.textColor)
-                        .font(.bold18)
-                    
+                    Text(viewModel.userProfile?.name ?? "")
+//                        .foregroundStyle(Color.textColor)
+//                        .font(.bold18)
+                        .font(.userMainTextFont(baseSize: 18))
+
                 }
-                
-                Spacer()
-                NavigationLink {
-                    OtherUserProfileView( memoCreator: viewModel.memoCreator ?? User(email: "", name: ""))
-                } label: {
-                    Image(systemName: "ellipsis")
-//                    Text("작성자 프로필 이동")
-                }
-             //   .buttonStyle(Pill(backgroundColor: Color.white, titleColor: Color.darkGray, setFont: .bold16, paddingVertical:7))
-                
-                
             }
-            .padding()
-            .border(width: 1, edges: [.top], color: Color.bgColor)
+//            .border(width: 1, edges: [.top], color: Color.bgColor)
             
+            Spacer()
+            
+            if AuthService.shared.currentUser?.id != viewModel.userProfile?.id {
+                Button {
+                    if AuthService.shared.currentUser == nil {
+                        self.presentLoginAlert = true
+                    } else if let otherUser = viewModel.userProfile?.toUser {
+                        self.viewModel.fetchFollowAndUnfollowOtherUser(otherUser: otherUser)
+                    }
+                } label: {
+                    Text(viewModel.userProfile?.isFollowing == true ? "팔로잉" : "팔로우")
+                        .foregroundStyle(viewModel.userProfile?.isFollowing == true ? Color.textColor : Color.white)
+                        .font(.regular14)
+                        .frame(minWidth: 85)
+                        .frame(height: 30)
+                }
+                .background(viewModel.userProfile?.isFollowing == true ? Color(uiColor: UIColor.systemGray3) : Color.accentColor)
+                .cornerRadius(5, corners: .allCorners)
+
+                .onAppear {
+                    if let otherUserId = self.viewModel.userProfile?.id {
+                        Task {
+                            viewModel.fetchUserProfile(with:otherUserId)
+ 
+                        }
+                    }
+                }
+            }
+        }        
+        .onAppear{
+            viewModel.fetchUserProfile(with: memo.userUid)
         }
-        
+
+        .padding()
     }
 }
 
