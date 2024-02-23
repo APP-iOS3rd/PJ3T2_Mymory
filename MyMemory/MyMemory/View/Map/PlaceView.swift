@@ -46,7 +46,7 @@ struct PlaceView: View {
                         )
                         
                     } label: {
-                        if !viewModel.memoWriterList.isEmpty {
+                        if !viewModel.memoWriterList.isEmpty, index < viewModel.memoWriterList.count {
                             MemoCard(memo: item,
                                      isVisible: true,
                                      profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] :
