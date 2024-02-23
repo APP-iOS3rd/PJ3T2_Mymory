@@ -54,7 +54,7 @@ struct MyPageView: View {
                                             }
                                         }
                                     } header: {
-                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "rectangle.grid.1x2.fill"), MenuTabModel(index: 1, image: "map")],
                                                    selectedIndex: $selectedIndex,
                                                    fullWidth: UIScreen.main.bounds.width,
                                                    spacing: 50,

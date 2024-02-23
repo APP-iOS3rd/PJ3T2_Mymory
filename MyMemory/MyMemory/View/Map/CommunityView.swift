@@ -22,8 +22,10 @@ struct CommunityView: View {
                         .font(.bold24)
                         .multilineTextAlignment(.leading)
                     Spacer()
-                }.padding(.horizontal, 25)
-                    .padding(.top, 25)
+                }
+                .padding(.horizontal, 25)
+                .padding(.top, 25)
+                
                 ScrollView(.horizontal){
                     LazyHStack(spacing: 0, content: {
                         ForEach($viewModel.memosOfTheWeek.indices, id:\.self) { index in
