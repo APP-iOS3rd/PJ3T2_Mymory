@@ -49,19 +49,34 @@ struct MypageTopView: View {
                         
                         Spacer()
                         
-                        NavigationLink {
-                            
-                            SettingView (user: $authViewModel.currentUser,
-                                         isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState // 💁
-                            )
-                            
-                  
-                            
-                        } label: {
-                            Image(systemName: "gearshape")
-                                .font(.system(size: 24))
-                                .foregroundStyle(Color.iconColor)
-                        }
+                        // Tabbar 5번째 칸이 변경된다면 다시 추가
+//                        NavigationLink {
+//                            
+//                            SettingView (user: $authViewModel.currentUser,
+//                                         isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState // 💁
+//                            )
+//                            .customNavigationBar(
+//                                centerView: {
+//                                    Text("설정")
+//                                        .font(.semibold16)
+//                                        .foregroundStyle(Color.textColor)
+//                                },
+//                                leftView: {
+//                                    BackButton()
+//                                },
+//                                rightView: {
+//                                    EmptyView()
+//                                },
+//                                backgroundColor: Color.bgColor3
+//                            )
+//                            
+//                  
+//                            
+//                        } label: {
+//                            Image(systemName: "gearshape")
+//                                .font(.system(size: 24))
+//                                .foregroundStyle(Color.iconColor)
+//                        }
                         
                         
                     }

@@ -197,7 +197,7 @@ struct MainMapView: View {
                 }
             }
             .fullScreenCover(isPresented: $showingSheet, content: {
-                MainSectionsView(sortDistance: $sortDistance
+               ListView(sortDistance: $sortDistance
 //                                 ,otherUserViewModel: otherUserViewModel
                 ) { logout in
                     if logout {

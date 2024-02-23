@@ -167,6 +167,9 @@
     "lightGray" : {
 
     },
+    "My 메모" : {
+
+    },
     "Neo둥근모체" : {
 
     },
@@ -192,6 +195,9 @@
 
     },
     "standard3" : {
+
+    },
+    "test" : {
 
     },
     "개인정보 처리방침" : {
@@ -261,9 +267,6 @@
         }
       }
     },
-    "기본 메모지 선택 설정을 변경할 수 있습니다." : {
-
-    },
     "나만 보기" : {
       "localizations" : {
         "en" : {
@@ -281,6 +284,7 @@
 
     },
     "내 정보" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -489,6 +493,7 @@
       }
     },
     "마이" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -568,6 +573,7 @@
 
     },
     "메모하기" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -674,6 +680,9 @@
         }
       }
     },
+    "설정" : {
+
+    },
     "수정" : {
       "localizations" : {
         "en" : {
@@ -696,6 +705,9 @@
       }
     },
     "스타일" : {
+
+    },
+    "시스템모드에 따라 변경됨." : {
 
     },
     "시작하기" : {
@@ -1078,7 +1090,6 @@
       }
     },
     "테마 선택" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1087,6 +1098,9 @@
           }
         }
       }
+    },
+    "테마설정" : {
+
     },
     "특수문자,숫자,대문자를 포함한 8글자 이상으로 설정하세요!" : {
       "localizations" : {
@@ -1141,6 +1155,9 @@
 
     },
     "프리텐다드" : {
+
+    },
+    "피드" : {
 
     },
     "해당 장소 메모보기" : {

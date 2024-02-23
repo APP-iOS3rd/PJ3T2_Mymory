@@ -23,9 +23,9 @@ struct ThemeView: View {
                 
                 
                 VStack(alignment: .leading, spacing: 10){
-                    Text("메모지 컬러 변경")
+                    Text("테마설정")
                         .font(.bold20)
-                    Text("기본 메모지 선택 설정을 변경할 수 있습니다.")
+                    Text("시스템모드에 따라 변경됨.")
                         .font(.medium16)
                 }
                 .padding(.horizontal, 20)
@@ -47,7 +47,7 @@ struct ThemeView: View {
                 
                 LazyVGrid(columns: columns, spacing: 20) {
              
-                    ForEach(themeManager.themeList, id: \.self) { theme in
+                    ForEach(themeManager.systemThemeList, id: \.self) { theme in
                         VStack  {
                             VStack {
                                 Text("31")
@@ -62,18 +62,18 @@ struct ThemeView: View {
                                     .stroke(Color.darkGray)
                             )
                             .onTapGesture {
- 
+                                themeManager.changeTheme(to: theme)
                             }
 
                        
                             Button {
-                             //   themeManager.changeTheme(to: theme)
-                              //  viewModel.changeTheme(selectedThemeId: theme.id)
+                                themeManager.changeTheme(to: theme)
+                             // viewModel.changeTheme(selectedThemeId: theme.id)
                             } label: {
                                 Text(theme.rawValue)
                             }
-                           // .buttonStyle(themeManager.isThemeSelected(theme) ? Pill.deepGray : Pill.standard3)
-                           // .foregroundColor(themeManager.isThemeSelected(theme) ? theme.textColor : .gray)
+                            .buttonStyle(themeManager.isThemeSelected(theme) ? Pill.deepGray : Pill.standard3)
+                            // .foregroundColor(themeManager.isThemeSelected(theme) ? theme.textColor : .gray)
                         }
                         .padding()
                         
@@ -83,7 +83,7 @@ struct ThemeView: View {
         }
         .customNavigationBar(
             centerView: {
-                Text("메모지 선택")
+                Text("테마 선택")
             },
             leftView: {
                 BackButton()

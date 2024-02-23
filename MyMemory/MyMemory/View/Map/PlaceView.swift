@@ -80,6 +80,20 @@ struct PlaceView: View {
           
              
         }
+//        .overlay(
+//            Button {
+//               
+//            } label: {
+//                HStack(spacing: 4) {
+//                    Image(systemName: "pencil")
+//                    Text("작성하기")
+//                }
+//            }
+//                .buttonStyle(Pill.secondary)
+//                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
+//                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+//            
+//        )
         .onAppear {
             viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
             viewModel.fetchMemos()

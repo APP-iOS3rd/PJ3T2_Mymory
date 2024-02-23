@@ -15,38 +15,80 @@ struct MainTabView: View {
     
     var body: some View {
         NavigationStack {
-            TabView(selection: $selectedIndex){
-                Group {
-                    MainMapView()
-                        //.navigationBarHidden(true)
+            ZStack(alignment: .bottom) {
+                TabView(selection: $selectedIndex){
+                    Group {
+                        MainMapView()
+                            .onTapGesture{
+                                selectedIndex = 0
+                            }
+                            .tabItem {
+                                Image(systemName: "map")
+                                Text("지도")
+                            }
+                            .tag(0)
+                        
+                        CommunityTabView(selected: $selectedIndex) { logout in
+                            if logout {
+                                
+                            }
+                            
+                        }
                         .onTapGesture{
-                            selectedIndex = 0
+                            selectedIndex = 1
                         }
                         .tabItem {
-                            Image(systemName: "map")
-                            Text("지도")
-                        }.tag(0)
-                    
-                    PostView(selected: $selectedIndex, isEdit: false)
-                        .tabItem {
-                            Image(systemName: "pencil")
-                            Text("메모하기")
+                            Image(systemName: "rectangle.fill.on.rectangle.angled.fill")
+                            Text("피드")
                         }
                         .tag(1)
-                      
-                    MyPageView(selected: $selectedIndex)
-                        .onTapGesture{
-                            selectedIndex = 2
-                        }
-                        .tabItem {
-                            Image(systemName: "person")
-                            Text("마이")
-                        }
-                        .tag(2)
+                        
+                        PostView(selected: $selectedIndex, isEdit: false)
+                            .onTapGesture{
+                                selectedIndex = 2
+                            }
+                            .tabItem {
+                                EmptyView()
+                            }
+                            .tag(2)
+                            
+                        
+                        MyPageView(selected: $selectedIndex)
+                            .onTapGesture{
+                                selectedIndex = 3
+                            }
+                            .tabItem {
+                                
+                                Image(systemName: "person")
+                                Text("My 메모")
+                            }
+                            .tag(3)
+
+                        SettingTabView(selected: $selectedIndex)
+                            .onTapGesture{
+                                selectedIndex = 4
+                            }
+                            .tabItem {
+                                Image(systemName: "gear")
+                                Text("설정")
+                            }
+                            .tag(4)
+                        
+                    }
+                    .toolbarBackground(.visible, for: .tabBar)
                 }
-                .toolbarBackground(.visible, for: .tabBar)
+                
+               Button {
+                   selectedIndex = 2
+               } label: {
+                   Image(systemName: "plus")
+                       .fontWeight(.bold)
+                       .tint(Color.white)
+               }
+               .frame(width: 50, height: 50)
+               .background(Color.accentColor)
+               .clipShape(Circle())
             }
-            .background(Color.bgColor)
         }
         .onAppear {
             AuthService.shared.fetchUser()

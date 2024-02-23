@@ -10,6 +10,7 @@ import UserNotifications
 
 struct SettingView: View {
     @StateObject var settingViewModel: SettingViewModel = .init()
+    @StateObject var themeViewModel: ThemeViewModel = .init()
     @StateObject var authViewModel: AuthService = .shared
     @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
@@ -17,15 +18,15 @@ struct SettingView: View {
   
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ScrollView() {
+        ScrollView() {
+            VStack(alignment: .leading) {
                 VStack(spacing: 36) {
                     VStack(alignment: .leading, spacing: 22) {
                         Group {
                             Text("일반")
                                 .font(.regular12)
                                 .opacity(0.3)
-                            SettingMenuCell(name: "로그인 정보", page: "loginInfo")
+                            //  SettingMenuCell(name: "로그인 정보", page: "loginInfo")
                             Toggle("알림", isOn: $settingViewModel.isAblePushNotification)
                                 .disabled(true)
                                 .padding(.trailing, 3)
@@ -47,7 +48,7 @@ struct SettingView: View {
                             Text("스타일")
                                 .font(.regular12)
                                 .opacity(0.3)
-                            SettingMenuCell(name: "테마", page: "theme")
+                            //SettingMenuCell(name: "테마", page: "theme")
                             SettingMenuCell(name: "폰트", page: "font")
                         }
                     }
@@ -85,69 +86,56 @@ struct SettingView: View {
                         }
                     }
                 }
-            }
-            
-            if authViewModel.currentUser != nil {
-                VStack(alignment: .trailing, spacing: 56) {
-                    Button {
-                        settingViewModel.isShowingLogoutAlert = true
-                    } label: {
-                        Text("로그아웃")
-                            .foregroundStyle(.white)
-                            .frame(height: 50)
-                            .frame(maxWidth: .infinity)
-                            .background(.accent)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    .alert("로그아웃 하시겠습니까?", 
-                           isPresented: $settingViewModel.isShowingLogoutAlert) {
-                        
-                        Button("로그아웃", role: .destructive) {
-                                                   
-                            if authViewModel.signout() {
+                
+                
+                if authViewModel.currentUser != nil {
+                    VStack(alignment: .trailing, spacing: 56) {
+                        Button {
+                            settingViewModel.isShowingLogoutAlert = true
+                        } label: {
+                            Text("로그아웃")
+                                .foregroundStyle(.white)
+                                .frame(height: 50)
+                                .frame(maxWidth: .infinity)
+                                .background(.accent)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                        }
+                        .alert("로그아웃 하시겠습니까?",
+                               isPresented: $settingViewModel.isShowingLogoutAlert) {
                             
-                                print("로그아웃 성공")
-                                UserDefaults.standard.removeObject(forKey: "userId")
-                                presentationMode.wrappedValue.dismiss()
-                            } else {
-                                print("로그아웃 실패")
+                            Button("로그아웃", role: .destructive) {
+                                
+                                if authViewModel.signout() {
+                                    
+                                    print("로그아웃 성공")
+                                    UserDefaults.standard.removeObject(forKey: "userId")
+                                    presentationMode.wrappedValue.dismiss()
+                                } else {
+                                    print("로그아웃 실패")
+                                }
                             }
+                            
+                            Button("뒤로가기", role: .cancel) {}
                         }
                         
-                        Button("뒤로가기", role: .cancel) {}
-                    }
-                    
-                    NavigationLink {
-                       
-                        WithdrawalView(
-                            isCurrentUserLoginState: $isCurrentUserLoginState,
-                            user: $user
-                        )
-                        .environmentObject(settingViewModel)
-                        
-                    } label: {
-                        Text("회원 탈퇴하기")
-                            .underline()
-                            .foregroundStyle(Color(UIColor.systemGray))
+                        NavigationLink {
+                            
+                            WithdrawalView(
+                                isCurrentUserLoginState: $isCurrentUserLoginState,
+                                user: $user
+                            )
+                            .environmentObject(settingViewModel)
+                            
+                        } label: {
+                            Text("회원 탈퇴하기")
+                                .underline()
+                                .foregroundStyle(Color(UIColor.systemGray))
+                        }
                     }
                 }
             }
         }
         .padding(.horizontal, 16)
         .padding(.top, 34)
-        .customNavigationBar(
-            centerView: {
-                Text("내 정보")
-                    .font(.semibold16)
-                    .foregroundStyle(Color.textColor)
-            },
-            leftView: {
-                BackButton()
-            },
-            rightView: {
-                EmptyView()
-            },
-            backgroundColor: Color.bgColor3
-        )
     }
 }
