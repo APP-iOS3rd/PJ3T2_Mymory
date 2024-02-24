@@ -12,7 +12,7 @@ import Combine
 struct MainTabView: View {
     
     @State private var selectedIndex = 0
-    
+    @State private var isKeyboardVisible = false
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -51,7 +51,7 @@ struct MainTabView: View {
                                 EmptyView()
                             }
                             .tag(2)
-                            
+                        
                         
                         MyPageView(selected: $selectedIndex)
                             .onTapGesture{
@@ -63,7 +63,7 @@ struct MainTabView: View {
                                 Text("My 메모")
                             }
                             .tag(3)
-
+                        
                         SettingTabView(selected: $selectedIndex)
                             .onTapGesture{
                                 selectedIndex = 4
@@ -77,21 +77,31 @@ struct MainTabView: View {
                     }
                     .toolbarBackground(.visible, for: .tabBar)
                 }
-                
-               Button {
-                   selectedIndex = 2
-               } label: {
-                   Image(systemName: "plus")
-                       .fontWeight(.bold)
-                       .tint(Color.white)
-               }
-               .frame(width: 50, height: 50)
-               .background(Color.accentColor)
-               .clipShape(Circle())
+                // 키보드가 활성화되지 않았을 때만 버튼을 표시합니다.
+                if !isKeyboardVisible {
+                    Button {
+                        selectedIndex = 2
+                    } label: {
+                        Image(systemName: "plus")
+                            .fontWeight(.bold)
+                            .tint(Color.white)
+                    }
+                    .frame(width: 50, height: 50)
+                    .background(Color.accentColor)
+                    .clipShape(Circle())
+                }
             }
         }
         .onAppear {
             AuthService.shared.fetchUser()
+            // 키보드가 나타나는 이벤트를 감지합니다.
+           NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { _ in
+               isKeyboardVisible = true
+           }
+           // 키보드가 사라지는 이벤트를 감지합니다.
+           NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
+               isKeyboardVisible = false
+           }
         }
     
     }
