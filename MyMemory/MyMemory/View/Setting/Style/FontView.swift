@@ -181,10 +181,7 @@ struct FontView: View {
         )
     }
 }
-
-#Preview {
-    FontView()
-}
+ 
 
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {
