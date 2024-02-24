@@ -65,21 +65,7 @@ struct MemoCell: View {
             
             VStack(alignment: .leading, spacing: 6) {
                 
-                // Tag는 세 개까지 표시
-                HStack {
-                    if memo.tags.count > 3 {
-                        ForEach(memo.tags[0..<3], id: \.self) { str in
-                            Text("#\(str)")
-                        }
-                    } else {
-                        ForEach(memo.tags, id: \.self) { str in
-                            Text("#\(str)")
-                        }
-                    }
-                }
-                
-                .foregroundColor(.gray)
-                .font(.regular14)
+            
                 
                 if isFromCo {
                     Text(memo.title)
@@ -103,6 +89,22 @@ struct MemoCell: View {
                     //                .buttonStyle(Pill.deepGray)
                     //.buttonStyle(isDark ? Pill.deepGray : Pill.lightGray)
                 }
+                // Tag는 세 개까지 표시
+                HStack {
+                    if memo.tags.count > 3 {
+                        ForEach(memo.tags[0..<3], id: \.self) { str in
+                            Text("#\(str)")
+                        }
+                    } else {
+                        ForEach(memo.tags, id: \.self) { str in
+                            Text("#\(str)")
+                        }
+                    }
+                }
+                .frame(height: 16)
+                
+                .foregroundColor(.gray)
+                .font(.regular14)
                 Spacer()
                     .padding(.bottom, 12)
                 
