@@ -195,7 +195,7 @@ final class AuthService: ObservableObject {
     func getProfileImg(uid: String) async -> String {
         do {
             let profile = await memoCreatorfetchProfile(uid: uid)
-            return profile?.profilePicture ?? "profileImg"
+            return profile?.profilePicture ?? ""
         } catch {
             print("An error occurred: \(error)")
             return ""

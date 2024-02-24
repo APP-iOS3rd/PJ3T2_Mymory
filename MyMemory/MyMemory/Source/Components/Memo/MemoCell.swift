@@ -21,7 +21,7 @@ struct MemoCell: View {
     @State var likeCount = 0
     @State var isMyMemo: Bool = false
     @State var isFromCo: Bool = false
-    @State var profileImageUrl: String = "profileImg"
+    @State var profileImageUrl: String = ""
     var unAuthorized: (Bool) -> ()
     
     var body: some View {
@@ -32,12 +32,22 @@ struct MemoCell: View {
                     
                     if (memos[selectedMemoIndex].location.distance(from: loc) <= MemoService.shared.readableArea) || isMyMemo || isFromCo {
                         
-                        KFImage(URL(string: profileImageUrl))
-                             .resizable()
-                             .scaledToFill()
-                             .clipped()
-                             .clipShape(.circle)
-                             .frame(width: 46, height: 46)
+                        if !profileImageUrl.isEmpty {
+                            KFImage(URL(string: profileImageUrl))
+                                 .resizable()
+                                 .scaledToFill()
+                                 .clipped()
+                                 .clipShape(.circle)
+                                 .frame(width: 46, height: 46)
+                        } else {
+                            Image("profileImg") 
+                                .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .clipShape(.circle)
+                                .frame(width: 46, height: 46)
+                        }
+                        
                         
                     } else {
                         Image(systemName: "lock")
@@ -187,15 +197,6 @@ struct MemoCell: View {
     func fetchlikeCount() async{
         likeCount = await MemoService.shared.likeMemoCount(memo: memo)
     }
-//    func getProfileImage() -> String {
-//        var url = ""
-//        Task {
-//            let profile = await AuthService.shared.memoCreatorfetchProfile(uid: memo.userUid)
-//            url = profile?.profilePicture ?? ""
-//        }
-//        return url
-//        
-//    }
-//    
+
 }
 
