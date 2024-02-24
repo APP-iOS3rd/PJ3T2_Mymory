@@ -17,7 +17,7 @@ struct SettingTabView: View {
             Color.bgColor.ignoresSafeArea()
             
             SettingView(user: $authViewModel.currentUser,
-                  isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState)
+                        isCurrentUserLoginState: $authViewModel.isCurrentUserLoginState, selected: $selected)
         }
      
     }

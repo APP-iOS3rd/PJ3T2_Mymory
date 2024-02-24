@@ -14,8 +14,9 @@ struct SettingView: View {
     @StateObject var authViewModel: AuthService = .shared
     @Binding var user: User?
     @Binding var isCurrentUserLoginState: Bool
-    @Environment(\.presentationMode) var presentationMode
   
+   // @Environment(\.presentationMode) var presentationMode
+    @Binding var selected: Int // 나중에 SettingView가 안으로 들어간다면 제거해주세요...
     
     var body: some View {
         ScrollView() {
@@ -109,7 +110,9 @@ struct SettingView: View {
                                     
                                     print("로그아웃 성공")
                                     UserDefaults.standard.removeObject(forKey: "userId")
-                                    presentationMode.wrappedValue.dismiss()
+                                    // tab 0으로 이동
+                                    selected = 0
+                                   // presentationMode.wrappedValue.dismiss()
                                 } else {
                                     print("로그아웃 실패")
                                 }
