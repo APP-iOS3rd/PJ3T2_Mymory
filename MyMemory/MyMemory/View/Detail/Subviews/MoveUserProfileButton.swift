@@ -37,9 +37,7 @@ struct MoveUserProfileButton: View {
                 
                 VStack(alignment: .leading) {
                     Text(viewModel.userProfile?.name ?? "")
-//                        .foregroundStyle(Color.textColor)
-//                        .font(.bold18)
-                        .font(.userMainTextFont(baseSize: 18))
+                        .font(.userMainTextFont(fontType: memo.memoFont, baseSize: 18))
 
                 }
             }

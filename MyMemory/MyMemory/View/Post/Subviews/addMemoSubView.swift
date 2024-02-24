@@ -12,15 +12,20 @@ struct addMemoSubView: View {
     let maxHeight: CGFloat = 400
     let maxCharacterCount: Int = 1000
     let placeholder: String = "본문을 입력해주세요."
-    @State var themeSheet: Bool = false
     
+    @State var themeSheet: Bool = false
+    @State var fontSheet: Bool = false
     @EnvironmentObject var viewModel: PostViewModel
     @ObservedObject var themeManager: ThemeManager = .shared
+    @ObservedObject var fontManager: FontManager = .shared
     @State var currentTheme: ThemeType = .system
+    @State var currentFont: FontType = .Regular
+    
     enum Field {
         case title
         case contents
     }
+    
     @FocusState private var focusedField: Field?
     
     var body: some View {
@@ -44,19 +49,20 @@ struct addMemoSubView: View {
                 
                 VStack {
                     TextField("제목을 입력해주세요", text: $viewModel.memoTitle)
-                        .font(.userMainTextFont(baseSize: 20))
+                        .font(.userMainTextFont(fontType: currentFont, baseSize: 20))
                         .focused($focusedField, equals: .title)
+    
                     // TexEditor 여러줄 - 긴글 의 text 를 입력할때 사용
                     TextEditor(text: $viewModel.memoContents)
                         .padding(.horizontal, -4)
                         .scrollContentBackground(.hidden)
                         .frame(minHeight: minHeight, maxHeight: maxHeight)
-                        .font(.userMainTextFont(baseSize: 16))
+                        .font(.userMainTextFont(fontType: currentFont, baseSize: 16))
                         .focused($focusedField, equals: .contents)
                         .background(
                             Text(viewModel.memoContents.isEmpty ? "본문을 입력해주세요." : "")
                                 .foregroundStyle(Color.placeHolder)
-                                .font(.userMainTextFont(baseSize: 16))
+                                .font(.userMainTextFont(fontType: currentFont, baseSize: 16))
                                 .frame(maxWidth: .infinity, alignment: .topLeading)
                                 .padding(.vertical, 8)
                             ,alignment: .topLeading
@@ -111,9 +117,15 @@ struct addMemoSubView: View {
                 .foregroundStyle(currentTheme.textColor)
                 .onAppear {
                     self.currentTheme = viewModel.memoTheme
+                    self.currentFont = viewModel.memoFont
+                    
                 }
                 .onChange(of: viewModel.memoTheme) { _, newValue in
                     self.currentTheme = newValue
+                   
+                }
+                .onChange(of: viewModel.memoFont) { _, newValue in
+                    self.currentFont = newValue
                 }
                 .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드가 올라온 경우 뷰가 키보드를 침범하지 않도록 합니다.
                 
@@ -129,7 +141,8 @@ struct addMemoSubView: View {
                     Text("선택된 테마: \(currentTheme.rawValue)")
                     
                 }
-                
+                .buttonStyle(RoundedRect.standard)
+                .padding(.bottom, 20)
                 .sheet (
                     isPresented: $themeSheet,
                     onDismiss: {
@@ -139,6 +152,33 @@ struct addMemoSubView: View {
                     },
                     content: {
                         MemoThemeView(currentTheme: $viewModel.memoTheme)
+                            .environmentObject(viewModel)
+                    }
+                )
+                // 메모지 선택 Sheet
+                HStack{
+                    Button {
+                        fontSheet.toggle()
+                        
+                    } label : {
+                        Text("폰트 선택")
+                        
+                    }
+                    Text("선택된 테마: \(currentFont.rawValue)")
+                    
+                }
+                
+               
+                .sheet (
+                    isPresented: $fontSheet,
+                    onDismiss: {
+                        // 기본 값으로 설정된 메모지로 가져오고, 선택된 값이 없다면 .system모드로 불러옴.
+                        // sheet 가 닫혔을 때 action
+
+                        viewModel.memoFont = fontManager.getFont(fontData: viewModel.memoFont)
+                    },
+                    content: {
+                        FontView(currentFont: $viewModel.memoFont)
                             .environmentObject(viewModel)
                     }
                 )

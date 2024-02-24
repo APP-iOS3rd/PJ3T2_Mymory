@@ -46,17 +46,6 @@ struct SettingView: View {
                     
                     VStack(alignment: .leading, spacing: 22) {
                         Group {
-                            Text("스타일")
-                                .font(.regular12)
-                                .opacity(0.3)
-                            //SettingMenuCell(name: "테마", page: "theme")
-                            SettingMenuCell(name: "폰트", page: "font")
-                        }
-                    }
-                    
-                    
-                    VStack(alignment: .leading, spacing: 22) {
-                        Group {
                             Text("앱 정보")
                                 .font(.regular12)
                                 .opacity(0.3)

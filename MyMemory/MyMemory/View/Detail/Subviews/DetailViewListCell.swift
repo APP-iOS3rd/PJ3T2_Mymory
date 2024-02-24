@@ -34,10 +34,10 @@ struct DetailViewListCell: View {
             HStack{
                 VStack(alignment: .leading, spacing: 6) {
                     Text(memo.title)
-                        .font(.userMainTextFont(baseSize: 20))
                     
+                        .font(.userMainTextFont(fontType: memo.memoFont, baseSize: 20))
                     Text("\(memo.date.createdAtTimeYYMMDD)")
-                        .font(.userMainTextFont(baseSize: 14))
+                        .font(.userMainTextFont(fontType: memo.memoFont, baseSize: 14))
                         .foregroundStyle(Color.textGray)
                 }
                 Spacer()
@@ -91,7 +91,7 @@ struct DetailViewListCell: View {
             Text(memo.description)
                 .multilineTextAlignment(.leading)
                 .padding(.top, 20)
-                .font(.userMainTextFont(baseSize: 16))
+                .font(.userMainTextFont(fontType: memo.memoFont, baseSize: 16))
                 .padding(.horizontal, 25)
                 .padding(.bottom, 20)
 
