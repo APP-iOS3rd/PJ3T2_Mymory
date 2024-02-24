@@ -16,29 +16,33 @@ struct DetailBottomAddressView: View {
             VStack(alignment: .leading) {
                 if let buildingName = memo.building, !buildingName.isEmpty {
                     Text(buildingName)
-                        .font(.userMainTextFont(baseSize: 16))
+                        .font(.bold16)
                         .padding(.bottom, 5)
                     
                     Text(memo.address)
-                        .font(.userMainTextFont(baseSize: 12))
+                        .font(.medium12)
                         .foregroundStyle(Color.textGray)
                 } else {
                     
                     Text(lastStr)
-                        .font(.userMainTextFont(baseSize: 16))
+                        .font(.bold16)
                     
+                        .padding(.bottom, 5)
                     Text(memo.address)
-                        .font(.userMainTextFont(baseSize: 12))
+                        .font(.medium12)
                         .foregroundStyle(Color.textGray)
                 }
             }
+            .frame(height: 40)
             
             Spacer()
         }
-        .padding()
-        .border(Color.lightGray, width: 1) // 테마에 따라 border컬러 변경예정
+        .padding(.horizontal,24)
+        .padding(.top, 16)
+        .padding(.bottom, 24)
+        .border(width: 1, edges: [.top], color: .borderColor)
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 13)
+        .ignoresSafeArea()
     }
     
     

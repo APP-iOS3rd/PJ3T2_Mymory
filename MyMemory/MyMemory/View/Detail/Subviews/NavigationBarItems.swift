@@ -75,23 +75,23 @@ struct NavigationBarItems: View {
 //                Text("\(likeCount)")
 //                    .font(.caption2)
             }
-            
-            VStack {
-                Button {
-                    isBookmark.toggle()
-                } label: {
-                    if isBookmark {
-                        Image(systemName: "bookmark.fill")
-                            .font(.semibold22)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.semibold22)
-                    }
-                }
-                .buttonStyle(.plain)
-
-            }
-            
+//            
+//            VStack {
+//                Button {
+//                    isBookmark.toggle()
+//                } label: {
+//                    if isBookmark {
+//                        Image(systemName: "bookmark.fill")
+//                            .font(.semibold22)
+//                    } else {
+//                        Image(systemName: "bookmark")
+//                            .font(.semibold22)
+//                    }
+//                }
+//                .buttonStyle(.plain)
+//
+//            }
+//            
             
             // 더보기
             VStack {
