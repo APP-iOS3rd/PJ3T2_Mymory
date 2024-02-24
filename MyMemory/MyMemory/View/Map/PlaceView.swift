@@ -35,6 +35,7 @@ struct PlaceView: View {
            
        
             LazyVStack(spacing: 12) {
+                
                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id:\.0) { index, item in
                     
                     NavigationLink {
@@ -73,7 +74,7 @@ struct PlaceView: View {
                 }
             }
             .refreshable {
-                viewModel.fetchMemos()
+                viewModel.fetchMemos(of: buildingName)
                 viewModel.fetchMemoProfiles()
             }
             .frame(maxWidth: .infinity)
@@ -95,8 +96,7 @@ struct PlaceView: View {
 //            
 //        )
         .onAppear {
-            viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
-            viewModel.fetchMemos()
+            viewModel.fetchMemos(of: buildingName)
             viewModel.fetchMemoProfiles()
         }
         .customNavigationBar(

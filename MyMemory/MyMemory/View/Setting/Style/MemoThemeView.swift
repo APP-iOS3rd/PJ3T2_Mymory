@@ -10,7 +10,7 @@ import SwiftUI
 struct MemoThemeView: View {
     
     @ObservedObject var themeManager: ThemeManager = .shared
-    @StateObject var viewModel: PostViewModel = PostViewModel()
+    @EnvironmentObject var viewModel: PostViewModel
     @Binding var currentTheme: ThemeType
     
     let columns = [

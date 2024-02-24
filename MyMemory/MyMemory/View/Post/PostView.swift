@@ -103,7 +103,7 @@ struct PostView: View {
                 // 주소찾기 View: 하단 고정
                 VStack {
                     Spacer()
-                    PostViewFooter()
+                    PostViewFooter(isEdit: $isEdit)
                         .environmentObject(viewModel)
                         .disabled(isEdit)
                     

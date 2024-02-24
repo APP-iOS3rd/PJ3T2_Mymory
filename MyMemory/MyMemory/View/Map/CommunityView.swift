@@ -13,7 +13,7 @@ struct CommunityView: View {
     @State var buildingInfo: [BuildingInfo] = []
     @StateObject var placeViewModel: PlaceViewModel = PlaceViewModel()
     var unAuthorized: (Bool) -> ()
-
+    
     var body: some View {
         ScrollView {
             VStack {
@@ -27,22 +27,36 @@ struct CommunityView: View {
                 .padding(.top, 25)
                 
                 ScrollView(.horizontal){
-                    LazyHStack(spacing: 0, content: {
-                        ForEach($viewModel.memosOfTheWeek.indices, id:\.self) { index in
-                            MemoCell(location: $locationManager.location,
-                                     selectedMemoIndex: index,
-                                     memo: $viewModel.memosOfTheWeek[index],
-                                     memos: $viewModel.memosOfTheWeek,
-                                     isFromCo: true) { res in
-                                unAuthorized(res)
+                    if viewModel.memosOfTheWeek.isEmpty {
+                        HStack {
+                            ForEach(0..<5, id:\.self) { index in
+                                RoundedRectangle(cornerRadius: 20)
+                                    .foregroundStyle(Color.originColor)
+                                    .overlay(ProgressView())
+                                    .frame(width: UIScreen.main.bounds.width * 3.0/4.0,
+                                           height: UIScreen.main.bounds.width * 3.0/8.0)
+                                    .padding(.leading, 18)
                             }
-                            .padding(.leading, 18)
                         }
-                    })
-                    .scrollTargetLayout()
-                    
+                    } else {
+                        
+                        LazyHStack(spacing: 0, content: {
+                            ForEach($viewModel.memosOfTheWeek.indices, id:\.self) { index in
+                                MemoCell(location: $locationManager.location,
+                                         selectedMemoIndex: index,
+                                         memo: $viewModel.memosOfTheWeek[index],
+                                         memos: $viewModel.memosOfTheWeek,
+                                         isFromCo: true) { res in
+                                    unAuthorized(res)
+                                }
+                                         .padding(.leading, 18)
+                            }
+                            
+                        })
+                        .scrollTargetLayout()
+                    }
                 }
-
+                
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
                 .padding(.top, 25)
@@ -61,18 +75,18 @@ struct CommunityView: View {
                             PlaceView(location: building.location, buildingName: building.buildingName, address: building.address)
                             //    .environmentObject(placeViewModel)
                         } label: {
-                             
+                            
                             VStack(alignment: .leading, spacing: 5) {
                                 HStack {
                                     Text("\(building.buildingName)")
                                         .font(.bold16)
                                         .foregroundStyle(Color.textColor)
-                                         
+                                    
                                     Spacer()
                                     Text("\(building.count)개의 메모")
                                         .font(.regular12)
                                         .foregroundStyle(Color.textColor)
-                                        
+                                    
                                 }
                                 Text("\(building.address)")
                                     .font(.regular12)
@@ -82,12 +96,12 @@ struct CommunityView: View {
                             .padding()
                             .background(Color.cardColor)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 10)
-//                                    .stroke(Color.borderColor)
-//                            )
+                            //                            .overlay(
+                            //                                RoundedRectangle(cornerRadius: 10)
+                            //                                    .stroke(Color.borderColor)
+                            //                            )
                         }
-
+                        
                     }
                 })
                 .padding(.horizontal, 25)
