@@ -82,8 +82,10 @@ struct MemoCard: View {
                         }
                         
                     } else {
-                        Circle()
+                        Image("profileImg")
                             .frame(width: 37,height: 37)
+                            .clipShape(.circle)
+                            
                     }
                     VStack(alignment: .leading){
                         Text("\(profile.name)")
