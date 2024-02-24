@@ -102,6 +102,7 @@ struct MemoDetailView: View {
                 }
             }
         }
+      //  .background(Color.bgColor)
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()
         }
