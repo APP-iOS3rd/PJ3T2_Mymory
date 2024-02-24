@@ -129,62 +129,62 @@ struct addMemoSubView: View {
                 }
                 .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드가 올라온 경우 뷰가 키보드를 침범하지 않도록 합니다.
                 
-                // 메모지 선택 Sheet
+                
                 HStack{
-                    Button {
-                        themeSheet.toggle()
-                        
-                    } label : {
-                        Text("메모지 선택")
-                        
-                    }
-                    Text("선택된 테마: \(currentTheme.rawValue)")
+                   
+                  //  Text("선택된 테마: \(currentTheme.rawValue)")
                     
                 }
-                .buttonStyle(RoundedRect.standard)
-                .padding(.bottom, 20)
-                .sheet (
-                    isPresented: $themeSheet,
-                    onDismiss: {
-                        // 기본 값으로 설정된 메모지로 가져오고, 선택된 값이 없다면 .system모드로 불러옴.
-                        // sheet 가 닫혔을 때 action
-                        viewModel.memoTheme = themeManager.getTheme(themeData: viewModel.memoTheme)
-                    },
-                    content: {
-                        MemoThemeView(currentTheme: $viewModel.memoTheme)
-                            .environmentObject(viewModel)
+              
+          
+                HStack(spacing: 4) {
+                    // 메모지 선택 Sheet
+                    Button {
+                        themeSheet.toggle()
+                    } label : {
+                        Text("메모지 선택")
                     }
-                )
-                // 메모지 선택 Sheet
-                HStack{
+                    .buttonStyle(RoundedRect.standard)
+                    .padding(.bottom, 20)
+                    .sheet (
+                        isPresented: $themeSheet,
+                        onDismiss: {
+                            // 기본 값으로 설정된 메모지로 가져오고, 선택된 값이 없다면 .system모드로 불러옴.
+                            // sheet 가 닫혔을 때 action
+                            viewModel.memoTheme = themeManager.getTheme(themeData: viewModel.memoTheme)
+                        },
+                        content: {
+                            MemoThemeView(currentTheme: $viewModel.memoTheme)
+                                .environmentObject(viewModel)
+                        }
+                    )
+                    
+                    // 메모지 선택 Sheet
                     Button {
                         fontSheet.toggle()
-                        
                     } label : {
                         Text("폰트 선택")
-                        
                     }
-                    Text("선택된 테마: \(currentFont.rawValue)")
-                    
+                    .buttonStyle(RoundedRect.standard)
+                    .padding(.bottom, 20)
+                    .sheet (
+                        isPresented: $fontSheet,
+                        onDismiss: {
+                            // 기본 값으로 설정된 메모지로 가져오고, 선택된 값이 없다면 .system모드로 불러옴.
+                            // sheet 가 닫혔을 때 action
+
+                            viewModel.memoFont = fontManager.getFont(fontData: viewModel.memoFont)
+                        },
+                        content: {
+                            FontView(currentFont: $viewModel.memoFont)
+                                .environmentObject(viewModel)
+                        }
+                    )
+                   
                 }
                 
                
-                .sheet (
-                    isPresented: $fontSheet,
-                    onDismiss: {
-                        // 기본 값으로 설정된 메모지로 가져오고, 선택된 값이 없다면 .system모드로 불러옴.
-                        // sheet 가 닫혔을 때 action
-
-                        viewModel.memoFont = fontManager.getFont(fontData: viewModel.memoFont)
-                    },
-                    content: {
-                        FontView(currentFont: $viewModel.memoFont)
-                            .environmentObject(viewModel)
-                    }
-                )
-                .buttonStyle(RoundedRect.standard)
-                .padding(.bottom, 20)
-                //  .padding(.horizontal, 20)
+           
                 
                 
             }
