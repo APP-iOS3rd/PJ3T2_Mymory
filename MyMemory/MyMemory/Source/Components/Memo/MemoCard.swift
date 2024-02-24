@@ -55,12 +55,14 @@ struct MemoCard: View {
                                     completion(.pinned(successed: false))
                                 }
                             }
-                    }.padding(.horizontal, 20)
+                    }
+                    .padding(.horizontal, 20)
                 } else {
                     HStack{
                         Spacer()
                         Text("내 메모")
-                    }.padding(.horizontal, 20)
+                    }
+                    //.padding(.horizontal, 20)
                 }
             } else {
                 HStack {
@@ -229,7 +231,7 @@ struct MemoCard: View {
             if !isPlacePage {
                 HStack {
                     VStack(alignment:.leading) {
-                        Text("\(memo.building ?? "")")
+                        Text("\(memo.building ?? lastStr)")
                             .font(.bold16)
                             .foregroundStyle(Color.textColor)
                         Text("\(memo.address)")
@@ -262,6 +264,20 @@ struct MemoCard: View {
         .fullScreenCover(isPresented: $showImageViewer) {
             ImgDetailView(selectedImage: $imgIndex, images: memo.imagesURL)
         }
+        
+       
+    }
+    var lastStr: String{
+        
+        // 공백으로 문자열 분할
+        let components = self.memo.address.components(separatedBy: " ")
+        // 마지막 요소 접근
+        if let lastComponent = components.last {
+            return lastComponent
+        } else {
+            return ""
+        }
+        
        
     }
     

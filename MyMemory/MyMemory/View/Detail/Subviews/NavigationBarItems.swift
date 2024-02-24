@@ -7,11 +7,19 @@
 
 import SwiftUI
 
-enum SortedMemoDetail: String, CaseIterable, Identifiable {
-    case report = "신고하기"
+enum SortedMemoDetailMy: String, CaseIterable, Identifiable {
+   // case report = "신고하기"
+  //  case edit = "수정하기"
     case delete = "삭제하기"
   //  case theme = "메모지선택"
     
+    var id: SortedMemoDetailMy { self }
+}
+
+// 다른 사람의 메모일 때
+enum SortedMemoDetail: String, CaseIterable, Identifiable {
+    case report = "신고하기"
+
     var id: SortedMemoDetail { self }
 }
 
@@ -75,23 +83,23 @@ struct NavigationBarItems: View {
 //                Text("\(likeCount)")
 //                    .font(.caption2)
             }
-            
-            VStack {
-                Button {
-                    isBookmark.toggle()
-                } label: {
-                    if isBookmark {
-                        Image(systemName: "bookmark.fill")
-                            .font(.semibold22)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.semibold22)
-                    }
-                }
-                .buttonStyle(.plain)
-
-            }
-            
+//            
+//            VStack {
+//                Button {
+//                    isBookmark.toggle()
+//                } label: {
+//                    if isBookmark {
+//                        Image(systemName: "bookmark.fill")
+//                            .font(.semibold22)
+//                    } else {
+//                        Image(systemName: "bookmark")
+//                            .font(.semibold22)
+//                    }
+//                }
+//                .buttonStyle(.plain)
+//
+//            }
+//            
             
             // 더보기
             VStack {
@@ -100,25 +108,30 @@ struct NavigationBarItems: View {
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.semibold22)
-                    
                 }
                 .buttonStyle(.plain)
                 .confirmationDialog("",isPresented: $isShowingSheet){
                     
-                    ForEach(SortedMemoDetail.allCases, id: \.self) { type in
-                        Button(type.rawValue){
-                            if type.rawValue == "신고하기" {
-                                isReported.toggle()
+                    if isMyMemo {
+                        ForEach(SortedMemoDetailMy.allCases, id: \.self) { type in
+                            Button(type.rawValue){
+                                if type.rawValue == "삭제하기" {
+                                    print("삭제하기 눌림")
+                                }
                             }
                             
-                            if type.rawValue == "삭제하기" {
-                                print("삭제하기 눌림")
-                            }
-                            
-                          
                         }
                         
+                    } else {
+                        ForEach(SortedMemoDetail.allCases, id: \.self) { type in
+                            Button(type.rawValue){
+                                if type.rawValue == "신고하기" {
+                                    isReported.toggle()
+                                }
+                            }
+                        }
                     }
+                  
                 }
                 .sheet(isPresented: $isReported) {
                     ReportView(memo: $memo)
@@ -127,7 +140,6 @@ struct NavigationBarItems: View {
                 }
             }
             // : 더보기
-            
             
         }//: HSTACK
         .onAppear {

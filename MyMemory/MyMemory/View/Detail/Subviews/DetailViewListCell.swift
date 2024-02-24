@@ -97,9 +97,6 @@ struct DetailViewListCell: View {
 
             Spacer()
             
-            DetailBottomAddressView(memo: memo)
-                .padding(.horizontal, 10)
-             //   .environmentObject(viewModel)
         }
         .border(Color.white, width: 1)
         .padding()
