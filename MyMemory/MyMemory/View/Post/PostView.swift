@@ -25,8 +25,7 @@ struct PostView: View {
     
     @State var isEdit: Bool = false
     @State var selectedItemsCounts: Int = 0
-    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false,isPinned: true, date: Date().timeIntervalSince1970 - 1300,  location : Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""], memoTheme: .atom)
-    // 수정버튼 타고 왔을때 구분위한 Bool 타입
+    var memo: Memo = Memo(userUid: "123", title: "ggg", description: "gggg", address: "서울시 @@구 @@동", tags: ["ggg", "Ggggg"], imagesURL: [], isPublic: false,isPinned: true, date: Date().timeIntervalSince1970 - 1300,  location : Location(latitude: 37.402101, longitude: 127.108478), likeCount: 10, memoImageUUIDs: [""], memoTheme: .atom, memoFont: .Regular)
     
     // property
     @Environment(\.presentationMode) var presentationMode

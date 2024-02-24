@@ -23,6 +23,7 @@ class PostViewModel: ObservableObject {
     @Published var loading: Bool = false
     @Published var uploaded: Bool = false
     @Published var memoTheme: ThemeType = .system
+    @Published var memoFont: FontType = .Regular
     @Published var scrollTag: Int = 0
     var fromEdit: Bool = false
     let dismissPublisher = PassthroughSubject<Bool, Never>()
@@ -126,7 +127,8 @@ class PostViewModel: ObservableObject {
                     memoLikeCount: 0,
                     memoSelectedImageData: Array(memoSelectedImageData.values),
                     memoCreatedAt: Date().timeIntervalSince1970,
-                    memoTheme: memoTheme
+                    memoTheme: memoTheme,
+                    memoFont: memoFont
                 )
                 
                 do {
@@ -158,6 +160,7 @@ class PostViewModel: ObservableObject {
             self.memoShare = memo.isPublic
             self.beforeEditMemoImageUUIDs = memo.memoImageUUIDs
             self.memoTheme = memo.memoTheme
+            self.memoFont = memo.memoFont
             self.fromEdit = true
         }
         
@@ -203,7 +206,8 @@ class PostViewModel: ObservableObject {
                     memoLikeCount: memo.likeCount,
                     memoSelectedImageData: Array(memoSelectedImageData.values),
                     memoCreatedAt: Date().timeIntervalSince1970,
-                    memoTheme: memoTheme
+                    memoTheme: memoTheme,
+                    memoFont: memoFont
                 )
                 // 버튼 눌리면  Firestore 기존 Storage에 이미지를 지우고 업데이트
                 MemoService.shared.deleteImage(deleteMemoImageUUIDS: beforeEditMemoImageUUIDs)
@@ -247,6 +251,7 @@ class PostViewModel: ObservableObject {
         memoShare = false
         selectedItemsCounts = 0
         memoTheme = .system
+        memoFont = .Regular
     }
     
     
