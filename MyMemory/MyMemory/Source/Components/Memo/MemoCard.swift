@@ -83,7 +83,8 @@ struct MemoCard: View {
                         
                     } else {
                         Image("profileImg")
-                            .frame(width: 37,height: 37)
+                            .resizable()
+                            .frame(width: 37, height: 37)
                             .clipShape(.circle)
                             
                     }
