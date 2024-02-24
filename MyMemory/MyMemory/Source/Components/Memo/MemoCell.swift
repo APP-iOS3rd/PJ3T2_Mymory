@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreLocation
-
+import Kingfisher
 struct MemoCell: View {
     
     @State var isVisible: Bool = true
@@ -17,45 +17,35 @@ struct MemoCell: View {
     @State var selectedMemoIndex: Int = 0
     @Binding var memo: Memo
     @Binding var memos: [Memo]
+    
     @State var likeCount = 0
     @State var isMyMemo: Bool = false
     @State var isFromCo: Bool = false
+    @State var profileImageUrl: String = "profileImg"
     var unAuthorized: (Bool) -> ()
     
     var body: some View {
         HStack(spacing: 16) {
             
-            VStack{
+            VStack {
                 if let loc = location, selectedMemoIndex < memos.count {
+                    
                     if (memos[selectedMemoIndex].location.distance(from: loc) <= MemoService.shared.readableArea) || isMyMemo || isFromCo {
-                        Button {
-                            if AuthService.shared.currentUser == nil {
-                                unAuthorized(true)
-                            } else {
-                                self.memo.didLike.toggle()
-                                Task {
-                                    
-                                    await MemoService.shared.likeMemo(memo: memo)
-                                    await fetchlikeCount()
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "heart.fill")
-                                .foregroundColor(memo.didLike ? .red : .gray)
-                                .frame(width: 46, height: 46)
-                                .background(Color.bgColor)
-                                .clipShape(Circle())
-                                .onAppear{
-                                    self.isVisible = true
-                                }
-                        }
+                        
+                        KFImage(URL(string: profileImageUrl))
+                             .resizable()
+                             .scaledToFill()
+                             .clipped()
+                             .clipShape(.circle)
+                             .frame(width: 46, height: 46)
+                        
                     } else {
                         Image(systemName: "lock")
                             .foregroundColor(.gray)
                             .frame(width: 46, height: 46)
                             .background(Color.bgColor)
                             .clipShape(Circle())
-                            .onAppear{
+                            .onAppear {
                                 self.isVisible = false
                             }
                     }
@@ -174,19 +164,22 @@ struct MemoCell: View {
                 isMyMemo = await MemoService().checkMyMemo(checkMemo: memo) // 메모 다 지우면 오류남
             }
             
+            Task {
+                self.profileImageUrl = await AuthService.shared.getProfileImg(uid: memo.userUid)
+            }
         }
         .onChange(of: location) { oldValue, newValue in
             let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { t in
                 
-//                if let loc = newValue{
-//                    print("새값 : \(loc.coordinate)")
-//                    let dist = memos[selectedMemoIndex].location.distance(from: loc)
-//                    if dist <= MemoService.shared.readableArea {
-//                        self.isVisible = true
-//                    } else {
-//                        self.isVisible = false
-//                    }
-//                }
+                //                if let loc = newValue{
+                //                    print("새값 : \(loc.coordinate)")
+                //                    let dist = memos[selectedMemoIndex].location.distance(from: loc)
+                //                    if dist <= MemoService.shared.readableArea {
+                //                        self.isVisible = true
+                //                    } else {
+                //                        self.isVisible = false
+                //                    }
+                //                }
             }
         }
     }
@@ -194,5 +187,15 @@ struct MemoCell: View {
     func fetchlikeCount() async{
         likeCount = await MemoService.shared.likeMemoCount(memo: memo)
     }
+//    func getProfileImage() -> String {
+//        var url = ""
+//        Task {
+//            let profile = await AuthService.shared.memoCreatorfetchProfile(uid: memo.userUid)
+//            url = profile?.profilePicture ?? ""
+//        }
+//        return url
+//        
+//    }
+//    
 }
 

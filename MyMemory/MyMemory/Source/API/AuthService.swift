@@ -188,6 +188,20 @@ final class AuthService: ObservableObject {
             return nil
         }
     }
+    /// 메모 작성자의 프로필 이미지 URL를 가져오는 함수 입니다
+    /// - Parameters:
+    ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
+    /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model의 profilePicture값을 반환합니다.
+    func getProfileImg(uid: String) async -> String {
+        do {
+            let profile = await memoCreatorfetchProfile(uid: uid)
+            return profile?.profilePicture ?? "profileImg"
+        } catch {
+            print("An error occurred: \(error)")
+            return ""
+        }
+    }
+    
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
     ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
