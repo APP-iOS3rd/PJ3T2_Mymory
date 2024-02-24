@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PostViewFooter: View {
     @EnvironmentObject var viewModel: PostViewModel
-    
+    @Binding var isEdit: Bool
     var body: some View {
         ZStack {
             
@@ -46,7 +46,9 @@ struct PostViewFooter: View {
                 .padding(.trailing)
                 .task {
                     if viewModel.memoAddressText.isEmpty {
-                        await viewModel.getAddress()
+                        if !isEdit {
+                            await viewModel.getAddress()
+                        }
                     }
                 }
             }

@@ -17,39 +17,10 @@ final class PlaceViewModel: NSObject, ObservableObject, CLLocationManagerDelegat
   
     override init(){
         super.init()
-        self.fetchOperation = BlockOperation(block: {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.refreshMemos()
-            }
-        })
     }
     //private var firstLocationUpdated = false
     private var fetchOperation: Operation? = nil
-    var firstLocation: CLLocation? {
-        didSet{
-            fetchMemos()
-        }
-    }
-    
-    @Published var location: CLLocation? {
-        didSet{
-            if location != nil {
-                fetchOperation?.start()
-            }
-            if self.location != nil{
-                self.firstLocation = self.location
-            }
-            
-        }
-    }
 
-   // = CLLocation(latitude: 37.402101, longitude: 127.108478)
- 
-    func setLocation(location: CLLocation) {
-        self.location = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-      //  print("현재 장소는 \(location)")
-    }
-    
     let memoService = MemoService.shared
     @Published var isLoading = false
     @Published var buildingName: String = ""
@@ -89,16 +60,12 @@ final class PlaceViewModel: NSObject, ObservableObject, CLLocationManagerDelegat
         }
     }
 
-    func fetchMemos() {
+    func fetchMemos(of building: String) {
         isLoading = true
-        guard self.location != nil else {
-            isLoading = false
-            return
-        }
         Task { @MainActor in
             do {
               
-                let fetched = try await MemoService.shared.fetchMemos(in: location)
+                let fetched = try await MemoService.shared.fetchBuildingMemos(of: building)
                 
                 memoList = fetched
                 //print("이지역 memoList \(memoList)")
@@ -113,25 +80,6 @@ final class PlaceViewModel: NSObject, ObservableObject, CLLocationManagerDelegat
             } catch {
                 isLoading = false
                 print("이지역 Error fetching memos: \(error)")
-            }
-        }
-    }
-    
-    func refreshMemos(){
-        guard self.location != nil else {
-            return
-        }
-        Task { @MainActor in
-            do {
-                let fetched = try await MemoService.shared.fetchMemos(in: location)
-                memoList = fetched
-                for (index, memo) in memoList.enumerated() {
-                    MemoService.shared.checkLikedMemo(memo) { didLike in
-                        self.memoList[index].didLike = didLike
-                    }
-                }
-            } catch {
-                print("Error fetching memos: \(error)")
             }
         }
     }

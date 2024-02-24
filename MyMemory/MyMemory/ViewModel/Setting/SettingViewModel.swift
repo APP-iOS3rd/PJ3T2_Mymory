@@ -21,7 +21,9 @@ class SettingViewModel: ObservableObject {
     let db = Firestore.firestore()
     
     init() {
-        self.version = fetchCurrentAppVersion()
+        DispatchQueue.main.async {
+            self.version = self.fetchCurrentAppVersion()
+        }
         self.isCurrentUserLoginState = fetchCurrentUserLoginState()
         Task {
             await self.changeToggleState()

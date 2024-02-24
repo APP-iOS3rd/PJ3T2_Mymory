@@ -139,6 +139,7 @@ struct addMemoSubView: View {
                     },
                     content: {
                         MemoThemeView(currentTheme: $viewModel.memoTheme)
+                            .environmentObject(viewModel)
                     }
                 )
                 .buttonStyle(RoundedRect.standard)

@@ -24,7 +24,6 @@ struct MemoCard: View {
     @Binding var profile: Profile
     @State var isMyPage: Bool = false
     @State var isPlacePage: Bool = false
-
     var completion: (actionType) -> ()
     var body: some View {
         
@@ -126,16 +125,24 @@ struct MemoCard: View {
                     .cornerRadius(10)
                     .foregroundColor(.clear)
                     .padding(.top, 13)
+                    .blur(radius: isPlacePage ? 5.0 : 0.0)
                    
                 }
                 .frame(height: (UIScreen.main.bounds.width * 3/5))
             }
             HStack {
-                Text("\(memo.description)")
-                    .multilineTextAlignment(.leading)
-                    .font(.medium14)
-                    .foregroundColor(.textDarkColor)
-                
+                if isPlacePage {
+                    Text("\(memo.description)")
+                        .lineLimit(1)
+                        .multilineTextAlignment(.leading)
+                        .font(.medium14)
+                        .foregroundColor(.textDarkColor)
+                } else {
+                    Text("\(memo.description)")
+                        .multilineTextAlignment(.leading)
+                        .font(.medium14)
+                        .foregroundColor(.textDarkColor)
+                }
                 Spacer()
             }
             .padding(.top, 15)
