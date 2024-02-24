@@ -65,19 +65,22 @@ struct MemoCard: View {
                 }
             } else {
                 HStack {
-                    if let url = profile.profilePicture {
-                        Button /* NavigationLink */ {
-                            completion(.navigate(profile: profile))
-                        } label: {
-                            KFImage(URL(string: url))
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .clipShape(.circle)
-                                .frame(width: 37,height: 37)
-                                .contentShape(Circle())
-                                .cornerRadius(19)
+                    if let url = profile.profilePicture, !url.isEmpty {
+                        if url.count > 0 {
+                            Button /* NavigationLink */ {
+                                completion(.navigate(profile: profile))
+                            } label: {
+                                KFImage(URL(string: url))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .clipShape(.circle)
+                                    .frame(width: 37,height: 37)
+                                    .contentShape(Circle())
+                                    .cornerRadius(19)
+                            }
                         }
+                        
                     } else {
                         Circle()
                             .frame(width: 37,height: 37)
