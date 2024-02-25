@@ -34,25 +34,27 @@ struct NavigationBarItems: View {
     @Binding var isShowingImgSheet: Bool
     @Binding var isMyMemo: Bool
     @Binding var memo: Memo
+   // @EnvironmentObject var viewModel: PostViewModel
     
+ 
     @State var likeCount = 0
     @State private var isPostViewActive: Bool = false
     var body: some View {
         HStack(spacing: 13) {
             // 내가 작성한 메모라면 수정 버튼 보여주기
-            if isMyMemo {
-                Button(action: {
-                    isPostViewActive = true
-                }) {
-                    Image(systemName: "pencil")
-                        .font(.semibold22)
-                }
-                .buttonStyle(PlainButtonStyle())
-                .fullScreenCover(isPresented: $isPostViewActive) {
-                    PostView(selected: .constant(1), isEdit: true, memo: memo)
-                        .navigationBarHidden(true)
-                }
-            }
+//            if isMyMemo {
+//                Button(action: {
+//                    isPostViewActive = true
+//                }) {
+//                    Image(systemName: "pencil")
+//                        .font(.semibold22)
+//                }
+//                .buttonStyle(PlainButtonStyle())
+//                .fullScreenCover(isPresented: $isPostViewActive) {
+//                    PostView(selected: .constant(1), isEdit: true, memo: memo)
+//                        .navigationBarHidden(true)
+//                }
+//            }
 
            
             VStack {
@@ -114,9 +116,12 @@ struct NavigationBarItems: View {
                     
                     if isMyMemo {
                         ForEach(SortedMemoDetailMy.allCases, id: \.self) { type in
-                            Button(type.rawValue){
+                            Button(type.rawValue) {
                                 if type.rawValue == "삭제하기" {
-                                    print("삭제하기 눌림")
+                                    // print("삭제하기 눌림")
+//                                    Task.init {
+//                                        await viewModel.deleteMemo(memo: memo)
+//                                    }
                                 }
                             }
                             

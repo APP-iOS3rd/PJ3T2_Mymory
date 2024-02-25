@@ -130,11 +130,7 @@ struct addMemoSubView: View {
                 .ignoresSafeArea(.keyboard, edges: .bottom) // 키보드가 올라온 경우 뷰가 키보드를 침범하지 않도록 합니다.
                 
                 
-                HStack{
-                   
-                  //  Text("선택된 테마: \(currentTheme.rawValue)")
-                    
-                }
+              
               
           
                 HStack(spacing: 4) {
