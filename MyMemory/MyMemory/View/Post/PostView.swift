@@ -113,6 +113,7 @@ struct PostView: View {
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(isEdit ? "메모 수정" : "메모 등록")
+                        .font(.bold16)
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     if isEdit {
