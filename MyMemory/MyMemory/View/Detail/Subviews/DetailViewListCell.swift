@@ -98,10 +98,11 @@ struct DetailViewListCell: View {
             Spacer()
             
         }
-        .border(Color.white, width: 1)
+        .border(memo.memoTheme.borderColor, width: 1)
         .padding()
         .foregroundStyle(memo.memoTheme.textColor)
         .background(memo.memoTheme.bgColor)
+        .border(memo.memoTheme.borderColor, width: 1)
       
     }
     
