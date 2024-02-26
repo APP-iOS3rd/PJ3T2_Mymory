@@ -14,7 +14,10 @@ enum ThemeType: String, CaseIterable, Codable {
     case light = "Light"
     case dark = "Dark"
     case atom = "Atom"
-    
+    case sea = "Sea"
+    case earth = "Earth"
+    case nord = "Nord"
+    case box = "Box"
     // 각 테마 유형별로 속성 정의
     var isSelected: Bool {
         // 여기서 현재 선택된 테마와 비교하여 반환할 수 있음
@@ -34,7 +37,7 @@ enum ThemeType: String, CaseIterable, Codable {
               return false
           case .dark:
               return false
-          case .atom:
+          default:
               return true
           }
     }
@@ -50,6 +53,14 @@ enum ThemeType: String, CaseIterable, Codable {
               return Color.white
           case .atom:
               return Color.atomTextColor
+          case .sea:
+              return Color(hex:"00EFB0")
+          case .earth:
+              return Color(hex: "FF8441")
+          case .nord:
+              return Color(hex: "5C85A5")
+          case .box:
+              return Color(hex:"3D3836")
           }
       }
       
@@ -64,13 +75,31 @@ enum ThemeType: String, CaseIterable, Codable {
             return Color.black
         case .atom:
             return Color.atomBgColor
+        case .sea:
+            return Color(hex: "1B2630")
+        case .earth:
+            return Color(hex: "24242F")
+        case .nord:
+            return Color(hex: "272E39")
+        case .box:
+            return Color(hex:"FAF5D4")
         }
     }
     
     var borderColor: Color {
         switch self {
+        case .system:
+            return Color(hex:"E9E9E9")
         case .light:
-            return Color.lightGray2
+            return Color(hex:"E9E9E9")
+        case .sea:
+            return Color(hex:"6CB8FC")
+        case .earth:
+            return Color(hex: "AAAACD")
+        case .nord:
+            return Color(hex: "60BACA")
+        case .box:
+            return Color(hex:"D7A452")
         default:
             return Color.lightGray
         }

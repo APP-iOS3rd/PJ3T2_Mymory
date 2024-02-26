@@ -15,6 +15,9 @@ struct MoveUserProfileButton: View {
     @ObservedObject var authService: AuthService = .shared
     @Binding var presentLoginAlert: Bool
     @Binding var memo: Memo
+    
+    @State private var isPostViewActive: Bool = false
+    
     var body: some View {
         HStack {
             NavigationLink {
@@ -30,16 +33,17 @@ struct MoveUserProfileButton: View {
                         .clipShape(.circle)
                         .frame(width: 46, height: 46)
                 } else {
-                    Circle()
+                    Image("profileImg")
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .clipShape(.circle)
                         .frame(width: 46, height: 46)
-                        .foregroundStyle(Color.darkGray)
                 }
                 
                 VStack(alignment: .leading) {
                     Text(viewModel.userProfile?.name ?? "")
-//                        .foregroundStyle(Color.textColor)
-//                        .font(.bold18)
-                        .font(.userMainTextFont(baseSize: 18))
+                        .font(.userMainTextFont(fontType: memo.memoFont, baseSize: 18))
 
                 }
             }
@@ -71,6 +75,18 @@ struct MoveUserProfileButton: View {
  
                         }
                     }
+                }
+            } else {
+                Button {
+                    isPostViewActive = true
+                } label: {
+                    Image(systemName: "pencil")
+                        .font(.semibold22)
+                }  
+                .buttonStyle(PlainButtonStyle())
+                .fullScreenCover(isPresented: $isPostViewActive) {
+                    PostView(selected: .constant(1), isEdit: true, memo: memo)
+                        .navigationBarHidden(true)
                 }
             }
         }        

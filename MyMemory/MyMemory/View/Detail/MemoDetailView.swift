@@ -25,9 +25,10 @@ struct MemoDetailView: View {
             LazyHStack(spacing: 10) {
                 ForEach(Array(zip(memos.indices, memos)), id: \.0) { index, memo in
                     VStack(spacing: 0) {
-                        if let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
+                        if let selectedIndex = selectedMemoIndex,
+                           let loc = viewModel.locationsHandler.location?.coordinate.distance(from: memo.location)  {
                             Spacer()
-                            if loc >= MemoService.shared.readableArea && !isMyMemo && !isFromCo{
+                            if loc >= MemoService.shared.readableArea && !isMyMemo && !isFromCo {
                                 VStack(spacing: 10) {
                                     Image(systemName: "lock")
                                         .font(.largeTitle)
@@ -64,6 +65,9 @@ struct MemoDetailView: View {
                                 }
                             }
                         }
+                        
+                    
+                       
                         Spacer()
                         
                         DetailViewMemoMoveButton(memos: $memos, selectedMemoIndex: $selectedMemoIndex)
@@ -75,7 +79,7 @@ struct MemoDetailView: View {
              
                     .onAppear {
                         Task {
-                            await checkMyMemo()
+                            await checkMyMemo(memo: memo)
                             viewModel.fetchMemoCreator(uid: memo.userUid)
                         }
                     }
@@ -88,18 +92,7 @@ struct MemoDetailView: View {
         } //:SCROLL
         .onAppear {
             Task {
-                do {
-                    let memo = memos[selectedMemoIndex!]
-                    
-                    isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
-                    if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!){
-                        self.memos[selectedMemoIndex!] = newMemo
-                    }
-                    viewModel.fetchMemoCreator(uid: memo.userUid)
-                } catch {
-                    // 에러 처리
-                    print("Error checking my memo: \(error.localizedDescription)")
-                }
+                await initialMemoFetch()
             }
         }
       //  .background(Color.bgColor)
@@ -135,8 +128,28 @@ struct MemoDetailView: View {
         .ignoresSafeArea(edges: .bottom)
     }
     
-    func checkMyMemo() async {
-        let memo = memos[selectedMemoIndex!]
-        isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
+    func checkMyMemo(memo: Memo) async {
+       // let memo = memos[selectedMemoIndex!]
+        //isMyMemo = await MemoService().checkMyMemo(checkMemo: memo)
+        do {
+             isMyMemo = try await MemoService().checkMyMemo(checkMemo: memo)
+         } catch {
+             print("Error checking my memo: \(error.localizedDescription)")
+         }
+    }
+    
+    func initialMemoFetch() async {
+        guard let selectedIndex = selectedMemoIndex else { return }
+        let memo = memos[selectedIndex]
+        
+        do {
+            isMyMemo = try await MemoService.shared.checkMyMemo(checkMemo: memo)
+            if let newMemo = try await MemoService.shared.fetchMemo(id: memo.id!) {
+                self.memos[selectedIndex] = newMemo
+            }
+            viewModel.fetchMemoCreator(uid: memo.userUid)
+        } catch {
+            print("Error during initial memo fetch: \(error.localizedDescription)")
+        }
     }
 }

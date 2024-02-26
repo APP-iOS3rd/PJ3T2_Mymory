@@ -10,7 +10,7 @@ import FirebaseFirestore
 import Firebase
 import CoreLocation
 
-struct Memo: Hashable, Codable, Identifiable, Equatable{
+struct Memo: Hashable, Codable, Identifiable, Equatable {
    
     @DocumentID var id: String? // 메모 id: 도큐먼트 이름을 memo의 아이디로 설정
     // var userId: String  // 작성한 유저Id = UUID()
@@ -30,6 +30,7 @@ struct Memo: Hashable, Codable, Identifiable, Equatable{
     var didLike = false // 좋아요 누른 것을 확인
     var memoImageUUIDs: [String]  // 추후 이미지를 Storage에서 지우기 위한 변수입니다.
     var memoTheme: ThemeType
+    var memoFont: FontType
 }
 
 struct Location: Hashable, Codable {

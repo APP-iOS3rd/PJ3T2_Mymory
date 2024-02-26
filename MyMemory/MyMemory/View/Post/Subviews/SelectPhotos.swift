@@ -79,20 +79,25 @@ struct SelectPhotos: View {
                         if let uiImage = UIImage(data: memoSelectedImageData[key]!) {
                             Image(uiImage: uiImage)
                                 .resizable()
-                                .frame(width: 90, height: 90)
                                 .scaledToFill()
+                                .frame(width: 90, height: 90)
+                                .border(Color.borderColor)
+                                .clipped()
                                 .overlay {
-                                    Button{
+                                    Button {
                                         memoSelectedImageData.removeValue(forKey: key)
                                         if !memoSelectedImageItems.isEmpty{
                                             memoSelectedImageItems.removeAll(where: {$0.localIdentifier == key})
                                         }
                                         
-                                    }label: {
+                                    } label: {
                                         Image(systemName: "xmark.circle.fill")
                                             .resizable()
+                                            .padding(4)
                                             .frame(width: 20, height: 20)
-                                    }.offset(x: 35, y: -35)
+                                        
+                                    }
+                                    .offset(x: 35, y: -35)
                                 }
                             
                         } else {

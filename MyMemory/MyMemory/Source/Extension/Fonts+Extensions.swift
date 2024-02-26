@@ -63,15 +63,14 @@ extension Font {
     
     
     // 사용자의 메인 텍스트 폰트를 반환하는 메서드
-    static func userMainTextFont(baseSize: CGFloat = 16) -> Font {
-        let fontType = FontManager.shared.fontPreference
+    static func userMainTextFont(fontType: FontType, baseSize: CGFloat = 16) -> Font {
         let adjustedSize = FontManager.shared.fontSize(for: fontType, baseSize: baseSize)
         return .custom(fontType.rawValue, size: adjustedSize)
     }
 
 }
 
-enum FontType: String {
+enum FontType: String, CaseIterable, Codable {
     // Pretendard
     case Black = "Pretendard-Black"
     case ExtraBold = "Pretendard-ExtraBold"
