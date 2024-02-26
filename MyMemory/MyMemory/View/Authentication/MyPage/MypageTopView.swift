@@ -35,9 +35,12 @@ struct MypageTopView: View {
                                     .clipShape(.circle)
                                     .frame(width: 76, height: 76)
                             } else {
-                                Circle()
+                                Image("profileImg")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .clipShape(.circle)
                                     .frame(width: 76, height: 76)
-                                    .foregroundStyle(Color(hex: "d9d9d9"))
                             }
                             
                             Text(authViewModel.currentUser?.name ?? "김메모")
