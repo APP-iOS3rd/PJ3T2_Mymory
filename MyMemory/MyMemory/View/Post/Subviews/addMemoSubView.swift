@@ -38,6 +38,7 @@ struct addMemoSubView: View {
                     VStack(alignment:.trailing) {
                         Text(viewModel.memoShare ? "공유 하기" : "나만 보기")
                             .font(.regular12)
+                            .foregroundStyle(Color.textColor)
                         Toggle(
                             isOn: $viewModel.memoShare) {
                                 // 토글 내부에 아무 것도 추가하지 않습니다.
