@@ -48,7 +48,8 @@ struct MainTabView: View {
                                 selectedIndex = 2
                             }
                             .tabItem {
-                                EmptyView()
+                                Image(systemName: "plus")
+                                Text("작성하기")
                             }
                             .tag(2)
                         
@@ -86,9 +87,10 @@ struct MainTabView: View {
                             .fontWeight(.bold)
                             .tint(Color.white)
                     }
-                    .frame(width: 50, height: 50)
+                    .frame(width: 30, height: 30)
                     .background(Color.accentColor)
                     .clipShape(Circle())
+                    .offset(CGSize(width: 0, height: -16))
                 }
             }
         }
