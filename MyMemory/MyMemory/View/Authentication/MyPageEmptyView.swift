@@ -11,6 +11,8 @@ struct MyPageEmptyView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
+                Spacer()
+                    .padding(.top, 44)
                 Image(.empty)
                 Text("작성된 메모가 없어요!")
                     .font(.appFont(for: .ExtraBold, size: 22))

@@ -48,8 +48,8 @@ struct MainTabView: View {
                                 selectedIndex = 2
                             }
                             .tabItem {
-                                Image(systemName: "plus")
-                                Text("작성하기")
+                                Image("square.and.pencil")
+                                Text("작성")
                             }
                             .tag(2)
                         
@@ -59,9 +59,8 @@ struct MainTabView: View {
                                 selectedIndex = 3
                             }
                             .tabItem {
-                                
                                 Image(systemName: "person")
-                                Text("My 메모")
+                                Text("MY")
                             }
                             .tag(3)
                         
@@ -80,18 +79,18 @@ struct MainTabView: View {
                 }
                 // 키보드가 활성화되지 않았을 때만 버튼을 표시합니다.
                 if !isKeyboardVisible {
-                    Button {
-                        selectedIndex = 2
-                    } label: {
-                        Image(systemName: "plus")
-                            .fontWeight(.bold)
-                            .tint(Color.white)
-                    }
-                    .frame(width: 30, height: 30)
-                    .background(Color.accentColor)
-                    .clipShape(Circle())
-                    .offset(CGSize(width: 0, height: -16))
-                }
+                       Button {
+                           selectedIndex = 2
+                       } label: {
+                           Image(systemName: "plus")
+                               .fontWeight(.bold)
+                               .tint(Color.white)
+                       }
+                       .frame(width: 30, height: 30)
+                       .background(Color.accentColor)
+                       .clipShape(Circle())
+                       .offset(CGSize(width: 0, height: -16))
+                   }
             }
         }
         .onAppear {
