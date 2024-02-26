@@ -47,7 +47,7 @@ struct MyPageView: View {
                                                 createHeader()
                                                     .padding(.bottom)
                                                     .padding(.horizontal)
-                                                    .border(width: 1, edges: [.bottom], color: .borderColor)
+                                                   // .border(width: 1, edges: [.bottom], color: .borderColor)
                                                 ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
                                             default:
                                                 MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
