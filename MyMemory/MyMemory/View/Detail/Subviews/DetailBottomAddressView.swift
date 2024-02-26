@@ -50,12 +50,14 @@ struct DetailBottomAddressView: View {
         
         // 공백으로 문자열 분할
         let components = self.memo.address.components(separatedBy: " ")
-        // 마지막 요소 접근
-        if let lastComponent = components.last {
-            return lastComponent
+        
+        if components.count >= 2 {
+            let secondLastComponent = components[components.count - 2]
+            return secondLastComponent
         } else {
             return ""
         }
+    
         
        
     }

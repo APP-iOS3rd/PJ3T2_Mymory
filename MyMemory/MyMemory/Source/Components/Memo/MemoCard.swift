@@ -141,12 +141,12 @@ struct MemoCard: View {
                     Text("\(memo.description)")
                         .lineLimit(1)
                         .multilineTextAlignment(.leading)
-                        .font(.medium14)
+                        .font(.medium16)
                         .foregroundColor(.textDarkColor)
                 } else {
                     Text("\(memo.description)")
                         .multilineTextAlignment(.leading)
-                        .font(.medium14)
+                        .font(.medium16)
                         .foregroundColor(.textDarkColor)
                 }
                 Spacer()
@@ -220,21 +220,21 @@ struct MemoCard: View {
                 case 100..<1000 :
                     Text("\(memo.likeCount/100)00+")
                         .foregroundStyle(Color.textDeepColor)
-                        .font(.medium12)
+                        .font(.medium14)
                 case 1000... :
                     Text("\(memo.likeCount/1000)k+")
                         .foregroundStyle(Color.textDeepColor)
-                        .font(.medium12)
+                        .font(.medium14)
                 default:
                     Text("\(memo.likeCount)")
                         .foregroundStyle(Color.textDeepColor)
-                        .font(.medium12)
+                        .font(.medium14)
                 }
                 
                 Spacer()
                 Text("\(memo.date.toSimpleStr)")
                     .foregroundStyle(Color.textDeepColor)
-                    .font(.medium12)
+                    .font(.medium14)
                     .padding(.leading,5)
             }
             .padding(.top, 15)
@@ -242,9 +242,17 @@ struct MemoCard: View {
             if !isPlacePage {
                 HStack {
                     VStack(alignment:.leading) {
-                        Text("\(memo.building ?? lastStr)")
-                            .font(.bold16)
-                            .foregroundStyle(Color.textColor)
+                        
+                        if let buildingName = memo.building, !buildingName.isEmpty {
+                            Text(buildingName)
+                                .font(.bold16)
+                                .foregroundStyle(Color.textColor)
+                        } else {
+                            Text(lastStr)
+                                .font(.bold16)
+                                .foregroundStyle(Color.textColor)
+                        }
+                      
                         Text("\(memo.address)")
                             .font(.regular12)
                             .foregroundStyle(Color.textColor)
@@ -282,13 +290,14 @@ struct MemoCard: View {
         
         // 공백으로 문자열 분할
         let components = self.memo.address.components(separatedBy: " ")
-        // 마지막 요소 접근
-        if let lastComponent = components.last {
-            return lastComponent
+ 
+        if components.count >= 2 {
+            let secondLastComponent = components[components.count - 2]
+            return secondLastComponent
         } else {
             return ""
         }
-        
+    
        
     }
     
