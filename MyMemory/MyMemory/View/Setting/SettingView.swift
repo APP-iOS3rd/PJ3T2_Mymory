@@ -79,55 +79,70 @@ struct SettingView: View {
                 
                 
                 if authViewModel.currentUser != nil {
-                    VStack(alignment: .trailing, spacing: 56) {
-                        Button {
-                            settingViewModel.isShowingLogoutAlert = true
-                        } label: {
-                            Text("로그아웃")
-                                .foregroundStyle(.white)
-                                .frame(height: 50)
-                                .frame(maxWidth: .infinity)
-                                .background(.accent)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                        }
-                        .alert("로그아웃 하시겠습니까?",
-                               isPresented: $settingViewModel.isShowingLogoutAlert) {
-                            
-                            Button("로그아웃", role: .destructive) {
+                    
+                    if isCurrentUserLoginState {
+                        VStack(alignment: .trailing, spacing: 56) {
+                            Button {
+                                settingViewModel.isShowingLogoutAlert = true
+                            } label: {
+                                Text("로그아웃")
+                                    .foregroundStyle(.white)
+                                    .frame(height: 50)
+                                    .frame(maxWidth: .infinity)
+                                    .background(.accent)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                            }
+                            .alert("로그아웃 하시겠습니까?",
+                                   isPresented: $settingViewModel.isShowingLogoutAlert) {
                                 
-                                if authViewModel.signout() {
+                                Button("로그아웃", role: .destructive) {
                                     
-                                    print("로그아웃 성공")
-                                    UserDefaults.standard.removeObject(forKey: "userId")
-                                    // tab 0으로 이동
-                                    selected = 0
-                                   // presentationMode.wrappedValue.dismiss()
-                                } else {
-                                    print("로그아웃 실패")
+                                    if authViewModel.signout() {
+                                        
+                                        print("로그아웃 성공")
+                                        UserDefaults.standard.removeObject(forKey: "userId")
+                                        authViewModel.currentUser = nil
+                                        // tab 0으로 이동
+                                        //   selected = 0
+                                        // authViewModel.currentUser = nil
+                                        // presentationMode.wrappedValue.dismiss()
+                                    } else {
+                                        print("로그아웃 실패")
+                                    }
                                 }
+                                
+                                Button("뒤로가기", role: .cancel) {}
                             }
                             
-                            Button("뒤로가기", role: .cancel) {}
-                        }
-                        
-                        NavigationLink {
                             
-                            WithdrawalView(
-                                isCurrentUserLoginState: $isCurrentUserLoginState,
-                                user: $user
-                            )
-                            .environmentObject(settingViewModel)
-                            
-                        } label: {
-                            Text("회원 탈퇴하기")
-                                .underline()
-                                .foregroundStyle(Color(UIColor.systemGray))
+                            NavigationLink {
+                                
+                                WithdrawalView(
+                                    isCurrentUserLoginState: $isCurrentUserLoginState,
+                                    user: $user
+                                )
+                                .environmentObject(settingViewModel)
+                                
+                            } label: {
+                                Text("회원 탈퇴하기")
+                                    .underline()
+                                    .foregroundStyle(Color(UIColor.systemGray))
+                            }
                         }
                     }
+                   
                 }
+               
             }
         }
         .padding(.horizontal, 16)
         .padding(.top, 34)
+        .onChange(of: authViewModel.currentUser) { currentUser in
+               if currentUser == nil {
+               
+                   selected = 0
+               }
+           }
+       
     }
 }
