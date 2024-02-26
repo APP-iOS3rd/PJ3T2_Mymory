@@ -18,9 +18,15 @@ struct ListView: View {
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
     @State var selectedUser: Profile? = nil
-    
+    @State var currentAppearingMemo: Memo? = nil {
+        didSet {
+            if let memo = currentAppearingMemo {
+                viewModel.memoDidSelect(memo: memo)
+            }
+        }
+    }
     let unAuthorized: (Bool) -> ()
-    
+    var operationQueue = OperationQueue()
     private var swipe: some Gesture {
         DragGesture()
             .updating($translation) { value, state, _ in
@@ -82,28 +88,74 @@ struct ListView: View {
                                                selectedMemoIndex: index
                                     )
                                 } label: {
-                                    if !viewModel.memoWriterList.isEmpty {
-                                        MemoCard(memo: item,
-                                                 isVisible: true,
-                                                 profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
-                                        ) { actions in
-                                            switch actions {
-                                            case .follow:
-                                                viewModel.refreshMemoProfiles()
-                                            case .like:
-                                                viewModel.refreshMemos()
-                                                print("liked!")
-                                            case .unAuthorized:
-                                                presentLoginAlert.toggle()
-                                            case .navigate(profile: let profile):
-                                                selectedUser = profile
-                                                print("Navigate to \(profile.name)'s profile")
-                                            default :
-                                                print("selected\(actions)")
-                                            }
-                                        }.frame(maxWidth: .infinity)
+                                    
+                                    MemoCell(
+                                        location: $viewModel.location,
+                                        selectedMemoIndex: index,
+                                        memo: item,
+                                        memos: viewModel.filterList.isEmpty ? $viewModel.memoList : $viewModel.filteredMemoList
+                                    ) { res in
+                                        if res {
+                                            presentLoginAlert.toggle()
+                                        }
+                                    }
+                                    .id(item.id)
+                                    .environmentObject(viewModel)
+                                    .onTapGesture {
+                                        viewModel.memoDidSelect(memo: item.wrappedValue)
+                                    }
+                                   // .frame(width: UIScreen.main.bounds.size.width)
+                                    .padding(.horizontal, 12)
+                                    .padding(.bottom, 12)
+                                    .background {
+                                        GeometryReader { geometry in
+                                            Color.clear
+                                                .onAppear {
+                                                    let minx = geometry.frame(in: .global).minX
+                                                    let scrollViewWidth = geometry.frame(in: .global).width
+                                                    let contentsWidth = geometry.frame(in: .local).width
+                                                    var idx = index
+                                                    let oldid = viewModel.selectedMemoId
+                                                    let newid = item.id
+                                                }
+                                                .onChange(of: geometry.frame(in: .global).minX) { old, minX in
+                                                    if minX < 180 && minX > -10 {
+                                                        operationQueue.cancelAllOperations()
+                                                        operationQueue.addOperation{
+                                                            DispatchQueue.main.async{
+                                                                if item.id != currentAppearingMemo?.id {
+                                                                    currentAppearingMemo = item.wrappedValue
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                        }
                                     }
                                     
+//                                    if !viewModel.memoWriterList.isEmpty {
+//                                         
+//                                        MemoCard(memo: item,
+//                                                 isVisible: true,
+//                                                 profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] : $viewModel.filteredProfilList[index]
+//                                        ) { actions in
+//                                            switch actions {
+//                                            case .follow:
+//                                                viewModel.refreshMemoProfiles()
+//                                            case .like:
+//                                                viewModel.refreshMemos()
+//                                                print("liked!")
+//                                            case .unAuthorized:
+//                                                presentLoginAlert.toggle()
+//                                            case .navigate(profile: let profile):
+//                                                selectedUser = profile
+//                                                print("Navigate to \(profile.name)'s profile")
+//                                            default :
+//                                                print("selected\(actions)")
+//                                            }
+//                                        }.frame(maxWidth: .infinity)
+//                                    }
+//                                    
                                     
                                 }
                                 
@@ -112,8 +164,10 @@ struct ListView: View {
                         }.refreshable {
                             viewModel.fetchMemos()
                             viewModel.fetchMemoProfiles()
-                        }.frame(maxWidth: .infinity)
-                            .gesture(swipe)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 24)
+                        .gesture(swipe)
                     }
                     
                 }
