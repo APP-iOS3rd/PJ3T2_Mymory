@@ -13,15 +13,17 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
     let leftView: (() -> L)?
     let rightView: (() -> R)?
     let backgroundColor: Color?
+    let naviColor: Color?
     
     @Environment(\.dismiss) var dismiss
     @State private var offset = CGSize.zero
     
-    init(centerView: (() -> C)? = nil, leftView: (() -> L)? = nil, rightView: (() -> R)? = nil, backgroundColor: Color? = .lightGray) {
+    init(centerView: (() -> C)? = nil, leftView: (() -> L)? = nil, rightView: (() -> R)? = nil, backgroundColor: Color? = .lightGray, naviColor: Color? = .deepGray) {
         self.centerView = centerView
         self.leftView = leftView
         self.rightView = rightView
         self.backgroundColor = backgroundColor
+        self.naviColor = naviColor
     }
     
     func body(content: Content) -> some View {
@@ -47,7 +49,7 @@ struct CustomNavigationBarModifier<C, L, R>: ViewModifier where C : View, L : Vi
           //  .border(width: 1, edges: [.bottom], color: Color.borderColor)
             
             .background(
-                Color.bgColor3
+                naviColor
                   .ignoresSafeArea()
             )
            
@@ -100,14 +102,16 @@ extension View {
         centerView: @escaping (() -> C),
         leftView: @escaping (() -> L),
         rightView: @escaping (() -> R),
-        backgroundColor: Color?
+        backgroundColor: Color?,
+        naviColor: Color? = .bgColor3
     ) -> some View where C:View, L: View, R: View {
-        modifier(CustomNavigationBarModifier(centerView: centerView, leftView: leftView, rightView: rightView, backgroundColor: backgroundColor))
+        modifier(CustomNavigationBarModifier(centerView: centerView, leftView: leftView, rightView: rightView, backgroundColor: backgroundColor, naviColor: naviColor))
     }
     
     func customNavigationBar<V>(
         centerView: @escaping (() -> V),
-        backgroundColor: Color?
+        backgroundColor: Color?,
+        naviColor: Color? = .bgColor3
     ) -> some View where V : View {
         modifier(
             CustomNavigationBarModifier(
@@ -118,7 +122,8 @@ extension View {
                 rightView: {
                     EmptyView()
                 },
-                backgroundColor: backgroundColor
+                backgroundColor: backgroundColor,
+                naviColor: naviColor
             )
             
             
