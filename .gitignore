@@ -9,6 +9,7 @@ xcuserdata/
 *.xcconfig
 *.p8
 */*.p8
+*/GoogleService-Info.plist
 fastlane/*
 Gemfile
 Gemfile.lock
