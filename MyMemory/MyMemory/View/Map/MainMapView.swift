@@ -239,7 +239,7 @@ struct MainMapView: View {
         })
         .onAppear {
             mainMapViewModel.refreshMemos()
-            
+             
         }
         .fullScreenCover(isPresented: $presentLoginView) {
             LoginView()

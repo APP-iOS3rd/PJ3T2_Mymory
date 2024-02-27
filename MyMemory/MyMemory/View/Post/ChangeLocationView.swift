@@ -112,6 +112,17 @@ struct ChangeLocationView: View {
             .cornerRadius(16, corners: [.topLeft,.topRight])
             .background(Color.bgColor)
         }
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation{
+                    if let loc = centerLoc {
+                        
+                        viewModel.mapPosition = .camera(.init(centerCoordinate: loc.coordinate, distance: MemoService.shared.readableArea * 5))
+                        
+                    }
+                }
+            }
+        }
         .customNavigationBar(
             centerView: {
                 Text("")

@@ -116,7 +116,7 @@ struct MemoCard: View {
             if memo.imagesURL.count > 0 {
                 GeometryReader { geo in
                     ImageGridView(width: geo.size.width,
-                                  touchEvent:$showImageViewer,
+                                  touchEvent: isPlacePage ? .constant(false) : $showImageViewer,
                                   imgIndex: $imgIndex,
                                   imgs: $memo.imagesURL)
                     .frame(maxWidth: geo.size.width, maxHeight: (geo.size.width) * 1/2)

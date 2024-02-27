@@ -14,6 +14,7 @@ struct PlaceView: View {
     @State var address: String
     @State var mapPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @State var presentLoginAlert: Bool = false
+    @State var presentLoginView: Bool = false
     @StateObject var locationHandler = LocationsHandler.shared
     @StateObject var viewModel: PlaceViewModel = .init()
     @State var selectedUser: Profile? = nil
@@ -81,20 +82,19 @@ struct PlaceView: View {
           
              
         }
-//        .overlay(
-//            Button {
-//               
-//            } label: {
-//                HStack(spacing: 4) {
-//                    Image(systemName: "pencil")
-//                    Text("작성하기")
-//                }
-//            }
-//                .buttonStyle(Pill.secondary)
-//                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
-//                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-//            
-//        )
+        
+        .moahAlert(isPresented: $presentLoginAlert) {
+                    MoahAlertView(message: "로그인 후에 사용 가능한 기능입니다.\n로그인 하시겠습니까?",
+                                  firstBtn: MoahAlertButtonView(type: .CUSTOM(msg: "둘러보기", color: .accentColor), isPresented: $presentLoginAlert, action: {
+                    }),
+                                  secondBtn: MoahAlertButtonView(type: .CUSTOM(msg: "로그인 하기"), isPresented: $presentLoginAlert, action: {
+                        self.presentLoginView = true
+                    })
+                    )
+                }
+        .fullScreenCover(isPresented: $presentLoginView) {
+            LoginView()
+        }
         .onAppear {
             viewModel.fetchMemos(of: buildingName)
             viewModel.fetchMemoProfiles()

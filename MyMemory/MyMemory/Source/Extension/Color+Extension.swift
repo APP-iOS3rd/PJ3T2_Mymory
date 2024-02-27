@@ -77,9 +77,6 @@ extension Color {
           traitCollection.userInterfaceStyle == .dark ? dark : light
       })
     }
-
-
-       
 }
  
 extension Color {

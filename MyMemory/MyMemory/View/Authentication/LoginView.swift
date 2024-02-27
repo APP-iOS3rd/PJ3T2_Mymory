@@ -277,9 +277,11 @@ struct LoginView: View {
             //            }
             .fullScreenCover(isPresented: $isNewGoogleUser) {
                 GoogleSocialRegisterView(googleCredential: $googleCredential, isActive: $isActive)
+                    .environmentObject(viewModel)
             }
             .fullScreenCover(isPresented: $isNewAppleUser) {
                 SocialRegisterView(appleCredential: $appleCredential, isActive: $isActive)
+                    .environmentObject(viewModel)
                 
             }
             .customNavigationBar(

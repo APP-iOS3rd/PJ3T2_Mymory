@@ -127,6 +127,11 @@ final class MainMapViewModel: NSObject, ObservableObject, CLLocationManagerDeleg
         guard self.location != nil else {
             return
         }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation{
+                self.mapPosition = .camera(.init(centerCoordinate: self.location!.coordinate, distance: MemoService.shared.queryArea * 10))
+            }
+        }
         Task { @MainActor in
             do {
                 let fetched = try await MemoService.shared.fetchMemos(in: location)
