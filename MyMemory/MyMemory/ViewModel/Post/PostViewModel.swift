@@ -253,9 +253,4 @@ class PostViewModel: ObservableObject {
         memoTheme = .system
         memoFont = .Regular
     }
-    
-    
-    
-    
-    
 }
