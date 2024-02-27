@@ -1468,7 +1468,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1497,7 +1497,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1521,9 +1521,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1552,11 +1552,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1576,7 +1576,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1601,7 +1601,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1625,7 +1625,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1648,7 +1648,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 64;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
