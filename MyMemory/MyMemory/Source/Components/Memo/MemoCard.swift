@@ -158,27 +158,27 @@ struct MemoCard: View {
                     ForEach(memo.tags, id: \.self) { id in
                         Text("\(id)")
                             .font(.medium12)
-                            .foregroundStyle(Color.deepGray)
+                            .foregroundStyle(Color.textColor)
                             .padding(.vertical, 5)
                             .padding(.horizontal,10)
-                            .background(Color.backgroundColor)
+                            .background(Color(UIColor.systemGray5))
                             .cornerRadius(3, corners: .allCorners)
                     }
                 } else if !memo.tags.isEmpty{
                     Text("\(memo.tags[0])")
                         .font(.medium12)
-                        .foregroundStyle(Color.deepGray)
+                        .foregroundStyle(Color.textColor)
                         .padding(.vertical, 5)
                         .padding(.horizontal,10)
-                        .background(Color.backgroundColor)
+                        .background(Color(UIColor.systemGray5))
                         .cornerRadius(3, corners: .allCorners)
                     if memo.tags.count > 1 {
                         Text("+\(memo.tags.count - 1)")
                             .font(.medium12)
-                            .foregroundStyle(Color.deepGray)
+                            .foregroundStyle(Color.textColor)
                             .padding(.vertical, 5)
                             .padding(.horizontal,10)
-                            .background(Color.backgroundColor)
+                            .background(Color(UIColor.systemGray5))
                             .cornerRadius(3, corners: .allCorners)
                             .onTapGesture {
                                 withAnimation{
