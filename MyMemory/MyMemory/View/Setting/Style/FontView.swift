@@ -11,18 +11,22 @@ struct FontView: View {
     
     @ObservedObject var fontManager: FontManager = .shared
     
-    @State var currentFont: FontType = FontManager.shared.userFontPreference ?? .Regular
+    @Binding var currentFont: FontType //= FontManager.shared.userFontPreference ?? .Regular
      
     
     var body: some View {
+
         VStack {
             
             VStack {
                 VStack(alignment: .leading, spacing: 10){
+                    
                     Text("Font 미리보기")
-                        .font(.userMainTextFont(baseSize: 20))
+                        .font(.userMainTextFont(fontType: currentFont, baseSize: 20))
+                    
                     Text("폰트는 메모 상세보기 및 글씨 작성 부분에만 글씨에만 적용됩니다.")
-                        .font(.userMainTextFont(baseSize: 16))
+                        .font(.userMainTextFont(fontType: currentFont, baseSize: 16))
+
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 24)
@@ -60,7 +64,8 @@ struct FontView: View {
                           },
                           set: { _ in
                               currentFont = .Regular
-                              fontManager.saveFontPreference(fontType: .Medium)
+                             // fontManager.saveFontPreference(fontType: .Medium)
+                              fontManager.setFont(fontData: .Regular)
                               print("폰트 변경:Pretendard")
                           }
                       ))
@@ -87,7 +92,8 @@ struct FontView: View {
                           },
                           set: { _ in
                               currentFont = .YeongdeokSea
-                              fontManager.saveFontPreference(fontType: .YeongdeokSea)
+                             // fontManager.saveFontPreference(fontType: .YeongdeokSea)
+                              fontManager.setFont(fontData: FontType.YeongdeokSea)
                               print("폰트 변경: 영덕대게")
                           }
                       ))
@@ -116,7 +122,8 @@ struct FontView: View {
                           },
                           set: { _ in
                               currentFont = .NeoDunggeunmo
-                              fontManager.saveFontPreference(fontType: .NeoDunggeunmo)
+                            //  fontManager.saveFontPreference(fontType: .NeoDunggeunmo)
+                              fontManager.setFont(fontData: FontType.NeoDunggeunmo)
                               print("폰트 변경: 둥근모")
                           }
                       ))
@@ -146,7 +153,8 @@ struct FontView: View {
                           },
                           set: { _ in
                               currentFont = .OwnglyphEuiyeon
-                              fontManager.saveFontPreference(fontType: .OwnglyphEuiyeon)
+                            //  fontManager.saveFontPreference(fontType: .OwnglyphEuiyeon)
+                              fontManager.setFont(fontData: FontType.OwnglyphEuiyeon)
                               print("폰트 변경: 온글잎 의연체")
                           }
                       ))
@@ -159,7 +167,6 @@ struct FontView: View {
           //  .listStyle(.plain)
          
         }
-        
         .customNavigationBar(
             centerView: {
                 Text("폰트 선택")
@@ -174,10 +181,7 @@ struct FontView: View {
         )
     }
 }
-
-#Preview {
-    FontView()
-}
+ 
 
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Configuration) -> some View {

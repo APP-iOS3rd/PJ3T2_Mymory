@@ -46,7 +46,7 @@ struct MenuTabBar: View {
         
         // 버튼 2개일때: 전체 간격 - (spacing * 1)
         // 버튼 3개일때: 전체 간격 - (spacing * 2)
-        self.buttonWidth = (self.fullWidth - (spacing * CGFloat(menus.count-1))) / CGFloat(menus.count)
+        self.buttonWidth = (self.fullWidth - (spacing * CGFloat(menus.count - 1))) / CGFloat(menus.count)
         self.barWidth = buttonWidth
         
         var leadings = [CGFloat](repeating: 0, count: menus.count)
@@ -67,17 +67,17 @@ struct MenuTabBar: View {
                         VStack {
                             // 선택한 아이콘인 경우 fill로 변환
                             if menu.index == selectedIndex {
-                                if menu.image == "list.bullet.below.rectangle" {
+                                if menu.image == "rectangle.grid.1x2.fill" {
                                     Image(systemName: "\(menu.image)")
-                                        .font(.system(size: 24))
+                                        .font(.system(size: 20))
                                         .foregroundStyle(Color.accentColor)
                                 } else {
                                     Image(systemName: "\(menu.image).fill")
-                                        .font(.system(size: 24))
+                                        .font(.system(size: 20))
                                 }
                             } else {
                                 Image(systemName: menu.image)
-                                    .font(.system(size: 24))
+                                    .font(.system(size: 20))
                                     .foregroundStyle(Color.init(hex: "898A8D"))
                             }
                             
@@ -86,13 +86,14 @@ struct MenuTabBar: View {
                     }
                 }
             }
-            .frame(width: fullWidth, height: 62)
+            .frame(width: fullWidth, height: 32)
             // 아이콘 하단의 선
             Rectangle()
                 .frame(width: barWidth, height: 2)
                 .foregroundStyle(Color.accentColor)
                 .alignmentGuide(.leading) { $0[.leading] }
                 .offset(.init(width: barX, height: 0))
+     
         }
         .onChange(of: selectedIndex) { _, index in
             withAnimation {
@@ -100,6 +101,17 @@ struct MenuTabBar: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .border(width: 1, edges: [.bottom], color: .borderColor)
         .background(Color.bgColor)
+//        .overlay {
+//            ZStack {
+//                Spacer()
+//                Rectangle()
+//                    .frame(width: UIScreen.main.bounds.width, height: 1)
+//                    .foregroundStyle(Color.init(hex: "#D9D9D9"))
+//                    .padding(.top, 0)
+//            }
+//            
+//        }
     }
 }

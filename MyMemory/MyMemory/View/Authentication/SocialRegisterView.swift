@@ -180,7 +180,7 @@ struct SocialRegisterView: View {
                         .buttonStyle(RoundedRect.loginApple)
                         .padding(.horizontal)
                         .frame(height: 50)
-                        .alert("로그인 완료.", isPresented: $isNewUser) {
+                        .alert("회원 가입이 완료되었어요.", isPresented: $isNewUser) {
                             Button("확인", role: .cancel) {
                                 self.isActive = true
                                 presentationMode.wrappedValue.dismiss()

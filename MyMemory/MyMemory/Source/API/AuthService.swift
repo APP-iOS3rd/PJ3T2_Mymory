@@ -169,7 +169,7 @@ final class AuthService: ObservableObject {
     /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model을 반환합니다.
     func memoCreatorfetchProfile(uid: String) async -> Profile?  {
         do {
-            let document = try await COLLECTION_USERS.document(uid).getDocument(source: .cache)
+            let document = try await COLLECTION_USERS.document(uid).getDocument()
             if document.exists {
                 guard let memoCreator = try? document.data(as: User.self) else {
                     return nil
@@ -188,6 +188,20 @@ final class AuthService: ObservableObject {
             return nil
         }
     }
+    /// 메모 작성자의 프로필 이미지 URL를 가져오는 함수 입니다
+    /// - Parameters:
+    ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
+    /// - Returns: 해당 uid를 가지고 작성자 정보를 표시해주기 위해 User Model의 profilePicture값을 반환합니다.
+    func getProfileImg(uid: String) async -> String {
+        do {
+            let profile = await memoCreatorfetchProfile(uid: uid)
+            return profile?.profilePicture ?? ""
+        } catch {
+            print("An error occurred: \(error)")
+            return ""
+        }
+    }
+    
     /// 메모 작성자의 정보를 가져오는 함수 입니다
     /// - Parameters:
     ///   - uid : Memo Model 안에 있는 작성자 uid를 입력 받습니다.
@@ -203,7 +217,7 @@ final class AuthService: ObservableObject {
     }
     func fetchUserFollowerCount(with id: String) async -> Int {
         do {
-            let document = try await COLLECTION_USER_Followers.document(id).getDocument(source: .cache)
+            let document = try await COLLECTION_USER_Followers.document(id).getDocument()
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
@@ -216,7 +230,7 @@ final class AuthService: ObservableObject {
     }
     func fetchUserFollowingCount(with id: String) async -> Int {
         do {
-            let document = try await COLLECTION_USER_Following.document(id).getDocument(source: .cache)
+            let document = try await COLLECTION_USER_Following.document(id).getDocument()
             
             if document.exists {
                 let fieldCount = document.data()?.count ?? 0
@@ -229,7 +243,7 @@ final class AuthService: ObservableObject {
     }
     func fetchUserMemoCount(with id: String) async -> Int {
         do {
-            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments(source: .cache)
+            let documents = try await COLLECTION_MEMOS.whereField("userUid", isEqualTo: id).getDocuments()
             return documents.documents.count
         } catch {
             print("에러 발생: \(error)")

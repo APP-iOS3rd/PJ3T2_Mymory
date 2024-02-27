@@ -47,14 +47,14 @@ struct MyPageView: View {
                                                 createHeader()
                                                     .padding(.bottom)
                                                     .padding(.horizontal)
-                                                    .border(width: 1, edges: [.bottom], color: .borderColor)
+                                                   // .border(width: 1, edges: [.bottom], color: .borderColor)
                                                 ProfileMemoList<MypageViewModel>().environmentObject(mypageViewModel)
                                             default:
                                                 MapImageMarkerView<MypageViewModel>().environmentObject(mypageViewModel)
                                             }
                                         }
                                     } header: {
-                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "list.bullet.below.rectangle"), MenuTabModel(index: 1, image: "newspaper")],
+                                        MenuTabBar(menus: [MenuTabModel(index: 0, image: "rectangle.grid.1x2.fill"), MenuTabModel(index: 1, image: "map")],
                                                    selectedIndex: $selectedIndex,
                                                    fullWidth: UIScreen.main.bounds.width,
                                                    spacing: 50,

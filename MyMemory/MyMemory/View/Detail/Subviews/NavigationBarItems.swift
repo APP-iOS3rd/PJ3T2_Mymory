@@ -7,11 +7,19 @@
 
 import SwiftUI
 
-enum SortedMemoDetail: String, CaseIterable, Identifiable {
-    case report = "신고하기"
+enum SortedMemoDetailMy: String, CaseIterable, Identifiable {
+   // case report = "신고하기"
+  //  case edit = "수정하기"
     case delete = "삭제하기"
   //  case theme = "메모지선택"
     
+    var id: SortedMemoDetailMy { self }
+}
+
+// 다른 사람의 메모일 때
+enum SortedMemoDetail: String, CaseIterable, Identifiable {
+    case report = "신고하기"
+
     var id: SortedMemoDetail { self }
 }
 
@@ -26,25 +34,27 @@ struct NavigationBarItems: View {
     @Binding var isShowingImgSheet: Bool
     @Binding var isMyMemo: Bool
     @Binding var memo: Memo
+   // @EnvironmentObject var viewModel: PostViewModel
     
+ 
     @State var likeCount = 0
     @State private var isPostViewActive: Bool = false
     var body: some View {
         HStack(spacing: 13) {
             // 내가 작성한 메모라면 수정 버튼 보여주기
-            if isMyMemo {
-                Button(action: {
-                    isPostViewActive = true
-                }) {
-                    Image(systemName: "pencil")
-                        .font(.semibold22)
-                }
-                .buttonStyle(PlainButtonStyle())
-                .fullScreenCover(isPresented: $isPostViewActive) {
-                    PostView(selected: .constant(1), isEdit: true, memo: memo)
-                        .navigationBarHidden(true)
-                }
-            }
+//            if isMyMemo {
+//                Button(action: {
+//                    isPostViewActive = true
+//                }) {
+//                    Image(systemName: "pencil")
+//                        .font(.semibold22)
+//                }
+//                .buttonStyle(PlainButtonStyle())
+//                .fullScreenCover(isPresented: $isPostViewActive) {
+//                    PostView(selected: .constant(1), isEdit: true, memo: memo)
+//                        .navigationBarHidden(true)
+//                }
+//            }
 
            
             VStack {
@@ -75,23 +85,23 @@ struct NavigationBarItems: View {
 //                Text("\(likeCount)")
 //                    .font(.caption2)
             }
-            
-            VStack {
-                Button {
-                    isBookmark.toggle()
-                } label: {
-                    if isBookmark {
-                        Image(systemName: "bookmark.fill")
-                            .font(.semibold22)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.semibold22)
-                    }
-                }
-                .buttonStyle(.plain)
-
-            }
-            
+//            
+//            VStack {
+//                Button {
+//                    isBookmark.toggle()
+//                } label: {
+//                    if isBookmark {
+//                        Image(systemName: "bookmark.fill")
+//                            .font(.semibold22)
+//                    } else {
+//                        Image(systemName: "bookmark")
+//                            .font(.semibold22)
+//                    }
+//                }
+//                .buttonStyle(.plain)
+//
+//            }
+//            
             
             // 더보기
             VStack {
@@ -100,25 +110,33 @@ struct NavigationBarItems: View {
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.semibold22)
-                    
                 }
                 .buttonStyle(.plain)
                 .confirmationDialog("",isPresented: $isShowingSheet){
                     
-                    ForEach(SortedMemoDetail.allCases, id: \.self) { type in
-                        Button(type.rawValue){
-                            if type.rawValue == "신고하기" {
-                                isReported.toggle()
+                    if isMyMemo {
+                        ForEach(SortedMemoDetailMy.allCases, id: \.self) { type in
+                            Button(type.rawValue) {
+                                if type.rawValue == "삭제하기" {
+                                    // print("삭제하기 눌림")
+//                                    Task.init {
+//                                        await viewModel.deleteMemo(memo: memo)
+//                                    }
+                                }
                             }
                             
-                            if type.rawValue == "삭제하기" {
-                                print("삭제하기 눌림")
-                            }
-                            
-                          
                         }
                         
+                    } else {
+                        ForEach(SortedMemoDetail.allCases, id: \.self) { type in
+                            Button(type.rawValue){
+                                if type.rawValue == "신고하기" {
+                                    isReported.toggle()
+                                }
+                            }
+                        }
                     }
+                  
                 }
                 .sheet(isPresented: $isReported) {
                     ReportView(memo: $memo)
@@ -127,7 +145,6 @@ struct NavigationBarItems: View {
                 }
             }
             // : 더보기
-            
             
         }//: HSTACK
         .onAppear {

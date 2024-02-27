@@ -41,7 +41,11 @@ struct ProfileEditView: View {
                                 showProfileImg.toggle()
                             }
                     } else {
-                        Circle()
+                        Image("profileImg")
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .clipShape(.circle)
                             .frame(width: 160, height: 160)
                     }
                 }

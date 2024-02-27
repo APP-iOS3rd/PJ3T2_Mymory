@@ -19,7 +19,7 @@
 		014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56D2B468A3B0016DF70 /* BackButton.swift */; };
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
-		015BD4A32B85812900AB5D47 /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */; };
+		0158E3622B8C5E8100559B77 /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158E3612B8C5E8100559B77 /* UIApplication+Extesions.swift */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -44,6 +44,9 @@
 		01A19D152B57C7230031ABCB /* run4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 01A19D142B57C7230031ABCB /* run4.gif */; };
 		01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D6A2B5D17540031ABCB /* CloseButton.swift */; };
 		01A19D6D2B5D176C0031ABCB /* NavigationBar+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */; };
+		01ACB8F42B884E5600EAC284 /* CommunityTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ACB8F32B884E5600EAC284 /* CommunityTabView.swift */; };
+		01ACB8FA2B886D4C00EAC284 /* SettingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ACB8F92B886D4C00EAC284 /* SettingTabView.swift */; };
+		01ACB8FE2B88797F00EAC284 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01ACB8FD2B88797F00EAC284 /* ListView.swift */; };
 		01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C92BF52B5D2F3D005AF6C5 /* LoadingView.swift */; };
 		01CCB0CC2B71F7ED00D6112E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CCB0CB2B71F7ED00D6112E /* AuthService.swift */; };
 		01D15FF22B5DEB37003F1BEF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D15FF12B5DEB37003F1BEF /* User.swift */; };
@@ -132,7 +135,6 @@
 		DA3C24FA2B550FAA00425288 /* KakaoMapsSDK_SPM in Frameworks */ = {isa = PBXBuildFile; productRef = DA3C24F92B550FAA00425288 /* KakaoMapsSDK_SPM */; };
 		DA3D056A2B85BF0400DA16CB /* TagService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D05692B85BF0400DA16CB /* TagService.swift */; };
 		DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */; };
-		DA4FFD072B7F5D110027F5CD /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */; };
 		DA52B5DC2B5609EB003F5E59 /* GetAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */; };
 		DA52B5DE2B560E83003F5E59 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA52B5DD2B560E83003F5E59 /* AddressModel.swift */; };
 		DA57B7A12B83004D00F90F8C /* CustomPhotosPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA57B7A02B83004D00F90F8C /* CustomPhotosPicker.swift */; };
@@ -216,7 +218,7 @@
 		014CB56D2B468A3B0016DF70 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
-		015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
+		0158E3612B8C5E8100559B77 /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -232,6 +234,9 @@
 		01A19D142B57C7230031ABCB /* run4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = run4.gif; sourceTree = "<group>"; };
 		01A19D6A2B5D17540031ABCB /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NavigationBar+Modifier.swift"; sourceTree = "<group>"; };
+		01ACB8F32B884E5600EAC284 /* CommunityTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityTabView.swift; sourceTree = "<group>"; };
+		01ACB8F92B886D4C00EAC284 /* SettingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTabView.swift; sourceTree = "<group>"; };
+		01ACB8FD2B88797F00EAC284 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		01C92BF52B5D2F3D005AF6C5 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		01CCB0CB2B71F7ED00D6112E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		01D15FF12B5DEB37003F1BEF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -312,7 +317,6 @@
 		DA3325BC2B6B4FB500DC9452 /* PushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotification.swift; sourceTree = "<group>"; };
 		DA3D05692B85BF0400DA16CB /* TagService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagService.swift; sourceTree = "<group>"; };
 		DA3D86B52B5E797D00D9DB3C /* ChangeLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLocationView.swift; sourceTree = "<group>"; };
-		DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
 		DA52B5DB2B5609EA003F5E59 /* GetAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAddress.swift; sourceTree = "<group>"; };
 		DA52B5DD2B560E83003F5E59 /* AddressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		DA57B7A02B83004D00F90F8C /* CustomPhotosPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPhotosPicker.swift; sourceTree = "<group>"; };
@@ -465,7 +469,6 @@
 			children = (
 				01700A922B550B820096E1CA /* Button+Extension.swift */,
 				01700AAF2B555E9A0096E1CA /* Color+Extension.swift */,
-				015BD4A22B85812800AB5D47 /* UIApplication+Extesions.swift */,
 				6AF0E0282B565FF1008ABE05 /* String+Extension.swift */,
 				DA58C2652B5CD74E005CB3B3 /* view+Extension.swift */,
 				01A19D6C2B5D176C0031ABCB /* NavigationBar+Modifier.swift */,
@@ -473,7 +476,7 @@
 				DA131A4D2B4BE0ED00743FD0 /* CornerShape.swift */,
 				645262172B6A26F7004FE5C7 /* Fonts+Extensions.swift */,
 				DA7481A52B6B7A5B00127B83 /* Time+Extensions.swift */,
-				DA4FFD062B7F5D110027F5CD /* UIApplication+Extesions.swift */,
+				0158E3612B8C5E8100559B77 /* UIApplication+Extesions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -570,6 +573,8 @@
 				6A9BB1CF2B6B762300AD04F7 /* MainSectionsView.swift */,
 				6A9BB1D12B6B7DED00AD04F7 /* CommunityView.swift */,
 				DAA826582B87465700CEAA0A /* PlaceView.swift */,
+				01ACB8F32B884E5600EAC284 /* CommunityTabView.swift */,
+				01ACB8FD2B88797F00EAC284 /* ListView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -745,6 +750,7 @@
 				DAF5FCAF2B621E9D00098EF7 /* SubViews */,
 				6A7BA0492B51054600BEE111 /* SettingMenu */,
 				6A7BA0452B51050F00BEE111 /* SettingView.swift */,
+				01ACB8F92B886D4C00EAC284 /* SettingTabView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1180,19 +1186,21 @@
 				6AF0E0252B565EED008ABE05 /* ProfileMemoListCell.swift in Sources */,
 				DAB8BF142B7AF7AC00A27A58 /* CommunityViewModel.swift in Sources */,
 				64DA7C672B720C1D00A403B7 /* OtherUserViewModel.swift in Sources */,
-				015BD4A32B85812900AB5D47 /* UIApplication+Extesions.swift in Sources */,
 				DA7481A62B6B7A5B00127B83 /* Time+Extensions.swift in Sources */,
 				DA57B7A32B83008E00F90F8C /* PhotosViewModel.swift in Sources */,
 				01A19D6B2B5D17540031ABCB /* CloseButton.swift in Sources */,
+				0158E3622B8C5E8100559B77 /* UIApplication+Extesions.swift in Sources */,
 				01C92BF62B5D2F3D005AF6C5 /* LoadingView.swift in Sources */,
 				01700AA92B5534C30096E1CA /* AddressData.swift in Sources */,
 				014CB56E2B468A3B0016DF70 /* BackButton.swift in Sources */,
+				01ACB8F42B884E5600EAC284 /* CommunityTabView.swift in Sources */,
 				644555952B83160E0061142F /* FollowFollowingList.swift in Sources */,
 				DAF026162B5E31130092A3B3 /* LoadingManager.swift in Sources */,
 				01CCB0CC2B71F7ED00D6112E /* AuthService.swift in Sources */,
 				01D15FFD2B5E0019003F1BEF /* SettingViewModel.swift in Sources */,
 				6A7BA0482B51052E00BEE111 /* SettingMenuCell.swift in Sources */,
 				64DA7C722B720CC300A403B7 /* OtherUserTopView.swift in Sources */,
+				01ACB8FA2B886D4C00EAC284 /* SettingTabView.swift in Sources */,
 				01700A932B550B820096E1CA /* Button+Extension.swift in Sources */,
 				01D15FF62B5DEB6E003F1BEF /* AuthViewModel.swift in Sources */,
 				9D9D40CB2B4C184F00E9AA76 /* RegisterView.swift in Sources */,
@@ -1267,6 +1275,7 @@
 				649128F02B550C0A0034F567 /* SelectPhotos.swift in Sources */,
 				6A9BB1D02B6B762300AD04F7 /* MainSectionsView.swift in Sources */,
 				01FB9F8F2B6BBF700021CE7F /* ThemeViewModel.swift in Sources */,
+				01ACB8FE2B88797F00EAC284 /* ListView.swift in Sources */,
 				6A6F9A182B8340090049D06B /* OtherUserEmptyView.swift in Sources */,
 				DAA826592B87465700CEAA0A /* PlaceView.swift in Sources */,
 				280561F02B67799000D9B9B6 /* AlertButtonView.swift in Sources */,
@@ -1288,7 +1297,6 @@
 				6AAE2AA52B7F387700FDB7BD /* DetailViewMemoMoveButton.swift in Sources */,
 				01E6A6352B467FE80061F08C /* MainTabView.swift in Sources */,
 				DA3D86B62B5E797D00D9DB3C /* ChangeLocationView.swift in Sources */,
-				DA4FFD072B7F5D110027F5CD /* UIApplication+Extesions.swift in Sources */,
 				DA2AD09C2B7339E90052F69C /* MypageTopView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1459,7 +1467,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1488,7 +1496,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1512,9 +1520,9 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = MyMemory/Resource/Configure/MyMemory.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_ASSET_PATHS = "\"MyMemory/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 7Y3Y9M4N4F;
@@ -1543,11 +1551,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likelion.MyMemory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match Development com.likelion.MyMemory";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.likelion.MyMemory";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1567,7 +1575,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1592,7 +1600,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1616,7 +1624,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -1639,7 +1647,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 63;
+				CURRENT_PROJECT_VERSION = 65;
 				DEVELOPMENT_TEAM = 9S8KMMC3YH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";

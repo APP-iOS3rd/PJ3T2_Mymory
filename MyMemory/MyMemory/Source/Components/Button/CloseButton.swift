@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CloseButton: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
+    @State var textColor: Color = .textColor
     var body: some View {
        
         Button {
@@ -20,7 +20,7 @@ struct CloseButton: View {
                     .resizable()
                     .frame(width: 18, height: 18)
                     .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.textColor)
+                    .foregroundColor(textColor)
 //                Text("이전")
             }
         }

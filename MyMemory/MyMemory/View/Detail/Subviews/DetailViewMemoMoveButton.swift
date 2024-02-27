@@ -20,7 +20,6 @@ struct DetailViewMemoMoveButton: View {
                         .font(.regular16)
                 }
                 .foregroundStyle(Color.init(hex:"999494"))
-                .frame(width: 100, height: 60)
                 .onTapGesture {
                     if selectedMemoIndex != memos.startIndex {
                         preButton()
@@ -37,7 +36,6 @@ struct DetailViewMemoMoveButton: View {
                     Image(systemName: "chevron.right")
                 }
                 .foregroundStyle(Color.init(hex:"999494"))
-                .frame(width: 100, height: 60)
                 .onTapGesture {
                     if selectedMemoIndex != memos.endIndex - 1 {
                         nextButton()
@@ -45,6 +43,8 @@ struct DetailViewMemoMoveButton: View {
                 }
             }
         }
+        .padding(.horizontal, 24)
+        .padding(.vertical, 12)
     }
     
     func preButton() {

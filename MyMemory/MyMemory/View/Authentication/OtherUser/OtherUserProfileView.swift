@@ -63,7 +63,7 @@ struct OtherUserProfileView: View {
                                     }
                                 } header: {
                                     MenuTabBar(menus: [
-                                        MenuTabModel(index: 0, image: "list.bullet.below.rectangle"),
+                                        MenuTabModel(index: 0, image: "rectangle.grid.1x2.fill"),
                                         MenuTabModel(index: 1, image: "newspaper")
                                     ], selectedIndex: $selectedIndex,
                                                fullWidth: UIScreen.main.bounds.width,

@@ -27,7 +27,7 @@ struct Pill: ButtonStyle {
     }
     
     static var standard2: Pill {
-        return Pill(backgroundColor: .bgColor, titleColor: .iconColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
+        return Pill(backgroundColor: Color(UIColor.systemGray5), titleColor: .iconColor, setFont: .bold12, paddingVertical: 8, paddingHorzontal: 12)
     }
     
     static var standard3: Pill {

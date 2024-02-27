@@ -35,6 +35,7 @@ struct PlaceView: View {
            
        
             LazyVStack(spacing: 12) {
+                
                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id:\.0) { index, item in
                     
                     NavigationLink {
@@ -46,7 +47,7 @@ struct PlaceView: View {
                         )
                         
                     } label: {
-                        if !viewModel.memoWriterList.isEmpty {
+                        if !viewModel.memoWriterList.isEmpty, index < viewModel.memoWriterList.count {
                             MemoCard(memo: item,
                                      isVisible: true,
                                      profile: viewModel.filterList.isEmpty ? $viewModel.memoWriterList[index] :
@@ -73,16 +74,29 @@ struct PlaceView: View {
                 }
             }
             .refreshable {
-                viewModel.fetchMemos()
+                viewModel.fetchMemos(of: buildingName)
                 viewModel.fetchMemoProfiles()
             }
             .frame(maxWidth: .infinity)
           
              
         }
+//        .overlay(
+//            Button {
+//               
+//            } label: {
+//                HStack(spacing: 4) {
+//                    Image(systemName: "pencil")
+//                    Text("작성하기")
+//                }
+//            }
+//                .buttonStyle(Pill.secondary)
+//                .frame(maxWidth: .infinity, maxHeight : .infinity, alignment: .bottomTrailing)
+//                .padding(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+//            
+//        )
         .onAppear {
-            viewModel.setLocation(location: CLLocation(latitude: location.latitude, longitude: location.longitude))
-            viewModel.fetchMemos()
+            viewModel.fetchMemos(of: buildingName)
             viewModel.fetchMemoProfiles()
         }
         .customNavigationBar(

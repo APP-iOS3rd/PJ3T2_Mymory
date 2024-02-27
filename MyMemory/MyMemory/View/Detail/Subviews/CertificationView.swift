@@ -97,9 +97,12 @@ struct CertificationView: View {
                 EmptyView()
             },
             rightView: {
-                CloseButton()
+                CloseButton(textColor: .white)
             },
-            backgroundColor: .deepGray
+            backgroundColor: .deepGray,
+            naviColor: .deepGray
+           
         )
+        .navigationBarTitleDisplayMode(.inline)
     }
 }

@@ -18,7 +18,6 @@ struct MainSectionsView: View {
     //MARK: - Gesture 프로퍼티
     @GestureState private var translation: CGSize = .zero
     @State var selectedUser: Profile? = nil
-//    @ObservedObject var otherUserViewModel: OtherUserViewModel
     
     let unAuthorized: (Bool) -> ()
     
@@ -46,15 +45,11 @@ struct MainSectionsView: View {
         NavigationStack {
             VStack {
                 MenuTabBar(
-                    menus: [MenuTabModel(index: 0, image: "newspaper"), MenuTabModel(index: 1, image: "list.bullet.below.rectangle")],
+                    menus: [MenuTabModel(index: 0, image: "newspaper"), MenuTabModel(index: 1, image: "rectangle.grid.1x2.fill")],
                     selectedIndex: $selectedIndex,
                     fullWidth: UIScreen.main.bounds.width,
                     spacing: 50,
                     horizontalInset: 91.5)
-                Rectangle()
-                    .frame(width: UIScreen.main.bounds.width, height: 1)
-                    .foregroundStyle(Color.init(hex: "#D9D9D9"))
-                    .padding(.top, 0)
                 switch selectedIndex {
                 case 1:
                     VStack {
@@ -81,7 +76,9 @@ struct MainSectionsView: View {
                             .buttonStyle(RoundedRect.standard)
                             
                             Spacer()
-                        }.padding(.top, 20)
+                        }
+                        .padding(.horizontal)
+                        //.padding(.top, 20)
                         ScrollView(.vertical, showsIndicators: false){
                             LazyVStack(spacing: 12) {
                                 ForEach(viewModel.filterList.isEmpty ? Array(zip($viewModel.memoList.indices, $viewModel.memoList)) : Array(zip($viewModel.filteredMemoList.indices, $viewModel.filteredMemoList)), id: \.0 ) { index, item in

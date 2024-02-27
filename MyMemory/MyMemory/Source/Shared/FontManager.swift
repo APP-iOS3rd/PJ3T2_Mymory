@@ -14,48 +14,21 @@ import Combine
 final class FontManager: ObservableObject {
     
     static let shared = FontManager()
-    @Published var userFontPreference: FontType?
- 
+    @Published var currentFont: FontType?
+    
+    var fontList = FontType.allCases
+    
     init() {
-        self.userFontPreference = loadFontPreference()
-    }
- 
-    func saveFontPreference(fontType: FontType) {
-        UserDefaults.standard.set(fontType.rawValue, forKey: "selectedFontType")
-        
-        DispatchQueue.main.async {
-            self.userFontPreference = fontType
-          //  self.objectWillChange.send() // 변경 알림 발송
-        }
     }
     
-    func loadFontPreference() -> FontType {
-        guard let fontTypeString = UserDefaults.standard.string(forKey: "selectedFontType"),
-              let fontType = FontType(rawValue: fontTypeString) else {
-            // 기본 폰트 타입 반환
-            return .Regular
-        }
-        return fontType
+    func setFont(fontData: FontType) -> FontType {
+        return fontData
     }
-    
-    var fontPreference: FontType {
-        get {
-            guard let fontTypeString = UserDefaults.standard.string(forKey: "selectedFontType"),
-                  let fontType = FontType(rawValue: fontTypeString) else {
-                return .Regular // 기본값으로 Regular 반환
-            }
-            return fontType
-        }
-        set {
-            UserDefaults.standard.set(newValue.rawValue, forKey: "selectedFontType")
-            
-            // userFontPreference도 함께 업데이트하여 @Published를 통해 변경 사항을 반영합니다.
-           DispatchQueue.main.async {
-               self.userFontPreference = newValue
-           }
-        }
+  
+    func getFont(fontData: FontType) -> FontType {
+        return fontData
     }
-    
+  
     // FontType 별로 폰트 크기를 반환하는 메서드
     func fontSize(for type: FontType, baseSize: CGFloat) -> CGFloat {
         switch type {
@@ -67,7 +40,10 @@ final class FontManager: ObservableObject {
             return baseSize // 다른 폰트 타입은 기본 크기
         }
     }
-    
-  
+
+    // 현재 선택된 폰트마가 주어진 폰트와 같은지 확인하는 메서드
+     func isFontSelected(_ font: FontType) -> Bool {
+         return currentFont == font
+     }
     
 }
