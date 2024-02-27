@@ -83,7 +83,10 @@ enum FontType: String, CaseIterable, Codable {
     case Thin = "Pretendard-Thin"
     
     // 추가 폰트
-    case OwnglyphEuiyeon = "OwnglyphEuiyeonChae"
+//    case OwnglyphEuiyeon = "OwnglyphEuiyeonChae"
     case NeoDunggeunmo = "NeoDunggeunmo-Regular"
-    case YeongdeokSea = "Yeongdeok Sea"
+  
+    case Dovemayo_wild = "Dovemayo_wild"
+    case Dovemayo_gothic = "Dovemayo_gothic"
+    case UhBeepuding = "UhBeepuding"
 }

@@ -20,6 +20,9 @@
 		014CB5702B468DD90016DF70 /* SelectBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB56F2B468DD90016DF70 /* SelectBox.swift */; };
 		014CB5762B46A2B50016DF70 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014CB5752B46A2B50016DF70 /* Report.swift */; };
 		0158E3622B8C5E8100559B77 /* UIApplication+Extesions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0158E3612B8C5E8100559B77 /* UIApplication+Extesions.swift */; };
+		0158E3662B8D9BCC00559B77 /* Dovemayo_wild.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0158E3652B8D9BCC00559B77 /* Dovemayo_wild.ttf */; };
+		0158E36A2B8D9E3600559B77 /* Dovemayo_gothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0158E3692B8D9E3600559B77 /* Dovemayo_gothic.ttf */; };
+		0158E36C2B8DA1CF00559B77 /* UhBeepuding.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0158E36B2B8DA1CF00559B77 /* UhBeepuding.ttf */; };
 		01700A8F2B5508E20096E1CA /* MemoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A8E2B5508E20096E1CA /* MemoCell.swift */; };
 		01700A932B550B820096E1CA /* Button+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01700A922B550B820096E1CA /* Button+Extension.swift */; };
 		01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA7893FC2B43F5BF00DC3771 /* Pretendard-Black.otf */; };
@@ -171,14 +174,7 @@
 		DAB8BF142B7AF7AC00A27A58 /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */; };
 		DABA02F72B5F46AA009191DA /* ReportMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABA02F62B5F46AA009191DA /* ReportMemoView.swift */; };
 		DACD95EC2B85817F002E8205 /* APIKEYS.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DACD95EB2B85817F002E8205 /* APIKEYS.xcconfig */; };
-		DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
-		DADCCFF62B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
-		DADCCFF72B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */; };
-		DADCCFF92B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */; };
-		DADCCFFA2B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */; };
 		DADCCFFB2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
-		DADCCFFC2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
-		DADCCFFD2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */; };
 		DADCCFFF2B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADCD0002B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
 		DADCD0012B7472AD0057B4E7 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */; };
@@ -219,6 +215,9 @@
 		014CB56F2B468DD90016DF70 /* SelectBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBox.swift; sourceTree = "<group>"; };
 		014CB5752B46A2B50016DF70 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		0158E3612B8C5E8100559B77 /* UIApplication+Extesions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extesions.swift"; sourceTree = "<group>"; };
+		0158E3652B8D9BCC00559B77 /* Dovemayo_wild.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dovemayo_wild.ttf; sourceTree = "<group>"; };
+		0158E3692B8D9E3600559B77 /* Dovemayo_gothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Dovemayo_gothic.ttf; sourceTree = "<group>"; };
+		0158E36B2B8DA1CF00559B77 /* UhBeepuding.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UhBeepuding.ttf; sourceTree = "<group>"; };
 		01700A8E2B5508E20096E1CA /* MemoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoCell.swift; sourceTree = "<group>"; };
 		01700A922B550B820096E1CA /* Button+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Button+Extension.swift"; sourceTree = "<group>"; };
 		01700A9D2B5528960096E1CA /* CurrentSpotButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSpotButton.swift; sourceTree = "<group>"; };
@@ -357,8 +356,6 @@
 		DAB8BF132B7AF7AC00A27A58 /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		DABA02F62B5F46AA009191DA /* ReportMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportMemoView.swift; sourceTree = "<group>"; };
 		DACD95EB2B85817F002E8205 /* APIKEYS.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = APIKEYS.xcconfig; sourceTree = "<group>"; };
-		DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OwnglyphEuiyeonChae.ttf; sourceTree = "<group>"; };
-		DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Yeongdeok Sea.otf"; sourceTree = "<group>"; };
 		DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NeoDunggeunmo-Regular.ttf"; sourceTree = "<group>"; };
 		DADCCFFE2B7472AD0057B4E7 /* FontManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		DADF03F02B86DEA900852BBA /* MoveUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveUserProfileViewModel.swift; sourceTree = "<group>"; };
@@ -801,8 +798,9 @@
 			isa = PBXGroup;
 			children = (
 				DADCCFF42B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf */,
-				DADCCFF22B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf */,
-				DADCCFF32B7472670057B4E7 /* Yeongdeok Sea.otf */,
+				0158E3692B8D9E3600559B77 /* Dovemayo_gothic.ttf */,
+				0158E3652B8D9BCC00559B77 /* Dovemayo_wild.ttf */,
+				0158E36B2B8DA1CF00559B77 /* UhBeepuding.ttf */,
 				01FB87232B71CCE7001C7278 /* Pretendard */,
 			);
 			path = Fonts;
@@ -1123,16 +1121,18 @@
 				DAB315522B43EFDD000357C7 /* Preview Assets.xcassets in Resources */,
 				DAFBC45B2B72063800180E18 /* Localizable.xcstrings in Resources */,
 				01700A972B5521E50096E1CA /* Pretendard-ExtraLight.otf in Resources */,
+				0158E3662B8D9BCC00559B77 /* Dovemayo_wild.ttf in Resources */,
 				DA0B426A2B6C71B000D24892 /* GoogleService-Info.plist in Resources */,
 				01700A982B5521E70096E1CA /* Pretendard-Light.otf in Resources */,
 				01700A9C2B55220B0096E1CA /* Pretendard-SemiBold.otf in Resources */,
 				01A19D152B57C7230031ABCB /* run4.gif in Resources */,
 				01700A952B5521D40096E1CA /* Pretendard-Bold.otf in Resources */,
+				0158E36C2B8DA1CF00559B77 /* UhBeepuding.ttf in Resources */,
+				0158E36A2B8D9E3600559B77 /* Dovemayo_gothic.ttf in Resources */,
 				013383572B567249004D4B8A /* Launch Screen.storyboard in Resources */,
 				01700A962B5521E20096E1CA /* Pretendard-ExtraBold.otf in Resources */,
 				DAB3154F2B43EFDD000357C7 /* Assets.xcassets in Resources */,
 				DACD95EC2B85817F002E8205 /* APIKEYS.xcconfig in Resources */,
-				DADCCFF52B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 				01700A942B5521D10096E1CA /* Pretendard-Black.otf in Resources */,
 				01700A9A2B5522060096E1CA /* Pretendard-Regular.otf in Resources */,
 				01700A9B2B5522090096E1CA /* Pretendard-Thin.otf in Resources */,
@@ -1145,9 +1145,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DADCCFF92B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */,
-				DADCCFFC2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
-				DADCCFF62B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1155,9 +1152,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DADCCFFA2B7472670057B4E7 /* Yeongdeok Sea.otf in Resources */,
-				DADCCFFD2B7472670057B4E7 /* NeoDunggeunmo-Regular.ttf in Resources */,
-				DADCCFF72B7472670057B4E7 /* OwnglyphEuiyeonChae.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

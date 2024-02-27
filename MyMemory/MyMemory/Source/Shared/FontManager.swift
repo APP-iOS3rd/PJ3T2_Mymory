@@ -32,10 +32,12 @@ final class FontManager: ObservableObject {
     // FontType 별로 폰트 크기를 반환하는 메서드
     func fontSize(for type: FontType, baseSize: CGFloat) -> CGFloat {
         switch type {
-        case .OwnglyphEuiyeon:
-            return baseSize * 1.4 // 일부 FontType은 1.4배로 조정
-        case .YeongdeokSea:
-            return baseSize * 1.2 // 일부 FontType은 1.2배로 조정
+//        case .OwnglyphEuiyeon:
+//            return baseSize * 1.4 // 일부 FontType은 1.4배로 조정
+        case .UhBeepuding:
+            return baseSize * 1.2
+//        case .YeongdeokSea:
+//            return baseSize * 1.2 // 일부 FontType은 1.2배로 조정
         default:
             return baseSize // 다른 폰트 타입은 기본 크기
         }

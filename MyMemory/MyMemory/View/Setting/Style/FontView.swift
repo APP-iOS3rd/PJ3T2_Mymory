@@ -76,32 +76,32 @@ struct FontView: View {
                 }
                 .padding(12)
          
-                Divider()
+              //  Divider()
                 
-                HStack {
-                    
-                    Text("영덕대게체")
-                        .font(Font.custom("Yeongdeok Sea", size: 21 ))
-                        .bold()
-                        .foregroundStyle(Color.textColor)
-                    
-                    Spacer()
-                    Toggle("", isOn: Binding<Bool>(
-                          get: {
-                              currentFont == .YeongdeokSea
-                          },
-                          set: { _ in
-                              currentFont = .YeongdeokSea
-                             // fontManager.saveFontPreference(fontType: .YeongdeokSea)
-                              fontManager.setFont(fontData: FontType.YeongdeokSea)
-                              print("폰트 변경: 영덕대게")
-                          }
-                      ))
-                    .toggleStyle(.checkmark)
- 
-                   
-                }
-                .padding(12)
+//                HStack {
+//                    
+//                    Text("영덕바다체")
+//                        .font(Font.custom("Yeongdeok Sea", size: 21 ))
+//                        .bold()
+//                        .foregroundStyle(Color.textColor)
+//                    
+//                    Spacer()
+//                    Toggle("", isOn: Binding<Bool>(
+//                          get: {
+//                              currentFont == .YeongdeokSea
+//                          },
+//                          set: { _ in
+//                              currentFont = .YeongdeokSea
+//                             // fontManager.saveFontPreference(fontType: .YeongdeokSea)
+//                              fontManager.setFont(fontData: FontType.YeongdeokSea)
+//                              print("폰트 변경: 영덕바다")
+//                          }
+//                      ))
+//                    .toggleStyle(.checkmark)
+// 
+//                   
+//                }
+//                .padding(12)
          
                 Divider()
                 
@@ -134,14 +134,12 @@ struct FontView: View {
 
                 }
                 .padding(12)
-                
-                       
                 Divider()
-                
+           
                 HStack {
                     
-                    Text("온글잎 의연체")
-                        .font(Font.custom("OwnglyphEuiyeonChae", size: 26))
+                    Text("거친둘기마요")
+                        .font(Font.custom("Dovemayo_wild", size: 24))
                         .bold()
                         .foregroundStyle(Color.textColor)
                     
@@ -149,13 +147,88 @@ struct FontView: View {
                     
                     Toggle("", isOn: Binding<Bool>(
                           get: {
-                              currentFont == .OwnglyphEuiyeon
+                              currentFont == .Dovemayo_wild
                           },
                           set: { _ in
-                              currentFont = .OwnglyphEuiyeon
+                              currentFont = .Dovemayo_wild
                             //  fontManager.saveFontPreference(fontType: .OwnglyphEuiyeon)
-                              fontManager.setFont(fontData: FontType.OwnglyphEuiyeon)
-                              print("폰트 변경: 온글잎 의연체")
+                              fontManager.setFont(fontData: FontType.Dovemayo_wild)
+                              print("폰트 변경: 거친둘기마요")
+                          }
+                      ))
+                    .toggleStyle(.checkmark)
+                 
+                }
+                .padding(12)
+                Divider()
+                HStack {
+                    
+                    Text("둘기마요고딕")
+                        .font(Font.custom("Dovemayo_gothic", size: 24))
+                        .bold()
+                        .foregroundStyle(Color.textColor)
+                    
+                    Spacer()
+                    
+                    Toggle("", isOn: Binding<Bool>(
+                          get: {
+                              currentFont == .Dovemayo_gothic
+                          },
+                          set: { _ in
+                              currentFont = .Dovemayo_gothic
+                              fontManager.setFont(fontData: FontType.Dovemayo_gothic)
+                             
+                          }
+                      ))
+                    .toggleStyle(.checkmark)
+                 
+                }
+                .padding(12)
+//                Divider()
+//                HStack {
+//                    
+//                    Text("온글잎 의연체")
+//                        .font(Font.custom("OwnglyphEuiyeonChae", size: 26))
+//                        .bold()
+//                        .foregroundStyle(Color.textColor)
+//                    
+//                    Spacer()
+//                    
+//                    Toggle("", isOn: Binding<Bool>(
+//                          get: {
+//                              currentFont == .OwnglyphEuiyeon
+//                          },
+//                          set: { _ in
+//                              currentFont = .OwnglyphEuiyeon
+//                            //  fontManager.saveFontPreference(fontType: .OwnglyphEuiyeon)
+//                              fontManager.setFont(fontData: FontType.OwnglyphEuiyeon)
+//                              print("폰트 변경: 온글잎 의연체")
+//                          }
+//                      ))
+//                    .toggleStyle(.checkmark)
+//                 
+//                }
+//                .padding(12)
+                
+                Divider()
+                HStack {
+                    
+                    Text("어비푸딩체")
+                        .font(Font.custom("UhBeepuding", size: 26))
+                        .bold()
+                        .foregroundStyle(Color.textColor)
+                    
+                    Spacer()
+                    
+                    Toggle("", isOn: Binding<Bool>(
+                          get: {
+                              currentFont == .UhBeepuding
+                          },
+                          set: { _ in
+                              currentFont = .UhBeepuding
+                            //  fontManager.saveFontPreference(fontType: .OwnglyphEuiyeon)
+                              fontManager.setFont(fontData: FontType.UhBeepuding)
+                             
                           }
                       ))
                     .toggleStyle(.checkmark)

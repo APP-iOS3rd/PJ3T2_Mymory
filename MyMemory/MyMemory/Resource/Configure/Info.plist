@@ -53,14 +53,15 @@
 		<string>Pretendard-Bold.otf</string>
 		<string>Pretendard-ExtraBold.otf</string>
 		<string>Pretendard-SemiBold.otf</string>
-		<string>OwnglyphEuiyeonChae.ttf</string>
 		<string>Pretendard-Medium.otf</string>
 		<string>Pretendard-Regular.otf</string>
 		<string>Pretendard-Light.otf</string>
 		<string>Pretendard-ExtraLight.otf</string>
 		<string>Pretendard-Thin.otf</string>
-		<string>Yeongdeok Sea.otf</string>
 		<string>NeoDunggeunmo-Regular.ttf</string>
+		<string>Dovemayo_wild.ttf</string>
+		<string>Dovemayo_gothic.ttf</string>
+		<string>UhBeepuding.ttf</string>
 	</array>
 </dict>
 </plist>
