@@ -64,7 +64,7 @@ struct ProfileEditView: View {
                 }
             }
             .frame(width: 160, height: 160)
-            .onChange(of: viewModel.selectedImage) { newValue in
+            .onChange(of: viewModel.selectedImage) { _, newValue in
                 Task {
                     if let data = try? await newValue?.loadTransferable(type: Data.self) {
                         viewModel.selectedPhotoData = data

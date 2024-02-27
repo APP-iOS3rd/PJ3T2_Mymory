@@ -137,7 +137,7 @@ struct SettingView: View {
         }
         .padding(.horizontal, 16)
         .padding(.top, 34)
-        .onChange(of: authViewModel.currentUser) { currentUser in
+        .onChange(of: authViewModel.currentUser) { _, currentUser in
                if currentUser == nil {
                
                    selected = 0

@@ -48,7 +48,7 @@ struct MainTabView: View {
                                 selectedIndex = 2
                             }
                             .tabItem {
-                                Image("square.and.pencil")
+                                Image(systemName: "plus.circle")
                                 Text("작성")
                             }
                             .tag(2)

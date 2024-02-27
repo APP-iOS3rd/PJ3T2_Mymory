@@ -191,7 +191,7 @@ struct GoogleSocialRegisterView: View {
         .onAppear {
             UITextField.appearance().clearButtonMode = .whileEditing
         }
-        .onChange(of: viewModel.selectedItem) {newItem in
+        .onChange(of: viewModel.selectedItem) { _, newItem in
             viewModel.imageSelected = true
             Task {
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {

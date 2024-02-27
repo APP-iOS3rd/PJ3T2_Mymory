@@ -21,7 +21,7 @@ struct ChangeLocationView: View {
                 if let currentloc = handler.location {
                     if loc.distance(from: currentloc) > MemoService.shared.readableArea {
                         distanceAlert.toggle()
-
+                        
                     }
                 }
             }
@@ -73,7 +73,7 @@ struct ChangeLocationView: View {
                     .padding(.horizontal, 17)
                     .overlay(
                         VStack {
-                            if let buildingName = viewModel.memoAddressBuildingName {
+                            if let buildingName = viewModel.memoAddressBuildingName, !buildingName.isEmpty {
                                 Text("\(buildingName)")
                                     .foregroundStyle(Color.darkGray)
                                     .font(.bold16)
@@ -81,9 +81,12 @@ struct ChangeLocationView: View {
                                     .foregroundStyle(Color.deepGray)
                                     .font(.regular12)
                             } else {
-                                Text("\(viewModel.tempAddressText)")
+                                Text("\(lastStr)")
                                     .foregroundStyle(Color.darkGray)
                                     .font(.bold16)
+                                Text("\(viewModel.tempAddressText)")
+                                    .foregroundStyle(Color.darkGray)
+                                    .font(.regular12)
                             }
                         }
                     )
@@ -107,10 +110,10 @@ struct ChangeLocationView: View {
                     }
                 }).padding(.horizontal, 17)
                     .buttonStyle(RoundedRect.active)
-                    
+                
             }.frame(maxWidth: .infinity)
-            .cornerRadius(16, corners: [.topLeft,.topRight])
-            .background(Color.bgColor)
+                .cornerRadius(16, corners: [.topLeft,.topRight])
+                .background(Color.bgColor)
         }
         .customNavigationBar(
             centerView: {
@@ -130,6 +133,19 @@ struct ChangeLocationView: View {
             }))
         }
     }
+    
+    var lastStr: String {
+        let components = viewModel.tempAddressText.components(separatedBy: " ")
+        
+        if components.count >= 2 {
+            let secondLastComponent = components[components.count - 2]
+            return secondLastComponent
+        } else {
+            return ""
+        }
+    }
+   
+
 }
 
 #Preview {
